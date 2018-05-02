@@ -102,7 +102,7 @@ set(MATH_H math/integer_math.h math/real_math.h math/color_math.h math/matrix_ma
 set(INPUT_H input/input_abstraction.h input/input_windows.h)
 set(MEMORY_H memory/datum_index.h)
 set(TAG_HELPERS_H tag_helpers/tag_groups_markup.h main/main.h)
-set(MAIN_H main/main.h)
+set(MAIN_H main/main.h main/main_structures.h main/levels.h)
 
 set(HEADERS ${MAIN_H} ${CSERIES_H} ${MATH_H} ${INPUT_H} ${TAG_HELPERS_H} ${MEMORY_H})
 
@@ -111,10 +111,10 @@ set(MATH_CPP math/real_math.cpp)
 set(INPUT_CPP )
 set(MEMORY_CPP )
 set(TAG_HELPERS_CPP )
-set(MAIN_CPP )
+set(MAIN_CPP main/main.cpp)
 
 set(CPPFILES ${MAIN_CPP} ${MATH_CPP} ${INPUT_CPP} ${CSERIES_CPP} ${MEMORY_CPP} ${TAG_HELPERS_CPP})
 
-add_library(${PROJECT_NAME} STATIC ${CPPFILES})
+add_library(${PROJECT_NAME} STATIC ${CPPFILES} ${HEADERS})
 
 message(STATUS "Outputting lib to: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")

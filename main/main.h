@@ -11,7 +11,7 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum game_connection {
+		enum game_connection : short {
 			_game_connection_local,
 			_game_connection_network_client,
 			_game_connection_network_server,

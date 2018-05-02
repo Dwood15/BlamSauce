@@ -393,7 +393,7 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS_REF(real_vector2d);
 
-		API_INLINE void Normalize();
+		inline void Normalize();
 	};
 
 #define pad_real_plane2d PAD32 PAD32 PAD32
@@ -421,7 +421,7 @@ namespace Yelo {
 		//TODO: DirectX includes.
 		//OVERRIDE_OPERATOR_CAST_THIS(D3DXPLANE);
 
-		API_INLINE void Normalize();
+		inline void Normalize();
 	};
 
 #define pad_real_plane3d PAD32 PAD32 PAD32 PAD32

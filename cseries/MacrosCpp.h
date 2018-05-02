@@ -1,19 +1,21 @@
 #pragma once
-
-
 /*
 	Kornner Studios: Shared Code
 
 	See license\Shared for specific license information
 */
 /*!
- * Code enriching (or obfuscating depending on how you look at things) interfaces
+ * Code obfuscating interfaces (:P)
  */
-#pragma once
+
+#define WIN32
+#define WIN32_LEAN_AND_MEAN
+#define _X86_
 
 #include <type_traits> // for CAST_THIS_NONCONST()
 
-#pragma region cast macros
+#define _enum short
+
 /// Cast [value] to whatever
 #define CAST(type, value)      (static_cast<type>(value))
 #define CAST_OP(type)         static_cast<type>
@@ -30,59 +32,32 @@
 // Helper macros for implementing non-const member functions that call a like-wise const member function (eg, operator[] functions). To avoid code duplication
 
 /// Cast [this] to a 'const this&' so that its const member functions can be invoked
-#define CAST_THIS_NONCONST()         \
-      static_cast<                  \
-         std::add_reference<            \
-            std::add_const<            \
-               std::remove_reference<   \
-                  decltype(*this)      \
-               >::type               \
-            >::type                  \
-         >::type                     \
-      >(*this)
+#define CAST_THIS_NONCONST() static_cast<std::add_reference<std::add_const<std::remove_reference<decltype(*this)>::type>::type>::type>(*this)
 
 /// Cast [this] to a 'const this&' so that a const member function can be invoked
 /// [ret_type] is the return type of the member function. Usually there's a const return type, so we need to cast it to non-const too.
 /// [...] the code that represents the member function (or operator) call
-#define CAST_THIS_NONCONST_MEMBER_FUNC(ret_type, ...)   \
-      CAST_QUAL(ret_type,                           \
-         CAST_THIS_NONCONST()                     \
-         __VA_ARGS__                              \
-      )
+#define CAST_THIS_NONCONST_MEMBER_FUNC(ret_type, ...) CAST_QUAL(ret_type, CAST_THIS_NONCONST() __VA_ARGS__)
 
-#pragma endregion
-
-#pragma region operator macros
 /// Implement an operator cast from the implementing class to [Type]
-#define OVERRIDE_OPERATOR_CAST_THIS(Type) \
-      inline operator Type*() { return reinterpret_cast<Type*>(this); }
+#define OVERRIDE_OPERATOR_CAST_THIS(Type) inline operator Type*() { return reinterpret_cast<Type*>(this); }
 /// Implement an operator cast from the implementing class to [Type] (by value)
-#define OVERRIDE_OPERATOR_CAST_THIS_(Type) \
-      inline operator Type() { return *reinterpret_cast<Type*>(this); }
-#define OVERRIDE_OPERATOR_CAST_THIS_REF(Type) \
-      inline operator Type&() { return reinterpret_cast<Type&>(*this); }
+#define OVERRIDE_OPERATOR_CAST_THIS_(Type) inline operator Type() { return *reinterpret_cast<Type*>(this); }
+#define OVERRIDE_OPERATOR_CAST_THIS_REF(Type) inline operator Type&() { return reinterpret_cast<Type&>(*this); }
 
 /// Implement an operator cast from the implementing class to [Type] at [Field]'s offset in the class
-#define OVERRIDE_OPERATOR_CAST_THIS_BY_FIELD(Type, Field) \
-      API_INLINE operator Type*() { return reinterpret_cast<Type*>(&this->Field); }
+#define OVERRIDE_OPERATOR_CAST_THIS_BY_FIELD(Type, Field) inline operator Type*() { return reinterpret_cast<Type*>(&this->Field); }
 
 /// Implement a operator override for [Sign] based on the parent type's [Field] member that results in a boolean operation
-#define OVERRIDE_OPERATOR_MATH_BOOL(Type, Field, Sign) \
-      inline bool operator Sign(const Type& rhs) const { return this->Field Sign rhs.Field ; }
-#define OVERRIDE_OPERATOR_MATH_BOOL_TYPE(Type, Field, Sign) \
-      inline bool operator Sign(const Type& rhs) const { return this->Field Sign rhs ; }
+#define OVERRIDE_OPERATOR_MATH_BOOL(Type, Field, Sign) inline bool operator Sign(const Type& rhs) const { return this->Field Sign rhs.Field ; }
+#define OVERRIDE_OPERATOR_MATH_BOOL_TYPE(Type, Field, Sign) inline bool operator Sign(const Type& rhs) const { return this->Field Sign rhs ; }
 
 /// Implement a operator override for [Sign] based on the parent type's [Field] member
-#define OVERRIDE_OPERATOR_MATH(ReturnType, Type, Field, Sign) \
-      inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs.Field ; }
-#define OVERRIDE_OPERATOR_MATH_TYPE(ReturnType, Type, Field, Sign) \
-      inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs ; }
+#define OVERRIDE_OPERATOR_MATH(ReturnType, Type, Field, Sign) inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs.Field ; }
+#define OVERRIDE_OPERATOR_MATH_TYPE(ReturnType, Type, Field, Sign) inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs ; }
 
 /// Implement an operator override for the parent type, allowing the user to specify some arguments and define its code following the macro block
-#define OVERRIDE_OPERATOR(Sign, ReturnType, ...) \
-      ReturnType operator Sign(__VA_ARGS__)
-
-#pragma endregion
+#define OVERRIDE_OPERATOR(Sign, ReturnType, ...) ReturnType operator Sign(__VA_ARGS__)
 
 #pragma region pad/unknown/unused macros
 // Pad a structure using a byte[] field named pad[num] by [count] bytes
@@ -116,7 +91,6 @@
 
 #pragma endregion
 
-
 // Library's function convention
 #define API_FUNC __stdcall
 
@@ -127,7 +101,6 @@
 #define API_ALIGN(alignment) __declspec(align(alignment))
 
 // Declare a function that is inlined into caller objects
-#define API_INLINE inline
 
 #define API_IMPORT __declspec(dllimport)
 #define API_EXPORT __declspec(dllexport)
@@ -135,37 +108,8 @@
 // Documentation purposes only, used to document the export index of a library function
 #define API_EXPORTNUM(index)
 
-#ifdef _DEBUG
-#define API_DEBUG
-
-// Runs code only if API_DEBUG is defined
-#define DebugOnly(...) __VA_ARGS__
-
-// Gets the current function's name
-#define DebugFuncName() __FUNCTION__
-// Gets the current function's name using c++ decoration
-#define DebugFuncNameCpp() __FUNCDNAME__
-// Gets the current function's signature
-#define DebugFuncSignature() __FUNCSIG__
-#else
-
-// Runs code only if API_DEBUG is defined
-#define DebugOnly( ... )
-
-// Not used in RELEASE
-#define DebugFuncName() /*""*/
-// Not used in RELEASE
-#define DebugFuncNameCpp()/*""*/
-// Not used in RELEASE
-#define DebugFuncSignature() /*""*/
-#endif
-
-
 // Returns a value which is [value] padded out to be aligned on a [page_size] memory page
-#define ALIGN(value, page_size)                              \
-   (                                                \
-      ( ((value) + ((page_size)-1)) / (page_size) ) * (page_size)   \
-   )
+#define ALIGN(value, page_size) ( ( ((value) + ((page_size)-1)) / (page_size) ) * (page_size))
 
 // 64-bit safe as size_t is used for converting [value]
 #define BIT_ALIGN(value, algn_bits)                                       \
@@ -181,23 +125,14 @@
    )
 
 // [mul] must be a power of two
-#define NEXT_MULTIPLE_OF(mul, value) \
-   ( ((value) + ((mul)-1)) & (~((mul)-1)) )
-
+#define NEXT_MULTIPLE_OF(mul, value) ( ((value) + ((mul)-1)) & (~((mul)-1)) )
 
 /// Calculates the location in memory of a given field of class\struct [cls] from the
 /// start of the class\struct.
 // USE 'offsetof' MACRO INSTEAD! (stddef.h)
 //#define FIELD_OFFSET(cls, field) ((unsigned long)((const char *)&(((cls *)0)->field)-(const char *)0))
 
-#if defined(_WIN64)
-/// Size of a field in an class\struct
 #define FIELD_SIZEOF(cls, field) sizeof( CAST_PTR(const volatile cls*,0)->field )
-#else
-/// Size of a field in an class\struct
-#define FIELD_SIZEOF(cls, field) sizeof( CAST_PTR(const volatile cls*,0)->field )
-#endif
-
 
 /// checks to see if [value] is in between [lower] and [upper]
 #define IN_RANGE(value, lower, upper) ((value) >= (lower) && (value) <= (upper))
@@ -224,12 +159,7 @@
 #define MASK(count) ( (unsigned)(1 << (count)) - (unsigned)1 )
 
 // Checks to see if [flags] has only the flags it's allowed to have, enabled
-#define VALID_FLAGS(flags, flags_count)               \
-   (                                       \
-      (                                    \
-         (flags) & ( ~( (1<<(flags_count)) - 1) )   \
-      ) == 0                                 \
-   )
+#define VALID_FLAGS(flags, flags_count) ( ((flags) & ( ~( (1<<(flags_count)) - 1))) == 0 )
 
 // How many 8 bit integers it takes to hold a bit vector with [size] bits
 #define BIT_VECTOR_SIZE_IN_BYTES(size)         ( ((size) + 7 ) >> 3 )
@@ -269,11 +199,7 @@
 // Tells the compiler to log [msg]. Includes the filename and line number in the message
 #define DOC_TODO(msg) __pragma( message(__FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) "): TODO: " msg) )
 // DOC_TODO variant that only evaluates in debug builds
-#if _DEBUG
 #define DOC_TODO_DEBUG(msg) DOC_TODO(msg)
-#else
-#define DOC_TODO_DEBUG(msg)
-#endif
 
 #define PLATFORM_API __cdecl
 
@@ -281,29 +207,22 @@
 #define API_FUNC_NAKED __declspec(naked)
 
 // Start the code to a naked function which takes arguments
-#define API_FUNC_NAKED_START() __asm   \
-      {                                 \
-         __asm push   ebp               \
+#define API_FUNC_NAKED_START() __asm { \
+         __asm push   ebp              \
          __asm mov   ebp, esp
 
 // End the code to a naked function which takes arguments
 // and is also __stdcall
-#define API_FUNC_NAKED_END(arg_count)    \
-         __asm pop   ebp               \
-         __asm retn   (arg_count * 4)   }
+#define API_FUNC_NAKED_END(arg_count) __asm pop   ebp \
+         __asm retn   (arg_count * 4) }
 
 // For usage after calling cdecl functions in assembly code.
 // In the case were our assembly code is just interfacing
 // with an outside function.
-#define API_FUNC_NAKED_END_CDECL(arg_count)   \
-         __asm add   esp, (arg_count * 4)   \
-      API_FUNC_NAKED_END(arg_count)
+#define API_FUNC_NAKED_END_CDECL(arg_count) __asm add   esp, (arg_count * 4) API_FUNC_NAKED_END(arg_count)
 
 // Start the code to a naked function with no args
-#define API_FUNC_NAKED_START_() __asm   \
-      {
+#define API_FUNC_NAKED_START_() __asm   {
 
 // End the code to a naked function with no args
-#define API_FUNC_NAKED_END_()      \
-         __asm retn               \
-      }
+#define API_FUNC_NAKED_END_()     __asm retn    }
