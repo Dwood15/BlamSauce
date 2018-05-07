@@ -2,6 +2,9 @@
 
 Make using Kornman's Yelo library accessible to the mere mortal. 
 
+## WARNING: This Project isn't even in alpha yet. 
+ - Alpha begins either once I'm done copy and pasting from BlamLib, or Tempera relies on this project for the majority of its interfacing with halo ce.
+
 ## Attribution
 
 This code was in part taken from: 
@@ -36,7 +39,9 @@ I look to do this in a multi-faceted manner:
       - Reduce #ifdef workarounds accommodating different versions.
       - If we're building for pc instead of CE, should be able to specify the path to the PC header of the version we want to target
     - Make building those targets easier and more straightforward
-    
+    - Potential for MinGW GCC support. Submit PR?
+ 10. Style and therefore (hopefully you'll agree) readability improvements.
+ 
 99.9% of the reason for this is to have a second codebase to split Tempera between and reduce the spaghetti.
     
 As BlamSauce matures, using it should be a pleasant and enjoyable experience. You, the programmer looking to create a utility or application using this, should be able to pick it up and get programming 
@@ -56,7 +61,7 @@ with minimal hassle! You may have to poke at less-documented/researched structur
        2.  Unix eol format 'LF'
        3.  Tabs for indentations
  
-  * Potential for MinGW GCC support, maybe. Submit PR?
+  *
   * Readability improvements and removal of some abusively obfuscating macros.
 
   Not everything from Open Sauce has been ported. This will take some time to complete, due to the sheer size of BlamLib. The intent, however, is to port BlamLib in whole to this project. 

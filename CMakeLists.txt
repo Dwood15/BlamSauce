@@ -106,14 +106,14 @@ endif()
 set(CSERIES_H cseries/MacrosCpp.h cseries/cseries.h cseries/cseries_base.h)
 set(MATH_H math/integer_math.h math/real_math.h math/color_math.h math/matrix_math.h)
 set(INPUT_H input/input_abstraction.h input/input_windows.h)
-set(MEMORY_H memory/datum_index.h)
+set(MEMORY_H memory/datum_index.h memory/queued_sigscanner.h)
 set(TAG_HELPERS_H tag_helpers/tag_groups_markup.h main/main.h)
 set(MAIN_H main/main.h main/main_structures.h main/levels.h)
 
 set(HEADERS ${MAIN_H} ${CSERIES_H} ${MATH_H} ${INPUT_H} ${TAG_HELPERS_H} ${MEMORY_H})
 
 #Crappy hack to stop "CMake doesn't know what language this is!" errors. Could probably do something like use .hpp files instead. /shrug
-add_library(${PROJECT_NAME} STATIC primary.hpp ${HEADERS})
+add_library(${PROJECT_NAME} STATIC primary.cpp ${HEADERS})
 
 add_library(${PROJECT_NAME}_iface INTERFACE)
 target_compile_definitions(${PROJECT_NAME}_iface INTERFACE)
