@@ -7,6 +7,7 @@
 #pragma once
 
 #include "../cseries/cseries_base.h"
+#include "../cseries/MacrosCpp.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -39,6 +40,11 @@ namespace Yelo {
 	namespace blam {
 		int16 __cdecl  main_get_campaign_level_from_name(cstring level_name);
 
-		cstring __cdecl main_get_campaign_level_name(_enum level_index);
+		inline cstring __cdecl main_get_campaign_level_name(short level_index) (short level_index) {
+			if (level_index >= 0 && level_index < NUMBEROF(Main::k_halo1_campaign_level_names))
+				return Main::k_halo1_campaign_level_names[level_index];
+
+			return nullptr;
+		}
 	};
 };

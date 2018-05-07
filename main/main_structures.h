@@ -6,6 +6,7 @@
 */
 #pragma once
 
+#include <winnt.h>
 #include "main.h"
 #include "../cseries/MacrosCpp.h"
 #include "../cseries/cseries_base.h"
@@ -13,6 +14,45 @@
 #pragma pack(push, 1)
 namespace Yelo {
 	namespace GameState {
+		struct s_screenshot {
+			int16 counter;      //0x0
+			void  *movie;      //0x2 screenshot bitmap
+			PAD32;            //0x6
+			PAD32;            //0xA
+			int32 movie_frame_index; //0xC
+			real  unknown; //0x10
+		}; static_assert(sizeof(s_screenshot) == 0x14);
+
+
+		//TODO:
+		struct s_map {
+			bool  reset_map;
+			bool  switch_to_campaign;
+			bool  revert_map;
+			bool  skip_cinematic;
+			bool  save_map;
+			bool  save_map_nonsafe;
+			bool  save_map_with_timeout;
+			bool  is_saving_map;
+			int32 saving_map_timeout_countdown;
+			int32 saving_map_timeout_timer;
+			UNKNOWN_TYPE(int32);
+			UNKNOWN_TYPE(int16);
+			bool won_map;
+			bool lost_map;
+			bool respawn_coop_players;
+
+			struct s_core {
+				bool save;
+				bool load;
+				bool load_at_startup;
+			}    core;
+
+			int16 switch_to_structure_bsp; // if not NONE, switches to the scenario's bsp by index
+			bool  main_menu_scenario_loaded;
+			bool  main_menu_scenario_load;
+		};
+
 		struct s_main_globals {
 			UNKNOWN_TYPE(uint32); // time related
 			PAD32;
@@ -23,42 +63,9 @@ namespace Yelo {
 			real                   delta_time;
 			Enums::game_connection game_connection;
 
-			struct s_screenshot {
-				int16 counter;
-				void  *movie; // screenshot bitmap
-				PAD32;
-				PAD32;
-				int32 movie_frame_index;
-				UNKNOWN_TYPE(real);
-			}                      screenshot;
+			s_screenshot screenshot;
 
-			struct s_map {
-				bool  reset_map;
-				bool  switch_to_campaign;
-				bool  revert_map;
-				bool  skip_cinematic;
-				bool  save_map;
-				bool  save_map_nonsafe;
-				bool  save_map_with_timeout;
-				bool  is_saving_map;
-				int32 saving_map_timeout_countdown;
-				int32 saving_map_timeout_timer;
-				UNKNOWN_TYPE(int32);
-				UNKNOWN_TYPE(int16);
-				bool won_map;
-				bool lost_map;
-				bool respawn_coop_players;
-
-				struct s_core {
-					bool save;
-					bool load;
-					bool load_at_startup;
-				}    core;
-
-				int16 switch_to_structure_bsp; // if not NONE, switches to the scenario's bsp by index
-				bool  main_menu_scenario_loaded;
-				bool  main_menu_scenario_load;
-			}  map;
+         s_map map;
 
 			UNUSED_TYPE(bool);
 			UNKNOWN_TYPE(bool);
@@ -90,11 +97,14 @@ namespace Yelo {
 			UNKNOWN_TYPE(tag_string);
 			PAD(0, 8 + 1); // char[8+1]
 			PAD8;
-			//WARNING: This PAD16 is actually a PAD32. Somewhere in this structure the alignment's off
-			//AND IM TOO LAZY TO FIX RIGHT NOW, SO DEAL.
 			PAD32;
 
-			void QuitToMainMenu();
+			void QuitToMainMenu() {
+				map.switch_to_structure_bsp = NONE;
+				map.save_map                = false;
+				map.main_menu_scenario_load = true;
+			}
+
 		};
 
 		//template <int s> struct Wow;

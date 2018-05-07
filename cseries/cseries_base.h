@@ -123,7 +123,6 @@ namespace Yelo {
 	#define pad_byte_enum PAD8
 
 	// an enumerated value in a 2 byte range
-	typedef signed short _enum;
 	#define pad_enum PAD16
 
 	// an enumerated value in a 4 byte range (not an officially used type in halo 1 tags, at least not up front anyway)

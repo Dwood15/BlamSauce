@@ -5,7 +5,7 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum {
+		enum input_maximums{
 			k_maximum_buffered_keystrokes = 64, // MAXIMUM_BUFFERED_KEYSTROKES
 
 			k_maximum_gamepads             = 4,
@@ -17,14 +17,14 @@ namespace Yelo {
 			k_number_of_virtual_codes = 256,
 		};
 
-		enum {
+		enum axis_input_info {
 			_axis_direction_positive,
 			_axis_direction_negative,
 
 			k_number_of_axis_directions, // NUMBER_OF_AXIS_DIRECTIONS
 		};
 
-		enum {
+		enum pov_direction {
 			_pov_direction_none = NONE,
 
 			_pov_direction_north,
@@ -39,7 +39,7 @@ namespace Yelo {
 			k_number_of_pov_directions = 8, // NUMBER_OF_POV_DIRECTIONS
 		};
 
-		enum {
+		enum mouse_buttons {
 			_mouse_button_left,
 			_mouse_button_middle,
 			_mouse_button_right,
@@ -52,7 +52,7 @@ namespace Yelo {
 			k_number_of_mouse_buttons, // NUMBER_OF_MOUSE_BUTTONS
 		};
 
-		enum {
+		enum mouse_axes {
 			_mouse_axes_horiz,
 			_mouse_axes_vert,
 			_mouse_axes_wheel,
@@ -60,7 +60,7 @@ namespace Yelo {
 			k_number_of_mouse_axes, // NUMBER_OF_MOUSE_AXES
 		};
 
-		enum key_code : _enum {
+		enum key_code : short {
 			_key_code_invalid = NONE,
 
 			_key_code_escape        = 0x0,
@@ -198,9 +198,7 @@ namespace Yelo {
 		static_assert(sizeof(s_buffered_key) == 0x4);
 	};
 
-	namespace blam {
-		bool PLATFORM_API
-		input_key_is_down(_enum
-		key_code);
-	};
+	// namespace blam {
+	// 	bool __cdecl input_key_is_down(short key_code);
+	// };
 };

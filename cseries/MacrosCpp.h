@@ -14,8 +14,6 @@
 
 #include <type_traits> // for CAST_THIS_NONCONST()
 
-#define _enum short
-
 /// Cast [value] to whatever
 #define CAST(type, value)      (static_cast<type>(value))
 #define CAST_OP(type)         static_cast<type>
@@ -200,8 +198,6 @@
 #define DOC_TODO(msg) __pragma( message(__FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) "): TODO: " msg) )
 // DOC_TODO variant that only evaluates in debug builds
 #define DOC_TODO_DEBUG(msg) DOC_TODO(msg)
-
-#define PLATFORM_API __cdecl
 
 // Declare a function naked of all things
 #define API_FUNC_NAKED __declspec(naked)

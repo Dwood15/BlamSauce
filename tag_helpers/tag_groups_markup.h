@@ -19,11 +19,11 @@
 
 // [arg2] = enum type
 // [arg3] = documentation
-#define TAG_ENUM(name, ...)               Yelo::_enum name
+#define TAG_ENUM(name, ...)               short name
 
 // [arg2] = enum type
 // [arg3] = documentation
-#define TAG_ENUM32(name, ...)            Yelo::long_enum name
+#define TAG_ENUM32(name, ...)            long name
 
 #define TAG_BLOCK_INDEX(block_type, name)   block_type::block_index_t name
 
@@ -40,5 +40,4 @@
 
 #define TAG_PAD(type, count)            Yelo::byte BOOST_JOIN(pad, __COUNTER__)[sizeof(type)*(count)]
 
-#define TAG_BLOCK_GET_ELEMENT(block_ptr, index, type)   \
-      &(block_ptr->Elements<type>()[index])
+#define TAG_BLOCK_GET_ELEMENT(block_ptr, index, type)  &(block_ptr->Elements<type>()[index])
