@@ -28,7 +28,7 @@ namespace Yelo {
 	// a point in real 2d space.
 	/*union*/ struct real_point2d {
 		// X-Axis
-		real x;
+		real x;\
 
 		// Y-Axis
 		real y;

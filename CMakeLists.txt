@@ -16,7 +16,8 @@ set(CAPSTONE_X86_ATT_DISABLE ON)
 #end capstone
 
 set(PROJECT_NAME BlamSauce)
-project(${PROJECT_NAME} CXX C)
+
+project(${PROJECT_NAME} CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -33,6 +34,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${DX_PATH} ${HCE_PATH})
 
 find_package(HaloCE REQUIRED)
 find_package(DirectX REQUIRED)
+
+#Required for getting the JSON library from nlohmann's github.
+find_package(Git REQUIRED)
+
 
 #TODO: JSON SERIALIZATION/DESERIALIZATION
 #https://github.com/nlohmann/json#serialization--deserialization
@@ -88,6 +93,7 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
 endif()
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${OUTPUT_DIR}/ar")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY  "${OUTPUT_DIR}/lib")
 
 if(MSVC)
 	set(LINKER_FLAGS "/MANIFEST\ /NXCOMPAT\ /DEBUG\ /MACHINE:X86\ /SAFESEH:NO\ /INCREMENTAL:NO\ /SUBSYSTEM:WINDOWS\ /MANIFESTUAC:NO\ /OPT:NOICF\ /NOLOGO\ /ASSEMBLYDEBUG\ ") #rip alignment on win32
@@ -106,15 +112,17 @@ set(MAIN_H main/main.h main/main_structures.h main/levels.h)
 
 set(HEADERS ${MAIN_H} ${CSERIES_H} ${MATH_H} ${INPUT_H} ${TAG_HELPERS_H} ${MEMORY_H})
 
-set(CSERIES_CPP  cseries/cseries_windows.cpp)
-set(MATH_CPP math/real_math.cpp)
-set(INPUT_CPP )
-set(MEMORY_CPP )
-set(TAG_HELPERS_CPP )
-set(MAIN_CPP main/main.cpp)
+#Crappy hack to stop "CMake doesn't know what language this is!" errors. Could probably do something like use .hpp files instead. /shrug
+add_library(${PROJECT_NAME} STATIC primary.hpp ${HEADERS})
 
-set(CPPFILES ${MAIN_CPP} ${MATH_CPP} ${INPUT_CPP} ${CSERIES_CPP} ${MEMORY_CPP} ${TAG_HELPERS_CPP})
-
-add_library(${PROJECT_NAME} STATIC ${CPPFILES} ${HEADERS})
+add_library(${PROJECT_NAME}_iface INTERFACE)
+target_compile_definitions(${PROJECT_NAME}_iface INTERFACE)
+install(TARGETS
+		${PROJECT_NAME}
+		${PROJECT_NAME}_iface
+		EXPORT library_targets
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+		)
 
 message(STATUS "Outputting lib to: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")
