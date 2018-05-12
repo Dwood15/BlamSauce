@@ -42,14 +42,14 @@ set(RUNTIME_PC109 "./${PC_RUN}/1_09")
 #This library has _so much_ information and changes and data that sigscanning isn't really a worthwhile exercise.
 #For one, I'm not looking forward to finding all those signatures. Whoever wants to is welcome to try, however... see the queued_sigscanner.h file.
 if (GAME_VER STREQUAL "CE_110")
-	set(RUNTIME_H ${RUNTIME_CE110})
+	set(RUNTIME_DIR ${RUNTIME_CE110})
 elseif (GAME_VER STREQUAL "CE_109")
-	set(RUNTIME_H ${RUNTIME_CE109})
+	set(RUNTIME_DIR ${RUNTIME_CE109})
 elseif (GAME_VER STREQUAL "PC_110")
-	set(RUNTIME_H ${RUNTIME_PC110})
+	set(RUNTIME_DIR ${RUNTIME_PC110})
 endif ()
 
-include_directories(AFTER ${RUNTIME_H})
+include_directories(AFTER ${RUNTIME_DIR})
 #Don't set this - it overrides the 17, and the msvc compiler's implementation of C++17 is, by default, somewhat incomplete.
 #set(CMAKE_CXX_STANDARD 17)
 
@@ -132,12 +132,173 @@ elseif (NOT MSVC)
 	set(CMAKE_SHARED_LINKER_FLAGS ${CMAKE_SHARED_LINKER_FLAGS_INIT} $ENV{LDFLAGS} "-lws2_32 -static-libgcc -static-libstdc++ -static -luserenv -static -static -ladvapi32")
 endif ()
 
+set(RUNTIME_H
+	${RUNTIME_DIR}/EngineFunctionADDRs.h)
+
+set(BITMAP_H
+	bitmaps/bitmap_grp.h)
+
+set(NETWORK_H
+	network/message_header.h
+	network/transport/endpoint_set_winsock.h
+	network/transport/address.h
+	network/transport/endpoint_winsock.h)
+
+set(CACHE_H
+	cache/builder.hpp
+	cache/cache_base.hpp
+	cache/cache_files_globals.hpp
+	cache/cache_files_structures.hpp
+	cache/constants.hpp
+	cache/data_file.hpp
+	cache/data_file_structures.hpp
+	cache/pc_sound_cache.hpp
+	cache/texture_cache.hpp
+	cache/sound_cache.hpp
+	cache/predicted_resources.hpp
+	cache/physical_memory_map_structures.hpp
+	cache/physical_memory_map.hpp
+	cache/pc_texture_cache.hpp
+	cache/cache_files.hpp)
+
+set(CAMERA_H
+	camera/dead.hpp
+	camera/definitions.hpp
+	camera/director.hpp
+	camera/director_structures.hpp
+	camera/first_person.hpp
+	camera/following.hpp
+	camera/observer.hpp
+	)
+
+set(CUTSCENE_H
+	cutscene/recorded_animation_definitions.hpp
+	cutscene/recorded_animation_playback.hpp
+	cutscene/recorded_animations_structures.hpp
+	cutscene/recorded_animations.hpp
+	cutscene/recorded_animation_playback_v1.hpp
+	)
+
+
+set(CRYPTOGRAPHY_H
+	cryptography/cryptography.h)
+
+set(DEVICES_H)
+set(GAME_H
+	game/action_queue.hpp
+	game/allegiance.hpp
+	game/vehicle_update_queue.hpp
+	game/time_structures.hpp
+	game/time.hpp
+	game/position_queue.hpp
+	game/players.hpp
+	game/player_structures.hpp
+	game/player_control.hpp
+	game/player_action.hpp
+	game/multiplayer_sounds.hpp
+	game/globals_structures.hpp
+	game/globals_definitions.hpp
+	game/globals.hpp
+	game/game.hpp
+	game/engine_stub.hpp
+	game/engine_slayer.hpp
+	game/engine_race.hpp
+	game/engine_oddball.hpp
+	game/engine_king.hpp
+	game/engine_ctf.hpp
+	game/engine.hpp
+	game/configuration.hpp
+	game/cheats.hpp
+	game/allegiance_structures.hpp
+	)
+
+set(EFFECTS_H
+	effects/contrail_definitions.hpp
+	effects/contrails.hpp
+	effects/effects_constants.hpp
+	effects/damage_effect_definitions.hpp
+	effects/effects.hpp
+	effects/weather_particle_systems.hpp
+	effects/weather_particle_system_definitions.hpp
+	effects/player_effects.hpp
+	effects/particles.hpp
+	effects/particle_systems.hpp
+	effects/particle_system_definitions.hpp
+	effects/particle_definitions.hpp
+	effects/material_effect_definitions.hpp
+	effects/effect_definitions.hpp
+	)
+
+set(HS_H
+	hs/compile.hpp
+	hs/constants.hpp
+	hs/hs.hpp
+	hs/library_external.hpp
+	hs/library_internal.hpp
+	hs/library_internal_compile.inl
+	hs/library_internal_runtime.inl
+	hs/object_lists.hpp
+	hs/object_lists_structures.hpp
+	hs/runtime.hpp
+	hs/runtime_structures.hpp
+	hs/scenario_definitions.hpp
+	hs/structures.hpp
+	hs/threads.hpp
+	hs/types.hpp
+	hs/types_compile.inl
+	hs/types_definitions.inl
+	hs/types_traits.hpp
+	hs/types_runtime.inl
+	)
+
+set(INTERFACE_H
+	interface/first_person_weapons.hpp
+	interface/first_person_weapons_structures.hpp
+	interface/hud.hpp
+	interface/weapon_hud_interface_definition.hpp
+	interface/unit_hud_interface_definition.hpp
+	interface/hud_weapon_structures.hpp
+	interface/hud_weapon.hpp
+	interface/hud_unit_structures.hpp
+	interface/hud_unit.hpp
+	interface/hud_nav_points.hpp
+	interface/hud_messaging_structures.hpp
+	interface/hud_messaging_definitions.hpp
+	interface/hud_messaging.hpp
+	interface/hud_draw.hpp
+	interface/hud_definitions.hpp
+	interface/hud_chat.hpp
+	interface/map_list.hpp
+	interface/motion_sensor.hpp
+	interface/terminal.hpp
+	interface/ui_video_screen.hpp
+	interface/ui_widget.hpp
+	interface/ui_widget_event_handler_functions.hpp
+	interface/ui_widget_game_data_input_functions.hpp
+	interface/ui_widget_group.hpp
+	interface/unit_hud_interface_definition.hpp
+	interface/weapon_hud_interface_definition.hpp
+	)
+
+set(ITEMS_H
+	items/equipment_definitions.hpp
+	items/equipment_structures.hpp
+	items/garbage_definitions.hpp
+	items/item_definitions.hpp
+	items/item_structures.hpp
+	items/projectile_definitions.hpp
+	items/projectiles.hpp
+	items/weapon_definitions.hpp
+	items/weapon_structures.hpp
+	items/weapons.hpp)
+
 set(SCENARIO_H
 	scenario/scenario.h
 	scenario/scenario_definitions.h
 	scenario/structures.h)
 
-set(ACTIONS_H ai/actions/action_alert.hpp
+set(ACTIONS_H
+	ai/actions/action_alert.hpp
 	ai/actions/action_avoid.hpp
 	ai/actions/action_charge.hpp
 	ai/actions/action_wait.hpp
@@ -151,7 +312,8 @@ set(ACTIONS_H ai/actions/action_alert.hpp
 	ai/actions/action_fight.hpp
 	ai/actions/action_converse.hpp)
 
-set(AI_H ai/ai.h
+set(AI_H
+	ai/ai.h
 	ai/ai_communication.h
 	ai/ai_scenario_definitions.h
 	ai/ai_script.h
@@ -162,7 +324,8 @@ set(AI_H ai/ai.h
 	ai/props.h
 	ai/actor_types/actor_types.h)
 
-set(ACTORS_H ai/actors/actor_combat.hpp
+set(ACTORS_H
+	ai/actors/actor_combat.hpp
 	ai/actors/actor_definitions.hpp
 	ai/actors/actors.hpp
 	ai/actors/actor_types.hpp
@@ -173,19 +336,23 @@ set(ACTORS_H ai/actors/actor_combat.hpp
 	ai/actors/actor_looking.hpp
 	ai/actors/actor_combat.hpp)
 
-set(CSERIES_H cseries/MacrosCpp.h
+set(CSERIES_H
+	cseries/MacrosCpp.h
 	cseries/cseries.h
 	cseries/cseries_base.h)
 
-set(MATH_H math/integer_math.h
+set(MATH_H
+	math/integer_math.h
 	math/real_math.h
 	math/color_math.h
 	math/matrix_math.h)
 
-set(INPUT_H input/input_abstraction.h
+set(INPUT_H
+	input/input_abstraction.h
 	input/input_windows.h)
 
-set(MEMORY_H memory/datum_index.h
+set(MEMORY_H
+	memory/datum_index.h
 	memory/queued_sigscanner.h
 	memory/array.h
 	memory/bitstream.h
@@ -195,17 +362,22 @@ set(MEMORY_H memory/datum_index.h
 	memory/data.h
 	memory/data_base.h
 	memory/lruv_cache.h
-	memory/memory_pool.h)
+	memory/memory_pool.h
+	memory/simple_circular_queue.hpp)
 
 set(TAG_HELPERS_H
 	tag_helpers/tag_groups_markup.h
 	tag_helpers/tag_groups_base.h)
 
-set(MAIN_H main/main.h
+set(MAIN_H
+	main/main.h
+	main/console.hpp
+	main/editor.hpp
 	main/main_structures.h
 	main/levels.h)
 
-set(HEADERS ${MAIN_H}
+set(HEADERS
+	${MAIN_H}
 	${CSERIES_H}
 	${MATH_H}
 	${INPUT_H}
@@ -215,7 +387,20 @@ set(HEADERS ${MAIN_H}
 	${ACTORS_H}
 	${ACTIONS_H}
 	${SCENARIO_H}
-	${RUNTIME_H} primary.h runtime/custom_edition/1_10/EngineFunctionADDRs.h)
+	${RUNTIME_H}
+	${BITMAP_H}
+	${NETWORK_H}
+	${ITEMS_H}
+	${INTERFACE_H}
+	${HS_H}
+	${EFFECTS_H}
+	${DEVICES_H}
+	${CRYPTOGRAPHY_H}
+	${CAMERA_H}
+	${CACHE_H}
+	${CUTSCENE_H}
+	${GAME_H}
+	primary.h)
 
 #Crappy hack to stop "CMake doesn't know what language this is!" errors. Could probably do something like use .hpp files instead. /shrug
 add_library(${PROJECT_NAME} STATIC primary.cpp ${HEADERS})

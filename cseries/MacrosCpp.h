@@ -113,8 +113,7 @@
 #define ALIGN(value, page_size) ( ( ((value) + ((page_size)-1)) / (page_size) ) * (page_size))
 
 // 64-bit safe as size_t is used for converting [value]
-#define BIT_ALIGN(value, algn_bits)                                       \
-   (                                                            \
+#define BIT_ALIGN(value, algn_bits)  (                 \
       ( CAST(size_t, (value) ) + ((1<<CAST(unsigned char, (algn_bits) ))-1) ) &   \
       ( ~((1<<CAST(unsigned char, (algn_bits) ))-1) )                        \
    )
@@ -142,9 +141,6 @@
 
 /// Compile-time constant calculate of a inplace array (can't be a pointer)
 #define NUMBEROF_C(array) ( sizeof(array) / sizeof( (array)[0] ) )
-/// Compile-time constant calculate of a inplace array (can't be a pointer)
-#define NUMBEROF(array) _countof(array)
-
 
 // returns the amount of bits that make up [type]
 #define BIT_COUNT(type) ( sizeof(type) * 8 )

@@ -117,8 +117,11 @@ namespace Yelo {
 			if (cstring last_slash = strrchr(level_name, '\\'))
 				level_name = last_slash + 1;
 
-			strncpy_s(name, level_name, _countof(name) - 1);
-			name[_countof(name) - 1] = '\0';
+
+			//Open Sauce had this as a _countof macro, but CLion can't into countof, and constexpr's are way better than macros.
+			//https://stackoverflow.com/questions/42388077/constexpr-vs-macros#42388687
+			strncpy_s(name, level_name, std::size(name) - 1);
+			name[std::size(name) - 1] = '\0';
 
 			_strlwr(name);
 
