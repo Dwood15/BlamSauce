@@ -27,10 +27,10 @@
 
 #define TAG_BLOCK_INDEX(block_type, name)   block_type::block_index_t name
 
-#define TAG_BLOCK(name, block_type)         Yelo::tag_block name
+#define TAG_BLOCK(name, block_type)         tag_block name
 // Used for blocks which need to allow non-const access
 #define TAG_TBLOCK_(name, block_type)      Yelo::TagBlock<block_type> name
-#define TAG_TBLOCK(name, block_type)   Yelo::TagBlock<const block_type> name
+//#define TAG_TBLOCK(name, block_type)   Yelo::TagBlock<const block_type> name
 
 // [arg2] = units
 // [arg3] = documentation
@@ -38,6 +38,6 @@
 
 #define TAG_ARRAY(type, name, count)      type name[count]
 
-#define TAG_PAD(type, count)            Yelo::byte BOOST_JOIN(pad, __COUNTER__)[sizeof(type)*(count)]
+#define TAG_PAD(name, type, count)            byte name[sizeof(type)*(count)]
 
 #define TAG_BLOCK_GET_ELEMENT(block_ptr, index, type)  &(block_ptr->Elements<type>()[index])

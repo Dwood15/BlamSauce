@@ -9,12 +9,12 @@
 #include "../cseries/cseries_base.h"
 
 namespace Yelo {
+	struct datum_index;
+
 	/// <summary>	Handle to data allocated by the engine's data-array construct. </summary>
 	struct datum_index {
 		typedef int16 index_t;
 		typedef int16 salt_t;
-
-		static const datum_index null;
 
 		union {
 			uint32 handle;
@@ -31,7 +31,7 @@ namespace Yelo {
 			};
 		};
 
-		bool IsNull() const { return null == handle; }
+		bool IsNull() const { return -1 == handle; }
 
 		static datum_index Create(index_t index, salt_t salt) {
 			datum_index result;
@@ -47,9 +47,13 @@ namespace Yelo {
 		/// <param name="header">	[in] should be a pointer to the start of a datum instance in a data array </param>
 		///
 		/// <returns>	[datum_index::null] if this fails </returns>
-		static datum_index Create(index_t index, const void *header);
+		static datum_index Create(index_t index, const void *header) {
+			if (header == nullptr) return { static_cast<uint32>(-1) };
 
-		//Something something deprecated and removed in C++17 pita to get around don't really care enough and nor am I certain it's actually going to end up being used.
+			return Create(index, *CAST_PTR(const salt_t*, header));
+		}
+
+		//Something something deprecated and removed in C++17 pita to get around don't really care enough nor am I certain it's going to be used.
 		// struct std_hash : public std::unary_function<datum_index, size_t> {
 		// 	// logic copied and pasted from xstddef's _Bitwise_hash
 		// 	size_t operator ()(const datum_index &_Keyval) const {   // hash _Keyval to size_t value by pseudorandomizing transform

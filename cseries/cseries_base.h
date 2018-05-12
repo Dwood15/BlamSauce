@@ -1,6 +1,7 @@
 #pragma once
 
 #include <assert.h>
+#include "MacrosCpp.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -120,24 +121,102 @@ namespace Yelo {
 
 	// an enumerated value in a 1 byte range
 	typedef signed char byte_enum;
-	#define pad_byte_enum PAD8
+#define pad_byte_enum PAD8
 
 	// an enumerated value in a 2 byte range
-	#define pad_enum PAD16
+#define pad_enum PAD16
 
 	// an enumerated value in a 4 byte range (not an officially used type in halo 1 tags, at least not up front anyway)
 	typedef signed long long_enum;
-	#define pad_long_enum PAD32
+#define pad_long_enum PAD32
 
 	// bit flags in a 1 byte range
 	typedef unsigned char byte_flags;
-	#define pad_byte_flags PAD8
+#define pad_byte_flags PAD8
 
 	// bit flags in a 2 byte range
 	typedef unsigned short word_flags;
-	#define pad_word_flags PAD16
+#define pad_word_flags PAD16
 
 	// bit flags in a 4 byte range
 	typedef unsigned long long_flags;
-	#define pad_long_flags PAD32
+#define pad_long_flags PAD32
+
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>
+	/// 	Class for defining an interface for blocks of data whose memory layout is not entirely mapped out.
+	/// </summary>
+	///
+	/// <typeparam name="K_SIZE">	Size of the memory block. </typeparam>
+	template <const size_t K_SIZE>
+	struct TStruct {
+		enum { k_size = K_SIZE };
+
+	protected:
+		// NOTE: I would use std::array here, but I have yet to tested how well it plays with xbox modules (ie, Halo2_Xbox)
+		byte m_data[K_SIZE];
+
+		template <typename T, const size_t k_offset>
+		T GetData() { return *(CAST_PTR(T*, &m_data[k_offset])); }
+
+		template <typename T, const size_t k_offset>
+		T GetData() const { return *(CAST_PTR(const T*, &m_data[k_offset])); }
+
+		template <typename T, const size_t k_offset>
+		T *GetDataPtr() { return CAST_PTR(T*, &m_data[k_offset]); }
+
+		template <typename T, const size_t k_offset>
+		const T *GetDataPtr() const { return CAST_PTR(const T*, &m_data[k_offset]); }
+
+		// Usage - "struct s_some_object : TStructImpl(0x40) {};"
+#define TStructImpl(size) public TStruct< size >
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	Implement a by-value getter. </summary>
+		///
+		/// <param name="type">  	Getter's return type. </param>
+		/// <param name="name">  	Getter's method name. </param>
+		/// <param name="offset">	Field offset within the struct to treat as the get result. </param>
+#define TStructGetImpl(type, name, offset)                              \
+         type Get##name()               { return GetData<type, offset>(); }      \
+         type Get##name() const         { return GetData<type, offset>(); }         \
+         __cdecl( ( offset + sizeof( type )) <= k_size );
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	Implement a by-address getter. </summary>
+		///
+		/// <param name="type">  	Getter's return type. </param>
+		/// <param name="name">  	Getter's method name. </param>
+		/// <param name="offset">	Field offset within the struct to treat as the get result. </param>
+#define TStructGetPtrImpl(type, name, offset)                           \
+         type* Get##name()            { return GetDataPtr<type, offset>(); }      \
+         type const* Get##name() const   { return GetDataPtr<type, offset>(); }      \
+         /*   ^ use const here, instead of before the type, in case [type] is defined as something like "int32*" */   \
+         __cdecl( ( offset + sizeof( type )) <= k_size );
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	Implement a by-value getter for fake TStruct sub-classes. </summary>
+		///
+		/// <remarks>
+		/// 	Requires an 'DATA_OFFSET' constant to be defined, representing the start of the fake sub-class.
+		/// </remarks>
+		///
+		/// <param name="type">  	Getter's return type. </param>
+		/// <param name="name">  	Getter's method name. </param>
+		/// <param name="offset">	Field offset within the fake sub-class to treat as the get result. </param>
+#define TStructSubGetImpl(type, name, offset)      TStructGetImpl(type, name, offset - DATA_OFFSET)
+		////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// <summary>	Implement a by-address getter for fake TStruct sub-classes. </summary>
+		///
+		/// <remarks>
+		/// 	Requires an 'DATA_OFFSET' constant to be defined, representing the start of the fake sub-class.
+		/// </remarks>
+		///
+		/// <param name="type">  	Getter's return type. </param>
+		/// <param name="name">  	Getter's method name. </param>
+		/// <param name="offset">	Field offset within the fake sub-class to treat as the get result. </param>
+#define TStructSubGetPtrImpl(type, name, offset)   TStructGetPtrImpl(type, name, offset - DATA_OFFSET)
+	};
+
 };

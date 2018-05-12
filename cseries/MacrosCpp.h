@@ -8,7 +8,10 @@
  * Code obfuscating interfaces (:P)
  */
 
+#ifndef WIN32
 #define WIN32
+#endif
+
 #define WIN32_LEAN_AND_MEAN
 #define _X86_
 
@@ -211,6 +214,11 @@
 // and is also __stdcall
 #define API_FUNC_NAKED_END(arg_count) __asm pop   ebp \
          __asm retn   (arg_count * 4) }
+
+#define API_FUNC_NAKED_END_NO_STACK_POP()   \
+      __asm pop   ebp                  \
+      __asm retn                     \
+   }
 
 // For usage after calling cdecl functions in assembly code.
 // In the case were our assembly code is just interfacing
