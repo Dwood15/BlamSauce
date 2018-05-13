@@ -137,7 +137,7 @@ namespace Yelo
 
 		size_t stream_tag_to_buffer(datum_index tag_index, void* stream, size_t& return_stream_offset, uintptr_t virtual_base_address, tag_reference_name_reference* tag_names);
 
-		bool PLATFORM_API scenario_load_all_structure_bsps();
+		bool __cdecl scenario_load_all_structure_bsps();
 
 		void build_cache_file_for_scenario(cstring scenario_path,
 			byte_flags begin_flags);

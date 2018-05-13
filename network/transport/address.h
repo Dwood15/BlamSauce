@@ -4,7 +4,7 @@
 */
 #pragma once
 
-#include "../../cseries/cseries_base.h"
+#include "../../cseries/base.h"
 
 namespace Yelo {
 	namespace Enums {

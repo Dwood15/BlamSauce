@@ -250,7 +250,7 @@ namespace Yelo
 		// should be in game/game_allegiance.cpp
 		cstring g_game_team_names[Enums::k_number_of_game_teams] = {
 			"default",
-			"player",
+			"player_update",
 			"human",
 			"covenant",
 			"flood",
@@ -283,7 +283,7 @@ namespace Yelo
 			"hunter",
 			"engineer",
 			"assassin",
-			"player",
+			"player_update",
 			"marine",
 			"crew",
 			"combat_form",

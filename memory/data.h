@@ -5,17 +5,12 @@
 #include <string>
 #include "datum_index.h"
 #include "data_base.h"
-#include <EngineFunctionADDRs.h>
+#include <engine_functions.h>
 #include <rpc.h>
 
 static constexpr Yelo::datum_index::salt_t k_datum_index_salt_msb = 1U << (BIT_COUNT(Yelo::datum_index::salt_t) - 1);
 
 namespace Yelo {
-
-	//struct s_data_array;
-
-	//void __cdecl data_delete_all(Yelo::s_data_array *data);
-
 	namespace Memory {
 		struct s_data_array {
 			tag_string name;
@@ -239,7 +234,7 @@ namespace Yelo {
 		}
 
 		datum_index __cdecl datum_new_at_index(Memory::s_data_array *data, datum_index index) {
-			static const uintptr_t FUNCTION = K_DATUM_NEW_AT_INDEX;
+			static constexpr uintptr_t FUNCTION = K_DATUM_NEW_AT_INDEX;
 
 			if (data == nullptr || index.IsNull()) return {static_cast<uint32>(-1)};
 
@@ -252,7 +247,7 @@ namespace Yelo {
 
 		// creates a new element in [data] and returns the datum index
 		datum_index __cdecl datum_new(Memory::s_data_array *data) {
-			static const uintptr_t FUNCTION = K_DATUM_NEW;
+			static constexpr uintptr_t FUNCTION = K_DATUM_NEW;
 
 			if (data == nullptr) return {static_cast<uint32>(-1)};
 
@@ -264,7 +259,7 @@ namespace Yelo {
 
 		// Delete the data associated with the [index] handle in [data]
 		void __cdecl datum_delete(Memory::s_data_array *data, datum_index index) {
-			static const uintptr_t FUNCTION = K_DATUM_DELETE;
+			static constexpr uintptr_t FUNCTION = K_DATUM_DELETE;
 
 			if (data == nullptr || index.IsNull()) return;
 
@@ -281,7 +276,7 @@ namespace Yelo {
 		// Get the data associated with [index] from the [data] array
 		// Returns NULL if the handle is invalid
 		void *__cdecl datum_try_and_get(Memory::s_data_array *data, datum_index index) {
-			static const uintptr_t FUNCTION = K_DATUM_TRY_AND_GET;
+			static constexpr uintptr_t FUNCTION = K_DATUM_TRY_AND_GET;
 
 			if (data == nullptr) return nullptr;
 

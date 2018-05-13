@@ -342,39 +342,39 @@ namespace Yelo
 
 		using namespace Cache;
 
-		static API_FUNC_NAKED bool PLATFORM_API build_cache_file_cull_tags()
+		static API_FUNC_NAKED bool __cdecl build_cache_file_cull_tags()
 		{
 			static const uintptr_t FUNCTION = 0x453260;
 
 			__asm	jmp	FUNCTION
 		}
 
-		static API_FUNC_NAKED bool PLATFORM_API build_cache_file_last_minute_changes()
+		static API_FUNC_NAKED bool __cdecl build_cache_file_last_minute_changes()
 		{
 			static const uintptr_t FUNCTION = 0x454280;
 
 			__asm	jmp	FUNCTION
 		}
 
-		static API_FUNC_NAKED bool PLATFORM_API build_object_predicted_resources()
+		static API_FUNC_NAKED bool __cdecl build_object_predicted_resources()
 		{
 			static const uintptr_t FUNCTION = 0x453680;
 
 			__asm	jmp	FUNCTION
 		}
-		static API_FUNC_NAKED bool PLATFORM_API build_first_person_weapon_predicted_resources()
+		static API_FUNC_NAKED bool __cdecl build_first_person_weapon_predicted_resources()
 		{
 			static const uintptr_t FUNCTION = 0x453700;
 
 			__asm	jmp	FUNCTION
 		}
-		static API_FUNC_NAKED bool PLATFORM_API build_scenario_predicted_resources()
+		static API_FUNC_NAKED bool __cdecl build_scenario_predicted_resources()
 		{
 			static const uintptr_t FUNCTION = 0x4537A0;
 
 			__asm	jmp	FUNCTION
 		}
-		static API_FUNC_NAKED bool PLATFORM_API build_structure_bsp_predicted_resources()
+		static API_FUNC_NAKED bool __cdecl build_structure_bsp_predicted_resources()
 		{
 			static const uintptr_t FUNCTION = 0x453860;
 
@@ -389,7 +389,7 @@ namespace Yelo
 				build_structure_bsp_predicted_resources();
 		}
 
-		static API_FUNC_NAKED void* PLATFORM_API build_cache_file_add_model_vertices_and_triangles(
+		static API_FUNC_NAKED void* __cdecl build_cache_file_add_model_vertices_and_triangles(
 			s_cache_tag_header* cache_tag_header, void* scratch)
 		{
 			static const uintptr_t FUNCTION = 0x454360;
@@ -500,7 +500,7 @@ default_case:
 
 			return stream;
 		}
-		static bool PLATFORM_API build_cache_file_add_tags_impl(
+		static bool __cdecl build_cache_file_add_tags_impl(
 			s_cache_header& cache_header, void* scratch, build_cache_file_tag_names_t& tag_names, int32 largest_structure_bsp_size)
 		{
 			enum {
@@ -652,7 +652,7 @@ default_case:
 			return success;
 		}
 
-		static API_FUNC_NAKED bool PLATFORM_API build_cache_file_add_tags(
+		static API_FUNC_NAKED bool __cdecl build_cache_file_add_tags(
 			s_cache_header& cache_header, void* scratch, build_cache_file_tag_names_t& tag_names, int32 largest_structure_bsp_size)
 		{
 			static const uintptr_t FUNCTION = 0x454D40;

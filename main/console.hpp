@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../cseries/MacrosCpp.h"
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 #include "../interface/terminal.hpp"
 
 namespace Yelo {

@@ -2,7 +2,7 @@
 #pragma once
 
 #include <rpc.h>
-#include "../../cseries/cseries_base.h"
+#include "../../cseries/base.h"
 #include "address.h"
 #include "../../memory/circular_queue.h"
 

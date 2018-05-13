@@ -7,7 +7,7 @@
 #pragma once
 
 #include "../cseries/MacrosCpp.h"
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 #include "../memory/datum_index.h"
 #include "../memory/data.h"
 

@@ -210,7 +210,7 @@ namespace Yelo {
 		}
 
 #if 0 // Disabled, as Halo1_CE's TagGroups.cpp defines a more suitable implementation
-		cstring PLATFORM_API tag_get_name(datum_index tag_index)
+		cstring __cdecl tag_get_name(datum_index tag_index)
 		{
 			cstring name = cache_file_tag_get_instance(tag_index)->name;
 
@@ -219,7 +219,7 @@ namespace Yelo {
 		}
 #endif
 
-		const void* PLATFORM_API tag_get(tag group_tag, datum_index tag_index)
+		const void* __cdecl tag_get(tag group_tag, datum_index tag_index)
 		{
 			using TagGroups::group_tag_to_string;
 
@@ -238,24 +238,24 @@ namespace Yelo {
 			return tag_instance->base_address;
 		}
 
-		void PLATFORM_API cache_file_geometry_cache_for_models_open(Cache::s_cache_tag_header* tag_header)
+		void __cdecl cache_file_geometry_cache_for_models_open(Cache::s_cache_tag_header* tag_header)
 		{
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 		}
-		void PLATFORM_API cache_file_geometry_cache_for_models_close()
+		void __cdecl cache_file_geometry_cache_for_models_close()
 		{
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 		}
-		void PLATFORM_API cache_file_geometry_cache_for_bsp_open(TagGroups::structure_bsp_header* bsp_header)
+		void __cdecl cache_file_geometry_cache_for_bsp_open(TagGroups::structure_bsp_header* bsp_header)
 		{
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 		}
-		void PLATFORM_API cache_file_geometry_cache_for_bsp_close(TagGroups::structure_bsp_header* bsp_header)
+		void __cdecl cache_file_geometry_cache_for_bsp_close(TagGroups::structure_bsp_header* bsp_header)
 		{
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 		}
 
-		bool PLATFORM_API cache_file_header_verify(Cache::s_cache_header* header, cstring scenario_name, bool critical)
+		bool __cdecl cache_file_header_verify(Cache::s_cache_header* header, cstring scenario_name, bool critical)
 		{
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 

@@ -9,7 +9,7 @@
 #include <winnt.h>
 #include "main.h"
 #include "../cseries/MacrosCpp.h"
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 
 #pragma pack(push, 1)
 namespace Yelo {
@@ -65,7 +65,7 @@ namespace Yelo {
 
 			s_screenshot screenshot;
 
-         s_map map;
+			s_map map;
 
 			UNUSED_TYPE(bool);
 			UNKNOWN_TYPE(bool);

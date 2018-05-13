@@ -6,7 +6,8 @@
 */
 #pragma once
 
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
+#include "../cseries/yelo_base.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -36,9 +37,9 @@ namespace Yelo {
 
 	namespace Networking {
 		struct s_message_header {
-			uint16 flags : bitfield_size<Flags::k_number_of_message_flags>::value;
-			uint16 type : bitfield_enum_size<Enums::k_number_of_message_types>::value;
-			uint16 size : bitfield_size<Enums::k_maximum_message_size>::value;
+			uint16 flags : bitfield_size(Flags::k_number_of_message_flags);
+			uint16 type : bitfield_enum_size(Enums::k_number_of_message_types);
+			uint16 size : bitfield_size(Enums::k_maximum_message_size);
 		}; static_assert(sizeof(s_message_header) == 0x2);
 
 		struct s_message_lowlevel_error {

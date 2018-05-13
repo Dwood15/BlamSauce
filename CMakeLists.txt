@@ -19,37 +19,88 @@ set(PROJECT_NAME BlamSauce)
 
 project(${PROJECT_NAME} CXX)
 
-set(GAME_VER "CE_110")
-
-set(CE_RUN runtime/custom_edition)
-set(PC_RUN runtime/pc)
-
-set(STUBBZ_RUN runtime/stubbz)
-set(TRIAL_RUN runtime/trial)
-
-#Is there even more than one stubbz runtime?
-set(RUNTIME_STUBBZ ${STUBBZ_RUN})
-set(RUNTIME_TRIAL ${TRIAL_RUN})
-
-##CE RUNTIMES
-set(RUNTIME_CE110 "./${CE_RUN}/1_10")
-set(RUNTIME_CE109 "./${CE_RUN}/1_09")
-
-##PC RUNTIMES
-set(RUNTIME_PC110 "./${PC_RUN}/1_10")
-set(RUNTIME_PC109 "./${PC_RUN}/1_09")
+set(TARGET_GAME_VER "HALO_CE_1_10")
 
 #This library has _so much_ information and changes and data that sigscanning isn't really a worthwhile exercise.
 #For one, I'm not looking forward to finding all those signatures. Whoever wants to is welcome to try, however... see the queued_sigscanner.h file.
-if (GAME_VER STREQUAL "CE_110")
-	set(RUNTIME_DIR ${RUNTIME_CE110})
-elseif (GAME_VER STREQUAL "CE_109")
-	set(RUNTIME_DIR ${RUNTIME_CE109})
-elseif (GAME_VER STREQUAL "PC_110")
-	set(RUNTIME_DIR ${RUNTIME_PC110})
+
+set(STUBBZ runtime/stubbz)
+set(HALO_TRIAL runtime/halo1/trial)
+set(HALO_FULL runtime/halo1/full)
+
+if (TARGET_GAME_VER MATCHES "^STUBBZ$")
+	#Is there more than one stubbz version?
+	#Maybe the mac version?
+	#	set(LEVELS ${STUBBZ})
+	set(GAME ${STUBBZ})
+	message(FATAL_ERROR "STUBBZ IS NOT AN IMPLEMENTED TARGET. SORRY.")
 endif ()
 
-include_directories(AFTER ${RUNTIME_DIR})
+if (NOT TARGET_GAME_VER MATCHES "^(HALO)_(TRIAL|PC|CE)")
+	message(FATAL_ERROR "UNKNOWN VERSION ${TARGET_GAME_VER} SELECTED.")
+endif ()
+
+#This is deliberately _not_ an elseif.
+if (TARGET_GAME_VER MATCHES "^(HALO)_(TRIAL|PC|CE)")
+	set(GAME runtime/halo1)
+endif ()
+
+if (TARGET_GAME_VER MATCHES "^HALO_TRIAL$")
+	#	set(LEVELS ${HALO_TRIAL})
+	set(GAME ${HALO_TRIAL})
+	message(FATAL_ERROR "HALO TRIAL IS NOT AN IMPLEMENTED LIBRARY TARGET. SORRY.")
+endif ()
+
+if (NOT TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_[0-1][0-9])$")
+	message(FATAL_ERROR "UNKNOWN VERSION ${TARGET_GAME_VER} SELECTED.")
+endif ()
+
+#This is deliberately _not_ an elseif.
+if (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_[0-1][0-9])$")
+	#TODO: Find a better way of doing this garbage.
+	if (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_0[0-9])$")
+		message(FATAL_ERROR "ONLY 1_10 IS AN IMPLEMENTED LIBRARY TARGET. SORRY.")
+
+		if (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_00)$")
+			set(MINOR_VER "1_00")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_01)$")
+			set(MINOR_VER "1_01")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_02)$")
+			set(MINOR_VER "1_02")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_03)$")
+			set(MINOR_VER "1_03")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_04)$")
+			set(MINOR_VER "1_04")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_05)$")
+			set(MINOR_VER "1_05")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_06)$")
+			set(MINOR_VER "1_06")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_07)$")
+			set(MINOR_VER "1_07")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_08)$")
+			set(MINOR_VER "1_08")
+		elseif (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_09)$")
+			set(MINOR_VER "1_09")
+		endif ()
+	else ()
+		set(MINOR_VER "1_10")
+	endif ()
+
+	if (TARGET_GAME_VER MATCHES "^(HALO)_PC_(1_[0-1][0-9])$")
+		set(MAJOR_VER ${HALO_FULL}/pc)
+		message(FATAL_ERROR "HALO PC IS NOT YET AN IMPLEMENTED LIBRARY TARGET. SORRY.")
+	else ()
+		set(MAJOR_VER ${HALO_FULL}/ce)
+	endif ()
+
+	set(LEVELS ${HALO_FULL})
+	set(GAME ${MAJOR_VER}/${MINOR_VER})
+endif ()
+
+#I put runtime/versions/versions.h into its own directory b/c I'm not sure if cmake will make <runtime/pc/foobar.h> a valid include
+#even though we want only to deal with <foobar.h> for version-specific headers.
+include_directories(AFTER ${GAME} ${LEVELS} runtime/versions)
+
 #Don't set this - it overrides the 17, and the msvc compiler's implementation of C++17 is, by default, somewhat incomplete.
 #set(CMAKE_CXX_STANDARD 17)
 
@@ -133,7 +184,11 @@ elseif (NOT MSVC)
 endif ()
 
 set(RUNTIME_H
-	${RUNTIME_DIR}/EngineFunctionADDRs.h)
+	${GAME}/memory_locations.h
+	${GAME}/engine_functions.h
+	${GAME}/current_engine.h
+	${LEVELS}/levels.h
+	runtime/versions/versions.h)
 
 set(BITMAP_H
 	bitmaps/bitmap_grp.h)
@@ -171,14 +226,31 @@ set(CAMERA_H
 	camera/observer.hpp
 	)
 
-set(CUTSCENE_H
-	cutscene/recorded_animation_definitions.hpp
-	cutscene/recorded_animation_playback.hpp
-	cutscene/recorded_animations_structures.hpp
-	cutscene/recorded_animations.hpp
-	cutscene/recorded_animation_playback_v1.hpp
+set(M_ANIMATIONS_H
+	models/animations/definitions.hpp
+	models/animations/model.hpp
+	models/animations/recorded_animation_definitions.hpp
+	models/animations/recorded_animation_playback.hpp
+	models/animations/recorded_animations_structures.hpp
+	models/animations/recorded_animations.hpp
+	models/animations/recorded_animation_playback_v1.hpp
 	)
 
+set(M_COLLISIONS_H
+	models/collision/bsp_definitions.hpp
+	models/collision/bsp.hpp
+	models/collision/features.hpp
+	models/collision/model_definitions.hpp
+	models/collision/models.hpp
+	)
+
+set(MODELS_H
+	${M_ANIMATIONS_H}
+	${M_COLLISIONS_H}
+	models/collisions.hpp
+	models/model_definitions.hpp
+	models/models.hpp
+	)
 
 set(CRYPTOGRAPHY_H
 	cryptography/cryptography.h)
@@ -190,27 +262,26 @@ set(GAME_H
 	game/vehicle_update_queue.hpp
 	game/time_structures.hpp
 	game/time.hpp
-	game/position_queue.hpp
-	game/players.hpp
-	game/player_structures.hpp
-	game/player_control.hpp
-	game/player_action.hpp
+	memory/position_queue.hpp
+	game/player/players.hpp
+	game/player/player_structures.hpp
+	game/player/player_control.hpp
+	game/player/player_action.hpp
 	game/multiplayer_sounds.hpp
-	game/globals_structures.hpp
-	game/globals_definitions.hpp
-	game/globals.hpp
+	game/globals/globals_structures.hpp
+	game/globals/globals_definitions.hpp
+	game/globals/globals.hpp
 	game/game.hpp
-	game/engine_stub.hpp
-	game/engine_slayer.hpp
-	game/engine_race.hpp
-	game/engine_oddball.hpp
-	game/engine_king.hpp
-	game/engine_ctf.hpp
-	game/engine.hpp
+	game/engines/engine_stub.hpp
+	game/engines/engine_slayer.hpp
+	game/engines/engine_race.hpp
+	game/engines/engine_oddball.hpp
+	game/engines/engine_king.hpp
+	game/engines/engine_ctf.hpp
+	game/engines/engine.hpp
 	game/configuration.hpp
 	game/cheats.hpp
-	game/allegiance_structures.hpp
-	)
+	game/state.h game/engines/variants.h)
 
 set(EFFECTS_H
 	effects/contrail_definitions.hpp
@@ -251,33 +322,39 @@ set(HS_H
 	hs/types_runtime.inl
 	)
 
+set(I_HUD_H interface/hud/first_person_weapons.hpp
+	interface/hud/first_person_weapons_structures.hpp
+	interface/hud/hud.hpp
+	interface/hud/weapon_hud_interface_definition.hpp
+	interface/hud/unit_hud_interface_definition.hpp
+	interface/hud/hud_weapon_structures.hpp
+	interface/hud/hud_weapon.hpp
+	interface/hud/hud_unit_structures.hpp
+	interface/hud/hud_unit.hpp
+	interface/hud/hud_nav_points.hpp
+	interface/hud/hud_messaging_structures.hpp
+	interface/hud/hud_messaging_definitions.hpp
+	interface/hud/hud_messaging.hpp
+	interface/hud/hud_draw.hpp
+	interface/hud/hud_definitions.hpp
+	interface/hud/hud_chat.hpp
+	interface/hud/weapon_hud_interface_definition.hpp
+	)
+
+set(I_WIDGETS_H
+	interface/widgets/widgets.hpp
+	interface/widgets/ui_event_handler_functions.hpp
+	interface/widgets/ui_game_data_input_functions.hpp
+	interface/widgets/ui_group.hpp)
+
 set(INTERFACE_H
-	interface/first_person_weapons.hpp
-	interface/first_person_weapons_structures.hpp
-	interface/hud.hpp
-	interface/weapon_hud_interface_definition.hpp
-	interface/unit_hud_interface_definition.hpp
-	interface/hud_weapon_structures.hpp
-	interface/hud_weapon.hpp
-	interface/hud_unit_structures.hpp
-	interface/hud_unit.hpp
-	interface/hud_nav_points.hpp
-	interface/hud_messaging_structures.hpp
-	interface/hud_messaging_definitions.hpp
-	interface/hud_messaging.hpp
-	interface/hud_draw.hpp
-	interface/hud_definitions.hpp
-	interface/hud_chat.hpp
+	${I_HUD_H}
+	${I_WIDGETS_H}
+
 	interface/map_list.hpp
-	interface/motion_sensor.hpp
+	interface/hud/motion_sensor.hpp
 	interface/terminal.hpp
 	interface/ui_video_screen.hpp
-	interface/ui_widget.hpp
-	interface/ui_widget_event_handler_functions.hpp
-	interface/ui_widget_game_data_input_functions.hpp
-	interface/ui_widget_group.hpp
-	interface/unit_hud_interface_definition.hpp
-	interface/weapon_hud_interface_definition.hpp
 	)
 
 set(ITEMS_H
@@ -339,13 +416,15 @@ set(ACTORS_H
 set(CSERIES_H
 	cseries/MacrosCpp.h
 	cseries/cseries.h
-	cseries/cseries_base.h)
+	cseries/base.h
+	cseries/yelo_base.h
+	cseries/errors.h)
 
 set(MATH_H
 	math/integer_math.h
 	math/real_math.h
 	math/color_math.h
-	math/matrix_math.h)
+	math/matrix_math.h math/periodic_functions.h)
 
 set(INPUT_H
 	input/input_abstraction.h
@@ -363,7 +442,23 @@ set(MEMORY_H
 	memory/data_base.h
 	memory/lruv_cache.h
 	memory/memory_pool.h
-	memory/simple_circular_queue.hpp)
+	memory/simple_circular_queue.hpp
+	memory/debug.h
+	memory/profiling.h)
+
+set(OBJECTS_H
+	objects/damage.hpp
+	objects/index_resolution.hpp
+	objects/object_definitions.hpp
+	objects/object_lights.hpp
+	objects/object_structures.hpp
+	objects/object_types.hpp
+	objects/objects.hpp
+	objects/placeholder_definitions.hpp
+	objects/scenery_definitions.hpp
+	objects/sound_scenery_definitions.hpp
+	objects/vehicle_remapper.hpp
+	)
 
 set(TAG_HELPERS_H
 	tag_helpers/tag_groups_markup.h
@@ -374,7 +469,7 @@ set(MAIN_H
 	main/console.hpp
 	main/editor.hpp
 	main/main_structures.h
-	main/levels.h)
+	)
 
 set(HEADERS
 	${MAIN_H}
@@ -398,9 +493,11 @@ set(HEADERS
 	${CRYPTOGRAPHY_H}
 	${CAMERA_H}
 	${CACHE_H}
-	${CUTSCENE_H}
+	${MODELS_H}
 	${GAME_H}
-	primary.h)
+	${OBJECTS_H}
+	primary.h
+	)
 
 #Crappy hack to stop "CMake doesn't know what language this is!" errors. Could probably do something like use .hpp files instead. /shrug
 add_library(${PROJECT_NAME} STATIC primary.cpp ${HEADERS})

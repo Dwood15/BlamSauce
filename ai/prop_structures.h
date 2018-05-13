@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 #include "../memory/datum_index.h"
 #include "actors/actor_perception.hpp"
 #include "../scenario/structures.h"

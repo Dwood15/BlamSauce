@@ -14,13 +14,13 @@ namespace Yelo
 
 	namespace blam
 	{
-		void PLATFORM_API sound_cache_open();
-		void PLATFORM_API sound_cache_close();
+		void __cdecl sound_cache_open();
+		void __cdecl sound_cache_close();
 
-		bool PLATFORM_API sound_cache_sound_request(TagGroups::s_sound_permutation* sound, 
+		bool __cdecl sound_cache_sound_request(TagGroups::s_sound_permutation* sound,
 			// block										increment software_reference_count
 			bool block_thread = false, bool load = true, bool reference = false);
 
-		void PLATFORM_API sound_cache_sound_finished(TagGroups::s_sound_permutation* sound);
+		void __cdecl sound_cache_sound_finished(TagGroups::s_sound_permutation* sound);
 	};
 };

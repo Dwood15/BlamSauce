@@ -5,7 +5,7 @@
 */
 #pragma once
 
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 
 namespace Yelo {
 	typedef int32 byte_swap_code_t;

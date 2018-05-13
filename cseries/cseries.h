@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <rpc.h>
 #include "./MacrosCpp.h"
 
 namespace Yelo::blam {

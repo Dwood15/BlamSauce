@@ -16,7 +16,7 @@ namespace Yelo
 	{
 		using namespace TagGroups;
 
-		void PLATFORM_API texture_cache_open()
+		void __cdecl texture_cache_open()
 		{
 #if PLATFORM_USES_CACHE_FILES && !PLATFORM_IS_DEDI
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
@@ -25,7 +25,7 @@ namespace Yelo
 #endif
 		}
 
-		void PLATFORM_API texture_cache_close()
+		void __cdecl texture_cache_close()
 		{
 #if PLATFORM_USES_CACHE_FILES && !PLATFORM_IS_DEDI
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
@@ -34,7 +34,7 @@ namespace Yelo
 #endif
 		}
 
-		IDirect3DBaseTexture9** PLATFORM_API texture_cache_bitmap_get_hardware_format_impl(TagGroups::s_bitmap_data* bitmap, 
+		IDirect3DBaseTexture9** __cdecl texture_cache_bitmap_get_hardware_format_impl(TagGroups::s_bitmap_data* bitmap,
 			// block
 			bool block_thread, bool load)
 		{

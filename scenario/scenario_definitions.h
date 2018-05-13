@@ -8,7 +8,7 @@
 #pragma once
 
 #include "../tag_helpers/tag_groups_markup.h"
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 #include "../math/real_math.h"
 #include "../memory/datum_index.h"
 #include "../math/integer_math.h"

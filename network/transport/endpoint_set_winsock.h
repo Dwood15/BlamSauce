@@ -7,7 +7,7 @@
 #pragma once
 
 #include <rpc.h>
-#include "../../cseries/cseries_base.h"
+#include "../../cseries/base.h"
 #include "endpoint_winsock.h"
 
 namespace Yelo

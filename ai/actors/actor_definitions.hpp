@@ -202,7 +202,7 @@ namespace Yelo {
 			// unopposable
 			TAG_ENUM(unreachable_danger_trigger, Enums::danger_trigger, "danger level of an unreachable enemy which will trigger a retreat if it continues over time");
 			TAG_ENUM(vehicle_danger_trigger, Enums::danger_trigger, "danger level of a vehicle-based enemy which will trigger a retreat if it continues over time");
-			TAG_ENUM(player_danger_trigger, Enums::danger_trigger, "danger level of an enemy player which will trigger a retreat if it continues over time");
+			TAG_ENUM(player_danger_trigger, Enums::danger_trigger, "danger level of an enemy player_update which will trigger a retreat if it continues over time");
 			PAD16;
 			TAG_FIELD(real_bounds, danger_trigger_time, "seconds", "how long it takes for an unopposable enemy that has the above danger level to trigger a retreat");
 			TAG_FIELD(int16, friends_killed_trigger, "", "if this many of our friends are killed by an unopposable enemy, we trigger a retreat (zero = never use this as a retreat condition)");
@@ -449,7 +449,7 @@ namespace Yelo {
 			// unit
 			TAG_FIELD(real, body_vitality, "", "maximum body vitality of our unit");
 			TAG_FIELD(real, shield_vitality, "", "maximum shield vitality of our unit");
-			TAG_FIELD(real, shield_sapping_radius, "world units", "how far away we can drain the player's shields");
+			TAG_FIELD(real, shield_sapping_radius, "world units", "how far away we can drain the player_update's shields");
 			TAG_FIELD(int16, forced_shader_permutation, "", "if nonzero, overrides the unit's shader permutation");
 			PAD16;
 			TAG_PAD(actor_def_25, int32, 4);

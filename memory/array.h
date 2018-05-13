@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 #include "datum_index.h"
 #include "data.h"
 

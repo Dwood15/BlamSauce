@@ -5,8 +5,8 @@
 */
 #pragma once
 
-#include <../cseries/cseries_base.h>
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
+#include "../cseries/base.h"
 #include "../cseries/MacrosCpp.h"
 
 namespace Yelo {

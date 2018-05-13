@@ -6,7 +6,7 @@
 #pragma once
 
 #include "../cseries/MacrosCpp.h"
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 
 namespace Yelo {
 	struct datum_index;
@@ -31,6 +31,8 @@ namespace Yelo {
 			};
 		};
 
+		static constexpr datum_index null() { return { static_cast<uint32>(-1) }; };
+
 		bool IsNull() const { return -1 == handle; }
 
 		static datum_index Create(index_t index, salt_t salt) {
@@ -48,7 +50,7 @@ namespace Yelo {
 		///
 		/// <returns>	[datum_index::null] if this fails </returns>
 		static datum_index Create(index_t index, const void *header) {
-			if (header == nullptr) return { static_cast<uint32>(-1) };
+			if (header == nullptr) return null();
 
 			return Create(index, *CAST_PTR(const salt_t*, header));
 		}
@@ -63,7 +65,8 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS(uint32);
 
-		OVERRIDE_OPERATOR(=, datum_index &, uint32 arg) {
+		OVERRIDE_OPERATOR(=, datum_index &, uint32
+			arg) {
 			this->handle = arg;
 			return *this;
 		}

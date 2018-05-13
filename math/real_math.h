@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 #include "../cseries/MacrosCpp.h"
 #include <d3dx9math.h>
 

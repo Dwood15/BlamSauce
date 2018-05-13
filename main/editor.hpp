@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "../cseries/cseries_base.h"
+#include "../cseries/base.h"
 
 namespace Yelo::blam {
 	inline constexpr bool game_in_editor() {
