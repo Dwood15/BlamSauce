@@ -133,7 +133,7 @@ namespace Yelo {
 		datum_index __cdecl scenario_tags_load(cstring scenario_name);
 
 		datum_index __cdecl scenario_tags_load_impl(cstring scenario_name) {
-			datum_index scenario_index = datum_index::null;
+			datum_index scenario_index = datum_index::null();
 
 			// texture_cache_open();
 			// sound_cache_open();
@@ -166,9 +166,9 @@ namespace Yelo {
 		};
 
 		void __cdecl scenario_unload_impl() {
-			//YELO_ASSERT(!bink_playback_active());
+			//assert(!bink_playback_active());
 			scenario_tags_unload_impl();
-			blam_global_scenario_index      = datum_index::null;
+			blam_global_scenario_index      = datum_index::null();
 			blam_global_structure_bsp_index = NONE;
 			//Scenario::ScenarioGlobals()->current_structure_bsp_index = NONE;
 			blam_global_scenario      = nullptr;

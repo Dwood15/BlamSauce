@@ -65,7 +65,7 @@ namespace Yelo
 		}
 		const hs_syntax_node* s_hs_thread_datum::GetFrameSyntax() const
 		{
-			YELO_ASSERT(!StackIsEmpty());
+			assert(!StackIsEmpty());
 
 			return GetSyntax(stack_frame->source_expression);
 		}
@@ -234,7 +234,7 @@ namespace Yelo
 
 			if (this->StackIsEmpty())
 			{
-				YELO_ASSERT(state.script);
+				assert(state.script);
 
 				this->stack_frame->size = 0;
 				auto* result = this->StackAllocate<s_hs_value_union>();

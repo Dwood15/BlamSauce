@@ -25,8 +25,8 @@ set(TARGET_GAME_VER "HALO_CE_1_10")
 #For one, I'm not looking forward to finding all those signatures. Whoever wants to is welcome to try, however... see the queued_sigscanner.h file.
 
 set(STUBBZ runtime/stubbz)
-set(HALO_TRIAL runtime/halo1/trial)
-set(HALO_FULL runtime/halo1/full)
+set(HALO_TRIAL runtime/halo1/windows/trial)
+set(HALO_FULL runtime/halo1/windows/full)
 
 if (TARGET_GAME_VER MATCHES "^STUBBZ$")
 	#Is there more than one stubbz version?
@@ -188,7 +188,9 @@ set(RUNTIME_H
 	${GAME}/engine_functions.h
 	${GAME}/current_engine.h
 	${LEVELS}/levels.h
-	runtime/versions/versions.h)
+	runtime/versions/versions.h
+	runtime/versions/cache_files_win.hpp
+	)
 
 set(BITMAP_H
 	bitmaps/bitmap_grp.h)
@@ -260,8 +262,8 @@ set(GAME_H
 	game/action_queue.hpp
 	game/allegiance.hpp
 	game/vehicle_update_queue.hpp
-	game/time_structures.hpp
-	game/time.hpp
+	game/time/time_structures.hpp
+	game/time/time.hpp
 	memory/position_queue.hpp
 	game/player/players.hpp
 	game/player/player_structures.hpp

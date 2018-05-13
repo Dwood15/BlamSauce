@@ -5,23 +5,32 @@
 */
 #pragma once
 
-namespace Yelo
-{
-	namespace GameState
-	{
-		struct s_physical_memory_map_globals;
+#include "physical_memory_map_structures.hpp"
 
-		s_physical_memory_map_globals* PhysicalMemoryMapGlobals();
+namespace Yelo {
+	namespace GameState {
+		constexpr s_physical_memory_map_globals *PhysicalMemoryMapGlobals();
 	};
 
-	namespace blam
-	{
-		void physical_memory_map_initialize();
-		void physical_memory_map_dispose();
+	namespace blam {
+		static void physical_memory_map_initialize();
 
-		void* physical_memory_map_get_game_state_address();
-		void* physical_memory_map_get_tag_cache_address();
-		void* physical_memory_map_get_sound_cache_address();
-		void* physical_memory_map_get_texture_cache_address();
+		static void physical_memory_map_dispose();
+
+		static inline void *physical_memory_map_get_game_state_address() {
+			return GameState::PhysicalMemoryMapGlobals()->game_state_base_address;
+		}
+
+		static inline void *physical_memory_map_get_tag_cache_address() {
+			return GameState::PhysicalMemoryMapGlobals()->tag_cache_base_address;
+		}
+
+		static inline void *physical_memory_map_get_sound_cache_address() {
+			return GameState::PhysicalMemoryMapGlobals()->sound_cache_base_address;
+		}
+
+		static inline void *physical_memory_map_get_texture_cache_address() {
+			return GameState::PhysicalMemoryMapGlobals()->texture_cache_base_address;
+		}
 	};
 };

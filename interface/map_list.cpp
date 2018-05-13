@@ -73,8 +73,8 @@ namespace Yelo
 		int32 MapListAddMapFromPath(cstring maps_path, cstring map_file_name,
 			int32 system_map_index)
 		{
-			YELO_ASSERT(maps_path);
-			YELO_ASSERT(map_file_name);
+			assert(maps_path);
+			assert(map_file_name);
 
 			auto& multiplayer_maps = *MultiplayerMaps();
 
@@ -91,7 +91,7 @@ namespace Yelo
 			s_map_list_map* entry = multiplayer_maps[mp_map_index];
 			entry->Initialize(system_map_index);
 			bool name_initialized = entry->InitializeNameFromPath(map_file_name);
-			YELO_ASSERT(name_initialized);
+			assert(name_initialized);
 
 			// default full_map_path to map_file_name. If maps_path is empty, then map_file_name should actually be a map_path,
 			// in which case we don't need to waste time sprintf'ing an empty string with another string
@@ -169,7 +169,7 @@ namespace Yelo
 		static void MapListAddMapsInPath(WIN32_FIND_DATA& fd,
 			cstring root_path, cstring map_extension)
 		{
-			YELO_ASSERT(root_path);
+			assert(root_path);
 
 			// the full pathname to the "maps\" directory, relative to root_path
 			auto maps_path = std::string();
@@ -179,7 +179,7 @@ namespace Yelo
 			maps_path.reserve(MAX_PATH);
 			// we assume root_path is empty or ends with a path separator 
 			maps_path.append(root_path);
-			YELO_ASSERT(maps_path.length() == 0 || maps_path.back() == '\\');
+			assert(maps_path.length() == 0 || maps_path.back() == '\\');
 			maps_path.append(Cache::K_MAP_FILES_DIRECTORY);
 
 			find_filename.reserve(MAX_PATH);
@@ -265,7 +265,7 @@ namespace Yelo
 
 		bool map_list_should_ignore(cstring map_path)
 		{
-			YELO_ASSERT(map_path);
+			assert(map_path);
 
 			char map_name[_MAX_FNAME] = "";
 			auto map_file_type = Cache::GetMapNameFromPath(map_name, map_path);
@@ -289,9 +289,9 @@ namespace Yelo
 		{
 			auto& multiplayer_maps = *Interface::MultiplayerMaps();
 
-			//YELO_ASSERT(multiplayer_maps != nullptr);
-			YELO_ASSERT(multiplayer_maps.count == 0);
-			YELO_ASSERT(multiplayer_maps.capacity == 0);
+			//assert(multiplayer_maps != nullptr);
+			assert(multiplayer_maps.count == 0);
+			assert(multiplayer_maps.capacity == 0);
 
 			Interface::MapListAddSystemMultiplayerMaps();
 
@@ -312,7 +312,7 @@ namespace Yelo
 		{
 			auto& multiplayer_maps = *Interface::MultiplayerMaps();
 
-			//YELO_ASSERT(multiplayer_maps != nullptr);
+			//assert(multiplayer_maps != nullptr);
 
 			for (int x = 0; x < multiplayer_maps.count; x++)
 				multiplayer_maps[x]->Dispose();

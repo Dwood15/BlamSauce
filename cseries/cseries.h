@@ -10,7 +10,7 @@ namespace Yelo::blam {
 	void __cdecl system_free(void *pointer) { GlobalFree(pointer); }
 
 	void *__cdecl system_realloc(void *pointer, size_t size) {
-		//YELO_ASSERT(size >= 0);  we use size_t, which is unsigned and thus this will always be true
+		//assert(size >= 0);  we use size_t, which is unsigned and thus this will always be true
 		if (pointer == nullptr) {
 			return system_malloc(size);
 

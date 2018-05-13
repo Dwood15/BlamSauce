@@ -75,7 +75,7 @@ namespace Yelo
 		}
 		static void hs_inspect_boolean(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type==Enums::_hs_type_bool);
+			assert(type==Enums::_hs_type_bool);
 
 			sprintf_s(buffer, buffer_size, "%s", 
 				value.boolean ? "true" : "false");
@@ -105,7 +105,7 @@ namespace Yelo
 		}
 		static void hs_inspect_real(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type==Enums::_hs_type_real);
+			assert(type==Enums::_hs_type_real);
 
 			sprintf_s(buffer, buffer_size, "%f", 
 				value.real);
@@ -133,7 +133,7 @@ namespace Yelo
 		}
 		static void hs_inspect_short(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type==Enums::_hs_type_short);
+			assert(type==Enums::_hs_type_short);
 
 			sprintf_s(buffer, buffer_size, "%d", 
 				value.int16);
@@ -161,7 +161,7 @@ namespace Yelo
 		}
 		static void hs_inspect_long(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type==Enums::_hs_type_long);
+			assert(type==Enums::_hs_type_long);
 
 			sprintf_s(buffer, buffer_size, "%ld", 
 				value.int32);
@@ -183,7 +183,7 @@ namespace Yelo
 		}
 		static void hs_inspect_string(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type==Enums::_hs_type_string);
+			assert(type==Enums::_hs_type_string);
 
 			sprintf_s(buffer, buffer_size, "%s",
 				value.string);
@@ -193,7 +193,7 @@ namespace Yelo
 		// _hs_type_script
 		static void hs_inspect_script(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_script);
+			assert(type == Enums::_hs_type_script);
 
 			auto script_reference = value.script;
 			if (script_reference.IsNull())
@@ -221,7 +221,7 @@ namespace Yelo
 			}
 			else
 			{
-				YELO_ASSERT(index != NONE);
+				assert(index != NONE);
 			}
 
 			const auto& datum = datums[index];
@@ -235,7 +235,7 @@ namespace Yelo
 		}
 		static void hs_inspect_trigger_volume(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_trigger_volume);
+			assert(type == Enums::_hs_type_trigger_volume);
 
 			hs_inspect_scenario_datum<TagGroups::scenario_trigger_volume>(
 				type, buffer, buffer_size,
@@ -243,7 +243,7 @@ namespace Yelo
 		}
 		static void hs_inspect_cutscene_flag(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_cutscene_flag);
+			assert(type == Enums::_hs_type_cutscene_flag);
 
 			hs_inspect_scenario_datum<TagGroups::scenario_cutscene_flag>(
 				type, buffer, buffer_size,
@@ -251,7 +251,7 @@ namespace Yelo
 		}
 		static void hs_inspect_cutscene_camera_point(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_cutscene_camera_point);
+			assert(type == Enums::_hs_type_cutscene_camera_point);
 
 			hs_inspect_scenario_datum<TagGroups::scenario_cutscene_flag>(
 				type, buffer, buffer_size,
@@ -259,7 +259,7 @@ namespace Yelo
 		}
 		static void hs_inspect_cutscene_title(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_cutscene_title);
+			assert(type == Enums::_hs_type_cutscene_title);
 
 			hs_inspect_scenario_datum<TagGroups::s_scenario_cutscene_title>(
 				type, buffer, buffer_size,
@@ -267,7 +267,7 @@ namespace Yelo
 		}
 		static void hs_inspect_cutscene_recording(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_cutscene_recording);
+			assert(type == Enums::_hs_type_cutscene_recording);
 
 			hs_inspect_scenario_datum<TagGroups::recorded_animation_definition>(
 				type, buffer, buffer_size,
@@ -275,7 +275,7 @@ namespace Yelo
 		}
 		static void hs_inspect_device_group(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_device_group);
+			assert(type == Enums::_hs_type_device_group);
 
 			hs_inspect_scenario_datum<TagGroups::scenario_device_group>(
 				type, buffer, buffer_size,
@@ -284,7 +284,7 @@ namespace Yelo
 #if 0
 		static void hs_inspect_ai_command_list(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_ai_command_list);
+			assert(type == Enums::_hs_type_ai_command_list);
 
 			hs_inspect_scenario_datum<TagGroups::ai_command_list_definition>(
 				type, buffer, buffer_size,
@@ -293,7 +293,7 @@ namespace Yelo
 #endif
 		static void hs_inspect_starting_profile(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_starting_profile);
+			assert(type == Enums::_hs_type_starting_profile);
 
 			hs_inspect_scenario_datum<TagGroups::scenario_starting_profile>(
 				type, buffer, buffer_size,
@@ -302,7 +302,7 @@ namespace Yelo
 #if 0
 		static void hs_inspect_conversation(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_conversation);
+			assert(type == Enums::_hs_type_conversation);
 
 			hs_inspect_scenario_datum<TagGroups::ai_conversation>(
 				type, buffer, buffer_size,
@@ -311,15 +311,15 @@ namespace Yelo
 #endif
 		static void hs_inspect_navpoint(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_navpoint);
+			assert(type == Enums::_hs_type_navpoint);
 
-			YELO_ASSERT(false); // TODO
+			assert(false); // TODO
 		}
 		static void hs_inspect_hud_message(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(type == Enums::_hs_type_hud_message);
+			assert(type == Enums::_hs_type_hud_message);
 
-			YELO_ASSERT(false); // TODO
+			assert(false); // TODO
 		}
 
 		//////////////////////////////////////////////////////////////////////////
@@ -335,20 +335,20 @@ namespace Yelo
 		// NOTE: non-standard, engine doesn't support this
 		static s_hs_value_union hs_actor_variant_to_object_definition(s_hs_value_union value)
 		{
-			YELO_ASSERT(false); // TODO: lookup actor variant def and return its unit tag index
+			assert(false); // TODO: lookup actor variant def and return its unit tag index
 
 			return k_none_value_union;
 		}
 		// NOTE: non-standard, engine doesn't support this
 		static s_hs_value_union hs_object_definition_to_animation_graph(s_hs_value_union value)
 		{
-			YELO_ASSERT(false); // TODO: lookup object def and return its animation tag index
+			assert(false); // TODO: lookup object def and return its animation tag index
 
 			return k_none_value_union;
 		}
 		static void hs_inspect_tag_reference(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(hs_type_is_tag_reference(type));
+			assert(hs_type_is_tag_reference(type));
 
 			datum_index tag_index = value.ToTagIndex();
 			if (tag_index.IsNull())
@@ -371,7 +371,7 @@ namespace Yelo
 		}
 		static void hs_inspect_enum(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(hs_type_is_enum(type));
+			assert(hs_type_is_enum(type));
 
 			const auto& enum_definition = hs_enum_table[type - Enums::_hs_type_enum__first];
 			_enum enum_value = value.int16;
@@ -380,7 +380,7 @@ namespace Yelo
 			if (enum_value == NONE)
 				hs_inspection_on_none(buffer, buffer_size);
 
-			YELO_ASSERT(enum_value>=0 && enum_value<enum_definition.count);
+			assert(enum_value>=0 && enum_value<enum_definition.count);
 
 			sprintf_s(buffer, buffer_size, "%s", 
 				enum_definition[enum_value]);
@@ -443,7 +443,7 @@ namespace Yelo
 		}
 		static void hs_inspect_object(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(hs_type_is_object(type));
+			assert(hs_type_is_object(type));
 
 			datum_index object_index = value.ToObjectIndex();
 			if (object_index.IsNull())
@@ -466,7 +466,7 @@ namespace Yelo
 		}
 		static void hs_inspect_object_name(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
-			YELO_ASSERT(hs_type_is_object_name(type));
+			assert(hs_type_is_object_name(type));
 
 			int16 name_index = value.int16;
 			if (name_index == NONE)

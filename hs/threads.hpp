@@ -5,9 +5,13 @@
 */
 #pragma once
 
-#include <blamlib/memory/data_base.hpp>
-#include <blamlib/Halo1/game/game_configuration.hpp>
-#include <blamlib/Halo1/hs/hs_runtime.hpp>
+#include <sal.h>
+#include "../memory/datum_index.h"
+#include "scenario_definitions.hpp"
+#include "../cseries/yelo_base.h"
+#include "hs.hpp"
+#include "../memory/data_base.h"
+#include "../game/configuration.hpp"
 
 namespace Yelo
 {
@@ -20,7 +24,7 @@ namespace Yelo
 			_hs_thread_datum_sleep_dormant = NONE - 1,
 		};
 
-		enum hs_thread_type : _enum
+		enum hs_thread_type : short
 		{
 			_hs_thread_type_script,
 			_hs_thread_type_global_initialize, // script global initializer thunk
@@ -150,16 +154,10 @@ namespace Yelo
 	};
 };
 
-#define YELO_HS_RUNTIME_ASSERT(expression, thread, explanation)										\
-	YELO_ASSERT_DISPLAY(expression, "a problem occurred while executing the script %s: %s (%s)",	\
-		thread->GetDescriptionString(), explanation, #expression)
-#define YELO_HS_THREAD_VALID_STACK(thread)															\
-	YELO_HS_RUNTIME_ASSERT(thread->ValidThread(), thread,											\
-		"corrupted stack.")
+#define YELO_HS_RUNTIME_ASSERT(expression, thread, explanation)	YELO_ASSERT_DISPLAY(expression, "a problem occurred while executing the script %s: %s (%s)",	thread->GetDescriptionString(), explanation, #expression)
 
-#if PLATFORM_IS_EDITOR || YELO_ASSERT_ENABLED
-	#define YELO_HS_THREAD_SCRIPT_ERROR(expression, thread, explanation)							\
-		( !(expression) && !(thread)->ScriptError(explanation, #expression) )
-#else
-	#define YELO_HS_THREAD_SCRIPT_ERROR(expression, thread, explanation) false
-#endif
+#define YELO_HS_THREAD_VALID_STACK(thread) YELO_HS_RUNTIME_ASSERT(thread->ValidThread(), thread, "corrupted stack.")
+
+
+#define YELO_HS_THREAD_SCRIPT_ERROR(expression, thread, explanation)	( !(expression) && !(thread)->ScriptError(explanation, #expression) )
+

@@ -5,6 +5,9 @@
 */
 #pragma once
 
+#include <corecrt.h>
+#include "../cseries/base.h"
+
 namespace Yelo
 {
 	namespace Scripting

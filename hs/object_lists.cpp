@@ -46,7 +46,7 @@ namespace Yelo
 
 			s_object_list_header_datum* list = object_list_get(list_index);
 
-			YELO_ASSERT(list->reference_count==0);
+			assert(list->reference_count==0);
 
 			// delete all reference datums used in this list
 			for (datum_index reference_index = list->first; !reference_index.IsNull(); )
@@ -109,7 +109,7 @@ namespace Yelo
 
 			s_object_list_header_datum* list = object_list_get(list_index);
 
-			YELO_ASSERT(list->reference_count>0);
+			assert(list->reference_count>0);
 			list->reference_count--;
 		}
 

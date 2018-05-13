@@ -72,7 +72,7 @@ namespace Yelo
 
 			Enums::hs_type GetParameter(int16 index)
 			{
-				YELO_ASSERT(index >= 0 && index<paramc);
+				assert(index >= 0 && index<paramc);
 
 				return params[index];
 			}
