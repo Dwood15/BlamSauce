@@ -67,7 +67,7 @@ namespace Yelo
 			UNKNOWN_TYPE(int32);							// 0xF14, time for something
 			int16 seconds_to_game_start;					// 0xF18
 			Enums::network_game_client_state state;			// 0xF1A
-			_enum error;									// 0xF1C
+			short error;									// 0xF1C
 			word_flags flags;								// 0xF1E
 			bool is_out_of_sync;							// 0xF20
 			bool is_lagging_out;							// 0xF21, "network client connection has been silent for a dangerously long 'amount of time"

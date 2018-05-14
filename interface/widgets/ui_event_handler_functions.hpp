@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum ui_widget_event_handler_function : _enum
+		enum ui_widget_event_handler_function : short
 		{
 			_ui_widget_event_handler_function_null,
 			_ui_widget_event_handler_function_list_goto_next_item,
@@ -208,7 +208,7 @@ namespace Yelo
 			k_number_of_ui_widget_event_handler_functions,
 		};
 
-		enum ui_widget_event : _enum
+		enum ui_widget_event : short
 		{
 			_ui_widget_event_a_button,
 			_ui_widget_event_b_button,

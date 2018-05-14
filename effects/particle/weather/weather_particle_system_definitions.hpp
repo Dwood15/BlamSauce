@@ -13,7 +13,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum weather_particle_render_direction_source : _enum
+		enum weather_particle_render_direction_source : short
 		{
 			_weather_particle_render_direction_source_from_velocity,
 			_weather_particle_render_direction_source_from_acceleration,

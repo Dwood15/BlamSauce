@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum multiplayer_sound : _enum
+		enum multiplayer_sound : short
 		{
 			_multiplayer_sound_playball,
 			_multiplayer_sound_game_over,
@@ -84,10 +84,10 @@ namespace Yelo
 	namespace blam
 	{
 		// Overload should only be used in network_server connections
-		void __cdecl game_engine_play_multiplayer_sound(datum_index player_index, _enum multiplayer_sound_index, bool should_replicate);
+		void __cdecl game_engine_play_multiplayer_sound(datum_index player_index, short multiplayer_sound_index, bool should_replicate);
 
 		// Locally play [multiplayer_sound_index]
-		inline void game_engine_play_multiplayer_sound(_enum multiplayer_sound_index)
+		inline void game_engine_play_multiplayer_sound(short multiplayer_sound_index)
 		{
 			game_engine_play_multiplayer_sound(datum_index::null, multiplayer_sound_index, false);
 		}

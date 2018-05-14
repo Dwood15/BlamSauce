@@ -84,7 +84,7 @@ namespace Yelo
 				return m_codes[m_index];
 			}
 
-			template<_enum kCodeType>
+			template<short kCodeType>
 			bool CodeAlreadyExists()
 			{
 				return m_count > 0 &&

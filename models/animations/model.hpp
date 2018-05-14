@@ -21,7 +21,7 @@ namespace Yelo {
 	namespace Animations {
 		struct s_animation_list_entry {
 			cstring name;
-			_enum   type;
+			short   type;
 					  PAD16;
 		}; static_assert(sizeof(s_animation_list_entry) == 0x8);
 		struct s_animation_list {

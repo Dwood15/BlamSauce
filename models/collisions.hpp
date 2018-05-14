@@ -13,7 +13,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum collision_result : _enum
+		enum collision_result : short
 		{
 			_collision_result_water,
 			_collision_result_unused1, // haven't seen this type used
@@ -39,7 +39,7 @@ namespace Yelo
 			UNKNOWN_TYPE(real);
 			real_point3d point;
 			real_plane3d plane;
-			_enum material_type;
+			short material_type;
 			PAD16;
 			datum_index object_index;
 			s_collision_model_test_result model_test;

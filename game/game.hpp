@@ -8,7 +8,7 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum game_difficulty_level : _enum {
+		enum game_difficulty_level : short {
 			_game_difficulty_level_easy,
 			_game_difficulty_level_normal,
 			_game_difficulty_level_hard,
@@ -22,7 +22,7 @@ namespace Yelo {
 		struct s_game_options {
 			// In Halo 2:
 			// 0x0 long_enum game_mode; // where _game_mode_campaign = 1 (and default). k_number_of_game_modes = 6
-			// 0x4 _enum game_simulation; // _game_simulation_local is default
+			// 0x4 short game_simulation; // _game_simulation_local is default
 
 			UNKNOWN_TYPE(int32); // never see this referenced or explicitly set. due to memset, this will always be set to zero
 			UNKNOWN_TYPE(int16); // never see this referenced besides in game_options_new code where it's set to 0, even after a memset call. highly likely to be an enum field, albeit unused

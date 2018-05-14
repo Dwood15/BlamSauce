@@ -16,7 +16,7 @@ namespace Yelo
 			k_maximum_number_of_hud_sounds = 12, // MAXIMUM_NUMBER_OF_HUD_SOUNDS
 		};
 
-		enum hud_auxilary_meter_type : _enum
+		enum hud_auxilary_meter_type : short
 		{
 			_hud_auxilary_meter_type_integrated_light,
 

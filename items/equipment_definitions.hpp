@@ -15,7 +15,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum equipment_powerup : _enum
+		enum equipment_powerup : short
 		{
 			_equipment_powerup_none,
 

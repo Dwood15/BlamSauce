@@ -113,7 +113,7 @@ namespace Yelo
 			state.fields_debug_bytes += CAST(uint16, field_debug_bytes);
 		}
 #endif
-		bool PLATFORM_API tag_field_scan(TagGroups::s_tag_field_scan_state& state)
+		bool __cdecl tag_field_scan(TagGroups::s_tag_field_scan_state& state)
 		{
 			YELO_ASSERT( !state.done );
 

@@ -91,7 +91,7 @@ namespace Yelo
 			datum_index tag_index);
 
 
-		bool PLATFORM_API tag_data_load(void* block_element, tag_data* data, void* address)
+		bool __cdecl tag_data_load(void* block_element, tag_data* data, void* address)
 		{
 			YELO_ASSERT( block_element );
 			YELO_ASSERT( data && data->definition );
@@ -127,7 +127,7 @@ namespace Yelo
 			return true;
 		}
 
-		void PLATFORM_API tag_data_unload(void* block_element, tag_data* data)
+		void __cdecl tag_data_unload(void* block_element, tag_data* data)
 		{
 			YELO_ASSERT( data && data->definition );
 			YELO_ASSERT( data->address );
@@ -589,7 +589,7 @@ namespace Yelo
 				instance->parent_group_tags[1] = NONE;
 		}
 
-		datum_index PLATFORM_API tag_new(tag group_tag, cstring name)
+		datum_index __cdecl tag_new(tag group_tag, cstring name)
 		{
 			YELO_ASSERT(name);
 
@@ -669,7 +669,7 @@ namespace Yelo
 			return datum_index::null;
 		}
 
-		datum_index PLATFORM_API tag_load(tag group_tag, cstring name, long_flags flags)
+		datum_index __cdecl tag_load(tag group_tag, cstring name, long_flags flags)
 		{
 			YELO_ASSERT(name);
 
@@ -755,7 +755,7 @@ namespace Yelo
 			return tag_index;
 		}
 
-		datum_index PLATFORM_API tag_reload(tag group_tag, cstring name)
+		datum_index __cdecl tag_reload(tag group_tag, cstring name)
 		{
 			tag_group* group = tag_group_get(group_tag);
 			datum_index tag_index = datum_index::null;
@@ -795,7 +795,7 @@ namespace Yelo
 			return tag_index;
 		}
 
-		void PLATFORM_API tag_unload(datum_index tag_index)
+		void __cdecl tag_unload(datum_index tag_index)
 		{
 			auto* instance = TagGroups::TagInstances()[tag_index];
 

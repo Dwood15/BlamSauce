@@ -34,7 +34,7 @@ namespace Yelo
 					// if the bitfield size was calculated in their code, and not by hand then it
 					// probably factored in k_number_of_waypoint_types's value (not value-1).
 					// Then there's +1 more bit for the sign
-					_enum type : 4;
+					short type : 4;
 
 					real vertical_offset;
 

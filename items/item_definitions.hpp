@@ -28,7 +28,7 @@ namespace Yelo
 			PAD16;
 
 			TAG_PAD(int32, 4);
-			_enum function_exports[Enums::k_number_of_incoming_object_functions];
+			short function_exports[Enums::k_number_of_incoming_object_functions];
 			TAG_PAD(int32, 41);
 
 			struct {

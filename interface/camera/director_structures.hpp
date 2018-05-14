@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum game_perspective : _enum
+		enum game_perspective : short
 		{
 			// Incomplete
 			_game_perspective_first_person,

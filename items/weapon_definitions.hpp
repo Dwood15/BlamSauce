@@ -174,7 +174,7 @@ namespace Yelo
 			TAG_ENUM(secondary_trigger_mode);
 			TAG_FIELD(int16, maximum_alternate_shots_loaded);
 
-			_enum function_exports[Enums::k_number_of_incoming_object_functions];
+			short function_exports[Enums::k_number_of_incoming_object_functions];
 			TAG_FIELD(real, ready_time);
 			TAG_FIELD(tag_reference, ready_effect);
 

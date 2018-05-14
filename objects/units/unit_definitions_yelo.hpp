@@ -14,9 +14,9 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum unit_animation_keyframe : _enum;
+		enum unit_animation_keyframe : short;
 
-		enum unit_seat_mounted_keyframe_action_target : _enum
+		enum unit_seat_mounted_keyframe_action_target : short
 		{
 			_unit_seat_mounted_keyframe_action_target_all_seats,
 			_unit_seat_mounted_keyframe_action_target_mounted_trigger_seats,
@@ -24,7 +24,7 @@ namespace Yelo
 			_unit_seat_mounted_keyframe_action_target
 		};
 
-		enum unit_seat_keyframe_action_self_seat_action : _enum
+		enum unit_seat_keyframe_action_self_seat_action : short
 		{
 			_unit_seat_keyframe_action_self_seat_action_none,
 			_unit_seat_keyframe_action_self_seat_action_exit_current,
@@ -33,7 +33,7 @@ namespace Yelo
 			_unit_seat_keyframe_action_seat_action_self
 		};
 
-		enum unit_seat_keyframe_action_target_seat_unit_action : _enum
+		enum unit_seat_keyframe_action_target_seat_unit_action : short
 		{
 			_unit_seat_keyframe_action_target_seat_unit_action_none,
 			_unit_seat_keyframe_action_target_seat_unit_action_exit_seat,
@@ -42,7 +42,7 @@ namespace Yelo
 			_unit_seat_keyframe_action_seat_action_target
 		};
 
-		enum unit_seat_keyframe_action_unit_door_action : _enum
+		enum unit_seat_keyframe_action_unit_door_action : short
 		{
 			_unit_seat_keyframe_action_unit_door_action_neither,
 			_unit_seat_keyframe_action_unit_door_action_open,
@@ -51,7 +51,7 @@ namespace Yelo
 			_unit_seat_keyframe_action_unit_door_action
 		};
 
-		enum unit_seat_keyframe_action_apply_damage_effect : _enum
+		enum unit_seat_keyframe_action_apply_damage_effect : short
 		{
 			_unit_seat_keyframe_action_apply_damage_effect_none,
 			_unit_seat_keyframe_action_apply_damage_effect_mounted_unit,
@@ -61,7 +61,7 @@ namespace Yelo
 			_unit_seat_keyframe_action_apply_damage_effect
 		};
 
-		enum unit_seat_keyframe_action_apply_effect : _enum
+		enum unit_seat_keyframe_action_apply_effect : short
 		{
 			_unit_seat_keyframe_action_apply_effect_none,
 			_unit_seat_keyframe_action_apply_effect_mounted_unit,
@@ -70,7 +70,7 @@ namespace Yelo
 			_unit_seat_keyframe_action_apply_effect
 		};
 
-		enum unit_seat_boarding_type : _enum
+		enum unit_seat_boarding_type : short
 		{
 			_unit_seat_boarding_type_immediate,
 			_unit_seat_boarding_type_delayed,
@@ -78,7 +78,7 @@ namespace Yelo
 			_unit_seat_boarding_type
 		};
 
-		enum unit_seat_boarding_vitality_threshold_source : _enum
+		enum unit_seat_boarding_vitality_threshold_source : short
 		{
 			_unit_seat_boarding_vitality_threshold_source_mounted_unit,
 			_unit_seat_boarding_vitality_threshold_source_seated_unit,
@@ -86,7 +86,7 @@ namespace Yelo
 			_unit_seat_boarding_vitality_threshold_source
 		};
 
-		enum unit_seat_damage_melee : _enum
+		enum unit_seat_damage_melee : short
 		{
 			_unit_seat_damage_melee_normal,
 			_unit_seat_damage_melee_mounted_unit,
@@ -95,7 +95,7 @@ namespace Yelo
 			_unit_seat_damage_melee
 		};
 
-		enum unit_seat_damage_grenade : _enum
+		enum unit_seat_damage_grenade : short
 		{
 			_unit_seat_damage_grenade_normal,
 			_unit_seat_damage_grenade_disabled,
@@ -195,7 +195,7 @@ namespace Yelo
 			TAG_FIELD(tag_reference, effect, "effe");
 			TAG_FIELD(tag_string, effect_marker);
 			TAG_PAD(tag_block, 2);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_mounted_state_keyframe_action) == 0x60);
+		}; static_assert(sizeof(unit_mounted_state_keyframe_action) == 0x60);
 
 		struct unit_mounted_state
 		{
@@ -204,13 +204,13 @@ namespace Yelo
 			TAG_FIELD(s_unit_camera, unit_camera);
 			TAG_TBLOCK(keyframe_actions, unit_mounted_state_keyframe_action);
 			TAG_PAD(tag_block, 2);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_mounted_state) == 0x80);
+		}; static_assert(sizeof(unit_mounted_state) == 0x80);
 
 		struct unit_extensions
 		{
 			TAG_TBLOCK(mounted_state, unit_mounted_state);
 			TAG_PAD(tag_block, 4);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_extensions) == 0x3C);
+		}; static_assert(sizeof(unit_extensions) == 0x3C);
 
 
 		struct unit_seat_keyframe_action
@@ -232,7 +232,7 @@ namespace Yelo
 			TAG_FIELD(tag_reference, effect, "effe");
 			TAG_FIELD(tag_string, effect_marker);
 			TAG_PAD(tag_block, 3);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_seat_keyframe_action) == 0x98);
+		}; static_assert(sizeof(unit_seat_keyframe_action) == 0x98);
 
 		struct unit_seat_boarding
 		{
@@ -248,7 +248,7 @@ namespace Yelo
 			TAG_PAD(tag_block, 2);
 			TAG_TBLOCK(keyframe_actions, unit_seat_keyframe_action);
 			TAG_PAD(tag_block, 2);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_seat_boarding) == 0x70);
+		}; static_assert(sizeof(unit_seat_boarding) == 0x70);
 
 		struct unit_seat_damage
 		{
@@ -264,7 +264,7 @@ namespace Yelo
 			TAG_FIELD(tag_string, region_name);
 			TAG_FIELD(tag_reference, region_damage_effect, "jpt!");
 			TAG_PAD(tag_block, 2);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_seat_damage) == 0x88);
+		}; static_assert(sizeof(unit_seat_damage) == 0x88);
 
 		struct unit_seat_access
 		{
@@ -279,7 +279,7 @@ namespace Yelo
 			TAG_FIELD(word_flags, permitted_ai_states);
 			PAD16;
 			TAG_PAD(tag_block, 3);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_seat_access) == 0x7C);
+		}; static_assert(sizeof(unit_seat_access) == 0x7C);
 
 		struct unit_seat_extensions
 		{
@@ -290,6 +290,6 @@ namespace Yelo
 			TAG_TBLOCK(seat_boarding, unit_seat_boarding);
 			TAG_TBLOCK(seat_damage, unit_seat_damage);
 			TAG_PAD(tag_block, 4);
-		}; BOOST_STATIC_ASSERT(sizeof(unit_seat_extensions) == 0x64);
+		}; static_assert(sizeof(unit_seat_extensions) == 0x64);
 	};
 };

@@ -25,7 +25,7 @@ namespace Yelo
 
 	namespace blam
 	{
-		bool PLATFORM_API rasterizer_set_texture_bitmap_data(_enum stage, TagGroups::s_bitmap_data* bitmap);
+		bool __cdecl rasterizer_set_texture_bitmap_data(short stage, TagGroups::s_bitmap_data* bitmap);
 	};
 
 
@@ -66,6 +66,6 @@ namespace Yelo
 			IDirect3DVertexDeclaration9* decl;
 			long_enum format; // D3DFVF
 			long_enum processing_method; // D3DUSAGE
-		}; BOOST_STATIC_ASSERT( sizeof(s_vertex_shader_declaration) == 0xC );
+		}; static_assert( sizeof(s_vertex_shader_declaration) == 0xC );
 	};
 };

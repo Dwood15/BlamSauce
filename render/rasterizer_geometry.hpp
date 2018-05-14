@@ -26,7 +26,7 @@ namespace Yelo
 			k_number_of_geometry_detail_levels
 		};
 
-		enum triangle_buffer_type : _enum
+		enum triangle_buffer_type : short
 		{
 			_triangle_buffer_type_0,
 			_triangle_buffer_type_precompiled_strip,
@@ -34,7 +34,7 @@ namespace Yelo
 			k_number_of_triangle_buffer_types
 		};
 
-		enum rasterizer_vertex_type : _enum
+		enum rasterizer_vertex_type : short
 		{
 			_rasterizer_vertex_type_environment_uncompressed,
 			_rasterizer_vertex_type_environment_compressed,
@@ -74,7 +74,7 @@ namespace Yelo
 			int16 vertex0_index;
 			int16 vertex1_index;
 			int16 vertex2_index;
-		}; BOOST_STATIC_ASSERT(sizeof(rasterizer_triangle) == 0x6);
+		}; static_assert(sizeof(rasterizer_triangle) == 0x6);
 
 		struct rasterizer_triangle_buffer
 		{
@@ -83,7 +83,7 @@ namespace Yelo
 			int32 count;
 			void* data;
 			void* hardware_format;
-		}; BOOST_STATIC_ASSERT( sizeof(rasterizer_triangle_buffer) == 0x10 );
+		}; static_assert( sizeof(rasterizer_triangle_buffer) == 0x10 );
 
 		struct rasterizer_vertex_buffer
 		{
@@ -93,7 +93,7 @@ namespace Yelo
 			int32 vertex_count;
 			void* data;
 			void* hardware_format;
-		}; BOOST_STATIC_ASSERT( sizeof(rasterizer_vertex_buffer) == 0x14 );
+		}; static_assert( sizeof(rasterizer_vertex_buffer) == 0x14 );
 
 		struct environment_vertex_uncompressed
 		{

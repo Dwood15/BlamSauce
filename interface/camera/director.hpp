@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum game_perspective : _enum;
+		enum game_perspective : short;
 
 		enum {
 			_director_game_mode_following,

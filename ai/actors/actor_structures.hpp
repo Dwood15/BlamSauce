@@ -155,7 +155,7 @@ namespace Yelo
 			PAD16;
 			PAD32; // unknown field
 			PAD16; // unknown field
-			_enum combat_transition;
+			short combat_transition;
 			PAD8; // unknown field
 			PAD24;
 			PAD_TYPE(real_vector3d); // unknown field
@@ -254,7 +254,7 @@ namespace Yelo
 
 		struct s_actor_control_direction_specification
 		{
-			_enum type;															//	0x0
+			short type;															//	0x0
 			PAD16;
 			datum_index prop_index;												//	0x4
 			PAD(1, 6);
@@ -430,7 +430,7 @@ namespace Yelo
 			PAD32;PAD16;
 			PAD32; // unknown field
 			PAD_TYPE(datum_index); // unknown field
-			_enum postcombat_state;
+			short postcombat_state;
 			PAD16;
 			PAD32; // unknown field
 			byte situation[123];

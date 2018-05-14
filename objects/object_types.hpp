@@ -75,7 +75,7 @@ namespace Yelo
 		typedef void (__cdecl* proc_object_type_notify_impulse_sound)(datum_index object_index, datum_index sound_definition_index, datum_index sound_index);
 		typedef bool (__cdecl* proc_object_type_render_message_debug)(datum_index object_index);
 		typedef int32 (__cdecl* proc_object_type_create_to_network)(datum_index object_index, void* buffer, int32 buffer_size_in_bits);
-		typedef int32 (__cdecl* proc_object_type_build_update_delta)(datum_index object_index, void* buffer, int32 buffer_size_in_bits, _enum message_delta_mode);
+		typedef int32 (__cdecl* proc_object_type_build_update_delta)(datum_index object_index, void* buffer, int32 buffer_size_in_bits, short message_delta_mode);
 		typedef void (__cdecl* proc_object_type_process_update_delta)(datum_index object_index, MessageDeltas::message_dependant_header* header, Networking::s_network_game_client* client);
 		typedef bool (__cdecl* proc_object_type_is_network_time_valid)(datum_index object_index);
 		typedef bool (__cdecl* proc_object_type_unknown78)(datum_index object_index, void*); // IDK what the 2nd parameter's type is

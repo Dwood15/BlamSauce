@@ -11,7 +11,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum predicted_resource : _enum {
+		enum predicted_resource : short {
 			_predicted_resource_bitmap,
 			_predicted_resource_sound,
 
@@ -23,7 +23,7 @@ namespace Yelo
 	{
 		struct predicted_resource
 		{
-			_enum type;
+			short type;
 			int16 resource_index;
 			datum_index tag_index;
 		}; static_assert( sizeof(predicted_resource) == 0x8 ); // max count: 1024

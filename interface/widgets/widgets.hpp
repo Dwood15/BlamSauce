@@ -27,7 +27,7 @@ namespace Yelo
 
 		struct s_widget_datum : Memory::s_datum_base
 		{
-			_enum type;
+			short type;
 			datum_index type_datum_index; // index to the type's data array (eg, antenna)
 			datum_index next_widget_index;
 		}; static_assert( sizeof(s_widget_datum) == 0xC );

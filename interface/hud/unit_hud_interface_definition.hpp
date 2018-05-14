@@ -15,14 +15,14 @@ namespace Yelo
 {
 	namespace Flags
 	{
-		enum auxilary_overlay_type : _enum
+		enum auxilary_overlay_type : short
 		{
 			_auxilary_overlay_type_team_icon,
 
 			_auxilary_overlay_type,
 		};
 
-		enum hud_use_on_map_type : _enum
+		enum hud_use_on_map_type : short
 		{
 			_hud_use_on_map_type_any,
 			_hud_use_on_map_type_solo,

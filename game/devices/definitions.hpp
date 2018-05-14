@@ -25,7 +25,7 @@ namespace Yelo
 				TAG_FIELD(real, acceleration_time, "seconds");
 			}power_time, position_time, depower_time;
 
-			_enum function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::device_function_mode
+			short function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::device_function_mode
 
 			TAG_FIELD(tag_reference, open, 'snd!', 'effe');
 			TAG_FIELD(tag_reference, close, 'snd!', 'effe');

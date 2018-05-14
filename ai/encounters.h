@@ -46,7 +46,7 @@ namespace Yelo {
 		static_assert(sizeof(s_encounter_actor_iterator) == 0xC);
 
 		struct s_encounter_datum : TStructImpl(108) {
-		// 0x2 _enum team_index
+		// 0x2 short team_index
 		// 0x4 int16 squad_base
 		// 0x6 int16 squad_count
 		// 0x8 int16 platoon_base
@@ -90,7 +90,7 @@ namespace Yelo {
 		// 0x58 game_time_t
 		// 0x60 bool playfight
 		// 0x61 PAD8
-		// 0x62 _enum follow_type
+		// 0x62 short follow_type
 		//	0 players
 		//	1 object
 		//	2 ai_index

@@ -122,15 +122,15 @@ namespace Yelo
 
 	namespace blam
 	{
-		void PLATFORM_API tag_groups_initialize();
-		void PLATFORM_API tag_groups_dispose();
-		void PLATFORM_API tag_groups_initialize_for_new_map();
-		void PLATFORM_API tag_groups_dispose_from_old_map();
-		void PLATFORM_API tag_groups_dump_memory();
-		uint32 PLATFORM_API tag_groups_checksum();
+		void __cdecl tag_groups_initialize();
+		void __cdecl tag_groups_dispose();
+		void __cdecl tag_groups_initialize_for_new_map();
+		void __cdecl tag_groups_dispose_from_old_map();
+		void __cdecl tag_groups_dump_memory();
+		uint32 __cdecl tag_groups_checksum();
 
 
-		datum_index PLATFORM_API find_tag_instance(tag group_tag, cstring name);
+		datum_index __cdecl find_tag_instance(tag group_tag, cstring name);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Initialize a tag instance iterator for the given group tag </summary>
@@ -140,7 +140,7 @@ namespace Yelo
 		/// 	(Optional) the group tag to filter results by. Use [NONE] for [group_tag_filter] to
 		/// 	iterate all tag groups.
 		/// </param>
-		void PLATFORM_API tag_iterator_new(TagGroups::s_tag_iterator& iter, const tag group_tag_filter = NONE);
+		void __cdecl tag_iterator_new(TagGroups::s_tag_iterator& iter, const tag group_tag_filter = NONE);
 		template<typename T> inline
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Initialize a tag instance iterator for the given group tag </summary>
@@ -157,14 +157,14 @@ namespace Yelo
 		/// <param name="iter">	[in,out] The iterator to increment </param>
 		///
 		/// <returns>	Returns the next datum's index or [datum_index::null] when finished iterating </returns>
-		datum_index PLATFORM_API tag_iterator_next(TagGroups::s_tag_iterator& iter);
+		datum_index __cdecl tag_iterator_next(TagGroups::s_tag_iterator& iter);
 
 #if PLATFORM_IS_EDITOR
 		// Get the group definition that follows [group], or the first group if it is NULL
-		tag_group* PLATFORM_API tag_group_get_next(const tag_group* group = nullptr);
+		tag_group* __cdecl tag_group_get_next(const tag_group* group = nullptr);
 
 		// Get the group definition based on a four-character code
-		tag_group* PLATFORM_API tag_group_get(tag group_tag);
+		tag_group* __cdecl tag_group_get(tag group_tag);
 		template<typename T> inline
 		tag_group* tag_group_get()
 		{
@@ -172,21 +172,21 @@ namespace Yelo
 		}
 
 		// Rename the tag definition [tag_index] to [new_name]
-		void PLATFORM_API tag_rename(datum_index tag_index, cstring new_name);
+		void __cdecl tag_rename(datum_index tag_index, cstring new_name);
 
-		tag_block* PLATFORM_API tag_block_index_resolve(datum_index tag_index, tag_field* block_index_field, int32 index);
+		tag_block* __cdecl tag_block_index_resolve(datum_index tag_index, tag_field* block_index_field, int32 index);
 
 		// Get the size in bytes of how much memory the tag definition [tag_index] 
 		// consumes with all of its child data too
-		uint32 PLATFORM_API tag_size(datum_index tag_index);
+		uint32 __cdecl tag_size(datum_index tag_index);
 
 		// Get the size in bytes of how much memory [block] consumes with all 
 		// of its child data too
-		uint32 PLATFORM_API tag_block_size(tag_block* block);
+		uint32 __cdecl tag_block_size(tag_block* block);
 
 		// Insert a new block element at [index] and return the index 
 		// of the inserted element
-		int32 PLATFORM_API tag_block_insert_element(tag_block* block, int32 index);
+		int32 __cdecl tag_block_insert_element(tag_block* block, int32 index);
 		template<typename T> inline
 		T* tag_block_insert_element(TagBlock<T>& block, int32 index)
 		{
@@ -195,14 +195,14 @@ namespace Yelo
 
 		// Duplicate the block element at [element_index] and return the index which 
 		// represents the duplicated element
-		int32 PLATFORM_API tag_block_duplicate_element(tag_block* block, int32 element_index);
+		int32 __cdecl tag_block_duplicate_element(tag_block* block, int32 element_index);
 		template<typename T> inline
 		int32 tag_block_duplicate_element(TagBlock<T>& block, int32 element_index)
 		{
 			return tag_block_duplicate_element(block.to_tag_block(), element_index);
 		}
 
-		void PLATFORM_API tag_block_generate_default_element(const tag_block_definition *definition, void *address);
+		void __cdecl tag_block_generate_default_element(const tag_block_definition *definition, void *address);
 #endif
 	};
 

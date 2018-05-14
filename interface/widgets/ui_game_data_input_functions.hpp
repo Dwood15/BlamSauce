@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum game_data_input_reference_function : _enum
+		enum game_data_input_reference_function : short
 		{
 			_game_data_input_reference_function_null,
 			_game_data_input_reference_function_player_settings_menu_update_desc,

@@ -27,7 +27,7 @@ namespace Yelo
 			_object_damage_flags
 		};
 
-		enum damage_data_flags : _enum
+		enum damage_data_flags : short
 		{
 			// Incomplete
 			_damage_data_flags_affect_target_only_bit,

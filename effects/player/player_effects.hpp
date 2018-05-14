@@ -12,7 +12,7 @@ namespace Yelo
 	{
 		struct s_player_screen_flash
 		{
-			_enum type;
+			short type;
 			PAD16;
 			real intensity;
 			UNKNOWN_TYPE(real);

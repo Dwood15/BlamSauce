@@ -116,7 +116,7 @@ namespace Yelo
 			// none = 0
 			// object = 1
 			// cluster = 2
-			_enum pvs_activator_type;							// 0x90
+			short pvs_activator_type;							// 0x90
 			PAD16;
 			union {												// 0x94
 				datum_index pvs_activating_object_index;

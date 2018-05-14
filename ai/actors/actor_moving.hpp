@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum actor_movement_state : _enum
+		enum actor_movement_state : short
 		{
 			_actor_movement_state_noncombat,
 			_actor_movement_state_asleep,

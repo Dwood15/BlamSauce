@@ -16,7 +16,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum ui_widget_type : _enum
+		enum ui_widget_type : short
 		{
 			_ui_widget_type_container,
 			_ui_widget_type_text_box,

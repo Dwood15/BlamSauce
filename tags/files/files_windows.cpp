@@ -103,7 +103,7 @@ namespace Yelo
 
 		//////////////////////////////////////////////////////////////////////////
 		// files_windows.c
-		uint32 PLATFORM_API file_get_position(const s_file_reference& reference)
+		uint32 __cdecl file_get_position(const s_file_reference& reference)
 		{
 			reference.Verify();
 			DWORD position = SetFilePointer(reference.handle, 0, nullptr, FILE_CURRENT);
@@ -114,7 +114,7 @@ namespace Yelo
 			return position;
 		}
 
-		bool PLATFORM_API file_set_eof(s_file_reference& reference, uint32 position)
+		bool __cdecl file_set_eof(s_file_reference& reference, uint32 position)
 		{
 			reference.Verify();
 			if (file_set_position(reference, position))

@@ -42,7 +42,7 @@ namespace Yelo
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(real, skip_fraction);
 			TAG_FIELD(real, gain);
-			TAG_FIELD(_enum, compression);
+			TAG_FIELD(short, compression);
 			TAG_FIELD(int16, next_permutation_index);
 
 			datum_index cache_block_index;		// 0x2C
@@ -59,7 +59,7 @@ namespace Yelo
 
 			TAG_FIELD(tag_data, mouth_data);
 			TAG_FIELD(tag_data, subtitle_data);
-		}; BOOST_STATIC_ASSERT( sizeof(s_sound_permutation) == 0x7C );
+		}; static_assert( sizeof(s_sound_permutation) == 0x7C );
 
 		struct s_sound_pitch_range
 		{
@@ -70,7 +70,7 @@ namespace Yelo
 			PAD16;
 			TAG_PAD(tag_block, 1);
 			TAG_TBLOCK_(permutations, s_sound_permutation);
-		}; BOOST_STATIC_ASSERT( sizeof(s_sound_pitch_range) == 0x48 );
+		}; static_assert( sizeof(s_sound_pitch_range) == 0x48 );
 
 		struct s_sound_definition_playback_parameters
 		{
@@ -99,15 +99,15 @@ namespace Yelo
 			enum { k_group_tag = 'snd!' };
 
 			TAG_FIELD(long_flags, flags, Flags::sound_definition_flags);
-			TAG_FIELD(_enum, sound_class);
-			TAG_FIELD(_enum, sample_rate);
+			TAG_FIELD(short, sound_class);
+			TAG_FIELD(short, sample_rate);
 
 			TAG_FIELD(s_sound_definition_playback_parameters, playback_parameters);
 			// unused, when-scale-is-ZERO, unused, when-scale-is-ONE, unused
 			TAG_FIELD(s_sound_definition_scale_modifiers, scale_modifiers)[5];
 
-			TAG_FIELD(_enum, encoding);
-			TAG_FIELD(_enum, compression);
+			TAG_FIELD(short, encoding);
+			TAG_FIELD(short, compression);
 
 			TAG_FIELD(s_sound_promotion_parameters, promotion_parameters);
 
@@ -118,7 +118,7 @@ namespace Yelo
 			{
 				return !TEST_FLAG(flags, Flags::_sound_definition_never_share_resources_yelo_bit);
 			}
-		}; BOOST_STATIC_ASSERT( sizeof(sound_definition) == 0xA4 );
+		}; static_assert( sizeof(sound_definition) == 0xA4 );
 
 
 		struct looping_sound_definition
@@ -142,6 +142,6 @@ namespace Yelo
 			TAG_FIELD(tag_reference, continuous_damage_effect, "cdmg");
 			TAG_BLOCK(tracks, looping_sound_track);
 			TAG_BLOCK(detail_sounds, looping_sound_detail);
-		}; BOOST_STATIC_ASSERT( sizeof(looping_sound_definition) == 0x54 );
+		}; static_assert( sizeof(looping_sound_definition) == 0x54 );
 	};
 };

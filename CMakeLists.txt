@@ -314,7 +314,7 @@ set(HS_H
 	hs/object_lists_structures.hpp
 	hs/runtime.hpp
 	hs/runtime_structures.hpp
-	hs/scenario_definitions.hpp
+	hs/scenario.hpp
 	hs/structures.hpp
 	hs/threads.hpp
 	hs/types.hpp
@@ -412,7 +412,7 @@ set(ACTORS_H
 	ai/actors/actor_perception.hpp
 	ai/actors/actor_moving.hpp
 	ai/actors/actor_looking.hpp
-	ai/actors/actor_combat.hpp)
+	ai/actors/actor_combat.hpp ai/actors/tranform_manager.h)
 
 set(CSERIES_H
 	cseries/MacrosCpp.h

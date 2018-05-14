@@ -10,8 +10,8 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum unit_seat_animation : _enum;
-		enum unit_animation_keyframe: _enum;
+		enum unit_seat_animation : short;
+		enum unit_animation_keyframe: short;
 	};
 
 	namespace Objects

@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum actor_action : _enum;
+		enum actor_action : short;
 
 		enum {
 			k_maximum_number_of_units_per_swarm = 16,
@@ -18,7 +18,7 @@ namespace Yelo
 			k_maximum_number_of_active_swarms = 32,
 		};
 
-		enum actor_default_state : _enum
+		enum actor_default_state : short
 		{
 			_actor_default_state_none,
 			_actor_default_state_sleeping,
@@ -36,13 +36,13 @@ namespace Yelo
 			k_number_of_actor_default_states,
 		};
 
-		enum actor_fire_target : _enum
+		enum actor_fire_target : short
 		{
 			_actor_fire_target_prop = 1,
 			_actor_fire_target_manual_point = 2,
 		};
 
-		enum actor_acknowledgement : _enum
+		enum actor_acknowledgement : short
 		{
 			_actor_acknowledgement_never,
 			_actor_acknowledgement_combat,
@@ -51,7 +51,7 @@ namespace Yelo
 			_actor_acknowledgement_definite,
 		};
 
-		enum actor_knowledge_type : _enum
+		enum actor_knowledge_type : short
 		{
 			_actor_knowledge_type_noncombat0,
 			_actor_knowledge_type_guard1,

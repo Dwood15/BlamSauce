@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum ui_widget_replace_function : _enum
+		enum ui_widget_replace_function : short
 		{
 			_ui_widget_replace_function_null,
 			_ui_widget_replace_function_widget_s_controller,

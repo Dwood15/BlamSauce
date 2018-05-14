@@ -58,7 +58,7 @@ namespace Yelo
 		}
 
 
-		cstring PLATFORM_API tag_database_entry_reference_block_format(
+		cstring __cdecl tag_database_entry_reference_block_format(
 			datum_index tag_index, 
 			tag_block* block, 
 			int32 element, 
@@ -80,7 +80,7 @@ namespace Yelo
 			return formatted_buffer;
 		}
 
-		cstring PLATFORM_API tag_database_entry_block_format(
+		cstring __cdecl tag_database_entry_block_format(
 			datum_index tag_index, 
 			tag_block* block, 
 			int32 element, 

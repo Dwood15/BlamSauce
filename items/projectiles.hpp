@@ -31,7 +31,7 @@ namespace Yelo
 		{
 			// FLAG(1) - tracer
 			long_flags flags;									// 0x22C
-			_enum action;										// 0x230
+			short action;										// 0x230
 			UNKNOWN_TYPE(int16);								// 0x232, material index
 			datum_index source_unit_index;						// 0x234
 			datum_index target_object_index;					// 0x238

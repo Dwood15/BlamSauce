@@ -18,8 +18,8 @@ namespace Yelo
 		// print the tag names which failed to load to the normal error output (as warnings)
 		void tag_load_error_string_print();
 
-		bool PLATFORM_API tag_data_load(void* block_element, tag_data* data, void* address);
-		void PLATFORM_API tag_data_unload(void* block_element, tag_data* data);
+		bool __cdecl tag_data_load(void* block_element, tag_data* data, void* address);
+		void __cdecl tag_data_unload(void* block_element, tag_data* data);
 
 		bool tag_block_read_children_recursive(const tag_block_definition *definition, void *address, int32 count, 
 			int32 *position_reference, long_flags read_flags,

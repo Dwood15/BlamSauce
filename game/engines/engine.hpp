@@ -62,7 +62,7 @@ namespace Yelo
 		{
 			cstring name;											// 0x0
 
-			_enum type;												// 0x4
+			short type;												// 0x4
 			PAD16;													// 0x6
 
 			typedef void (__cdecl* _dispose)();

@@ -3,7 +3,7 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum periodic_function : _enum {
+		enum periodic_function : short {
 			_periodic_function_one,
 			_periodic_function_zero,
 			_periodic_function_cosine,
@@ -20,7 +20,7 @@ namespace Yelo {
 			k_number_of_periodic_functions,
 		};
 
-		enum transition_function : _enum {
+		enum transition_function : short {
 			_transition_function_linear,
 			_transition_function_early,
 			_transition_function_very_early,

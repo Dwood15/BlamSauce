@@ -318,7 +318,7 @@ namespace Yelo
 	namespace blam
 	{
 #if PLATFORM_IS_EDITOR
-		bool PLATFORM_API tag_file_open_impl(tag group_tag, cstring filename,
+		bool __cdecl tag_file_open_impl(tag group_tag, cstring filename,
 			_Out_opt_ bool* is_readonly, _Out_opt_ uint32* crc, bool from_file_system)
 		{
 			auto& globals = *TagGroups::TagFileGlobals();

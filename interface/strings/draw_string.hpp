@@ -14,7 +14,7 @@ namespace Yelo
 			k_maximum_number_of_tab_stops = 16,
 		};
 
-		enum text_style : _enum
+		enum text_style : short
 		{
 			_text_style_plain = NONE,
 
@@ -24,7 +24,7 @@ namespace Yelo
 			_text_style_underline,
 		};
 
-		enum text_justification : _enum
+		enum text_justification : short
 		{
 			_text_justification_left,
 			_text_justification_right,

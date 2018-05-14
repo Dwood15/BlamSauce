@@ -22,7 +22,7 @@ namespace Yelo
 
 			//TStructGetPtrImpl(bool,				, 0xA);
 
-			//TStructGetPtrImpl(_enum,				, 0xC);
+			//TStructGetPtrImpl(short,				, 0xC);
 			//TStructGetPtrImpl(bool,				unable_to_flee, 0xE);
 			//TStructGetPtrImpl(bool,				done_fleeing, 0xF);
 			//TStructGetPtrImpl(bool,				, 0x10); // true if they're blindly fleeing and speaking

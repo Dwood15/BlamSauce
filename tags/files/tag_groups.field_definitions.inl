@@ -85,8 +85,8 @@ namespace Yelo { namespace TagGroups {
 			"angle" },
 		{ sizeof(tag),					"tag",					k_long_integer_byte_swap_codes,
 			"tag" },
-		{ sizeof(_enum),				"enum",					k_short_integer_byte_swap_codes,
-			"_enum" },
+		{ sizeof(short),				"enum",					k_short_integer_byte_swap_codes,
+			"short" },
 		{ sizeof(long_flags),			"long flags",			k_long_integer_byte_swap_codes,
 			"long_flags" },
 		{ sizeof(word_flags),			"word flags",			k_short_integer_byte_swap_codes,
@@ -162,5 +162,5 @@ namespace Yelo { namespace TagGroups {
 		{ 0,							"custom",				k_custom_byte_swap_codes },
 		{ 0,							"terminator X",			k_terminator_byte_swap_codes },
 
-	}; BOOST_STATIC_ASSERT( NUMBEROF(k_tag_field_definitions) == Enums::k_number_of_tag_field_types );
+	}; static_assert( NUMBEROF(k_tag_field_definitions) == Enums::k_number_of_tag_field_types );
 }; };

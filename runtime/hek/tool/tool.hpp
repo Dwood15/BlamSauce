@@ -20,7 +20,7 @@ namespace Yelo
 
 	namespace Tool
 	{
-		typedef void (PLATFORM_API* proc_import_class)(char* arguments[]);
+		typedef void (__cdecl* proc_import_class)(char* arguments[]);
 
 		struct s_import_class {
 			cstring				name;

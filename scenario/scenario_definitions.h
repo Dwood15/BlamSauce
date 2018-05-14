@@ -7,13 +7,14 @@
 */
 #pragma once
 
-#include "../tag_helpers/tag_groups_markup.h"
 #include "../cseries/base.h"
 #include "../math/real_math.h"
 #include "../memory/datum_index.h"
 #include "../math/integer_math.h"
 #include "../math/color_math.h"
 #include "scenario.h"
+#include "../tags/group/tag_groups_markup.h"
+#include "../tags/group/tag_groups_base.h"
 
 namespace Yelo {
 	namespace Enums {

@@ -121,7 +121,7 @@ namespace Yelo
 			return weapons_block.animations[animation_class];
 		}
 
-		void PLATFORM_API BipedSeatedMelee(const datum_index unit_index)
+		void __cdecl BipedSeatedMelee(const datum_index unit_index)
 		{
 			auto* biped_datum = blam::object_try_and_get_and_verify_type<s_biped_datum>(unit_index);
 			if(!biped_datum || (biped_datum->unit.vehicle_seat_index == NONE))
@@ -300,9 +300,9 @@ namespace Yelo
 				{ nullptr },
 				//_unit_animation_state_yelo_unit_transforming
 				{ nullptr },
-			}; BOOST_STATIC_ASSERT(NUMBEROF(g_animation_state_handlers) == (Enums::_unit_animation_state_yelo - Enums::_unit_animation_state));
+			}; static_assert(NUMBEROF(g_animation_state_handlers) == (Enums::_unit_animation_state_yelo - Enums::_unit_animation_state));
 
-			void PLATFORM_API AnimationStateDefinedKeyframe(const datum_index unit_index, const Enums::unit_animation_state state)
+			void __cdecl AnimationStateDefinedKeyframe(const datum_index unit_index, const Enums::unit_animation_state state)
 			{
 				auto& handler = g_animation_state_handlers[state - Enums::_unit_animation_state];
 				if(handler)
@@ -322,7 +322,7 @@ namespace Yelo
 				}
 			}
 
-			void PLATFORM_API AnimationStateFinalKeyframe(const datum_index unit_index, const Enums::unit_animation_state state)
+			void __cdecl AnimationStateFinalKeyframe(const datum_index unit_index, const Enums::unit_animation_state state)
 			{
 				auto& handler = g_animation_state_handlers[state - Enums::_unit_animation_state];
 				if(handler)

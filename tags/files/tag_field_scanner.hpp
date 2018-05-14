@@ -60,7 +60,7 @@ namespace Yelo
 			void InitializeWhatNewDoesnt();
 			// DON'T TOUCH ME UNLESS YOUR NAME IS c_tag_field_scanner
 			void SetYeloScanState()		{ pad = TRUE; }
-		}; BOOST_STATIC_ASSERT( sizeof(s_tag_field_scan_state) == 0x64 );
+		}; static_assert( sizeof(s_tag_field_scan_state) == 0x64 );
 
 
 		class c_tag_field_scanner
@@ -190,11 +190,11 @@ namespace Yelo
 
 	namespace blam
 	{
-		TagGroups::s_tag_field_scan_state& PLATFORM_API tag_field_scan_state_new(TagGroups::s_tag_field_scan_state& state, 
+		TagGroups::s_tag_field_scan_state& __cdecl tag_field_scan_state_new(TagGroups::s_tag_field_scan_state& state,
 			const tag_field* fields, void* block_element);
-		void PLATFORM_API tag_field_scan_state_add_field_type(TagGroups::s_tag_field_scan_state& state, 
+		void __cdecl tag_field_scan_state_add_field_type(TagGroups::s_tag_field_scan_state& state,
 			Enums::field_type field_type);
-		bool PLATFORM_API tag_field_scan(TagGroups::s_tag_field_scan_state& state);
+		bool __cdecl tag_field_scan(TagGroups::s_tag_field_scan_state& state);
 	};
 };
 

@@ -315,7 +315,7 @@ namespace Yelo
 			Enums::field_type type;
 			switch (enum_size)
 			{
-			case sizeof(_enum): type = Enums::_field_enum; break;
+			case sizeof(short): type = Enums::_field_enum; break;
 
 			YELO_ASSERT_CASE_UNREACHABLE();
 			}

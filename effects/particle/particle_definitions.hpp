@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum particle_orientation : _enum
+		enum particle_orientation : short
 		{
 			_particle_orientation_screen_facing,
 			_particle_orientation_parallel_to_direction,

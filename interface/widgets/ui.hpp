@@ -17,7 +17,7 @@ namespace Yelo
 			cstring name;						// 0x4
 			int16 local_player_index;			// 0x8
 			point2d position;					// 0xA
-			_enum widget_type;					// 0xE
+			short widget_type;					// 0xE
 			bool visible;						// 0x10
 			bool render_regardless_of_controller_index; // 0x11
 			UNKNOWN_TYPE(bool);					// 0x12

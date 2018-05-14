@@ -142,7 +142,7 @@ namespace Yelo
 		return name && *name == '\0'; // yes, a field with no name wouldn't be considered 'invisible', according to engine code
 	}
 
-	int32 tag_block_definition::FindFieldIndex(_enum field_type, cstring name, int32 start_index) const
+	int32 tag_block_definition::FindFieldIndex(short field_type, cstring name, int32 start_index) const
 	{
 		YELO_ASSERT( this );
 		YELO_ASSERT( this->fields );
@@ -162,7 +162,7 @@ namespace Yelo
 		return NONE;
 	}
 
-	tag_field* tag_block_definition::FindField(_enum field_type, cstring name, int32 start_index)
+	tag_field* tag_block_definition::FindField(short field_type, cstring name, int32 start_index)
 	{
 		int32 index = FindFieldIndex(field_type, name, start_index);
 
@@ -218,7 +218,7 @@ namespace Yelo
 
 	namespace blam
 	{
-		datum_index PLATFORM_API find_tag_instance(tag group_tag, cstring name)
+		datum_index __cdecl find_tag_instance(tag group_tag, cstring name)
 		{
 			for(auto instance : TagGroups::TagInstances())
 			{
@@ -231,7 +231,7 @@ namespace Yelo
 			return datum_index::null;
 		}
 
-		void* PLATFORM_API tag_get(tag group_tag, datum_index tag_index)
+		void* __cdecl tag_get(tag group_tag, datum_index tag_index)
 		{
 			s_tag_instance* instance = TagGroups::TagInstances()[tag_index];
 			void* instance_address = instance->root_block.address;
@@ -259,7 +259,7 @@ namespace Yelo
 				tag_index, group_name, instance_group_name);
 		}
 
-		/*static*/ void PLATFORM_API tag_block_generate_default_element(const tag_block_definition *definition, void *address)
+		/*static*/ void __cdecl tag_block_generate_default_element(const tag_block_definition *definition, void *address)
 		{
 			memset(address, 0, definition->element_size);
 
@@ -280,13 +280,13 @@ namespace Yelo
 			}
 		}
 
-		void PLATFORM_API tag_iterator_new(TagGroups::s_tag_iterator& iter, const tag group_tag_filter)
+		void __cdecl tag_iterator_new(TagGroups::s_tag_iterator& iter, const tag group_tag_filter)
 		{
 			data_iterator_new(iter.instances_iterator, &TagGroups::TagInstances().Header);
 			iter.group_tag_filter = group_tag_filter;
 		}
 
-		datum_index PLATFORM_API tag_iterator_next(TagGroups::s_tag_iterator& iter)
+		datum_index __cdecl tag_iterator_next(TagGroups::s_tag_iterator& iter)
 		{
 			tag group_tag_filter = iter.group_tag_filter;
 
@@ -307,7 +307,7 @@ namespace Yelo
 		}
 
 
-		void PLATFORM_API tag_reference_clear(tag_reference& reference)
+		void __cdecl tag_reference_clear(tag_reference& reference)
 		{
 			// The engine's code will free (ie, YELO_FREE) the reference's name 
 			// when tag_block_delete_element (which is called by tag_unload) is ran
@@ -319,7 +319,7 @@ namespace Yelo
 			reference.tag_index = datum_index::null;
 		}
 
-		void PLATFORM_API tag_reference_set(tag_reference& reference, tag group_tag, cstring name)
+		void __cdecl tag_reference_set(tag_reference& reference, tag group_tag, cstring name)
 		{
 			YELO_ASSERT( group_tag==NONE || tag_group_get(group_tag) );
 			reference.group_tag = group_tag;
@@ -334,7 +334,7 @@ namespace Yelo
 			reference.name_length = name_length;
 		}
 
-		datum_index PLATFORM_API tag_reference_try_and_get(const tag_reference* reference)
+		datum_index __cdecl tag_reference_try_and_get(const tag_reference* reference)
 		{
 			YELO_ASSERT(reference);
 
@@ -346,7 +346,7 @@ namespace Yelo
 			return loaded_tag_index;
 		}
 
-		bool PLATFORM_API tag_reference_resolve(_Inout_ tag_reference* reference)
+		bool __cdecl tag_reference_resolve(_Inout_ tag_reference* reference)
 		{
 			YELO_ASSERT(reference);
 
@@ -375,7 +375,7 @@ namespace Yelo
 			return success;
 		}
 
-		bool PLATFORM_API tag_data_resize(tag_data* data, int32 new_size)
+		bool __cdecl tag_data_resize(tag_data* data, int32 new_size)
 		{
 			YELO_ASSERT(data && data->definition);
 			YELO_ASSERT(data->address);
@@ -405,7 +405,7 @@ namespace Yelo
 			return result;
 		}
 
-		void* PLATFORM_API tag_data_get_pointer(tag_data& data, int32 offset, int32 size)
+		void* __cdecl tag_data_get_pointer(tag_data& data, int32 offset, int32 size)
 		{
 			YELO_ASSERT(size >= 0);
 			YELO_ASSERT(offset >= 0 && offset+size <= data.size);
@@ -447,7 +447,7 @@ namespace Yelo
 				}
 			}
 		}
-		void PLATFORM_API tag_block_delete_element(tag_block* block, int32 element_index)
+		void __cdecl tag_block_delete_element(tag_block* block, int32 element_index)
 		{
 			YELO_ASSERT( block && block->definition );
 			YELO_ASSERT( block->count>=0 );
@@ -477,7 +477,7 @@ namespace Yelo
 			}
 		}
 
-		int32 PLATFORM_API tag_block_add_element(tag_block* block)
+		int32 __cdecl tag_block_add_element(tag_block* block)
 		{
 			YELO_ASSERT( block && block->definition );
 
@@ -514,7 +514,7 @@ namespace Yelo
 			return add_index;
 		}
 
-		bool PLATFORM_API tag_block_resize(tag_block* block, int32 element_count)
+		bool __cdecl tag_block_resize(tag_block* block, int32 element_count)
 		{
 			YELO_ASSERT( block && block->definition );
 			YELO_ASSERT( block->count>=0 );
@@ -534,7 +534,7 @@ namespace Yelo
 		}
 	};
 
-	static int32 PLATFORM_API tag_block_insert_element_impl(tag_block* block, int32 index)
+	static int32 __cdecl tag_block_insert_element_impl(tag_block* block, int32 index)
 	{
 		YELO_ASSERT( block && block->definition ); // engine actually does the asserts these after the allocation
 		YELO_ASSERT( index>=0 && index<=block->count );
@@ -640,7 +640,7 @@ namespace Yelo
 		return true;
 	}
 
-	int32 PLATFORM_API tag_block_duplicate_element_impl(tag_block* block, int32 element_index)
+	int32 __cdecl tag_block_duplicate_element_impl(tag_block* block, int32 element_index)
 	{
 		int dup_index = blam::tag_block_add_element(block);
 		if(dup_index != NONE)
@@ -653,7 +653,7 @@ namespace Yelo
 		return dup_index;
 	}
 
-	bool PLATFORM_API tag_block_swap_elements_impl(tag_block *block, int32 left_element_index, int32 right_element_index)
+	bool __cdecl tag_block_swap_elements_impl(tag_block *block, int32 left_element_index, int32 right_element_index)
 	{
 		YELO_ASSERT( block && block->definition ); // engine actually does this after the allocation
 

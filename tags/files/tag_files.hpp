@@ -41,10 +41,10 @@ namespace Yelo
 	namespace blam
 	{
 #if PLATFORM_IS_EDITOR
-		void PLATFORM_API tag_files_flush();
+		void __cdecl tag_files_flush();
 
 
-		bool PLATFORM_API tag_file_open(tag group_tag, cstring filename, 
+		bool __cdecl tag_file_open(tag group_tag, cstring filename,
 			_Out_opt_ bool* is_readonly, _Out_opt_ uint32* crc, bool from_file_system);
 		template<typename T> inline
 		bool tag_file_open(cstring filename, 
@@ -53,10 +53,10 @@ namespace Yelo
 			return tag_file_open(T::k_group_tag, filename, is_readonly, crc, from_file_system);
 		}
 
-		bool PLATFORM_API tag_file_read(int32 file_position, size_t buffer_size, void* buffer);
+		bool __cdecl tag_file_read(int32 file_position, size_t buffer_size, void* buffer);
 
 		// Is the tag file read only?
-		bool PLATFORM_API tag_file_read_only(tag group_tag, cstring name);
+		bool __cdecl tag_file_read_only(tag group_tag, cstring name);
 		template<typename T> inline
 		bool tag_file_read_only(cstring name)
 		{
@@ -64,14 +64,14 @@ namespace Yelo
 		}
 
 		// Does the tag file exist?
-		bool PLATFORM_API tag_file_exists(tag group_tag, cstring name);
+		bool __cdecl tag_file_exists(tag group_tag, cstring name);
 		template<typename T> inline
 		bool tag_file_exists(cstring name)
 		{
 			return tag_file_exists(T::k_group_tag, name);
 		}
 
-		bool PLATFORM_API tag_file_get_file_reference(_Out_ s_file_reference& reference,
+		bool __cdecl tag_file_get_file_reference(_Out_ s_file_reference& reference,
 			tag group_tag, _In_opt_ cstring name);
 #endif
 

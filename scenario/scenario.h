@@ -5,18 +5,11 @@
 #include "../cseries/base.h"
 #include "../memory/datum_index.h"
 #include "../math/real_math.h"
+#include "scenario_definitions.h"
+#include "../game/globals/globals_definitions.hpp"
+#include "../models/collision/bsp_definitions.hpp"
 
 namespace Yelo {
-	namespace TagGroups {
-		struct scenario_structure_bsp_reference;
-		struct scenario;
-
-		struct collision_bsp;
-		struct structure_bsp;
-
-		struct s_game_globals;
-	};
-
 	namespace Enums {
 		enum {
 			k_maximum_object_names_per_scenario = 512,

@@ -11,7 +11,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum material_type : _enum
+		enum material_type : short
 		{
 			_material_type_none = NONE,
 

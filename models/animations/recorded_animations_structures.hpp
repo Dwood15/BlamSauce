@@ -23,7 +23,7 @@ namespace Yelo
 			void* event_stream;
 			Objects::s_unit_control_data control_data;
 			s_recorded_animation_controller controller;
-			_enum codec; // see Enums::e_recorded_animation_version
+			short codec; // see Enums::e_recorded_animation_version
 			PAD16;
 		}; static_assert( sizeof(s_recorded_animations_datum) == 0x64 );
 	};

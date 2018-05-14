@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum actor_type : _enum
+		enum actor_type : short
 		{
 			_actor_type_elite,
 			_actor_type_jackal,

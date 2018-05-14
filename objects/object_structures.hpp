@@ -234,7 +234,7 @@ namespace Yelo
 			real_point3d center;															// 0xA0
 			real radius;																	// 0xBC
 			real scale;																		// 0xB0
-			_enum type;																		// 0xB4
+			short type;																		// 0xB4
 			PAD16;
 			Enums::game_team owner_team;													// 0xB8
 			int16 name_list_index;															// 0xBA

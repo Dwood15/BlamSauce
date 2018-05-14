@@ -189,7 +189,7 @@ namespace Yelo
 			bool are_all_dead;																// 0x10
 			bool input_disabled;															// 0x11
 			UNKNOWN_TYPE(int16);															// 0x12, bsp switch trigger index
-			_enum respawn_failure;															// 0x14
+			short respawn_failure;															// 0x14
 			bool was_teleported;															// 0x16, or respawned
 			PAD8;
 			long_flags combined_pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];						// 0x18 combined pvs of all players in the game

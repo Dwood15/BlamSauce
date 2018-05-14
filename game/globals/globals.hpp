@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum unit_grenade_type : _enum
+		enum unit_grenade_type : short
 		{
 			_unit_grenade_type_frag,
 			_unit_grenade_type_plasma,

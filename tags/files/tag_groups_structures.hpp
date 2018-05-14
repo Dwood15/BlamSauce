@@ -28,7 +28,7 @@ namespace Yelo
 			k_tag_field_markup_character_units_prefix =	':',
 			k_tag_field_markup_character_block_name =	'^',
 		};
-		enum field_type : _enum
+		enum field_type : short
 		{
 			_field_string,
 			_field_char_integer,
@@ -167,18 +167,18 @@ namespace Yelo
 		bool IsBlockName() const;
 		bool IsInvisible() const;
 #endif
-	}; BOOST_STATIC_ASSERT( sizeof(tag_field) == 0xC );
+	}; static_assert( sizeof(tag_field) == 0xC );
 
 	// Called as each element is read from the tag stream
 	// NOTE: tag_index is non-standard, and will only be valid when invoked by OS code.
-	// We can add additional parameters so long as PLATFORM_API is __cdecl (where the caller cleans up the stack).
+	// We can add additional parameters so long as __cdecl is __cdecl (where the caller cleans up the stack).
 	// NOTE: tag_index is not guaranteed to be not NONE! Eg: tag_block_add_element
-	typedef bool (PLATFORM_API* proc_tag_block_postprocess_element)(void* element, Enums::tag_postprocess_mode mode,
+	typedef bool (__cdecl* proc_tag_block_postprocess_element)(void* element, Enums::tag_postprocess_mode mode,
 		datum_index tag_index);
 	// if [formatted_buffer] returns empty, the default block formatting is done
-	typedef cstring (PLATFORM_API* proc_tag_block_format)(datum_index tag_index, tag_block* block, int32 element_index, char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
+	typedef cstring (__cdecl* proc_tag_block_format)(datum_index tag_index, tag_block* block, int32 element_index, char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 	// Procedure called during tag_block_delete_element, but before all the child data is freed
-	typedef void (PLATFORM_API* proc_tag_block_delete_element)(tag_block* block, int32 element_index);
+	typedef void (__cdecl* proc_tag_block_delete_element)(tag_block* block, int32 element_index);
 	struct tag_block_definition
 	{
 		cstring name;
@@ -197,8 +197,8 @@ namespace Yelo
 		// Searches the definition for a field of type [field_type] with a name which starts 
 		// with [name] characters. Optionally starts at a specific field index.
 		// Returns NONE if this fails.
-		int32 FindFieldIndex(_enum field_type, cstring name, int32 start_index = NONE) const;
-		tag_field* FindField(_enum field_type, cstring name, int32 start_index = NONE);
+		int32 FindFieldIndex(short field_type, cstring name, int32 start_index = NONE) const;
+		tag_field* FindField(short field_type, cstring name, int32 start_index = NONE);
 		tag_block_definition* FindBlockField(cstring name, int32 start_index = NONE);
 
 		size_t GetAlignmentBit() const;
@@ -279,9 +279,9 @@ namespace Yelo
 			return s_field_iterator();
 		}
 #endif
-	}; BOOST_STATIC_ASSERT( sizeof(tag_block_definition) == 0x2C );
+	}; static_assert( sizeof(tag_block_definition) == 0x2C );
 
-	typedef void (PLATFORM_API* proc_tag_data_byte_swap)(void* block_element, void* address, int32 size);
+	typedef void (__cdecl* proc_tag_data_byte_swap)(void* block_element, void* address, int32 size);
 	struct tag_data_definition
 	{
 		cstring name;
@@ -296,7 +296,7 @@ namespace Yelo
 				TEST_FLAG(flags, Flags::_tag_data_never_streamed_bit) ||
 				TEST_FLAG(flags, Flags::_tag_data_not_streamed_to_cache_bit);
 		}
-	}; BOOST_STATIC_ASSERT( sizeof(tag_data_definition) == 0x10 );
+	}; static_assert( sizeof(tag_data_definition) == 0x10 );
 
 	struct tag_reference_definition
 	{
@@ -339,11 +339,11 @@ namespace Yelo
 			return s_group_tag_iterator();
 		}
 #endif
-	}; BOOST_STATIC_ASSERT( sizeof(tag_reference_definition) == 0xC );
+	}; static_assert( sizeof(tag_reference_definition) == 0xC );
 
 	// Postprocess a tag definition (eg, automate the creation of fields, etc)
 	// Called once the tag has been fully loaded (header_block_definition's postprocess is called before this)
-	typedef bool (PLATFORM_API* proc_tag_group_postprocess)(datum_index tag_index, Enums::tag_postprocess_mode mode);
+	typedef bool (__cdecl* proc_tag_group_postprocess)(datum_index tag_index, Enums::tag_postprocess_mode mode);
 	struct tag_group
 	{
 		cstring name;
@@ -367,7 +367,7 @@ namespace Yelo
 
 		static int __cdecl SearchByNameProc(void*, cstring key, const tag_group*const* group);
 #endif
-	}; BOOST_STATIC_ASSERT( sizeof(tag_group) == 0x60 );
+	}; static_assert( sizeof(tag_group) == 0x60 );
 
 
 	struct s_tag_instance : Memory::s_datum_base_aligned
@@ -382,7 +382,7 @@ namespace Yelo
 		datum_index reload_index;	// 0x114 index of the instance used to reload -this- tag's definition
 		uint32 file_checksum;		// 0x118
 		tag_block root_block;		// 0x11C
-	}; BOOST_STATIC_ASSERT( sizeof(s_tag_instance) == 0x128 );
+	}; static_assert( sizeof(s_tag_instance) == 0x128 );
 
 
 	namespace TagGroups

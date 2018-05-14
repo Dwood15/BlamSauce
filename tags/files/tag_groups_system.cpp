@@ -226,7 +226,7 @@ namespace Yelo
 		//////////////////////////////////////////////////////////////////////////
 		// system definitions
 
-		void PLATFORM_API tag_groups_initialize()
+		void __cdecl tag_groups_initialize()
 		{
 			TagGroups::VerifyTagGroupTags();
 
@@ -253,7 +253,7 @@ namespace Yelo
 			 TagGroups::TagInstances().MakeValid();
 		}
 
-		void PLATFORM_API tag_groups_dispose()
+		void __cdecl tag_groups_dispose()
 		{
 			if( *TagGroups::TagInstanceData() != nullptr )
 			{
@@ -271,17 +271,17 @@ namespace Yelo
 			destroy_group_parents();
 		}
 
-		void PLATFORM_API tag_groups_initialize_for_new_map()
+		void __cdecl tag_groups_initialize_for_new_map()
 		{
 		}
 
-		void PLATFORM_API tag_groups_dispose_from_old_map()
+		void __cdecl tag_groups_dispose_from_old_map()
 		{
 			for (auto kv : TagGroups::TagInstances())
 				tag_unload(kv.index);
 		}
 
-		uint32 PLATFORM_API tag_groups_checksum()
+		uint32 __cdecl tag_groups_checksum()
 		{
 			uint32 crc;
 			crc_new(crc);

@@ -14,9 +14,9 @@ namespace Yelo
 			k_maximum_filename_length = 255, // MAXIMUM_FILENAME_LENGTH
 		};
 
-		enum file_reference_location : _enum
+		enum file_reference_location : short
 		{
-			_file_reference_location_none = CAST(_enum, NONE),
+			_file_reference_location_none = CAST(short, NONE),
 			_file_reference_location_application_relative = 0, // _file_reference_application_relative
 			_file_reference_location_tags,
 			_file_reference_location_absolute, // _file_reference_absolute
@@ -59,24 +59,24 @@ namespace Yelo
 		void Verify() const;
 
 		static int __cdecl CompareProc(long_flags name_flags, const s_file_reference* lhs, const s_file_reference* rhs);
-	}; BOOST_STATIC_ASSERT( sizeof(s_file_reference) == 0x10C );
+	}; static_assert( sizeof(s_file_reference) == 0x10C );
 
 	namespace blam
 	{
-		void PLATFORM_API file_reference_create(s_file_reference& reference, long_enum location = Enums::_file_reference_location_tags);
+		void __cdecl file_reference_create(s_file_reference& reference, long_enum location = Enums::_file_reference_location_tags);
 
-		s_file_reference& PLATFORM_API file_reference_add_directory(s_file_reference& reference, cstring directory);
+		s_file_reference& __cdecl file_reference_add_directory(s_file_reference& reference, cstring directory);
 
-		s_file_reference& PLATFORM_API file_reference_set_name(s_file_reference& reference, cstring name);
+		s_file_reference& __cdecl file_reference_set_name(s_file_reference& reference, cstring name);
 
-		char* PLATFORM_API file_reference_get_name(const s_file_reference& reference, long_flags flags, __out char name[Enums::k_maximum_filename_length+1]);
+		char* __cdecl file_reference_get_name(const s_file_reference& reference, long_flags flags, __out char name[Enums::k_maximum_filename_length+1]);
 
 		s_file_reference& file_reference_create(s_file_reference& reference, cstring directory, cstring name, cstring ext, 
 			long_enum location = Enums::_file_reference_location_tags);
 
 		s_file_reference& file_reference_create_from_path(s_file_reference& reference, cstring path, bool is_directory = false);
 
-		int16 PLATFORM_API find_files(long_flags flags, const s_file_reference& directory, int32 maximum_count, s_file_reference references[]);
+		int16 __cdecl find_files(long_flags flags, const s_file_reference& directory, int32 maximum_count, s_file_reference references[]);
 		template<size_t _SizeOfArray>
 		int16 find_files(long_flags flags, const s_file_reference& directory, s_file_reference (&references)[_SizeOfArray])
 		{
@@ -93,36 +93,36 @@ namespace Yelo
 		void file_printf(s_file_reference& reference, cstring format, ...);
 
 
-		void PLATFORM_API file_error(cstring operation, const s_file_reference& reference);
+		void __cdecl file_error(cstring operation, const s_file_reference& reference);
 
-		bool PLATFORM_API file_create(const s_file_reference& reference);
+		bool __cdecl file_create(const s_file_reference& reference);
 
-		bool PLATFORM_API file_delete(const s_file_reference& reference);
+		bool __cdecl file_delete(const s_file_reference& reference);
 
-		bool PLATFORM_API file_exists(const s_file_reference& reference);
+		bool __cdecl file_exists(const s_file_reference& reference);
 
-		bool PLATFORM_API file_open(s_file_reference& reference, long_flags flags);
+		bool __cdecl file_open(s_file_reference& reference, long_flags flags);
 
-		bool PLATFORM_API file_close(s_file_reference& reference);
+		bool __cdecl file_close(s_file_reference& reference);
 
-		uint32 PLATFORM_API file_get_position(const s_file_reference& reference);
+		uint32 __cdecl file_get_position(const s_file_reference& reference);
 
-		bool PLATFORM_API file_set_position(s_file_reference& reference, uint32 position);
+		bool __cdecl file_set_position(s_file_reference& reference, uint32 position);
 
-		uint32 PLATFORM_API file_get_eof(const s_file_reference& reference);
+		uint32 __cdecl file_get_eof(const s_file_reference& reference);
 
-		bool PLATFORM_API file_set_eof(s_file_reference& reference, uint32 position);
+		bool __cdecl file_set_eof(s_file_reference& reference, uint32 position);
 
-		bool PLATFORM_API file_read(s_file_reference& reference, size_t buffer_size, void* buffer);
+		bool __cdecl file_read(s_file_reference& reference, size_t buffer_size, void* buffer);
 
-		bool PLATFORM_API file_write(s_file_reference& reference, size_t buffer_size, const void* buffer);
+		bool __cdecl file_write(s_file_reference& reference, size_t buffer_size, const void* buffer);
 
-		bool PLATFORM_API file_read_from_position(s_file_reference& reference, uint32 position,
+		bool __cdecl file_read_from_position(s_file_reference& reference, uint32 position,
 			size_t buffer_size, void* buffer);
 
-		bool PLATFORM_API file_write_to_position(const s_file_reference& reference, uint32 position,
+		bool __cdecl file_write_to_position(const s_file_reference& reference, uint32 position,
 			size_t buffer_size, const void* buffer);
 
-		bool PLATFORM_API file_read_only(const s_file_reference& reference);
+		bool __cdecl file_read_only(const s_file_reference& reference);
 	};
 };

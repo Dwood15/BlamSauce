@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum network_game_client_state : _enum
+		enum network_game_client_state : short
 		{
 			_network_game_client_state_searching,
 			_network_game_client_state_joining,

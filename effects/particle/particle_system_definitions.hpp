@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum particle_creation_physics : _enum
+		enum particle_creation_physics : short
 		{
 			_particle_creation_physics_default,
 			_particle_creation_physics_explosion,
@@ -20,20 +20,20 @@ namespace Yelo
 
 			_particle_creation_physics,
 		};
-		enum particle_update_physics : _enum
+		enum particle_update_physics : short
 		{
 			_particle_update_physics_default,
 
 			_particle_update_physics,
 		};
-		enum complex_sprite_render_modes : _enum
+		enum complex_sprite_render_modes : short
 		{
 			_complex_sprite_render_modes_simple,
 			_complex_sprite_render_modes_rotational,
 
 			_complex_sprite_render_modes,
 		};
-		enum system_update_physics : _enum
+		enum system_update_physics : short
 		{
 			_system_update_physics_default,
 			_system_update_physics_explosion,

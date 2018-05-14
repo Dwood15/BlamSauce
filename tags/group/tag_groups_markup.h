@@ -30,7 +30,7 @@
 #define TAG_BLOCK(name, block_type)         tag_block name
 // Used for blocks which need to allow non-const access
 #define TAG_TBLOCK_(name, block_type)      Yelo::TagBlock<block_type> name
-//#define TAG_TBLOCK(name, block_type)   Yelo::TagBlock<const block_type> name
+#define TAG_TBLOCK(name, block_type)   Yelo::TagBlock<const block_type> name
 
 // [arg2] = units
 // [arg3] = documentation

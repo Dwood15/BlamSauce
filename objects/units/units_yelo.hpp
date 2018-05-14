@@ -12,7 +12,7 @@ namespace Yelo
 	{
 		enum unit_animation_state : sbyte;
 
-		enum unit_animation_keyframe : _enum
+		enum unit_animation_keyframe : short
 		{
 			_unit_animation_keyframe_primary,
 			_unit_animation_keyframe_secondary,
@@ -72,7 +72,7 @@ namespace Yelo
 		/// <summary>	Handler for biped's meleeing whilst seated. </summary>
 		///
 		/// <param name="unit_index">	Datum index of the unit. </param>
-		void PLATFORM_API BipedSeatedMelee(const datum_index unit_index);
+		void __cdecl BipedSeatedMelee(const datum_index unit_index);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Returns whether a unit can enter a seat, handles multi team vehicles. </summary>
@@ -94,9 +94,9 @@ namespace Yelo
 			{
 				typedef void (*animation_state_keyframe_handler_t)(const datum_index, const Enums::unit_animation_keyframe);
 
-				void PLATFORM_API AnimationStateDefinedKeyframe(const datum_index unit_index, const Enums::unit_animation_state state);
+				void __cdecl AnimationStateDefinedKeyframe(const datum_index unit_index, const Enums::unit_animation_state state);
 
-				void PLATFORM_API AnimationStateFinalKeyframe(const datum_index unit_index, const Enums::unit_animation_state state);
+				void __cdecl AnimationStateFinalKeyframe(const datum_index unit_index, const Enums::unit_animation_state state);
 
 				void SetAnimationStateKeyframeHandler(const Enums::unit_animation_state state, animation_state_keyframe_handler_t handler);
 			}

@@ -94,7 +94,7 @@ namespace Yelo
 				int16 rounds_unloaded;				// 0x6
 				int16 rounds_loaded;				// 0x8
 				int16 rounds_left_to_recharge;		// 0xA number of rounds left to apply to rounds_loaded (based on tag's rounds_recharged)
-				UNKNOWN_TYPE(int16);				// 0xC I just know a WORD is here, may be an _enum
+				UNKNOWN_TYPE(int16);				// 0xC I just know a WORD is here, may be an short
 				PAD16; // ?
 			}; static_assert( sizeof(s_magazine_state) == 0x10 );
 			struct s_start_reload_data

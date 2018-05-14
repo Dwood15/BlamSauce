@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum contrail_render_type : _enum
+		enum contrail_render_type : short
 		{
 			_contrail_render_type_vertical_orientation,
 			_contrail_render_type_horizontal_orientation,

@@ -16,7 +16,7 @@ namespace Yelo
 			k_maximum_number_of_waypoints = 16,
 		};
 
-		enum hud_anchor : _enum
+		enum hud_anchor : short
 		{
 			_hud_anchor_top_left,
 			_hud_anchor_top_right,
@@ -28,7 +28,7 @@ namespace Yelo
 		};
 
 
-		enum hud_multitexture_overlay_effector_type : _enum
+		enum hud_multitexture_overlay_effector_type : short
 		{
 			_hud_multitexture_overlay_effector_type_tint,
 			_hud_multitexture_overlay_effector_type_horizontal_offset,
@@ -37,7 +37,7 @@ namespace Yelo
 
 			_hud_multitexture_overlay_effector_type,
 		};
-		enum hud_multitexture_overlay_effector_destination : _enum
+		enum hud_multitexture_overlay_effector_destination : short
 		{
 			_hud_multitexture_overlay_effector_destination_geometry_offset,
 			_hud_multitexture_overlay_effector_destination_primary_map,
@@ -46,7 +46,7 @@ namespace Yelo
 
 			_hud_multitexture_overlay_effector_destination,
 		};
-		enum hud_multitexture_overlay_effector_source : _enum
+		enum hud_multitexture_overlay_effector_source : short
 		{
 			_hud_multitexture_overlay_effector_source_player_pitch,
 			_hud_multitexture_overlay_effector_source_player_pitch_tangent,
@@ -60,14 +60,14 @@ namespace Yelo
 			_hud_multitexture_overlay_effector_source,
 		};
 
-		enum hud_multitexture_overlay_anchor : _enum
+		enum hud_multitexture_overlay_anchor : short
 		{
 			_hud_multitexture_overlay_anchor_texture,
 			_hud_multitexture_overlay_anchor_screen,
 
 			_hud_multitexture_overlay_anchor,
 		};
-		enum hud_multitexture_overlay_blend_mode : _enum
+		enum hud_multitexture_overlay_blend_mode : short
 		{
 			_hud_multitexture_overlay_blend_mode_add,
 			_hud_multitexture_overlay_blend_mode_subtract,
@@ -77,7 +77,7 @@ namespace Yelo
 
 			_hud_multitexture_overlay_blend_mode,
 		};
-		enum hud_multitexture_overlay_address : _enum
+		enum hud_multitexture_overlay_address : short
 		{
 			_hud_multitexture_overlay_address_clamp,
 			_hud_multitexture_overlay_address_wrap,

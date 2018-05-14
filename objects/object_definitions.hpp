@@ -70,7 +70,7 @@ namespace Yelo
 			k_number_of_object_function_bounds_modes,
 		};
 
-		enum object_change_color : _enum
+		enum object_change_color : short
 		{
 			_object_change_color_a,
 			_object_change_color_b,
@@ -79,7 +79,7 @@ namespace Yelo
 
 			k_number_of_object_change_colors,
 		};
-		enum object_change_color_reference : _enum
+		enum object_change_color_reference : short
 		{
 			_object_change_color_reference_none,
 			_object_change_color_reference_a,
@@ -115,9 +115,9 @@ namespace Yelo
 			tag_reference type;
 			tag_string marker;
 			struct {
-				_enum primary_scale;
-				_enum secondary_scale;
-				_enum change_color;
+				short primary_scale;
+				short secondary_scale;
+				short change_color;
 				PAD16;
 			}function_references; // Enums::object_function_reference
 			TAG_PAD(int32, 4);
@@ -197,7 +197,7 @@ namespace Yelo
 
 			real render_bounding_radius;
 			
-			_enum function_exports[Enums::k_number_of_incoming_object_functions];
+			short function_exports[Enums::k_number_of_incoming_object_functions];
 			TAG_PAD(int32, 11);
 			int16 hud_text_message_index;
 			int16 forced_shader_permutation;
