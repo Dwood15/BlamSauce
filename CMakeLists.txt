@@ -193,7 +193,7 @@ set(RUNTIME_H
 	)
 
 set(BITMAP_H
-	bitmaps/bitmap_grp.h)
+	tags/bitmap_grp.h)
 
 set(NETWORK_H
 	network/message_header.h
@@ -209,23 +209,23 @@ set(CACHE_H
 	cache/constants.hpp
 	cache/data_file.hpp
 	cache/data_file_structures.hpp
-	cache/pc_sound_cache.hpp
-	cache/texture_cache.hpp
-	cache/sound_cache.hpp
+	cache/shared/pc_sound_cache.hpp
+	cache/shared/texture_cache.hpp
+	cache/shared/sound_cache.hpp
 	cache/predicted_resources.hpp
 	cache/physical_memory_map_structures.hpp
 	cache/physical_memory_map.hpp
-	cache/pc_texture_cache.hpp
+	cache/shared/pc_texture_cache.hpp
 	cache/cache_files.hpp)
 
 set(CAMERA_H
-	camera/dead.hpp
-	camera/definitions.hpp
-	camera/director.hpp
-	camera/director_structures.hpp
-	camera/first_person.hpp
-	camera/following.hpp
-	camera/observer.hpp
+	interface/camera/dead.hpp
+	interface/camera/definitions.hpp
+	interface/camera/director.hpp
+	interface/camera/director_structures.hpp
+	interface/camera/first_person.hpp
+	interface/camera/following.hpp
+	interface/camera/observer.hpp
 	)
 
 set(M_ANIMATIONS_H
@@ -286,19 +286,19 @@ set(GAME_H
 	game/state.h game/engines/variants.h)
 
 set(EFFECTS_H
-	effects/contrail_definitions.hpp
-	effects/contrails.hpp
+	effects/contrail/contrail_definitions.hpp
+	effects/contrail/contrails.hpp
 	effects/effects_constants.hpp
-	effects/damage_effect_definitions.hpp
+	effects/damage/damage_effect_definitions.hpp
 	effects/effects.hpp
-	effects/weather_particle_systems.hpp
-	effects/weather_particle_system_definitions.hpp
-	effects/player_effects.hpp
-	effects/particles.hpp
-	effects/particle_systems.hpp
-	effects/particle_system_definitions.hpp
-	effects/particle_definitions.hpp
-	effects/material_effect_definitions.hpp
+	effects/particle/weather/weather_particle_systems.hpp
+	effects/particle/weather/weather_particle_system_definitions.hpp
+	effects/player/player_effects.hpp
+	effects/particle/particles.hpp
+	effects/particle/particle_systems.hpp
+	effects/particle/particle_system_definitions.hpp
+	effects/particle/particle_definitions.hpp
+	effects/material/material_effect_definitions.hpp
 	effects/effect_definitions.hpp
 	)
 
@@ -319,7 +319,6 @@ set(HS_H
 	hs/threads.hpp
 	hs/types.hpp
 	hs/types_compile.inl
-	hs/types_definitions.inl
 	hs/types_traits.hpp
 	hs/types_runtime.inl
 	)
@@ -429,8 +428,8 @@ set(MATH_H
 	math/matrix_math.h math/periodic_functions.h)
 
 set(INPUT_H
-	input/input_abstraction.h
-	input/input_windows.h)
+	interface/input/input_abstraction.h
+	interface/input/input_windows.h)
 
 set(MEMORY_H
 	memory/datum_index.h
@@ -463,8 +462,8 @@ set(OBJECTS_H
 	)
 
 set(TAG_HELPERS_H
-	tag_helpers/tag_groups_markup.h
-	tag_helpers/tag_groups_base.h)
+	tags/group/tag_groups_markup.h
+	tags/group/tag_groups_base.h)
 
 set(MAIN_H
 	main/main.h

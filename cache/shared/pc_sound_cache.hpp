@@ -5,8 +5,8 @@
 */
 #pragma once
 
-#include "../cseries/base.h"
-#include "../memory/data_base.h"
+#include "../../cseries/base.h"
+#include "../../memory/data_base.h"
 
 namespace Yelo {
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../cseries/base.h"
-#include "../cseries/MacrosCpp.h"
+#include "../../cseries/base.h"
+#include "../../cseries/MacrosCpp.h"
 
 namespace Yelo {
 	namespace Enums {

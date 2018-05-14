@@ -10,6 +10,9 @@
 #include "../primary.h"
 #include "../math/real_math.h"
 #include "../math/integer_math.h"
+#include "group/tag_groups_markup.h"
+#include "../memory/datum_index.h"
+#include "group/tag_groups_base.h"
 
 namespace Yelo {
 	namespace Enums {

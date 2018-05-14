@@ -5,13 +5,13 @@
 */
 #pragma once
 
-#include "../cseries/base.h"
-#include "../memory/data_base.h"
-#include "../bitmaps/bitmap_grp.h"
-#include "../hs/runtime.hpp"
-#include "../scenario/scenario.h"
-#include "../hs/hs.hpp"
-#include "../hs/structures.hpp"
+#include "../../cseries/base.h"
+#include "../../memory/data_base.h"
+#include "../../tags/bitmap_grp.h"
+#include "../../hs/runtime.hpp"
+#include "../../scenario/scenario.h"
+#include "../../hs/hs.hpp"
+#include "../../hs/structures.hpp"
 
 struct IDirect3DBaseTexture9;
 

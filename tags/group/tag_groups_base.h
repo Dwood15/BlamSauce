@@ -6,10 +6,10 @@
 */
 #pragma once
 
-#include "../cseries/MacrosCpp.h"
-#include "../cseries/base.h"
-#include "../memory/datum_index.h"
-#include "../memory/data.h"
+#include "../../cseries/MacrosCpp.h"
+#include "../../cseries/base.h"
+#include "../../memory/datum_index.h"
+#include "../../memory/data.h"
 
 namespace Yelo {
 	namespace Enums {

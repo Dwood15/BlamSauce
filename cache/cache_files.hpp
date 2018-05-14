@@ -11,7 +11,7 @@
 #include "cache_files_structures.hpp"
 #include "../primary.h"
 #include "physical_memory_map.hpp"
-#include "../bitmaps/bitmap_grp.h"
+#include "../tags/bitmap_grp.h"
 #include "data_file.hpp"
 #include "../interface/hud/hud_messaging_definitions.hpp"
 #include "constants.hpp"
