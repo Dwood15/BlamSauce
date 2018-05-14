@@ -142,7 +142,7 @@ namespace Yelo {
 		//TODO: Cache files!
 		// void scenario_structure_bsp_unload(TagGroups::scenario_structure_bsp_reference *reference) {
 		// 	cache_file_structure_bsp_unload(reference);
-		// 	reference->structure_bsp.tag_index = datum_index::null;
+		// 	reference->structure_bsp.tag_index = datum_index::null();
 		// }
 		//
 		// bool scenario_structure_bsp_load(TagGroups::scenario_structure_bsp_reference *reference) {
@@ -207,7 +207,7 @@ namespace Yelo {
 			// }
 			//
 			// for (scenario_netgame_equipment &equipment : scenario->netgame_equipment)
-			// 	equipment.runtime_object_index = datum_index::null;
+			// 	equipment.runtime_object_index = datum_index::null();
 			//
 			// return true;
 		}

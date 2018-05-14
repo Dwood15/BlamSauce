@@ -396,7 +396,7 @@ namespace Yelo {
 			auto *cache_header = &cache_file_globals.cache_header;
 			if (cache_file_globals.OpenMapFileOpen(scenario_name, cache_header) ||
 				 !cache_file_header_verify(cache_header, scenario_name, true)) {
-				return datum_index::null;
+				return datum_index::null();
 			}
 
 			auto *tag_header = CAST_PTR(Cache::s_cache_tag_header*, physical_memory_map_get_tag_cache_address());

@@ -10,6 +10,7 @@
 #include "structures.hpp"
 #include "threads.hpp"
 #include "../game/time/time.hpp"
+#include "hs_library_definitions_yelo.hpp"
 
 namespace Yelo {
 	namespace Enums {
@@ -27,13 +28,9 @@ namespace Yelo {
 		struct s_hs_globals_datum;
 		struct s_hs_runtime_globals;
 
-		typedef Memory::DataArray<s_hs_thread_datum,
-										  256>
-			hs_thread_data_t;
+		typedef Memory::DataArray<s_hs_thread_datum, 256> hs_thread_data_t;
 
-		typedef Memory::DataArray<s_hs_globals_datum,
-										  Enums::k_maximum_number_of_hs_globals>
-			hs_globals_data_t;
+		typedef Memory::DataArray<s_hs_globals_datum, Enums::k_maximum_number_of_hs_globals> hs_globals_data_t;
 
 		hs_thread_data_t &HsThreads();
 
@@ -442,7 +439,7 @@ namespace Yelo {
 				}
 			}
 
-			return datum_index::null;
+			return datum_index::null();
 		}
 	};
 

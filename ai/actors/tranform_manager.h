@@ -7,11 +7,13 @@
 */
 #include <algorithm>
 #include <vector>
+#include <functional>
 #include "../../cseries/MacrosCpp.h"
 #include "../../cseries/base.h"
 #include "../../game/allegiance.hpp"
 #include "../../memory/datum_index.h"
 #include "../../objects/objects.hpp"
+#include "../../objects/units/unit_transform_definition.hpp"
 #include "../../objects/object_structures.hpp"
 
 namespace Yelo::Enums {
@@ -19,10 +21,7 @@ namespace Yelo::Enums {
 	enum unit_animation_keyframe : short;
 };
 
-namespace Yelo::Objects {
-	struct s_damage_data;
-	struct s_unit_datum;
-};
+
 
 
 namespace Yelo::AI::Transform {
@@ -856,7 +855,7 @@ namespace Yelo::AI::Transform {
 		blam::actor_customize_unit(target.actor_variant, unit_index);
 
 		// Inherit the encounter and squad if desired
-		datum_index encounter_index = datum_index::null;
+		datum_index encounter_index = datum_index::null();
 		int16       squad_index     = NONE;
 
 		const auto actor_data = AI::Actors()[source_actor_index];
@@ -990,7 +989,7 @@ namespace Yelo::AI::Transform {
 		DestroyAttachments(unit_index, transform_out_definition);
 
 		bool delete_unit    = false;
-		auto new_unit_index = datum_index::null;
+		auto new_unit_index = datum_index::null();
 		if (TEST_FLAG(transform_target.flags, Flags::_actor_variant_transform_in_target_flags_try_to_use_existing_unit)
 			 && (unit_datum->object.definition_index == actor_variant_definition->unit.tag_index)) {
 			new_unit_index = CreateUnitReuse(unit_index, unit_datum, transform_target.team_handling, transform_state.m_instigator_team, transform_target.team_override);

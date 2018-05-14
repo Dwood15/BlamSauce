@@ -42,7 +42,7 @@ namespace Yelo {
 			}
 
 			// If the actor isn't in a vehicle...there's no vehicle to exit
-			auto *unit_datum = blam::object_get_and_verify_type<Objects::s_unit_datum>(actor_datum->meta.unit_index);
+			auto *unit_datum = blam::object_get_and_verify_type<Yelo::Objects::s_unit_datum>(actor_datum->meta.unit_index);
 			if (unit_datum->object.parent_object_index.IsNull() || unit_datum->unit.vehicle_seat_index == NONE) {
 				return false;
 			}

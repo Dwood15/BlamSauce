@@ -35,7 +35,7 @@ namespace Yelo {
 			datum_index prev_actor_index;
 
 			void SetEndHack() {
-				encounter_index = next_actor_index = prev_actor_index = datum_index::null;
+				encounter_index = next_actor_index = prev_actor_index = datum_index::null();
 			}
 
 			bool IsEndHack() const {

@@ -367,7 +367,7 @@ namespace Yelo {
 		// actually defined in ai_script.c
 		static s_hs_value_union object_list_from_ai_reference(s_hs_value_union value) {
 			if (value.int32 == NONE) {
-				value.datum = datum_index::null;
+				value.datum = datum_index::null();
 				return value;
 			}
 
@@ -399,7 +399,7 @@ namespace Yelo {
 		// _hs_type_object
 		static s_hs_value_union hs_object_to_object_list(s_hs_value_union value) {
 			if (value.datum.IsNull()) {
-				value.datum = datum_index::null;
+				value.datum = datum_index::null();
 				return value;
 			}
 
