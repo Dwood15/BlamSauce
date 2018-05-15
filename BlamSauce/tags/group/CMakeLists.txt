@@ -1,0 +1,11 @@
+set(GROUP_H
+	${CMAKE_CURRENT_SOURCE_DIR}/base.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/markup.h
+	${CMAKE_CURRENT_SOURCE_DIR}/field_definitions.inl
+	${CMAKE_CURRENT_SOURCE_DIR}/groups_structures.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/loading.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/saving.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/structure_macros.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/tag_groups.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/verification.hpp
+	)

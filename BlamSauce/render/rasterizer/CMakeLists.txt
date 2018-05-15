@@ -1,0 +1,5 @@
+set(RASTERIZER_H
+	${CMAKE_CURRENT_SOURCE_DIR}/dx9.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/dx9_render_targets.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/geometry.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/rasterizer.hpp)

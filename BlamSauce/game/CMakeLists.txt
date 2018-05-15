@@ -1,0 +1,23 @@
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/devices)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/engines)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/globals)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/objects)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/player)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/time)
+
+set(GAME_H
+	${DEVICE_H}
+	${GLOBALS_H}
+	${OBJECTS_H}
+	${PLAYER_H}
+	${TIME_H}
+	${ENGINE_H}
+	${CMAKE_CURRENT_SOURCE_DIR}/action_queue.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/allegiance.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cheats.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/configuration.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/game.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/multiplayer_sounds.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/physics.h
+	${CMAKE_CURRENT_SOURCE_DIR}/point_physics.h
+	${CMAKE_CURRENT_SOURCE_DIR}/state.h)
