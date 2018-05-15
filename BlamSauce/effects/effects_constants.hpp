@@ -22,5 +22,14 @@ namespace Yelo
 
 			k_maximum_number_of_particles_per_map = 1024,
 		};
+
+		enum {
+			k_maximum_number_of_particles_per_map_upgrade_amount = 512 + 212,
+
+			k_maximum_number_of_effects_per_map_upgrade_amount = 0,
+			k_maximum_number_of_effect_locations_per_map_upgrade_amount = 0,
+
+			k_maximum_number_of_particle_system_particles_per_map_upgrade_amount = 0,
+		};
 	};
 };
