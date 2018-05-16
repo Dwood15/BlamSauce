@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum tag_allocation_type : _enum;
+		enum tag_allocation_type : short;
 	};
 
 	namespace TagGroups

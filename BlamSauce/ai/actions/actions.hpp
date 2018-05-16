@@ -6,12 +6,13 @@
 */
 #pragma once
 
-namespace Yelo
-{
-	namespace Enums
-	{
-		enum actor_action : _enum
-		{
+#include <cstdio>
+#include "../../math/color_math.h"
+#include "../../memory/datum_index.h"
+
+namespace Yelo {
+	namespace Enums {
+		enum actor_action : short {
 			_actor_action_none,
 			_actor_action_sleep,
 			_actor_action_alert,
@@ -30,35 +31,34 @@ namespace Yelo
 			k_number_of_actor_actions
 		};
 
-		enum action_class : _enum
-		{
+		enum action_class : short {
 			_action_class_passive = 1,
 		};
 	};
 
-	namespace AI
-	{
-		typedef void (PLATFORM_API* proc_action_function)(datum_index actor_index);
-		typedef void (PLATFORM_API* proc_action_function_2C)(datum_index actor_index, datum_index, datum_index);
-		struct s_action_function_definition
-		{
+	namespace AI {
+		typedef void (__cdecl *proc_action_function)(datum_index actor_index);
+
+		typedef void (__cdecl *proc_action_function_2C)(datum_index actor_index, datum_index, datum_index);
+
+		struct s_action_function_definition {
 			Enums::actor_action action;
 			PAD16;
-			cstring name;
+			cstring               name;
 			const real_argb_color debug_color;
-			size_t action_data_size;
-			Enums::action_class action_class;
+			size_t                action_data_size;
+			Enums::action_class   action_class;
 			PAD16;
-			proc_action_function begin;
-			proc_action_function perform;
-			proc_action_function update;
-			proc_action_function control;
-			proc_action_function end;
-			proc_action_function func28;
+			proc_action_function    begin;
+			proc_action_function    perform;
+			proc_action_function    update;
+			proc_action_function    control;
+			proc_action_function    end;
+			proc_action_function    func28;
 			proc_action_function_2C func2C;
-			proc_action_function func30;
-			proc_action_function func34;
-			proc_action_function func38;
-		};				
+			proc_action_function    func30;
+			proc_action_function    func34;
+			proc_action_function    func38;
+		};
 	};
 };

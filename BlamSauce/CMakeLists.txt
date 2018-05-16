@@ -6,6 +6,7 @@ set(HS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/compile.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/constants.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/hs.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/hs/hs_yelo.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_external.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_internal.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_internal_compile.inl
@@ -35,17 +36,13 @@ set(ITEMS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/items/weapon_structures.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/items/weapons.hpp)
 
-set(CSERIES_H
-	${CMAKE_CURRENT_SOURCE_DIR}/cseries/MacrosCpp.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cseries/cseries.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cseries/base.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cseries/yelo_base.h
-	${CMAKE_CURRENT_SOURCE_DIR}/cseries/errors.h)
 
 
 add_subdirectory(ai)
 
 add_subdirectory(cache)
+
+add_subdirectory(cseries)
 
 add_subdirectory(game)
 

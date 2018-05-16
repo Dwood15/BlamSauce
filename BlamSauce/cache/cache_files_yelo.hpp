@@ -8,7 +8,7 @@
 #include <sal.h>
 
 namespace Yelo::Enums {
-	enum data_file_reference_type : _enum;
+	enum data_file_reference_type : short;
 };
 
 namespace Yelo::Cache {

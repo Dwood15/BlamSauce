@@ -21,4 +21,5 @@ set(CACHE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/physical_memory_map.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shared/pc_texture_cache.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_structures_yelo.hpp
 	PARENT_SCOPE)

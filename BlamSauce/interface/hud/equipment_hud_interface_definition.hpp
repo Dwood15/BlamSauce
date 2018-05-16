@@ -34,6 +34,6 @@ namespace Yelo
 
 			s_hud_absolute_placement placement;
 
-		}; //BOOST_STATIC_ASSERT( sizeof(equipment_hud_interface_definition) == 0x );
+		}; //static_assert( sizeof(equipment_hud_interface_definition) == 0x );
 	};
 };

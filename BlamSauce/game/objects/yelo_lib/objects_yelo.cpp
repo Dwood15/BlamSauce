@@ -72,7 +72,7 @@ namespace Yelo
 				}
 			}
 
-			return step_count == 0 ? object_index : datum_index::null;
+			return step_count == 0 ? object_index : datum_index::null();
 		}
 
 		TagGroups::s_object_definition const* GetObjectDefinition(const datum_index object_index)

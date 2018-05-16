@@ -9,6 +9,7 @@
 #include <winnt.h>
 #include "../cseries/base.h"
 #include "../hs/types_runtime.inl"
+#include "../memory/upgrades/game_state_yelo.hpp"
 
 namespace Yelo
 {

@@ -12,14 +12,14 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum tag_allocation_type : _enum {
+		enum tag_allocation_type : short {
 			_tag_allocation_type_block,
 			_tag_allocation_type_data,
 
 			k_number_of_tag_allocation_types
 		};
 
-		enum tag_block_child_type : _enum {
+		enum tag_block_child_type : short {
 			_tag_block_child_type_tag_reference,
 			_tag_block_child_type_block_index,
 			_tag_block_child_type_string_id,
@@ -78,7 +78,7 @@ namespace Yelo
 				TAG_FIELD(uint16, parent_offset);
 				TAG_ENUM(type, Enums::tag_block_child_type);
 				PAD16;
-			}; BOOST_STATIC_ASSERT( sizeof(s_tag_block_child_definition) == 8 );
+			}; static_assert( sizeof(s_tag_block_child_definition) == 8 );
 
 			struct s_tag_block_child_instance
 			{
@@ -86,7 +86,7 @@ namespace Yelo
 
 				TAG_BLOCK_INDEX(s_tag_block_child_definition, definition_index);
 				TAG_BLOCK_INDEX(s_tag_allocation_definition, owner_block_index);
-			}; BOOST_STATIC_ASSERT( sizeof(s_tag_block_child_instance) == 4 );
+			}; static_assert( sizeof(s_tag_block_child_instance) == 4 );
 
 			//////////////////////////////////////////////////////////////////////////
 			typedef TagBlock<s_tag_block_child_instance::block_index_t>

@@ -9,7 +9,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum shared_cache_type : _enum {
+		enum shared_cache_type : short {
 			_shared_cache_type_campaign,
 			_shared_cache_type_multiplayer,
 			_shared_cache_type_main_menu,

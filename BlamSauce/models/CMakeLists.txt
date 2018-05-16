@@ -3,6 +3,7 @@
 set(M_ANIMATIONS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/animations/definitions.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/animations/model.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/animations/model_animation_definitions_yelo.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/animations/recorded_animation_definitions.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/animations/recorded_animation_playback.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/animations/recorded_animations_structures.hpp

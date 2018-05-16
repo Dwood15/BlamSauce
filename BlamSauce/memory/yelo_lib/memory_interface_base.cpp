@@ -18,11 +18,6 @@
 // This was from 'WriteMemory' before it was marked as noinline, and was trying
 // to inline with a halo address
 
-#if PLATFORM_TARGET == PLATFORM_TARGET_XBOX
-	#define memcpy Std_memcpy
-	#define memcpy_s(dst, dst_size, src, src_size) (dst==memcpy(dst, src, src_size))
-#endif
-
 namespace Yelo
 {
 	namespace Memory
@@ -51,7 +46,7 @@ namespace Yelo
 			struct relative_call_bytes : Opcode::s_call
 			{
 				byte End;
-			}; BOOST_STATIC_ASSERT(sizeof(relative_call_bytes) == 6);
+			}; static_assert(sizeof(relative_call_bytes) == 6);
 			// call near ....
 			// retn\nop
 			relative_call_bytes asm_bytes;
@@ -299,8 +294,3 @@ namespace Yelo
 		}
 	};
 };
-
-#if PLATFORM_TARGET == PLATFORM_TARGET_XBOX
-	#undef memcpy
-	#undef memcpy_s
-#endif

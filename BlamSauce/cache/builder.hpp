@@ -12,6 +12,12 @@
 #include "cache_files.hpp"
 #include "../scenario/scenario.h"
 #include "../scenario/definitions.h"
+#include "../effects/sound/sound_definitions.hpp"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
+#include "../memory/memory_yelo.hpp"
+#include "../models/structure/bsp_definitions.hpp"
+#include "../main/main.h"
+#include "../tags/files/structures.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -361,6 +367,7 @@ namespace Yelo::blam {
 			tag_instance->parent_groups[0] = group->parent_group_tag;
 			tag_instance->parent_groups[1] = group->parent_group_tag == NONE
 														? NONE
+
 														: tag_group_get(group->parent_group_tag)->group_tag;
 
 			YELO_ASSERT_DISPLAY(tag_names[absolute_tag_index] != nullptr,
@@ -746,7 +753,7 @@ namespace Yelo::Cache {
 		if (project_yellow_index.IsNull())
 			return;
 
-		auto *yelo = blam::tag_get<TagGroups::project_yellow>(project_yellow_index);
+		auto *yelo = blam::tag_get<Yelo::TagGroups::project_yellow>(project_yellow_index);
 
 		bool has_globals_override = yelo->LoadGameGlobalsOverride();
 	}
@@ -759,7 +766,7 @@ namespace Yelo::Cache {
 
 		// If the scenario's yelo specifies build info, update the yelo header with that info, else use the defaults
 		if (yelo->build_info.Count > 0) {
-			const TagGroups::s_project_yellow_scenario_build_info &build_info = yelo->build_info[0];
+			const Yelo::TagGroups::s_project_yellow_scenario_build_info &build_info = yelo->build_info[0];
 
 			BuildCacheFileYeloCacheHeader().InitializeBuildInfo(build_info);
 		} else {

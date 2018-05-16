@@ -1,18 +1,14 @@
 /*
-	Yelo: Open Sauce SDK
 
-	See license\OpenSauce\OpenSauce for specific license information
 */
 #pragma once
 
-#include <YeloLib/cache/cache_files_yelo_base.hpp>
-#include <YeloLib/Halo1/tag_files/string_id_yelo.hpp>
+#include <cstring>
+#include "../cseries/base.h"
+#include "../cseries/yelo_base.h"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo {
-	namespace TagGroups {
-		struct s_project_yellow_scenario_build_info;
-	};
-
 	namespace Cache {
 		struct s_cache_file_resource_strings_storage_header {
 			int32  count;            // number of strings in the storage
@@ -36,9 +32,9 @@ namespace Yelo {
 		struct s_cache_file_resource_string_id_storage_header {
 			enum { k_signature = 'cssh' };
 
-			tag    signature;
-			int16  set_count;
-					 PAD16;
+			tag   signature;
+			int16 set_count;
+			PAD16;
 			//////////////////////////////////////////////////////////////////////////
 			// compression parameters for set_storage (which is compressed as a whole, not per-set)
 			uint32 compressed_length;
@@ -71,12 +67,12 @@ namespace Yelo {
 				word_flags uses_game_state_upgrades : 1; // cache has tag data that either requires or needs OS-modified game state memory in order to (fully) function
 				word_flags has_compression_params : 1; // cache has compression parameters (for resources, tags, etc)
 			}    flags;
-			BOOST_STATIC_ASSERT( sizeof(s_flags) == 0x2 );
+			static_assert(sizeof(s_flags) == 0x2);
 
 			struct {
 				byte project_yellow;
 				byte project_yellow_globals;
-					  PAD16;
+				PAD16;
 			}    tag_versioning; // versions of core tags
 			real k_memory_upgrade_increase_amount;
 
@@ -84,7 +80,7 @@ namespace Yelo {
 				uint32 size;
 				uint32 decompressed_size;
 				uint32 offset;
-						 PAD32;
+				PAD32;
 
 				tag_string build_string; // Build string for the CheApe tools (ie, OS HEK)
 			}    cheape_definitions;
@@ -92,8 +88,8 @@ namespace Yelo {
 			tag_string mod_name; // if the map uses a specific mod's data_files, this equals the mod prefix
 
 			struct {
-						 PAD16;
-				_enum  stage; // see Enums::production_build_stage
+				PAD16;
+				short  stage; // see Enums::production_build_stage
 				uint32 revision;
 				time_t timestamp;
 
@@ -150,7 +146,7 @@ namespace Yelo {
 			}
 
 		public://private: // TODO: this should be private once the BCF code is rewritten
-			void s_cache_header_yelo::InitializeBuildInfo(_enum stage, uint32 revision, const byte (&uuid_buffer)[Enums::k_uuid_buffer_size]) {
+			void s_cache_header_yelo::InitializeBuildInfo(short stage, uint32 revision, const byte (&uuid_buffer)[Enums::k_uuid_buffer_size]) {
 				build_info.stage    = stage;
 				build_info.revision = revision;
 				time(&build_info.timestamp);
@@ -198,89 +194,56 @@ namespace Yelo {
 
 			// Initializes the yelo header with the default build info settings
 
-			void s_cache_header_yelo::InitializeBuildInfo()
-			{
+			void s_cache_header_yelo::InitializeBuildInfo() {
 				byte nil_uuid[Enums::k_uuid_buffer_size] = {};
-				this->InitializeBuildInfo(Enums::_production_build_stage_ship, 0, nil_uuid);
+				this->InitializeBuildInfo(Yelo::Enums::_production_build_stage_ship, 0, nil_uuid);
 			}
 
 			// Initializes the build info with a scenario's yelo build info
 
-			void InitializeBuildInfo(const TagGroups::s_project_yellow_scenario_build_info& build_info)
-			{
+			void InitializeBuildInfo(const TagGroups::s_project_yellow_scenario_build_info &build_info) {
 				this->InitializeBuildInfo(build_info.build_stage, build_info.revision, build_info.uuid_buffer);
 			}
 
 			// Initializes the minimum os build info
-			void InitializeMinimumBuildInfo(const byte major, const byte minor, const uint16 build)
-			{
-				if(major == 0)
-				{
-					return;
-				}
-
-				build_info.minimum_os_build.maj = major;
-				build_info.minimum_os_build.min = minor;
-				build_info.minimum_os_build.build = build;
-
-				if(version == 1)
-				{
-					version = k_version_minimum_build;
-				}
+			void InitializeMinimumBuildInfo(const byte major, const byte minor, const uint16 build) {
+				return;
 			}
 
-			bool HasHeader() const
-			{
-				return signature != 0 && version != 0;
+			bool HasHeader() const {
+				signature != 0 && version != 0;
 			}
-			bool TagVersioningIsValid() const
-			{
-				return	tag_versioning.project_yellow == TagGroups::project_yellow::k_version &&
-							tag_versioning.project_yellow_globals == TagGroups::project_yellow_globals::k_version;
-			}
-			bool BuildVersionIsValid() const
-			{
-				// If the major build number is zero, there is no minimum build version
-				if(build_info.minimum_os_build.maj == 0)
-				{
-					return true;
-				}
 
-				// If the minimum build is less than the current build, return true
-				if((build_info.minimum_os_build.maj <= K_OPENSAUCE_VERSION_BUILD_MAJ)
-					&& (build_info.minimum_os_build.min <= K_OPENSAUCE_VERSION_BUILD_MIN)
-					&& (build_info.minimum_os_build.build <= K_OPENSAUCE_VERSION_BUILD))
-				{
-					return true;
-				}
-
-				return false;
+			bool TagVersioningIsValid() const {
+				return tag_versioning.project_yellow == TagGroups::project_yellow::k_version &&
+						 tag_versioning.project_yellow_globals == TagGroups::project_yellow_globals::k_version;
 			}
-			bool IsValid() const
-			{
-				if(HasHeader())
-					return	signature == k_signature &&
-								((version == k_version) || (version == k_version_minimum_build)) &&
-								k_memory_upgrade_increase_amount <= K_MEMORY_UPGRADE_INCREASE_AMOUNT &&
-								TagVersioningIsValid() &&
-								BuildVersionIsValid();
+
+			bool BuildVersionIsValid() const {
+				return true;
+			}
+
+			bool IsValid() const {
+				if (HasHeader())
+					return signature == k_signature &&
+							 ((version == k_version) || (version == k_version_minimum_build)) &&
+							 k_memory_upgrade_increase_amount <= K_MEMORY_UPGRADE_INCREASE_AMOUNT &&
+							 TagVersioningIsValid() &&
+							 BuildVersionIsValid();
 
 				return true;
 			}
-			bool HasUuid() const
-			{
+
+			bool HasUuid() const {
 				return ArrayIsZero(build_info.uuid_buffer);
 			}
 
-			bool BuiltWithOlderTools() const
-			{
-				return	build_info.cheape.maj < K_OPENSAUCE_VERSION_BUILD_MAJ ||
-							build_info.cheape.min < K_OPENSAUCE_VERSION_BUILD_MIN;
+			bool BuiltWithOlderTools() const {
+				return false;
 			}
-			bool BuiltWithNewerTools() const
-			{
-				return	build_info.cheape.maj > K_OPENSAUCE_VERSION_BUILD_MAJ ||
-							build_info.cheape.min > K_OPENSAUCE_VERSION_BUILD_MIN;
+
+			bool BuiltWithNewerTools() const {
+				return true;
 			}
 		};
 	};

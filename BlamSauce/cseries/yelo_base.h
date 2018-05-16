@@ -5,15 +5,17 @@
 */
 #pragma once
 
-#include <winnt.h>
+#include <crtdbg.h>
+
 #include <handleapi.h>
 #include <functional>
+#include <rpc.h>
+#include <time.h>
 
 #include "MacrosCpp.h"
 #include "base.h"
 #include "../memory/datum_index.h"
 
-//#include <errno.h>
 extern const errno_t k_errnone;
 
 namespace Yelo {
@@ -40,6 +42,13 @@ namespace Yelo {
 			k_alignment_4096bit,
 		};
 	};
+};
+
+#define WIN32_FUNC(func) func
+
+const errno_t k_errnone = 0;
+
+namespace Yelo {
 
 	// System Initialize function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
@@ -116,19 +125,49 @@ namespace Yelo {
 	// is assumed to be null terminated
 	// Returns [string] if successful
 	// If NULL is returned, you can use GetLastError() for error information
-	char *wstring_to_string(char *string, int32 string_length, wcstring wide, int32 wide_length = -1);
+	char *wstring_to_string(char *string, int32 string_length, wcstring wide, int32 wide_length = -1) {
+		if (!WIN32_FUNC(WideCharToMultiByte)(CP_ACP, 0, wide, wide_length, string, string_length, nullptr, nullptr))
+			return nullptr;
+		else
+			return string;
+	}
 
 	// [string_length] includes the null terminator
-	char *wstring_to_string_lazy(char *string, int32 string_length, wcstring wide);
+	char *wstring_to_string_lazy(char *string, int32 string_length, wcstring wide) {
+		assert(string_length > 0);
+
+		string[--string_length] = '\0';
+		for (int32 x = 0; string_length--; x++) {
+			string[x] = CAST(char, wide[x]);
+			if (wide[x] == L'\0') break;
+		}
+
+		return string;
+	}
 
 	// Takes [string] and converts it to an unicode string, to be held in [wide]. If [string_length] is not -1, the string
 	// is assumed to be null terminated
 	// Returns [wide] if successful
 	// If NULL is returned, you can use GetLastError() for error information
-	wstring string_to_wstring(wstring wide, int32 wide_length, cstring string, int32 string_length = -1);
+	wstring string_to_wstring(wstring wide, int32 wide_length, cstring string, int32 string_length = -1) {
+		if (!WIN32_FUNC(MultiByteToWideChar)(CP_ACP, 0, string, string_length, wide, wide_length))
+			return nullptr;
+		else
+			return wide;
+	}
 
 	// [string_length] includes the null terminator
-	wstring string_to_wstring_lazy(wstring string, int32 string_length, cstring ascii);
+	wstring string_to_wstring_lazy(wstring string, int32 string_length, cstring ascii) {
+		assert(string_length > 0);
+
+		string[--string_length] = L'\0';
+		for (int32 x = 0; string_length--; x++) {
+			string[x] = CAST(wchar_t, ascii[x]);
+			if (ascii[x] == '\0') break;
+		}
+
+		return string;
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Determines whether the end of the string instance matches the specified suffix string. </summary>
@@ -137,7 +176,21 @@ namespace Yelo {
 	/// <param name="suffix">	The string to compare to the substring at the end of this instance. </param>
 	///
 	/// <returns>	true if suffix matches the end of the instance; otherwise, false. </returns>
-	bool EndsWith(const std::string &str, const std::string &suffix);
+	bool EndsWith(const std::string &str, const std::string &suffix) {
+		// based on http://stackoverflow.com/a/20447331/444977
+
+		if (suffix.length() > str.length())
+			return false;
+
+		auto pos   = str.length() - suffix.length();
+		auto pos_a = &str[pos];
+		auto pos_b = &suffix[0];
+		while (*pos_a != '\0')
+			if (*pos_a++ != *pos_b++)
+				return false;
+
+		return true;
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>
@@ -205,16 +258,15 @@ namespace Yelo {
 		// default equality logic is to compare the pointer (32) bits.
 		// could be problematic for value types <32bits like bool, where the upper bits aren't zeroed.
 		// at which point you should be doing value.boolean == ... anyway.
-		OVERRIDE_OPERATOR_MATH_BOOL(TTypeHolder, pointer, ==);
-
-		OVERRIDE_OPERATOR_MATH_BOOL(TTypeHolder, pointer, !=);
+		inline bool operator ==(const TTypeHolder& rhs) const { return this->pointer == rhs.pointer; }
+		inline bool operator !=(const TTypeHolder& rhs) const { return this->pointer != rhs.pointer; }
 	};
 
 	typedef TTypeHolder<void> TypeHolder;
 	static_assert(sizeof(TypeHolder) == 0x4);
 
-	extern const TypeHolder k_null_as_type_holder;  ///< nullptr represented as a TypeHolder value
-	extern const TypeHolder k_none_as_type_holder;  ///< NONE represented as TypeHolder value
+	static const TypeHolder k_null_as_type_holder = {CAST_PTR(void*, nullptr)};  ///< nullptr represented as a TypeHolder value
+	static const TypeHolder k_none_as_type_holder = {CAST_PTR(void*, NONE)}; ///< NONE represented as TypeHolder val
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	If the COM interface reference isn't NULL, releases it and NULL it. </summary>
@@ -348,31 +400,40 @@ namespace Yelo {
 
 	/// <summary>	Primarily a deleter for std::unique_ptr for use with WinAPI handles. </summary>
 	struct winapi_handle_closer {
-		void operator ()(HANDLE h) const;
+		void operator ()(HANDLE h) const {
+			// YELO_ASSERT_DISPLAY(h != INVALID_HANDLE_VALUE, "tried to close an INVALID handle");
+			if (h != nullptr)
+				WIN32_FUNC(CloseHandle)(h);
+		}
 	};
 
-#if PLATFORM_TARGET != PLATFORM_TARGET_XBOX
 	/// <summary>	Primarily a deleter for std::unique_ptr for objects allocated by LocalAlloc. </summary>
-	struct winapi_local_deleter
-	{
-		void operator()(HLOCAL h) const;
+	struct winapi_local_deleter {
+		void operator ()(HLOCAL h) const {
+			// YELO_ASSERT_DISPLAY(h != INVALID_HANDLE_VALUE, "tried to close an INVALID handle");
+			if (h != nullptr)
+				LocalFree(h);
+		}
 	};
 
 	/// <summary>	Primarily a deleter for std::unique_ptr for use CRT's FILE. </summary>
-	struct crt_file_closer
-	{
-		void operator()(FILE* h) const;
+	struct crt_file_closer {
+		void operator ()(FILE *h) const {
+			if (h != nullptr) {
+				int result = fclose(h);
+				// YELO_ASSERT_DISPLAY(result == 0, "failed to fclose");
+			}
+		}
 	};
-#endif
 
-	cstring BooleanToString(bool value);
+	cstring BooleanToString(bool value) {
+		return value ? "true" : "false";
+	}
 
 	typedef int (__cdecl *proc_stdlib_compare)(void *, const void *, const void *);
 
 	template <typename T, size_t k_array_size, typename TContext = void *>
-	inline
-	void Qsort(T (&_Base)[k_array_size],
-				  int (__cdecl *_PtFuncCompare)(TContext, const T *, const T *), TContext _Context = nullptr) {
+	inline void Qsort(T (&_Base)[k_array_size], int (__cdecl *_PtFuncCompare)(TContext, const T *, const T *), TContext _Context = nullptr) {
 		static_assert(sizeof(TContext) <= sizeof(void *), "Context type is incompatible with C runtime API");
 
 		::qsort_s(_Base, k_array_size, sizeof(T), CAST_PTR(proc_stdlib_compare, _PtFuncCompare),
@@ -380,14 +441,10 @@ namespace Yelo {
 	}
 
 	template <typename T, typename TContext = void *, typename TCompareParam = const T *>
-	inline
-	void Qsort(T *_Base, rsize_t _NumOfElements,
-				  int (__cdecl *_PtFuncCompare)(TContext, TCompareParam, TCompareParam),
-				  TContext _Context = nullptr) {
+	inline void Qsort(T *_Base, rsize_t _NumOfElements, int (__cdecl *_PtFuncCompare)(TContext, TCompareParam, TCompareParam), TContext _Context = nullptr) {
 		static_assert(sizeof(TContext) <= sizeof(void *), "Context type is incompatible with C runtime API");
 
-		::qsort_s(_Base, _NumOfElements, sizeof(T), CAST_PTR(proc_stdlib_compare, _PtFuncCompare),
-					 CAST_PTR(void*, _Context));
+		::qsort_s(_Base, _NumOfElements, sizeof(T), CAST_PTR(proc_stdlib_compare, _PtFuncCompare), CAST_PTR(void*, _Context));
 	}
 
 	template <typename TKey, typename T, size_t k_array_size, typename TContext = void *>
@@ -402,9 +459,7 @@ namespace Yelo {
 	}
 
 	template <typename TKey, typename T, typename TContext = void *, typename TCompareParam = const T *>
-	inline
-	T *Bsearch(const TKey *_Key, T *_Base, rsize_t _NumOfElements,
-				  int (__cdecl *_PtFuncCompare)(TContext, const TKey *, TCompareParam), TContext _Context = nullptr) {
+	inline T *Bsearch(const TKey *_Key, T *_Base, rsize_t _NumOfElements, int (__cdecl *_PtFuncCompare)(TContext, const TKey *, TCompareParam), TContext _Context = nullptr) {
 		static_assert(sizeof(TContext) <= sizeof(void *), "Context type is incompatible with C runtime API");
 
 		return CAST_PTR(T*,
@@ -507,7 +562,18 @@ namespace Yelo {
 	/// <summary>	Get the current time and format it into [time_str]. </summary>
 	///
 	/// <param name="time_str">	The resulting time string. </param>
-	void GetTimeStampString(_Out_ tag_string time_str);
+	void GetTimeStampString(_Out_ tag_string time_str) {
+		const size_t k_time_str_sizeof = sizeof(tag_string);
+
+		memset(time_str, 0, k_time_str_sizeof);
+
+		tm     newtime;
+		time_t aclock;
+		time(&aclock); // Get time in seconds
+		localtime_s(&newtime, &aclock); // Convert time to struct tm form
+		asctime_s(time_str, k_time_str_sizeof, &newtime);
+		time_str[25] = '\0'; // remove the \n character that asctime adds (http://msdn.microsoft.com/en-us/library/b6htak9c.aspx)
+	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Get the current time and format it into [time_str] using a file name friendly format. </summary>
@@ -515,13 +581,36 @@ namespace Yelo {
 	/// <remarks>	The formatting output by this function is YYYY_MM_DD_hh_mm_ss. </remarks>
 	///
 	/// <param name="time_str">	The resulting time string. </param>
-	void GetTimeStampStringForFile(_Out_ tag_string time_str);
+	void GetTimeStampStringForFile(_Out_ tag_string time_str) {
+		const size_t k_time_str_sizeof = sizeof(tag_string);
+
+		memset(time_str, 0, k_time_str_sizeof);
+
+		tm     newtime;
+		time_t aclock;
+		time(&aclock); // Get time in seconds
+		localtime_s(&newtime, &aclock); // Convert time to struct tm form
+
+		sprintf_s(time_str, k_time_str_sizeof, "%04d_%02d_%02d_%02d_%02d_%02d",
+					 newtime.tm_year + 1900,
+					 newtime.tm_mon + 1,
+					 newtime.tm_mday,
+					 newtime.tm_hour,
+					 newtime.tm_min,
+					 newtime.tm_sec);
+	}
 
 	// Displays a message to the user using the WinAPI
 	// Use this when are probably about to get really messy...
-	void PrepareToDropError(cstring text);
+	void PrepareToDropError(cstring text) {
+		if (text == nullptr) text = "(null)";
 
-#endif
+		MessageBoxA(nullptr, text, "Prepare to Drop!", MB_OK | MB_ICONEXCLAMATION);
+	}
+
+	namespace blam {
+		char g_display_assert_buffer[512];
+	};
 };
 
 // Mostly just useful for debug checking something (eg, game memory) on startup or on the first pass

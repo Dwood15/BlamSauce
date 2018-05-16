@@ -34,7 +34,7 @@ namespace Yelo
 			vector.j *= distance_from_object.j;
 			vector.k *= distance_from_object.k;
 		}
-		API_FUNC_NAKED static void PLATFORM_API ObjectDamageAftermath_CalculateAccelerationHook()
+		API_FUNC_NAKED static void __cdecl ObjectDamageAftermath_CalculateAccelerationHook()
 		{
 			using namespace Enums;
 
@@ -67,7 +67,7 @@ namespace Yelo
 			return	damage_definition->damage.instantaneous_acceleration <=  K_REAL_EPSILON &&
 					damage_definition->damage.instantaneous_acceleration >= -K_REAL_EPSILON;
 		}
-		API_FUNC_NAKED static void PLATFORM_API ObjectDamageAftermath_UnitValidateInstantaneousAccelerationHook()
+		API_FUNC_NAKED static void __cdecl ObjectDamageAftermath_UnitValidateInstantaneousAccelerationHook()
 		{
 			__asm {
 				push	ecx // object type

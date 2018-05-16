@@ -3,6 +3,16 @@
 #include <cstddef>
 #include <rpc.h>
 #include "./MacrosCpp.h"
+#include "base.h"
+
+namespace Yelo {
+	// The epsilon value I've seen Halo1 use
+	// TODO: See if we need to throw this into the base module
+	const real K_REAL_EPSILON = 0.000099999997f; // 0x38D1B717
+
+	const int32 K_TICKS_PER_SECOND = 30;
+	const real  K_SECONDS_PER_TICK = 0.033333335f; // 0x3D088889
+};
 
 namespace Yelo::blam {
 	void *__cdecl system_malloc(size_t size) { return GlobalAlloc(GMEM_FIXED, size); }
@@ -22,4 +32,3 @@ namespace Yelo::blam {
 		return GlobalReAlloc(pointer, size, GMEM_MOVEABLE);
 	}
 };
-

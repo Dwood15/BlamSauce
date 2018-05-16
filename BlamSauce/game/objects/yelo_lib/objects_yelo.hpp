@@ -35,7 +35,7 @@ namespace Yelo
 		void PlacementDataNewAndCopy(s_object_placement_data& data
 			, const datum_index source_object_index
 			, datum_index tag_index_override = datum_index::null
-			, const datum_index owner_object_index = datum_index::null);
+			, const datum_index owner_object_index = datum_index::null());
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>

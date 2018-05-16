@@ -18,6 +18,9 @@
 #include "loading.hpp"
 
 namespace Yelo {
+	struct tag_reference;
+	void __cdecl blam::tag_reference_clear(tag_reference &reference);
+
 	namespace Enums {
 		enum {
 			k_max_tag_name_length = 255,
@@ -31,6 +34,8 @@ namespace Yelo {
 
 	// Halo1's editor allocates 256 characters for all tag_reference names, even if they're empty
 	typedef char *tag_reference_name_reference;
+
+
 
 	struct tag_reference {
 		enum {
@@ -48,9 +53,30 @@ namespace Yelo {
 
 		operator datum_index() const { return tag_index; }
 
-		void clear();
+		void clear(){
+			auto reference = (*this);
 
-		void set(tag group_tag, cstring name);
+			assert(reference.name);
+			std::memset(reference.name, 0, Enums::k_max_tag_name_length + 1);
+			reference.name_length = 0;
+			reference.group_tag   = NONE;
+			reference.tag_index   = datum_index::null();
+		}
+
+		void set(tag group_tag, cstring name){
+			auto reference = (*this);
+			assert(group_tag == NONE || tag_group_get(group_tag));
+			reference.group_tag = group_tag;
+
+			size_t name_length = strlen(name);
+			//YELO_ASSERT(name_length <= Enums::k_max_tag_name_length); // NOTE: engine does '<', but I'm pretty sure we want '<='
+
+			//YELO_ASSERT(reference.name);
+			if (reference.name != name)
+				strcpy(reference.name, name);
+
+			reference.name_length = name_length;
+		}
 
 		template <typename T>
 		void set(cstring name) {

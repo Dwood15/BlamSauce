@@ -5,8 +5,9 @@
 */
 #pragma once
 
-#include <blamlib/Halo1/hs/hs.hpp>
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include "../cseries/MacrosCpp.h"
+#include "hs.hpp"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo::Enums {
 	// stock sizes
@@ -15,6 +16,36 @@ namespace Yelo::Enums {
 		k_total_scenario_hs_syntax_data_upgrade = sizeof(Memory::s_data_array) + (sizeof(Scripting::hs_syntax_node) * Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade),
 	};
 };
+
+
+#define HS_TYPE(hstype) BOOST_JOIN(Yelo::Enums::_hs_type_,hstype)
+
+
+//////////////////////////////////////////////////////////////////////////
+// Macro glue for declaring/defining a hs function which takes no arguments
+#define DECLARE_HS_FUNCTION(name) extern Yelo::Scripting::hs_function_definition function_##name##_definition
+
+//////////////////////////////////////////////////////////////////////////
+// Macro glue for declaring/defining a hs function which takes various arguments for input
+#define DECLARE_HS_FUNCTION_WITH_PARAMS(name) extern hs_function_definition function_##name##_definition
+
+#define GET_HS_FUNCTION(name) Yelo::Scripting::function_##name##_definition
+
+
+//////////////////////////////////////////////////////////////////////////
+// Macro glue for declaring/defining a normal hs global
+#define DECLARE_HS_GLOBAL(name) extern Yelo::Scripting::hs_global_definition global_##name##_definition
+
+//////////////////////////////////////////////////////////////////////////
+// Macro glue for declaring/defining an hs global with special flags
+#define DECLARE_HS_GLOBAL_EX(name) extern Yelo::Scripting::hs_global_definition global_##name##_definition
+
+//////////////////////////////////////////////////////////////////////////
+// Macro glue for declaring/defining a hs global whose value is stored
+// in the engine itself. Was useful in the case of 'gravity'
+#define DECLARE_HS_GLOBAL2(name) extern Yelo::Scripting::hs_global_definition global_##name##_definition
+
+#define GET_HS_GLOBAL(name) Yelo::Scripting::global_##name##_definition
 
 namespace Yelo
 {
@@ -166,59 +197,13 @@ namespace Yelo
 		// [data] is 'const' as this doesn't modify the pointer, but the data which it points to.
 		void UpdateTypeHolderDataFromPtr(const TypeHolder& data, const Enums::hs_type type, void* ptr);
 
-#if PLATFORM_IS_EDITOR
-		void ScriptingBlockClear(
-			TAG_TBLOCK(& script_block, TagGroups::s_scripting_definitions));
-		////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// <summary>	Copy the scripting definitions CheApe loaded into the tool code from the memory map. </summary>
-		///
-		/// <param name="script_block"></param>
-		/// <param name="only_internals">
-		/// 	Copy definitions that are part of the stock OpenSauce source code definitions that are part of the stock
-		/// 	OpenSauce source code only, else copy only the user's definitions.
-		/// </param>
-		void ScriptingBlockAddDefinitions(
-			TAG_TBLOCK(& script_block, TagGroups::s_scripting_definitions), bool only_internals);
-#else
+
 		// currently defined in Halo1_CE's ScriptLibrary.cpp
 		bool DefinitionsMatch(const TagGroups::s_scripting_definitions& data);
-#endif
 	};
 };
 
-#define HS_TYPE(hstype) BOOST_JOIN(Yelo::Enums::_hs_type_,hstype)
-
-
-//////////////////////////////////////////////////////////////////////////
-// Macro glue for declaring/defining a hs function which takes no arguments
-#define DECLARE_HS_FUNCTION(name) extern Yelo::Scripting::hs_function_definition function_##name##_definition
-
-//////////////////////////////////////////////////////////////////////////
-// Macro glue for declaring/defining a hs function which takes various arguments for input
-#define DECLARE_HS_FUNCTION_WITH_PARAMS(name) extern hs_function_definition function_##name##_definition
-
-#define GET_HS_FUNCTION(name) Yelo::Scripting::function_##name##_definition
-
-
-//////////////////////////////////////////////////////////////////////////
-// Macro glue for declaring/defining a normal hs global
-#define DECLARE_HS_GLOBAL(name) extern Yelo::Scripting::hs_global_definition global_##name##_definition
-
-//////////////////////////////////////////////////////////////////////////
-// Macro glue for declaring/defining an hs global with special flags
-#define DECLARE_HS_GLOBAL_EX(name) extern Yelo::Scripting::hs_global_definition global_##name##_definition
-
-//////////////////////////////////////////////////////////////////////////
-// Macro glue for declaring/defining a hs global whose value is stored
-// in the engine itself. Was useful in the case of 'gravity'
-#define DECLARE_HS_GLOBAL2(name) extern Yelo::Scripting::hs_global_definition global_##name##_definition
-
-#define GET_HS_GLOBAL(name) Yelo::Scripting::global_##name##_definition
-
-
 namespace Yelo::Scripting {
-
-
 	void UpdateTypeHolderDataFromPtr(const TypeHolder &data, const Enums::hs_type type, void *ptr) {
 		if (data.pointer != nullptr && ptr != nullptr) {
 			switch (type) {

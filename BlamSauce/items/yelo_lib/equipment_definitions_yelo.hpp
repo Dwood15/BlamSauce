@@ -11,7 +11,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum equipment_yelo_type : _enum
+		enum equipment_yelo_type : short
 		{
 			_equipment_yelo_type_none,
 
@@ -21,7 +21,7 @@ namespace Yelo
 			_equipment_yelo_type,
 		};
 
-		enum equipment_yelo_function_mode : _enum
+		enum equipment_yelo_function_mode : short
 		{
 			_equipment_yelo_function_mode_none,
 
@@ -73,6 +73,6 @@ namespace Yelo
 				TAG_FIELD(tag_reference, deactivate, 'effe', 'snd!');
 			}effects;
 
-		}; BOOST_STATIC_ASSERT( sizeof(s_equipment_yelo_definition) <= s_equipment_yelo_definition::k_max_definition_size );
+		}; static_assert( sizeof(s_equipment_yelo_definition) <= s_equipment_yelo_definition::k_max_definition_size );
 	};
 };

@@ -71,13 +71,13 @@ namespace Yelo {
 			return *this;
 		}
 
-		OVERRIDE_OPERATOR_MATH_BOOL(datum_index, handle, ==);
+		inline bool operator ==(const datum_index& rhs) const { return this->handle == rhs.handle ; }
+		inline bool operator !=(const datum_index& rhs) const { return this->handle != rhs.handle ; }
 
-		OVERRIDE_OPERATOR_MATH_BOOL(datum_index, handle, !=);
 	private:
-		OVERRIDE_OPERATOR_MATH_BOOL_TYPE(uint32, handle, ==);
 
-		OVERRIDE_OPERATOR_MATH_BOOL_TYPE(uint32, handle, !=);
+		inline bool operator ==(const uint32& rhs) const { return this->handle == rhs ; }
+		inline bool operator !=(const uint32& rhs) const { return this->handle != rhs ; }
 	};
 
 	static_assert(sizeof(datum_index) == 0x4);

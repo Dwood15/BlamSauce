@@ -1,9 +1,4 @@
 #pragma once
-/*
-	Kornner Studios: Shared Code
-
-	See license\Shared for specific license information
-*/
 /*!
  * Code obfuscating interfaces (:P)
  */
@@ -14,8 +9,6 @@
 
 #define WIN32_LEAN_AND_MEAN
 #define _X86_
-
-#include <type_traits> // for CAST_THIS_NONCONST()
 
 /// Cast [value] to whatever
 #define CAST(type, value)      (static_cast<type>(value))
@@ -33,34 +26,24 @@
 // Helper macros for implementing non-const member functions that call a like-wise const member function (eg, operator[] functions). To avoid code duplication
 
 /// Cast [this] to a 'const this&' so that its const member functions can be invoked
-#define CAST_THIS_NONCONST() static_cast<std::add_reference<std::add_const<std::remove_reference<decltype(*this)>::type>::type>::type>(*this)
-
-/// Cast [this] to a 'const this&' so that a const member function can be invoked
-/// [ret_type] is the return type of the member function. Usually there's a const return type, so we need to cast it to non-const too.
-/// [...] the code that represents the member function (or operator) call
-#define CAST_THIS_NONCONST_MEMBER_FUNC(ret_type, ...) CAST_QUAL(ret_type, CAST_THIS_NONCONST() __VA_ARGS__)
+// #define CAST_THIS_NONCONST() static_cast<std::add_reference<std::add_const<std::remove_reference<decltype(*this)>::type>::type>::type>(*this)
 
 /// Implement an operator cast from the implementing class to [Type]
 #define OVERRIDE_OPERATOR_CAST_THIS(Type) inline operator Type*() { return reinterpret_cast<Type*>(this); }
 /// Implement an operator cast from the implementing class to [Type] (by value)
-#define OVERRIDE_OPERATOR_CAST_THIS_(Type) inline operator Type() { return *reinterpret_cast<Type*>(this); }
-#define OVERRIDE_OPERATOR_CAST_THIS_REF(Type) inline operator Type&() { return reinterpret_cast<Type&>(*this); }
+// #define OVERRIDE_OPERATOR_CAST_THIS_(Type) inline operator Type() { return *reinterpret_cast<Type*>(this); }
+// #define OVERRIDE_OPERATOR_CAST_THIS_REF(Type) inline operator Type&() { return reinterpret_cast<Type&>(*this); }
 
 /// Implement an operator cast from the implementing class to [Type] at [Field]'s offset in the class
-#define OVERRIDE_OPERATOR_CAST_THIS_BY_FIELD(Type, Field) inline operator Type*() { return reinterpret_cast<Type*>(&this->Field); }
-
-/// Implement a operator override for [Sign] based on the parent type's [Field] member that results in a boolean operation
-#define OVERRIDE_OPERATOR_MATH_BOOL(Type, Field, Sign) inline bool operator Sign(const Type& rhs) const { return this->Field Sign rhs.Field ; }
-#define OVERRIDE_OPERATOR_MATH_BOOL_TYPE(Type, Field, Sign) inline bool operator Sign(const Type& rhs) const { return this->Field Sign rhs ; }
+// #define OVERRIDE_OPERATOR_CAST_THIS_BY_FIELD(Type, Field) inline operator Type*() { return reinterpret_cast<Type*>(&this->Field); }
 
 /// Implement a operator override for [Sign] based on the parent type's [Field] member
-#define OVERRIDE_OPERATOR_MATH(ReturnType, Type, Field, Sign) inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs.Field ; }
-#define OVERRIDE_OPERATOR_MATH_TYPE(ReturnType, Type, Field, Sign) inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs ; }
+// #define OVERRIDE_OPERATOR_MATH(ReturnType, Type, Field, Sign) inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs.Field ; }
+// #define OVERRIDE_OPERATOR_MATH_TYPE(ReturnType, Type, Field, Sign) inline ReturnType operator Sign(const Type& rhs) { return this->Field Sign rhs ; }
 
 /// Implement an operator override for the parent type, allowing the user to specify some arguments and define its code following the macro block
 #define OVERRIDE_OPERATOR(Sign, ReturnType, ...) ReturnType operator Sign(__VA_ARGS__)
 
-#pragma region pad/unknown/unused macros
 // Pad a structure using a byte[] field named pad[num] by [count] bytes
 #define PAD(num, count) byte pad##num##[ count ]
 // Pad a structure using a byte[] field named pad_[name] by [count] bytes
@@ -84,13 +67,14 @@
 #define PAD128 unsigned __int64 : 64; unsigned __int64 : 64;
 
 // Add a field to a structure that pads as if it were of type [type]
-#define PAD_TYPE(type) pad_##type
+#define PAD_TYPE(type) pad_## type
 // Add a field to a structure that markups what is thought to be a field of type [type]
-#define UNKNOWN_TYPE(type) pad_##type
+#define UNKNOWN_TYPE(type) type pad_##
 // Add a field to a structure that markups a unused field of type [type]
 #define UNUSED_TYPE(type) pad_##type
 
-#pragma endregion
+//Yes, this is incredibly lazy, stfu.
+#define YELO_ASSERT_DISPLAY(asdf, ...) // asdf
 
 // Library's function convention
 #define API_FUNC __stdcall
@@ -194,8 +178,9 @@
 
 
 // Tells the compiler to log [msg]. Includes the filename and line number in the message
-#define DOC_TODO(msg) __pragma( message(__FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) "): TODO: " msg) )
+#define DOC_TODO(msg) //__pragma( message(__FILE__ "(" BOOST_PP_STRINGIZE(__LINE__) "): TODO: " msg) )
 // DOC_TODO variant that only evaluates in debug builds
+
 #define DOC_TODO_DEBUG(msg) DOC_TODO(msg)
 
 // Declare a function naked of all things
@@ -211,10 +196,8 @@
 #define API_FUNC_NAKED_END(arg_count) __asm pop   ebp \
          __asm retn   (arg_count * 4) }
 
-#define API_FUNC_NAKED_END_NO_STACK_POP()   \
-      __asm pop   ebp                  \
-      __asm retn                     \
-   }
+#define API_FUNC_NAKED_END_NO_STACK_POP() __asm pop   ebp  \
+      __asm retn  }
 
 // For usage after calling cdecl functions in assembly code.
 // In the case were our assembly code is just interfacing
@@ -226,3 +209,7 @@
 
 // End the code to a naked function with no args
 #define API_FUNC_NAKED_END_()     __asm retn    }
+
+#define YELO_DEBUG(str, stamp) __noop
+#define YELO_DEBUG_FORMAT(...) __noop
+#define YELO_DEBUG_NL() __noop

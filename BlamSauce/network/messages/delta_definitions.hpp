@@ -230,7 +230,7 @@ namespace Yelo {
 		struct field_type_translated_index_parameters {
 			// On initialization:
 			// NONE is registered with network_index '0'
-			// [translated_index_allocations] are memset to NONE (datum_index::null)
+			// [translated_index_allocations] are memset to NONE (datum_index::null())
 			// First element of [translated_index_allocations] is set to '1'
 
 			int32                    maximum_active_at_once; // should be +1 of actual max, for the 'null' entry (which is always the first)

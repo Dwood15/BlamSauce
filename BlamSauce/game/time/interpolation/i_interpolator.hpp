@@ -6,13 +6,9 @@
 */
 #pragma once
 
-namespace Yelo
-{
-	namespace Time { namespace Interpolation
+namespace Yelo::Time::Interpolation
 	{
-		class i_interpolator
-			abstract
-		{
+		class i_interpolator abstract {
 		public:
 			virtual void Ctor() {}
 			virtual void Dtor() {}
