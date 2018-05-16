@@ -3,6 +3,8 @@ set(C_SHARED_H
 	${CMAKE_CURRENT_SOURCE_DIR}/shared/pc_texture_cache.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shared/texture_cache.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shared/sound_cache.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/shared/shared_cache_file_definitions.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/shared/shared_cache_files.hpp
 	)
 
 set(CACHE_H
@@ -19,4 +21,4 @@ set(CACHE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/physical_memory_map.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/shared/pc_texture_cache.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files.hpp
-	)
+	PARENT_SCOPE)

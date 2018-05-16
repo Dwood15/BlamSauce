@@ -1,5 +1,6 @@
 
 set(A_ACTIONS_H
+	${CMAKE_CURRENT_SOURCE_DIR}/actions/actions.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actions/action_alert.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actions/action_avoid.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actions/action_charge.hpp
@@ -15,16 +16,15 @@ set(A_ACTIONS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/actions/action_converse.hpp)
 
 set(A_ACTORS_H
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_combat.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actors.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_types.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_stimulus.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_perception.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_moving.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_looking.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_combat.hpp ai/actors/tranform_manager.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_moving.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_perception.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_stimulus.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_structures.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actors/actor_types.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actors/actors.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/actors/tranform_manager.h)
 
 set(A_ACTOR_TYPES_H ${CMAKE_CURRENT_SOURCE_DIR}/actor_types/actor_types.h)
 
@@ -40,4 +40,5 @@ set(AI_H
 	${CMAKE_CURRENT_SOURCE_DIR}/encounters.h
 	${CMAKE_CURRENT_SOURCE_DIR}/path.h
 	${CMAKE_CURRENT_SOURCE_DIR}/prop_structures.h
-	${CMAKE_CURRENT_SOURCE_DIR}/props.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/props.h
+	PARENT_SCOPE)

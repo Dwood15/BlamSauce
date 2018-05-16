@@ -1,5 +1,6 @@
 
-set(CRYPTOGRAPHY_H cryptography/cryptography.h)
+set(CRYPTOGRAPHY_H
+	${CMAKE_CURRENT_SOURCE_DIR}/cryptography/cryptography.h)
 
 set(HS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/compile.hpp
@@ -35,11 +36,11 @@ set(ITEMS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/items/weapons.hpp)
 
 set(CSERIES_H
-	cseries/MacrosCpp.h
-	cseries/cseries.h
-	cseries/base.h
-	cseries/yelo_base.h
-	cseries/errors.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/cseries/MacrosCpp.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cseries/cseries.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cseries/base.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cseries/yelo_base.h
+	${CMAKE_CURRENT_SOURCE_DIR}/cseries/errors.h)
 
 
 add_subdirectory(ai)
@@ -58,6 +59,8 @@ add_subdirectory(math)
 
 add_subdirectory(memory)
 
+add_subdirectory(models)
+
 add_subdirectory(network)
 
 add_subdirectory(render)
@@ -66,35 +69,28 @@ add_subdirectory(scenario)
 
 add_subdirectory(tags)
 
+message(STATUS "TAGS_H: ${TAGS_H}")
+
 set(HEADERS
-	${MAIN_H}
-	${CSERIES_H}
-	${MATH_H}
-	${TAGS_H}
-	${MEMORY_H}
-	${RENDER_H}
 	${AI_H}
-	${SCENARIO_H}
-	${RUNTIME_H}
-	${NETWORK_H}
-	${ITEMS_H}
-	${INTERFACE_H}
-	${HS_H}
-	${EFFECTS_H}
-	${CRYPTOGRAPHY_H}
 	${CACHE_H}
-	${MODELS_H}
+	${CRYPTOGRAPHY_H}
+	${CSERIES_H}
+	${EFFECTS_H}
 	${GAME_H}
+	${HS_H}
+	${INTERFACE_H}
+	${ITEMS_H}
+	${MAIN_H}
+	${MATH_H}
+	${MEMORY_H}
+	${MODELS_H}
+	${NETWORK_H}
 	${OBJECTS_H}
-	primary.h
-	)
+	${RENDER_H}
+	${RUNTIME_H}
+	${SCENARIO_H}
+	${TAGS_H}
+	${CMAKE_CURRENT_SOURCE_DIR}/primary.h
+	PARENT_SCOPE)
 
-#Crappy hack to stop "CMake doesn't know what language this is!" errors. Could probably do something like use .hpp files instead. /shrug
-add_library(${PROJECT_NAME} STATIC primary.cpp ${HEADERS})
-
-add_library(${PROJECT_NAME}_iface INTERFACE)
-#target_compile_definitions(${PROJECT_NAME}_iface INTERFACE)
-
-install(TARGETS ${PROJECT_NAME} EXPORT library_targets LIBRARY DESTINATION lib ARCHIVE DESTINATION ar)
-
-message(STATUS "Outputting lib to: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")

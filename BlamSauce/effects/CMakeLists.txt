@@ -36,4 +36,4 @@ set(EFFECTS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/effects_constants.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/effects.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/effect_definitions.hpp
-	)
+	PARENT_SCOPE)

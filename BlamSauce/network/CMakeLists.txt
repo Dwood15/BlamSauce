@@ -1,7 +1,7 @@
 #Yeah, I know, I got lazy. But holey moley is it a pain to do so many of these different CMakeLists files.
 
 set(N_CLIENT_H
-	${CMAKE_CURRENT_SOURCE_DIR}/client/manger.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/client/manager.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/client/manager_structures.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/client/time.hpp)
 
@@ -39,4 +39,5 @@ set(NETWORK_H
 	${N_SERVER_H}
 	${N_TRANSPORT_H}
 	${CMAKE_CURRENT_SOURCE_DIR}/connections.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/message_header.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/message_header.h
+	PARENT_SCOPE)

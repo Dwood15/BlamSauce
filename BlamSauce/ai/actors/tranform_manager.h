@@ -21,9 +21,6 @@ namespace Yelo::Enums {
 	enum unit_animation_keyframe : short;
 };
 
-
-
-
 namespace Yelo::AI::Transform {
 	/// <summary>	Manager for actor variant transforms. </summary>
 	class c_actor_variant_transform_manager final {

@@ -12,9 +12,10 @@
 #include "../../memory/data.h"
 #include "../../models/model_definitions.hpp"
 #include "groups_structures.hpp"
-#include "tag_groups.hpp"
+#include "tag_groups.h"
 #include "../../cseries/yelo_base.h"
 #include "../../cseries/errors.h"
+#include "loading.hpp"
 
 namespace Yelo {
 	namespace Enums {
@@ -74,13 +75,13 @@ namespace Yelo {
 		}
 
 		void __cdecl tag_reference_set(tag_reference &reference, tag group_tag, cstring name) {
-			YELO_ASSERT(group_tag == NONE || tag_group_get(group_tag));
+			assert(group_tag == NONE || tag_group_get(group_tag));
 			reference.group_tag = group_tag;
 
 			size_t name_length = strlen(name);
-			YELO_ASSERT(name_length <= Enums::k_max_tag_name_length); // NOTE: engine does '<', but I'm pretty sure we want '<='
+			//YELO_ASSERT(name_length <= Enums::k_max_tag_name_length); // NOTE: engine does '<', but I'm pretty sure we want '<='
 
-			YELO_ASSERT(reference.name);
+			//YELO_ASSERT(reference.name);
 			if (reference.name != name)
 				strcpy(reference.name, name);
 
@@ -93,19 +94,19 @@ namespace Yelo {
 		}
 
 		datum_index __cdecl tag_reference_try_and_get(const tag_reference *reference) {
-			YELO_ASSERT(reference);
+			assert(reference);
 
 			datum_index loaded_tag_index = tag_loaded(reference->group_tag, reference->name);
-			YELO_ASSERT_DISPLAY(reference->tag_index == loaded_tag_index,
-									  "tag reference \"%s\" and actual index do not match: is %08lX but should be %08lX",
-									  reference->name, reference->tag_index,
-									  loaded_tag_index);
+			assert(reference->tag_index == loaded_tag_index);
+			//"tag reference \"%s\" and actual index do not match: is %08lX but should be %08lX",
+			// 									  reference->name, reference->tag_index,
+			// 									  loaded_tag_index
 
 			return loaded_tag_index;
 		}
 
 		bool __cdecl tag_reference_resolve(_Inout_ tag_reference *reference) {
-			YELO_ASSERT(reference);
+			assert(reference);
 
 			bool success = false;
 			if (reference->group_tag != NONE && !is_null_or_empty(reference->name)) {

@@ -83,6 +83,7 @@ if (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_[0-1][0-9])$")
 	set(GAME ${MAJOR_VER}/${MINOR_VER} CACHE INTERNAL "")
 endif ()
 
+
 set(RUNTIME_H
 	${PROJECT_SOURCE_DIR}/${GAME}/memory_locations.h
 	${PROJECT_SOURCE_DIR}/${GAME}/engine_functions.h
@@ -91,3 +92,5 @@ set(RUNTIME_H
 	${PROJECT_SOURCE_DIR}/runtime/versions/versions.h
 	${PROJECT_SOURCE_DIR}/runtime/versions/cache_files_win.hpp
 	CACHE INTERNAL "")
+
+set(VERSIONS_H ${CMAKE_CURRENT_SOURCE_DIR}/versions PARENT_SCOPE)

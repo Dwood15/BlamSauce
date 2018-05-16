@@ -6,29 +6,23 @@
 */
 #pragma once
 
-namespace Yelo
-{
-	namespace Enums
-	{
-		enum network_game_client_state : short
-		{
-			_network_game_client_state_searching,
-			_network_game_client_state_joining,
-			_network_game_client_state_pregame,
-			_network_game_client_state_ingame,
-			_network_game_client_state_postgame,
+namespace Yelo::Enums {
+	enum network_game_client_state : short {
+		_network_game_client_state_searching,
+		_network_game_client_state_joining,
+		_network_game_client_state_pregame,
+		_network_game_client_state_ingame,
+		_network_game_client_state_postgame,
 
-			_network_game_client_state,
-		};
+		_network_game_client_state,
 	};
+};
 
-	namespace Networking
-	{		
-		struct s_network_game_client;
-		struct s_network_game_client_yelo;
+namespace Yelo::Networking {
+	struct s_network_game_client;
+	struct s_network_game_client_yelo;
 
-
-		// Gets the network game client pointer
-		s_network_game_client* NetworkGameClient();
-	};
+	// Gets the network game client pointer
+	s_network_game_client *NetworkGameClient();
+};
 };

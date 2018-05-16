@@ -32,37 +32,34 @@ if (NOT CMAKE_BUILD_TYPE)
 	message(STATUS "Build type not specified: Using Release by default.")
 endif (NOT CMAKE_BUILD_TYPE)
 
-add_subdirectory(runtime)
-
 message(STATUS "MSVC VERSION --- ${MSVC_VERSION}")
 message(STATUS "BINARY OUT DIR --- ${PROJECT_BINARY_DIR}")
 
+find_package(Git REQUIRED)
 
-#TODO: JSON SERIALIZATION/DESERIALIZATION
 #https://github.com/nlohmann/json#serialization--deserialization
+#TODO: JSON SERIALIZATION/DESERIALIZATION
+
+message(STATUS "DX PATH: ${DX_PATH}")
+
+add_subdirectory(runtime)
 
 find_path(DX_PATH FindDirectX.cmake PATHS ${PROJECT_SOURCE_DIR}/cmake REQUIRED)
 
-message(STATUS "CMAKE MODULE PATH: ${CMAKE_MODULE_PATH}")
-message(STATUS "DX PATH: ${DX_PATH}")
-message(STATUS "HALOCE_CMAKE PATH  ${HCE_PATH}")
-
 set(CMAKE_MODULE_PATH ${DX_PATH} ${HCE_PATH})
-find_package(DirectX REQUIRED)
 
-#set(CMAKE_MODULE_PATH "")
-find_package(Git REQUIRED)
+find_package(DirectX REQUIRED)
 find_package(HaloCE REQUIRED)
 
 include_directories(BEFORE ${DirectX_INCLUDE_DIRS})
-message(STATUS "DX include Dirs: ${DirectX_INCLUDE_DIRS}")
 
 add_subdirectory(BlamSauce)
 
-
 add_definitions(-D_WINDOWS)
 
-include_directories(AFTER ${GAME} ${LEVELS} ./versions)
+#include_directories(runtime/versions/ ${PROJECT_SOURCE_DIR}/${GAME}/ ${PROJECT_SOURCE_DIR}/${LEVELS}/)
+
+#include_directories(AFTER ${GAME} ${LEVELS} ./versions)
 
 if (MINGW)
 	if ($ENV{CLION_IDE})
@@ -111,3 +108,13 @@ if (MSVC)
 elseif (NOT MSVC)
 	set(CMAKE_SHARED_LINKER_FLAGS ${CMAKE_SHARED_LINKER_FLAGS_INIT} $ENV{LDFLAGS} "-lws2_32 -static-libgcc -static-libstdc++ -static -luserenv -static -static -ladvapi32")
 endif ()
+
+#Crappy hack to stop "CMake doesn't know what language this is!" errors. Could probably do something like use .hpp files instead. /shrug
+add_library(${PROJECT_NAME} STATIC primary.cpp ${HEADERS})
+
+add_library(${PROJECT_NAME}_iface INTERFACE)
+#target_compile_definitions(${PROJECT_NAME}_iface INTERFACE)
+
+install(TARGETS ${PROJECT_NAME} EXPORT library_targets LIBRARY DESTINATION lib ARCHIVE DESTINATION ar)
+
+message(STATUS "Outputting lib to: ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}")

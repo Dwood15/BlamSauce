@@ -19,5 +19,6 @@ set(GAME_H
 	${CMAKE_CURRENT_SOURCE_DIR}/game.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/multiplayer_sounds.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/physics.h
-	${CMAKE_CURRENT_SOURCE_DIR}/point_physics.h
-	${CMAKE_CURRENT_SOURCE_DIR}/state.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/point_physics.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/state.h
+	PARENT_SCOPE)

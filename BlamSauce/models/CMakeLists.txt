@@ -29,5 +29,5 @@ set(MODELS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/collisions.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/model_definitions.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/models.hpp
-	)
+	PARENT_SCOPE)
 

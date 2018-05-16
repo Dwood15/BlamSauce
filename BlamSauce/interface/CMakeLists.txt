@@ -34,8 +34,8 @@ set(I_HUD_H
 	)
 
 set(I_INPUT_H
-	${CMAKE_CURRENT_SOURCE_DIR}/input/abstraction.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/input/window.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/input/abstraction.h
+	${CMAKE_CURRENT_SOURCE_DIR}/input/window.h
 	)
 
 set(I_STRINGS_H
@@ -63,4 +63,4 @@ set(INTERFACE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/map_list.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/terminal.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ui_video_screen.hpp
-	)
+	PARENT_SCOPE)
