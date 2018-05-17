@@ -5,16 +5,11 @@
 
 	See license\OpenSauce\Halo1_CE for specific license information
 */
-#include <algorithm>
-#include <vector>
-#include <functional>
-#include "../../cseries/MacrosCpp.h"
-#include "../../cseries/base.h"
+
+#include <precompile.h>
+
 #include "../../game/allegiance.hpp"
 #include "../../memory/datum_index.h"
-#include "../../objects/objects.hpp"
-#include "../../objects/units/unit_transform_definition.hpp"
-#include "../../objects/object_structures.hpp"
 
 namespace Yelo::Enums {
 	enum game_team : short;
@@ -152,7 +147,7 @@ namespace Yelo::AI::Transform {
 		///
 		/// <returns>	The chosen team. </returns>
 		Enums::game_team
-		HandleTeam(const Enums::actor_variant_transform_team_handling option, const Enums::game_team attacked_team, const Enums::game_team attacker_team, const Enums::game_team override_team) const;
+		HandleTeam(const Yelo::Enums::actor_variant_transform_team_handling option, const Enums::game_team attacked_team, const Enums::game_team attacker_team, const Enums::game_team override_team) const;
 
 #pragma endregion
 

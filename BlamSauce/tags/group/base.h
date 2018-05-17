@@ -6,8 +6,7 @@
 */
 #pragma once
 
-#include <sal.h>
-#include "../../cseries/MacrosCpp.h"
+#include <precompile.h>
 #include "../../cseries/base.h"
 #include "../../memory/datum_index.h"
 #include "../../memory/data.h"

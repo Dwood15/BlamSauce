@@ -5,10 +5,8 @@
 */
 #pragma once // should actually only ever be included by hs_types.cpp...
 
-#include <type_traits>
-#include <stdio.h>
-#include <assert.h>
-#include "../cseries/MacrosCpp.h"
+#include <precompile.h>
+
 #include "hs.hpp"
 #include "../models/animations/recorded_animation_definitions.hpp"
 

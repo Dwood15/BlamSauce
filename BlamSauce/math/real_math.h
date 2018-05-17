@@ -6,9 +6,7 @@
 */
 #pragma once
 
-#include "../cseries/base.h"
-#include "../cseries/MacrosCpp.h"
-#include <d3dx9math.h>
+#include <precompile.h>
 
 #define MATH_FLOAT_FUNC(func) (real)func
 #define MATH_DOUBLE_FUNC(func) func

@@ -7,9 +7,9 @@
 */
 #pragma once
 
-#include "../cseries/base.h"
-#include "../cseries/MacrosCpp.h"
+#include <precompile.h>
 #include "../memory/datum_index.h"
+#include "encounters.h"
 
 namespace Yelo
 {

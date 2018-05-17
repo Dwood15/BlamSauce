@@ -1,7 +1,6 @@
 #pragma once
 
-#include <sal.h>
-#include "../../cseries/MacrosCpp.h"
+#include <precompile.h>
 #include "groups_structures.hpp"
 #include "../../memory/datum_index.h"
 #include "../../memory/data.h"

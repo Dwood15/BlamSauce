@@ -6,22 +6,9 @@
 */
 #pragma once
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-#ifndef _X86_
-#define _X86_
-#endif
+#include <precompile.h>
 
-#include <rpc.h>
-#include <minwindef.h>
-#include <string>
-#include <current_engine.h>
-
-#include "../cseries/base.h"
-#include "../cseries/MacrosCpp.h"
 #include "main_structures.h"
-#include "../runtime/halo1/full/levels.h"
 
 namespace Yelo {
 	namespace Enums {

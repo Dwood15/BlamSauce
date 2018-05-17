@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../cseries/MacrosCpp.h"
+#include <precompile.h>
 
 namespace Yelo
 {

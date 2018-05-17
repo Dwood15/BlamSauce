@@ -53,6 +53,8 @@ find_package(HaloCE REQUIRED)
 
 include_directories(BEFORE ${DirectX_INCLUDE_DIRS})
 
+include_directories(AFTER ${GAME_LIB_DIRS})
+
 add_subdirectory(BlamSauce)
 
 add_definitions(-D_WINDOWS)

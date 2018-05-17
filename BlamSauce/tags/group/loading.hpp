@@ -5,7 +5,7 @@
 */
 #pragma once
 
-#include "../../cseries/MacrosCpp.h"
+#include <precompile.h>
 
 /* TODO:
  * use a class to wrap all loading operations, storing all state information as members instead of globals

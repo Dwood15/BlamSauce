@@ -5,7 +5,7 @@
 */
 #pragma once
 
-#include <sal.h>
+#include <precompile.h>
 
 namespace Yelo::Enums {
 	enum data_file_reference_type : short;

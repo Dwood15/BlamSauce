@@ -5,10 +5,7 @@
 */
 #pragma once
 
-#include <type_traits>
-
-#include "../cseries/MacrosCpp.h"
-#include "../cseries/base.h"
+#include <precompile.h>
 
 namespace Yelo::Memory {
 	// C++ wrapper for blamlib's s_dynamic_array

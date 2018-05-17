@@ -1,9 +1,9 @@
 #pragma once
 
+#include <precompile.h>
+
 #include "../../cache/constants.hpp"
 #include "../../render/constants.hpp"
-#include "../../cseries/MacrosCpp.h"
-#include "../../cseries/base.h"
 #include "../../hs/constants.hpp"
 #include "../../effects/effects_constants.hpp"
 #include "../../game/configuration.hpp"

@@ -1,11 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include "../cseries/MacrosCpp.h"
+#include <precompile.h>
 #include "hs.hpp"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
 

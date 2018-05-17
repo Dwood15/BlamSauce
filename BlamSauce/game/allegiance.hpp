@@ -6,8 +6,8 @@
 */
 #pragma once
 
-#include "../cseries/MacrosCpp.h"
-#include "../cseries/base.h"
+#include <precompile.h>
+
 
 namespace Yelo {
 	namespace Enums {

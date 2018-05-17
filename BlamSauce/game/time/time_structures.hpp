@@ -1,14 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See LICENSE for specific license information
-*/
 #pragma once
 
-#include "../../cseries/MacrosCpp.h"
+#include <precompile.h>
 #include "../configuration.hpp"
-#include "../../cseries/base.h"
 
 namespace Yelo {
 	namespace GameState {

@@ -6,10 +6,7 @@
 */
 #pragma once
 
-#include <winnt.h>
 #include "main.h"
-#include "../cseries/MacrosCpp.h"
-#include "../cseries/base.h"
 
 #pragma pack(push, 1)
 namespace Yelo {

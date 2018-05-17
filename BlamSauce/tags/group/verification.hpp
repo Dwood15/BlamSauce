@@ -6,7 +6,9 @@
 // NOTE: NON-STANDARD ENGINE SOURCE FILE
 #pragma once
 
-#include "../../cseries/MacrosCpp.h"
+#include <precompile.h>
+#include "groups_structures.hpp"
+#include "tag_groups.h"
 
 namespace Yelo {
 	namespace TagGroups {

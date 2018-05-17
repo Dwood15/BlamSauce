@@ -3,13 +3,6 @@
  * Code obfuscating interfaces (:P)
  */
 
-#ifndef WIN32
-#define WIN32
-#endif
-
-#define WIN32_LEAN_AND_MEAN
-#define _X86_
-
 /// Cast [value] to whatever
 #define CAST(type, value)      (static_cast<type>(value))
 #define CAST_OP(type)         static_cast<type>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "primary.h"
+#include <precompile.h>
 static void dont_fine_me() {
-	//I'm just here so I don't get fined.
+	//I'm here so I don't get fined.
 }

@@ -5,8 +5,8 @@
 */
 #pragma once
 
-#include <sal.h>
-#include "../cseries/MacrosCpp.h"
+#include <precompile.h>
+
 #include "../cseries/base.h"
 #include "files.hpp"
 #include "../cseries/yelo_base.h"

@@ -1,9 +1,7 @@
 #pragma once
 
-#include <cstddef>
-#include <rpc.h>
-#include "./MacrosCpp.h"
-#include "base.h"
+
+#include <precompile.h>
 
 namespace Yelo {
 	// The epsilon value I've seen Halo1 use

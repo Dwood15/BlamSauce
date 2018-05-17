@@ -5,7 +5,7 @@
 */
 #pragma once
 
-#include <sal.h>
+#include <precompile.h>
 #include "../memory/datum_index.h"
 #include "scenario.hpp"
 #include "../cseries/yelo_base.h"

@@ -5,7 +5,7 @@
 */
 #pragma once
 
-#include <sal.h>
+#include <precompile.h>
 
 namespace Yelo::blam {
 

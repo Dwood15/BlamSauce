@@ -1,12 +1,6 @@
 #pragma once
-/*
-	Yelo: Open Sauce SDK
 
-	See license\OpenSauce\OpenSauce for specific license information
-*/
-#pragma once
-
-#include "../cseries/MacrosCpp.h"
+#include <precompile.h>
 #include "../primary.h"
 #include "../math/real_math.h"
 #include "../math/integer_math.h"

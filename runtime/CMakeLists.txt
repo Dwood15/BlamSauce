@@ -89,8 +89,9 @@ set(RUNTIME_H
 	${PROJECT_SOURCE_DIR}/${GAME}/engine_functions.h
 	${PROJECT_SOURCE_DIR}/${GAME}/current_engine.h
 	${PROJECT_SOURCE_DIR}/${LEVELS}/levels.h
-	${PROJECT_SOURCE_DIR}/runtime/versions/versions.h
 	${PROJECT_SOURCE_DIR}/runtime/versions/cache_files_win.hpp
-	CACHE INTERNAL "")
+	${PROJECT_SOURCE_DIR}/runtime/versions/precompile.h
+	${PROJECT_SOURCE_DIR}/runtime/versions/versions.h
+	PARENT_SCOPE)
 
-set(VERSIONS_H ${CMAKE_CURRENT_SOURCE_DIR}/versions PARENT_SCOPE)
+set(GAME_LIB_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/versions ${CMAKE_CURRENT_SOURCE_DIR}/${GAME} ${CMAKE_CURRENT_SOURCE_DIR}/${LEVELS} CACHE INTERNAL "")

@@ -10,9 +10,9 @@
 
 // BLAM_* variants directly use the engine's normal C memory functions for the target platform, sans any special ops (eg, auto-nulling)
 
-#include <cstdlib>
-#include <stdexcept>
-#include "../cseries/MacrosCpp.h"
+
+#include <precompile.h>
+
 
 #define YELO_MALLOC(size, fill_with_garbage)   malloc( size )
 #define YELO_NEW_ARRAY(type, count)            new type[count]

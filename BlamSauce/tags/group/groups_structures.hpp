@@ -5,8 +5,7 @@
 */
 #pragma once
 
-#include <sal.h>
-#include "../../cseries/MacrosCpp.h"
+#include <precompile.h>
 
 namespace Yelo {
 	namespace Enums {

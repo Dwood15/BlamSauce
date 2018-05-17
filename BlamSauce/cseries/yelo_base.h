@@ -1,19 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <crtdbg.h>
+#include <precompile.h>
 
-#include <handleapi.h>
-#include <functional>
-#include <rpc.h>
-#include <time.h>
-
-#include "MacrosCpp.h"
-#include "base.h"
 #include "../memory/datum_index.h"
 
 extern const errno_t k_errnone;

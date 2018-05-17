@@ -5,9 +5,7 @@
 */
 #pragma once
 
-#include "../cseries/base.h"
-#include "../cseries/base.h"
-#include "../cseries/MacrosCpp.h"
+#include <precompile.h>
 
 namespace Yelo {
 	// 2 shorts representing 'x' and 'y'

@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "../cseries/MacrosCpp.h"
+#include <precompile.h>
 
 namespace Enums {
 	enum ai_communication_type : short {

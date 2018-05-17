@@ -19,4 +19,4 @@ set(OBJECTS_H
 	${UNITS_H}
 	${BIPEDS_H}
 	${VEHICLES_H}
-	)
+	PARENT_SCOPE)
