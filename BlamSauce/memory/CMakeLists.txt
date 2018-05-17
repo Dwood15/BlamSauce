@@ -4,6 +4,14 @@ set(M_UPGRADES_H
 	${CMAKE_CURRENT_SOURCE_DIR}/upgrades/game_state_yelo.hpp
 	)
 
+set(M_F_INTERFACE_H
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface.inl
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface_macros.inl
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface_test.inl
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/naked_func_writer.hpp
+	)
+
 set(MEMORY_H
 	${CMAKE_CURRENT_SOURCE_DIR}/array.h
 	${CMAKE_CURRENT_SOURCE_DIR}/array_yelo.hpp
@@ -15,13 +23,18 @@ set(MEMORY_H
 	${CMAKE_CURRENT_SOURCE_DIR}/data_base.h
 	${CMAKE_CURRENT_SOURCE_DIR}/datum_index.h
 	${CMAKE_CURRENT_SOURCE_DIR}/debug.h
+	${CMAKE_CURRENT_SOURCE_DIR}/files.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/linked_list.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/lruv_cache.h
 	${CMAKE_CURRENT_SOURCE_DIR}/memory_pool.h
 	${CMAKE_CURRENT_SOURCE_DIR}/memory_yelo.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/memory_interface_base.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/physical_memory_allocation.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/packed_file.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/position_queue.h
 	${CMAKE_CURRENT_SOURCE_DIR}/profiling.h
 	${CMAKE_CURRENT_SOURCE_DIR}/queued_sigscanner.h
 	${CMAKE_CURRENT_SOURCE_DIR}/simple_circular_queue.h
 	${M_UPGRADES_H}
+	${M_F_INTERFACE_H}
 	PARENT_SCOPE)

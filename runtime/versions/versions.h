@@ -29,3 +29,5 @@ namespace engines {
 };
 
 #define ADDR static constexpr uintptr_t
+static const char *K_DEBUG_FILENAME     = "Game.debug.log";
+static const char *K_EVENT_LOG_FILENAME = "Game.Log.txt";

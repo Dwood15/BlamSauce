@@ -79,7 +79,7 @@ namespace Yelo {
 		const tag_block *to_tag_block() const { return CAST_PTR(const tag_block*, &this->Count); }
 
 		// Sets this object to equal that of a anonymous tag block object. 
-		TagBlock<T> &Copy(const tag_block &block) {
+		TagBlock<T> * Copy(const tag_block &block) {
 			this->Count   = block.count;
 			this->Address = block.address;
 
@@ -101,17 +101,18 @@ namespace Yelo {
 			return this->Definitions[index];
 		}
 
-		T *get_element(int32 element) { return blam::tag_block_get_element(*this, index); }
-
-		void delete_element(int32 element) { blam::tag_block_delete_element(*this, element); }
-
-		bool delete_all_elements() { return blam::tag_block_delete_all_elements(*this); }
-
-		int32 add_element() { return blam::tag_block_add_element(*this); }
-
-		bool resize(int32 element_count) { return blam::tag_block_resize(*this, element_count); }
-
-		T *add_and_get_element() { return blam::tag_block_add_and_get_element(*this); }
+		//index not defined if not editor
+		// T *get_element(int32 element) { return blam::tag_block_get_element(*this, index); }
+		//
+		// void delete_element(int32 element) { blam::tag_block_delete_element(*this, element); }
+		//
+		// bool delete_all_elements() { return blam::tag_block_delete_all_elements(*this); }
+		//
+		// int32 add_element() { return blam::tag_block_add_element(*this); }
+		//
+		// bool resize(int32 element_count) { return blam::tag_block_resize(*this, element_count); }
+		//
+		// T *add_and_get_element() { return blam::tag_block_add_and_get_element(*this); }
 
 		//////////////////////////////////////////////////////////////////////////
 		// STL-like APIs

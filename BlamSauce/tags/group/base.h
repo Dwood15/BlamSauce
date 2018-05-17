@@ -6,6 +6,7 @@
 */
 #pragma once
 
+#include <sal.h>
 #include "../../cseries/MacrosCpp.h"
 #include "../../cseries/base.h"
 #include "../../memory/datum_index.h"
@@ -16,10 +17,17 @@
 #include "../../cseries/yelo_base.h"
 #include "../../cseries/errors.h"
 #include "loading.hpp"
+#include "../../memory/memory_yelo.hpp"
+
+namespace Yelo::TagGroups {
+	/// <summary>	when true, all 'model' references are loaded or get as gbxmodels </summary>
+	static inline const bool g_gbxmodel_group_enabled = true;
+}
 
 namespace Yelo {
 	struct tag_reference;
-	void __cdecl blam::tag_reference_clear(tag_reference &reference);
+
+	void __cdecl tag_reference_clear(tag_reference &reference);
 
 	namespace Enums {
 		enum {
@@ -34,8 +42,6 @@ namespace Yelo {
 
 	// Halo1's editor allocates 256 characters for all tag_reference names, even if they're empty
 	typedef char *tag_reference_name_reference;
-
-
 
 	struct tag_reference {
 		enum {
@@ -53,7 +59,7 @@ namespace Yelo {
 
 		operator datum_index() const { return tag_index; }
 
-		void clear(){
+		void clear() {
 			auto reference = (*this);
 
 			assert(reference.name);
@@ -63,19 +69,19 @@ namespace Yelo {
 			reference.tag_index   = datum_index::null();
 		}
 
-		void set(tag group_tag, cstring name){
-			auto reference = (*this);
-			assert(group_tag == NONE || tag_group_get(group_tag));
-			reference.group_tag = group_tag;
-
-			size_t name_length = strlen(name);
-			//YELO_ASSERT(name_length <= Enums::k_max_tag_name_length); // NOTE: engine does '<', but I'm pretty sure we want '<='
-
-			//YELO_ASSERT(reference.name);
-			if (reference.name != name)
-				strcpy(reference.name, name);
-
-			reference.name_length = name_length;
+		void set(tag group_tag, cstring name) {
+			// auto reference = (*this);
+			// assert(group_tag == NONE || tag_group_get(group_tag));
+			// reference.group_tag = group_tag;
+			//
+			// size_t name_length = strlen(name);
+			// //YELO_ASSERT(name_length <= Enums::k_max_tag_name_length); // NOTE: engine does '<', but I'm pretty sure we want '<='
+			//
+			// //YELO_ASSERT(reference.name);
+			// if (reference.name != name)
+			// 	strcpy(reference.name, name);
+			//
+			// reference.name_length = name_length;
 		}
 
 		template <typename T>
@@ -120,26 +126,26 @@ namespace Yelo {
 		}
 
 		datum_index __cdecl tag_reference_try_and_get(const tag_reference *reference) {
-			assert(reference);
-
-			datum_index loaded_tag_index = tag_loaded(reference->group_tag, reference->name);
-			assert(reference->tag_index == loaded_tag_index);
+			// assert(reference);
+			//
+			// datum_index loaded_tag_index = tag_loaded(reference->group_tag, reference->name);
+			// assert(reference->tag_index == loaded_tag_index);
 			//"tag reference \"%s\" and actual index do not match: is %08lX but should be %08lX",
 			// 									  reference->name, reference->tag_index,
 			// 									  loaded_tag_index
 
-			return loaded_tag_index;
+			return datum_index::null();
 		}
 
 		bool __cdecl tag_reference_resolve(_Inout_ tag_reference *reference) {
 			assert(reference);
 
 			bool success = false;
-			if (reference->group_tag != NONE && !is_null_or_empty(reference->name)) {
-				reference->tag_index = tag_load(reference->group_tag, reference->name, 0);
-				success = !reference->tag_index.IsNull();
-			} else
-				reference->tag_index = datum_index::null();
+			// if (reference->group_tag != NONE && !is_null_or_empty(reference->name)) {
+			// 	reference->tag_index = tag_load(reference->group_tag, reference->name, 0);
+			// 	success = !reference->tag_index.IsNull();
+			// } else
+			// 	reference->tag_index = datum_index::null();
 
 			return success;
 		}
@@ -242,92 +248,90 @@ namespace Yelo {
 		// Add a new block element and return the index which
 		// represents the newly added element
 		int32 __cdecl tag_block_add_element(tag_block *block) {
-			YELO_ASSERT( block && block->definition );
+			// YELO_ASSERT(block && block->definition);
+			//
+			// auto *definition = block->definition;
+			// if (block->count >= definition->maximum_element_count) {
+			// 	YELO_WARN("tried to add more elements for a %s @%p #%d than allowed",
+			// 				 definition->name, block, block->count);
+			// 	return NONE;
+			// }
+			//
+			// int  add_index    = block->count++;
+			// void *new_address = TAG_BLOCK_REALLOC(*block, block->count);
+			// if (new_address == nullptr) {
+			// 	YELO_WARN("failed to allocate new elements for a %s @%p #%d",
+			// 				 definition->name, block, block->count);
+			// 	return NONE;
+			// }
+			//
+			// void *new_element = blam::tag_block_get_element(block, add_index);
+			// blam::tag_block_generate_default_element(definition, new_element);
+			//
+			// int32 dummy_position;
+			// bool  success     = blam::tag_block_read_children_recursive(definition, new_element, 1, &dummy_position,
+			// 																				FLAG(Flags::_tag_load_for_editor_bit), datum_index::null();
+			//
+			// if (!success) {
+			// 	--block->count;
+			// 	add_index = NONE;
+			// }
 
-			auto* definition = block->definition;
-			if (block->count >= definition->maximum_element_count)
-			{
-				YELO_WARN("tried to add more elements for a %s @%p #%d than allowed",
-							 definition->name, block, block->count);
-				return NONE;
-			}
-
-			int add_index = block->count++;
-			void* new_address = TAG_BLOCK_REALLOC(*block, block->count);
-			if (new_address == nullptr)
-			{
-				YELO_WARN("failed to allocate new elements for a %s @%p #%d",
-							 definition->name, block, block->count);
-				return NONE;
-			}
-
-			void* new_element = blam::tag_block_get_element(block, add_index);
-			blam::tag_block_generate_default_element(definition, new_element);
-
-			int32 dummy_position;
-			bool success = blam::tag_block_read_children_recursive(definition, new_element, 1, &dummy_position,
-																					 FLAG(Flags::_tag_load_for_editor_bit), datum_index::null();
-
-			if(!success)
-			{
-				--block->count;
-				add_index = NONE;
-			}
-
-			return add_index;
+			return nullptr;
 		}
 
 		// Resize the block to a new count of elements, returning the
 		// success result of the operation
 		bool __cdecl tag_block_resize(tag_block *block, int32 element_count) {
-			YELO_ASSERT( block && block->definition );
-			YELO_ASSERT( block->count>=0 );
+			// YELO_ASSERT(block && block->definition);
+			// YELO_ASSERT(block->count >= 0);
+			//
+			// YELO_ASSERT(element_count >= 0);
+			//
+			// // this is how resize is implemented in the engine. Hey, it handles both cases
+			//
+			// while (block->count > element_count)
+			// 	blam::tag_block_delete_element(block, block->count - 1);
+			//
+			// while (block->count < element_count)
+			// 	if (blam::tag_block_add_element(block) == NONE)
+			// 		return false;
 
-			YELO_ASSERT( element_count>=0 );
-
-			// this is how resize is implemented in the engine. Hey, it handles both cases
-
-			while(block->count > element_count)
-				blam::tag_block_delete_element(block, block->count-1);
-
-			while(block->count < element_count)
-				if(blam::tag_block_add_element(block) == NONE)
-					return false;
-
-			return true;
+			return false;
 		}
 
 		// Frees the pointers used in more complex fields (tag_data, etc)
 		static void tag_block_delete_element_pointer_data(tag_block *block, int32 element_index) {
-			auto *definition = block->definition;
-
-			if (definition->delete_proc != nullptr)
-				definition->delete_proc(block, element_index);
-
-			// NOTE: YELO_FREE/DELETE take the pointers by reference, so that it can NULL them in the process
-
-			for (auto field : TagGroups::c_tag_field_scanner(definition->fields, blam::tag_block_get_element(block, element_index))
-				.AddFieldType(Enums::_field_block)
-				.AddFieldType(Enums::_field_data)
-				.AddFieldType(Enums::_field_tag_reference)) {
-				switch (field.GetType()) {
-					case Enums::_field_data:
-						TAG_DATA_DELETE(*field.As<tag_data>());
-						break;
-
-					case Enums::_field_block:
-						// engine actually does a while loop here, calling delete_element
-						blam::tag_block_resize(field.As<tag_block>(), 0);
-						break;
-
-					case Enums::_field_tag_reference:
-						YELO_DELETE(field.As<tag_reference>()->name);
-						break;
-
-					default:
-						assert(false);
-				}
-			}
+			// auto *definition = block->definition;
+			//
+			// if (definition->delete_proc != nullptr)
+			// 	definition->delete_proc(block, element_index);
+			//
+			// // NOTE: YELO_FREE/DELETE take the pointers by reference, so that it can NULL them in the process
+			//
+			// for (auto field : TagGroups::c_tag_field_scanner(definition->fields, blam::tag_block_get_element(block, element_index))
+			// 	.AddFieldType(Enums::_field_block)
+			// 	.AddFieldType(Enums::_field_data)
+			// 	.AddFieldType(Enums::_field_tag_reference)) {
+			// 	switch (field.GetType()) {
+			// 		case Enums::_field_data:
+			// 			// TagGroups::c_tag_data_allocations::Delete(*field.As<tag_data>(), __FILE__, __LINE__)
+			// 			// TAG_DATA_DELETE();
+			// 			break;
+			//
+			// 		case Enums::_field_block:
+			// 			// engine actually does a while loop here, calling delete_element
+			// 			blam::tag_block_resize(field.As<tag_block>(), 0);
+			// 			break;
+			//
+			// 		case Enums::_field_tag_reference:
+			// 			YELO_DELETE(field.As<tag_reference>()->name);
+			// 			break;
+			//
+			// 		default:
+			// 			assert(false);
+			// 	}
+			// }
 		}
 
 		// Delete the block element at [element_index]
@@ -354,10 +358,10 @@ namespace Yelo {
 						  following_elements_size);
 			}
 
-			if (--block->count == 0) // free the elements and clear the pointer if that was the last element
-			{
-				TAG_BLOCK_DELETE(*block);
-			}
+			// if (--block->count == 0) // free the elements and clear the pointer if that was the last element
+			// {
+			// 	TagGroups::c_tag_block_allocations::Delete(*block, __FILE__, __LINE__);
+			// }
 		}
 
 		void *tag_block_add_and_get_element(tag_block *block);
@@ -396,25 +400,25 @@ namespace Yelo {
 
 	namespace blam {
 		bool __cdecl tag_data_resize(tag_data *data, int32 new_size) {
-			YELO_ASSERT(data && data->definition);
-			YELO_ASSERT(data->address);
-
-			bool result = false;
-			if (new_size < 0) {
-				YELO_WARN("tried to resize a %s @%p to a negative size %d",
-							 data->definition->name, data, new_size);
-			} else if (new_size > data->definition->maximum_size) {
-				YELO_WARN("tried to resize a %s @%p to %d which is larger than the max allowed %d",
-							 data->definition->name, data, new_size, data->definition->maximum_size);
-			} else if (new_size == 0) {
-				data->size = 0;
-				result = true;
-			} else {
-				TAG_DATA_REALLOC(*data, new_size);
-				result = data->address != nullptr;
-			}
-
-			return result;
+			// YELO_ASSERT(data->address);
+			//
+			// bool result = false;
+			// if (new_size < 0) {
+			// 	YELO_WARN("tried to resize a %s @%p to a negative size %d",
+			// 				 data->definition->name, data, new_size);
+			// } else if (new_size > data->definition->maximum_size) {
+			// 	YELO_WARN("tried to resize a %s @%p to %d which is larger than the max allowed %d",
+			// 				 data->definition->name, data, new_size, data->definition->maximum_size);
+			// } else if (new_size == 0) {
+			// 	data->size = 0;
+			// 	result = true;
+			// } else {
+			// 	Yelo::TagGroups::c_tag_data_allocations::Realloc(*data, new_size, __FILE__, __LINE__);
+			// 	result = data->address != nullptr;
+			// }
+			//
+			// return result;
+			return false;
 		}
 
 		void *__cdecl tag_data_get_pointer(tag_data &data, int32 offset, int32 size) {
@@ -427,9 +431,7 @@ namespace Yelo {
 		template <typename T>
 		inline
 		T *tag_data_get_pointer(tag_data &data, int32 offset, int32 index = 0) {
-			return CAST_PTR(T*, tag_data_get_pointer(data,
-																  offset + (sizeof(T) * index),
-																  sizeof(T)));
+			return CAST_PTR(T*, tag_data_get_pointer(data, offset + (sizeof(T) * index), sizeof(T)));
 		}
 	};
 
@@ -468,12 +470,11 @@ namespace Yelo {
 				 group_tag == NONE)
 				return instance_address;
 
-			if (TagGroups::g_gbxmodel_group_enabled &&
-				 TagGroups::model_definition::k_group_tag == instance_group_tag ||
+			if (g_gbxmodel_group_enabled && TagGroups::model_definition::k_group_tag == instance_group_tag ||
 				 TagGroups::gbxmodel_definition::k_group_tag == instance_group_tag) {
-				if (group_tag == TagGroups::model_definition::k_group_tag ||
-					 group_tag == TagGroups::gbxmodel_definition::k_group_tag)
+				if (group_tag == TagGroups::model_definition::k_group_tag || group_tag == TagGroups::gbxmodel_definition::k_group_tag) {
 					return instance_address;
+				}
 			}
 
 			long_string group_name;
@@ -575,37 +576,36 @@ namespace Yelo {
 		static_assert(sizeof(s_tag_iterator) == 0x14);
 	};
 
-	static int32 __cdecl tag_block_insert_element_impl(tag_block* block, int32 index)
-	{
-		YELO_ASSERT( block && block->definition ); // engine actually does the asserts these after the allocation
-		YELO_ASSERT( index>=0 && index<=block->count );
+	static int32 __cdecl tag_block_insert_element_impl(tag_block *block, int32 index) {
+		YELO_ASSERT(block && block->definition); // engine actually does the asserts these after the allocation
+		YELO_ASSERT(index >= 0 && index <= block->count);
 
-		auto* definition = block->definition;
-		int proceeding_element_index = index + 1;
+		auto *definition              = block->definition;
+		int  proceeding_element_index = index + 1;
 
 		// get a new element
 		int add_index = blam::tag_block_add_element(block); // engine actually does this after the allocation
-		if(add_index == NONE)
+		if (add_index == NONE)
 			return NONE;
-		else if(proceeding_element_index == block->count)
+		else if (proceeding_element_index == block->count)
 			return add_index; // the element was inserted at the end, nothing needs to be done
 
-		void* element = blam::tag_block_get_element(block, add_index);
+		void   *element     = blam::tag_block_get_element(block, add_index);
 		size_t element_size = definition->element_size;
 
 		// copy the newly created element data to a temp buffer
 		auto element_scratch = YELO_MALLOC_UNIQUE(element_size, false);
 		{
-			if(element_scratch == nullptr)
+			if (element_scratch == nullptr)
 				return NONE;
 
 			std::memcpy(element_scratch.get(), element, element_size);
 
-			size_t following_elements_offset = element_size * index;
-			size_t following_elements_size = element_size * ((block->count - index) - 1);
+			size_t following_elements_offset     = element_size * index;
+			size_t following_elements_size       = element_size * ((block->count - index) - 1);
 			size_t following_elements_new_offset = element_size * (index + 1);
 
-			auto* address = CAST_PTR(byte*, block->address);
+			auto *address = CAST_PTR(byte*, block->address);
 			std::memmove(address + following_elements_new_offset,
 							 address + following_elements_offset,
 							 following_elements_size);
@@ -617,73 +617,63 @@ namespace Yelo {
 		return index;
 	}
 
-	static bool tag_block_duplicate_element_recursive(tag_block *source_block, int32 source_element_index, tag_block *destination_block, int32 destination_element_index)
-	{
-		YELO_ASSERT( source_block->definition==destination_block->address ); // engine doesn't actually do this first
+	static bool tag_block_duplicate_element_recursive(tag_block *source_block, int32 source_element_index, tag_block *destination_block, int32 destination_element_index) {
+		// YELO_ASSERT(source_block->definition == destination_block->address); // engine doesn't actually do this first
+		//
+		// TagGroups::c_tag_field_scanner source(source_block->definition->fields,
+		// 												  blam::tag_block_get_element(source_block, source_element_index));
+		// source.AddAllFieldTypes();
+		//
+		// TagGroups::c_tag_field_scanner destination(destination_block->definition->fields, blam::tag_block_get_element(destination_block, destination_element_index));
+		// destination.AddAllFieldTypes();
+		//
+		// while (source.Scan()) {
+		// 	destination.Scan();
+		// 	YELO_ASSERT(source.GetTagFieldType() == destination.GetTagFieldType());
+		//
+		// 	switch (source.GetTagFieldType()) {
+		// 		default:
+		// 			std::memcpy(destination.GetFieldAddress(), source.GetFieldAddress(), source.GetFieldSize());
+		// 			break;
+		//
+		// 		case Enums::_field_data: {
+		// 			auto *dest_data = destination.GetFieldAs<tag_data>();
+		// 			auto *src_data  = source.GetFieldAs<tag_data>();
+		//
+		// 			if (src_data->address != nullptr && blam::tag_data_resize(dest_data, src_data->size))
+		// 				std::memcpy(dest_data->address, src_data->address, src_data->size);
+		// 		}
+		// 			break;
+		//
+		// 		case Enums::_field_block: {
+		// 			auto *dest_block = destination.GetFieldAs<tag_block>();
+		// 			YELO_ASSERT(dest_block->count == 0);
+		// 			auto *src_block = source.GetFieldAs<tag_block>();
+		//
+		// 			if (blam::tag_block_resize(dest_block, src_block->count)) {
+		// 				for (int x = 0; x < src_block->count; x++)
+		// 					tag_block_duplicate_element_recursive(src_block, x, destination_block, x);
+		// 			}
+		// 		}
+		// 			break;
+		//
+		// 		case Enums::_field_tag_reference: {
+		// 			auto *dest_ref = destination.GetFieldAs<tag_reference>();
+		// 			auto *src_ref  = source.GetFieldAs<tag_reference>();
+		//
+		// 			blam::tag_reference_set(*dest_ref, src_ref->group_tag, src_ref->name);
+		// 			dest_ref->tag_index = src_ref->tag_index;
+		// 		}
+		// 			break;
+		// 	}
+		// }
 
-		TagGroups::c_tag_field_scanner source(source_block->definition->fields,
-														  blam::tag_block_get_element(source_block, source_element_index));
-		source.AddAllFieldTypes();
-
-		TagGroups::c_tag_field_scanner destination(destination_block->definition->fields,
-																 blam::tag_block_get_element(destination_block, destination_element_index));
-		destination.AddAllFieldTypes();
-
-		while(source.Scan())
-		{
-			destination.Scan();
-			YELO_ASSERT( source.GetTagFieldType()==destination.GetTagFieldType() );
-
-			switch(source.GetTagFieldType())
-			{
-				default:
-					std::memcpy(destination.GetFieldAddress(), source.GetFieldAddress(), source.GetFieldSize());
-					break;
-
-				case Enums::_field_data:
-				{
-					auto* dest_data = destination.GetFieldAs<tag_data>();
-					auto* src_data = source.GetFieldAs<tag_data>();
-
-					if(src_data->address != nullptr && blam::tag_data_resize(dest_data, src_data->size))
-						std::memcpy(dest_data->address, src_data->address, src_data->size);
-				}
-					break;
-
-				case Enums::_field_block:
-				{
-					auto* dest_block = destination.GetFieldAs<tag_block>();
-					YELO_ASSERT( dest_block->count==0 );
-					auto* src_block = source.GetFieldAs<tag_block>();
-
-					if(blam::tag_block_resize(dest_block, src_block->count))
-					{
-						for(int x = 0; x < src_block->count; x++)
-							tag_block_duplicate_element_recursive(src_block, x, destination_block, x);
-					}
-				}
-					break;
-
-				case Enums::_field_tag_reference:
-				{
-					auto* dest_ref = destination.GetFieldAs<tag_reference>();
-					auto* src_ref = source.GetFieldAs<tag_reference>();
-
-					blam::tag_reference_set(*dest_ref, src_ref->group_tag, src_ref->name);
-					dest_ref->tag_index = src_ref->tag_index;
-				}
-					break;
-			}
-		}
-
-		return true;
+		return false;
 	}
 
-	int32 __cdecl tag_block_duplicate_element_impl(tag_block* block, int32 element_index)
-	{
+	int32 __cdecl tag_block_duplicate_element_impl(tag_block *block, int32 element_index) {
 		int dup_index = blam::tag_block_add_element(block);
-		if(dup_index != NONE)
-		{
+		if (dup_index != NONE) {
 			tag_block_duplicate_element_recursive(
 				block, element_index,
 				block, dup_index);
@@ -692,20 +682,19 @@ namespace Yelo {
 		return dup_index;
 	}
 
-	bool __cdecl tag_block_swap_elements_impl(tag_block *block, int32 left_element_index, int32 right_element_index)
-	{
-		YELO_ASSERT( block && block->definition ); // engine actually does this after the allocation
+	bool __cdecl tag_block_swap_elements_impl(tag_block *block, int32 left_element_index, int32 right_element_index) {
+		YELO_ASSERT(block && block->definition); // engine actually does this after the allocation
 
-		auto* definition = block->definition;
+		auto   *definition  = block->definition;
 		size_t element_size = definition->element_size;
 
 		auto element_scratch = YELO_MALLOC_UNIQUE(element_size, false);
 		{
-			if(element_scratch == nullptr)
+			if (element_scratch == nullptr)
 				return false;
 
-			void* left_element = blam::tag_block_get_element(block, left_element_index);
-			void* right_element= blam::tag_block_get_element(block, right_element_index);
+			void *left_element  = blam::tag_block_get_element(block, left_element_index);
+			void *right_element = blam::tag_block_get_element(block, right_element_index);
 
 			std::memcpy(element_scratch.get(), left_element, element_size);
 			std::memcpy(left_element, right_element, element_size);
@@ -716,4 +705,5 @@ namespace Yelo {
 	}
 
 };
+
 #include "field_definitions.inl"

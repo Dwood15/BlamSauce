@@ -9,12 +9,15 @@
 #include "../../memory/upgrades/blam_memory_upgrades.hpp"
 #include "../../memory/array.h"
 #include "tag_groups_base_yelo.hpp"
+#include "../string_ids/yelo.hpp"
+
 
 namespace Yelo::Enums {
 	enum {
 		k_protected_group_tag = 'prot', // HEK+: this overrides the scenario's group tag in the tag index.
 	};
 };
+
 namespace Yelo::TagGroups {
 	static bool g_gbxmodel_group_enabled = true;
 
@@ -24,6 +27,42 @@ namespace Yelo::TagGroups {
 		tag_instance_data_t;
 
 	tag_instance_data_t &TagInstances();
+};
+
+namespace Yelo::blam {
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	Initialize a tag instance iterator for the given group tag </summary>
+	///
+	/// <param name="iter">			   	[out] The iterator to initialize </param>
+	/// <param name="group_tag_filter">
+	/// 	(Optional) the group tag to filter results by. Use [NONE] for [group_tag_filter] to
+	/// 	iterate all tag groups.
+	/// </param>
+	static void __cdecl tag_iterator_new(TagGroups::s_tag_iterator &iter, const tag group_tag_filter = NONE) {
+		data_iterator_new(iter.instances_iterator, &TagGroups::TagInstances().Header);
+		iter.group_tag_filter = group_tag_filter;
+	}
+
+	template <typename T>
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	Initialize a tag instance iterator for the given group tag </summary>
+	///
+	/// <param name="iter">	[out] The iterator to initialize </param>
+	inline static void tag_iterator_new(TagGroups::s_tag_iterator &iter) {
+		tag_iterator_new(iter, T::k_group_tag);
+	}
+
+	// Get the group definition that follows [group], or the first group if it is NULL
+	tag_group *__cdecl tag_group_get_next(const tag_group *group = nullptr);
+
+	// Get the group definition based on a four-character code
+	tag_group *__cdecl tag_group_get(tag group_tag);
+
+}
+
+namespace Yelo::TagGroups {
+
+
 
 	// Patches stock tag_groups with new fields where they once had useless padding
 	// Called before group definitions have been verified (but after group tags have) and group parents are built
@@ -40,8 +79,7 @@ namespace Yelo::TagGroups {
 
 	extern const s_tag_field_definition k_tag_field_definitions[];
 
-	/// <summary>	when true, all 'model' references are loaded or get as gbxmodels </summary>
-	static bool g_gbxmodel_group_enabled = true;
+
 
 	// Get the length, in characters, of a string field, excluding the null character
 	int32 StringFieldGetLength(const tag_field *field) {
@@ -63,7 +101,7 @@ namespace Yelo::TagGroups {
 	tag_group *FindTagGroupByName(cstring name);
 
 	char *TryAndGetGroupName(tag group_tag, _Out_ long_string name) {
-		const tag_group *group = blam::tag_group_get(group_tag);
+		const tag_group *group = Yelo::blam::tag_group_get(group_tag);
 		if (group != nullptr)
 			strcpy(name, group->name);
 		else if (group_tag == NONE)
@@ -156,6 +194,8 @@ namespace Yelo::TagGroups {
 	};
 };
 
+
+
 namespace blam {
 	void __cdecl tag_groups_initialize();
 
@@ -180,27 +220,6 @@ namespace blam {
 		return datum_index::null();
 	}
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Initialize a tag instance iterator for the given group tag </summary>
-	///
-	/// <param name="iter">			   	[out] The iterator to initialize </param>
-	/// <param name="group_tag_filter">
-	/// 	(Optional) the group tag to filter results by. Use [NONE] for [group_tag_filter] to
-	/// 	iterate all tag groups.
-	/// </param>
-	static void __cdecl tag_iterator_new(TagGroups::s_tag_iterator &iter, const tag group_tag_filter = NONE) {
-		data_iterator_new(iter.instances_iterator, &TagGroups::TagInstances().Header);
-		iter.group_tag_filter = group_tag_filter;
-	}
-
-	template <typename T>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Initialize a tag instance iterator for the given group tag </summary>
-	///
-	/// <param name="iter">	[out] The iterator to initialize </param>
-	inline static void tag_iterator_new(TagGroups::s_tag_iterator &iter) {
-		tag_iterator_new(iter, T::k_group_tag);
-	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Increment a tags instance iterator to the next instance </summary>
@@ -225,11 +244,6 @@ namespace blam {
 		return datum_index::null();
 	}
 
-	// Get the group definition that follows [group], or the first group if it is NULL
-	tag_group *__cdecl tag_group_get_next(const tag_group *group = nullptr);
-
-	// Get the group definition based on a four-character code
-	tag_group *__cdecl tag_group_get(tag group_tag);
 
 	template <typename T>
 	inline tag_group *tag_group_get() {

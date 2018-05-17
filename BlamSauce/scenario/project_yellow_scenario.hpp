@@ -14,14 +14,18 @@
 #include "project_yellow_scenario_definitions.hpp"
 #include "../cache/cache_files.hpp"
 #include "../hs/hs_yelo.hpp"
+#include "project_yellow_global_definitions.hpp"
 
 namespace Yelo::Scenario {
 	using namespace TagGroups;
-	static project_yellow_globals null_yelo_globals;
+	static Yelo::TagGroups::project_yellow_globals null_yelo_globals;
 	static project_yellow         null_yelo;
 	static project_yellow         null_yelo_invalid(true);
 	static project_yellow_globals *g_py_globals     = &null_yelo_globals;
 	static project_yellow         *g_project_yellow = &null_yelo;
+
+	static void FindYeloDefinitions();
+	static bool VerifyYeloScriptDefinitions();
 
 	void ProjectYellowInitialize() {}
 
@@ -69,7 +73,7 @@ namespace Yelo::Scenario {
 		s_tag_iterator iter;
 
 		// find the yelo scenario tag
-		blam::tag_iterator_new(iter, project_yellow::k_group_tag);
+		Yelo::blam::tag_iterator_new(iter, project_yellow::k_group_tag);
 		datum_index yelo_index = blam::tag_iterator_next(iter); // there should only be one yelo tag so we only need to call this once
 
 		// find the yelo globals tag

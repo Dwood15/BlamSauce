@@ -74,6 +74,8 @@
 #define UNUSED_TYPE(type) pad_##type
 
 //Yes, this is incredibly lazy, stfu.
+#define YELO_ASSERT(asdf, ...) // asdf
+#define YELO_ASSERT_WARN(asdf, ...) // asdf
 #define YELO_ASSERT_DISPLAY(asdf, ...) // asdf
 
 // Library's function convention
