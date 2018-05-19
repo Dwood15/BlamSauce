@@ -1,6 +1,8 @@
 #pragma once
 
 #include <precompile.h>>
+#include <cstddef>
+#include "MacrosCpp.h"
 
 namespace Yelo {
 	namespace Enums {

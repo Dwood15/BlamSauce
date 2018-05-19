@@ -1,6 +1,5 @@
 /*
 	CppBlamSauce SDK
-
 	See <../README.md> for information
 	See <../LICENSE> for license information
 */
@@ -72,7 +71,7 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS(float);
 
-		OVERRIDE_OPERATOR_CAST_THIS_REF(real_point2d);
+		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_point2d);
 
 		OVERRIDE_OPERATOR_CAST_THIS(D3DXVECTOR2);
 
@@ -200,7 +199,7 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS(real_vector2d);
 
-		OVERRIDE_OPERATOR_CAST_THIS_REF(real_point3d);
+		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_point3d);
 
 		//TODO: DirectX!
 		OVERRIDE_OPERATOR_CAST_THIS(D3DXVECTOR3);
@@ -560,7 +559,7 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS(float);
 
-		OVERRIDE_OPERATOR_CAST_THIS_REF(real_vector2d);
+		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_vector2d);
 
 		inline void Normalize() {
 			real mag = MATH_FLOAT_FUNC(sqrt)(
@@ -594,7 +593,7 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS(real_plane2d);
 
-		OVERRIDE_OPERATOR_CAST_THIS_REF(real_vector3d);
+		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_vector3d);
 
 		//TODO: DirectX includes.
 		//OVERRIDE_OPERATOR_CAST_THIS(D3DXPLANE);

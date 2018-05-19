@@ -6,4 +6,4 @@ set(MATH_H
 	${CMAKE_CURRENT_SOURCE_DIR}/matrix_math.h
 	${CMAKE_CURRENT_SOURCE_DIR}/periodic_functions.h
 	${CMAKE_CURRENT_SOURCE_DIR}/real_math.h
-	)
+	PARENT_SCOPE)

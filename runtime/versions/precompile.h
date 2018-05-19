@@ -46,3 +46,5 @@
 
 #include "../../BlamSauce/cseries/MacrosCpp.h"
 #include "../../BlamSauce/cseries/base.h"
+#include "../../BlamSauce/math/real_math.h"
+#include "../../BlamSauce/memory/datum_index.h"

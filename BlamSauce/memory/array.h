@@ -9,6 +9,7 @@
 #include "../cseries/base.h"
 #include "datum_index.h"
 #include "data.h"
+#include "../cseries/MacrosCpp.h"
 
 namespace Yelo {
 	namespace Memory {
@@ -42,18 +43,25 @@ namespace Yelo {
 				DatumT          *m_current_instance;
 
 			public:
+				/**
+				 * @function Iterator - Makes new iterator
+				 * @param data DataArrayT
+				 */
 				Iterator(DataArrayT &data) {
 					blam::data_iterator_new(m_iterator, &data.Header);
 					m_current_instance = nullptr;
 				}
 
 				DatumT *Next() {
-					return m_current_instance =
-								 CAST_PTR(DatumT*, blam::data_iterator_next(m_iterator));
+					return m_current_instance = 								 CAST_PTR(DatumT*, blam::data_iterator_next(m_iterator));
 				}
 
 				datum_index Current() const { return this->m_iterator.index; }
 
+				/// 1231223
+				/// Get the EndHack from a DataArrayT
+				/// @param DataArrayT &data - The Data Array to do the End Hack
+				/// @returns - An iterator based off the end Hack
 				static const Iterator GetEndHack(DataArrayT &data) {
 					auto hack = Iterator(data);
 					hack.m_iterator.SetEndHack();
@@ -72,6 +80,7 @@ namespace Yelo {
 				DataArrayIteratorResult<DatumT> operator *() const {
 					return DataArrayIteratorResult<DatumT>(m_iterator.index, m_current_instance);
 				}
+
 			};
 
 			s_data_array Header;
@@ -79,7 +88,9 @@ namespace Yelo {
 		public:
 
 			Iterator &IteratorNew(Iterator &iter) {
-				return iter = Iterator(this);
+				auto item = Iterator::GetEndHack(*this);
+
+				return iter = Iterator(*this);
 			}
 
 			DatumT *Datums() {
