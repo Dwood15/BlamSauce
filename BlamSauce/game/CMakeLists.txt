@@ -6,12 +6,12 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/player)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/time)
 
 set(GAME_H
-	${DEVICE_H}
-	${GLOBALS_H}
+	${G_DEVICE_H}
+	${G_GLOBALS_H}
 	${OBJECTS_H}
-	${PLAYER_H}
+	${G_PLAYER_H}
 	${TIME_H}
-	${ENGINE_H}
+	${G_ENGINE_H}
 	${CMAKE_CURRENT_SOURCE_DIR}/action_queue.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/allegiance.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cheats.hpp

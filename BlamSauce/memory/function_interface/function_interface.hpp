@@ -1,12 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
+#include <precompile.h>
+#include "../memory_interface_base.hpp"
 
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
-
-#include <YeloLib/memory/memory_interface_base.hpp>
 
 namespace Yelo
 {
@@ -72,16 +67,26 @@ namespace Yelo
 			}
 		};
 		//////////////////////////////////////////////////////////////////////////
-
+#include "function_interface.inl"
+#include "function_interface_macros.inl"
 		// define these in the project implementation, if used
 		class c_function_interface_system
 		{
 		public:
-			static void Initialize();
+			static void Initialize() {
+				//TODO: reduce abstraction for these particular hooks.
+				//Note: These addresses are mostly just hooks. Not very likely to be the full functions we were looking for.
+				// Still need to double check, just to be sure, though. :)
+				// WRITE_HOOK_BLOCK_PROCESS(render_sky, 0x50F9A2);
+				// WRITE_HOOK_BLOCK_PROCESS(render_objects, 0x50F9B1);
+				// WRITE_HOOK_BLOCK_PROCESS(render_structure, 0x50F9BB);
+				// WRITE_HOOK_BLOCK_PROCESS(weather_particle_systems_render, 0x50FD3C);
+				// WRITE_HOOK_BLOCK_PROCESS(render_hud, 0x50FE61);
+				// WRITE_HOOK_BLOCK_PROCESS(render_ui,0x50FE6D);
+				// WRITE_HOOK_BLOCK_PROCESS(render_cursor,  0x49B520);
+				// WRITE_HOOK_BLOCK_PROCESS(update_ui_widgets, 0x4CAF57);
+			}
 			static void Dispose();
 		};
-
-#include <YeloLib/memory/function_interface.inl>
-#include <YeloLib/memory/function_interface_macros.inl>
 	};
 };

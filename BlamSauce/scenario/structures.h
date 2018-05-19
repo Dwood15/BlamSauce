@@ -6,8 +6,7 @@
 #include "../math/color_math.h"
 #include "../tag_helpers/tag_groups_base.h"
 
-namespace Yelo {
-	namespace Scenario {
+namespace Yelo::Scenario {
 		struct s_scenario_player_atmospheric_fog // made up name
 		{
 			bool is_inside;
@@ -87,4 +86,4 @@ namespace Yelo {
 	static_assert(sizeof(s_sky_definition) == 0xD0);
 
 };
-};
+

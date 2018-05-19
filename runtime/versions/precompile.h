@@ -48,3 +48,4 @@
 #include "../../BlamSauce/cseries/base.h"
 #include "../../BlamSauce/math/real_math.h"
 #include "../../BlamSauce/memory/datum_index.h"
+#include "../../BlamSauce/tags/group/base.h"

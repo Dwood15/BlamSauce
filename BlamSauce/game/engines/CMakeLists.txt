@@ -1,5 +1,4 @@
-#I can't help but feel like this whole bit right here is pointless...
-set(ENGINE_H
+set(G_ENGINE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/engine.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_ctf.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_king.hpp
@@ -7,4 +6,6 @@ set(ENGINE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_race.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_slayer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_stub.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/variants.hpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/game_engine_yelo.h
+	${CMAKE_CURRENT_SOURCE_DIR}/variants.h
+	PARENT_SCOPE)

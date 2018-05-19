@@ -15,7 +15,7 @@
 #include "object_definitions.hpp"
 #include "../../models/animations/model.hpp"
 #include "../../models/model_definitions.hpp"
-#include "object_types.hpp"
+#include "object_types.h"
 #include "../../scenario/structures.h"
 
 namespace Yelo {

@@ -7,7 +7,7 @@
 #pragma once
 
 #include <precompile.h>
-#include "object_types.hpp"
+#include "object_types.h"
 #include "../../cseries/base.h"
 #include "../../memory/datum_index.h"
 #include "../../math/matrix_math.h"
@@ -18,7 +18,7 @@
 #include "../../scenario/scenario.h"
 #include "object_definitions.hpp"
 #include "../../models/animations/definitions.hpp"
-#include "object_structures.hpp"
+#include "object_structures.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -146,7 +146,16 @@ namespace Yelo::Objects {
 
 	s_object_name_list_data *ObjectNameList();
 
-	TagGroups::s_object_definition const *GetObjectDefinition(datum_index object_index);
+	TagGroups::s_object_definition const *GetObjectDefinition(datum_index object_index) {
+		if(!object_index.IsNull())
+		{
+			const auto* object = Yelo::blam::object_get(object_index);
+
+			return blam::tag_get<TagGroups::s_object_definition>(object->definition_index);
+		}
+
+		return nullptr;
+	}
 
 	template <typename TObjectDefinition>
 	inline
@@ -154,7 +163,17 @@ namespace Yelo::Objects {
 		return CAST_PTR(TObjectDefinition const*, GetObjectDefinition(object_index));
 	}
 
-	TagGroups::model_animation_graph const *GetObjectAnimations(datum_index object_index);
+	TagGroups::model_animation_graph const *GetObjectAnimations(datum_index object_index) {
+		if(!object_index.IsNull())
+		{
+			const auto* object = blam::object_get(object_index);
+			auto tag_index = object->animation.definition_index;
+
+			return blam::tag_get<TagGroups::model_animation_graph>(tag_index);
+		}
+
+		return nullptr;
+	}
 
 };
 

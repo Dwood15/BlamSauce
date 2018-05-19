@@ -1,8 +1,13 @@
+set(S_YELO_H
+	${CMAKE_CURRENT_SOURCE_DIR}/yelo/yelo_global_definitions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/yelo/yelo_scenario_definite.h
+	${CMAKE_CURRENT_SOURCE_DIR}/yelo/yelo_scenario.h
+	)
+
 set(SCENARIO_H
-	${CMAKE_CURRENT_SOURCE_DIR}/project_yellow_global_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/project_yellow_scenario_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/project_yellow_scenario.hpp
+	${S_YELO_H}
 	${CMAKE_CURRENT_SOURCE_DIR}/scenario.h
 	${CMAKE_CURRENT_SOURCE_DIR}/definitions.h
 	${CMAKE_CURRENT_SOURCE_DIR}/structures.h
+	${CMAKE_CURRENT_SOURCE_DIR}/structure_bsp.h
 	PARENT_SCOPE)

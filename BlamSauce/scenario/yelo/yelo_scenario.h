@@ -11,10 +11,10 @@
 // yelo globals		- project_yellow_globals
 // blam scenario	- scenario
 
-#include "project_yellow_scenario_definitions.hpp"
+#include "yelo_scenario_definite.h"
 #include "../cache/cache_files.hpp"
 #include "../hs/hs_yelo.hpp"
-#include "project_yellow_global_definitions.hpp"
+#include "yelo_global_definitions.h"
 
 namespace Yelo::Scenario {
 	using namespace TagGroups;
