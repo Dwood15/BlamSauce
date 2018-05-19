@@ -1,6 +1,9 @@
 #pragma once
 
 #include <precompile.h>
+#include "object_types.h"
+#include "objects.h"
+#include "units/unit_structures.hpp"
 
 namespace Yelo::Objects {
 
@@ -25,7 +28,7 @@ namespace Yelo::Objects {
 	/// <param name="source_object_index">	Datum index of the source object. </param>
 	/// <param name="tag_index_override"> 	(Optional) the tag index override. </param>
 	/// <param name="owner_object_index"> 	(Optional) the object that owns this item. </param>
-	void PlacementDataNewAndCopy(s_object_placement_data &data, const datum_index source_object_index, datum_index tag_index_override = datum_index::null,
+	void PlacementDataNewAndCopy(s_object_placement_data &data, const datum_index source_object_index, datum_index tag_index_override = datum_index::null(),
 										  const datum_index owner_object_index = datum_index::null()) {
 		const auto *source_object = blam::object_get(source_object_index);
 
@@ -218,14 +221,16 @@ namespace Yelo::Objects {
 	/// <param name="parent">	 	The parent. </param>
 	/// <param name="definition">	The object definition index. </param>
 	void DetachChildrenByDefinition(const datum_index parent, const datum_index definition) {
-		PerformActionOnChildrenByType(parent, Enums::_object_type_mask_all,
-												[&](const datum_index object_index) {
-													auto *object_datum = blam::object_get(object_index);
-													if (object_datum && (object_datum->definition_index == definition)) {
-														blam::object_detach(object_index);
-													}
-												});
-	}
+
+		auto callback = [&](const datum_index object_index) {
+			auto *object_datum = blam::object_get(object_index);
+			if (object_datum && (object_datum->definition_index == definition)) {
+				blam::object_detach(object_index);
+			}
+		};
+
+		PerformActionOnChildrenByType(parent, Enums::_object_type_mask_all, callback);
+	};
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Predict the object memory pool usage. </summary>

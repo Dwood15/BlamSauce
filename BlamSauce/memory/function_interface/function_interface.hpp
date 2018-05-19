@@ -86,7 +86,7 @@ namespace Yelo
 				// WRITE_HOOK_BLOCK_PROCESS(render_cursor,  0x49B520);
 				// WRITE_HOOK_BLOCK_PROCESS(update_ui_widgets, 0x4CAF57);
 			}
-			static void Dispose();
+			static void Dispose() {}
 		};
 	};
 };
