@@ -104,7 +104,7 @@ _return:
 				return k_errnone == strcpy_s(buffer, 0x100, GetGameVer());
 			}
 
-			static int PLATFORM_API Qr2StringMatchesGameVer(const char* buffer)
+			static int __cdecl Qr2StringMatchesGameVer(const char* buffer)
 			{
 				return strcmp(buffer, GetGameVer())==0;
 			}

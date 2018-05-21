@@ -26,15 +26,15 @@ namespace Yelo
 		/// <summary>	Server side updates of players </summary>
 		///
 		/// <remarks>	called before core game update functions </remarks>
-		void PLATFORM_API UpdateForServer();
+		void __cdecl UpdateForServer();
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Client side updates of players </summary>
 		///
 		/// <remarks>	called before core game update functions </remarks>
-		void PLATFORM_API UpdateForClient();
+		void __cdecl UpdateForClient();
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <remarks>	called after core game update functions </remarks>
-		void PLATFORM_API Update();
+		void __cdecl Update();
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Get the player data of the currently active local player </summary>

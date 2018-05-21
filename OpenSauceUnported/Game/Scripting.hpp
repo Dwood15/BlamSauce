@@ -21,6 +21,6 @@ namespace Yelo
 		void Initialize();
 		void Dispose();
 
-		void PLATFORM_API Update();
+		void __cdecl Update();
 	};
 };

@@ -222,7 +222,7 @@ namespace Yelo
 		int32 ServerInstance();
 
 
-		typedef void (PLATFORM_API* proc_sv_event_log)(Enums::server_event_type type, wcstring format, ...);
+		typedef void (__cdecl* proc_sv_event_log)(Enums::server_event_type type, wcstring format, ...);
 		// Write an event to the log file (includes a time stamp)
 		extern proc_sv_event_log EventLog;
 		// Echo an event to the console

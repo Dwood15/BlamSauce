@@ -57,7 +57,7 @@ namespace NearbyObjects
 		}
 	}
 
-	static API_FUNC_NAKED void PLATFORM_API PlayerExamineNearbyBipedServerJMP()
+	static API_FUNC_NAKED void __cdecl PlayerExamineNearbyBipedServerJMP()
 	{
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(PLAYER_EXAMINE_NEARBY_OBJECTS_SERVER_JMP_TABLE_RETN);
 
@@ -76,7 +76,7 @@ namespace NearbyObjects
 		}
 	}
 
-	static API_FUNC_NAKED void PLATFORM_API PlayerExamineNearbyBipedClientJMP()
+	static API_FUNC_NAKED void __cdecl PlayerExamineNearbyBipedClientJMP()
 	{
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(PLAYER_EXAMINE_NEARBY_OBJECTS_CLIENT_JMP_TABLE_RETN);
 

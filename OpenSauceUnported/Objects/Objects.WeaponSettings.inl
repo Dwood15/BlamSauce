@@ -175,7 +175,7 @@ namespace Yelo
 
 			static s_weapon_globals g_weapon_globals = { datum_index::null };
 
-			static void PLATFORM_API ApplyWeaponPreset()
+			static void __cdecl ApplyWeaponPreset()
 			{
 				static const uintptr_t FIRST_PERSON_WEAPON_RENDER_UPDATE = GET_FUNC_PTR(FIRST_PERSON_WEAPON_RENDER_UPDATE);
 

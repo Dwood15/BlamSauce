@@ -16,7 +16,7 @@ namespace Yelo
 	{
 #include "Memory/_EngineLayout.inl"
 
-		uint32 PLATFORM_API HandleMessage(void* arg0, HANDLE window_handle, void* arg2, const MSG* message);
+		uint32 __cdecl HandleMessage(void* arg0, HANDLE window_handle, void* arg2, const MSG* message);
 
 		void OnChatAddString(wcstring string); // forward declare
 
@@ -277,7 +277,7 @@ namespace Yelo
 		};
 		static s_message_pump_globals g_message_pump_globals;
 
-		static uint32 PLATFORM_API HandleMessage(void* arg0, HANDLE window_handle, void* arg2, const MSG* message)
+		static uint32 __cdecl HandleMessage(void* arg0, HANDLE window_handle, void* arg2, const MSG* message)
 		{
 			uint32 value = KsTranslateAccelerator(arg0, window_handle, arg2, message);
 

@@ -18,6 +18,7 @@
 #include "../models/structure/bsp_definitions.hpp"
 #include "../main/main.h"
 #include "../tags/files/structures.h"
+#include "../memory/memory_interface_base.hpp"
 
 namespace Yelo {
 	namespace Enums {
@@ -136,7 +137,7 @@ namespace Yelo::blam {
 	static void *stream_tag_block_to_buffer_postprocess_tag_data(
 		void *&return_stream, uintptr_t stream_base_address, uintptr_t virtual_base_address,
 		build_cache_file_tag_names_t &tag_names,
-		const TagGroups::c_tag_field_scanner &scanner) {
+		const Yelo::TagGroups::c_tag_field_scanner &scanner) {
 		auto *data = scanner.GetFieldAs<tag_data>();
 
 		if (data->definition == nullptr) {   // not exactly what tool's asm does here, but should amount to the same output

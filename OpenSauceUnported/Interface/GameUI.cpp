@@ -110,7 +110,7 @@ namespace Yelo
 			*fp_weapon->GetAnimationState() = animation_state;
 			fp_weapon->GetCurrentAnimation()->animation_index = animation_current_index;
 		}
-		API_FUNC_NAKED static void PLATFORM_API FirstPersonWeaponSetStateHook()
+		API_FUNC_NAKED static void __cdecl FirstPersonWeaponSetStateHook()
 		{
 			API_FUNC_NAKED_START_()
 				push	edi
@@ -146,7 +146,7 @@ namespace Yelo
 			Hud::Dispose();
 		}
 
-		API_FUNC_NAKED void PLATFORM_API Update()
+		API_FUNC_NAKED void __cdecl Update()
 		{
 			static const uintptr_t HUD_UPDATE = GET_FUNC_PTR(HUD_UPDATE);
 
@@ -158,7 +158,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void PLATFORM_API FirstPersonWeaponsUpdate()
+		API_FUNC_NAKED void __cdecl FirstPersonWeaponsUpdate()
 		{
 			static const uintptr_t FIRST_PERSON_WEAPONS_UPDATE = GET_FUNC_PTR(FIRST_PERSON_WEAPONS_UPDATE);
 

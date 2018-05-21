@@ -12,6 +12,8 @@ set(CACHE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/builder.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_base.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_globals.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_yelo.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_yelo_base.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_structures.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/constants.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/data_file.hpp

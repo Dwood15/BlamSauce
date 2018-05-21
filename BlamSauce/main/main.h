@@ -7,8 +7,13 @@
 #pragma once
 
 #include <precompile.h>
+// TODO: current_engine and levels.h should be reference-able via <> tag
 
+//#include <levels.h>
+//#include <current_engine.h>
 #include "main_structures.h"
+#include "../../runtime/halo1/windows/full/levels.h"
+#include "../../runtime/halo1/windows/full/ce/1_10/current_engine.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -26,13 +31,13 @@ namespace Yelo {
 		s_main_globals * MainGlobals();
 
 		// Is the game *only* running the simulation locally? (ie, campaign or splitscreen)
-		bool IsLocal() { return MainGlobals()->game_connection == Enums::_game_connection_local; }
+		bool IsLocal() { return MainGlobals()->game_connection == Yelo::Enums::_game_connection_local; }
 
 		// Is this machine a server?
-		bool IsServer() { return MainGlobals()->game_connection == Enums::_game_connection_network_server; }
+		bool IsServer() { return MainGlobals()->game_connection == Yelo::Enums::_game_connection_network_server; }
 
 		// Is this machine a client?
-		bool IsClient() { return MainGlobals()->game_connection == Enums::_game_connection_network_client; }
+		bool IsClient() { return MainGlobals()->game_connection == Yelo::Enums::_game_connection_network_client; }
 	};
 
 	namespace Main {

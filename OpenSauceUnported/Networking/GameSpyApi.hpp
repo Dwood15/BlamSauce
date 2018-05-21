@@ -233,7 +233,7 @@ namespace Yelo
 			int32 read_socket;
 			int32 nat_negotiate;
 			sockaddr_in heartbeat_addr;
-			void* proc_process_cdkey; // void (PLATFORM_API*)(char* buffer, size_t buffer_size, sockaddr* src_addr)
+			void* proc_process_cdkey; // void (__cdecl*)(char* buffer, size_t buffer_size, sockaddr* src_addr)
 			int32 client_msg_keys[10];
 			int32 client_msg_key_index;
 			void* user_data;

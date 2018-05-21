@@ -1,4 +1,9 @@
 /* BlamSauce SDK - See LICENSE for specific license information */
+#include <precompile.h>
+#include "../../BlamSauce/cache/builder.hpp"
+#include "../../BlamSauce/cache/cache_files_yelo.hpp"
+#include "../../BlamSauce/main/configuration/yelo_shared_settings.hpp"
+#include "../../BlamSauce/memory/memory_interface_base.hpp"
 
 namespace Yelo::Cache {
 	cstring s_build_cache_file_globals::k_temp_cache_file_name = "temporary uncompressed cache file.bin";

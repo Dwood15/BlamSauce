@@ -45,19 +45,19 @@ namespace Yelo
 		// Don't call me unless your name is GameEngine!
 		void Update(real delta_time);
 
-		void PLATFORM_API InitializeForNewMap();
-		void PLATFORM_API DisposeFromOldMap();
-		void PLATFORM_API InitializeForNewBSP();
-		void PLATFORM_API DisposeFromOldBSP();
+		void __cdecl InitializeForNewMap();
+		void __cdecl DisposeFromOldMap();
+		void __cdecl InitializeForNewBSP();
+		void __cdecl DisposeFromOldBSP();
 		
 		// Called only once: after all other game systems have been initialized at game startup.
-		void PLATFORM_API InitializeForNewGameState();
+		void __cdecl InitializeForNewGameState();
 		// Called in Initialize(). Don't call me from anywhere else for now.
 		void InitializeForYeloGameState(bool enabled);
 		// These handlers are called by internal game state procs code. Don't touch.
-		void PLATFORM_API HandleBeforeSaveLifeCycle();
-		void PLATFORM_API HandleBeforeLoadLifeCycle();
-		void PLATFORM_API HandleAfterLoadLifeCycle();
+		void __cdecl HandleBeforeSaveLifeCycle();
+		void __cdecl HandleBeforeLoadLifeCycle();
+		void __cdecl HandleAfterLoadLifeCycle();
 
 		// Called from ScriptingLibrary's Initialize (since the GameState is initialized before Scripting is)
 		void InitializeScripting();

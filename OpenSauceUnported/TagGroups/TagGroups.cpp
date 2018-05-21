@@ -48,7 +48,7 @@ namespace Yelo
 
 	namespace blam
 	{
-		cstring PLATFORM_API tag_get_name(datum_index tag_index)
+		cstring __cdecl tag_get_name(datum_index tag_index)
 		{
 			if (Scenario::GetYelo()->IsCacheProtected())
 				return "PROTECTED";

@@ -44,7 +44,7 @@ namespace Yelo
 		const message_delta_definition* const* OriginalPackets() { return GET_DPTR2(message_delta_packets); }
 
 #ifndef YELO_NO_NETWORK
-		void PLATFORM_API NetworkGameClientHandleMessageDeltaMessageBodyEx(); // forward declare
+		void __cdecl NetworkGameClientHandleMessageDeltaMessageBodyEx(); // forward declare
 
 		static message_delta_definition* NewMessageDeltaList[Enums::k_message_deltas_new_count + 1]; // +1 so we can compile when there are no new deltas
 		const message_delta_definition* const* NewPackets() { return NewMessageDeltaList; }
@@ -88,7 +88,7 @@ namespace Yelo
 		{
 			return true;
 		}
-		static API_FUNC_NAKED bool PLATFORM_API NetworkGameClientGameSettingsUpdatedCallHook(const Networking::s_network_game* settings)
+		static API_FUNC_NAKED bool __cdecl NetworkGameClientGameSettingsUpdatedCallHook(const Networking::s_network_game* settings)
 		{
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_CLIENT_GAME_SETTINGS_UPDATED);
 
@@ -188,7 +188,7 @@ skip_hook:
 		}
 
 		// Hooks the network_game_client_handle_message_delta_message_body function to allow us to intercept our own packets
-		API_FUNC_NAKED static void PLATFORM_API NetworkGameClientHandleMessageDeltaMessageBodyEx()
+		API_FUNC_NAKED static void __cdecl NetworkGameClientHandleMessageDeltaMessageBodyEx()
 		{
 			static const uintptr_t TEMP_ASM_ADDR = GET_DATA_PTR(DONT_SEND_OBJECT_NEW_MSG);
 

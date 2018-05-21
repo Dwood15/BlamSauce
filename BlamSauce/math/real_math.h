@@ -195,14 +195,12 @@ namespace Yelo {
 		// Z-Component
 		real k;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		//inline operator float*() { return reinterpret_cast<float*>(this); }
 
-		OVERRIDE_OPERATOR_CAST_THIS(real_vector2d);
-
-		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_point3d);
-
-		//TODO: DirectX!
-		OVERRIDE_OPERATOR_CAST_THIS(D3DXVECTOR3);
+		// inline operator real_vector2d*() { return reinterpret_cast<real_vector2d*>(this); }
+		// inline operator real_point3d*() { return reinterpret_cast<real_point3d*>(this); }
+		//
+		// inline operator D3DXVECTOR3*() { return reinterpret_cast<D3DXVECTOR3*>(this); }
 
 		real Magnitude() const { return MATH_FLOAT_FUNC(sqrt)(this->i * this->i + this->j * this->j + this->k * this->k); }
 

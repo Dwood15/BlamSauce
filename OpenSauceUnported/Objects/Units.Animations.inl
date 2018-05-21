@@ -16,7 +16,7 @@ namespace Yelo
 {
 	namespace Objects { namespace Units { namespace Animations
 	{
-		API_FUNC_NAKED bool PLATFORM_API UnitAnimationStateInterruptable()
+		API_FUNC_NAKED bool __cdecl UnitAnimationStateInterruptable()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -33,7 +33,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool PLATFORM_API UnitAnimationBusy()
+		API_FUNC_NAKED bool __cdecl UnitAnimationBusy()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -49,7 +49,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool PLATFORM_API UnitAnimationStateLoops()
+		API_FUNC_NAKED bool __cdecl UnitAnimationStateLoops()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -65,7 +65,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool PLATFORM_API UnitAnimationWeaponIK()
+		API_FUNC_NAKED bool __cdecl UnitAnimationWeaponIK()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -81,7 +81,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool PLATFORM_API UnitAnimationVehicleIK()
+		API_FUNC_NAKED bool __cdecl UnitAnimationVehicleIK()
 		{
 			API_FUNC_NAKED_START()
 				push	edx

@@ -27,7 +27,7 @@ namespace Yelo
 			InitializeType(ObjectTypeDefinitions()[Enums::_object_type_equipment]);
 		}
 
-		static bool PLATFORM_API New(datum_index equipment_index)
+		static bool __cdecl New(datum_index equipment_index)
 		{
 			s_equipment_datum* equipment = Objects::ObjectHeader()[equipment_index]->_equipment;
 			auto const* definition = GetObjectDefinition<TagGroups::s_equipment_definition>(equipment_index);
@@ -35,16 +35,16 @@ namespace Yelo
 			return true;
 		}
 
-		static void PLATFORM_API Delete(datum_index equipment_index)
+		static void __cdecl Delete(datum_index equipment_index)
 		{
 		}
 
-		static bool PLATFORM_API Update(datum_index equipment_index)
+		static bool __cdecl Update(datum_index equipment_index)
 		{
 			return true;
 		}
 
-		static void PLATFORM_API ExportFunctionValues(datum_index equipment_index)
+		static void __cdecl ExportFunctionValues(datum_index equipment_index)
 		{
 			s_equipment_datum* equipment = Objects::ObjectHeader()[equipment_index]->_equipment;
 			auto const* definition = GetObjectDefinition<TagGroups::s_equipment_definition>(equipment_index);

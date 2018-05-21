@@ -236,7 +236,7 @@ void SetPosition(datum_index object_index, real_point3d* new_pos, real_vector3d*
 	__asm {
 		push	edi
 
-		mov		edi, new_pos
+		mov	edi, new_pos
 		push	new_up
 		push	new_forward
 		push	object_index

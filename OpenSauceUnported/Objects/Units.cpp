@@ -48,7 +48,7 @@ namespace Yelo
 {
 	namespace Objects { namespace Units
 	{
-		static void PLATFORM_API UnitDamageAftermathHook(const datum_index unit_index
+		static void __cdecl UnitDamageAftermathHook(const datum_index unit_index
 			, const s_damage_data* damage_data
 			, const Flags::object_damage_flags damage_flags
 			, const real shield_amount
@@ -61,7 +61,7 @@ namespace Yelo
 			AI::UnitDamageAftermath(unit_index, damage_data);
 		}
 
-		bool PLATFORM_API UnitCanEnterSeat(datum_index unit_index
+		bool __cdecl UnitCanEnterSeat(datum_index unit_index
 			, datum_index target_unit_index
 			, int16 target_seat_index,
 			_Out_opt_ datum_index* return_unit_in_seat)
@@ -75,7 +75,7 @@ namespace Yelo
 			return result;
 		}
 
-		API_FUNC_NAKED static void PLATFORM_API UnitCanEnterSeatHook()
+		API_FUNC_NAKED static void __cdecl UnitCanEnterSeatHook()
 		{
 			API_FUNC_NAKED_START_()
 				push	ebx
@@ -125,7 +125,7 @@ namespace Yelo
 			}
 		}
 
-		void PLATFORM_API UnitThrowGrenadeReleaseHook(const datum_index unit_index, const sbyte keyframe)
+		void __cdecl UnitThrowGrenadeReleaseHook(const datum_index unit_index, const sbyte keyframe)
 		{
 			auto* unit_datum = blam::object_get_and_verify_type<s_unit_datum>(unit_index);
 			if(unit_datum->unit.vehicle_seat_index == NONE)
@@ -138,7 +138,7 @@ namespace Yelo
 			}
 		}
 
-		bool PLATFORM_API WeaponPreventsGrenadeThrowing(const datum_index unit_index, const datum_index weapon_index)
+		bool __cdecl WeaponPreventsGrenadeThrowing(const datum_index unit_index, const datum_index weapon_index)
 		{
 			auto* unit_datum = blam::object_get_and_verify_type<s_unit_datum>(unit_index);
 			if(unit_datum->unit.vehicle_seat_index == NONE)

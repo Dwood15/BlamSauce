@@ -57,9 +57,9 @@ namespace Yelo
 	{
 		void Initialize();
 		void Dispose();
-		void PLATFORM_API Update();
+		void __cdecl Update();
 
-		void PLATFORM_API FirstPersonWeaponsUpdate();
+		void __cdecl FirstPersonWeaponsUpdate();
 
 
 		// Predicate to use for determining when to send a message to players

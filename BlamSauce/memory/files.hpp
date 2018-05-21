@@ -10,12 +10,9 @@
 #include <fileapi.h>
 #include "../cseries/base.h"
 
-namespace Yelo
-{
-	namespace Enums
-	{
-		enum file_io_open_error
-		{
+namespace Yelo {
+	namespace Enums {
+		enum file_io_open_error {
 			_file_io_open_error_none = 0,
 			_file_io_open_error_file_does_not_exist,
 			_file_io_open_error_file_in_use,
@@ -25,23 +22,20 @@ namespace Yelo
 
 			_file_io_open_error
 		};
-		enum file_io_open_access_type
-		{
-			_file_io_open_access_type_read	= 1 << 0,
-			_file_io_open_access_type_write	= 1 << 1,
+		enum file_io_open_access_type {
+			_file_io_open_access_type_read  = 1 << 0,
+			_file_io_open_access_type_write = 1 << 1,
 
 			_file_io_open_access_type
 		};
-		enum file_io_open_create_option
-		{
+		enum file_io_open_create_option {
 			_file_io_open_create_option_open_existing,
 			_file_io_open_create_option_new,
 			_file_io_open_create_options_create_if_missing,
 
 			_file_io_open_create_option
 		};
-		enum file_io_read_error
-		{
+		enum file_io_read_error {
 			_file_io_read_error_none = 0,
 			_file_io_read_error_reading_past_eof,
 			_file_io_read_error_failed_to_read_from_file,
@@ -55,8 +49,7 @@ namespace Yelo
 
 			_file_io_read_error
 		};
-		enum file_io_write_error
-		{
+		enum file_io_write_error {
 			_file_io_write_error_none = 0,
 			_file_io_write_error_file_is_readonly,
 			_file_io_write_error_write_offset_past_eof,
@@ -66,9 +59,8 @@ namespace Yelo
 
 			_file_io_write_error
 		};
-		enum file_io_delete_error
-		{
-			_file_io_delete_error_none = 0,
+		enum file_io_delete_error {
+			_file_io_delete_error_none    = 0,
 			_file_io_delete_error_does_not_exist,
 			_file_io_delete_error_in_use,
 			_file_io_delete_error_directory_not_empty,
@@ -79,22 +71,20 @@ namespace Yelo
 		};
 	};
 
-	namespace FileIO
-	{
-		struct s_file_info
-		{
-			struct{
+	namespace FileIO {
+		struct s_file_info {
+			struct {
 				bool is_readable;
 				bool is_writable;
 				bool is_memory_mapped;
 				PAD8;
-			}m_flags;
+			} m_flags;
 
 			HANDLE file_handle;
 			HANDLE file_mapping_handle;
-			DWORD file_size;
+			DWORD  file_size;
 
-			void* data_pointer;
+			void *data_pointer;
 			DWORD data_length;
 
 			s_file_info() :
@@ -102,8 +92,11 @@ namespace Yelo
 				file_mapping_handle(INVALID_HANDLE_VALUE),
 				file_size(0),
 				data_pointer(nullptr),
-				data_length(0)
-			{ m_flags.is_readable = false; m_flags.is_writable = false; m_flags.is_memory_mapped = false;}
+				data_length(0) {
+				m_flags.is_readable = false;
+				m_flags.is_writable      = false;
+				m_flags.is_memory_mapped = false;
+			}
 		};
 
 		///-------------------------------------------------------------------------------------------------
@@ -111,10 +104,8 @@ namespace Yelo
 		/// <param name="error">	The error number. </param>
 		/// <returns>	The file io enum value. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_open_error GetOpenErrorEnum(DWORD error)
-		{
-			switch (error)
-			{
+		Enums::file_io_open_error GetOpenErrorEnum(DWORD error) {
+			switch (error) {
 				case ERROR_FILE_NOT_FOUND:
 				case ERROR_PATH_NOT_FOUND:
 					return Enums::_file_io_open_error_file_does_not_exist;
@@ -128,16 +119,13 @@ namespace Yelo
 			}
 		}
 
-
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Converts a windows file delete error number to a file io enum. </summary>
 		/// <param name="error">	The error number. </param>
 		/// <returns>	The file io enum value. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_delete_error GetDeleteErrorEnum(DWORD error)
-		{
-			switch (error)
-			{
+		Enums::file_io_delete_error GetDeleteErrorEnum(DWORD error) {
+			switch (error) {
 				case ERROR_FILE_NOT_FOUND:
 				case ERROR_PATH_NOT_FOUND:
 					return Enums::_file_io_delete_error_does_not_exist;
@@ -155,28 +143,23 @@ namespace Yelo
 			}
 		}
 
-
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Builds a directory tree. </summary>
 		/// <param name="directory_tree">	The directory tree to create. </param>
 		///-------------------------------------------------------------------------------------------------
-		bool BuildDirectoryTree(const char* directory_tree)
-		{
-			std::string directory(directory_tree);
+		bool BuildDirectoryTree(const char *directory_tree) {
+			std::string            directory(directory_tree);
 			std::string::size_type offset = 0;
 
 			bool success = true;
 
 			// look for all instances of \ and /, and create the directory tree for each one
-			while((offset = directory.find_first_of("\\/", offset)) != std::string::npos)
-			{
+			while ((offset = directory.find_first_of("\\/", offset)) != std::string::npos) {
 				// TODO: a memory optimization trick we could probably do would be to std::swap the character
 				// at [offset] with '\0' before and after the mkdir call, thus avoiding the need to substring
 				std::string path = directory.substr(0, offset);
-				if(_mkdir(path.c_str()) != 0)
-				{
-					if(errno != EEXIST)
-					{
+				if (_mkdir(path.c_str()) != 0) {
+					if (errno != EEXIST) {
 						success = false;
 						break;
 					}
@@ -192,9 +175,8 @@ namespace Yelo
 		/// <param name="path">	Path to test. </param>
 		/// <returns>	true if it exists, false if it doesn't. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool PathExists(const char* path)
-		{
-			if(GetFileAttributes(path) != INVALID_FILE_ATTRIBUTES)
+		bool PathExists(const char *path) {
+			if (GetFileAttributes(path) != INVALID_FILE_ATTRIBUTES)
 				return true;
 
 			DWORD error = GetLastError();
@@ -214,25 +196,23 @@ namespace Yelo
 		/// <param name="path_count">  	The number of paths being combined. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool PathBuild(char* destination, bool append_slash, uint32 path_count, ...)
-		{
+		bool PathBuild(char *destination, bool append_slash, uint32 path_count, ...) {
 			destination[0] = 0;
 
 			va_list list;
-			va_start(list, path_count);
+				va_start(list, path_count);
 
-			bool success = true;
-			for(uint32 i = 0; success && (i < path_count); i++)
-			{
-				const char* path = va_arg(list, const char*);
+			bool        success = true;
+			for (uint32 i       = 0; success && (i < path_count); i++) {
+				const char *path = va_arg(list, const char*);
 
-				if(!PathCombine(destination, destination, path))
+				if (!PathCombine(destination, destination, path))
 					success = false;
 			}
 
-			va_end(list);
+				va_end(list);
 
-			if(success && append_slash)
+			if (success && append_slash)
 				AppendDirectorySlash(destination, MAX_PATH);
 
 			return success;
@@ -245,19 +225,18 @@ namespace Yelo
 		/// <param name="separator_char">	(Optional) The separator character to append. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool AppendDirectorySlash(char* path, uint32 length, const char separator_char  = '\\')
-		{
-			const char* final_char = strrchr(path, '\0');
+		bool AppendDirectorySlash(char *path, uint32 length, const char separator_char = '\\') {
+			const char *final_char = strrchr(path, '\0');
 
-			if(!final_char)
+			if (!final_char)
 				return false;
 
-			char separator[2] = { 0, 0 };
+			char separator[2] = {0, 0};
 			separator[0] = separator_char;
 
 			errno_t result = k_errnone;
 			final_char--;
-			if(*final_char != separator_char)
+			if (*final_char != separator_char)
 				result = strcat_s(path, length, separator);
 
 			return (result == k_errnone);
@@ -270,14 +249,13 @@ namespace Yelo
 		/// <param name="path">		  	Full pathname of the file. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool GetDirectoryPath(char* destination, uint32 size, cstring path)
-		{
-			if(!destination || (size <= 1))
+		bool GetDirectoryPath(char *destination, uint32 size, cstring path) {
+			if (!destination || (size <= 1))
 				return false;
 
 			// find the last occurrence of '\\'
-			const char* filename_offset = strrchr(path, '\\');
-			if(!filename_offset)
+			const char *filename_offset = strrchr(path, '\\');
+			if (!filename_offset)
 				return false;
 
 			destination[0] = '\0';
@@ -298,18 +276,17 @@ namespace Yelo
 		/// <param name="path">		  	Full pathname of the file. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool GetFileExtension(char* destination, uint32 size, cstring path)
-		{
-			const char* extension_start = strrchr(path, '.');
+		bool GetFileExtension(char *destination, uint32 size, cstring path) {
+			const char *extension_start = strrchr(path, '.');
 			if (!extension_start)
 				return false;
 
-			const char* string_end = strrchr(extension_start, '\0');
+			const char *string_end = strrchr(extension_start, '\0');
 			// I'd like to see this ever happen...
 			if (!string_end)
 				return false;
 
-			if((string_end - 1) == extension_start)
+			if ((string_end - 1) == extension_start)
 				return true;
 
 			if (k_errnone != strcpy_s(destination, size, extension_start))
@@ -323,15 +300,13 @@ namespace Yelo
 		/// <param name="path">	Full pathname of the file. </param>
 		/// <returns>	An Enums::file_io_delete_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_delete_error FileDelete(const char* path)
-		{
+		Enums::file_io_delete_error FileDelete(const char *path) {
 			if (!PathExists(path))
 				return Enums::_file_io_delete_error_does_not_exist;
 
 			BOOL success = DeleteFile(path);
 
-			if(!success)
-			{
+			if (!success) {
 				DWORD error = GetLastError();
 
 				return GetDeleteErrorEnum(error);
@@ -351,13 +326,11 @@ namespace Yelo
 		/// </param>
 		/// <returns>	An Enums::file_io_delete_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_delete_error DirectoryDelete(cstring path, const bool delete_contents, const bool recursive)
-		{
-			if(!PathExists(path))
+		Enums::file_io_delete_error DirectoryDelete(cstring path, const bool delete_contents, const bool recursive) {
+			if (!PathExists(path))
 				return Enums::_file_io_delete_error_does_not_exist;
 
-			if(delete_contents)
-			{
+			if (delete_contents) {
 				WIN32_FIND_DATAA file_search;
 
 				char search_filter[MAX_PATH] = "";
@@ -365,30 +338,26 @@ namespace Yelo
 
 				// returns the "." directory
 				HANDLE search_handle = FindFirstFileA(search_filter, &file_search);
-				if(search_handle != INVALID_HANDLE_VALUE)
-				{
+				if (search_handle != INVALID_HANDLE_VALUE) {
 					// returns the ".." directory
 					FindNextFile(search_handle, &file_search);
 
 					char deletion_path[MAX_PATH] = "";
 					// returns the first actual file/directory
-					while (FindNextFile(search_handle, &file_search))
-					{
+					while (FindNextFile(search_handle, &file_search)) {
 						PathCombine(deletion_path, path, file_search.cFileName);
 
-						if(recursive && ((file_search.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY))
-						{
+						if (recursive && ((file_search.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY)) {
 							auto recursive_error = DirectoryDelete(deletion_path, delete_contents, recursive);
 
-							if(Enums::_file_io_delete_error_none != recursive_error)
+							if (Enums::_file_io_delete_error_none != recursive_error)
 								return recursive_error;
-						}
-						else
-						{
+						} else {
 							auto file_delete_error = FileDelete(deletion_path);
 
-							if(Enums::_file_io_delete_error_none != file_delete_error)
+							if (Enums::_file_io_delete_error_none != file_delete_error) {
 								return file_delete_error;
+							}
 						}
 					}
 
@@ -398,8 +367,7 @@ namespace Yelo
 
 			BOOL success = RemoveDirectory(path);
 
-			if(!success)
-			{
+			if (!success) {
 				DWORD error = GetLastError();
 
 				return GetDeleteErrorEnum(error);
@@ -412,8 +380,7 @@ namespace Yelo
 		/// <summary>	Updates the file size of the file described by info. </summary>
 		/// <param name="info">	[in,out] The file info to update. </param>
 		///-------------------------------------------------------------------------------------------------
-		void UpdateFileSize(s_file_info& info)
-		{
+		void UpdateFileSize(s_file_info &info) {
 			info.file_size = GetFileSize(info.file_handle, nullptr);
 		}
 
@@ -421,29 +388,25 @@ namespace Yelo
 		/// <summary>	Closes a file. </summary>
 		/// <param name="info_out">	[in,out] The file info containing the file handle to close. </param>
 		///-------------------------------------------------------------------------------------------------
-		void CloseFile(s_file_info& info)
-		{
+		void CloseFile(s_file_info &info) {
 			// reset flags
 			info.m_flags.is_readable = false;
 			info.m_flags.is_writable = false;
 
 			// either delete the file in memory or unmap it
-			if(info.m_flags.is_memory_mapped)
-			{
+			if (info.m_flags.is_memory_mapped) {
 				UnmapViewOfFile(info.data_pointer);
 				CloseHandle(info.file_mapping_handle);
 				info.file_mapping_handle = INVALID_HANDLE_VALUE;
-			}
-			else
+			} else
 				SafeDeleteArray(info.data_pointer);
-			info.file_size = 0;
-			info.data_length = 0;
+			info.file_size           = 0;
+			info.data_length         = 0;
 
 			// release the file
 			CloseHandle(info.file_handle);
 			info.file_handle = INVALID_HANDLE_VALUE;
 		}
-
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Opens a file. </summary>
@@ -455,25 +418,22 @@ namespace Yelo
 		/// </param>
 		/// <returns>	An Enums::file_io_open_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_open_error OpenFile(s_file_info& info_out,
+		Enums::file_io_open_error OpenFile(s_file_info &info_out,
 													  cstring file_path,
 													  const Enums::file_io_open_access_type access_type,
-													  const Enums::file_io_open_create_option creation_type)
-		{
-			if(!PathExists(file_path) && (creation_type == Enums::_file_io_open_create_option_open_existing))
+													  const Enums::file_io_open_create_option creation_type) {
+			if (!PathExists(file_path) && (creation_type == Enums::_file_io_open_create_option_open_existing))
 				return Enums::_file_io_open_error_file_does_not_exist;
 
 			// create the access and sharing flags value for reading and/or writing
-			DWORD access_flags = 0;
+			DWORD access_flags  = 0;
 			DWORD sharing_flags = 0;
-			if(Enums::_file_io_open_access_type_read & access_type)
-			{
+			if (Enums::_file_io_open_access_type_read & access_type) {
 				info_out.m_flags.is_readable = true;
 				access_flags |= GENERIC_READ;
 				sharing_flags |= FILE_SHARE_READ;
 			}
-			if(Enums::_file_io_open_access_type_write & access_type)
-			{
+			if (Enums::_file_io_open_access_type_write & access_type) {
 				info_out.m_flags.is_writable = true;
 				access_flags |= GENERIC_WRITE;
 				sharing_flags |= FILE_SHARE_WRITE;
@@ -481,8 +441,7 @@ namespace Yelo
 
 			// create the creation flags for when a file does not exist
 			DWORD creation_flags = 0;
-			switch(creation_type)
-			{
+			switch (creation_type) {
 				case Enums::_file_io_open_create_option_open_existing:
 					creation_flags = OPEN_EXISTING;
 					break;
@@ -499,7 +458,7 @@ namespace Yelo
 														 access_flags, sharing_flags, nullptr, creation_flags, FILE_ATTRIBUTE_NORMAL, nullptr);
 
 			// report errors
-			if(info_out.file_handle == INVALID_HANDLE_VALUE)
+			if (info_out.file_handle == INVALID_HANDLE_VALUE)
 				return GetOpenErrorEnum(GetLastError());
 
 			info_out.file_size = GetFileSize(info_out.file_handle, nullptr);
@@ -514,40 +473,95 @@ namespace Yelo
 		/// <param name="mapping_size">	(Optional) The size of the mapping. </param>
 		/// <returns>	An Enums::file_io_read_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_read_error MemoryMapFile(s_file_info& info, DWORD offset, DWORD mapping_size)
-		{
+		Enums::file_io_read_error MemoryMapFile(s_file_info &info, DWORD offset = 0, DWORD mapping_size = 0) {
 			// create access flags for the file mapping matching those the file was opened with
 			DWORD access_flags = 0;
-			if(info.m_flags.is_readable && info.m_flags.is_writable)
+			if (info.m_flags.is_readable && info.m_flags.is_writable)
 				access_flags = PAGE_READWRITE;
-			else if(info.m_flags.is_readable && !info.m_flags.is_writable)
+			else if (info.m_flags.is_readable && !info.m_flags.is_writable)
 				access_flags |= PAGE_READONLY;
-			else if(!info.m_flags.is_readable && info.m_flags.is_writable)
+			else if (!info.m_flags.is_readable && info.m_flags.is_writable)
 				return Enums::_file_io_read_error_writeonly_mapping;
 
 			info.file_mapping_handle = CreateFileMapping(info.file_handle, nullptr, access_flags, 0, 0, nullptr);
 
-			if(info.file_mapping_handle == INVALID_HANDLE_VALUE)
+			if (info.file_mapping_handle == INVALID_HANDLE_VALUE)
 				return Enums::_file_io_read_error_failed_to_memory_map_file;
 
 			// create access flags for the view mapping that match those the file were opened with
 			access_flags = 0;
-			if(info.m_flags.is_readable)
+			if (info.m_flags.is_readable)
 				access_flags |= FILE_MAP_READ;
-			if(info.m_flags.is_writable)
+			if (info.m_flags.is_writable)
 				access_flags |= FILE_MAP_WRITE;
 
 			// map the requested section of the file
 			info.data_pointer = MapViewOfFile(info.file_mapping_handle, access_flags, offset, 0, mapping_size);
-			if(!info.data_pointer)
+			if (!info.data_pointer)
 				return Enums::_file_io_read_error_failed_to_memory_map_file;
 
-			if(mapping_size == 0)
+			if (mapping_size == 0)
 				info.data_length = info.file_size;
 			else
 				info.data_length = mapping_size;
 
 			info.m_flags.is_memory_mapped = true;
+			return Enums::_file_io_read_error_none;
+		}
+		//std::size(
+
+		///-------------------------------------------------------------------------------------------------
+		/// <summary>	Reads a file to memory handled outside of the file io system. </summary>
+		/// <remarks>
+		/// 	Reads from an opened file into an external pointer. This function will allocate memory
+		/// 	for the read data and store the pointer in data_out. The memory allocated is NOT release
+		/// 	when the file is closed so must be deleted elsewhere.
+		/// </remarks>
+		/// <param name="info">	   	[in,out] The file info to read from. </param>
+		/// <param name="data_out">	[out] Pointer to the pointer to read the data to. </param>
+		/// <param name="offset">  	The offset in the file to read from. </param>
+		/// <param name="length">  	The length of data to read. </param>
+		/// <returns>	An Enums::file_io_read_error describing the result. </returns>
+		///-------------------------------------------------------------------------------------------------
+		Enums::file_io_read_error ReadFileToMemory(s_file_info &info, void **data_out, DWORD offset, DWORD length) {
+			// check the file is valid for reading
+			if (!data_out)
+				return Enums::_file_io_read_error_destination_pointer_is_null;
+			if (!info.m_flags.is_readable)
+				return Enums::_file_io_read_error_file_is_writeonly;
+			if (info.m_flags.is_memory_mapped)
+				return Enums::_file_io_read_error_file_is_memory_mapped;
+
+			UpdateFileSize(info);
+
+			if (info.file_size == 0)
+				return Enums::_file_io_read_error_file_is_empty;
+
+			// zero length defaults to reading the entire file
+			if (length == 0)
+				length = info.file_size;
+
+			// must not attempt to read beyond the end of the file
+			if (info.file_size < (offset + length))
+				return Enums::_file_io_read_error_reading_past_eof;
+
+			*data_out = new byte[length];
+
+			// read the file section
+			DWORD bytes_read = 0;
+
+			OVERLAPPED file_read_setup;
+			file_read_setup.hEvent     = nullptr;
+			file_read_setup.Offset     = offset;
+			file_read_setup.OffsetHigh = 0;
+			BOOL success = ReadFile(info.file_handle, *data_out, length, &bytes_read, &file_read_setup);
+
+			if (!success || (bytes_read != length)) {
+				delete[] *data_out;
+				*data_out = nullptr;
+				return Enums::_file_io_read_error_failed_to_read_from_file;
+			}
+
 			return Enums::_file_io_read_error_none;
 		}
 
@@ -565,82 +579,23 @@ namespace Yelo
 		/// <param name="length">	The length of data to read. </param>
 		/// <returns>	An Enums::file_io_read_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_read_error ReadFileToInfoMemory(s_file_info& info, DWORD offset, DWORD length)
-		{
+		Enums::file_io_read_error ReadFileToInfoMemory(s_file_info &info, DWORD offset, DWORD length) {
 			// delete the existing section
 			SafeDeleteArray(info.data_pointer);
 
 			info.data_length = 0;
 			Enums::file_io_read_error success = ReadFileToMemory(info, &info.data_pointer, offset, length);
-			if(success != Enums::_file_io_read_error_none)
+			if (success != Enums::_file_io_read_error_none)
 				return success;
 
 			// zero length defaults to reading the entire file
-			if(length == 0)
+			if (length == 0)
 				info.data_length = info.file_size;
 			else
 				info.data_length = length;
 
 			return Enums::_file_io_read_error_none;
 		}
-
-		///-------------------------------------------------------------------------------------------------
-		/// <summary>	Reads a file to memory handled outside of the file io system. </summary>
-		/// <remarks>
-		/// 	Reads from an opened file into an external pointer. This function will allocate memory
-		/// 	for the read data and store the pointer in data_out. The memory allocated is NOT release
-		/// 	when the file is closed so must be deleted elsewhere.
-		/// </remarks>
-		/// <param name="info">	   	[in,out] The file info to read from. </param>
-		/// <param name="data_out">	[out] Pointer to the pointer to read the data to. </param>
-		/// <param name="offset">  	The offset in the file to read from. </param>
-		/// <param name="length">  	The length of data to read. </param>
-		/// <returns>	An Enums::file_io_read_error describing the result. </returns>
-		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_read_error ReadFileToMemory(s_file_info& info, void** data_out, DWORD offset, DWORD length)
-		{
-			// check the file is valid for reading
-			if(!data_out)
-				return Enums::_file_io_read_error_destination_pointer_is_null;
-			if(!info.m_flags.is_readable)
-				return Enums::_file_io_read_error_file_is_writeonly;
-			if(info.m_flags.is_memory_mapped)
-				return Enums::_file_io_read_error_file_is_memory_mapped;
-
-			UpdateFileSize(info);
-
-			if(info.file_size == 0)
-				return Enums::_file_io_read_error_file_is_empty;
-
-			// zero length defaults to reading the entire file
-			if(length == 0)
-				length = info.file_size;
-
-			// must not attempt to read beyond the end of the file
-			if(info.file_size < (offset + length))
-				return Enums::_file_io_read_error_reading_past_eof;
-
-			*data_out = new byte[length];
-
-			// read the file section
-			DWORD bytes_read = 0;
-
-			OVERLAPPED file_read_setup;
-			file_read_setup.hEvent = nullptr;
-			file_read_setup.Offset = offset;
-			file_read_setup.OffsetHigh = 0;
-			BOOL success = ReadFile(info.file_handle, *data_out, length, &bytes_read, &file_read_setup);
-
-			if(!success || (bytes_read != length))
-			{
-				delete [] *data_out;
-				*data_out = nullptr;
-				return Enums::_file_io_read_error_failed_to_read_from_file;
-			}
-
-			return Enums::_file_io_read_error_none;
-		}
-
 
 		///-------------------------------------------------------------------------------------------------
 		/// <summary>	Writes to a file. </summary>
@@ -650,31 +605,30 @@ namespace Yelo
 		/// <param name="offset">	The offset in the file to start writing from. </param>
 		/// <returns>	An Enums::file_io_write_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_write_error WriteToFile(s_file_info& info, const void* data, DWORD length, DWORD offset = NONE)
-		{
-			if(!info.m_flags.is_writable)
+		Enums::file_io_write_error WriteToFile(s_file_info &info, const void *data, DWORD length, DWORD offset = NONE) {
+			if (!info.m_flags.is_writable)
 				return Enums::_file_io_write_error_file_is_readonly;
 
 			UpdateFileSize(info);
 
 			// if no offset is set, write from the end of the file
-			if(offset == NONE)
+			if (offset == NONE)
 				offset = info.file_size;
 
 			// must not attempt to write to an offset beyond the end of the file
-			if(offset > info.file_size)
+			if (offset > info.file_size)
 				return Enums::_file_io_write_error_write_offset_past_eof;
 
-			DWORD bytes_written = 0;
+			DWORD      bytes_written = 0;
 			OVERLAPPED file_read_setup;
-			file_read_setup.hEvent = nullptr;
-			file_read_setup.Offset = offset;
+			file_read_setup.hEvent     = nullptr;
+			file_read_setup.Offset     = offset;
 			file_read_setup.OffsetHigh = 0;
 			BOOL success = WriteFile(info.file_handle, data, length, &bytes_written, &file_read_setup);
 
 			UpdateFileSize(info);
 
-			if(!success || (bytes_written != length))
+			if (!success || (bytes_written != length))
 				return Enums::_file_io_write_error_failed_to_write_to_file;
 
 			return Enums::_file_io_write_error_none;

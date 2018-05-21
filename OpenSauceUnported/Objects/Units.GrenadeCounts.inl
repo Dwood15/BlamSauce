@@ -162,12 +162,12 @@ static void InitializeGrenadeCounts_MessageDeltaGrenadeCounts(bool enabled)
 	class mdp_grenade_counts_upgrade
 	{
 	public:
-		static int32 PLATFORM_API maximum_size_calculator(field_properties_definition*)
+		static int32 __cdecl maximum_size_calculator(field_properties_definition*)
 		{
 			return Enums::k_bits_in_grenade_counts_type_upgrade;
 		}
 
-		static int32 PLATFORM_API encoder(field_properties_definition* field_properties, const void* baseline_data, const void* source_data, Memory::s_bitstream* output_stream)
+		static int32 __cdecl encoder(field_properties_definition* field_properties, const void* baseline_data, const void* source_data, Memory::s_bitstream* output_stream)
 		{
 			int32 bits_written = 0;
 
@@ -188,7 +188,7 @@ static void InitializeGrenadeCounts_MessageDeltaGrenadeCounts(bool enabled)
 			return bits_written;
 		}
 
-		static int32 PLATFORM_API decoder(field_properties_definition* field_properties, void* baseline_data, void* destination_data, Memory::s_bitstream* input_stream)
+		static int32 __cdecl decoder(field_properties_definition* field_properties, void* baseline_data, void* destination_data, Memory::s_bitstream* input_stream)
 		{
 			int32 bits_read = 0;
 

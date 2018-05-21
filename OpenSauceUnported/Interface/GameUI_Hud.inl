@@ -191,11 +191,11 @@ namespace Yelo
 		/// <param name="arg_3">			 	[in,out] Third argument from the stock function. </param>
 		/// <param name="arg_4">			 	[in,out] Fourth argument from the stock function. </param>
 		///
-		/// <returns>	A PLATFORM_API. </returns>
-		static void PLATFORM_API RenderWidgetRecursiveHook(datum_index* widget_datum_index, void* arg_1, void* arg_2,void* arg_3, void* arg_4)
+		/// <returns>	A __cdecl. </returns>
+		static void __cdecl RenderWidgetRecursiveHook(datum_index* widget_datum_index, void* arg_1, void* arg_2,void* arg_3, void* arg_4)
 		{
-			typedef void (PLATFORM_API* function_t)(void*, void*, void*, void*, void*);
-			static const function_t render_widget_recursive = CAST_PTR(function_t, GET_FUNC_VPTR(RENDER_WIDGET_RECURSIVE));
+			typedef void (__cdecl* function_t)(void*, void*, void*, void*, void*);
+			static const function_t render_widget_recursive = reinterpret_cast<function_t>(0x49D850);
 
 			// get the widget tag
 			const auto* widget = blam::tag_get<TagGroups::ui_widget_definition>(*widget_datum_index);
@@ -217,10 +217,10 @@ namespace Yelo
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Override of the render players function to apply HUD scaling. </summary>
 		///
-		/// <returns>	A PLATFORM_API. </returns>
-		static void PLATFORM_API HudRenderPlayersHook()
+		/// <returns>	A __cdecl. </returns>
+		static void __cdecl HudRenderPlayersHook()
 		{
-			typedef void (PLATFORM_API* function_t)();
+			typedef void (__cdecl* function_t)();
 			static const function_t render_players = CAST_PTR(function_t, GET_FUNC_VPTR(HUD_RENDER_PLAYERS));
 
 			// disable the hud offset when rendering player indicators, reenable afterwards
@@ -236,10 +236,10 @@ namespace Yelo
 		///
 		/// <param name="arg0">	[in,out] First argument of the stock function. </param>
 		///
-		/// <returns>	A PLATFORM_API. </returns>
-		static void PLATFORM_API HudRenderNavPointsHook(void* arg0)
+		/// <returns>	A __cdecl. </returns>
+		static void __cdecl HudRenderNavPointsHook(void* arg0)
 		{
-			typedef void (PLATFORM_API* function_t)(void*);
+			typedef void (__cdecl* function_t)(void*);
 			static const function_t render_nav_points = CAST_PTR(function_t, GET_FUNC_VPTR(HUD_RENDER_NAV_POINTS));
 
 			// disable the hud offset when rendering nav points, reenable afterwards
@@ -253,10 +253,10 @@ namespace Yelo
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Override of the render in-game scoreboard function to apply UI scaling. </summary>
 		///
-		/// <returns>	A PLATFORM_API. </returns>
-		static void PLATFORM_API HudRenderScoreboardInGameHook()
+		/// <returns>	A __cdecl. </returns>
+		static void __cdecl HudRenderScoreboardInGameHook()
 		{
-			typedef void (PLATFORM_API* function_t)();
+			typedef void (__cdecl* function_t)();
 			static const function_t render_scoreboard_ingame = CAST_PTR(function_t, GET_FUNC_VPTR(HUD_RENDER_SCOREBOARD_INGAME));
 
 			// switch to the widget screen scaling when rendering the scoreboard, switch back to hud scaling afterwards
@@ -270,10 +270,10 @@ namespace Yelo
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Override of the render post-game scoreboard function to apply UI scaling. </summary>
 		///
-		/// <returns>	A PLATFORM_API. </returns>
-		static void PLATFORM_API HudRenderScoreboardPostGameHook()
+		/// <returns>	A __cdecl. </returns>
+		static void __cdecl HudRenderScoreboardPostGameHook()
 		{
-			typedef void (PLATFORM_API* function_t)();
+			typedef void (__cdecl* function_t)();
 			static const function_t render_scoreboard_postgame = CAST_PTR(function_t, GET_FUNC_VPTR(HUD_RENDER_SCOREBOARD_POSTGAME));
 
 			// switch to the widget screen scaling when rendering the scoreboard, switch back to hud scaling afterwards

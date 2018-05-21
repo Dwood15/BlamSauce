@@ -157,7 +157,7 @@ namespace Yelo
 				scripting_vehicle_remapper_enabled_evaluate);
 		}
 		
-		bool PLATFORM_API ShouldKillChildObject(const s_object_datum* object_datum)
+		bool __cdecl ShouldKillChildObject(const s_object_datum* object_datum)
 		{
 			if(object_datum->object.VerifyType(s_unit_datum::k_object_types_mask))
 			{
@@ -202,7 +202,7 @@ namespace Yelo
 			};
 		}
 
-		void PLATFORM_API ObjectsUpdate()
+		void __cdecl ObjectsUpdate()
 		{
 			AI::ObjectsUpdate();
 			Units::ObjectsUpdate();
@@ -301,7 +301,7 @@ namespace Yelo
 			Units::DisposeFromOldMap();
 		}
 
-		void PLATFORM_API Update()
+		void __cdecl Update()
 		{
 			static const uintptr_t OBJECTS_GARBAGE_COLLECTION = GET_FUNC_PTR(OBJECTS_GARBAGE_COLLECTION);
 			_asm {

@@ -36,7 +36,7 @@ namespace Yelo {
 
 		static datum_index Create(index_t index, salt_t salt) {
 			datum_index result;
-			result.handle = (CAST(uint32, salt) << 16) | index;
+			result.handle = (static_cast<uint32>(salt) << 16) | index;
 			return result;
 		}
 
@@ -51,7 +51,7 @@ namespace Yelo {
 		static datum_index Create(index_t index, const void *header) {
 			if (header == nullptr) return null();
 
-			return Create(index, *CAST_PTR(const salt_t*, header));
+			return Create(index, *reinterpret_cast<const salt_t*>(header));
 		}
 
 		//Something something deprecated and removed in C++17 pita to get around don't really care enough nor am I certain it's going to be used.
@@ -64,19 +64,18 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS(uint32);
 
-		OVERRIDE_OPERATOR(=, datum_index &, uint32
-			arg) {
+		datum_index& operator = (uint32 arg) {
 			this->handle = arg;
 			return *this;
 		}
 
-		inline bool operator ==(const datum_index& rhs) const { return this->handle == rhs.handle ; }
-		inline bool operator !=(const datum_index& rhs) const { return this->handle != rhs.handle ; }
+		inline bool operator ==(const datum_index& rhs) const { return this->handle == rhs.handle; }
+		inline bool operator !=(const datum_index& rhs) const { return this->handle != rhs.handle; }
 
 	private:
 
-		inline bool operator ==(const uint32& rhs) const { return this->handle == rhs ; }
-		inline bool operator !=(const uint32& rhs) const { return this->handle != rhs ; }
+		inline bool operator ==(const uint32& rhs) const { return this->handle == rhs; }
+		inline bool operator !=(const uint32& rhs) const { return this->handle != rhs; }
 	};
 
 	static_assert(sizeof(datum_index) == 0x4);

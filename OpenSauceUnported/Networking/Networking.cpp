@@ -102,7 +102,7 @@ namespace Yelo
 		}
 
 		#pragma region OnPlayerJoinDelegate
-		API_FUNC_NAKED static void PLATFORM_API OnPlayerJoinDelegate(s_network_game* network_game_data)
+		API_FUNC_NAKED static void __cdecl OnPlayerJoinDelegate(s_network_game* network_game_data)
 		{
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_ADD_PLAYER);
 
@@ -125,7 +125,7 @@ namespace Yelo
 		#pragma endregion
 
 		#pragma region OnPlayerExitDelegate
-		API_FUNC_NAKED static void PLATFORM_API OnPlayerExitDelegate()
+		API_FUNC_NAKED static void __cdecl OnPlayerExitDelegate()
 		{
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_REMOVE_PLAYER);
 

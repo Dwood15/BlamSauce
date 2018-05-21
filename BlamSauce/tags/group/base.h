@@ -17,6 +17,7 @@
 #include "../../cseries/errors.h"
 #include "loading.hpp"
 #include "../../memory/memory_yelo.hpp"
+#include "../../cache/cache_files.hpp"
 
 namespace Yelo::TagGroups {
 	/// <summary>	when true, all 'model' references are loaded or get as gbxmodels </summary>
@@ -448,7 +449,12 @@ namespace Yelo {
 			return tag_loaded(T::k_group_tag, name);
 		}
 
-		cstring __cdecl tag_get_name(datum_index tag_index);
+		cstring __cdecl tag_get_name(datum_index tag_index) {
+			cstring name = cache_file_tag_get_instance(tag_index)->name;
+
+			// non-standard behavior, but I believe some cache protectors NULL the tag name
+			return name != nullptr ? name : "<unnamed tag>";
+		}
 
 		inline cstring tag_try_get_name(datum_index tag_index) {
 			return tag_index.IsNull() ? "<unspecified tag>" : tag_get_name(tag_index);
@@ -459,29 +465,15 @@ namespace Yelo {
 		// Get the tag definition's address by it's expected group tag and
 		// it's tag handle [tag_index]
 		void *__cdecl tag_get(tag group_tag, datum_index tag_index) {
-			s_tag_instance *instance          = TagGroups::TagInstances()[tag_index];
-			void           *instance_address  = instance->root_block.address;
-			tag            instance_group_tag = instance->group_tag;
+			auto *tag_instance = cache_file_tag_get_instance(tag_index);
 
-			if (instance_group_tag == group_tag ||
-				 instance->parent_group_tags[0] == group_tag ||
-				 instance->parent_group_tags[1] == group_tag ||
-				 group_tag == NONE)
-				return instance_address;
+			YELO_ASSERT_DISPLAY(tag_instance->MatchesGroup(group_tag), "expected tag group '%s' but got '%s' for %08x", group_tag_to_string{group_tag}.ToString(),
+									  group_tag_to_string{tag_instance->group_tag}.ToString(),
+									  tag_index);
 
-			if (g_gbxmodel_group_enabled && TagGroups::model_definition::k_group_tag == instance_group_tag ||
-				 TagGroups::gbxmodel_definition::k_group_tag == instance_group_tag) {
-				if (group_tag == TagGroups::model_definition::k_group_tag || group_tag == TagGroups::gbxmodel_definition::k_group_tag) {
-					return instance_address;
-				}
-			}
+			YELO_ASSERT_DISPLAY(tag_instance->base_address != nullptr, "can't get() a tag (%08x) with a base address!", tag_index);
 
-			long_string group_name;
-			TagGroups::TryAndGetGroupName(group_tag, group_name);
-			long_string instance_group_name;
-			TagGroups::TryAndGetGroupName(instance_group_tag, instance_group_name);
-
-			YELO_ASSERT_DISPLAY(false, "tag_get(0x%x) expected group '%s' but got group '%s'", tag_index, group_name, instance_group_name);
+			return tag_instance->base_address;
 		}
 
 		template <typename T>

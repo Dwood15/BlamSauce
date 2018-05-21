@@ -1,11 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
 #include <precompile.h>
+#include "../main/configuration/yelo_shared_settings.hpp"
+#include "../main/main.h"
+#include "../memory/memory_interface_base.hpp"
 
 namespace Yelo::Enums {
 	enum data_file_reference_type : short;
@@ -58,12 +56,8 @@ namespace Yelo::Cache {
 			// pointer into map_file_path that starts after the maps_path string
 			char *map_file_name = map_path + strlen(maps_path);
 
-			cstring first_map_extension  = g_search_for_yelo_first
-													 ? K_MAP_FILE_EXTENSION_YELO
-													 : K_MAP_FILE_EXTENSION;
-			cstring second_map_extension = g_search_for_yelo_first
-													 ? K_MAP_FILE_EXTENSION
-													 : K_MAP_FILE_EXTENSION_YELO;
+			cstring first_map_extension  = g_search_for_yelo_first ? K_MAP_FILE_EXTENSION_YELO : K_MAP_FILE_EXTENSION;
+			cstring second_map_extension = g_search_for_yelo_first ? K_MAP_FILE_EXTENSION : K_MAP_FILE_EXTENSION_YELO;
 
 			*map_file_name = '\0';
 			strcat(map_file_name, m_map_name);
@@ -162,7 +156,7 @@ namespace Yelo::Cache {
 		byte   *base_address;
 		size_t memory_available;
 
-		s_cache_file_data_load_state(s_cache_header *cache_header, s_cache_tag_header *tag_header) : base_address(CAST_PTR(byte * , tag_header) + cache_header->tag_memory_size),
+		s_cache_file_data_load_state(s_cache_header *cache_header, s_cache_tag_header *tag_header) : base_address(CAST_PTR(byte *, tag_header) + cache_header->tag_memory_size),
 																																	memory_available(Enums::k_tag_allocation_size_upgrade - cache_header->tag_memory_size) {
 		}
 
@@ -208,11 +202,7 @@ namespace Yelo::Cache {
 		auto map_file_type = e_map_path_file_type::invalid;
 
 		char map_extension[_MAX_EXT];
-		_splitpath_s(map_path,
-						 nullptr, 0,
-						 nullptr, 0,
-						 map_name, _countof(map_name),
-						 map_extension, _countof(map_extension));
+		_splitpath_s(map_path, nullptr, 0, nullptr, 0, map_name, std::size(map_name), map_extension, std::size(map_extension));
 
 		_strlwr_s(map_name);
 
@@ -237,9 +227,10 @@ namespace Yelo::Cache {
 	e_cache_read_header_result ReadHeader(cstring map_path, _Out_ s_cache_header &header) {
 		FileIO::s_file_info map_file_info;
 
-		auto open_error = FileIO::OpenFile(map_file_info, map_path);
-		if (open_error != Enums::_file_io_open_error_none)
+		auto open_error = FileIO::OpenFile(map_file_info, map_path, Yelo::Enums::_file_io_open_access_type_read, file_io_open_create_option::_file_io_open_create_option_open_existing);
+		if (open_error != Enums::_file_io_open_error_none) {
 			return e_cache_read_header_result::open_failed;
+		}
 
 		// try to read a buffer the size of a header
 		auto read_error = FileIO::ReadFileToInfoMemory(map_file_info, 0, sizeof(header));
@@ -250,15 +241,19 @@ namespace Yelo::Cache {
 
 		FileIO::CloseFile(map_file_info);
 
-		if (read_error != Enums::_file_io_read_error_none)
+		if (read_error != Enums::_file_io_read_error_none) {
 			return e_cache_read_header_result::read_failed;
+		}
 
 		bool valid = header.ValidForYelo();
 
-		if (!valid)
+		if (!valid) {
 			return e_cache_read_header_result::header_invalid;
-		if (header.yelo.HasHeader() && !header.yelo.IsValid())
+		}
+
+		if (header.yelo.HasHeader() && !header.yelo.IsValid()) {
 			return e_cache_read_header_result::yelo_header_invalid;
+		}
 
 		return e_cache_read_header_result::success;
 
@@ -295,19 +290,19 @@ namespace Yelo::Cache {
 	///
 	/// <returns>	The calculated checksum (CRC32) of the cache file. </returns>
 	static uint32 CalculateChecksumFromMemoryMap(const byte *cache_file) {
-		uint32 crc            = NONE;
+		uint32 crc = NONE;
 
 		// get pointers to the necessary cache data
-		auto *header =
-		CAST_PTR(
-		const s_cache_header*, cache_file);
-		auto *tag_header =
-		CAST_PTR(
-		const s_cache_tag_header*, cache_file + header->offset_to_index);
-		auto   *tag_instances =
-		CAST_PTR(
-		const s_cache_tag_instance*, CAST_PTR(
-		const byte*,tag_header) +sizeof(s_cache_tag_header));
+		auto *header        =
+				  CAST_PTR(
+					  const s_cache_header*, cache_file);
+		auto *tag_header    =
+				  CAST_PTR(
+					  const s_cache_tag_header*, cache_file + header->offset_to_index);
+		auto *tag_instances =
+				  CAST_PTR(
+					  const s_cache_tag_instance*, CAST_PTR(
+					  const byte*, tag_header) +sizeof(s_cache_tag_header));
 
 		// the tag address needs correcting to match the data's starting point
 		// we need to remove the actual runtime base address and instead apply the address we're using in our memory map (the virtual address)
@@ -352,14 +347,14 @@ namespace Yelo::Cache {
 		FileIO::s_file_info map_file;
 		//do-while-false for simpler cleanup
 		do {
-			if (Enums::_file_io_open_error_none != FileIO::OpenFile(map_file, map_path))
+			if (Enums::_file_io_open_error_none != FileIO::OpenFile(map_file, map_path, Enums::_file_io_open_access_type_read, Enums::_file_io_open_create_option_open_existing))
 				break;
 
 			if (Enums::_file_io_read_error_none != FileIO::MemoryMapFile(map_file))
 				break;
 
 			map_crc = CalculateChecksumFromMemoryMap(CAST_PTR(
-			const byte*,map_file.data_pointer));
+																	  const byte*, map_file.data_pointer));
 		} while (false);
 
 		FileIO::CloseFile(map_file);
@@ -382,7 +377,4 @@ namespace Yelo::Cache {
 		map_crc = CalculateChecksum(map_path.c_str());
 		return map_crc;
 	}
-
-
-
 };

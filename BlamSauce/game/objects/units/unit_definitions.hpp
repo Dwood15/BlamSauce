@@ -6,15 +6,13 @@
 */
 #pragma once
 
-#include <blamlib/Halo1/objects/object_definitions.hpp>
-#include <blamlib/Halo1/units/unit_camera.hpp>
+#include <precompile.h>
+#include "unit_camera.hpp"
+#include "unit_definitions_yelo.hpp"
+#include "../object_definitions.hpp"
 
-#include <YeloLib/Halo1/units/unit_definitions_yelo.hpp>
-
-namespace Yelo
-{
-	namespace Enums
-	{
+namespace Yelo {
+	namespace Enums {
 		enum tag_postprocess_mode : byte_enum;
 
 		enum {
@@ -52,15 +50,14 @@ namespace Yelo
 		};
 	};
 
-	namespace Flags
-	{
+	namespace Flags {
 		enum unit_definition_flags {
 			_unit_circular_aiming_bit,
 			_unit_destroyed_after_dying_bit,
 			_unit_half_speed_interpolation_bit,
 			_unit_fires_from_camera_bit,
 			_unit_entrance_inside_bounding_sphere_bit,
-			_unit_unused5_bit,							// Halo2: 'doesn't show readied weapon'
+			_unit_unused5_bit,                     // Halo2: 'doesn't show readied weapon'
 			_unit_causes_passenger_dialogue_bit,
 			_unit_resists_pings_bit,
 			_unit_melee_attack_is_fatal_bit,
@@ -78,15 +75,15 @@ namespace Yelo
 			_unit_special_cinematic_unit_bit,
 			_unit_ignored_by_autoaiming_bit,
 			_unit_shields_fry_infection_forms_bit,
-			_unit_integrated_light_controls_weapon_bit,	// Halo2: unused
-			_unit_integrated_light_lasts_forever_bit,	// Halo2: unused
-			_unit_reserved25_bit,						// Halo2: acts as gunner for parent
-			_unit_reserved26_bit,						// Halo2: controlled by parent gunner
-			_unit_reserved27_bit,						// Halo2: parent's primary weapon
-			_unit_reserved28_bit,						// Halo2: unit has boost
+			_unit_integrated_light_controls_weapon_bit,   // Halo2: unused
+			_unit_integrated_light_lasts_forever_bit,   // Halo2: unused
+			_unit_reserved25_bit,                  // Halo2: acts as gunner for parent
+			_unit_reserved26_bit,                  // Halo2: controlled by parent gunner
+			_unit_reserved27_bit,                  // Halo2: parent's primary weapon
+			_unit_reserved28_bit,                  // Halo2: unit has boost
 			_unit_unused29_bit,
 			_unit_unused30_bit,
-			_unit_has_boarding_seats_yelo_bit,			// YELO: set by postprocess proc, for runtime
+			_unit_has_boarding_seats_yelo_bit,         // YELO: set by postprocess proc, for runtime
 
 			k_number_of_unit_definition_flags
 		};
@@ -107,65 +104,60 @@ namespace Yelo
 
 			k_number_of_unit_seat_definition_flags,
 
-			_unit_seat_reserved11_bit =				// Halo2
-				k_number_of_unit_seat_definition_flags,
-			_unit_seat_reserved12_bit,					// Halo2: ai firing disabled by max acceleration
-			_unit_seat_reserved13_bit,		// Halo2
-			_unit_seat_reserved14_bit,	// Halo2
-			_unit_seat_reserved15_bit,		// Halo2
-			_unit_seat_reserved16_bit,	// Halo2: invalid for player
-			_unit_seat_reserved17_bit,	// Halo2: invalid for non-player
-			_unit_seat_reserved18_bit,	// Halo2: gunner (player only)
-			_unit_seat_reserved19_bit,	// Halo2: invisible under major damage
-			_unit_seat_allows_melee_bit,	// YELO
+			_unit_seat_reserved11_bit =            // Halo2
+			k_number_of_unit_seat_definition_flags,
+			_unit_seat_reserved12_bit,               // Halo2: ai firing disabled by max acceleration
+			_unit_seat_reserved13_bit,      // Halo2
+			_unit_seat_reserved14_bit,   // Halo2
+			_unit_seat_reserved15_bit,      // Halo2
+			_unit_seat_reserved16_bit,   // Halo2: invalid for player
+			_unit_seat_reserved17_bit,   // Halo2: invalid for non-player
+			_unit_seat_reserved18_bit,   // Halo2: gunner (player only)
+			_unit_seat_reserved19_bit,   // Halo2: invisible under major damage
+			_unit_seat_allows_melee_bit,   // YELO
 
 			k_number_of_unit_seat_definition_flags_yelo,
 		};
 		static_assert(k_number_of_unit_seat_definition_flags_yelo <= BIT_COUNT(long_flags));
 	};
 
-	namespace TagGroups
-	{
-		struct unit_seat_acceleration
-		{
+	namespace TagGroups {
+		struct unit_seat_acceleration {
 			TAG_FIELD(real_vector3d, seat_acceleration_scale);
-			PAD32; PAD32; PAD32;
+			PAD32;
+			PAD32;
+			PAD32;
 		};
 
-		struct unit_hud_reference
-		{
+		struct unit_hud_reference {
 			TAG_FIELD(tag_reference, unit_hud_interface, 'unhi');
-			TAG_PAD(int32, 8); // 32
+			TAG_PAD(uhr_pad0, int32, 8); // 32
 		};
 
-		struct dialogue_variant_definition
-		{
+		struct dialogue_variant_definition {
 			TAG_FIELD(int16, varient_number, "variant number to use this dialogue with (must match the suffix in the permutations on the unit's model)");
 			PAD16;
 			PAD32;
 			TAG_FIELD(tag_reference, dialogue, 'udlg');
 		};
 
-		struct powered_seat_definition
-		{
+		struct powered_seat_definition {
 			PAD32;
 			TAG_FIELD(real, driver_powerup_time, "seconds");
 			TAG_FIELD(real, driver_powerdown_time, "seconds");
-			TAG_PAD(int32, 14); // 56
+			TAG_PAD(psd_pad0, int32, 14); // 56
 		};
 
-		struct unit_initial_weapon
-		{
+		struct unit_initial_weapon {
 			TAG_FIELD(tag_reference, weapon, 'weap');
-			TAG_PAD(int32, 4); // 20
+			TAG_PAD(uiwpad0, int32, 4); // 20
 		};
 
-		struct unit_seat
-		{
+		struct unit_seat {
 			TAG_FIELD(long_flags, flags, Flags::unit_seat_definition_flags);
 			TAG_FIELD(tag_string, label);
 			TAG_FIELD(tag_string, marker_name);
-			TAG_PAD(tag_string, 1); // 32
+			TAG_PAD(uspad0, tag_string, 1); // 32
 
 			TAG_FIELD(unit_seat_acceleration, acceleration);
 
@@ -175,7 +167,7 @@ namespace Yelo
 			TAG_FIELD(s_unit_camera, unit_camera);
 			TAG_TBLOCK(unit_hud_interface, unit_hud_reference);
 
-			TAG_PAD(int32, 1); // 4
+			TAG_PAD(uspad01, int32, 1); // 4
 			TAG_FIELD(int16, hud_text_message_index);
 			PAD16;
 
@@ -185,18 +177,19 @@ namespace Yelo
 			TAG_FIELD(tag_reference, built_in_gunner, 'actv');
 
 			TAG_TBLOCK(seat_extensions, unit_seat_extensions);
-			TAG_PAD(int32, 2); // 8
+			TAG_PAD(uspad02, int32, 2); // 8
 
 		private:
-			bool Postprocess(Enums::tag_postprocess_mode mode,
-				datum_index tag_index);
+			bool Postprocess(Enums::tag_postprocess_mode mode, datum_index tag_index);
+
 		public:
-			static bool __cdecl Postprocess(void* element, Enums::tag_postprocess_mode mode,
-				datum_index tag_index);
-		}; static_assert( sizeof(unit_seat) == 284 );
+			static bool __cdecl Postprocess(void *element, Enums::tag_postprocess_mode mode, datum_index tag_index);
+		};
+
+		static_assert(sizeof(unit_seat) == 284);
+
 		//////////////////////////////////////////////////////////////////////////
-		struct _unit_definition
-		{
+		struct _unit_definition {
 			TAG_FIELD(long_flags, flags, Flags::unit_definition_flags);
 			TAG_ENUM(default_team, unit_default_team);
 			TAG_ENUM(constant_sound_volume, ai_sound_volume);
@@ -241,7 +234,8 @@ namespace Yelo
 
 			TAG_FIELD(real, looking_velocity_max, "degrees per second");
 			TAG_FIELD(real, looking_acceleration_max, "degrees per second");
-			PAD32; PAD32;
+			PAD32;
+			PAD32;
 
 			TAG_FIELD(real, ai_vehicle_radius, "radius around this unit that the AI tries to avoid when entering it as a vehicle (zero = use bounding sphere radius)");
 			TAG_FIELD(real, ai_danger_radius, "danger radius around this unit that the AI tries to avoid");
@@ -263,26 +257,24 @@ namespace Yelo
 			struct { // tag value * 30f
 				int16 soft;
 				int16 hard;
-			}runtime_ping_interrupt_time;
+			}     runtime_ping_interrupt_time;
 
 			TAG_TBLOCK(powered_seats, powered_seat_definition);
 			TAG_TBLOCK(weapons, unit_initial_weapon);
 			TAG_TBLOCK(seats, unit_seat);
 
-			bool Postprocess(Enums::tag_postprocess_mode mode,
-				datum_index tag_index);
+			bool Postprocess(Enums::tag_postprocess_mode mode, datum_index tag_index);
 
-		}; static_assert( sizeof(_unit_definition) == 0x174 );
+		};
 
-		struct s_unit_definition : s_object_definition
-		{
+		static_assert(sizeof(_unit_definition) == 0x174);
+
+		struct s_unit_definition : s_object_definition {
 			enum { k_group_tag = 'unit' };
 
 			_unit_definition unit;
 
-			bool Postprocess(Enums::tag_postprocess_mode mode,
-				datum_index tag_index)
-			{
+			bool Postprocess(Enums::tag_postprocess_mode mode, datum_index tag_index) {
 				return unit.Postprocess(mode, tag_index);
 			}
 		};

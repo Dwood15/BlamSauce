@@ -105,7 +105,7 @@ namespace Yelo::Objects {
 
 		if (!object_index.IsNull()) {
 			real_vector3d object_origin;
-			blam::object_get_origin(object_index, object_origin);
+			blam::object_get_origin(object_index, reinterpret_cast<real_point3d*>(&object_origin);
 
 			real_vector3d relative_pos = object_origin - destination_point;
 			dist = relative_pos.Magnitude();

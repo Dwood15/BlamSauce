@@ -16,6 +16,10 @@
 #include "../interface/hud/hud_messaging_definitions.hpp"
 #include "constants.hpp"
 #include "cache_files_globals.hpp"
+#include "cache_files_yelo.hpp"
+#include "cache_base.hpp"
+#include "../effects/sound/sound_definitions.hpp"
+#include "../tags/files/structures.h"
 
 // Terminology:
 // maps_path: The system directory path to a "maps\" folder. 
@@ -268,34 +272,6 @@ namespace Yelo {
 			return cache_file_tag_get_instance(tag_index)->group_tag;
 		}
 
-#if 0 // Disabled, as Halo1_CE's TagGroups.cpp defines a more suitable implementation
-		cstring __cdecl tag_get_name(datum_index tag_index)
-		{
-			cstring name = cache_file_tag_get_instance(tag_index)->name;
-
-			// non-standard behavior, but I believe some cache protectors NULL the tag name
-			return name != nullptr ? name : "<unnamed tag>";
-		}
-#endif
-
-		const void *__cdecl tag_get(tag group_tag, datum_index tag_index) {
-			using TagGroups::group_tag_to_string;
-
-			auto *tag_instance = cache_file_tag_get_instance(tag_index);
-
-			YELO_ASSERT_DISPLAY(tag_instance->MatchesGroup(group_tag),
-									  "expected tag group '%s' but got '%s' for %08x",
-									  group_tag_to_string{group_tag}.ToString(),
-									  group_tag_to_string{tag_instance->group_tag}.ToString(),
-									  tag_index);
-
-			YELO_ASSERT_DISPLAY(tag_instance->base_address != nullptr,
-									  "can't get() a tag (%08x) with a base address!",
-									  tag_index);
-
-			return tag_instance->base_address;
-		}
-
 		void __cdecl cache_file_geometry_cache_for_models_open(Cache::s_cache_tag_header *tag_header) {
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 		}
@@ -360,7 +336,7 @@ namespace Yelo {
 					cache_file_data_load_hud_message_text_resources(tag_instance, data_base_address);
 					break;
 
-					YELO_ASSERT_CASE_UNREACHABLE();
+					//YELO_ASSERT_CASE_UNREACHABLE();
 			}
 		}
 

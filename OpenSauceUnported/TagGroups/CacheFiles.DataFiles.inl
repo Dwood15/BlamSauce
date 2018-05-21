@@ -95,7 +95,7 @@ namespace Yelo { namespace DataFiles {
 		mod_data_files_globals.UseStockDataFiles();
 	}
 
-	API_FUNC_NAKED static void PLATFORM_API CacheFilesInitialize_DataFilesOpenHook()
+	API_FUNC_NAKED static void __cdecl CacheFilesInitialize_DataFilesOpenHook()
 	{
 		static uintptr_t JMP_ADDRESS = GET_FUNC_PTR(CACHE_FILES_INITIALIZE_RETN);
 
@@ -112,7 +112,7 @@ namespace Yelo { namespace DataFiles {
 			jmp		JMP_ADDRESS
 		}
 	}
-	API_FUNC_NAKED static void PLATFORM_API CacheFilesDispose_DataFilesCloseHook()
+	API_FUNC_NAKED static void __cdecl CacheFilesDispose_DataFilesCloseHook()
 	{
 		static uintptr_t JMP_ADDRESS = GET_FUNC_PTR(CACHE_FILES_DISPOSE_RETN);
 
@@ -122,7 +122,7 @@ namespace Yelo { namespace DataFiles {
 		}
 	}
 
-	API_FUNC_NAKED static void PLATFORM_API DataFileReadHook(void* buffer)
+	API_FUNC_NAKED static void __cdecl DataFileReadHook(void* buffer)
 	{
 		API_FUNC_NAKED_START()
 			// esi data_file

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <precompile.h>
+#include "base.h"
 #include "groups_structures.hpp"
 #include "../../memory/datum_index.h"
 #include "../../memory/data.h"
-#include "base.h"
 #include "../../memory/upgrades/blam_memory_upgrades.hpp"
 #include "../../memory/array.h"
 #include "tag_groups_base_yelo.hpp"
@@ -18,13 +18,7 @@ namespace Yelo::Enums {
 };
 
 namespace Yelo::TagGroups {
-	static bool g_gbxmodel_group_enabled = true;
-
-	typedef Memory::DataArray<s_tag_instance,
-									  Enums::k_maximum_simultaneous_tag_instances,
-									  Enums::k_maximum_simultaneous_tag_instances_upgrade>
-		tag_instance_data_t;
-
+	typedef Memory::DataArray<s_tag_instance, Enums::k_maximum_simultaneous_tag_instances, Enums::k_maximum_simultaneous_tag_instances_upgrade> tag_instance_data_t;
 	tag_instance_data_t &TagInstances();
 };
 
@@ -37,7 +31,7 @@ namespace Yelo::blam {
 	/// 	(Optional) the group tag to filter results by. Use [NONE] for [group_tag_filter] to
 	/// 	iterate all tag groups.
 	/// </param>
-	static void __cdecl tag_iterator_new(TagGroups::s_tag_iterator &iter, const tag group_tag_filter = NONE) {
+	static void __cdecl tag_iterator_new(Yelo::TagGroups::s_tag_iterator &iter, const tag group_tag_filter = NONE) {
 		data_iterator_new(iter.instances_iterator, &TagGroups::TagInstances().Header);
 		iter.group_tag_filter = group_tag_filter;
 	}

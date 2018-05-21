@@ -257,10 +257,14 @@ namespace Yelo::blam {
 	void __cdecl object_attach_to_marker(datum_index target_object_index, cstring target_marker_name, datum_index object_index, cstring marker_name);
 
 	// Detaches the object from its parent
-	void __cdecl object_detach(datum_index object_index);
+	void __cdecl object_detach(datum_index object_index); //{
+	// 	Yelo::Engine::Objects::Detach(object_index);
+	// }
 
 	// Get the origin of [object_index]. Takes the parent object (if there is one) into account.
-	real_point3d &__cdecl object_get_origin(datum_index object_index, __out real_point3d &return_origin);
+	real_point3d &__cdecl object_get_origin(datum_index object_index, __out real_point3d &return_origin); // {
+	// 	return Yelo::Engine::Objects::GetOrigin(object_index, return_origin);
+	// }
 
 	// Get the orientation of [object_index]. Takes the parent object (if there is one) into account.
 	void __cdecl object_get_orientation(datum_index object_index, __out_opt real_vector3d *return_forward, __out_opt real_vector3d *return_up);

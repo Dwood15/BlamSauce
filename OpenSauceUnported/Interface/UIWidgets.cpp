@@ -66,7 +66,7 @@ namespace Yelo
 	{
 		using namespace UIWidgets;
 
-		API_FUNC_NAKED s_ui_widget_instance* PLATFORM_API ui_widget_load_by_name_or_tag(
+		API_FUNC_NAKED s_ui_widget_instance* __cdecl ui_widget_load_by_name_or_tag(
 			cstring name,
 			datum_index ui_widget_definition_index,
 			s_ui_widget_instance* parent,
