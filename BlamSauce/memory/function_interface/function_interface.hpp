@@ -4,10 +4,11 @@
 #pragma once
 
 namespace Enums {
-	constexpr enum CallingConventions {
+	enum CallingConventions {
 		m_cdecl, //Everything goes onto the stack - stack is cleaned up by the caller.
 		m_stdcall, //Everything goes onto the stack, but stack is cleaned up by callee.
-		m_fastcall //Example: __fastcall void Foo(int iGoInto_ECX, int iGoInto_EDX, int iGetPushed_Last, int iGetPushed_2nd, int iGetPushed_First);
+		m_fastcall, //Example: __fastcall void Foo(int iGoInto_ECX, int iGoInto_EDX, int iGetPushed_Last, int iGetPushed_2nd, int iGetPushed_First);
+		m_thiscall
 	};
 }
 
@@ -15,48 +16,32 @@ namespace Tempera::FunctionInterface {
 	/**********
 	 * Tempera
 	 */
-	namespace Enums {
-		enum CallingConventions {
-			m_cdecl, //Everything goes onto the stack - stack is cleaned up by the caller.
-			m_stdcall, //Everything goes onto the stack, but stack is cleaned up by callee.
-			m_fastcall //Example: __fastcall void Foo(int iGoInto_ECX, int iGoInto_EDX, int iGetPushed_Last, int iGetPushed_2nd, int iGetPushed_First);
-		};
-	}
+
 	typedef Enums::CallingConventions Convention;
 
-	template <typename retType, typename ...argTypes>
-	inline retType DoStdCall(uintptr_t addr, argTypes... args) {
-		using ufunc_t = retType (__stdcall *)(argTypes...);
-		static const ufunc_t func_to_call = reinterpret_cast<ufunc_t>(addr);
-		return func_to_call(args...);
-	};
+	template <Convention conv, typename retType, typename ...argTypes>
+	inline retType DoCall(uintptr_t addr, argTypes... args) {
+		// typedef retType (__stdcall *function_t)(argTypes...);
+		using ufunc_t = retType(__cdecl *)(argTypes...);
 
-	template <typename retType, typename ...argTypes>
-	inline retType DoFastCall(uintptr_t addr, argTypes... args) {
-		using ufunc_t = retType (__fastcall *)(argTypes...);
-		static const ufunc_t func_to_call = reinterpret_cast<ufunc_t>(addr);
-		return func_to_call(args...);
-	};
+		if constexpr(conv == Convention::m_stdcall) {
+			using ufunc_t = retType(__stdcall *)(argTypes...);
 
-	template <typename retType, typename ...argTypes>
-	inline retType DoCdeclCall(uintptr_t addr, argTypes... args) {
-		using ufunc_t = retType (__cdecl *)(argTypes...);
-		static const ufunc_t func_to_call = reinterpret_cast<ufunc_t>(addr);
-		return func_to_call(args...);
-	};
+		} else if constexpr(conv == Convention::m_fastcall) {
+			using ufunc_t = retType(__fastcall *)(argTypes...);
 
-	template <Convention convention, typename retType, typename ...argTypes>
-	inline retType TryCall(uintptr_t addr, argTypes... args) {
-		switch(convention) {
-			case (Convention::m_cdecl):
-				return DoCdeclCall<retType, argTypes...>(addr, args...);
-			case (Convention::m_fastcall):
-				return DoFastCall<retType, argTypes...>(addr, args...);
-			case (Convention::m_stdcall):
-				return DoStdCall<retType, argTypes...>(addr, args...);
+		} else if constexpr(conv == Convention::m_thiscall) {
+			using ufunc_t = retType(__thiscall *)(argTypes...);
+
+		} else if constexpr(conv == Convention::m_cdecl) {
+			using ufunc_t = retType(__cdecl *)(argTypes...);
+
+		} else {
+			throw "Invalid return type specified!";
 		}
 
-		throw "Invalid convention parameter!";
+		static const ufunc_t func_to_call = reinterpret_cast<ufunc_t>( addr );
+		return func_to_call(args...);
 	};
 }
 

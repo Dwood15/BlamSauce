@@ -41,7 +41,7 @@ namespace Yelo {
 	};
 
 	// Halo1's editor allocates 256 characters for all tag_reference names, even if they're empty
-	typedef char *tag_reference_name_reference;
+	typedef char * tag_reference_name_reference;
 
 	struct tag_reference {
 		enum {

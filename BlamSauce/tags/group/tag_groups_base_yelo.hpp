@@ -1,12 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
-
+#include <precompile.h>
 #include "../../cseries/base.h"
+#include "../string_ids/yelo.hpp"
 #include "base.h"
+
 
 namespace Yelo {
 	// Template'd tag_reference that is nifty, and allows for better markup in the code

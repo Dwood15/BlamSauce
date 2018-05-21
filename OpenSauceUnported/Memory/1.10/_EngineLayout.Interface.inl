@@ -4,8 +4,12 @@
 
 	ENGINE_PTR(ControlSettings, Settings,			K_SETTINGS, PTR_NULL);
 	ENGINE_PTR(ControlStates, ControlState,			K_CONTROL_STATE, PTR_NULL);
+	ENGINE_PTR(ControlStates, ControlState,			K_CONTROL_STATE, PTR_NULL);
 	ENGINE_PTR(PositionState, MousePositionState,	K_MOUSE_POSITION_STATE, PTR_NULL);
-	ENGINE_PTR(byte, InputStateFlags,				K_INPUT_STATE_FLAGS, PTR_NULL);
+
+	//(type, name, ...)
+	//static auto* const p##name = CAST_PTR(type*, PLATFORM_VALUE(__VA_ARGS__));  static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
+	//ENGINE_PTR(byte, InputStateFlags,				K_INPUT_STATE_FLAGS, PTR_NULL);
 
 //////////////////////////////////////////////////////////////////////////
 // GameUI.cpp

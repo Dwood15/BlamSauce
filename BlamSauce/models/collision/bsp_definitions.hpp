@@ -1,12 +1,5 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
-
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -77,7 +70,7 @@ namespace Yelo
 
 		struct collision_bsp
 		{
-			TAG_TBLOCK(bsp3d_nodes, bsp3d_node);
+			Yelo::TagBlock<bsp3d_node> bsp3d_nodes;
 			TAG_TBLOCK(planes, real_plane3d);
 			TAG_TBLOCK(leaves, collision_leaf);
 			struct {

@@ -8,13 +8,6 @@
 #include "Game/EngineFunctions.hpp"
 #include "Memory/FunctionInterface.hpp"
 
-#include <blamlib/Halo1/interface/ui_widget_group.hpp>
-#include <blamlib/Halo1/interface/hud_definitions.hpp>
-
-#include <YeloLib/configuration/c_configuration_container.hpp>
-#include <YeloLib/configuration/c_configuration_value.hpp>
-#include <YeloLib/configuration/type_containers/c_real_point2d_container.hpp>
-#include <YeloLib/open_sauce/settings/c_settings_singleton.hpp>
 
 namespace Yelo
 {
@@ -98,9 +91,7 @@ namespace Yelo
 			},
 		};
 
-		class c_settings_container
-			: public Yelo::Configuration::c_configuration_container
-		{
+		class c_settings_container : public Yelo::Configuration::c_configuration_container {
 		public:
 			Yelo::Configuration::c_configuration_value<bool> m_show_hud;
 			Yelo::Configuration::c_configuration_value<bool> m_scale_hud;
@@ -116,11 +107,10 @@ namespace Yelo
 		protected:
 			const std::vector<i_configuration_value* const> GetMembers() final override
 			{
-				return std::vector<i_configuration_value* const>
-				{
+				return std::vector<i_configuration_value*> {
 					&m_show_hud,
 					&m_scale_hud,
-					&m_hud_scale,
+					&m_hud_scale
 				};
 			}
 		};

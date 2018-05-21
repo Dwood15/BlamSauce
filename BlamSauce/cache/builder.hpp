@@ -19,6 +19,7 @@
 #include "../main/main.h"
 #include "../tags/files/structures.h"
 #include "../memory/memory_interface_base.hpp"
+#include "../scenario/yelo/yelo_scenario_definite.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -134,114 +135,8 @@ namespace Yelo::blam {
 												void *stream, uintptr_t stream_base_address, uintptr_t virtual_base_address,
 												build_cache_file_tag_names_t &tag_names);
 
-	static void *stream_tag_block_to_buffer_postprocess_tag_data(
-		void *&return_stream, uintptr_t stream_base_address, uintptr_t virtual_base_address,
-		build_cache_file_tag_names_t &tag_names,
-		const Yelo::TagGroups::c_tag_field_scanner &scanner) {
-		auto *data = scanner.GetFieldAs<tag_data>();
 
-		if (data->definition == nullptr) {   // not exactly what tool's asm does here, but should amount to the same output
-			data->address = nullptr;
-		} else if (!TEST_FLAG(data->definition->flags, Flags::_tag_data_not_streamed_to_cache_bit)) {
-			if (data->size > 0 && data->address != nullptr) {
-				// record the current stream position as runtime address for the data blob, then write the blob
-				void *data_address = Memory::RebasePointer(return_stream, stream_base_address, virtual_base_address);
-				stream_blob_to_buffer(return_stream, data->address, data->size);
-
-				data->definition = nullptr;
-				data->address    = data_address;
-			} else {
-				data->address    = nullptr;
-				data->definition = nullptr;
-			}
-		}
-
-		return return_stream;
-	}
-
-	static void *stream_tag_block_to_buffer_postprocess_tag_block(
-		void *&return_stream, uintptr_t stream_base_address, uintptr_t virtual_base_address,
-		build_cache_file_tag_names_t &tag_names,
-		const TagGroups::c_tag_field_scanner &scanner) {
-		auto *block = scanner.GetFieldAs<tag_block>();
-
-		if (block->count > 0) {
-			// record the current stream position as runtime address for the block elements, then write the elements
-			void *elements_address = Memory::RebasePointer(return_stream, stream_base_address, virtual_base_address);
-			return_stream = stream_tag_block_to_buffer(block, return_stream, stream_base_address, virtual_base_address, tag_names);
-
-			block->address    = elements_address;
-			block->definition = nullptr;
-		} else {
-			block->address    = nullptr;
-			block->definition = nullptr;
-		}
-
-		return return_stream;
-	}
-
-	static void *stream_tag_block_to_buffer_postprocess_tag_reference(
-		void *&return_stream, uintptr_t stream_base_address, uintptr_t virtual_base_address,
-		build_cache_file_tag_names_t &tag_names,
-		const TagGroups::c_tag_field_scanner &scanner) {
-		auto  *reference     = scanner.GetFieldAs<tag_reference>();
-		int32 absolute_index = reference->tag_index.index;
-
-		reference->name        = reference->tag_index.IsNull() ? nullptr : tag_names[absolute_index];
-		reference->name_length = 0;
-
-		if (scanner.TagFieldIsStringId()) {
-			string_id_yelo *sidy = CAST_PTR(string_id_yelo *, reference);
-		}
-
-		return return_stream;
-	}
-
-	static void *stream_tag_block_to_buffer(tag_block *block, void *stream, uintptr_t stream_base_address, uintptr_t virtual_base_address, build_cache_file_tag_names_t &tag_names) {
-		assert(stream && stream_base_address);
-		assert(virtual_base_address);
-
-		void *elements_stream = stream;
-
-		// copy the tag memory, loaded by the tools, verbatim into the cache tag memory stream
-		// return_stream will equal the starting address of child data (ie, blocks and tag_data)
-		void *return_stream = stream_blob_to_buffer(elements_stream, block->address, block->count * block->get_element_size());
-
-		for (auto element : *block) {
-			TagGroups::c_tag_field_scanner scanner(block->definition->fields,
-				// get the the element address in the cache tag memory stream
-																CAST_PTR(byte *, stream) + (block->get_element_size() * element.index)
-			);
-
-			// non-stock code; we scan for tag-strings so we can generate string_ids from them
-			scanner.AddFieldType(Enums::_field_data).AddFieldType(Enums::_field_block).AddFieldType(Enums::_field_tag_reference).AddFieldType(Enums::_field_string);
-
-			while (scanner.Scan()) {
-				switch (scanner.GetTagFieldType()) {
-					case Enums::_field_data:
-						stream_tag_block_to_buffer_postprocess_tag_data(return_stream, stream_base_address, virtual_base_address, tag_names,
-																						scanner);
-						break;
-
-					case Enums::_field_block:
-						stream_tag_block_to_buffer_postprocess_tag_block(return_stream, stream_base_address, virtual_base_address, tag_names,
-																						 scanner);
-						break;
-
-					case Enums::_field_tag_reference:
-						stream_tag_block_to_buffer_postprocess_tag_reference(return_stream, stream_base_address, virtual_base_address, tag_names,
-																							  scanner);
-						break;
-
-					case Enums::_field_string: // non-stock code
-						break;
-				}
-			}
-		}
-
-		return return_stream;
-	}
-
+	
 	void *stream_tag_to_buffer(datum_index tag_index,
 										void *stream, size_t &return_tag_size, uintptr_t virtual_base_address,
 										build_cache_file_tag_names_t &tag_names) {
@@ -354,40 +249,7 @@ namespace Yelo::blam {
 		YELO_FREE(vertex_y_index_buffer);
 	}
 
-	static char *build_cache_file_add_tag_to_header(datum_index tag_index,
-																	uintptr_t stream_base_address,
-																	s_cache_tag_instance *tag_instances, int32 tag_instance_index,
-																	char *tag_name, build_cache_file_tag_names_t &tag_names) {
-		char  *tag_name_address  = RebasePointer(tag_name, stream_base_address, Enums::k_tag_base_address);
-		int32 absolute_tag_index = tag_index.index;
-
-		if (stream_base_address != NULL) {
-			auto      *tag_instance = &tag_instances[tag_instance_index];
-			tag_group *group        = TagGroups::TagGetGroup(tag_index);
-			tag_instance->group_tag = group->group_tag;
-			tag_instance->parent_groups[0] = group->parent_group_tag;
-			tag_instance->parent_groups[1] = group->parent_group_tag == NONE
-														? NONE
-
-														: tag_group_get(group->parent_group_tag)->group_tag;
-
-			YELO_ASSERT_DISPLAY(tag_names[absolute_tag_index] != nullptr,
-									  "the quarter isn't under any of the cups you fuckin cheater i kill you");
-
-			tag_instance->name = tag_name_address;
-			strcpy(tag_name, tag_get_name(tag_index));
-		} else {
-			const int32 MAXIMUM_SIMULTANEOUS_TAG_INSTANCES = BuildCacheFileForYelo()
-																			 ? Enums::k_maximum_simultaneous_tag_instances_upgrade
-																			 : Enums::k_maximum_simultaneous_tag_instances;
-			assert(absolute_tag_index >= 0 && absolute_tag_index < MAXIMUM_SIMULTANEOUS_TAG_INSTANCES);
-
-			tag_names[absolute_tag_index] = tag_name_address;
-		}
-
-		return tag_name + strlen(tag_get_name(tag_index)) + 1;
-	}
-
+	
 	static void *build_cache_file_add_tag_to_stream(datum_index tag_index,
 																	uintptr_t stream_base_address,
 																	s_cache_tag_instance *tag_instances, int32 tag_instance_index,
@@ -432,138 +294,7 @@ namespace Yelo::blam {
 
 		return stream;
 	}
-
-	static bool __cdecl build_cache_file_add_tags_impl(
-		s_cache_header &cache_header, void *scratch, build_cache_file_tag_names_t &tag_names, int32 largest_structure_bsp_size) {
-		enum {
-			_add_tags_phase_calculate_tag_header_size,
-			_add_tags_phase_writing_tags,
-		};
-		short phase = scratch == nullptr ? _add_tags_phase_calculate_tag_header_size : _add_tags_phase_writing_tags;
-
-		bool success = true;
-
-		// the engine populates these pointers, and checks that scratch != NULL whenever it wants to write to them
-		auto *cache_tag_header    = CAST_PTR(s_cache_tag_header *, scratch);
-		auto *cache_tag_instances = CAST_PTR(s_cache_tag_instance *, cache_tag_header + 1);
-		cache_tag_instances = AlignPointer(cache_tag_instances, k_cache_file_tag_memory_alignment_bit);
-
-		int32            tag_count = 0;
-		// figure out how many tags there are, and zero the instances when writing their headers
-		for (datum_index tag_index : TagGroups::c_tag_iterator::all()) {
-			if (phase == _add_tags_phase_writing_tags) {
-				memset(&cache_tag_instances[tag_count], 0, sizeof(s_cache_tag_instance));
-			}
-
-			tag_count++;
-		}
-
-		auto *cache_tag_names = CAST_PTR(char *, cache_tag_instances + tag_count);
-		cache_tag_names                       = AlignPointer(cache_tag_names, k_cache_file_tag_memory_alignment_bit);
-
-		int32            index;
-		char             *next_cache_tag_name = cache_tag_names;
-		// figure out the size of the tag names buffer, and populate the instance fields when writing their heads
-		for (datum_index tag_index : TagGroups::c_tag_iterator::all()) {
-			assert(index < tag_count);
-
-			auto casted = CAST_PTR(uintptr_t, cache_tag_header)
-			next_cache_tag_name = build_cache_file_add_tag_to_header(tag_index, casted, cache_tag_instances, index, next_cache_tag_name, tag_names);
-
-			index++;
-		}
-		assert(index == tag_count);
-
-		if (phase == _add_tags_phase_calculate_tag_header_size)
-			return success;
-
-		// everything after here is _add_tags_phase_writing_tags
-
-		// TODO: need to open the data files here
-
-		// tags are streamed after the tag names
-		void *cache_tags_base_address = AlignPointer(next_cache_tag_name, k_cache_file_tag_memory_alignment_bit);
-
-		memset(cache_tag_header, 0, sizeof(*cache_tag_header));
-		cache_tag_header->tags_address   = cache_tag_instances;
-		cache_tag_header->count          = tag_count;
-		cache_tag_header->checksum       = tag_groups_checksum();
-		cache_tag_header->signature      = s_cache_tag_header::k_signature;
-		cache_tag_header->scenario_index = Scenario::ScenarioIndex();
-
-		ptrdiff_t tag_headers_y_name_size = CAST_PTR(byte *, cache_tags_base_address) - CAST_PTR(byte *, cache_tag_header);
-		printf_s("tag headers and names are %3.2fM\n",
-					CAST(float, k_byte_to_megabyte_fraction * tag_headers_y_name_size));
-
-		// NOTE: engine actually writes the model resources AFTER it streams the tags to its memory buffer
-		// but it writes the tags resources after models anyways, so file data ordering is still maintained
-		build_cache_file_add_model_vertices_and_triangles_resources(cache_tag_header);
-
-		printf_s("streaming tags");
-		index = 0;
-		void             *next_cache_tag_base_address = cache_tags_base_address;
-		for (datum_index tag_index : TagGroups::c_tag_iterator::all()) {
-			assert(index < tag_count);
-
-			auto casted = CAST_PTR(uintptr_t, cache_tag_header)
-			next_cache_tag_base_address = build_cache_file_add_tag_to_stream(tag_index, casted, cache_tag_instances, index, next_cache_tag_base_address, tag_names);
-		}
-		printf_s("done\n");
-
-		printf_s("writing tags...");
-
-		ptrdiff_t cache_tags_size = CAST_PTR(byte *, next_cache_tag_base_address) - CAST_PTR(byte *, cache_tag_header);
-
-		if (!build_cache_file_add_resource(cache_tag_header, cache_tags_size, &cache_header.offset_to_index)) {
-			success = false;
-			printf_s("FAILED!\n");
-		} else {
-			printf_s("done (%d tags for %3.2fM)\n", tag_count, CAST(float, k_byte_to_megabyte_fraction * cache_tags_size));
-		}
-
-		// TODO: need to close data files here
-
-		return success;
-	}
-
-	static bool build_cache_file_add_structure_bsps_impl(
-		void *stream, build_cache_file_tag_names_t &tag_names, _Out_ int32 &out_largest_structure_bsp_size) {
-		out_largest_structure_bsp_size = 0;
-		auto *scenario                 = global_scenario_get();
-
-		if (scenario->structure_bsps.Count == 0) {
-			return true;
-		}
-
-		const uintptr_t k_tag_cache_max_address = BuildCacheFileForYelo() ? Enums::k_tag_max_address_upgrade : Enums::k_tag_max_address;
-
-		bool      success = true;
-		for (auto &bsp_reference : scenario->structure_bsps) {
-			// this is how the engine is setup. first call is used to figure out the bsp size
-			size_t bsp_stream_size = stream_structure_bsp_to_buffer(bsp_reference, stream, tag_names, NULL);
-
-			// with the size of the bsp as it will appear in the tag cache, we can figure out the virtual address and actually build a valid stream
-			uintptr_t bsp_virtual_base_address = k_tag_cache_max_address - bsp_stream_size;
-			stream_structure_bsp_to_buffer(bsp_reference, stream, tag_names, bsp_virtual_base_address);
-
-			cstring bsp_tag_name = tag_get_name(bsp_reference.structure_bsp.tag_index);
-			printf_s("structure bsp '%s' is %3.2fM\n", bsp_tag_name, CAST(float, k_byte_to_megabyte_fraction * bsp_stream_size));
-
-			if (!build_cache_file_add_resource(stream, bsp_reference.bsp_data_size = CAST(int32, bsp_stream_size), &bsp_reference.cache_offset)) {
-				success = false;
-				printf_s("failed to write the structure-bsp '%s' to the cache file", bsp_tag_name);
-				// yes, continue. the engine code continued even when one of the bsps failed to write
-				continue;
-			}
-			bsp_reference.header = CAST_PTR(TagGroups::structure_bsp_header *, bsp_virtual_base_address);
-
-			// if this bsp's size is the biggest so far, update the out parameter
-			if (out_largest_structure_bsp_size < bsp_reference.bsp_data_size)
-				out_largest_structure_bsp_size = bsp_reference.bsp_data_size;
-		}
-
-		return success;
-	}
+	
 
 	static API_FUNC_NAKED bool __cdecl build_cache_file_add_tags(
 		s_cache_header &cache_header, void *scratch, build_cache_file_tag_names_t &tag_names, int32 largest_structure_bsp_size) {
@@ -611,8 +342,6 @@ namespace Yelo::blam {
 				case Enums::_cache_file_type_main_menu:
 					maximum_cache_file_length = 0x2300000;
 					break;
-
-					YELO_ASSERT_CASE_UNREACHABLE();
 			}
 		}
 
@@ -675,42 +404,11 @@ namespace Yelo::blam {
 			build_cache_file_tag_names_t tag_names;
 			tag_names.fill(nullptr);
 
-			if (!BuildCacheFilePreprocessTagsForRuntime() ||
-				 !build_cache_file_begin(scenario_name, begin_flags) ||
-				 !build_cache_file_cull_tags() ||
-				 !BuildCacheFileCullTagsYelo() ||
-				 !build_cache_file_last_minute_changes() ||
-				 !build_cache_file_predicted_resources() ||
-				 !BuildCacheFilePredicatedResourcesYelo() ||
-				 !build_cache_file_add_tags(tag_names, cache_header, scratch) ||
-				 !BuildCacheFileWriteHeaderPreprocess(cache_header) ||
-				 !build_cache_file_write_header_and_compress(cache_header)) {
-				build_cache_file_cancel();
-				printf_s("### FAILED TO BUILD CACHE FILE.\n\n");
-				break;
-			}
-
 			printf_s("successfully built cache file.\n");
 
 		} while (false);
 
 		YELO_FREE(scratch);
-
-		if (!BuildCacheFileGlobals()->canceled) {
-			tag_groups_dump_memory();
-
-			if (TEST_FLAG(begin_flags, Flags::_build_cache_file_begin_dump_tag_group_allocation_stats_bit)) {
-				using namespace TagGroups;
-
-				c_tag_group_allocation_statistics::Initialize();
-				// assume all tags that are loaded were used in the cache file
-				for (datum_index tag_index : c_tag_iterator::all()) {
-					c_tag_group_allocation_statistics::BuildStatsForTag(tag_index);
-				}
-				c_tag_group_allocation_statistics::DumpToFile();
-				c_tag_group_allocation_statistics::Dispose();
-			}
-		}
 	}
 };
 
@@ -769,9 +467,9 @@ namespace Yelo::Cache {
 		if (yelo->build_info.Count > 0) {
 			const Yelo::TagGroups::s_project_yellow_scenario_build_info &build_info = yelo->build_info[0];
 
-			BuildCacheFileYeloCacheHeader().InitializeBuildInfo(build_info);
+			//BuildCacheFileYeloCacheHeader().InitializeBuildInfo(build_info);
 		} else {
-			BuildCacheFileYeloCacheHeader().InitializeBuildInfo();
+			//BuildCacheFileYeloCacheHeader().InitializeBuildInfo();
 		}
 	}
 

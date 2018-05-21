@@ -83,15 +83,20 @@ if (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_[0-1][0-9])$")
 	set(GAME ${MAJOR_VER}/${MINOR_VER} CACHE INTERNAL "")
 endif ()
 
+set(GAME_DIR ${PROJECT_SOURCE_DIR}/${GAME})
+set(LEVELS_DIR ${PROJECT_SOURCE_DIR}/${LEVELS})
+set(RUNTIME_DIR ${PROJECT_SOURCE_DIR}/runtime)
+
+include_directories(AFTER ${GAME_DIR} ${LEVELS_DIR})
 
 set(RUNTIME_H
-	${PROJECT_SOURCE_DIR}/${GAME}/memory_locations.h
-	${PROJECT_SOURCE_DIR}/${GAME}/engine_functions.h
-	${PROJECT_SOURCE_DIR}/${GAME}/current_engine.h
-	${PROJECT_SOURCE_DIR}/${LEVELS}/levels.h
-	${PROJECT_SOURCE_DIR}/runtime/versions/cache_files_win.hpp
-	${PROJECT_SOURCE_DIR}/runtime/versions/precompile.h
-	${PROJECT_SOURCE_DIR}/runtime/versions/versions.h
+	${GAME_DIR}/memory_locations.h
+	${GAME_DIR}/engine_functions.h
+	${GAME_DIR}/current_engine.h
+	${LEVELS_DIR}/levels.h
+	${RUNTIME_DIR}/versions/cache_files_win.hpp
+	${RUNTIME_DIR}/versions/precompile.h
+	${RUNTIME_DIR}/versions/versions.h
 	PARENT_SCOPE)
 
-set(GAME_LIB_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/versions ${CMAKE_CURRENT_SOURCE_DIR}/${GAME} ${CMAKE_CURRENT_SOURCE_DIR}/${LEVELS} CACHE INTERNAL "")
+set(GAME_LIB_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/versions ${GAME_DIR} ${LEVELS_DIR} CACHE INTERNAL "")

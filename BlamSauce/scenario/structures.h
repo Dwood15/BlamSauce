@@ -1,20 +1,19 @@
 #pragma once
 
+#include <precompile.h>
 #include "../cseries/base.h"
-#include "../tag_helpers/tag_groups_markup.h"
 #include "../math/real_math.h"
 #include "../math/color_math.h"
-#include "../tag_helpers/tag_groups_base.h"
 
 namespace Yelo::Scenario {
 		struct s_scenario_player_atmospheric_fog // made up name
 		{
 			bool is_inside;
 			PAD24;
-			UNKNOWN_TYPE(real_vector3d);
-			UNKNOWN_TYPE(real_vector3d);
-			UNKNOWN_TYPE(real_rgb_color);
-			UNKNOWN_TYPE(real);
+			real_vector3d pad00;
+			real_vector3d pad01;
+			real_rgb_color pad02;
+			real pad03;
 		}; static_assert(sizeof(s_scenario_player_atmospheric_fog) == 0x2C);
 
 		struct sound_environment {
@@ -52,7 +51,7 @@ namespace Yelo::Scenario {
 	struct s_scenario_location {
 		int32 leaf_index;
 		int16 cluster_index;
-		UNKNOWN_TYPE(int16);
+		int16 pad0;
 	}; static_assert(sizeof(s_scenario_location) == 0x8);
 
 	struct s_sky_atmospheric_fog {

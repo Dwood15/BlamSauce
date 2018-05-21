@@ -84,7 +84,7 @@ namespace Yelo {
 
 			_player_update player_update;                     // 0x38
 
-			typedef void (__cdecl *_weapon_update)(datum_index weapon_index, Objects::s_weapon_datum *weapon);
+			typedef void (__cdecl * _weapon_update)(datum_index weapon_index, Objects::s_weapon_datum *weapon);
 
 			_weapon_update weapon_update;                     // 0x3C
 

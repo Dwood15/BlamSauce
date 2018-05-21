@@ -3,6 +3,7 @@
 #pragma once
 
 #include <precompile.h>
+#define ADDR static constexpr uintptr_t
 
 // TODO: Transition to switch-case constexpr structure, a la a better memory_map.
 ADDR K_GATHER_EXCEPTION_DATA                        = 0x6BDE8C;
