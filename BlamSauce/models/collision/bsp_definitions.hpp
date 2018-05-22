@@ -25,7 +25,7 @@ namespace Yelo
 
 		struct collision_leaf
 		{
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			TAG_FIELD(short, reference_count);
 			TAG_FIELD(long, first_reference, bsp2d_reference);
 		}; static_assert( sizeof(collision_leaf) == 0x8 );

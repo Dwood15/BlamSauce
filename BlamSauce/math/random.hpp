@@ -89,14 +89,14 @@ namespace Yelo::Random {
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Gets a random uint16 within the specified bounds. </summary>
+	/// <summary>	Gets a random unsigned short within the specified bounds. </summary>
 	///
 	/// <param name="lower">	The lower value. </param>
 	/// <param name="upper">	The upper value. </param>
 	///
-	/// <returns>	A random uint16. </returns>
-	uint16 GetUInt16(const uint16 lower, const uint16 upper) {
-		std::uniform_int_distribution<uint16> distribution(lower, upper);
+	/// <returns>	A random unsigned short. </returns>
+	unsigned short GetUInt16(const unsigned short lower, const unsigned short upper) {
+		std::uniform_int_distribution<unsigned short> distribution(lower, upper);
 
 		return distribution(g_generator);
 	}

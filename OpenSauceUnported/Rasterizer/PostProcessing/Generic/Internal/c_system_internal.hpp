@@ -62,21 +62,21 @@ namespace Yelo
 
 				struct
 				{
-					uint16 count;
+					unsigned short count;
 					unsigned short : 16;
 					c_shader_internal* shader_list;
 				}m_shaders;
 
 				struct
 				{
-					uint16 count;
+					unsigned short count;
 					unsigned short : 16;
 					s_effect_set* effect_list;
 				}m_effects;
 
 				struct
 				{
-					uint16 count;
+					unsigned short count;
 					unsigned short : 16;
 					c_effect_instance_generic* effect_instance_list;
 				}m_effect_instances;

@@ -38,7 +38,7 @@ namespace Yelo::Networking {
 		// BIT(2) - game_loading_complete
 		// BIT(3) - is_precached
 		// BIT(4) - is holding up
-		word_flags                              flags;                                 // 0xE
+		unsigned short                              flags;                                 // 0xE
 		bool                                    should_be_removed;
 															 unsigned char : 8; unsigned short : 16;                        // 0x10
 		long                                   removal_reject_time;                           // 0x14 game time the removal was initiated
@@ -81,7 +81,7 @@ namespace Yelo::Networking {
 
 		s_network_server_connection *connection;         // 0x0
 		Enums::network_game_server_state state;            // 0x4
-		word_flags                       flags;                           // 0x6
+		unsigned short                       flags;                           // 0x6
 		s_network_game                   game;                        // 0x8
 		s_network_client_machine         client_machines
 													[Enums::k_maximum_network_machine_count];      // 0x3F8

@@ -61,11 +61,11 @@ namespace Yelo {
 			};
 
 			struct s_flags {
-				word_flags uses_memory_upgrades : 1;// cache requires upgraded memory
-				word_flags uses_mod_data_files : 1;   // cache relies on a set of 'mod' data files for it's resources
-				word_flags is_protected : 1;      // cache has protection applied
-				word_flags uses_game_state_upgrades : 1; // cache has tag data that either requires or needs OS-modified game state memory in order to (fully) function
-				word_flags has_compression_params : 1; // cache has compression parameters (for resources, tags, etc)
+				unsigned short uses_memory_upgrades : 1;// cache requires upgraded memory
+				unsigned short uses_mod_data_files : 1;   // cache relies on a set of 'mod' data files for it's resources
+				unsigned short is_protected : 1;      // cache has protection applied
+				unsigned short uses_game_state_upgrades : 1; // cache has tag data that either requires or needs OS-modified game state memory in order to (fully) function
+				unsigned short has_compression_params : 1; // cache has compression parameters (for resources, tags, etc)
 			}    flags;
 			static_assert(sizeof(s_flags) == 0x2);
 
@@ -99,7 +99,7 @@ namespace Yelo {
 				struct {
 					byte   maj;
 					byte   min;
-					uint16 build;
+					unsigned short build;
 				}          cheape;
 
 				byte uuid_buffer[Enums::k_uuid_buffer_size]; // future UUID bytes
@@ -107,7 +107,7 @@ namespace Yelo {
 				struct {
 					byte   maj;
 					byte   min;
-					uint16 build;
+					unsigned short build;
 				}    minimum_os_build;
 
 				PAD32;
@@ -185,7 +185,7 @@ namespace Yelo {
 
 				build_info.cheape.maj   = CAST(byte, K_OPENSAUCE_VERSION_BUILD_MAJ);
 				build_info.cheape.min   = CAST(byte, K_OPENSAUCE_VERSION_BUILD_MIN);
-				build_info.cheape.build = CAST(uint16, K_OPENSAUCE_VERSION_BUILD);
+				build_info.cheape.build = CAST(unsigned short, K_OPENSAUCE_VERSION_BUILD);
 
 				ArrayCopy(build_info.uuid_buffer, uuid_buffer);
 			}
@@ -206,7 +206,7 @@ namespace Yelo {
 			}
 
 			// Initializes the minimum os build info
-			void InitializeMinimumBuildInfo(const byte major, const byte minor, const uint16 build) {
+			void InitializeMinimumBuildInfo(const byte major, const byte minor, const unsigned short build) {
 				return;
 			}
 

@@ -81,8 +81,8 @@ namespace Yelo
 			: s_interface_value(&value, sizeof(byte)) { }
 		s_interface_value::s_interface_value(sbyte value)
 			: s_interface_value(&value, sizeof(sbyte)) { }
-		s_interface_value::s_interface_value(uint16 value)
-			: s_interface_value(&value, sizeof(uint16)) { }
+		s_interface_value::s_interface_value(unsigned short value)
+			: s_interface_value(&value, sizeof(unsigned short)) { }
 		s_interface_value::s_interface_value(short value)
 			: s_interface_value(&value, sizeof(short)) { }
 		s_interface_value::s_interface_value(uint32 value)
@@ -91,8 +91,8 @@ namespace Yelo
 			: s_interface_value(&value, sizeof(long)) { }
 		s_interface_value::s_interface_value(uint64 value)
 			: s_interface_value(&value, sizeof(uint64)) { }
-		s_interface_value::s_interface_value(int64 value)
-			: s_interface_value(&value, sizeof(int64)) { }
+		s_interface_value::s_interface_value(__int64 value)
+			: s_interface_value(&value, sizeof(__int64)) { }
 		s_interface_value::s_interface_value(real value)
 			: s_interface_value(&value, sizeof(real)) { }
 		s_interface_value::s_interface_value(cstring value)

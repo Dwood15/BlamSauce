@@ -54,7 +54,7 @@ namespace Yelo {
 			struct s_bitmap {
 				t_shader_variable_texture handle;
 
-				TAG_FIELD(uint16, bitmap_index);
+				TAG_FIELD(unsigned short, bitmap_index);
 				unsigned short : 16;
 			}                   bitmap;
 

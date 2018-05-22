@@ -158,7 +158,7 @@ namespace Yelo {
 
 	namespace Objects {
 		struct s_unit_datum_animation_data {
-			word_flags flags;                     // 0x298
+			unsigned short flags;                     // 0x298
 			UNKNOWN_TYPE(short);                  // 0x29A animation index, weapon type
 			UNKNOWN_TYPE(short);                  // 0x29C animation index
 			UNKNOWN_TYPE(short);                  // 0x29E, appears unused except for getting initialized in unit_new

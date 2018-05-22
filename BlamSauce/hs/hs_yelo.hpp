@@ -46,7 +46,7 @@ namespace Yelo
 {
 	namespace Flags
 	{
-		enum hs_yelo_definition_flags : word_flags
+		enum hs_yelo_definition_flags : unsigned short
 		{
 			_hs_yelo_definition_internal_bit,
 			// changes to the global are sync'd
@@ -97,7 +97,7 @@ namespace Yelo
 						//////////////////////////////////////////////////////////////////////////
 					case HS_TYPE(object_name):
 					case HS_TYPE(short):
-						data.uint16 = *copy.ptr.uint16;
+						data.unsigned short = *copy.ptr.unsigned short;
 						break;
 					case HS_TYPE(real):
 					case HS_TYPE(ai):
@@ -216,7 +216,7 @@ namespace Yelo::Scripting {
 					//////////////////////////////////////////////////////////////////////////
 				case HS_TYPE(object_name):
 				case HS_TYPE(short):
-					*data.ptr.uint16 = *CAST_PTR(uint16 * , ptr);
+					*data.ptr.unsigned short = *CAST_PTR(unsigned short * , ptr);
 					break;
 				case HS_TYPE(real):
 				case HS_TYPE(ai):

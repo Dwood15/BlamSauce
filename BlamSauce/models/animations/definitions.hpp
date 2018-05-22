@@ -266,7 +266,7 @@ namespace Yelo {
 				TAG_FLAG16(world_relative);
 				TAG_FLAG16(_25Hz_PAL);
 			} flags;
-			static_assert( sizeof(_flags) == sizeof(word_flags) );
+			static_assert( sizeof(_flags) == sizeof(unsigned short) );
 			TAG_FIELD(short, sound);
 			TAG_FIELD(short, sound_frame_index);
 			TAG_FIELD(sbyte, left_foot_frame_index);
@@ -307,7 +307,7 @@ namespace Yelo {
 				TAG_FLAG16(compress_all_animations);
 				TAG_FLAG16(force_idle_compression);
 			} flags;
-			static_assert( sizeof(_flags) == sizeof(word_flags) );
+			static_assert( sizeof(_flags) == sizeof(unsigned short) );
 			unsigned short : 16;
 			TAG_BLOCK(nodes, animation_graph_node);
 			TAG_TBLOCK(animations, model_animation);

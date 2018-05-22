@@ -17,7 +17,7 @@ namespace Yelo
 {
 	namespace Flags
 	{
-		enum osui_game_state : uint16
+		enum osui_game_state : unsigned short
 		{
 			_osui_game_state_none				= 0,
 			_osui_game_state_main_menu			= 1 << 1,
@@ -28,7 +28,7 @@ namespace Yelo
 			_osui_game_state_all				= 0xFFFF
 		};
 
-		enum osui_screen_flags : uint16
+		enum osui_screen_flags : unsigned short
 		{
 			_osui_screen_flags_none				= 0,
 			_osui_screen_flags_show_cursor		= 1 << 0,

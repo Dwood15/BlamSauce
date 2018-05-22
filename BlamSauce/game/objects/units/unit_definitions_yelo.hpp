@@ -188,7 +188,7 @@ namespace Yelo
 		struct unit_mounted_state_keyframe_action
 		{
 			TAG_FIELD(Enums::unit_animation_keyframe, keyframe);
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			TAG_FIELD(Enums::unit_seat_mounted_keyframe_action_target, target);
 			unsigned short : 16;
 			TAG_FIELD(tag_reference, damage_effect, "jpt!");
@@ -199,7 +199,7 @@ namespace Yelo
 
 		struct unit_mounted_state
 		{
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			unsigned short : 16;
 			TAG_FIELD(s_unit_camera, unit_camera);
 			TAG_TBLOCK(keyframe_actions, unit_mounted_state_keyframe_action);
@@ -216,7 +216,7 @@ namespace Yelo
 		struct unit_seat_keyframe_action
 		{
 			TAG_FIELD(Enums::unit_animation_keyframe, keyframe);
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			TAG_FIELD(Enums::unit_seat_keyframe_action_self_seat_action, self_seat_action);
 			TAG_FIELD(Enums::unit_seat_keyframe_action_target_seat_unit_action, target_seat_unit_action);
 			TAG_FIELD(Enums::unit_seat_keyframe_action_unit_door_action, unit_door_action);
@@ -237,7 +237,7 @@ namespace Yelo
 		struct unit_seat_boarding
 		{
 			TAG_FIELD(Enums::unit_seat_boarding_type, boarding_type);
-			TAG_FIELD(word_flags, delay_until);
+			TAG_FIELD(unsigned short, delay_until);
 			TAG_FIELD(Enums::unit_seat_boarding_vitality_threshold_source, unit_vitality_source);
 			unsigned short : 16;
 			TAG_FIELD(real_fraction, unit_shield_threshold);
@@ -252,14 +252,14 @@ namespace Yelo
 
 		struct unit_seat_damage
 		{
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			TAG_FIELD(Enums::unit_seat_damage_melee, melee);
 			TAG_FIELD(tag_reference, melee_damage_effect, "jpt!");
 			TAG_FIELD(Enums::unit_seat_damage_grenade, grenade);
-			TAG_FIELD(word_flags, disabled_grenade_types);
+			TAG_FIELD(unsigned short, disabled_grenade_types);
 			TAG_FIELD(real, grenade_detonation_time_scale);
 			TAG_FIELD(tag_string, grenade_marker);
-			TAG_FIELD(word_flags, region_flags);
+			TAG_FIELD(unsigned short, region_flags);
 			TAG_FIELD(short, region_index);
 			TAG_FIELD(tag_string, region_name);
 			TAG_FIELD(tag_reference, region_damage_effect, "jpt!");
@@ -268,7 +268,7 @@ namespace Yelo
 
 		struct unit_seat_access
 		{
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			unsigned short : 16;
 			TAG_FIELD(angle, unit_sight_angle);
 			TAG_FIELD(tag_string, unit_sight_marker);
@@ -276,14 +276,14 @@ namespace Yelo
 			TAG_FIELD(tag_string, mounting_unit_sight_marker);
 			TAG_FIELD(real_fraction, unit_shield_threshold);
 			TAG_FIELD(real_fraction, unit_health_threshold);
-			TAG_FIELD(word_flags, permitted_ai_states);
+			TAG_FIELD(unsigned short, permitted_ai_states);
 			unsigned short : 16;
 			TAG_PAD(tag_block, 3);
 		}; static_assert(sizeof(unit_seat_access) == 0x7C);
 
 		struct unit_seat_extensions
 		{
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			TAG_FIELD(short, target_seat_index);
 			TAG_TBLOCK(seat_targeting_seats, short);
 			TAG_TBLOCK(seat_access, unit_seat_access);

@@ -191,7 +191,7 @@ namespace Yelo
 			void* incomingBufferMessages;
 			void* outgoingBufferMessages;
 
-			uint16 serialNumber, expectedSerialNumber;
+			unsigned short serialNumber, expectedSerialNumber;
 
 			char response[32];
 

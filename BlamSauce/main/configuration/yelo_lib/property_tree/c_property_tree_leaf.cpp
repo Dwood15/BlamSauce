@@ -38,7 +38,7 @@ namespace Yelo
 		{
 			return m_property_tree.get_value(default_value);
 		}
-		uint16 c_property_tree_leaf::GetValue(const uint16 default_value)
+		unsigned short c_property_tree_leaf::GetValue(const unsigned short default_value)
 		{
 			return m_property_tree.get_value(default_value);
 		}
@@ -79,7 +79,7 @@ namespace Yelo
 		{
 			m_property_tree.put_value(value);
 		}
-		void c_property_tree_leaf::SetValue(const uint16 value)
+		void c_property_tree_leaf::SetValue(const unsigned short value)
 		{
 			m_property_tree.put_value(value);
 		}

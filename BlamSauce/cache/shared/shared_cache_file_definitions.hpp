@@ -20,7 +20,7 @@ namespace Yelo
 				short version;	enum { k_version = 1, k_group_tag = 'cher' };
 			struct _flags {
 				TAG_FLAG16(unused);
-			}flags; static_assert( sizeof(_flags) == sizeof(word_flags) );
+			}flags; static_assert( sizeof(_flags) == sizeof(unsigned short) );
 			TAG_FIELD(uint32, base_address);
 			TAG_FIELD(long, starting_tag_index);
 			PAD32;

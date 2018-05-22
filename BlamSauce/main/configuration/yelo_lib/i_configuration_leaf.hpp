@@ -65,7 +65,7 @@ namespace Yelo
 			/// <param name="default_value">	The default value to use if not present. </param>
 			///
 			/// <returns>	The leaf's value. </returns>
-			virtual uint16		GetValue(const uint16 default_value) = 0;
+			virtual unsigned short		GetValue(const unsigned short default_value) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Gets the leaf's value as an unsigned int. </summary>
@@ -133,7 +133,7 @@ namespace Yelo
 			/// <summary>	Sets the nodes value as an unsigned short. </summary>
 			///
 			/// <param name="value">	The value to use. </param>
-			virtual void		SetValue(const uint16 value) = 0;
+			virtual void		SetValue(const unsigned short value) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Sets the nodes value as an unsigned int. </summary>

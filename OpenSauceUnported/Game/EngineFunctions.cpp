@@ -1433,7 +1433,7 @@ namespace Yelo
 	// render
 	namespace blam
 	{
-		void PLATFORM_API render_window(const uint16 local_player_index
+		void PLATFORM_API render_window(const unsigned short local_player_index
 			, void* render_camera
 			, void* render_frustum
 			, void* rasterizer_camera
@@ -1441,7 +1441,7 @@ namespace Yelo
 			, void* rasterizer_target
 			, const bool is_mirror)
 		{
-			CAST_PTR(void (PLATFORM_API*)(const uint16, void*, void*, void*, void*, void*, const bool), Engine::GET_FUNC_PTR(RENDER_WINDOW))
+			CAST_PTR(void (PLATFORM_API*)(const unsigned short, void*, void*, void*, void*, void*, const bool), Engine::GET_FUNC_PTR(RENDER_WINDOW))
 				(local_player_index, render_camera, render_frustum, rasterizer_camera, rasterizer_frustum, rasterizer_target, is_mirror);
 		}
 	};

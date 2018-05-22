@@ -302,7 +302,7 @@ namespace Yelo
 		static bool g_is_rendering_reflection = false;
 		bool IsRenderingReflection() { return g_is_rendering_reflection; }
 
-		static void PLATFORM_API RenderWindowHook(const uint16 local_player_index
+		static void PLATFORM_API RenderWindowHook(const unsigned short local_player_index
 			, void* render_camera
 			, void* render_frustum
 			, void* rasterizer_camera

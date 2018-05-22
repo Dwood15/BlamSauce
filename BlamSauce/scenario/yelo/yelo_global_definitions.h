@@ -72,7 +72,7 @@ namespace Yelo::TagGroups {
 		static cstring k_default_name = "there they are all standing in a row";
 
 		const short version;
-		TAG_FIELD(word_flags, flags, Flags::project_yellow_globals_flags);
+		TAG_FIELD(unsigned short, flags, Flags::project_yellow_globals_flags);
 		TAG_FIELD(uint32, base_address);
 
 		TAG_FIELD(tag_string, mod_name, "", "name of the engine 'mod' these globals and, inheriting scenario, are for");

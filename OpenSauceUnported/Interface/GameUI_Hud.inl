@@ -48,8 +48,8 @@ namespace Yelo
 		struct s_multiplayer_icon
 		{
 			const point2d m_stock_position;
-			uint16* m_position_x;
-			uint16* m_position_y;
+			unsigned short* m_position_x;
+			unsigned short* m_position_y;
 		};
 		static s_multiplayer_icon g_multiplayer_icons[] =
 		{

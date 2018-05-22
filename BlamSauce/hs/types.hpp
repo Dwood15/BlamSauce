@@ -256,7 +256,7 @@ namespace Yelo {
 	namespace blam {
 		using namespace Scripting;
 
-		const std::array<word_flags, Enums::k_number_of_hs_object_types> k_hs_object_type_masks = {
+		const std::array<unsigned short, Enums::k_number_of_hs_object_types> k_hs_object_type_masks = {
 			Enums::_object_type_mask_all, // engine actually uses 0xFFFF here
 			Enums::_object_type_mask_unit,
 			FLAG(Enums::_object_type_vehicle),

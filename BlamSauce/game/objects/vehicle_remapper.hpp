@@ -74,7 +74,7 @@ namespace Yelo
 		{
 			long team_index;
 			long scenario_datum_index; // vehicle block index
-			word_flags multiplayer_spawn_flags;
+			unsigned short multiplayer_spawn_flags;
 			unsigned short : 16;
 			datum_index vehicle_definition_index;
 

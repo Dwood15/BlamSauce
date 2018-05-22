@@ -22,7 +22,7 @@ namespace Yelo {
 				/// <summary>
 				/// 	absolute index Note: This is actually suppose to be a unsigned short but it's not until
 				/// 	Halo 3 where data starts breaking past the 0x7FFF cap, so for Halo 1 and Halo 2 projects
-				/// 	this should still hold safe. Maybe I'll update the code to uint16 one day...
+				/// 	this should still hold safe. Maybe I'll update the code to unsigned short one day...
 				/// </summary>
 				index_t index;
 				/// <summary>	salted index, gives the handle a certain uniqueness. </summary>

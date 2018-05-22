@@ -139,7 +139,7 @@ namespace Yelo
 			point2d texcoord;
 
 			byte node_indices[2];
-			uint16 node_weights[2];
+			unsigned short node_weights[2];
 		};
 	};
 };

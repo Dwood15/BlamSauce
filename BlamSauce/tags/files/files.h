@@ -23,7 +23,7 @@ namespace Yelo {
 	};
 
 	namespace Flags {
-		enum file_reference_flags : word_flags {
+		enum file_reference_flags : unsigned short {
 			_name_directory_bit,
 			_name_parent_directory_bit,
 			_name_file_bit,

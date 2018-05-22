@@ -43,7 +43,7 @@ namespace Yelo
 		{
 			enum { DATA_OFFSET = Enums::k_object_size_unit, };
 
-			TStructSubGetPtrImpl(word_flags,					Flags, 0x4CC);
+			TStructSubGetPtrImpl(unsigned short,					Flags, 0x4CC);
 			// 0x4CE, WORD
 			// 0x4D0, BYTE
 			// 0x4D1, BYTE

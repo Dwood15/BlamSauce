@@ -70,7 +70,7 @@ namespace Yelo
 				return ip == m_ip.v4.abcd;
 			}
 
-			bool CompareIP(uint16 a, uint16 b, uint16 c, uint16 d)
+			bool CompareIP(unsigned short a, unsigned short b, unsigned short c, unsigned short d)
 			{
 				return (a == m_ip.v4.a) &&
 					(b == m_ip.v4.b) &&
@@ -78,7 +78,7 @@ namespace Yelo
 					(d == m_ip.v4.d);
 			}
 
-			bool CompareIP(uint16 a, uint16 b, uint16 c, uint16 d, uint16 e, uint16 f, uint16 g, uint16 h)
+			bool CompareIP(unsigned short a, unsigned short b, unsigned short c, unsigned short d, unsigned short e, unsigned short f, unsigned short g, unsigned short h)
 			{
 				return (a == m_ip.v6.a) &&
 					(b == m_ip.v6.b) &&
@@ -336,7 +336,7 @@ namespace Yelo
 		 * 
 		 * Looks for an IP in th ban lists and returns whether the IP is banned or not.
 		 */
-		bool IPBanned(Enums::http_ip_ban_ip_version version, uint16 a, uint16 b, uint16 c, uint16 d, uint16 e, uint16 f, uint16 g, uint16 h)
+		bool IPBanned(Enums::http_ip_ban_ip_version version, unsigned short a, unsigned short b, unsigned short c, unsigned short d, unsigned short e, unsigned short f, unsigned short g, unsigned short h)
 		{
 			WaitForSingleObject(g_ban_list_mutex, INFINITE);
 			c_http_ip_ban_base* ban_element;
@@ -833,7 +833,7 @@ namespace Yelo
 		 * 
 		 * Adds an IPv4 or IPv6 IP address to the permanent ban list, if it is not already banned.
 		 */
-		void AddPermanentBan(Enums::http_ip_ban_ip_version version, uint16 a, uint16 b, uint16 c, uint16 d, uint16 e, uint16 f, uint16 g, uint16 h)
+		void AddPermanentBan(Enums::http_ip_ban_ip_version version, unsigned short a, unsigned short b, unsigned short c, unsigned short d, unsigned short e, unsigned short f, unsigned short g, unsigned short h)
 		{
 			if(g_ban_manager_globals.m_ban_list_file[0] == 0)
 			{
@@ -886,7 +886,7 @@ namespace Yelo
 		 * 
 		 * Removes an entry from the permanent ban list.
 		 */
-		void RemovePermanentBan(uint16 ban_index)
+		void RemovePermanentBan(unsigned short ban_index)
 		{
 			WaitForSingleObject(g_ban_list_mutex, INFINITE);
 
@@ -1023,21 +1023,21 @@ namespace Yelo
 			struct s_arguments {
 				bool ip_version;
 				unsigned char : 8; unsigned short : 16;
-				uint16 a;
+				unsigned short a;
 				unsigned short : 16;
-				uint16 b;
+				unsigned short b;
 				unsigned short : 16;
-				uint16 c;
+				unsigned short c;
 				unsigned short : 16;
-				uint16 d;
+				unsigned short d;
 				unsigned short : 16;
-				uint16 e;
+				unsigned short e;
 				unsigned short : 16;
-				uint16 f;
+				unsigned short f;
 				unsigned short : 16;
-				uint16 g;
+				unsigned short g;
 				unsigned short : 16;
-				uint16 h;
+				unsigned short h;
 				unsigned short : 16;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -1063,7 +1063,7 @@ namespace Yelo
 		void* HTTPServerUnbanIP(void** arguments)
 		{
 			struct s_arguments {
-				uint16 index; // TODO: HS doesn't have anything but signed integers
+				unsigned short index; // TODO: HS doesn't have anything but signed integers
 				unsigned short : 16;
 			}* args = CAST_PTR(s_arguments*, arguments);
 

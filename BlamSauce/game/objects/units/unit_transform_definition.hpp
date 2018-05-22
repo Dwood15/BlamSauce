@@ -134,7 +134,7 @@ namespace Yelo {
 
 		struct actor_variant_transform_in_target {
 			TAG_FIELD(tag_string, target_name);
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			unsigned short : 16;
 			TAG_FIELD(real_fraction, selection_chance)[Enums::k_number_of_game_difficulty_levels];
 
@@ -194,13 +194,13 @@ namespace Yelo {
 		struct actor_variant_transform_out_definition {
 			enum { k_group_tag = 'avto' };
 
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			unsigned short : 16;
 
-			TAG_FIELD(word_flags, criteria_flags);
+			TAG_FIELD(unsigned short, criteria_flags);
 			unsigned short : 16;
-			TAG_FIELD(word_flags, actor_action);
-			TAG_FIELD(word_flags, actor_state);
+			TAG_FIELD(unsigned short, actor_action);
+			TAG_FIELD(unsigned short, actor_state);
 			TAG_FIELD(real_bounds, shield_range);
 			TAG_FIELD(real_bounds, health_range);
 			TAG_PAD(tag_block, 2);
@@ -210,7 +210,7 @@ namespace Yelo {
 			TAG_FIELD(tag_string, transform_out_anim);
 			TAG_TBLOCK(keyframe_actions, actor_variant_transform_keyframe_action);
 
-			TAG_FIELD(word_flags, attachment_flags);
+			TAG_FIELD(unsigned short, attachment_flags);
 			unsigned short : 16;
 			TAG_TBLOCK(attachments, actor_variant_transform_out_attachment);
 
@@ -220,7 +220,7 @@ namespace Yelo {
 
 
 		struct actor_variant_transform_collection_transform {
-			TAG_FIELD(word_flags, flags);
+			TAG_FIELD(unsigned short, flags);
 			unsigned short : 16;
 			TAG_FIELD(tag_string, transform_name);
 			TAG_FIELD(real_fraction, selection_chance)[Enums::k_number_of_game_difficulty_levels];

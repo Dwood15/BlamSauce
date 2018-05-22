@@ -14,7 +14,7 @@ namespace Yelo
 	{
 		struct s_device_groups_datum : Memory::s_datum_base
 		{
-			word_flags flags;
+			unsigned short flags;
 			real value;
 		};
 	};

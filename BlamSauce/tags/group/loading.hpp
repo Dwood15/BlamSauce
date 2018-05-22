@@ -380,7 +380,7 @@ namespace Yelo {
 							if (!verify_flags_field<long_flags>(field, definition, x)) valid = false;
 							break;
 						case Enums::_field_word_flags:
-							if (!verify_flags_field<word_flags>(field, definition, x)) valid = false;
+							if (!verify_flags_field<unsigned short>(field, definition, x)) valid = false;
 							break;
 						case Enums::_field_byte_flags:
 							if (!verify_flags_field<byte_flags>(field, definition, x)) valid = false;

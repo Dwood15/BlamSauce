@@ -25,7 +25,7 @@ namespace Yelo
 			short GetValue(const short default_value = 0) final override;
 			long GetValue(const long default_value = 0) final override;
 			byte GetValue(const byte default_value = 0) final override;
-			uint16 GetValue(const uint16 default_value = 0) final override;
+			unsigned short GetValue(const unsigned short default_value = 0) final override;
 			uint32 GetValue(const uint32 default_value = 0) final override;
 			real GetValue(const real default_value = 0) final override;
 			double GetValue(const double default_value = 0) final override;
@@ -36,7 +36,7 @@ namespace Yelo
 			void SetValue(const short value) final override;
 			void SetValue(const long value) final override;
 			void SetValue(const byte value) final override;
-			void SetValue(const uint16 value) final override;
+			void SetValue(const unsigned short value) final override;
 			void SetValue(const uint32 value) final override;
 			void SetValue(const real value) final override;
 			void SetValue(const double value) final override;

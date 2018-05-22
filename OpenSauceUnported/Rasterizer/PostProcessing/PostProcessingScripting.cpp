@@ -114,7 +114,7 @@ namespace Yelo
 			void*		HS_SetEffectInstanceActive(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
 					bool active_bool;
 					unsigned char : 8; unsigned short : 16;
@@ -128,7 +128,7 @@ namespace Yelo
 			void*		HS_SetEffectInstanceFade(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
 					real fade_start;
 					real fade_end;
@@ -143,7 +143,7 @@ namespace Yelo
 			void*		HS_GetEffectInstanceCurrentFade(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
@@ -156,7 +156,7 @@ namespace Yelo
 			void*		HS_GetEffectInstanceFadeDirection(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
@@ -181,7 +181,7 @@ namespace Yelo
 			void*		HS_GetEffectIsValid(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
@@ -194,7 +194,7 @@ namespace Yelo
 			void*		HS_GetEffectShaderVariableIndexByName(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
 					const char* test_string;
 				}* args = CAST_PTR(s_arguments*, arguments);
@@ -208,9 +208,9 @@ namespace Yelo
 			void*		HS_SetEffectShaderVariableBoolean(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
-					uint16 script_variable_index;
+					unsigned short script_variable_index;
 					unsigned short : 16;
 					bool value;
 					unsigned char : 8; unsigned short : 16;
@@ -228,9 +228,9 @@ namespace Yelo
 			void*		HS_SetEffectShaderVariableInteger(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
-					uint16 script_variable_index;
+					unsigned short script_variable_index;
 					unsigned short : 16;
 					uint32 value;
 					real interp_time;
@@ -247,9 +247,9 @@ namespace Yelo
 			void*		HS_SetEffectShaderVariableReal(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
-					uint16 script_variable_index;
+					unsigned short script_variable_index;
 					unsigned short : 16;
 					real values[4];
 					real interp_time;
@@ -269,9 +269,9 @@ namespace Yelo
 			void*		HS_SetEffectShaderInstanceActive(void** arguments)
 			{
 				struct s_arguments {
-					uint16 effect_index;
+					unsigned short effect_index;
 					unsigned short : 16;
-					uint16 shader_instance_index;
+					unsigned short shader_instance_index;
 					unsigned short : 16;
 					bool active;
 				}* args = CAST_PTR(s_arguments*, arguments);

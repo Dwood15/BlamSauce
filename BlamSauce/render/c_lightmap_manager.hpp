@@ -11,7 +11,7 @@ namespace Yelo {
 		namespace Lightmaps {
 			class c_lightmap_manager final {
 			public:
-				enum lightmap_type_flags : word_flags {
+				enum lightmap_type_flags : unsigned short {
 					_lightmap_type_flags_standard_bit    = 1,
 					_lightmap_type_flags_directional_bit = 2,
 				};

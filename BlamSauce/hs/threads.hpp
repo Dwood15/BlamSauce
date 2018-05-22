@@ -56,7 +56,7 @@ namespace Yelo::Scripting {
 			s_stack_frame    *previous;
 			datum_index      source_expression;
 			s_hs_value_union *result_reference;
-			uint16           size;
+			unsigned short           size;
 #pragma warning( push )
 #pragma warning( disable : 4200 ) // nonstandard extension used : zero-sized array in struct/union, Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array
 			byte data[];
@@ -87,7 +87,7 @@ namespace Yelo::Scripting {
 #include <PopPack.h>
 
 		Enums::hs_thread_type type;
-		word_flags            flags;
+		unsigned short            flags;
 		short                 script_index; // only when type==_hs_thread_type_script
 		game_ticks_t          sleep_until;
 		game_ticks_t          prev_sleep_state; // when the thread is put to (sleep), this becomes sleep_until's old value, and then current value when (wake)'d

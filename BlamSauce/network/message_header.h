@@ -37,9 +37,9 @@ namespace Yelo {
 
 	namespace Networking {
 		struct s_message_header {
-			uint16 flags : bitfield_size(Flags::k_number_of_message_flags);
-			uint16 type : bitfield_enum_size(Enums::k_number_of_message_types);
-			uint16 size : bitfield_size(Enums::k_maximum_message_size);
+			unsigned short flags : bitfield_size(Flags::k_number_of_message_flags);
+			unsigned short type : bitfield_enum_size(Enums::k_number_of_message_types);
+			unsigned short size : bitfield_size(Enums::k_maximum_message_size);
 		}; static_assert(sizeof(s_message_header) == 0x2);
 
 		struct s_message_lowlevel_error {

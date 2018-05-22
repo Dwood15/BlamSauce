@@ -129,8 +129,8 @@ namespace Yelo {
 		// An object gets reallocated when a nested-block is requested (and the additional size is added to
 		// the object's overall pool block size)
 		struct s_object_header_block_reference {
-			uint16 size;
-			uint16 offset;
+			unsigned short size;
+			unsigned short offset;
 		}; static_assert(sizeof(s_object_header_block_reference) == 0x4);
 
 		struct s_object_placement_data {
@@ -192,7 +192,7 @@ namespace Yelo {
 			long       shield_damage_update_tick;   // 0xFC, these update ticks are set to NONE when not active
 			long       body_damage_update_tick;      // 0x100
 			short       stun_ticks;               // 0x104, based on ftol(s_shield_damage_resistance->stun_time * 30f)
-			word_flags  flags;               // 0x106
+			unsigned short  flags;               // 0x106
 		}; static_assert(sizeof(s_object_datum_damage_data) == 0x30);
 
 		struct s_object_datum_attachments_data {
@@ -258,7 +258,7 @@ namespace Yelo {
 
 			s_object_datum_attachments_data attachments;                           // 0x144
 			datum_index                     cached_render_state_index;                                 // 0x170
-			word_flags                      regions_destroyed_flags;                                    // 0x174 once a region is destroyed, its bit index is set
+			unsigned short                      regions_destroyed_flags;                                    // 0x174 once a region is destroyed, its bit index is set
 			short                           shader_permutation;                                          // 0x176, shader's bitmap block index
 			byte                            region_vitality[Enums::k_maximum_regions_per_model];                  // 0x178
 			sbyte                           region_permutation_indices[Enums::k_maximum_regions_per_model];         // 0x180

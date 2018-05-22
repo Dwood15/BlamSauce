@@ -73,7 +73,7 @@ namespace Yelo {
 	/// <summary>	Describes the number of bits needed in a bitfield for a whole number. </summary>
 	///
 	/// <typeparam name="max_value">	The inclusive max value of the bit field. </typeparam>
-	constexpr uint16 bitfield_size(constexpr int max) {
+	constexpr unsigned short bitfield_size(constexpr int max) {
 		return std::log2(max) + 1;
 	}
 
@@ -81,7 +81,7 @@ namespace Yelo {
 	/// <summary>	Describes the number of bits needed in a bitfield for an enum value. </summary>
 	///
 	/// <typeparam name="number_of_members">	The number of members in the enum represented by this bitfield. </typeparam>
-	constexpr uint16 bitfield_enum_size(constexpr int num_members) {
+	constexpr unsigned short bitfield_enum_size(constexpr int num_members) {
 		return std::log2(num_members) + 1;
 	}
 
@@ -198,7 +198,7 @@ namespace Yelo {
 				char         *character;
 				Yelo::byte   *byte;
 				Yelo::sbyte  *sbyte;
-				Yelo::uint16 *uint16;
+				Yelo::unsigned short *unsigned short;
 				Yelo::short  *short;
 				Yelo::uint32 *uint32;
 				Yelo::long  *long;
@@ -215,7 +215,7 @@ namespace Yelo {
 				char         character[1];
 				Yelo::byte   byte[1];
 				Yelo::sbyte  sbyte[1];
-				Yelo::uint16 uint16[1];
+				Yelo::unsigned short unsigned short[1];
 				Yelo::short  short[1];
 				Yelo::uint32 uint32[1];
 				Yelo::long  long[1];
@@ -231,7 +231,7 @@ namespace Yelo {
 			char         character;
 			Yelo::byte   byte;
 			Yelo::sbyte  sbyte;
-			Yelo::uint16 uint16;
+			Yelo::unsigned short unsigned short;
 			Yelo::short  short;
 			Yelo::uint32 uint32;
 			Yelo::long  long;

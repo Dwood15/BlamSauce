@@ -42,7 +42,7 @@ namespace Yelo
 				typedef short block_index_t;
 
 				TAG_FIELD(size_t, element_runtime_size);
-				TAG_FIELD(word_flags, flags);
+				TAG_FIELD(unsigned short, flags);
 				TAG_FIELD(short, alignment_bit);
 			};
 			struct s_tag_allocation
@@ -75,7 +75,7 @@ namespace Yelo
 				typedef short block_index_t;
 
 				TAG_BLOCK_INDEX(s_tag_allocation_definition, parent_definition_index);
-				TAG_FIELD(uint16, parent_offset);
+				TAG_FIELD(unsigned short, parent_offset);
 				TAG_ENUM(type, Enums::tag_block_child_type);
 				unsigned short : 16;
 			}; static_assert( sizeof(s_tag_block_child_definition) == 8 );

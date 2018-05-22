@@ -42,7 +42,7 @@ namespace Yelo
 		}; static_assert( sizeof(s_scenario_object_header) == 0x4 );
 		struct s_scenario_object_datum
 		{
-			word_flags placement_flags;
+			unsigned short placement_flags;
 			short desired_permutation;
 			real_point3d position;
 			real_euler_angles3d rotation;
@@ -91,14 +91,14 @@ namespace Yelo
 
 			short rounds_left;
 			short rounds_total;
-			word_flags flags;
+			unsigned short flags;
 			unsigned short : 16;
 			TAG_PAD(long, 3);
 		};
 		struct s_scenario_equipment_datum
 		{
 			unsigned short : 16;
-			word_flags flags;
+			unsigned short flags;
 			unsigned long : 32;
 		};
 

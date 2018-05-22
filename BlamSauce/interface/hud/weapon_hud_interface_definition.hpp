@@ -112,7 +112,7 @@ namespace Yelo
 		struct weapon_hud_number_element : public weapon_hud_element
 		{
 			s_hud_element_number element;
-			TAG_FIELD(word_flags, weapon_flags);
+			TAG_FIELD(unsigned short, weapon_flags);
 			unsigned short : 16;
 			TAG_PAD(long, 9);
 		}; static_assert( sizeof(weapon_hud_number_element) == 0xA0 );
@@ -146,7 +146,7 @@ namespace Yelo
 			TAG_FIELD(short, frame_rate);
 			unsigned short : 16;
 			TAG_FIELD(short, sequence_index);
-			TAG_FIELD(word_flags, type);
+			TAG_FIELD(unsigned short, type);
 			TAG_FIELD(long_flags, flags);
 			TAG_PAD(tag_reference, 1);
 			TAG_PAD(long, 10);
@@ -180,7 +180,7 @@ namespace Yelo
 
 			TAG_FIELD(tag_reference, child_hud, 'wphi');
 			struct {
-				TAG_FIELD(word_flags, flags);
+				TAG_FIELD(unsigned short, flags);
 				unsigned short : 16;
 				TAG_FIELD(short, inventory_ammo);
 				TAG_FIELD(short, loaded_ammo);

@@ -242,7 +242,7 @@ namespace Yelo::blam {
 
 // these are now defined in hs_types.cpp
 namespace Yelo::blam {
-	extern const std::array<word_flags, Yelo::Enums::k_number_of_hs_object_types> k_hs_object_type_masks;
+	extern const std::array<unsigned short, Yelo::Enums::k_number_of_hs_object_types> k_hs_object_type_masks;
 	extern const std::array<tag, Enums::_hs_type_tag_reference__count>      k_hs_tag_reference_type_group_tags;
 
 	extern std::array<cstring, Enums::k_number_of_hs_types>           hs_type_names;

@@ -387,7 +387,7 @@ namespace Yelo
 			unsigned short : 16; // unknown field												//	0x262
 			struct
 			{
-				word_flags	control_flags;										//	0x264
+				unsigned short	control_flags;										//	0x264
 				unsigned short : 16;
 				short	persistent_control_ticks;								//	0x268
 				unsigned short : 16;

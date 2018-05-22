@@ -21,7 +21,7 @@ namespace Yelo
 	{
 		struct s_hs_globals_datum : Memory::s_datum_base
 		{
-			word_flags yelo_flags;
+			unsigned short yelo_flags;
 
 			s_hs_value_union value;
 		}; static_assert( sizeof(s_hs_globals_datum) == 0x8 );

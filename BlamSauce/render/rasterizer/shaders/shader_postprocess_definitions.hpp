@@ -103,7 +103,7 @@ namespace Yelo {
 				TAG_FLAG16(clear_target);
 				TAG_FLAG16(copy_scene_to_target);
 				TAG_FLAG16(clear_buffer_texture);
-			} flags;   static_assert(sizeof(_flags) == sizeof(word_flags));
+			} flags;   static_assert(sizeof(_flags) == sizeof(unsigned short));
 			TAG_FIELD(short, render_chain);
 
 			TAG_PAD(ss_pass_def0, long, 3);
@@ -116,7 +116,7 @@ namespace Yelo {
 				TAG_FLAG16(sm_1_0);
 				TAG_FLAG16(sm_2_0);
 				TAG_FLAG16(sm_3_0);
-			} shader_model;   static_assert(sizeof(_flags) == sizeof(word_flags));
+			} shader_model;   static_assert(sizeof(_flags) == sizeof(unsigned short));
 
 			unsigned short : 16;
 
@@ -157,7 +157,7 @@ namespace Yelo {
 					TAG_FLAG16(valid_shader);
 					TAG_FLAG16(uses_gbuffer);
 				} flags;
-				unsigned short : 16;   static_assert(sizeof(_postprocess_flags) == sizeof(word_flags));
+				unsigned short : 16;   static_assert(sizeof(_postprocess_flags) == sizeof(unsigned short));
 
 				TAG_FIELD(LPD3DXEFFECT, dx_effect);
 				TAG_FIELD(D3DXHANDLE, postprocess_handle);

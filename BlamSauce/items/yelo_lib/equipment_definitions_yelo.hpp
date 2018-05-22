@@ -31,7 +31,7 @@ namespace Yelo
 
 	namespace Flags
 	{
-		enum equipment_yelo_flags : word_flags
+		enum equipment_yelo_flags : unsigned short
 		{
 		};
 	};

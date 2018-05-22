@@ -49,7 +49,7 @@ namespace Yelo
 			struct {
 				byte major;							// 0x2
 				byte minor;							// 0x3
-				uint16 build;						// 0x4
+				unsigned short build;						// 0x4
 			}version;
 			byte unit_grenade_types_count;			// 0x6
 			unsigned char : 8;

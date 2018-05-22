@@ -337,11 +337,11 @@ namespace Yelo {
 		//OVERRIDE_OPERATOR_CAST_THIS(D3DXVECTOR4);
 		//OVERRIDE_OPERATOR_CAST_THIS(D3DXQUATERNION);
 
-		void Compress64bit(uint16 out[4]) const {
-			out[0] = (uint16) MATH_FLOAT_TO_LONG(this->i * 32767.0f);
-			out[1] = (uint16) MATH_FLOAT_TO_LONG(this->j * 32767.0f);
-			out[2] = (uint16) MATH_FLOAT_TO_LONG(this->k * 32767.0f);
-			out[3] = (uint16) MATH_FLOAT_TO_LONG(this->w * 32767.0f);
+		void Compress64bit(unsigned short out[4]) const {
+			out[0] = (unsigned short) MATH_FLOAT_TO_LONG(this->i * 32767.0f);
+			out[1] = (unsigned short) MATH_FLOAT_TO_LONG(this->j * 32767.0f);
+			out[2] = (unsigned short) MATH_FLOAT_TO_LONG(this->k * 32767.0f);
+			out[3] = (unsigned short) MATH_FLOAT_TO_LONG(this->w * 32767.0f);
 		}
 
 		void Decompress64bit(short in[4]) {

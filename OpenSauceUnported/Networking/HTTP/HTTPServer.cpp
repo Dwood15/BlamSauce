@@ -280,7 +280,7 @@ namespace Yelo
 		 * 
 		 * Sets the thread count config string.
 		 */
-		void SetThreads(uint16 count)
+		void SetThreads(unsigned short count)
 		{
 			// check the thread count bounds
 			if(count > 64) // TODO: named constant?

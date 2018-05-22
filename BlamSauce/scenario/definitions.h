@@ -213,8 +213,8 @@ namespace Yelo {
 
 			TAG_TBLOCK_(skies, tag_reference);
 
-			Enums::scenario_type type;
-			TAG_FIELD(word_flags, flags);
+			Yelo::Enums::scenario_type type;
+			TAG_FIELD(unsigned short, flags);
 
 			TAG_PAD(child_ref, tag_block, 1); // scenario_child_scenario_reference
 			TAG_FIELD(angle, local_north);

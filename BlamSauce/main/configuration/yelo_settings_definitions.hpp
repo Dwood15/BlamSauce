@@ -53,7 +53,7 @@ namespace Yelo
 		{
 			tag_string Name;
 			// Bit-vector detailing if a specific vehicle seat is overridden or not
-			uint16 SeatPresentExists[ BIT_VECTOR_SIZE_IN_WORDS(Enums::k_vehicle_view_max_seat_presets) ];
+			unsigned short SeatPresentExists[ BIT_VECTOR_SIZE_IN_WORDS(Enums::k_vehicle_view_max_seat_presets) ];
 			s_vehicle_view_seat_preset SeatPresets[Enums::k_vehicle_view_max_seat_presets];
 		};
 

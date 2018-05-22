@@ -109,7 +109,7 @@ namespace Yelo {
 					VerifyFlagsFieldDefinition<long_flags>(field, block_definition);
 					break;
 				case Enums::_field_word_flags:
-					VerifyFlagsFieldDefinition<word_flags>(field, block_definition);
+					VerifyFlagsFieldDefinition<unsigned short>(field, block_definition);
 					break;
 				case Enums::_field_byte_flags:
 					VerifyFlagsFieldDefinition<byte_flags>(field, block_definition);

@@ -14,7 +14,7 @@ namespace Yelo
 	{
 		struct s_action_flee_state : TStructImpl(0x30)
 		{
-			//TStructGetPtrImpl(word_flags?,			, 0x0);
+			//TStructGetPtrImpl(unsigned short?,			, 0x0);
 			//TStructGetPtrImpl(short,				flee_stationary_ticks, 0x2);
 			//TStructGetPtrImpl(bool,				, 0x4);
 			//TStructGetPtrImpl(bool,				, 0x5);

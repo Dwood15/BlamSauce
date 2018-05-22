@@ -72,7 +72,7 @@ namespace Yelo
 				return g_extensions_enabled;
 			}
 
-			void		SetTexture(IDirect3DDevice9* pDevice, uint16 sampler, datum_index bitmap_tag_index);
+			void		SetTexture(IDirect3DDevice9* pDevice, unsigned short sampler, datum_index bitmap_tag_index);
 
 #include "Rasterizer/ShaderExtension/ShaderExtension_Model.inl"
 #include "Rasterizer/ShaderExtension/ShaderExtension_Environment.inl"
@@ -90,7 +90,7 @@ namespace Yelo
 				};
 			}
 
-			void		SetTexture(IDirect3DDevice9* pDevice, uint16 sampler, datum_index bitmap_tag_index)
+			void		SetTexture(IDirect3DDevice9* pDevice, unsigned short sampler, datum_index bitmap_tag_index)
 			{
 				// get the bitmap datum pointer
 				auto group = TagGroups::TagGetForModify<TagGroups::s_bitmap_group>(bitmap_tag_index);

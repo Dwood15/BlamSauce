@@ -50,9 +50,9 @@ namespace Yelo
 				game_ticks_t motion_sensor_elements;
 			}first_render_time;
 			datum_index unit_index;
-			word_flags auxilary_meters_active[BIT_VECTOR_SIZE_IN_WORDS(Enums::k_number_of_hud_auxilary_meter_types)];
+			unsigned short auxilary_meters_active[BIT_VECTOR_SIZE_IN_WORDS(Enums::k_number_of_hud_auxilary_meter_types)];
 			game_time_t auxilary_meter_times[Enums::k_number_of_hud_auxilary_meter_types];
-			word_flags active_sound_elements;
+			unsigned short active_sound_elements;
 			unsigned short : 16;
 			datum_index sound_elements[Enums::k_maximum_number_of_hud_sounds]; // sound cache index
 		}; static_assert( sizeof(s_hud_unit_interface_unit) == 0x58 );

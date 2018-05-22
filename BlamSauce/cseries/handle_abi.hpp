@@ -26,9 +26,9 @@ namespace Yelo
 		typedef long bits_type;
 	};
 	template<typename T>
-	struct handle_abi_type_traits<T, sizeof(int64)>
+	struct handle_abi_type_traits<T, sizeof(__int64)>
 	{
-		typedef int64 bits_type;
+		typedef __int64 bits_type;
 	};
 
 	template<typename T> inline

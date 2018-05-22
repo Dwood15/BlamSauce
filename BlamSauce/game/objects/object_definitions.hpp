@@ -93,7 +93,7 @@ namespace Yelo
 
 	namespace Flags
 	{
-		enum object_definition_flags : word_flags
+		enum object_definition_flags : unsigned short
 		{
 			_object_definition_does_not_cast_shadow_bit,
 			_object_definition_transparent_self_occlusion_bit,
@@ -175,7 +175,7 @@ namespace Yelo
 		struct _object_definition
 		{
 			TAG_ENUM(runtime_object_type, Enums::object_type);
-			word_flags flags;
+			unsigned short flags;
 
 			real bounding_radius;
 			real_point3d bounding_offset, origin_offset;

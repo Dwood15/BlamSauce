@@ -77,7 +77,7 @@ namespace Yelo
 			unsigned short : 16;
 		};
 
-		enum map_compression_format : uint16
+		enum map_compression_format : unsigned short
 		{
 			_map_compression_format_zip,
 			_map_compression_format_7zip,

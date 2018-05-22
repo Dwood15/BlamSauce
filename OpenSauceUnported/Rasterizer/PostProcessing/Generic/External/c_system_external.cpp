@@ -97,7 +97,7 @@ namespace Yelo
 			: public Configuration::c_configuration_container
 		{
 		public:
-			Configuration::c_configuration_value<uint16> m_activation_state;
+			Configuration::c_configuration_value<unsigned short> m_activation_state;
 			Configuration::c_configuration_value<bool> m_invert;
 
 			c_activation_control_container()
@@ -119,8 +119,8 @@ namespace Yelo
 		public:
 			Configuration::c_configuration_value<std::string> m_name;
 			Configuration::c_configuration_value<std::string> m_effect;
-			Configuration::c_configuration_value<uint16> m_render_stage;
-			Configuration::c_configuration_value<uint16> m_activation_operation;
+			Configuration::c_configuration_value<unsigned short> m_render_stage;
+			Configuration::c_configuration_value<unsigned short> m_activation_operation;
 			c_quad_container m_quad;
 			Configuration::c_configuration_container_list<c_activation_control_container> m_activation_controls;
 

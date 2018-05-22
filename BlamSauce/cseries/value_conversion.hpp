@@ -48,10 +48,10 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, uint16 &output) {
+		bool FromString(cstring string, unsigned short &output) {
 			uint32 value;
 			auto   result = FromStringImpl("%u", 1, string, &value);
-			output = (uint16) value;
+			output = (unsigned short) value;
 
 			return result;
 		}
@@ -76,7 +76,7 @@ namespace Yelo {
 			return FromStringImpl("%lu", 1, string, &output);
 		}
 
-		bool FromString(cstring string, int64 &output) {
+		bool FromString(cstring string, __int64 &output) {
 			return FromStringImpl("%ld", 1, string, &output);
 		}
 

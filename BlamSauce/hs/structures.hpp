@@ -1,7 +1,8 @@
 #pragma once
-
+#include <precompile.h>
 #include "../cseries/base.h"
 #include "hs.hpp"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo
 {
@@ -18,7 +19,7 @@ namespace Yelo
 
 	namespace Flags
 	{
-		enum hs_syntax_node_flags : word_flags
+		enum hs_syntax_node_flags : unsigned short
 		{
 			_hs_syntax_node_primitive_bit,
 			_hs_syntax_node_script_index_bit,
@@ -33,7 +34,7 @@ namespace Yelo
 			_hs_syntax_node_const_index_yelo_bit,
 		};
 
-		enum hs_access_flags : word_flags
+		enum hs_access_flags : unsigned short
 		{
 			_hs_access_enabled_bit,
 			_hs_access_sent_to_server_bit,	///< automatically sent to server
@@ -52,13 +53,13 @@ namespace Yelo
 		struct hs_function_definition
 		{
 			Yelo::Enums::hs_type return_type;
-			word_flags yelo_flags; // padding in halo, special flags in project yellow
+			unsigned short yelo_flags; // padding in halo, special flags in project yellow
 			cstring name;
 			proc_hs_parse parse;
 			proc_hs_evaluate evaluate;
 			cstring info;
 			cstring param_info;
-			word_flags access;
+			unsigned short access;
 			short paramc;
 #pragma warning( push )
 #pragma warning( disable : 4200 ) // nonstandard extension used : zero-sized array in struct/union, Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array
@@ -94,13 +95,13 @@ namespace Yelo
 		{
 			cstring name;
 			Enums::hs_type type;
-			word_flags flags; // padding in halo, special flags in project yellow
+			unsigned short flags; // padding in halo, special flags in project yellow
 			union {
 				void* address;
 
 				s_hs_value_union value;
 			};
-			word_flags access;
+			unsigned short access;
 			unsigned short : 16;
 		}; static_assert( sizeof(hs_global_definition) == 0x10 );
 
@@ -114,7 +115,7 @@ namespace Yelo
 			};
 			Enums::hs_type type;
 			union {
-				word_flags flags;
+				unsigned short flags;
 				short pointer_type;
 			};
 			datum_index next_expression;

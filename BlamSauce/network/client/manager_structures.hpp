@@ -51,7 +51,7 @@ namespace Yelo::Networking {
 			short seconds_to_game_start;					// 0xF18
 			Enums::network_game_client_state state;			// 0xF1A
 			short error;									// 0xF1C
-			word_flags flags;								// 0xF1E
+			unsigned short flags;								// 0xF1E
 			bool is_out_of_sync;							// 0xF20
 			bool is_lagging_out;							// 0xF21, "network client connection has been silent for a dangerously long 'amount of time"
 			unsigned short : 16; // guessing there is alignment padding here

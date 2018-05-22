@@ -27,7 +27,7 @@ namespace Yelo
 			// BIT(4) - ?
 			// BIT(5) - ?
 			// BIT(6) - nonviolent
-			word_flags flags;
+			unsigned short flags;
 			datum_index definition_index;
 			struct { // Enums::object_function_reference - 1
 				short primary_scale;	// a

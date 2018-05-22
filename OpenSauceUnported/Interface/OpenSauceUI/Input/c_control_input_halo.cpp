@@ -19,7 +19,7 @@ namespace Yelo
 		/// <param name="vk_code">	The virtual key code. </param>
 		///
 		/// <returns>	A key_code. </returns>
-		static Enums::key_code MapVirtualKeyCode(const uint16 vk_code)
+		static Enums::key_code MapVirtualKeyCode(const unsigned short vk_code)
 		{
 			auto key_code = Enums::k_number_of_keys;
 

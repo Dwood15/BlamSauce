@@ -49,7 +49,7 @@ namespace Yelo
 					short element_index;		// 0x40
 					UNKNOWN_TYPE(short);		// 0x42 goto state (negative is prev, positive is next)
 					void* elements;				// 0x44
-					uint16 element_count;		// 0x48
+					unsigned short element_count;		// 0x48
 					unsigned short : 16;
 				}list;
 			};

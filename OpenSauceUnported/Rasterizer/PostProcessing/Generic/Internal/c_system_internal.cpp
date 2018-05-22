@@ -367,7 +367,7 @@ namespace Yelo
 			// the shader list in the collection tag is populated at build time by copying shader references from the effect tag
 
 			// create the shader list
-			m_members_internal.m_shaders.count = (uint16)m_members_internal.cache_shader_collection->shaders.Count;
+			m_members_internal.m_shaders.count = (unsigned short)m_members_internal.cache_shader_collection->shaders.Count;
 			m_members_internal.m_shaders.shader_list = new c_shader_internal[m_members_internal.m_shaders.count];
 
 			// set up each shader
@@ -406,11 +406,11 @@ namespace Yelo
 		void c_system_internal::GetInternalEffects()
 		{
 			// create the effect list
-			m_members_internal.m_effects.count = (uint16)m_members_internal.cache_shader_collection->effects.Count;
+			m_members_internal.m_effects.count = (unsigned short)m_members_internal.cache_shader_collection->effects.Count;
 			m_members_internal.m_effects.effect_list = new s_effect_set[m_members_internal.m_effects.count];
 
 			// create the effect instance list
-			m_members_internal.m_effect_instances.count = (uint16)m_members_internal.cache_shader_collection->effect_instances.Count;
+			m_members_internal.m_effect_instances.count = (unsigned short)m_members_internal.cache_shader_collection->effect_instances.Count;
 			m_members_internal.m_effect_instances.effect_instance_list = new c_effect_instance_generic[m_members_internal.m_effect_instances.count];
 
 			// set up each effect

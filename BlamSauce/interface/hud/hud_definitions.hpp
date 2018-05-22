@@ -88,14 +88,14 @@ namespace Yelo
 
 	namespace Flags
 	{
-		enum hud_scaling_flags : word_flags
+		enum hud_scaling_flags : unsigned short
 		{
 			_hud_scaling_dont_scale_offset_bit,
 			_hud_scaling_dont_scale_size_bit,
 			_hud_scaling_use_high_res_scale_bit,
 		};
 
-		enum hud_flash_flags : word_flags
+		enum hud_flash_flags : unsigned short
 		{
 			_hud_flash_reverse_colors_bit, // reverse default/flashing
 		};
@@ -109,7 +109,7 @@ namespace Yelo
 			_hud_meter_invert_interpolation_bit,
 		};
 
-		enum hud_auxilary_overlay_flags : word_flags
+		enum hud_auxilary_overlay_flags : unsigned short
 		{
 			_hud_auxilary_overlay_use_team_color_bit,
 		};
@@ -297,7 +297,7 @@ namespace Yelo
 		{
 			PAD32;
 			struct {
-				TAG_FIELD(word_flags, flags);
+				TAG_FIELD(unsigned short, flags);
 				unsigned short : 16;
 				TAG_PAD(tag_reference, 1);
 				TAG_FIELD(tag_reference, fullscreen_bitmap, 'bitm');
@@ -305,20 +305,20 @@ namespace Yelo
 				TAG_PAD(long, 2);
 			}mask;
 			struct {
-				TAG_FIELD(word_flags, flags);
+				TAG_FIELD(unsigned short, flags);
 				unsigned short : 16;
 				TAG_FIELD(angle_bounds, fov_in_bounds);
 				TAG_FIELD(real_bounds, radius_out_bounds);
 				TAG_PAD(long, 6);
 			}convolution;
 			struct {
-				TAG_FIELD(word_flags, flags);
+				TAG_FIELD(unsigned short, flags);
 				TAG_FIELD(short, script_source);
 				TAG_FIELD(real, intensity);
 				TAG_PAD(long, 6);
 			}night_vision;
 			struct {
-				TAG_FIELD(word_flags, flags);
+				TAG_FIELD(unsigned short, flags);
 				TAG_FIELD(short, script_source);
 				TAG_FIELD(real, intensity);
 				TAG_FIELD(real_rgb_color, tint);

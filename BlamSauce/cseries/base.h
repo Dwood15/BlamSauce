@@ -15,7 +15,7 @@ namespace Yelo {
 #define pad_byte PAD8
 
 	// # from 0 to 65,535
-	typedef unsigned short uint16;
+	//typedef //unsigned  //short;
 	// # from -32,768 to 32,767
 	//typedef // signed //short   ;
 #define pad_int16 unsigned short : 16;
@@ -30,7 +30,7 @@ namespace Yelo {
 	// # from 0 to 18,446,744,073,709,551,615
 	typedef unsigned __int64 uint64;
 	// # from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
-	typedef signed __int64   int64;
+	// typedef signed //__int64  // i//nt64;
 #define pad_int64 unsigned long : 32; unsigned long : 32
 
 	// a floating-point # from 1.175494351e-38F to 3.402823466e+38F
@@ -71,19 +71,16 @@ namespace Yelo {
 	typedef wchar_t wstring256[Yelo::Enums::k_string_256_length + 1];
 
 	struct string_list {
-		typedef cstring       *iterator;
-		typedef const cstring *const_iterator;
-
 		long   count;
 		cstring *strings;
 
-		const_iterator begin() const { return strings; }
+		const cstring * begin() const { return strings; }
 
-		iterator begin() { return strings; }
+		cstring       * begin() { return strings; }
 
-		const_iterator end() const { return strings + count; }
+		const cstring * end() const { return strings + count; }
 
-		iterator end() { return strings + count; }
+		cstring       * end() { return strings + count; }
 
 		cstring operator [](long index) const {
 			assert(index >= 0 && index < count);
@@ -113,7 +110,7 @@ namespace Yelo {
 #define pad_byte_flags PAD8
 
 	// bit flags in a 2 byte range
-	typedef unsigned short word_flags;
+	typedef unsigned short unsigned short;
 #define pad_word_flags unsigned short : 16
 
 	// bit flags in a 4 byte range

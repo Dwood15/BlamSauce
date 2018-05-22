@@ -21,7 +21,7 @@ namespace Yelo {
 
 	namespace AI {
 		struct s_prop_datum {
-			uint16 header;                     //	0x0
+			unsigned short header;                     //	0x0
 			unsigned short : 16;                           //	0x2
 			datum_index       owner_actor_index;         //	0x4
 			datum_index       next_prop_index;         //	0x8

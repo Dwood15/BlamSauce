@@ -107,7 +107,7 @@ namespace Yelo
 
 			// FLAG(3) - _weapon_must_be_readied_bit
 			long_flags flags;						// 0x22C
-			word_flags owner_unit_flags;			// 0x230
+			unsigned short owner_unit_flags;			// 0x230
 			unsigned short : 16;
 			real primary_trigger;					// 0x234
 			Enums::weapon_state weapon_state;		// 0x238

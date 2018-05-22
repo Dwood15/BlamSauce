@@ -67,7 +67,7 @@ namespace Yelo
 				TAG_FLAG16(points_always_pinned_to_media);
 				TAG_FLAG16(points_always_pinned_to_ground);
 				TAG_FLAG16(edge_effect_fades_slowly);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			struct __scale_flags
 			{
@@ -81,7 +81,7 @@ namespace Yelo
 				TAG_FLAG16(texture_scale_v);
 				TAG_FLAG16(texture_animation_u);
 				TAG_FLAG16(texture_animation_v);
-			}; static_assert( sizeof(__scale_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__scale_flags) == sizeof(unsigned short) );
 
 			TAG_FIELD(__flags, flags);
 			TAG_FIELD(__scale_flags, scale_flags, "these flags determine which fields are scaled by the contrail density");

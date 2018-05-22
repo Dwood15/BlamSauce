@@ -96,7 +96,7 @@ namespace Yelo {
 	};
 
 	namespace Flags {
-		enum bitmap_group_flags : word_flags {
+		enum bitmap_group_flags : unsigned short {
 			_bitmap_group_enable_diffusion_dithering_bit,
 			_bitmap_group_disable_height_map_compression_bit,
 			_bitmap_group_uniform_sprite_sequences_bit,
@@ -153,7 +153,7 @@ namespace Yelo {
 				TAG_FLAG16(orphan); // this bitmap and its pixel data are allocated outside of the tag system
 				TAG_FLAG16(cached); // _bitmap_cached_bit
 				TAG_FLAG16(in_data_file); // data is in the bitmaps data file, not the cache file
-			}; static_assert(sizeof(_flags) == sizeof(word_flags));
+			}; static_assert(sizeof(_flags) == sizeof(unsigned short));
 
 			TAG_FIELD(tag, signature);
 			TAG_FIELD(short, width, "pixels");
@@ -213,7 +213,7 @@ namespace Yelo {
 			// * LIGHT MAP: Generates no mipmaps. Do not use!
 			// * VECTOR MAP: Used mostly for special effects; pixels are treated as XYZ vectors and normalized after downsampling. Alpha is passed through unmodified.
 			TAG_ENUM(usage, Enums::bitmap_group_usage);
-			TAG_FIELD(word_flags, flags, Flags::bitmap_group_flags);
+			TAG_FIELD(unsigned short, flags, Flags::bitmap_group_flags);
 
 			////////////////////////////////////////////////////////////////
 			// post-processing

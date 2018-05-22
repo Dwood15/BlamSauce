@@ -29,7 +29,7 @@ namespace Yelo
 
 	namespace Flags
 	{
-		enum project_yellow_flags : word_flags
+		enum project_yellow_flags : unsigned short
 		{
 			_project_yellow_dont_fix_ui_game_globals_bit,
 			_project_yellow_game_updates_ignore_player_pvs_hack_bit,
@@ -85,7 +85,7 @@ namespace Yelo
 			static cstring k_default_name  = "i've got a lovely bunch of corncobs";
 
 			const short version;
-			TAG_FIELD(word_flags, flags, Flags::project_yellow_flags);
+			TAG_FIELD(unsigned short, flags, Flags::project_yellow_flags);
 
 
 			/* !-- Misc --! */

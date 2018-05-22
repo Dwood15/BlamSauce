@@ -23,7 +23,7 @@ namespace Yelo
 
 		struct s_render_fog
 		{
-			word_flags flags; // same flags as in the tag definition
+			unsigned short flags; // same flags as in the tag definition
 			unsigned short : 16;
 			real_rgb_color atmospheric_color;
 			real atmospheric_maximum_density,
@@ -86,7 +86,7 @@ namespace Yelo
 
 	namespace blam
 	{
-		void __cdecl render_window(const uint16 local_player_index
+		void __cdecl render_window(const unsigned short local_player_index
 			, void* render_camera
 			, void* render_frustum
 			, void* rasterizer_camera

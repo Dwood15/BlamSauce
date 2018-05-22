@@ -18,7 +18,7 @@ namespace Yelo
 		{
 			datum_index unit_index;
 			short time_left;
-			word_flags flags;
+			unsigned short flags;
 			long relative_ticks;
 			void* event_stream;
 			Objects::s_unit_control_data control_data;

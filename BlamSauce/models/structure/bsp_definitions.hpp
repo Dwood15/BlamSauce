@@ -33,7 +33,7 @@ namespace Yelo::TagGroups {
 	struct structure_bsp_material {
 		TAG_FIELD(tag_reference, shader, 'shdr');
 		TAG_FIELD(short, shader_permutation);
-		TAG_FIELD(word_flags, flags);
+		TAG_FIELD(unsigned short, flags);
 		TAG_FIELD(long, surfaces, structure_surface);
 		TAG_FIELD(long, surface_count);
 		TAG_FIELD(real_point3d, centroid);

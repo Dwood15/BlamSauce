@@ -250,7 +250,7 @@ namespace Yelo
 
 	namespace Flags
 	{
-		enum shader_extension_usage : word_flags
+		enum shader_extension_usage : unsigned short
 		{
 			_shader_extension_usage_none						= 0,
 			_shader_extension_usage_normal_map					= 1 << 0,
@@ -264,7 +264,7 @@ namespace Yelo
 			_shader_extension_usage,
 		};
 
-		enum shader_extension_usage_bit : word_flags
+		enum shader_extension_usage_bit : unsigned short
 		{
 			_shader_extension_usage_bit_normal_map,
 			_shader_extension_usage_bit_detail_normal,
@@ -357,7 +357,7 @@ namespace Yelo
 			struct __flags_1
 			{
 				TAG_FLAG16(unused);
-			}; static_assert( sizeof(__flags_1) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags_1) == sizeof(unsigned short) );
 
 			struct {
 				////////////////////////////////////////////////////////////////
@@ -402,11 +402,11 @@ namespace Yelo
 				TAG_FLAG16(sort_bias);
 				TAG_FLAG16(nonlinear_tint);
 				TAG_FLAG16(dont_overdraw_fp_weapon);
-			}; static_assert( sizeof(_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(_flags) == sizeof(unsigned short) );
 			struct _map_flags
 			{
 				TAG_FLAG16(unfiltered);
-			}; static_assert( sizeof(_map_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(_map_flags) == sizeof(unsigned short) );
 
 			TAG_FIELD(_flags, flags);
 			TAG_ENUM(blend_function, Enums::shader_framebuffer_blend_function);
@@ -443,12 +443,12 @@ namespace Yelo
 			struct _flags
 			{
 				TAG_FLAG16(do_not_use_dlms);
-			}; static_assert( sizeof(_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(_flags) == sizeof(unsigned short) );
 
 			struct __specular_color_flags
 			{
 				TAG_FLAG16(alpha_as_exponent_mask);
-			}; static_assert( sizeof(__specular_color_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__specular_color_flags) == sizeof(unsigned short) );
 
 			TAG_FIELD(_flags, flags);
 			TAG_PAD(byte, 2);
@@ -477,7 +477,7 @@ namespace Yelo
 				TAG_FLAG16(alpha_tested);
 				TAG_FLAG16(bump_map_is_specular_mask);
 				TAG_FLAG16(true_atmospheric_fog);
-			}; static_assert( sizeof(_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(_flags) == sizeof(unsigned short) );
 
 			////////////////////////////////////////////////////////////////
 			// environment shader
@@ -515,7 +515,7 @@ namespace Yelo
 				{
 					TAG_FLAG16(rescale_detail_maps);
 					TAG_FLAG16(rescale_bump_map);
-				}; static_assert(sizeof(_flags) == sizeof(word_flags));
+				}; static_assert(sizeof(_flags) == sizeof(unsigned short));
 
 				TAG_FIELD(_flags, flags);
 				unsigned short : 16;
@@ -565,7 +565,7 @@ namespace Yelo
 				struct _flags
 				{
 					TAG_FLAG16(unfiltered);
-				}; static_assert(sizeof(_flags) == sizeof(word_flags));
+				}; static_assert(sizeof(_flags) == sizeof(unsigned short));
 
 				TAG_FIELD(_flags, flags);
 				unsigned short : 16;
@@ -586,7 +586,7 @@ namespace Yelo
 					TAG_FLAG16(overbright);
 					TAG_FLAG16(extra_shiny);
 					TAG_FLAG16(lightmap_is_specular);
-				}; static_assert(sizeof(_flags) == sizeof(word_flags));
+				}; static_assert(sizeof(_flags) == sizeof(unsigned short));
 
 				TAG_FIELD(_flags, flags);
 				unsigned short : 16;
@@ -613,7 +613,7 @@ namespace Yelo
 				struct _flags
 				{
 					TAG_FLAG16(dynamic_mirror);
-				}; static_assert(sizeof(_flags) == sizeof(word_flags));
+				}; static_assert(sizeof(_flags) == sizeof(unsigned short));
 
 				TAG_FIELD(_flags, flags);
 				TAG_ENUM(type, Enums::reflection_type);
@@ -641,12 +641,12 @@ namespace Yelo
 			struct __specular_color_flags
 			{
 				TAG_FLAG16(alpha_as_exponent_mask);
-			}; static_assert( sizeof(__specular_color_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__specular_color_flags) == sizeof(unsigned short) );
 
 			struct __diffuse_lighting_flags
 			{
 				TAG_FLAG16(do_not_use_dlms_bsp);
-			}; static_assert( sizeof(__diffuse_lighting_flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__diffuse_lighting_flags) == sizeof(unsigned short) );
 
 			struct s_map{
 				tag_reference  map;
@@ -697,12 +697,12 @@ namespace Yelo
 				TAG_FLAG16(alpha_blended_decal);
 				TAG_FLAG16(true_atmospheric_fog);
 				TAG_FLAG16(disable_two_sided_culling);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			struct __flags_1
 			{
 				TAG_FLAG16(no_random_phase);
-			}; static_assert( sizeof(__flags_1) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags_1) == sizeof(unsigned short) );
 
 			////////////////////////////////////////////////////////////////
 			// model shader
@@ -800,7 +800,7 @@ namespace Yelo
 				TAG_FLAG16(alpha_replicate);
 				TAG_FLAG16(u_clamped);
 				TAG_FLAG16(v_clamped);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			TAG_FIELD(__flags, flags);
 			unsigned short : 16;
@@ -877,7 +877,7 @@ namespace Yelo
 				TAG_FLAG16(unfiltered);
 				TAG_FLAG16(u_clamped);
 				TAG_FLAG16(v_clamped);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			TAG_FIELD(__flags, flags);
 			unsigned short : 16;
@@ -900,7 +900,7 @@ namespace Yelo
 				TAG_FLAG16(color_mux);
 				TAG_FLAG16(alpha_mux);
 				TAG_FLAG16(a_out_controls_color0_animation);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			TAG_FIELD(__flags, flags);
 			unsigned short : 16;
@@ -976,7 +976,7 @@ namespace Yelo
 				TAG_FLAG16(decal);
 				TAG_FLAG16(two_sided);
 				TAG_FLAG16(bump_map_is_specular_mask);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			////////////////////////////////////////////////////////////////
 			// glass shader
@@ -1037,7 +1037,7 @@ namespace Yelo
 				TAG_FLAG16(flash_color_is_negative);
 				TAG_FLAG16(tint_mode_2);
 				TAG_FLAG16(unfiltered);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			////////////////////////////////////////////////////////////////
 			// meter shader
@@ -1159,7 +1159,7 @@ namespace Yelo
 				TAG_FLAG16(base_map_color_modulates_background);
 				TAG_FLAG16(atmospheric_fog);
 				TAG_FLAG16(draw_before_fog);
-			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
+			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			////////////////////////////////////////////////////////////////
 			// water shader
