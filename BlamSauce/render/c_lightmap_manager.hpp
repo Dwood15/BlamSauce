@@ -25,7 +25,7 @@ namespace Yelo {
 				}                   m_current_lightmaps;
 
 			public:
-				typedef TagGroups::s_bitmap_data *(API_FUNC *proc_get_bitmap_data)(const datum_index, const int32);
+				typedef TagGroups::s_bitmap_data *(__stdcall *proc_get_bitmap_data)(const datum_index, const int32);
 
 				////////////////////////////////////////////////////////////////////////////////////////////////////
 				/// <summary>	Returns true if the lightmap set has certain lightmap types. </summary>

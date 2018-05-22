@@ -9,17 +9,16 @@
 #include "../ai/actors/actor_definitions.hpp"
 #include "../effects/effect_definitions.hpp"
 #include "../effects/sound/sound_definitions.hpp"
-#include "../objects/object_types.hpp"
-#include "../objects/object_definitions.hpp"
 #include "../game/game.hpp"
 #include "../game/allegiance.hpp"
 #include "../ai/actors/actors.hpp"
 #include "../ai/actors/actor_types.hpp"
 #include "../interface/hud/hud_definitions.hpp"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo {
 	namespace Scripting {
-		typedef s_hs_value_union (API_FUNC *proc_hs_typecast)(s_hs_value_union value);
+		typedef s_hs_value_union (__stdcall*proc_hs_typecast)(s_hs_value_union value);
 
 		static proc_hs_typecast k_hs_typecasting_procedures[Enums::k_number_of_hs_types][Enums::k_number_of_hs_types];
 
@@ -30,21 +29,14 @@ namespace Yelo {
 			typedef proc_hs_typecast (&typecasting_procedures_t)[k_number_of_hs_types];
 
 			typecasting_procedures_t
-				void_procedures   = k_hs_typecasting_procedures[_hs_type_void],
-				bool_procedures   = k_hs_typecasting_procedures[_hs_type_bool],
-				real_procedures   = k_hs_typecasting_procedures[_hs_type_real],
-				short_procedures  = k_hs_typecasting_procedures[_hs_type_short],
-				long_procedures   = k_hs_typecasting_procedures[_hs_type_long],
-				string_procedures = k_hs_typecasting_procedures[_hs_type_string],
+				void_procedures   = k_hs_typecasting_procedures[hs_type::_hs_type_void],
+				bool_procedures   = k_hs_typecasting_procedures[hs_type::_hs_type_bool],
+				real_procedures   = k_hs_typecasting_procedures[hs_type::_hs_type_real],
+				short_procedures  = k_hs_typecasting_procedures[hs_type::_hs_type_short],
+				long_procedures   = k_hs_typecasting_procedures[hs_type::_hs_type_long],
+				string_procedures = k_hs_typecasting_procedures[hs_type::_hs_type_string],
 
 				object_list_procedures = k_hs_typecasting_procedures[_hs_type_object_list];
-
-#if 0
-			// NOTE: non-standard
-			for (short type = _hs_type_enum__first; type < _hs_type_enum__last+1; type++) {
-				k_hs_typecasting_procedures[type][_hs_type_real] = hs_real_to_enum;
-			}
-#endif
 
 			// _hs_type_void
 			for (short type = _hs_type_data__first; type < _hs_type_data__last + 1; type++) {
@@ -100,9 +92,9 @@ namespace Yelo {
 
 		}
 
-		typedef bool (API_FUNC *proc_hs_type_parse)(Enums::hs_type type, datum_index expression_index);
+		typedef bool (__stdcall *proc_hs_type_parse)(Enums::hs_type type, datum_index expression_index);
 
-		typedef void (API_FUNC *proc_hs_type_inspect)(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size);
+		typedef void (__stdcall *proc_hs_type_inspect)(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size);
 
 		struct c_hs_type_void_abi;
 

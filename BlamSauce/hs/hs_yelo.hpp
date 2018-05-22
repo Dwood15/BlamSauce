@@ -1,8 +1,9 @@
-#pragma once
-
 #include <precompile.h>
 #include "hs.hpp"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
+#include "../scenario/yelo/yelo_global_definitions.h"
+
+#pragma once
 
 namespace Yelo::Enums {
 	// stock sizes
@@ -13,7 +14,7 @@ namespace Yelo::Enums {
 };
 
 
-#define HS_TYPE(hstype) BOOST_JOIN(Yelo::Enums::_hs_type_,hstype)
+#define HS_TYPE(hstype) Yelo::Enums::_hs_type_##hstype
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -25,7 +26,6 @@ namespace Yelo::Enums {
 #define DECLARE_HS_FUNCTION_WITH_PARAMS(name) extern hs_function_definition function_##name##_definition
 
 #define GET_HS_FUNCTION(name) Yelo::Scripting::function_##name##_definition
-
 
 //////////////////////////////////////////////////////////////////////////
 // Macro glue for declaring/defining a normal hs global
@@ -56,15 +56,10 @@ namespace Yelo
 		};
 	};
 
-	namespace TagGroups
-	{
-		struct s_scripting_definitions;
-	};
-
 	namespace Scripting
 	{
-		typedef void* (API_FUNC* proc_hs_yelo_function)();
-		typedef void* (API_FUNC* proc_hs_yelo_function_with_params)(void** arguments);
+		typedef void* (__stdcall* proc_hs_yelo_function)();
+		typedef void* (__stdcall* proc_hs_yelo_function_with_params)(void** arguments);
 
 		// This is the name of a blam global which isn't used in release builds of the game.
 		// We use this global to expose the build version to scripts without causing harm when not using OS.

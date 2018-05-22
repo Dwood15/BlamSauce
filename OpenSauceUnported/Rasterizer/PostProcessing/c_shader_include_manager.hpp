@@ -20,12 +20,12 @@ namespace Yelo
 		public:
 			c_shader_include_manager(const char* path) : m_include_path(path) {}
 		private:
-			HRESULT API_FUNC Open(D3DXINCLUDE_TYPE IncludeType, 
+			HRESULT __stdcall Open(D3DXINCLUDE_TYPE IncludeType,
 				LPCSTR pFileName, 
 				LPCVOID pParentData, 
 				LPCVOID* ppData, 
 				UINT* pBytes);
-			HRESULT API_FUNC Close(LPCVOID pData);
+			HRESULT __stdcall Close(LPCVOID pData);
 		};
 	};};
 };

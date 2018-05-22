@@ -1,36 +1,20 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
-#pragma once
-
+#include <precompile.h>
 #include "../memory/array.h"
 #include "hs.hpp"
 #include "structures.hpp"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
 #include "threads.hpp"
 #include "../game/time/time.hpp"
 #include "hs_library_definitions_yelo.hpp"
+#include "runtime_structures.hpp"
+
+#pragma once
 
 namespace Yelo {
-	namespace Enums {
-		enum hs_type : short;
-
-		enum {
-			k_maximum_number_of_hs_globals = 1024,
-
-			k_hs_inspect_buffer_size = 1024,
-		};
-	};
-
 	namespace Scripting {
-		struct s_hs_thread_datum;
-		struct s_hs_globals_datum;
-		struct s_hs_runtime_globals;
-
 		typedef Memory::DataArray<s_hs_thread_datum, 256> hs_thread_data_t;
 
-		typedef Memory::DataArray<s_hs_globals_datum, Enums::k_maximum_number_of_hs_globals> hs_globals_data_t;
+		typedef Memory::DataArray<s_hs_globals_datum, Yelo::Enums::k_maximum_number_of_hs_globals> hs_globals_data_t;
 
 		hs_thread_data_t &HsThreads();
 

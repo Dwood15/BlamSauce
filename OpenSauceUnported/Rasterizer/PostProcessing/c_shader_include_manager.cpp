@@ -32,7 +32,7 @@ namespace Yelo
 		 * The Open function creates an absolute path to the included file, then 
 		 * loads it into memory for the compiler to use.
 		 */
-		HRESULT API_FUNC c_shader_include_manager::Open(D3DXINCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID* ppData, UINT*pBytes)
+		HRESULT __stdcall c_shader_include_manager::Open(D3DXINCLUDE_TYPE IncludeType, LPCSTR pFileName, LPCVOID pParentData, LPCVOID* ppData, UINT*pBytes)
 		{
 			// create the file location path
 			char location[MAX_PATH];
@@ -73,7 +73,7 @@ namespace Yelo
 		 * 
 		 * Deletes the memory allocated for the include file in Open.
 		 */
-		HRESULT API_FUNC c_shader_include_manager::Close(LPCVOID pData)
+		HRESULT __stdcall c_shader_include_manager::Close(LPCVOID pData)
 		{
 			delete [] pData;
 			return S_OK;

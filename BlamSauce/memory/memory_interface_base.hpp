@@ -50,11 +50,11 @@
 #define DATA_PTR_UNKNOWN   NULL
 
 // Gets the enum value of [name]
-#define GET_FUNC_PTR(name) BOOST_PP_CAT(PTR_,name)
-#define GET_DATA_PTR(name) BOOST_PP_CAT(PTR_,name)
+#define GET_FUNC_PTR(name) PTR_##name
+#define GET_DATA_PTR(name) PTR_##name
 // Type casts [name] to a void*, since FUNC_PTRs are really enums
-#define GET_FUNC_VPTR(name) (CAST_PTR(void*, GET_FUNC_PTR(name) ))
-#define GET_DATA_VPTR(name) (CAST_PTR(void*, GET_FUNC_PTR(name) ))
+#define GET_FUNC_VPTR(name) (CAST_PTR(void*, PTR_##name ))
+#define GET_DATA_VPTR(name) (CAST_PTR(void*, PTR_##name ))
 
 // Double pointer inline get
 #define GET_DPTR2(name)      BOOST_PP_CAT(pp,name)
@@ -98,16 +98,11 @@
 // Bug must only occur when there's only one non-va-arg
 #define PLATFORM_VALUE_HACK_(args_list) PLATFORM_VALUE args_list
 
-#define ENGINE_DPTR(type, name, ...)                                    \
-   static auto** const pp##name = CAST_PTR(type**, PLATFORM_VALUE(__VA_ARGS__));   \
-   static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
+#define ENGINE_DPTR(type, name, ...) static auto** const pp##name = CAST_PTR(type**, PLATFORM_VALUE(__VA_ARGS__)); static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
 
 #define ENGINE_PTR(type, name, ...) static auto* const p##name = CAST_PTR(type*, PLATFORM_VALUE(__VA_ARGS__));  static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
 
-#define FUNC_PTR(name, ...)                           \
-   enum FUNC_PTR_##name                           \
-   { PTR_##name = PLATFORM_VALUE_HACK_((__VA_ARGS__)) };   \
-   static_assert( GET_FUNC_PTR(name) != NULL );
+#define FUNC_PTR(name, ...)  enum FUNC_PTR_##name  { PTR_##name = PLATFORM_VALUE_HACK_((__VA_ARGS__)) }; static_assert( GET_FUNC_PTR(name) != NULL );
 
 #define DATA_PTR(name, ...)                           \
    enum DATA_PTR_##name                           \

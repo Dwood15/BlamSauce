@@ -72,7 +72,7 @@
 #define YELO_ASSERT_DISPLAY(asdf, ...) // asdf
 
 // Library's function convention
-#define API_FUNC __stdcall
+//#define API_FUNC __stdcall
 
 // Declare a function to be thread friendly
 #define API_THREAD_SAFE __declspec( thread )

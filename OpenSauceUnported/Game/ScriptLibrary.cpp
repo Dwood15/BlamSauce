@@ -108,19 +108,9 @@ namespace Yelo
 			InitializeCreateScriptFunction();
 
 
-#ifdef API_DEBUG
-	#if PLATFORM_IS_USER
 			InitializeScriptFunctionWithParams(Enums::_hs_function_dump_view_state, Camera::DumpViewStateEvaluate);
-	#else
-			NullifyScriptFunctionWithParams( GET_HS_FUNCTION(dump_view_state) );
-	#endif
 
-	#if !defined(YELO_NO_NETWORK) && FALSE
 			InitializeScriptFunction(Enums::_hs_function_test_networking, MessageDeltas::TestToNetwork);
-	#else
-			NullifyScriptFunction( GET_HS_FUNCTION(test_networking) );
-	#endif
-#endif
 
 			InitializeMiscFunctions();
 			GameState::InitializeScripting();
@@ -280,7 +270,7 @@ namespace Yelo
 		// Creates a evaluate function that calls [func] and passes
 		// an array of parameters to it if it [takes_params]
 		//
-		// [func] - pointer to a API_FUNC type function
+		// [func] - pointer to a __stdcalltype function
 		// Returns: evaluate function address
 		static void* CreateScriptFunction(void* func, bool takes_params)
 		{

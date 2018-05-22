@@ -46,7 +46,7 @@ namespace Tempera::FunctionInterface {
 }
 
 namespace Yelo::Memory {
-	typedef void (API_FUNC *function_process_proc)();
+	typedef void (__stdcall *function_process_proc)();
 
 	//////////////////////////////////////////////////////////////////////////
 	// t_function_process

@@ -4,7 +4,6 @@ set(CRYPTOGRAPHY_H
 
 set(HS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/compile.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/constants.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/hs.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/hs_yelo.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_external.hpp

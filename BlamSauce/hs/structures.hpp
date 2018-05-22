@@ -1,8 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
 #include "../cseries/base.h"
@@ -56,7 +51,7 @@ namespace Yelo
 		// halo script function definition
 		struct hs_function_definition
 		{
-			Enums::hs_type return_type;
+			Yelo::Enums::hs_type return_type;
 			word_flags yelo_flags; // padding in halo, special flags in project yellow
 			cstring name;
 			proc_hs_parse parse;

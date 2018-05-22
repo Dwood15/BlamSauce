@@ -6,6 +6,7 @@
 
 
 namespace Yelo {
+	typedef char * tag_reference_name_reference;
 	// Template'd tag_reference that is nifty, and allows for better markup in the code
 	template <tag K_TAG>
 	struct TagReference {

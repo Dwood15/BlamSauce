@@ -1,32 +1,11 @@
-#pragma once
-
 #include <precompile.h>>
 #include <cstddef>
 #include "MacrosCpp.h"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
+
+#pragma once
 
 namespace Yelo {
-	namespace Enums {
-		enum {
-			k_tag_string_length  = 31, // character count in a [tag_string] type
-			k_long_string_length = 255, // character count in a [long_string] type
-
-			k_string_id_length = 127,
-
-			k_string_64_length  = 63,
-			k_string_128_length = 127,
-			k_string_256_length = 255,
-		};
-	};
-
-	namespace Flags {
-		enum {
-			_alignment_16_bit = 1,
-			_alignment_32_bit,
-			_alignment_64_bit,
-			_alignment_128_bit,
-		};
-	};
-
 #define pad_bool PAD8
 
 	// # from 0 to 255
@@ -176,10 +155,8 @@ namespace Yelo {
 		/// <param name="type">  	Getter's return type. </param>
 		/// <param name="name">  	Getter's method name. </param>
 		/// <param name="offset">	Field offset within the struct to treat as the get result. </param>
-#define TStructGetImpl(type, name, offset)                              \
-         type Get##name()               { return GetData<type, offset>(); }      \
-         type Get##name() const         { return GetData<type, offset>(); }         \
-         __cdecl( ( offset + sizeof( type )) <= k_size );
+#define TStructGetImpl(type, name, offset) type Get##name() { return GetData<type, offset>(); } \
+         type Get##name() const         { return GetData<type, offset>(); } __cdecl( ( offset + sizeof( type )) <= k_size );
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Implement a by-address getter. </summary>
 		///
@@ -187,10 +164,8 @@ namespace Yelo {
 		/// <param name="name">  	Getter's method name. </param>
 		/// <param name="offset">	Field offset within the struct to treat as the get result. </param>
 
-#define TStructGetPtrImpl(type, name, offset)                           \
-         type const* Get##name() const   { return GetDataPtr<type, offset>(); }      \
-         /*   ^ use const here, instead of before the type, in case [type] is defined as something like "int32*" */   \
-         __cdecl( ( offset + sizeof( type )) <= k_size );
+		/*   ^ use const here, instead of before the type, in case [type] is defined as something like "int32*" */
+#define TStructGetPtrImpl(type, name, offset) type const* Get##name() const   { return GetDataPtr<type, offset>(); } __cdecl( ( offset + sizeof( type )) <= k_size );
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Implement a by-value getter for fake TStruct sub-classes. </summary>

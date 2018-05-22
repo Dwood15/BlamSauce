@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef WIN32
 #define WIN32
 #endif
@@ -49,3 +47,6 @@
 #include "../../BlamSauce/math/real_math.h"
 #include "../../BlamSauce/memory/datum_index.h"
 #include "../../BlamSauce/tags/group/base.h"
+#include "../../BlamSauce/tags/group/markup.h"
+
+#pragma once

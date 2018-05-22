@@ -39,10 +39,6 @@ namespace Yelo
 		int32 HSYeloGlobalCount();
 		#pragma endregion
 
-
-		void InitializeLibrary();
-		void DisposeLibrary();
-
 		// Unlocks or Locks all functions\globals that can't be used normally
 		void AllowFullAccess(bool allow);
 

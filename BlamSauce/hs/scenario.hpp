@@ -5,15 +5,12 @@
 */
 #pragma once
 
+#include <precompile.h>
 #include "../tags/group/markup.h"
 #include "../tags/group/base.h"
+#include "hs.hpp"
 
 namespace Yelo {
-	namespace Enums {
-		enum hs_type : short;
-		enum hs_script_type : short;
-	};
-
 	namespace TagGroups {
 		struct hs_scenario_data_base {
 			struct _script {

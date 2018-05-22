@@ -40,34 +40,34 @@ namespace Yelo {
 
 	// System Initialize function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
-	typedef void              (API_FUNC *proc_initialize)();
+	typedef void              (__stdcall *proc_initialize)();
 
 	// System Dispose function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
-	typedef void              (API_FUNC *proc_dispose)();
+	typedef void              (__stdcall *proc_dispose)();
 
 	// System Initialize for new map function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
-	typedef void              (API_FUNC *proc_initialize_for_new_map)();
+	typedef void              (__stdcall *proc_initialize_for_new_map)();
 
 	// System Dispose from old map function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
-	typedef void              (API_FUNC *proc_dispose_from_old_map)();
+	typedef void              (__stdcall *proc_dispose_from_old_map)();
 
 	// System Initialize for bsp load function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
-	typedef void              (API_FUNC *proc_initialize_for_new_bsp)();
+	typedef void              (__stdcall *proc_initialize_for_new_bsp)();
 
 	// System Dispose for bsp unload function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
-	typedef void              (API_FUNC *proc_dispose_from_old_bsp)();
+	typedef void              (__stdcall *proc_dispose_from_old_bsp)();
 
 	// System Update function pointer
-	typedef void              (API_FUNC *proc_update)(float);
+	typedef void              (__stdcall *proc_update)(float);
 
 	// System Update function pointer
 	// Note: We can use this in engine definitions as well since it takes no parameters
-	typedef void              (API_FUNC *proc_update_no_args)();
+	typedef void              (__stdcall *proc_update_no_args)();
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Describes the number of bits needed in a bitfield for a whole number. </summary>
