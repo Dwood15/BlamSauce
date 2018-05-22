@@ -81,7 +81,7 @@ namespace Yelo::Enums {
 	constexpr uint32 k_maximum_simultaneous_tag_instances_upgrade = static_cast<uint32>(Yelo::Enums::k_maximum_simultaneous_tag_instances * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
 	// 0x40440000
-	constexpr uint32 k_tag_base_address = k_physical_memory_base_address + Yelo::GameState::Enums::k_game_state_allocation_size;
+	constexpr uint32 k_tag_base_address = k_physical_memory_base_address + k_game_state_allocation_size;
 
 	constexpr uint32 k_tag_allocation_size         = 0x01700000;
 	constexpr uint32 k_tag_allocation_size_upgrade = static_cast<uint32>(Enums::k_tag_allocation_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
