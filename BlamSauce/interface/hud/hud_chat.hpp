@@ -28,7 +28,7 @@ namespace Yelo
 	{
 		struct s_hud_chat_globals
 		{
-			bool active; PAD24;
+			bool active; unsigned char : 8; unsigned short : 16;
 			Enums::hud_chat_type chat_type;
 
 			Console::s_terminal_state terminal_state;
@@ -37,12 +37,12 @@ namespace Yelo
 		}; static_assert( sizeof(s_hud_chat_globals) == 0x1E8 );
 
 		s_hud_chat_globals*		HudChatGlobals();
-		int32 HudChatLineCount();
+		long HudChatLineCount();
 	};
 
 	namespace blam
 	{
-		void __cdecl hud_chat_to_network(int32 player_number, long_enum chat_type, wcstring text);
+		void __cdecl hud_chat_to_network(long player_number, long_enum chat_type, wcstring text);
 
 		void __cdecl hud_chat_display_message(wcstring message);
 	};

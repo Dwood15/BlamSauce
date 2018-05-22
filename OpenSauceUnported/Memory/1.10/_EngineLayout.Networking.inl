@@ -189,9 +189,9 @@
 	{
 		ENGINE_PTR(wchar_t, sv_password,								DUO_PTR(K_SV_PASSWORD));
 		ENGINE_PTR(char, sv_rcon_password,								DUO_PTR(K_SV_RCON_PASSWORD));
-		ENGINE_PTR(int32, sv_timelimit,									DUO_PTR(K_SV_TIMELIMIT));
-		ENGINE_PTR(int32, halo_argv_port,								DUO_PTR(K_HALO_ARGV_PORT));
-		ENGINE_PTR(int32, halo_argv_client_port,						DUO_PTR(K_HALO_ARGV_CLIENT_PORT));
+		ENGINE_PTR(long, sv_timelimit,									DUO_PTR(K_SV_TIMELIMIT));
+		ENGINE_PTR(long, halo_argv_port,								DUO_PTR(K_HALO_ARGV_PORT));
+		ENGINE_PTR(long, halo_argv_client_port,						DUO_PTR(K_HALO_ARGV_CLIENT_PORT));
 	};
 
 	//////////////////////////////////////////////////////////////////////////
@@ -203,7 +203,7 @@
 		ENGINE_PTR(s_network_sv_globals, network_sv_globals,					DUO_PTR(K_NETWORK_SV_GLOBALS));
 
 	#if PLATFORM_IS_DEDI
-		ENGINE_PTR(int32, server_instance,			PTR_NULL, K_SERVER_INSTANCE);
+		ENGINE_PTR(long, server_instance,			PTR_NULL, K_SERVER_INSTANCE);
 
 		FUNC_PTR(SV_EVENT_LOG_WITH_TIME,			FUNC_PTR_NULL, K_SV_EVENT_LOG_WITH_TIME);
 		FUNC_PTR(SV_EVENT_ECHO,						FUNC_PTR_NULL, K_SV_EVENT_ECHO);

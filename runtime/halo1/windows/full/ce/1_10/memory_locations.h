@@ -9,6 +9,8 @@
 #include "../../../../../../BlamSauce/interface/hud/first_person_weapons.hpp"
 #include "../../../../../../BlamSauce/interface/strings/draw_string.hpp"
 #include "../../../../../../BlamSauce/interface/hud/hud_chat.hpp"
+#include "../../../../../../BlamSauce/models/animations/recorded_animations.hpp"
+#include "../../../../../../BlamSauce/hs/object_lists.hpp"
 
 #pragma once
 
@@ -44,9 +46,9 @@ namespace Yelo::GameUI {
 	static auto *const text_bounds_globals  = CAST_PTR(s_text_bounds_globals_data*, 0x67F6D4);
 	static auto *const font_drawing_globals = CAST_PTR(s_font_drawing_globals_data*, 0x67F6E8);
 	static auto *const hud_chat_globals     = CAST_PTR(s_hud_chat_globals*, 0x64E788);
-	static auto *const hud_chat_line_count  = CAST_PTR(int32*, 0x6B44B4);
+	static auto *const hud_chat_line_count  = CAST_PTR(long*, 0x6B44B4);
 
-	//#define ENGINE_DPTR(type, name, ...) static auto** const pp##name = CAST_PTR(type**, PLATFORM_VALUE(__VA_ARGS__)); static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
+	//ENGINE_DPTR(type, name, ...) static auto** const pp##name = CAST_PTR(type**, PLATFORM_VALUE(__VA_ARGS__)); static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
 	static auto **const hud_scripted_globals = CAST_PTR(Yelo::GameUI::s_hud_scripted_globals**, 0x6B44A8);
 	static auto **const hud_messaging        = CAST_PTR(s_hud_messaging**, 0x64E970);
 	static auto **const hud_unit_interface   = CAST_PTR(s_hud_unit_interface**, 0x6B44BC);
@@ -90,8 +92,8 @@ namespace Yelo::Hud {
 
 	enum FUNC_PTR_HUD_RENDER_NAV_POINTS_CALL { PTR_HUD_RENDER_NAV_POINTS_CALL = 0x4ACAED };
 
-	static auto *const HUD_RENDER_NAV_POINT_ANCHOR_HALF_X = CAST_PTR(uint32*, 0x4B2B01);
-	static auto *const HUD_RENDER_NAV_POINT_ANCHOR_HALF_Y = CAST_PTR(uint32*, 0x4B2B0B);
+	static auto *const HUD_RENDER_NAV_POINT_ANCHOR_HALF_X = CAST_PTR(uint*, 0x4B2B01);
+	static auto *const HUD_RENDER_NAV_POINT_ANCHOR_HALF_Y = CAST_PTR(uint*, 0x4B2B0B);
 
 	static auto *const HUD_ANCHOR_SCREEN_X = CAST_PTR(real*, 0x612268);
 	static auto *const HUD_ANCHOR_SCREEN_Y = CAST_PTR(real*, 0x000124);
@@ -115,13 +117,13 @@ namespace Yelo::Hud {
 #pragma endregion
 
 #pragma region hud
-	static auto *const HUD_POINT_ANCHOR_WIDTH       = CAST_PTR(uint32*, 0x4AEAF0);
-	static auto *const HUD_POINT_ANCHOR_HEIGHT      = CAST_PTR(uint32*, 0x4AEB22);
-	static auto *const HUD_POINT_ANCHOR_HALF_WIDTH  = CAST_PTR(uint32*, 0x4AEB42);
-	static auto *const HUD_POINT_ANCHOR_HALF_HEIGHT = CAST_PTR(uint32*, 0x4AEB66);
+	static auto *const HUD_POINT_ANCHOR_WIDTH       = CAST_PTR(uint*, 0x4AEAF0);
+	static auto *const HUD_POINT_ANCHOR_HEIGHT      = CAST_PTR(uint*, 0x4AEB22);
+	static auto *const HUD_POINT_ANCHOR_HALF_WIDTH  = CAST_PTR(uint*, 0x4AEB42);
+	static auto *const HUD_POINT_ANCHOR_HALF_HEIGHT = CAST_PTR(uint*, 0x4AEB66);
 
-	static auto *const HUD_POINT_DAMAGE_ANCHOR_WIDTH       = CAST_PTR(uint32*, 0x4B49A5);
-	static auto *const HUD_POINT_DAMAGE_ANCHOR_HEIGHT      = CAST_PTR(uint32*, 0x4B497E);
+	static auto *const HUD_POINT_DAMAGE_ANCHOR_WIDTH       = CAST_PTR(uint*, 0x4B49A5);
+	static auto *const HUD_POINT_DAMAGE_ANCHOR_HEIGHT      = CAST_PTR(uint*, 0x4B497E);
 	static auto *const HUD_POINT_DAMAGE_ANCHOR_HALF_HEIGHT = CAST_PTR(real*, 0x4B49BF);
 
 	static void **K_HUD_POINT_DAMAGE_ANCHOR_HALF_WIDTH_PTRS[] = {CAST_PTR(void**, 0x4B499A), CAST_PTR(void**, 0x4B495A)};
@@ -174,8 +176,6 @@ namespace Yelo::GameUI::Widget {
 #ifdef ENGINE_DPTR
 #undef ENGINE_DPTR
 #endif
-
-
 
 #ifdef ENGINE_PTR
 #undef ENGINE_PTR
@@ -412,50 +412,58 @@ FUNC_PTR(UNICODE_STRING_LIST_GET_STRING, 0x55AD90);
 
 //////////////////////////////////////////////////////////////////////////
 // Scripting.cpp
-ENGINE_DPTR(recorded_animations_data_t, recorded_animations,		0x64B940);
-ENGINE_DPTR(hs_syntax_data_t, hs_syntax,							0x815914);
-ENGINE_DPTR(object_list_header_data_t, object_list_header,			0x815904);
-ENGINE_DPTR(list_object_reference_data_t, list_object_reference,	0x815908);
-ENGINE_DPTR(hs_globals_data_t, hs_globals,							0x81590C);
-ENGINE_DPTR(hs_thread_data_t, hs_threads,							0x815910);
+static auto **const recorded_animations = CAST_PTR(Yelo::Scripting::recorded_animations_data_t**, 0x64B940);
+static auto **const object_list_header = CAST_PTR(Yelo::Scripting::object_list_header_data_t**, 0x815904);
 
-FUNC_PTR(HS_UPDATE_HOOK, 											0x48CE78);
+static auto **const list_object_reference = CAST_PTR(Yelo::Scripting::list_object_reference_data_t**, 0x815908);
+static auto **const hs_syntax = CAST_PTR(Yelo::Scripting::hs_syntax_data_t**, 0x815914);
+static auto **const hs_globals = CAST_PTR(Yelo::Scripting::hs_globals_data_t**, 0x81590C);
+static auto **const hs_threads = CAST_PTR(Yelo::Scripting::hs_thread_data_t**, 0x815910);
 
-static uint32* K_MAX_HS_SYNTAX_NODES_PER_SCENARIO_UPGRADE_ADDRESS_LIST[] = {
-	CAST_PTR(uint32*, 0x485D7B),
+static_assert(0x64B940 != NULL);
+static_assert(0x815914 != NULL);
+static_assert(0x815904 != NULL);
+static_assert(0x815908 != NULL);
+static_assert(0x81590C != NULL);
+static_assert(0x815910 != NULL);
+
+FUNC_PTR(HS_UPDATE_HOOK, 0x48CE78);
+
+static uint *K_MAX_HS_SYNTAX_NODES_PER_SCENARIO_UPGRADE_ADDRESS_LIST[] = {
+	CAST_PTR(uint*, 0x485D7B),
 };
 
-static uint32* K_TOTAL_SCENARIO_HS_SYNTAX_DATA_UPGRADE_ADDRESS_LIST[] = {
-	//CAST_PTR(uint32*, PLATFORM_VALUE(0x485E93, 0x47D783)), // don't modify this one, modify the size check using the address below
-	CAST_PTR(uint32*, 0x485DCA),
+static uint *K_TOTAL_SCENARIO_HS_SYNTAX_DATA_UPGRADE_ADDRESS_LIST[] = {
+	//CAST_PTR(uint*, PLATFORM_VALUE(0x485E93, 0x47D783)), // don't modify this one, modify the size check using the address below
+	CAST_PTR(uint*, 0x485DCA),
 };
 
-static byte* ADDRESS_OF_SCENARIO_HS_SYNTAX_DATA_SIZE_CHECK = CAST_PTR(byte*, 0x485D77);
+static byte *ADDRESS_OF_SCENARIO_HS_SYNTAX_DATA_SIZE_CHECK = CAST_PTR(byte*, 0x485D77);
 
 
 //////////////////////////////////////////////////////////////////////////
 // ScriptLibrary.cpp
-FUNC_PTR(HS_MACRO_FUNCTION_PARSE,		0x48A070);
-FUNC_PTR(HS_COMPILE_AND_EVALUATE,		0x487030); // currently unused
-FUNC_PTR(HS_NULL_EVALUATE,				0x483F40);
-FUNC_PTR(HS_NULL_WITH_PARAMS_EVALUATE,	0x483430);
+FUNC_PTR(HS_MACRO_FUNCTION_PARSE, 0x48A070);
+FUNC_PTR(HS_COMPILE_AND_EVALUATE, 0x487030); // currently unused
+FUNC_PTR(HS_NULL_EVALUATE, 0x483F40);
+FUNC_PTR(HS_NULL_WITH_PARAMS_EVALUATE, 0x483430);
 
 //////////////////////////////////////////////////////////////////////////
 // script functions related
-ENGINE_PTR(int32, hs_function_table_count,				0x5F9C10);
-ENGINE_DPTR(hs_function_definition, hs_function_table,	0x624118);
+ENGINE_PTR(long, hs_function_table_count, 0x5F9C10);
+ENGINE_DPTR(hs_function_definition, hs_function_table, 0x624118);
 
 #pragma region hs function table references
-static int16* K_HS_FUNCTION_TABLE_COUNT_REFERENCES_16bit[] = {
-	CAST_PTR(int16*,  0x4861E1),
-	CAST_PTR(int16*,  0x486F14),
+static short *K_HS_FUNCTION_TABLE_COUNT_REFERENCES_16bit[] = {
+	CAST_PTR(short*, 0x4861E1),
+	CAST_PTR(short*, 0x486F14),
 };
-static int32* K_HS_FUNCTION_TABLE_COUNT_REFERENCES_32bit[] = {
-	CAST_PTR(int32*, 0x4864FA),
+static long *K_HS_FUNCTION_TABLE_COUNT_REFERENCES_32bit[] = {
+	CAST_PTR(long*, 0x4864FA),
 };
 
 // really hs_function_definition***
-static void* K_HS_FUNCTION_TABLE_REFERENCES[] = { // RIVERSIDE MOTHER FUCKER! *techno beat*
+static void *K_HS_FUNCTION_TABLE_REFERENCES[] = { // RIVERSIDE MOTHER FUCKER! *techno beat*
 	CAST_PTR(void*, K_HS_FUNCTION_TABLE_REFERENCE_0),
 	CAST_PTR(void*, K_HS_FUNCTION_TABLE_REFERENCE_1),
 	CAST_PTR(void*, K_HS_FUNCTION_TABLE_REFERENCE_2),
@@ -816,22 +824,22 @@ static void* K_HS_FUNCTION_TABLE_REFERENCES[] = { // RIVERSIDE MOTHER FUCKER! *t
 
 //////////////////////////////////////////////////////////////////////////
 // script globals related
-ENGINE_PTR(int32, hs_external_globals_count,			0x5F9D0C);
-ENGINE_DPTR(hs_global_definition, hs_external_globals,	0x626988);
+ENGINE_PTR(long, hs_external_globals_count, 0x5F9D0C);
+ENGINE_DPTR(hs_global_definition, hs_external_globals, 0x626988);
 
-static int16* K_HS_EXTERNAL_GLOBALS_COUNT_REFERENCES_16bit[] = {
-	CAST_PTR(int16*, 0x4860F1),
+static short *K_HS_EXTERNAL_GLOBALS_COUNT_REFERENCES_16bit[] = {
+	CAST_PTR(short*, 0x4860F1),
 };
-static int32* K_HS_EXTERNAL_GLOBALS_COUNT_REFERENCES_32bit[] = {
-	CAST_PTR(int32*, 0x4865AA),
-	CAST_PTR(int32*, 0x48BCDA),
-	CAST_PTR(int32*, 0x48CAFB),
-	CAST_PTR(int32*, 0x48CC0F),
-	CAST_PTR(int32*, 0x48CC6D),
-	CAST_PTR(int32*, 0x48CD70),
-	CAST_PTR(int32*, 0x48D38A),
+static long *K_HS_EXTERNAL_GLOBALS_COUNT_REFERENCES_32bit[] = {
+	CAST_PTR(long*, 0x4865AA),
+	CAST_PTR(long*, 0x48BCDA),
+	CAST_PTR(long*, 0x48CAFB),
+	CAST_PTR(long*, 0x48CC0F),
+	CAST_PTR(long*, 0x48CC6D),
+	CAST_PTR(long*, 0x48CD70),
+	CAST_PTR(long*, 0x48D38A),
 };
-static void* K_HS_EXTERNAL_GLOBALS_REFERENCES[] = {
+static void  *K_HS_EXTERNAL_GLOBALS_REFERENCES[]             = {
 	CAST_PTR(void*, 0x48607C),
 	CAST_PTR(void*, 0x4860AC),
 	CAST_PTR(void*, 0x4860D9),
@@ -850,13 +858,30 @@ FUNC_PTR(HS_VALID_ACCESS_FLAGS, 0x486220);
 
 //////////////////////////////////////////////////////////////////////////
 // InitializeCreateScriptFunction()
-FUNC_PTR(HS_ARGUMENTS_EVALUATE,	0x48D480);
-FUNC_PTR(HS_RETURN,				0x48D270);
+FUNC_PTR(HS_ARGUMENTS_EVALUATE, 0x48D480);
+FUNC_PTR(HS_RETURN, 0x48D270);
 
 
 
 
+//////////////////////////////////////////////////////////////////////////
+// Scenario.cpp
+ENGINE_DPTR(s_scenario_globals, scenario_globals, K_SCENARIO_GLOBALS);
 
+ENGINE_PTR(TagGroups::scenario*, global_scenario, K_GLOBAL_SCENARIO);
+ENGINE_PTR(TagGroups::collision_bsp*, global_bsp3d, K_GLOBAL_BSP3D);
+ENGINE_PTR(TagGroups::collision_bsp*, global_collision_bsp, K_GLOBAL_COLLISION_BSP);
+ENGINE_PTR(TagGroups::structure_bsp*, global_structure_bsp, K_GLOBAL_STRUCTURE_BSP);
+
+ENGINE_PTR(datum_index, global_scenario_index, K_GLOBAL_SCENARIO_INDEX);
+ENGINE_PTR(short, structure_bsp_index, K_STRUCTURE_BSP_INDEX);
+
+FUNC_PTR(OBJECT_TYPES_PLACE_OBJECTS_MOD_PROCESSED_BSPS__READ, K_OBJECT_TYPES_PLACE_OBJECTS_MOD_PROCESSED_BSPS__READ);
+FUNC_PTR(OBJECT_TYPES_PLACE_OBJECTS_MOD_PROCESSED_BSPS__WRITE, K_OBJECT_TYPES_PLACE_OBJECTS_MOD_PROCESSED_BSPS__WRITE);
+FUNC_PTR(OBJECTS_INITIALIZE_FOR_NEW_MAP_MOD_PROCESSED_BSPS, K_OBJECTS_INITIALIZE_FOR_NEW_MAP_MOD_PROCESSED_BSPS);
+
+
+//////////////////////////////////////////////////////////////////////////
 
 
 

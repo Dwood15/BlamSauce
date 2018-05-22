@@ -68,7 +68,7 @@ namespace Yelo {
 
 		// utility for blam::cache_file_data_load
 
-		bool DataFileGetItemDataInfo(Enums::data_file_reference_type data_file, int32 item_index, int32 &out_data_offset, int32 &out_data_size) {
+		bool DataFileGetItemDataInfo(Enums::data_file_reference_type data_file, long item_index, long &out_data_offset, long &out_data_size) {
 			auto &df = DataFileGet(data_file);
 
 			return df.GetItemDataInfo(item_index, out_data_offset, out_data_size);

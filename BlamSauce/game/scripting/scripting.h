@@ -14,13 +14,16 @@ namespace Yelo::Scripting {
 	recorded_animations_data_t &RecordedAnimations();
 
 	void InitializeLibrary();
+
 	void DisposeLibrary();
 
 	static void MemoryUpgradesInitialize() {
-		for (auto ptr : K_MAX_HS_SYNTAX_NODES_PER_SCENARIO_UPGRADE_ADDRESS_LIST)
+		for (auto ptr : K_MAX_HS_SYNTAX_NODES_PER_SCENARIO_UPGRADE_ADDRESS_LIST) {
 			*ptr = Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade;
-		for (auto ptr : K_TOTAL_SCENARIO_HS_SYNTAX_DATA_UPGRADE_ADDRESS_LIST)
+		}
+		for (auto ptr : K_TOTAL_SCENARIO_HS_SYNTAX_DATA_UPGRADE_ADDRESS_LIST) {
 			*ptr = Enums::k_total_scenario_hs_syntax_data_upgrade;
+		}
 
 		// change from 'jz' (0x74) to 'jge' (0x7D)
 		// This allows us to support scenarios with original script nodes, or with
@@ -39,7 +42,7 @@ namespace Yelo::Scripting {
 		InitializeLibrary();
 
 		// Currently, no code is ran in Update
-		Memory::CreateHookRelativeCall(&Update, GET_FUNC_VPTR(HS_UPDATE_HOOK), Enums::_x86_opcode_retn);
+		Memory::CreateHookRelativeCall(&Update, CAST_PTR(void *, HS_UPDATE_HOOK), Enums::_x86_opcode_retn);
 	}
 
 	recorded_animations_data_t &RecordedAnimations() { DPTR_IMP_GET_BYREF(recorded_animations); }

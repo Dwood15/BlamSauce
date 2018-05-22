@@ -29,7 +29,7 @@
 
 	//////////////////////////////////////////////////////////////////////////
 	// Functions
-	enum hs_function_enumeration : int16 {
+	enum hs_function_enumeration : short {
 		//_hs_function_null,
 
 		_hs_function_volume_test_player_team,
@@ -174,7 +174,7 @@
 
 	//////////////////////////////////////////////////////////////////////////
 	// Globals
-	enum hs_global_enumeration : int16 {
+	enum hs_global_enumeration : short {
 
 		_hs_global_rasterizer_rt_display,
 		_hs_global_rasterizer_gbuffer_enabled,

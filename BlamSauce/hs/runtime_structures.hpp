@@ -29,10 +29,10 @@ namespace Yelo
 		struct s_hs_runtime_globals
 		{
 			bool enabled;
-			PAD24;
-			int16 executing_thread_index;
+			unsigned char : 8; unsigned short : 16;
+			short executing_thread_index;
 			bool run_game_scripts;
-			PAD8;
+			unsigned char : 8;
 		}; static_assert( sizeof(s_hs_runtime_globals) == 0x8 );
 	};
 };

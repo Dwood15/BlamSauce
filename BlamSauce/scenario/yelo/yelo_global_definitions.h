@@ -33,7 +33,7 @@ namespace Yelo::TagGroups {
 	struct s_network_game_player_unit {
 		TAG_FIELD(tag_string, name, "", "name of this block definition");
 		TAG_FIELD(tag_reference, definition, "unit", "unit definition for this player's biped");
-		TAG_PAD(s_ngpu_p0, int32, 8); // 32
+		TAG_PAD(s_ngpu_p0, long, 8); // 32
 	};
 	/* !-- Netgame --! */
 
@@ -42,7 +42,7 @@ namespace Yelo::TagGroups {
 	struct s_script_construct_definition {
 		TAG_FIELD(tag_string, name[2]
 		); // So we can have at most 62 characters for the name
-		TAG_FIELD(int16, index
+		TAG_FIELD(short, index
 		);
 
 	};
@@ -71,14 +71,14 @@ namespace Yelo::TagGroups {
 		// internal name of the cache's Yelo Globals when the user doesn't supply a definition
 		static cstring k_default_name = "there they are all standing in a row";
 
-		const int16 version;
+		const short version;
 		TAG_FIELD(word_flags, flags, Flags::project_yellow_globals_flags);
 		TAG_FIELD(uint32, base_address);
 
 		TAG_FIELD(tag_string, mod_name, "", "name of the engine 'mod' these globals and, inheriting scenario, are for");
 
 		TAG_FIELD(tag_reference, explicit_references, 'tagc');
-		TAG_PAD(pyg_p0, int32, 8);
+		TAG_PAD(pyg_p0, long, 8);
 
 		TAG_PAD(pyg_p1, tag_block, 1);
 
@@ -95,7 +95,7 @@ namespace Yelo::TagGroups {
 		struct {
 			TAG_TBLOCK(player_units, s_network_game_player_unit); // 32
 
-			TAG_PAD(pyg_p2, int32, 5); // 20
+			TAG_PAD(pyg_p2, long, 5); // 20
 		}           networking;
 		/* !-- Netgame --! */
 
@@ -105,7 +105,7 @@ namespace Yelo::TagGroups {
 		/* !-- Scripting --! */
 
 
-		TAG_PAD(pyg_p3, int32, 20); // 80
+		TAG_PAD(pyg_p3, long, 20); // 80
 
 		project_yellow_globals() : version(project_yellow::k_version) {
 			flags = FLAG(Flags::_project_yellow_null_definition_bit) | FLAG(Flags::_project_yellow_invalid_version_bit);
@@ -114,7 +114,7 @@ namespace Yelo::TagGroups {
 
 	private:
 		void CullInvalidNetworkPlayerUnits() {
-			for (int32 x = networking.player_units.Count - 1; x >= 0; x--) {
+			for (long x = networking.player_units.Count - 1; x >= 0; x--) {
 				const TagGroups::s_network_game_player_unit &player_unit = networking.player_units[x];
 				bool remove_element = true;
 

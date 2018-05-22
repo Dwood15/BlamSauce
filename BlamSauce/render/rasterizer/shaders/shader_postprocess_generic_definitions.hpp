@@ -55,7 +55,7 @@ namespace Yelo {
 				t_shader_variable_texture handle;
 
 				TAG_FIELD(uint16, bitmap_index);
-				PAD16;
+				unsigned short : 16;
 			}                   bitmap;
 
 			struct s_bool {
@@ -63,14 +63,14 @@ namespace Yelo {
 
 				TAG_FIELD(bool, enabled); // byte_flags
 				bool                   inverse; // inverse value of 'enabled
-				PAD16;
+				unsigned short : 16;
 			}                   boolean;
 
 			struct s_integer32 {
 				t_shader_variable_int handle;
 
-				TAG_FIELD(int32, lower_bound);
-				TAG_FIELD(int32, upper_bound);
+				TAG_FIELD(long, lower_bound);
+				TAG_FIELD(long, upper_bound);
 			}                   integer32;
 
 			struct s_real32 {
@@ -127,7 +127,7 @@ namespace Yelo {
 				TAG_FLAG8(multichannel_noise);
 				TAG_FLAG8(ignore_alpha);
 			} flags;   static_assert(sizeof(_flags) == sizeof(byte_flags));
-			PAD8;
+			unsigned char : 8;
 
 			TAG_FIELD(real, animation_duration);
 			TAG_FIELD(real, animation_rate);
@@ -156,7 +156,7 @@ namespace Yelo {
 				union {
 					struct {
 						TagGroups::s_bitmap_data *bitmap;
-						PAD32;
+						unsigned long : 32;
 					} _internal;   // We use a '_' prefix so intelli-sense doesn't get retarded
 
 					struct {
@@ -169,7 +169,7 @@ namespace Yelo {
 					TAG_FLAG16(is_loaded);
 					TAG_FLAG16(is_external);
 				} flags;
-				PAD16;
+				unsigned short : 16;
 			} bitmap_value;
 
 			void GetBoundingValues(void *&lower_ref, void *&upper_ref);
@@ -204,8 +204,8 @@ namespace Yelo {
 
 		struct s_shader_postprocess_generic : s_shader_postprocess_definition {
 			enum { k_group_tag = 'shpg' };
-			PAD16;
-			PAD16;
+			unsigned short : 16;
+			unsigned short : 16;
 
 			TAG_FIELD(tag_reference, base_shader, s_shader_postprocess_generic::k_group_tag);
 			TAG_TBLOCK_(parameters, s_shader_postprocess_parameter);

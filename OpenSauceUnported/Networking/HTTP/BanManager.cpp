@@ -26,7 +26,7 @@ namespace Yelo
 			struct
 			{
 				bool is_active;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}m_flags;
 
 		public:
@@ -48,15 +48,15 @@ namespace Yelo
 				{
 					struct
 					{
-						int16	a;
-						int16	b;
-						int16	c;
-						int16	d;
+						short	a;
+						short	b;
+						short	c;
+						short	d;
 
-						int16	e;
-						int16	f;
-						int16	g;
-						int16	h;
+						short	e;
+						short	f;
+						short	g;
+						short	h;
 					};
 				}v6;
 			}m_ip;
@@ -112,7 +112,7 @@ namespace Yelo
 				m_ip_version = Enums::_http_ip_ban_ip_version_ipv4;
 			}
 
-			c_http_ip_ban_base(int16 a, int16 b, int16 c, int16 d, int16 e, int16 f, int16 g, int16 h)
+			c_http_ip_ban_base(short a, short b, short c, short d, short e, short f, short g, short h)
 			{
 				ClearNodeData();
 				m_flags.is_active = false;
@@ -134,7 +134,7 @@ namespace Yelo
 			struct
 			{
 				bool	forget;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}m_connection_ban_flags;
 
 			struct
@@ -206,7 +206,7 @@ namespace Yelo
 				m_forget_connection_delta = 0;
 			}
 
-			c_http_ip_ban_connection(int16 a, int16 b, int16 c, int16 d, int16 e, int16 f, int16 g, int16 h) : c_http_ip_ban_base(a, b, c, d, e, f, g, h)
+			c_http_ip_ban_connection(short a, short b, short c, short d, short e, short f, short g, short h) : c_http_ip_ban_base(a, b, c, d, e, f, g, h)
 			{
 				m_connection_ban_flags.forget = false;
 
@@ -231,7 +231,7 @@ namespace Yelo
 				m_flags.is_active = true;
 			}
 
-			c_http_ip_ban_permanent(int16 a, int16 b, int16 c, int16 d, int16 e, int16 f, int16 g, int16 h) : c_http_ip_ban_base(a, b, c, d, e, f, g, h)
+			c_http_ip_ban_permanent(short a, short b, short c, short d, short e, short f, short g, short h) : c_http_ip_ban_base(a, b, c, d, e, f, g, h)
 			{
 				m_flags.is_active = true;
 			}
@@ -957,7 +957,7 @@ namespace Yelo
 		void* HTTPServerSetConnectionBan(void** arguments)
 		{
 			struct s_arguments {
-				const int32 max_connections_per_ip;
+				const long max_connections_per_ip;
 				const real connection_cooldown_time;
 				const real forget_connection_time;
 			}* args = CAST_PTR(s_arguments*, arguments);
@@ -1022,23 +1022,23 @@ namespace Yelo
 		{
 			struct s_arguments {
 				bool ip_version;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 				uint16 a;
-				PAD16;
+				unsigned short : 16;
 				uint16 b;
-				PAD16;
+				unsigned short : 16;
 				uint16 c;
-				PAD16;
+				unsigned short : 16;
 				uint16 d;
-				PAD16;
+				unsigned short : 16;
 				uint16 e;
-				PAD16;
+				unsigned short : 16;
 				uint16 f;
-				PAD16;
+				unsigned short : 16;
 				uint16 g;
-				PAD16;
+				unsigned short : 16;
 				uint16 h;
-				PAD16;
+				unsigned short : 16;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
 			AddPermanentBan((args->ip_version ? Enums::_http_ip_ban_ip_version_ipv6 :Enums::_http_ip_ban_ip_version_ipv4),
@@ -1064,7 +1064,7 @@ namespace Yelo
 		{
 			struct s_arguments {
 				uint16 index; // TODO: HS doesn't have anything but signed integers
-				PAD16;
+				unsigned short : 16;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
 			RemovePermanentBan(args->index);

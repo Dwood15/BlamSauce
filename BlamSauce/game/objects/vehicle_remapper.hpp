@@ -66,23 +66,23 @@ namespace Yelo
 			unsigned custom2 : 3;
 			unsigned custom3 : 3;
 			unsigned pad : 1;
-		}; static_assert( sizeof(s_vehicle_set) == sizeof(int32) );
+		}; static_assert( sizeof(s_vehicle_set) == sizeof(long) );
 
 		//////////////////////////////////////////////////////////////////////////
 		// This is still a WIP
 		struct s_vehicle_team_remapper
 		{
-			int32 team_index;
-			int32 scenario_datum_index; // vehicle block index
+			long team_index;
+			long scenario_datum_index; // vehicle block index
 			word_flags multiplayer_spawn_flags;
-			PAD16;
+			unsigned short : 16;
 			datum_index vehicle_definition_index;
 
 			struct s_datum {
-				int32 scenario_datum_index;
+				long scenario_datum_index;
 				bool spawn; // will this vehicle be spawned?
 				byte_flags spawn_flags;
-				PAD16;
+				unsigned short : 16;
 			}datums[8];
 		}; static_assert( sizeof(s_vehicle_team_remapper) == 0x50 );
 		//////////////////////////////////////////////////////////////////////////

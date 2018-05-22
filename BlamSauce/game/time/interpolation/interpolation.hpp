@@ -27,7 +27,7 @@ namespace Yelo
 			memcpy(output, &values, sizeof(bool)* ValueCount);
 		}
 		template<size_t ValueCount>
-		static void InterpolateValues(int32* lower, int32* upper, real* interp, int32* output)
+		static void InterpolateValues(long* lower, long* upper, real* interp, long* output)
 		{
 			YELO_ASSERT_DISPLAY(lower, "Interpolation lower values pointer is null");
 			YELO_ASSERT_DISPLAY(upper, "Interpolation upper values pointer is null");
@@ -35,7 +35,7 @@ namespace Yelo
 			YELO_ASSERT_DISPLAY(output, "Interpolation output pointer is null");
 
 			// interp the values to a temporary buffer
-			int32 values[ValueCount];
+			long values[ValueCount];
 			for (size_t i = 0; i < ValueCount; i++)
 			{
 				real range = CAST(real, upper[i] - lower[i]);

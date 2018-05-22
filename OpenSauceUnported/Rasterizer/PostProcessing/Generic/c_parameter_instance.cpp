@@ -81,7 +81,7 @@ namespace Yelo
 				*m_members.m_values[0].boolean = *m_members.m_values[1].boolean = m_members.parameter->value.boolean.enabled;
 				break;
 			case Enums::_shader_variable_base_type_integer:
-				AllocateValueMemory<int32>();
+				AllocateValueMemory<long>();
 				*m_members.m_values[0].integer32 = *m_members.m_values[1].integer32 = m_members.parameter->value.integer32.upper_bound;
 				break;
 			case Enums::_shader_variable_base_type_float:
@@ -319,7 +319,7 @@ namespace Yelo
 			interp_linear->Begin(change_time);
 		}
 
-		void c_parameter_instance::SetOverrideInterp(int32 value, real change_time)
+		void c_parameter_instance::SetOverrideInterp(long value, real change_time)
 		{
 			YELO_ASSERT_DISPLAY(m_members.m_flags.is_overriden, "parameter instance not set up to be overriden");
 			YELO_ASSERT_DISPLAY(m_members.parameter->value_type.type == Enums::_shader_variable_base_type_integer, "parameter being overriden with an incorrect type");

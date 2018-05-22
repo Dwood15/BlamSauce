@@ -65,9 +65,9 @@ namespace render_objects_mods
 		static datum_index rendered_objects[Enums::k_maximum_rendered_objects_upgrade];
 
 		for(auto ptr : K_MAXIMUM_RENDERED_OBJECTS_REFS_32bit)
-			*CAST_PTR(int32*,ptr) = Enums::k_maximum_rendered_objects_upgrade;
+			*CAST_PTR(long*,ptr) = Enums::k_maximum_rendered_objects_upgrade;
 		for(auto ptr : K_MAXIMUM_RENDERED_OBJECTS_REFS_16bit)
-			*CAST_PTR(int16*,ptr) = Enums::k_maximum_rendered_objects_upgrade;
+			*CAST_PTR(short*,ptr) = Enums::k_maximum_rendered_objects_upgrade;
 
 		for(auto ptr : K_RENDER_OBJECT_GLOBALS__RENDERED_OBJECTS_REFS)
 			*CAST_PTR(datum_index**,ptr) = rendered_objects;
@@ -98,11 +98,11 @@ namespace render_particles_mods
 {
 	struct s_rendered_particle
 	{
-		int16 particle_index;
-		int16 particle_definition_index; // datum's 0x4 field
-		int16 particle_datum_field_2C;
+		short particle_index;
+		short particle_definition_index; // datum's 0x4 field
+		short particle_datum_field_2C;
 		bool particle_datum_flags_bit5;
-				PAD8;
+				unsigned char : 8;
 	}; static_assert( sizeof(s_rendered_particle) == 8 );
 	static s_rendered_particle rendered_particles[Enums::k_maximum_number_of_particles_per_map_upgrade];
 

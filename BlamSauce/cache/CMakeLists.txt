@@ -15,7 +15,6 @@ set(CACHE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_yelo.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_yelo_base.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/constants.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/data_file.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/data_file_structures.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/predicted_resources.hpp

@@ -17,7 +17,7 @@ namespace Yelo
 				size_t presets_count;
 				struct s_seat_preset
 				{
-					int32 index;
+					long index;
 					real_vector3d offset;
 				};
 				struct s_preset {
@@ -41,7 +41,7 @@ namespace Yelo
 				}
 
 			private:
-				s_unit_datum* GetCurrentVehicle(int16* current_seat_index)
+				s_unit_datum* GetCurrentVehicle(short* current_seat_index)
 				{
 					datum_index player_index = Players::LocalPlayerIndex();
 					s_unit_datum* vehicle = Players::GetVehicle(player_index, current_seat_index);

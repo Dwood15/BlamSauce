@@ -30,19 +30,19 @@ namespace Yelo
 			}flags;
 
 			TAG_FIELD(real_bounds, value_map);
-			PAD32;
+			unsigned long : 32;
 		}; static_assert( sizeof(s_effect_postprocess_effect_fade_control) == 0x10);
 #endif
 
 		struct s_effect_postprocess_generic_effect_instance
 		{
 			TAG_FIELD(tag_string, name);
-			TAG_FIELD(int16, effect_index);
+			TAG_FIELD(short, effect_index);
 			TAG_ENUM(render_stage, Enums::postprocess_render_stage);
 			TAG_FIELD(s_effect_postprocess_quad_definition, quad_definition);
 			TAG_FIELD(short, activation_operation);
-			PAD16;
-			PAD32;
+			unsigned short : 16;
+			unsigned long : 32;
 			TAG_TBLOCK_(activation_controls, s_effect_postprocess_effect_activation_control);
 #if 0
 			TAG_TBLOCK_(fade_controls, s_effect_postprocess_effect_fade_control);
@@ -56,7 +56,7 @@ namespace Yelo
 		{
 			TAG_FIELD(tag_string, exposed_name);
 			TAG_FIELD(tag_string, parameter_name);
-			TAG_FIELD(int32, shader_index);
+			TAG_FIELD(long, shader_index);
 			TAG_FIELD(shader_variable_type, value_type);
 
 			struct
@@ -64,7 +64,7 @@ namespace Yelo
 				void* parameter_instance; //void* to avoid a problematic include
 			}runtime;
 
-			PAD32;
+			unsigned long : 32;
 		}; static_assert( sizeof(s_effect_postprocess_generic_exposed_parameter) == 0x50);
 
 		struct s_effect_postprocess_generic : s_effect_postprocess_definition
@@ -72,7 +72,7 @@ namespace Yelo
 			enum { k_group_tag = 'efpg' };
 
 			TAG_TBLOCK_(shaders, tag_reference);
-			TAG_TBLOCK_(shader_indices, int32);
+			TAG_TBLOCK_(shader_indices, long);
 			TAG_TBLOCK_(exposed_parameters, s_effect_postprocess_generic_exposed_parameter);
 
 		}; static_assert( sizeof(s_effect_postprocess_generic) == 0x24 + sizeof(s_effect_postprocess_definition));

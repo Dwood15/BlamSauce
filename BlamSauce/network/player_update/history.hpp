@@ -17,11 +17,11 @@ namespace Yelo
 	{
 		struct s_player_update
 		{
-			int32 id;
-			int32 tick_count;
+			long id;
+			long tick_count;
 			byte action_collection[32];
 			bool driving_vehicle;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			struct {
 				datum_index parent_object_index;
 				real_point3d position;
@@ -45,15 +45,15 @@ namespace Yelo
 				sbyte airborne_ticks; // bipeds 0x501
 				sbyte slipping_ticks; // bipeds 0x502
 				sbyte biped_504;
-				int16 biped_508;
-				PAD16;
+				short biped_508;
+				unsigned short : 16;
 				real biped_50C;
 				real_vector3d biped_514;
-				PAD32; // unused?
+				unsigned long : 32; // unused?
 				BYTE biped_4D0;
 				BYTE biped_4D1;
 				Enums::biped_movement_state movement_state; // bipeds 0x4D2
-				PAD8;
+				unsigned char : 8;
 				DWORD biped_4D8;
 			}biped;
 			struct {													// 0x124
@@ -63,22 +63,22 @@ namespace Yelo
 				byte object_data[sizeof(Objects::s_object_data) - FIELD_OFFSET(Objects::s_object_data, datum_role)];
 				real driver_power;
 				real gunner_power;
-				UNKNOWN_TYPE(int32);
+				UNKNOWN_TYPE(long);
 				Objects::s_vehicle_data vehicle_data;
 			}vehicle;
 			s_player_update* next;
 		}; static_assert( sizeof(s_player_update) == 0x418 );
 		struct s_player_update_history
 		{
-			int32 next_update_history_id; // maximum = 64
+			long next_update_history_id; // maximum = 64
 			s_player_update* updates;
-			PAD32;
-			int32 number_of_playbacks;
-			int32 total_ticks;
-			int32 total_updates;
-			PAD32; // 0x18
-			PAD32; // 0x1C
-			PAD32; // 0x20
+			unsigned long : 32;
+			long number_of_playbacks;
+			long total_ticks;
+			long total_updates;
+			unsigned long : 32; // 0x18
+			unsigned long : 32; // 0x1C
+			unsigned long : 32; // 0x20
 			real avg_prediction_error;
 			real avg_ticks_played_back;
 		}; static_assert( sizeof(s_player_update_history) == 0x2C );

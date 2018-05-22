@@ -21,8 +21,8 @@ namespace Yelo
 			template<typename T, size_t kValueCount = Enums::k_runtime_data_max_values_count>
 			struct s_value_array {
 				bool initialized;
-				PAD8;
-				int16 count;		// Number of elements in the runtime data
+				unsigned char : 8;
+				short count;		// Number of elements in the runtime data
 
 				T values[kValueCount];
 
@@ -39,13 +39,13 @@ namespace Yelo
 				}
 
 				// Validate that an operation can be performed at [value_index]
-				bool OperationValidate(int16 value_index)
+				bool OperationValidate(short value_index)
 				{
 					return initialized && value_index >= 0 && value_index < kValueCount;
 				}
 			};
 
-			struct s_integers : public s_value_array<int32> {
+			struct s_integers : public s_value_array<long> {
 			}integers;
 
 			struct s_vectors : public s_value_array<real_vector3d> {
@@ -55,7 +55,7 @@ namespace Yelo
 		static s_runtime_data* runtime_data;
 
 		// Validate that an operation can be performed at [value_index]
-		static bool IntegerOperationValidate(int16 value_index)
+		static bool IntegerOperationValidate(short value_index)
 		{
 			return runtime_data != nullptr && runtime_data->integers.OperationValidate(value_index);
 		}
@@ -67,7 +67,7 @@ namespace Yelo
 		}
 		// Get the integer value at [value_index].
 		// Returns NONE if this operation fails.
-		static int32 IntegerGet(int16 value_index)
+		static long IntegerGet(short value_index)
 		{
 			if(IntegerOperationValidate(value_index))
 				return runtime_data->integers.values[value_index];
@@ -76,7 +76,7 @@ namespace Yelo
 		}
 		// Get the integer value at [value_index], then set it equal [value].
 		// Returns NONE if this operation fails.
-		static int32 IntegerGetAndSet(int16 value_index, int32 value)
+		static long IntegerGetAndSet(short value_index, long value)
 		{
 			if(IntegerOperationValidate(value_index))
 			{
@@ -90,7 +90,7 @@ namespace Yelo
 		}
 		// Get the integer value at [value_index], then post-increment it.
 		// Returns NONE if this operation fails.
-		static int32 IntegerGetAndIncrement(int16 value_index)
+		static long IntegerGetAndIncrement(short value_index)
 		{
 			if(IntegerOperationValidate(value_index))
 				return runtime_data->integers.values[value_index]++;
@@ -99,26 +99,26 @@ namespace Yelo
 		}
 		// Get the integer value at [value_index], then post-decrement it.
 		// Returns NONE if this operation fails.
-		static int32 IntegerGetAndDecrement(int16 value_index)
+		static long IntegerGetAndDecrement(short value_index)
 		{
 			if(IntegerOperationValidate(value_index))
 				return runtime_data->integers.values[value_index]--;
 
 			return NONE;
 		}
-		static bool ValidBitShift(int32 bit_count)
+		static bool ValidBitShift(long bit_count)
 		{
-			return bit_count >= 0 && bit_count < BIT_COUNT(int32);
+			return bit_count >= 0 && bit_count < BIT_COUNT(long);
 		}
 #define __INTEGER_OP_CASE(op_code_name)				!strcmp(op_name, op_code_name)
 #define __INTEGER_OP_CASE_ARG_NONZERO(op_code_name)__INTEGER_OP_CASE(op_code_name) && op_value != 0
-		static int32 IntegerDoOperation(int16 value_index, cstring op_name, int32 op_value)
+		static long IntegerDoOperation(short value_index, cstring op_name, long op_value)
 		{
-			int32 result = NONE;
+			long result = NONE;
 
 			if(IntegerOperationValidate(value_index))
 			{
-				int32& value = runtime_data->integers.values[value_index];
+				long& value = runtime_data->integers.values[value_index];
 
 				bool valid_bs = ValidBitShift(op_value);
 
@@ -158,7 +158,7 @@ namespace Yelo
 #define __VECTOR_OP_CASE_ARG(op_code_name)			__VECTOR_OP_CASE(op_code_name) && (result = (vec_rhs != nullptr))
 #define __VECTOR_OP_CASE_ARG_I_NONZERO(op_code_name)__VECTOR_OP_CASE_ARG(op_code_name) && (result = (vec_rhs->i != 0.0f))
 		// Validate that an operation can be performed at [value_index]
-		static bool VectorOperationValidate(int16 value_index, int16 element_index = 0)
+		static bool VectorOperationValidate(short value_index, short element_index = 0)
 		{
 			return runtime_data != nullptr && runtime_data->vectors.OperationValidate(value_index) &&
 				element_index >= 0 && element_index < 3; // NOTE: 0=x, 1=y, 2=z
@@ -169,7 +169,7 @@ namespace Yelo
 			if(runtime_data != nullptr)
 				runtime_data->vectors.Clear();
 		}
-		static real VectorGetElement(int16 value_index, int16 element_index)
+		static real VectorGetElement(short value_index, short element_index)
 		{
 			if(VectorOperationValidate(value_index, element_index))
 			{
@@ -185,7 +185,7 @@ namespace Yelo
 
 			return CAST(real, NONE);
 		}
-		static bool VectorSetElement(int16 value_index, int16 element_index, 
+		static bool VectorSetElement(short value_index, short element_index,
 			cstring op_name, real op_value)
 		{
 			bool result = false;
@@ -214,7 +214,7 @@ namespace Yelo
 
 			return result;
 		}
-		static bool VectorSet(int16 value_index, cstring op_name, real x, real y, real z)
+		static bool VectorSet(short value_index, cstring op_name, real x, real y, real z)
 		{
 			bool result = false;
 
@@ -240,7 +240,7 @@ namespace Yelo
 
 			return result;
 		}
-		static bool VectorDoOperation(int16 value_index, cstring op_name, int16 op_arg_vector_index)
+		static bool VectorDoOperation(short value_index, cstring op_name, short op_arg_vector_index)
 		{
 			bool result = false;
 
@@ -269,7 +269,7 @@ namespace Yelo
 
 			return result;
 		}
-		static char* VectorToString(int16 value_index)
+		static char* VectorToString(short value_index)
 		{
 			static char static_buffer[128];
 			static_buffer[0] = '\0';
@@ -336,14 +336,14 @@ namespace Yelo
 				scripting_runtime_vector_to_string_evaluate);
 		}
 
-		real_vector3d* VectorValueGetForModify(int16 value_index)
+		real_vector3d* VectorValueGetForModify(short value_index)
 		{
 			if(VectorOperationValidate(value_index))
 				return &runtime_data->vectors.values[value_index];
 
 			return nullptr;
 		}
-		const real_vector3d* VectorValueGet(int16 value_index)
+		const real_vector3d* VectorValueGet(short value_index)
 		{
 			if(VectorOperationValidate(value_index))
 				return &runtime_data->vectors.values[value_index];

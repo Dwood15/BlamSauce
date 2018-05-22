@@ -18,7 +18,7 @@ namespace Yelo
 				{
 					bool is_valid;
 					bool is_active;
-					PAD16;
+					unsigned short : 16;
 				}m_flags;
 
 				c_effect_postprocess* definition;
@@ -60,7 +60,7 @@ namespace Yelo
 			void SetQuadDefinition(TagGroups::s_effect_postprocess_quad_definition* definition);
 			bool IsValid();
 			real GetCurrentFade();
-			int16 GetFadeDirection();
+			short GetFadeDirection();
 			void SetIsActive(bool active);
 
 			/////////////////////////////////////////////////

@@ -66,7 +66,7 @@ namespace Yelo
 
 			LPDIRECT3DSURFACE9 m_targets[k_target_count];
 
-			LPDIRECT3DSURFACE9& s_render_target_output::operator [] (int32 index)
+			LPDIRECT3DSURFACE9& s_render_target_output::operator [] (long index)
 			{
 				return m_targets[index];
 			}
@@ -106,7 +106,7 @@ namespace Yelo
 			HRESULT			AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height);
 			void			ReleaseResources();
 
-			void			Render(IDirect3DDevice9* device, int16 debug_target);
+			void			Render(IDirect3DDevice9* device, short debug_target);
 
 			bool			IsAvailable();	
 		};
@@ -133,7 +133,7 @@ namespace Yelo
 		class c_gbuffer_system
 		{
 		public:
-			static int16					g_debug_index;
+			static short					g_debug_index;
 			static bool						g_system_enabled;
 
 		private:
@@ -168,7 +168,7 @@ namespace Yelo
 			c_packed_file			m_shader_package;
 			bool					m_is_loaded;
 			bool					m_render_gbuffer;
-			PAD16;
+			unsigned short : 16;
 			LPD3DXEFFECT			m_gbuffer_ps, m_gbuffer_vs;
 			c_gbuffer				m_gbuffer;
 

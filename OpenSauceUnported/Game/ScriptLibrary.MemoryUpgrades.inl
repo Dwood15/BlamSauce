@@ -7,17 +7,17 @@
 
 static struct s_upgrade_globals {
 	struct {
-		int32 count;
-		int32 capacity;
+		long count;
+		long capacity;
 		hs_function_definition* table[Enums::k_hs_script_functions_count_upgrade];
-		int32 yelo_start_index; // starting index of our custom 'yelo' functions
+		long yelo_start_index; // starting index of our custom 'yelo' functions
 	}functions;
 
 	struct {
-		int32 count;
-		int32 capacity;
+		long count;
+		long capacity;
 		hs_global_definition* table[Enums::k_hs_external_globals_count_upgrade];
-		int32 yelo_start_index; // starting index of our custom 'yelo' globals
+		long yelo_start_index; // starting index of our custom 'yelo' globals
 	}globals;
 }_upgrade_globals = {
 	{0, Enums::k_hs_script_functions_count_upgrade},
@@ -111,15 +111,15 @@ static void MemoryUpgradesInitialize()
 	//////////////////////////////////////////////////////////////////////////
 	// Update the game code to use OUR function/global definition table's counts
 	{
-		int32 count = _upgrade_globals.functions.count;
+		long count = _upgrade_globals.functions.count;
 		for(auto ptr : K_HS_FUNCTION_TABLE_COUNT_REFERENCES_16bit)
-			*ptr = CAST(int16, count);
+			*ptr = CAST(short, count);
 		for(auto ptr : K_HS_FUNCTION_TABLE_COUNT_REFERENCES_32bit)
 			*ptr = count;
 
 		count = _upgrade_globals.globals.count;
 		for(auto ptr : K_HS_EXTERNAL_GLOBALS_COUNT_REFERENCES_16bit)
-			*ptr = CAST(int16, count);
+			*ptr = CAST(short, count);
 		for(auto ptr : K_HS_EXTERNAL_GLOBALS_COUNT_REFERENCES_32bit)
 			*ptr = count;
 	}

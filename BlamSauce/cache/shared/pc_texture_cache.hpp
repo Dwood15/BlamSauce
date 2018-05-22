@@ -18,10 +18,10 @@ struct IDirect3DBaseTexture9;
 namespace Yelo {
 	namespace Cache {
 		struct s_texture_cache_datum : Memory::s_datum_base {
-			int16 cache_read_request_index;
+			short cache_read_request_index;
 			bool  finished_loading_flag;
 			bool  valid; // set to true when finished loading and the texture request populates hardware_format
-			PAD16;
+			unsigned short : 16;
 			TagGroups::s_bitmap_data *bitmap;
 			IDirect3DBaseTexture9    *hardware_format; // the address of this field is returned by the texture request function
 		}; static_assert(sizeof(s_texture_cache_datum) == 0x10);

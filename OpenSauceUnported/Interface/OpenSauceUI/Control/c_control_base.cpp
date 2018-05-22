@@ -33,14 +33,14 @@ namespace Yelo
 			);
 		}
 
-		void c_control_base::AddPropertyInterface(const uint32 interface_id, i_property_interface* property_interface)
+		void c_control_base::AddPropertyInterface(const uint interface_id, i_property_interface* property_interface)
 		{
 			YELO_ASSERT_DISPLAY(m_property_interfaces.find(interface_id) == m_property_interfaces.end(), "Existing property interface ID");
 
 			m_property_interfaces[interface_id] = property_interface;
 		}
 
-		i_property_interface* c_control_base::FindPropertyInterface(const uint32 interface_id) const
+		i_property_interface* c_control_base::FindPropertyInterface(const uint interface_id) const
 		{
 			auto& found_interface = m_property_interfaces.find(interface_id);
 
@@ -52,7 +52,7 @@ namespace Yelo
 			return found_interface->second;
 		}
 
-		void c_control_base::AddEventHandler(const uint32 event_id, const event_handler_ptr_t& event_handler)
+		void c_control_base::AddEventHandler(const uint event_id, const event_handler_ptr_t& event_handler)
 		{
 			YELO_ASSERT_DISPLAY(m_event_handlers.find(event_id) == m_event_handlers.end(), "Attempted to add duplicate event handler to a control");
 
@@ -65,12 +65,12 @@ namespace Yelo
 			return &m_parent;
 		}
 
-		uint32 c_control_base::GetResourceID() const
+		uint c_control_base::GetResourceID() const
 		{
 			return m_resource_id;
 		}
 
-		void c_control_base::SetResourceID(const uint32 resource_id)
+		void c_control_base::SetResourceID(const uint resource_id)
 		{
 			m_resource_id = resource_id;
 		}
@@ -106,7 +106,7 @@ namespace Yelo
 			return m_child_controls;
 		}
 
-		i_property_interface* c_control_base::GetPropertyInterface(const uint32 interface_id) const
+		i_property_interface* c_control_base::GetPropertyInterface(const uint interface_id) const
 		{
 			auto property_interface = FindPropertyInterface(interface_id);
 
@@ -115,14 +115,14 @@ namespace Yelo
 			return property_interface;
 		}
 
-		void c_control_base::AddEventCallback(const uint32 event_id, const uint32 callback_id, const event_callback_t& function, void* userdata = nullptr)
+		void c_control_base::AddEventCallback(const uint event_id, const uint callback_id, const event_callback_t& function, void* userdata = nullptr)
 		{
 			YELO_ASSERT_DISPLAY(m_event_handlers.find(event_id) != m_event_handlers.end(), "Attempted to add an event callback to a non-existant handler");
 
 			m_event_handlers[event_id]->AddCallback(callback_id, function, userdata);
 		}
 
-		void c_control_base::RemoveEventCallback(const uint32 event_id, const uint32 callback_id)
+		void c_control_base::RemoveEventCallback(const uint event_id, const uint callback_id)
 		{
 			YELO_ASSERT_DISPLAY(m_event_handlers.find(event_id) != m_event_handlers.end(), "Attempted to remove an event callback from a non-existant handler");
 

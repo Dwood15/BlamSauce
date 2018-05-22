@@ -74,7 +74,7 @@ namespace Yelo
 		struct s_request_data
 		{
 			request_type m_request_type;
-			PAD16;
+			unsigned short : 16;
 		};
 
 		enum map_compression_format : uint16
@@ -175,7 +175,7 @@ namespace Yelo
 			char					m_md5[k_md5_string_length_max];
 			uint32					m_size;
 			bool					m_encrypted;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			char					m_unencrypted_md5[k_md5_string_length_max];
 			uint32					m_total_bytes;
 			uint32					m_received_bytes;
@@ -202,7 +202,7 @@ namespace Yelo
 			uint32					m_compressed_size;
 			map_compression_format	m_format;
 			bool					m_map_is_yelo;
-			PAD8;
+			unsigned char : 8;
 
 			c_part_element*			m_parts;
 
@@ -279,9 +279,9 @@ namespace Yelo
 		{
 		public:
 			char		m_mp_address[Enums::k_max_ip_port_string_length];
-			PAD16;
+			unsigned short : 16;
 			char		m_mp_password[k_server_password_length];
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			byte		m_mp_password_key[16];
 			Enums::network_game_protocol_id	m_mp_gamever;
 
@@ -997,7 +997,7 @@ namespace Yelo
 		struct s_map_download_globals
 		{
 			map_download_update_stage	m_map_download_update_stage;
-			PAD16;
+			unsigned short : 16;
 
 			struct
 			{
@@ -1021,7 +1021,7 @@ namespace Yelo
 
 				volatile bool				stop_download;
 				bool						in_progress;
-				PAD16;
+				unsigned short : 16;
 			}m_download_thread;
 
 			struct
@@ -1037,7 +1037,7 @@ namespace Yelo
 			struct
 			{
 				map_part_definition_state	state;
-				PAD16;
+				unsigned short : 16;
 
 				c_map_part_definition		downloader;
 				real						progress;
@@ -1046,7 +1046,7 @@ namespace Yelo
 			struct
 			{
 				part_download_state			state;
-				PAD16;
+				unsigned short : 16;
 
 				LinkedListIterator<c_part_element>* part_iterator;
 				c_part_downloader			downloader;
@@ -1056,13 +1056,13 @@ namespace Yelo
 			{
 				archive_extraction_state	state;
 				bool						using_stock_maps_path;
-				PAD8;
+				unsigned char : 8;
 			}m_archive_extraction;
 
 			struct
 			{
 				download_completion_state	state;
-				PAD16;
+				unsigned short : 16;
 
 				real						reconnect_delay;
 			}m_download_completion;
@@ -1162,7 +1162,7 @@ namespace Yelo
 			if((_map_download_stage_map_part_definition == g_map_download_globals.m_download_thread.stage) ||
 				(_map_download_stage_map_part_download == g_map_download_globals.m_download_thread.stage))
 			{
-				int32 http_request = -1;
+				long http_request = -1;
 				real progress = 0;
 
 				// set the download status

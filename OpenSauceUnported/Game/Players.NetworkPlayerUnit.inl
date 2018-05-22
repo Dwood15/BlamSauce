@@ -29,7 +29,7 @@ static datum_index PlayerFindTeamUnitDefinitionOverride(const s_player_datum* pl
 	static cstring k_team_names[Enums::k_number_of_multiplayer_teams] = { 
 		"red_team", "blue_team" };
 
-	int32 player_team_index = player->team_index;
+	long player_team_index = player->team_index;
 	if(player_team_index >= 0 && player_team_index < NUMBEROF(k_team_names))
 	{
 		cstring player_team_name = k_team_names[player_team_index];

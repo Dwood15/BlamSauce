@@ -17,8 +17,8 @@ namespace Yelo
 			: public Configuration::c_type_container<point2d>
 		{
 		private:
-			Configuration::c_configuration_value<int16> m_x;
-			Configuration::c_configuration_value<int16> m_y;
+			Configuration::c_configuration_value<short> m_x;
+			Configuration::c_configuration_value<short> m_y;
 
 		public:
 			////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ namespace Yelo
 			/// <param name="name">			The configuration node name for the value. </param>
 			/// <param name="default_x">	The default value for x. </param>
 			/// <param name="default_y">	The default value for y. </param>
-			c_point2d_container(const std::string& name, const int16 default_x, const int16 default_y);
+			c_point2d_container(const std::string& name, const short default_x, const short default_y);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Initializes a new instance of the c_point2d_container class. </summary>

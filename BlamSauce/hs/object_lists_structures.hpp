@@ -13,8 +13,8 @@ namespace Yelo
 	{
 		struct s_object_list_header_datum : Memory::s_datum_base_aligned
 		{
-			int16 reference_count;	// how many references there are to this list
-			int16 count;			// how many objects are in the list
+			short reference_count;	// how many references there are to this list
+			short count;			// how many objects are in the list
 			datum_index first;		// handle to the first list object reference
 		}; static_assert( sizeof(s_object_list_header_datum) == 0xC );
 

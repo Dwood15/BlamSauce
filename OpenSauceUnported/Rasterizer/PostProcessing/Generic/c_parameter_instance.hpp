@@ -30,11 +30,11 @@ namespace Yelo
 			{
 				struct {
 					bool is_overriden;
-					PAD24;
+					unsigned char : 8; unsigned short : 16;
 				}m_flags;
 
 				Enums::parameter_process_type parameter_type;
-				PAD16;
+				unsigned short : 16;
 
 				TagGroups::s_shader_postprocess_parameter* parameter;
 
@@ -45,7 +45,7 @@ namespace Yelo
 				union {
 					void*				pointer;
 					bool*				boolean;
-					int32*				integer32;
+					long*				integer32;
 					real*				real32;
 					real_vector2d*		vector2d;
 					real_vector3d*		vector3d;
@@ -117,7 +117,7 @@ namespace Yelo
 			// parameter instance override application
 		public:
 			void SetOverrideInterp(bool value, real change_time);
-			void SetOverrideInterp(int32 value, real change_time);
+			void SetOverrideInterp(long value, real change_time);
 			void SetOverrideInterp(real value, real change_time);
 			void SetOverrideInterp(const real_vector2d& value, real change_time);
 			void SetOverrideInterp(const real_vector3d& value, real change_time);

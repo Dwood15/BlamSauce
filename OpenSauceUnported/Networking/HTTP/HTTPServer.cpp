@@ -82,7 +82,7 @@ namespace Yelo
 			struct
 			{
 				bool	serve_files;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}m_flags;
 
 			struct
@@ -512,7 +512,7 @@ namespace Yelo
 		{
 			struct s_arguments {
 				const short thread_count;
-				PAD16;
+				unsigned short : 16;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
 			if(ServerStarted())
@@ -674,7 +674,7 @@ namespace Yelo
 		{
 			struct s_arguments {
 				const bool enable;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
 			Yelo::Server::EnableEventLogging(Enums::_server_event_type_http_server) = args->enable;

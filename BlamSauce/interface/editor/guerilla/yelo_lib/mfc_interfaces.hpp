@@ -37,7 +37,7 @@ namespace Yelo
 		class MFC_CBrush
 		{
 			void** vftable;
-			PAD32; // not actually padding
+			unsigned long : 32; // not actually padding
 
 		public:
 			MFC_CBrush(COLORREF color);

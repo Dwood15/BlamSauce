@@ -39,7 +39,7 @@ namespace Yelo::Objects::Units::SeatDamage {
 		/// <param name="unit_index"> 	Datum index of the attacking unit. </param>
 		/// <param name="target_unit">	Datum index of the target unit. </param>
 		/// <param name="seat_damage">	The seat damage definition. </param>
-		void ApplyMeleeDamageToUnit(const datum_index unit_index, const datum_index target_unit, const TagGroups::unit_seat_damage &seat_damage, const int16 region_index = NONE) const {
+		void ApplyMeleeDamageToUnit(const datum_index unit_index, const datum_index target_unit, const TagGroups::unit_seat_damage &seat_damage, const short region_index = NONE) const {
 			auto *unit_datum        = blam::object_get_and_verify_type<s_unit_datum>(unit_index);
 			auto *target_unit_datum = blam::object_get_and_verify_type<s_unit_datum>(target_unit);
 

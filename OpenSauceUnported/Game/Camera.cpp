@@ -35,7 +35,7 @@ namespace Yelo
 		s_cinematic_globals_data* CinematicGlobals()			DPTR_IMP_GET(cinematic_globals);
 		s_director_data* GlobalDirector()						PTR_IMP_GET2(global_director);
 
-		int16 PLATFORM_API DirectorDesiredPerspective(const datum_index unit_index, Enums::game_perspective& perspective)
+		short PLATFORM_API DirectorDesiredPerspective(const datum_index unit_index, Enums::game_perspective& perspective)
 		{
 			if(!unit_index.IsNull())
 			{
@@ -60,7 +60,7 @@ namespace Yelo
 			return blam::director_desired_perspective(unit_index, perspective);
 		}
 
-		API_FUNC_NAKED int16 PLATFORM_API DirectorChooseGamePerspectiveHook(Enums::game_perspective& perspective)
+		API_FUNC_NAKED short PLATFORM_API DirectorChooseGamePerspectiveHook(Enums::game_perspective& perspective)
 		{
 			API_FUNC_NAKED_START()
 				push	perspective
@@ -104,7 +104,7 @@ namespace Yelo
 #if 0 // enable for old 3rd person camera hack
 		void PLATFORM_API UpdateFor3rd()
 		{
-			if (*((byte *)0x400001EE)!=0x5C && *((int16 *)0x64741C)==0 && *((int16 *)0x64741E)==1)
+			if (*((byte *)0x400001EE)!=0x5C && *((short *)0x64741C)==0 && *((short *)0x64741E)==1)
 			//if(GameState::GameGlobals()->data[0x1A] != 0x5C && 
 			//	Camera::Observer()->timer._unknown4 == 0 &&
 			//	Camera::Observer()->timer._unknown4_pad[1] == 1)

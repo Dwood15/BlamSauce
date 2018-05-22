@@ -26,7 +26,7 @@ namespace Yelo
 			datum_index next;		// next line
 			bool tab_stops;			// true if "|t" appears in the text. terminal tab stops: 0xA0, 0x140, 0x1D6
 			char text[Enums::k_terminal_line_max_characters+1];
-			UNKNOWN_TYPE(int32);	// I don't think this is used...
+			UNKNOWN_TYPE(long);	// I don't think this is used...
 			real_argb_color color;
 			uint32 display_time;	// how long this has been alive, in tick counts
 		};
@@ -42,10 +42,10 @@ namespace Yelo
 
 			struct {
 				char* text;
-				UNKNOWN_TYPE(int16); // index in [text]
-				int16 length;
-				UNKNOWN_TYPE(int16); // index in [text]
-				PAD16;
+				UNKNOWN_TYPE(short); // index in [text]
+				short length;
+				UNKNOWN_TYPE(short); // index in [text]
+				unsigned short : 16;
 			}edit_text;
 		}; static_assert( sizeof(s_terminal_state) == 0x1C0 );
 
@@ -63,24 +63,24 @@ namespace Yelo
 				// these just seem to be taken from current_state anyway, so wtf...
 				tag_string prefix; // prefix string, ie "halo( "
 				char token_buffer[256];
-				int32 token_buffer_length;
+				long token_buffer_length;
 			}platform;
 #endif
 
 			bool initialized;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			terminal_output_data_t* output_data;
 			datum_index first_line;
 			datum_index last_line;
 			s_terminal_state* current_state;
 			bool receiving_input;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			uint32 receiving_input_start_tick; // local time, when input began to be inputed
 
 #if !PLATFORM_IS_STUBBS
 			bool is_active;
-			PAD24;
-			int32 rcon_machine_index; // machine that is executing the current rcon command, or NONE
+			unsigned char : 8; unsigned short : 16;
+			long rcon_machine_index; // machine that is executing the current rcon command, or NONE
 #endif
 		};
 	};

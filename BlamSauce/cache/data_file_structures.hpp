@@ -15,26 +15,26 @@ namespace Yelo {
 		struct s_data_file_header {
 			long_enum type; // Enums::data_file_reference_type
 			// when building or updating a data file, acts as the write cursor for new items
-			int32     file_names_offset;
-			int32     file_index_table_offset;
-			int32     tag_count;
+			long     file_names_offset;
+			long     file_index_table_offset;
+			long     tag_count;
 		}; static_assert(sizeof(s_data_file_header) == 0x10);
 
 		struct s_data_file_item {
-			int32 name_offset;
-			int32 size;
-			int32 data_offset;
+			long name_offset;
+			long size;
+			long data_offset;
 		}; static_assert(sizeof(s_data_file_item) == 0xC);
 
 
 		struct index_tbl {
 			s_data_file_item *address;
-			int32            count;
+			long            count;
 		};
 
 		struct data_file_info {
-			int32 total_size;
-			int32 used_size;
+			long total_size;
+			long used_size;
 			char  *address;
 
 			byte *AsByteBuffer() { return reinterpret_cast<byte *>(address); }
@@ -43,8 +43,8 @@ namespace Yelo {
 		};
 
 		struct count_w_size {
-			int32 count;
-			int32 size;
+			long count;
+			long size;
 		};
 
 		struct s_data_file {
@@ -53,7 +53,7 @@ namespace Yelo {
 			data_file_info     file_names;
 
 			bool writable;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			count_w_size item_hits;
 			count_w_size item_adds_or_misses;
 			cstring      name;
@@ -197,7 +197,7 @@ namespace Yelo {
 				return true;
 			}
 
-			bool GetItemDataInfo(int32 item_index, int32 &out_data_offset, int32 &out_data_size) const {
+			bool GetItemDataInfo(long item_index, long &out_data_offset, long &out_data_size) const {
 				if (item_index < 0 || item_index >= file_index_table.count)
 					return false;
 
@@ -216,15 +216,15 @@ namespace Yelo {
 
 			// #if PLATFORM_IS_EDITOR && PLATFORM_TYPE == PLATFORM_TOOL
 		private:
-			int32 AddItemName(cstring item_name) {
+			long AddItemName(cstring item_name) {
 				assert(item_name);
 				assert(writable);
 
 				size_t item_name_size = strlen(item_name) + 1;
 
 				// name will begin at the end of the current buffer
-				int32 name_offset    = file_names.used_size;
-				int32 new_names_size = file_names.used_size + CAST(int32, item_name_size);
+				long name_offset    = file_names.used_size;
+				long new_names_size = file_names.used_size + CAST(long, item_name_size);
 				if (new_names_size >= file_names.total_size) {
 					// double the names buffer size
 					file_names.total_size += file_names.total_size;
@@ -238,7 +238,7 @@ namespace Yelo {
 				return name_offset;
 			}
 
-			int32 AddNewItem(cstring item_name) {
+			long AddNewItem(cstring item_name) {
 				assert(item_name);
 				assert(writable);
 
@@ -248,18 +248,18 @@ namespace Yelo {
 					file_index_table.address = YELO_RENEW_ARRAY(s_data_file_item, file_index_table.address, file_index_table.count);
 				}
 
-				int32 item_index = header.tag_count++;
+				long item_index = header.tag_count++;
 				auto  *item      = &file_index_table.address[item_index];
 				item->name_offset = AddItemName(item_name);
 
 				return item_index;
 			}
 
-			int32 GetItemIndex(cstring item_name) const {
+			long GetItemIndex(cstring item_name) const {
 				assert(item_name);
 
 				for (int x = 0; x < header.tag_count; x++) {
-					int32   name_offset = file_index_table.address[x].name_offset;
+					long   name_offset = file_index_table.address[x].name_offset;
 					cstring name        = CAST_PTR(cstring, file_names.AsByteBuffer() + name_offset);
 
 					if (!_stricmp(name, item_name))
@@ -270,10 +270,10 @@ namespace Yelo {
 			}
 
 		public:
-			int32 AddItem(cstring item_name, void *item_buffer, int32 item_buffer_size) {
+			long AddItem(cstring item_name, void *item_buffer, long item_buffer_size) {
 				assert(item_name && item_buffer); // NOTE: engine doesn't verify buffer pointer
 
-				int32 item_index = GetItemIndex(item_name);
+				long item_index = GetItemIndex(item_name);
 				if (item_index == NONE) {
 					if (writable) {
 						item_index = AddNewItem(item_name);
@@ -299,7 +299,7 @@ namespace Yelo {
 				return item_index;
 			}
 
-			int32 GetItemDataOffset(int32 item_index) {
+			long GetItemDataOffset(long item_index) {
 				if (item_index < 0 || item_index >= header.tag_count) {
 					return NONE;
 				}

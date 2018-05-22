@@ -55,7 +55,7 @@ namespace Yelo {
 	namespace TagGroups {
 		struct shader_variable_type {
 			short type;      // Enums::shader_variable_base_type
-			int16 count;   // # of [shader_variable_base_type]s
+			short count;   // # of [shader_variable_base_type]s
 		};
 
 		template <Enums::shader_variable_base_type TType, size_t TCount = 1>
@@ -106,7 +106,7 @@ namespace Yelo {
 			} flags;   static_assert(sizeof(_flags) == sizeof(word_flags));
 			TAG_FIELD(short, render_chain);
 
-			TAG_PAD(ss_pass_def0, int32, 3);
+			TAG_PAD(ss_pass_def0, long, 3);
 		}; static_assert(sizeof(s_pass_definition) == 0x30);
 
 		struct s_technique_definition {
@@ -118,16 +118,16 @@ namespace Yelo {
 				TAG_FLAG16(sm_3_0);
 			} shader_model;   static_assert(sizeof(_flags) == sizeof(word_flags));
 
-			PAD16;
+			unsigned short : 16;
 
-			TAG_PAD(ss_tech_def0, int32, 4);
+			TAG_PAD(ss_tech_def0, long, 4);
 
 			TAG_TBLOCK_(passes, s_pass_definition);
 		}; static_assert(sizeof(s_technique_definition) == 0x40);
 
 		struct s_shader_postprocess_definition {
 			enum { k_group_tag = 'shpp' };
-			PAD16;
+			unsigned short : 16;
 			struct _flags {
 				TAG_FLAG16(shader_is_binary);
 			} flags;
@@ -147,7 +147,7 @@ namespace Yelo {
 			t_shader_variable_texture tex_scene;         // Handle to the saved scene texture
 			t_shader_variable_texture tex_buffer;         // Handle to the secondary buffer
 
-			TAG_PAD(ss_pp_def0, int32, 5);
+			TAG_PAD(ss_pp_def0, long, 5);
 
 			TAG_TBLOCK_(techniques, s_technique_definition);
 			TAG_TBLOCK_(predicted_resources, predicted_resource);
@@ -157,12 +157,12 @@ namespace Yelo {
 					TAG_FLAG16(valid_shader);
 					TAG_FLAG16(uses_gbuffer);
 				} flags;
-				PAD16;   static_assert(sizeof(_postprocess_flags) == sizeof(word_flags));
+				unsigned short : 16;   static_assert(sizeof(_postprocess_flags) == sizeof(word_flags));
 
 				TAG_FIELD(LPD3DXEFFECT, dx_effect);
 				TAG_FIELD(D3DXHANDLE, postprocess_handle);
 				TAG_FIELD(s_technique_definition*, active_technique);
-				TAG_PAD(ss_pp_padaasdf, int32, 4);
+				TAG_PAD(ss_pp_padaasdf, long, 4);
 			}                         runtime;
 
 			s_shader_postprocess_definition() {}
@@ -199,7 +199,7 @@ namespace Yelo {
 					TAG_FLAG16(is_active);
 					TAG_FLAG16(uses_gbuffer);
 				} flags;
-				PAD16;
+				unsigned short : 16;
 
 				TAG_PAD(ss_pp_def_e1, byte, 12);
 			} runtime;

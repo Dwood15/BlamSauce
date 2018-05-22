@@ -13,7 +13,7 @@ namespace Yelo::Random {
 	/// <summary>	Initializes the random number generator's seed. </summary>
 	///
 	/// <param name="seed">	The seed value. </param>
-	void InitializeSeed(const int32 seed) {
+	void InitializeSeed(const long seed) {
 		g_generator.seed(seed);
 	}
 
@@ -76,14 +76,14 @@ namespace Yelo::Random {
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Gets a random int32 within the specified bounds. </summary>
+	/// <summary>	Gets a random long within the specified bounds. </summary>
 	///
 	/// <param name="lower">	The lower value. </param>
 	/// <param name="upper">	The upper value. </param>
 	///
-	/// <returns>	A random int32. </returns>
-	int32 GetInt32(const int32 lower, const int32 upper) {
-		std::uniform_int_distribution<int32> distribution(lower, upper);
+	/// <returns>	A random long. </returns>
+	long GetInt32(const long lower, const long upper) {
+		std::uniform_int_distribution<long> distribution(lower, upper);
 
 		return distribution(g_generator);
 	}
@@ -102,25 +102,25 @@ namespace Yelo::Random {
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Gets a random int16 within the specified bounds. </summary>
+	/// <summary>	Gets a random short within the specified bounds. </summary>
 	///
 	/// <param name="lower">	The lower value. </param>
 	/// <param name="upper">	The upper value. </param>
 	///
-	/// <returns>	A random int16. </returns>
-	int16 GetInt16(const int16 lower, const int16 upper) {
-		std::uniform_int_distribution<int16> distribution(lower, upper);
+	/// <returns>	A random short. </returns>
+	short GetInt16(const short lower, const short upper) {
+		std::uniform_int_distribution<short> distribution(lower, upper);
 
 		return distribution(g_generator);
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Gets a random int16 within the specified bounds. </summary>
+	/// <summary>	Gets a random short within the specified bounds. </summary>
 	///
 	/// <param name="bounds">	The value bounds. </param>
 	///
-	/// <returns>	A random int16. </returns>
-	int16 GetInt16(const short_bounds bounds) {
+	/// <returns>	A random short. </returns>
+	short GetInt16(const short_bounds bounds) {
 		return GetInt16(bounds.lower, bounds.upper);
 	}
 };

@@ -752,7 +752,7 @@ namespace Yelo
 				set.shader_instances = new c_shader_instance_generic[set.definition->shader_ids.Count];
 				set.shader_instance_count = set.definition->shader_ids.Count;
 
-				int32 i = 0;
+				long i = 0;
 				//run constructor on shader instances
 				for(i = 0; i < set.definition->shader_ids.Count; i++)
 				{
@@ -952,7 +952,7 @@ namespace Yelo
 				definition->techniques.Address = new TagGroups::s_technique_definition[technique_count];
 				definition->techniques.Count = technique_count;
 
-				for(int32 i = 0; i < definition->techniques.Count; i++)
+				for(long i = 0; i < definition->techniques.Count; i++)
 				{
 					D3DXHANDLE handle = compiler->GetTechnique(i);
 					if(handle == nullptr)
@@ -1000,7 +1000,7 @@ namespace Yelo
 			technique.passes.Address = new TagGroups::s_pass_definition[technique_desc.Passes];
 			technique.passes.Count = technique_desc.Passes;
 
-			for(int32 i = 0; i < technique.passes.Count; i++)
+			for(long i = 0; i < technique.passes.Count; i++)
 			{
 				D3DXHANDLE pass = compiler->GetPass(handle, i);
 				if(pass == nullptr)
@@ -1084,14 +1084,14 @@ namespace Yelo
 
 		void c_system_external::DestroyShaderDefinition(TagGroups::s_shader_postprocess_generic* definition)
 		{
-			for(int32 i = 0; i < definition->parameters.Count; i++)
+			for(long i = 0; i < definition->parameters.Count; i++)
 				DestroyParameter(definition->parameters[i]);
 			delete [] definition->parameters.Address;
 			definition->parameters.Address = nullptr;
 			definition->parameters.Count = 0;
 
 			// delete allocated block memory
-			for(int32 i = 0; i < definition->techniques.Count; i++)
+			for(long i = 0; i < definition->techniques.Count; i++)
 				DestroyTechnique(definition->techniques[i]);
 			delete [] definition->techniques.Address;
 			definition->techniques.Address = nullptr;
@@ -1199,7 +1199,7 @@ namespace Yelo
 				definition->activation_controls.Address = new TagGroups::s_effect_postprocess_effect_activation_control[activation_control_count];
 				definition->activation_controls.Count = activation_control_count;
 
-				int32 index = 0;
+				long index = 0;
 				for(auto& activation_control : effect_instance.m_activation_controls.GetConst())
 				{
 					TagGroups::s_effect_postprocess_effect_activation_control& control = definition->activation_controls[index];
@@ -1231,8 +1231,8 @@ namespace Yelo
 			s_parameter_handle*& list,
 			const char* semantic_format,
 			const uint32 count,
-			const int16 parameter_type,
-			const int16 parameter_type_count)
+			const short parameter_type,
+			const short parameter_type_count)
 		{
 			tag_string semantic;
 			semantic[0] = '\0';
@@ -1485,7 +1485,7 @@ namespace Yelo
 			if(SUCCEEDED(success) && location)
 			{
 				// allocate memory for the string
-				int32 length = strlen(m_members_external.m_paths.textures_path) + strlen(location) + 1;
+				long length = strlen(m_members_external.m_paths.textures_path) + strlen(location) + 1;
 				parameter.bitmap_value.runtime.external.source = new char[length];
 				parameter.bitmap_value.runtime.external.source[0] = '\0';
 

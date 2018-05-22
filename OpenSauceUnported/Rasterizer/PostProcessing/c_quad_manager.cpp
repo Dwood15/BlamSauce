@@ -243,9 +243,9 @@ namespace Yelo
 				IDirect3DDevice9* device = c_post_processing_main::Instance().Globals().render_device;
 
 				// to create a vertex buffer we need the vertex count
-				int32 vertex_count = GetVertexCount();
+				long vertex_count = GetVertexCount();
 				// to create an index buffer we need the index count
-				int32 index_count = GetIndexCount();
+				long index_count = GetIndexCount();
 
 				// if there are no quads to be made, return
 				if(!vertex_count || !index_count)
@@ -289,8 +289,8 @@ namespace Yelo
 				if(FAILED(result)) { success = false; break; }
 
 				// fill the vertex and index buffers with data, according to the quad list
-				int32 vertex_offset = 0;
-				int32 index_offset = 0;
+				long vertex_offset = 0;
+				long index_offset = 0;
 				c_quad_instance* quad_instance = m_globals.m_quad_list;
 				while(quad_instance)
 				{
@@ -490,9 +490,9 @@ namespace Yelo
 		 * 
 		 * Gets the number of vertices the vertex buffer needs to hold.
 		 */
-		int32				c_quad_manager::GetVertexCount()
+		long				c_quad_manager::GetVertexCount()
 		{
-			int32 count = 0;
+			long count = 0;
 			// loop through quads adding vertex_count for that quad
 			c_quad_instance* quad_instance = m_globals.m_quad_list;
 			while(quad_instance)
@@ -512,9 +512,9 @@ namespace Yelo
 		 * 
 		 * Gets the number of indices the index buffer needs to hold.
 		 */
-		int32				c_quad_manager::GetIndexCount()
+		long				c_quad_manager::GetIndexCount()
 		{
-			int32 count = 0;
+			long count = 0;
 			// loop through quads adding primitive_count * 3 to get the index count for that quad
 			c_quad_instance* quad_instance = m_globals.m_quad_list;
 			while(quad_instance)
@@ -613,10 +613,10 @@ namespace Yelo
 		{
 			// creates a two dimensional array containing the indices of each vertex point
 			int counter = 0;
-			int16** index_array = new int16*[quad->Quad().tessellation.y + 1];
+			short** index_array = new short*[quad->Quad().tessellation.y + 1];
 			for(int y = 0; y < quad->Quad().tessellation.y + 1; y++)
 			{
-				index_array[y] = new int16[quad->Quad().tessellation.x + 1];
+				index_array[y] = new short[quad->Quad().tessellation.x + 1];
 				for(int x = 0; x < quad->Quad().tessellation.x + 1; x++)
 				{
 					index_array[y][x] = counter;

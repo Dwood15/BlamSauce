@@ -103,7 +103,7 @@ namespace Yelo {
 		// Connect to a multiplayer server using it's ip:port and password
 		inline bool __cdecl main_connect(cstring address, cstring password);
 
-		inline int16 __cdecl main_get_campaign_level_from_name(cstring level_name) {
+		inline short __cdecl main_get_campaign_level_from_name(cstring level_name) {
 			char name[128] = {};
 
 			// NOTE: engine doesn't do this, but level_name is usually a scenario path

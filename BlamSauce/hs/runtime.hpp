@@ -30,7 +30,7 @@ namespace Yelo {
 
 		void hs_runtime_update();
 
-		Scripting::s_hs_value_union *hs_macro_function_evaluate(int16 function_index, datum_index thread_index, bool initialize_stack);
+		Scripting::s_hs_value_union *hs_macro_function_evaluate(short function_index, datum_index thread_index, bool initialize_stack);
 
 		void hs_return(datum_index thread_index, Scripting::s_hs_value_union value);
 
@@ -49,9 +49,9 @@ namespace Yelo {
 	namespace blam {
 		using namespace Scripting;
 
-		/*static*/ void hs_global_reconcile_read(int32 global_index); // TODO
+		/*static*/ void hs_global_reconcile_read(long global_index); // TODO
 
-		static s_hs_value_union hs_global_evaluate(int32 global_index)
+		static s_hs_value_union hs_global_evaluate(long global_index)
 		{
 			hs_global_reconcile_read(global_index);
 
@@ -61,7 +61,7 @@ namespace Yelo {
 			// the global is internal, so it comes after all the defined external globals in the hs_globals array
 			if (is_internal)
 			{
-				global_index += CAST(int32, c_hs_library::GetExternalGlobals().size());
+				global_index += CAST(long, c_hs_library::GetExternalGlobals().size());
 			}
 
 			datum_index hs_global_index;
@@ -81,7 +81,7 @@ namespace Yelo {
 			{
 				if (TEST_FLAG(expression->flags, Flags::_hs_syntax_node_global_index_bit))
 				{
-					int16 global_index = expression->value.int16;
+					short global_index = expression->value.short;
 					auto global_value = hs_global_evaluate(global_index);
 					*destination = hs_cast(thread_index, hs_global_get_type(global_index), expression->type, global_value);
 				}
@@ -146,7 +146,7 @@ namespace Yelo {
 
 			return formal_parameters_values;
 		}
-		static void hs_script_evaluate(datum_index thread_index, bool initialize_stack, int16 script_index)
+		static void hs_script_evaluate(datum_index thread_index, bool initialize_stack, short script_index)
 		{
 			s_hs_thread_datum* thread = hs_thread_get(thread_index);
 			datum_index root_expression_index = global_scenario_get()->scripts[script_index].script.root_expression_index;
@@ -161,7 +161,7 @@ namespace Yelo {
 				hs_return(thread_index, *result);
 			}
 		}
-		static void hs_function_evaluate(datum_index thread_index, bool initialize_stack, int16 function_index)
+		static void hs_function_evaluate(datum_index thread_index, bool initialize_stack, short function_index)
 		{
 			auto* function = hs_function_get(function_index);
 			assert(function->evaluate);
@@ -248,7 +248,7 @@ namespace Yelo {
 				hs_runtime_garbage_collect_nodes();
 		}
 
-		s_hs_value_union* hs_macro_function_evaluate(int16 function_index, datum_index thread_index, bool initialize_stack)
+		s_hs_value_union* hs_macro_function_evaluate(short function_index, datum_index thread_index, bool initialize_stack)
 		{
 			const auto* function = hs_function_get(function_index);
 
@@ -352,7 +352,7 @@ namespace Yelo {
 			else if (!hs_type_is_object_name(desired_type) &&
 						hs_type_is_object(desired_type) && hs_type_is_object_name(actual_type))
 			{
-				value.datum = object_index_from_name_index(value.int16);
+				value.datum = object_index_from_name_index(value.short);
 				return value;
 			}
 

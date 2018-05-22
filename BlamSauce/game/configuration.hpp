@@ -32,8 +32,8 @@ namespace Yelo
 	};
 
 	/// <summary>	The integral type used to represent game ticks. </summary>
-	typedef int32 game_ticks_t;
+	typedef long game_ticks_t;
 	/// <summary>	The integral type used to represent (relative) game timers. </summary>
 	/// <remarks>	Steps are in ticks. Generally used for countdowns </remarks>
-	typedef int16 game_time_t;
+	typedef short game_time_t;
 };

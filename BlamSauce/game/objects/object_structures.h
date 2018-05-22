@@ -138,9 +138,9 @@ namespace Yelo {
 			long_flags  flags;
 			datum_index player_index;
 			datum_index owner_object_index;
-			UNKNOWN_TYPE(int32);
+			UNKNOWN_TYPE(long);
 			Enums::game_team owner_team;
-			int16            region_permutation; // variant id
+			short            region_permutation; // variant id
 			real_point3d     position;
 			UNKNOWN_TYPE(real); // angle?
 			real_vector3d  transitional_velocity;
@@ -153,28 +153,28 @@ namespace Yelo {
 		struct s_object_datum_network_delta_data // should be populated during the object type's process_update_delta
 		{
 			bool valid_position;               // 0x18
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			real_point3d position;               // 0x1C
 
 			bool valid_forward_and_up;            // 0x28
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			real_vector3d forward;               // 0x2C
 			real_vector3d up;                  // 0x38
 
 			bool valid_transitional_velocity;      // 0x44
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			real_vector3d transitional_velocity;   // 0x48
 
 			bool valid_timestamp;               // 0x54
-			PAD24;
-			int32 timestamp;                  // 0x58
+			unsigned char : 8; unsigned short : 16;
+			long timestamp;                  // 0x58
 		}; static_assert(sizeof(s_object_datum_network_delta_data) == 0x44);
 
 		struct s_object_datum_animation_data {
 			datum_index       definition_index;   // 0xCC
 			s_animation_state state;      // 0xD0
-			int16             interpolation_frame_index;// 0xD4
-			int16             interpolation_frame_count;// 0xD6
+			short             interpolation_frame_index;// 0xD4
+			short             interpolation_frame_count;// 0xD6
 		}; static_assert(sizeof(s_object_datum_animation_data) == 0xC);
 
 		struct s_object_datum_damage_data {
@@ -189,9 +189,9 @@ namespace Yelo {
 			datum_index entangled_object_index;   // 0xF0
 			real        shield_damage_recent;         // 0xF4
 			real        body_damage_recent;         // 0xF8
-			int32       shield_damage_update_tick;   // 0xFC, these update ticks are set to NONE when not active
-			int32       body_damage_update_tick;      // 0x100
-			int16       stun_ticks;               // 0x104, based on ftol(s_shield_damage_resistance->stun_time * 30f)
+			long       shield_damage_update_tick;   // 0xFC, these update ticks are set to NONE when not active
+			long       body_damage_update_tick;      // 0x100
+			short       stun_ticks;               // 0x104, based on ftol(s_shield_damage_resistance->stun_time * 30f)
 			word_flags  flags;               // 0x106
 		}; static_assert(sizeof(s_object_datum_damage_data) == 0x30);
 
@@ -211,11 +211,11 @@ namespace Yelo {
 			Enums::networked_datum datum_role;                                    // 0x4
 			UNKNOWN_TYPE(bool);                                                // 0x8
 			bool should_force_baseline_update;                                    // 0x9
-			PAD16; // haven't verified if this is padding or not
-			int32                               network_time;                                                // 0xC
+			unsigned short : 16; // haven't verified if this is padding or not
+			long                               network_time;                                                // 0xC
 			//////////////////////////////////////////////////////////////////////////
 			long_flags                          flags;                                                // 0x10
-			int32                               object_marker_id;                                             // 0x14
+			long                               object_marker_id;                                             // 0x14
 			//////////////////////////////////////////////////////////////////////////
 			// Added in HaloPC
 			s_object_datum_network_delta_data   network_delta;                        // 0x18
@@ -230,20 +230,20 @@ namespace Yelo {
 			real                                radius;                                                   // 0xBC
 			real                                scale;                                                      // 0xB0
 			short                               type;                                                      // 0xB4
-			PAD16;
+			unsigned short : 16;
 			Enums::game_team owner_team;                                       // 0xB8
-			int16            name_list_index;                                             // 0xBA
+			short            name_list_index;                                             // 0xBA
 			// ticks spent not at_rest. only bipeds updates this
-			int16            moving_time;                                                // 0xBC
-			int16            region_permutation;                                          // 0xBE, variant id
+			short            moving_time;                                                // 0xBC
+			short            region_permutation;                                          // 0xBE, variant id
 			datum_index      player_index;                                          // 0xC0
 			// If this were a projectile, I believe this would be the handle to
 			// the weapon which spawned it
 			datum_index      owner_object_index;                                       // 0xC4
-			PAD32;                                                         // 0xC8 unused
+			unsigned long : 32;                                                         // 0xC8 unused
 			s_object_datum_animation_data animation;                              // 0xCC
 			s_object_datum_damage_data    damage;                                    // 0xD8
-			PAD32;                                                         // 0x108 unused
+			unsigned long : 32;                                                         // 0x108 unused
 			datum_index cluster_partition_index;                                 // 0x10C
 			UNKNOWN_TYPE(datum_index);                                          // 0x110, object_index, garbage collection related
 			datum_index next_object_index;                                       // 0x114
@@ -259,7 +259,7 @@ namespace Yelo {
 			s_object_datum_attachments_data attachments;                           // 0x144
 			datum_index                     cached_render_state_index;                                 // 0x170
 			word_flags                      regions_destroyed_flags;                                    // 0x174 once a region is destroyed, its bit index is set
-			int16                           shader_permutation;                                          // 0x176, shader's bitmap block index
+			short                           shader_permutation;                                          // 0x176, shader's bitmap block index
 			byte                            region_vitality[Enums::k_maximum_regions_per_model];                  // 0x178
 			sbyte                           region_permutation_indices[Enums::k_maximum_regions_per_model];         // 0x180
 
@@ -341,7 +341,7 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// sound_scenery
 		struct s_sound_scenery_data {
-			PAD32;
+			unsigned long : 32;
 		}; static_assert(sizeof(s_sound_scenery_data) == (Enums::k_object_size_sound_scenery - Enums::k_object_size_object));
 
 		struct s_sound_scenery_datum {

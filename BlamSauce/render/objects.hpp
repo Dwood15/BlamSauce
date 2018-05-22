@@ -18,8 +18,8 @@ namespace Yelo
 	{
 		struct s_render_object_globals
 		{
-			int16 rendered_objects_count;
-			PAD16;
+			short rendered_objects_count;
+			unsigned short : 16;
 			datum_index rendered_objects[Enums::k_maximum_rendered_objects];
 		};
 
@@ -27,9 +27,9 @@ namespace Yelo
 		struct s_cached_object_render_state_datum : Memory::s_datum_base_aligned
 		{
 			datum_index object_index;
-			UNKNOWN_TYPE(int32); // frame counter
-			UNKNOWN_TYPE(int32);
-			UNKNOWN_TYPE(int32); // frame counter
+			UNKNOWN_TYPE(long); // frame counter
+			UNKNOWN_TYPE(long);
+			UNKNOWN_TYPE(long); // frame counter
 			Objects::s_object_lighting lighting;
 			Objects::s_object_lighting desired_lighting;
 			UNKNOWN_TYPE(real);

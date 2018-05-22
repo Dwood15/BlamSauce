@@ -102,7 +102,7 @@ HS_GLOBAL(radiosity_normals, bool, nullptr);
 
 struct s_fixup_globals {
 	struct fixup {
-		int32 index;
+		long index;
 		union {
 			void* address;
 
@@ -110,7 +110,7 @@ struct s_fixup_globals {
 			hs_global_definition* global;
 		};
 		bool is_global;
-		PAD24;
+		unsigned char : 8; unsigned short : 16;
 	};
 
 #pragma warning( push )

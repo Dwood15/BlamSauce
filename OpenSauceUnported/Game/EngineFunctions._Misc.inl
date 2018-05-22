@@ -5,7 +5,7 @@
 	See license\OpenSauce\Halo1_CE for specific license information
 */
 
-void GatherException(const void* data, int32 arg_0, int32 arg_4, int32 arg_8)
+void GatherException(const void* data, long arg_0, long arg_4, long arg_8)
 {
 	static const uintptr_t TEMP_CALL_ADDR = GET_FUNC_PTR(GATHER_EXCEPTION);
 
@@ -100,7 +100,7 @@ void RasterizerAddResolution(uint32 width, uint32 height, uint32 refresh_rate)
 	}
 }
 
-int16 API_FUNC_NAKED AnimationPickRandomPermutation(long_enum render_or_affects_game_state, datum_index animation_graph_index, int32 animation_index)
+short API_FUNC_NAKED AnimationPickRandomPermutation(long_enum render_or_affects_game_state, datum_index animation_graph_index, long animation_index)
 {
 	static const uintptr_t TEMP_CALL_ADDR = GET_FUNC_PTR(ANIMATION_CHOOSE_RANDOM_PERMUTATION_INTERNAL);
 

@@ -101,7 +101,7 @@ namespace Yelo
 			MDP_STRUCT_NAME(test) test;
 			test.value = GameState::Physics()->gravity;
 
-			int32 bits_encoded = MessageDeltas::EncodeStateless(
+			long bits_encoded = MessageDeltas::EncodeStateless(
 				Enums::_message_delta_test,
 				nullptr, &test);
 			

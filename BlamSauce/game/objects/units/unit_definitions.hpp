@@ -29,23 +29,17 @@ namespace Yelo {
 		enum unit_base_seat {
 			_unit_base_seat_asleep,
 			_unit_base_seat_alert,
-#if PLATFORM_IS_STUBBS
-			_unit_base_seat_aware,
-#endif
+			//_unit_base_seat_aware, PLATFORM_IS_STUBBS
 			_unit_base_seat_stand,
 			_unit_base_seat_crouch,
 			_unit_base_seat_flee,
 			_unit_base_seat_flaming,
-#if PLATFORM_IS_STUBBS
-			_unit_base_seat_maimed,
-#endif
-
+			//_unit_base_seat_maimed, PLATFORM_IS_STUBBS
 			k_number_of_unit_base_seats,
 		};
 
 		enum unit_base_weapon {
 			_unit_base_weapon_unarmed,
-
 			k_number_of_unit_base_weapons,
 		};
 	};
@@ -124,41 +118,40 @@ namespace Yelo {
 	namespace TagGroups {
 		struct unit_seat_acceleration {
 			TAG_FIELD(real_vector3d, seat_acceleration_scale);
-			PAD32;
-			PAD32;
-			PAD32;
+			unsigned long : 32;
+			unsigned long : 32;
+			unsigned long : 32;
 		};
 
 		struct unit_hud_reference {
 			TAG_FIELD(tag_reference, unit_hud_interface, 'unhi');
-			TAG_PAD(uhr_pad0, int32, 8); // 32
+			TAG_PAD(uhr_pad0, long, 8); // 32
 		};
 
 		struct dialogue_variant_definition {
-			TAG_FIELD(int16, varient_number, "variant number to use this dialogue with (must match the suffix in the permutations on the unit's model)");
-			PAD16;
-			PAD32;
+			TAG_FIELD(short, varient_number, "variant number to use this dialogue with (must match the suffix in the permutations on the unit's model)");
+			unsigned short : 16;
+			unsigned long : 32;
 			TAG_FIELD(tag_reference, dialogue, 'udlg');
 		};
 
 		struct powered_seat_definition {
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(real, driver_powerup_time, "seconds");
 			TAG_FIELD(real, driver_powerdown_time, "seconds");
-			TAG_PAD(psd_pad0, int32, 14); // 56
+			TAG_PAD(psd_pad0, long, 14); // 56
 		};
 
 		struct unit_initial_weapon {
 			TAG_FIELD(tag_reference, weapon, 'weap');
-			TAG_PAD(uiwpad0, int32, 4); // 20
+			TAG_PAD(uiwpad0, long, 4); // 20
 		};
 
 		struct unit_seat {
 			TAG_FIELD(long_flags, flags, Flags::unit_seat_definition_flags);
 			TAG_FIELD(tag_string, label);
 			TAG_FIELD(tag_string, marker_name);
-			TAG_PAD(uspad0, tag_string, 1); // 32
-
+			byte uspad0[sizeof(tag_string)]; // 32
 			TAG_FIELD(unit_seat_acceleration, acceleration);
 
 			TAG_FIELD(real, yaw_rate, "degrees per second");
@@ -166,10 +159,9 @@ namespace Yelo {
 
 			TAG_FIELD(s_unit_camera, unit_camera);
 			TAG_TBLOCK(unit_hud_interface, unit_hud_reference);
-
-			TAG_PAD(uspad01, int32, 1); // 4
-			TAG_FIELD(int16, hud_text_message_index);
-			PAD16;
+			byte uspad01[sizeof(long)]; // 4
+			TAG_FIELD(short, hud_text_message_index);
+			unsigned short : 16;
 
 			TAG_FIELD(real, yaw_min, "degrees");
 			TAG_FIELD(real, yaw_max, "degrees");
@@ -177,7 +169,7 @@ namespace Yelo {
 			TAG_FIELD(tag_reference, built_in_gunner, 'actv');
 
 			TAG_TBLOCK(seat_extensions, unit_seat_extensions);
-			TAG_PAD(uspad02, int32, 2); // 8
+			TAG_PAD(uspad02, long, 2); // 8
 
 		private:
 			bool Postprocess(Enums::tag_postprocess_mode mode, datum_index tag_index);
@@ -218,7 +210,7 @@ namespace Yelo {
 
 			TAG_FIELD(real, distance_of_evade_anim, "world units", "this must be set to tell the AI how far it should expect our evade animation to move us");
 			TAG_FIELD(real, distance_of_dive_anim, "world units", "this must be set to tell the AI how far it should expect our dive animation to move us");
-			PAD32;
+			unsigned long : 32;
 
 			TAG_FIELD(real, stunned_movement_threshold, "if we take this much damage in a short space of time we will play our 'stunned movement' animations");
 			TAG_FIELD(real, feign_death_chance);
@@ -234,8 +226,8 @@ namespace Yelo {
 
 			TAG_FIELD(real, looking_velocity_max, "degrees per second");
 			TAG_FIELD(real, looking_acceleration_max, "degrees per second");
-			PAD32;
-			PAD32;
+			unsigned long : 32;
+			unsigned long : 32;
 
 			TAG_FIELD(real, ai_vehicle_radius, "radius around this unit that the AI tries to avoid when entering it as a vehicle (zero = use bounding sphere radius)");
 			TAG_FIELD(real, ai_danger_radius, "danger radius around this unit that the AI tries to avoid");
@@ -243,7 +235,7 @@ namespace Yelo {
 			TAG_FIELD(tag_reference, melee_damage, 'jpt!');
 
 			TAG_ENUM(blip_type);
-			PAD16;
+			unsigned short : 16;
 
 			TAG_TBLOCK(extensions, unit_extensions);
 
@@ -252,11 +244,11 @@ namespace Yelo {
 
 			TAG_FIELD(real, grenade_velocity, "world units per second");
 			TAG_ENUM(grenade_type);
-			TAG_FIELD(int16, grenade_count);
+			TAG_FIELD(short, grenade_count);
 
 			struct { // tag value * 30f
-				int16 soft;
-				int16 hard;
+				short soft;
+				short hard;
 			}     runtime_ping_interrupt_time;
 
 			TAG_TBLOCK(powered_seats, powered_seat_definition);

@@ -118,15 +118,15 @@ namespace Yelo
 				short primary_scale;
 				short secondary_scale;
 				short change_color;
-				PAD16;
+				unsigned short : 16;
 			}function_references; // Enums::object_function_reference
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 		};
 
 		struct object_definition_widget
 		{
 			tag_reference reference;
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 		};
 
 		struct s_object_function_definition
@@ -148,18 +148,18 @@ namespace Yelo
 			TAG_FIELD(real, wobble_magnitude);
 
 			TAG_FIELD(real, square_wave_threshold);
-			TAG_FIELD(int16, step_count);
+			TAG_FIELD(short, step_count);
 			TAG_ENUM(map_to, Enums::transition_function);
-			TAG_FIELD(int16, sawtooth_count);
+			TAG_FIELD(short, sawtooth_count);
 
 			TAG_ENUM(add, Enums::object_function_scalar);
 			TAG_ENUM(result_scale, Enums::object_function_scalar);
 
 			TAG_ENUM(bounds_mode, Enums::object_function_bounds_mode);
 			TAG_FIELD(real_fraction_bounds, bounds);
-			PAD32;
-			PAD16;
-			TAG_FIELD(int16, turn_off_with, s_object_function_definition);
+			unsigned long : 32;
+			unsigned short : 16;
+			TAG_FIELD(short, turn_off_with, s_object_function_definition);
 			TAG_FIELD(real, scale_by);
 			TAG_PAD(byte, 252); // useless padding
 
@@ -187,20 +187,20 @@ namespace Yelo
 			struct {
 				TAG_FIELD(tag_reference, render_model,		'mod2');
 				TAG_FIELD(tag_reference, animations,		'antr');
-				TAG_PAD(int32, 10);
+				TAG_PAD(long, 10);
 				TAG_FIELD(tag_reference, collision,			'coll');
 				TAG_FIELD(tag_reference, physics,			'phys');
 				TAG_FIELD(tag_reference, modifier_shader,	'shdr');
 				TAG_FIELD(tag_reference, creation_effect,	'effe');
 			}references;
-			TAG_PAD(int32, 21);
+			TAG_PAD(long, 21);
 
 			real render_bounding_radius;
 			
 			short function_exports[Enums::k_number_of_incoming_object_functions];
-			TAG_PAD(int32, 11);
-			int16 hud_text_message_index;
-			int16 forced_shader_permutation;
+			TAG_PAD(long, 11);
+			short hud_text_message_index;
+			short forced_shader_permutation;
 
 			TAG_TBLOCK(attachments, object_attachment_definition);
 

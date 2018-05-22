@@ -75,10 +75,10 @@ namespace Yelo
 	namespace Main
 	{
 
-		int32 GetProjectComponents(s_project_component*& out_components)
+		long GetProjectComponents(s_project_component*& out_components)
 		{
 			out_components = nullptr;
-			int32 components_count = NONE;
+			long components_count = NONE;
 
 			static s_project_component k_components[] = {
 				#define __GS_COMPONENT __GS_COMPONENT_LIFECYCLE
@@ -91,10 +91,10 @@ namespace Yelo
 
 			return components_count;
 		}
-		int32 GetProjectComponents(s_project_map_component*& out_components)
+		long GetProjectComponents(s_project_map_component*& out_components)
 		{
 			out_components = nullptr;
-			int32 components_count = NONE;
+			long components_count = NONE;
 
 			static s_project_map_component k_components[] = {
 				#define __GS_COMPONENT __GS_COMPONENT_MAP_LIFECYCLE
@@ -107,10 +107,10 @@ namespace Yelo
 
 			return components_count;
 		}
-		int32 GetProjectComponents(s_project_bsp_component*& out_components)
+		long GetProjectComponents(s_project_bsp_component*& out_components)
 		{
 			out_components = nullptr;
-			int32 components_count = NONE;
+			long components_count = NONE;
 			
 			//NOTE: There are currently no bsp components in the dedicated server
 			static s_project_bsp_component k_components[] = {
@@ -123,10 +123,10 @@ namespace Yelo
 
 			return components_count;
 		}
-		int32 GetProjectComponents(s_project_game_state_component*& out_components)
+		long GetProjectComponents(s_project_game_state_component*& out_components)
 		{
 			out_components = nullptr;
-			int32 components_count = NONE;
+			long components_count = NONE;
 
 			static s_project_game_state_component k_components[] = {
 				#define __GS_COMPONENT __GS_COMPONENT_GAMESTATE_LIFECYCLE
@@ -140,10 +140,10 @@ namespace Yelo
 			return components_count;
 		}
 
-		int32 GetDXComponents(s_dx_component*& out_components)
+		long GetDXComponents(s_dx_component*& out_components)
 		{
 			out_components = nullptr;
-			int32 components_count = NONE;
+			long components_count = NONE;
 
 			static s_dx_component k_components[] = {
 				#include "Common/GameSystemComponent.Definitions.inl"
@@ -159,11 +159,11 @@ namespace Yelo
 		static void PLATFORM_API InitializeOnStartup()
 		{
 			s_project_component* components;
-			const int32 component_count = GetProjectComponents(components);
+			const long component_count = GetProjectComponents(components);
 
 			Settings::InitializeSettings();
 
-			for(Yelo::int32 x = 0; x <= component_count; x++)
+			for(Yelo::long x = 0; x <= component_count; x++)
 				components[x].Initialize();
 			
 			Settings::Load();
@@ -172,11 +172,11 @@ namespace Yelo
 		static void PLATFORM_API DisposeOnExit()
 		{
 			s_project_component* components;
-			const int32 component_count = GetProjectComponents(components);
+			const long component_count = GetProjectComponents(components);
 			
 			Settings::Save();
 
-			for(int32 x = component_count; x >= 0; x--)
+			for(long x = component_count; x >= 0; x--)
 				components[x].Dispose();
 
 			Settings::DisposeSettings();

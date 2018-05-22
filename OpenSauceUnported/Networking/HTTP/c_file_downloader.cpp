@@ -103,7 +103,7 @@ namespace Yelo
 		 * 
 		 * Returns the HTTP request index of the downloader.
 		 */
-		int32 c_file_downloader::HTTPRequestIndex()
+		long c_file_downloader::HTTPRequestIndex()
 		{
 			return m_file_downloader.m_http.request_index;
 		}

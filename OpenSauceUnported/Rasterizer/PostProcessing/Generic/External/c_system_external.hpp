@@ -89,11 +89,11 @@ namespace Yelo
 					bool is_ready;
 					bool is_unloaded;
 					bool is_enabled;
-					PAD8;
+					unsigned char : 8;
 				}m_flags;
 
 				Enums::pp_component_status status;
-				PAD16;
+				unsigned short : 16;
 			}m_members;
 
 			struct
@@ -201,8 +201,8 @@ namespace Yelo
 				s_parameter_handle*& list,
 				const char* semantic_format,
 				const uint32 count,
-				const int16 parameter_type,
-				const int16 parameter_type_count);
+				const short parameter_type,
+				const short parameter_type_count);
 			void SetupParameter(LPD3DXEFFECTCOMPILER compiler,
 				const s_parameter_handle& handle,
 				TagGroups::s_shader_postprocess_parameter& parameter);

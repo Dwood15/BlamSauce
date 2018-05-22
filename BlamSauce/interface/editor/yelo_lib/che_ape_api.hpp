@@ -88,30 +88,30 @@ namespace Yelo
 			tag Head;
 			uint32 Version;
 			tag EngineSignature;	// Signature for the engine this is for (eg, Halo1, Halo2, etc)
-			PAD32;
+			unsigned long : 32;
 
 			void* BaseAddress;
 			uint32 DataOffset;
 			struct {
-				int32 Size;
+				long Size;
 				void* Address;
 			}StringPool;
 
 			struct {
 				struct {
-					int32 Count;
+					long Count;
 					// address to a list of pointers to the scripting definitions
 					void** Address;
 				}Functions, Globals;
 			}Scripting;
 
 			struct {
-				int32 Count;
+				long Count;
 				// address to a list of pointers to the fix-up definitions
 				void** Address;
 			}Fixups;
-			PAD32;
-			PAD32;
+			unsigned long : 32;
+			unsigned long : 32;
 
 			uint32 Pad[495];
 			tag Tail;

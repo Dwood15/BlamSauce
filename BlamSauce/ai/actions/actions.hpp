@@ -43,12 +43,12 @@ namespace Yelo {
 
 		struct s_action_function_definition {
 			Enums::actor_action action;
-			PAD16;
+			unsigned short : 16;
 			cstring               name;
 			const real_argb_color debug_color;
 			size_t                action_data_size;
 			Enums::action_class   action_class;
-			PAD16;
+			unsigned short : 16;
 			proc_action_function    begin;
 			proc_action_function    perform;
 			proc_action_function    update;

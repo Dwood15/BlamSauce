@@ -21,22 +21,22 @@ namespace Yelo
 				TAG_FLAG(unaffected_by_gravity);
 			}flags; static_assert( sizeof(_item_definition_flags) == sizeof(long_flags) );
 
-			int16 message_index;
-			int16 sort_order;
+			short message_index;
+			short sort_order;
 			real scale;
-			int16 hud_message_value_scale;
-			PAD16;
+			short hud_message_value_scale;
+			unsigned short : 16;
 
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 			short function_exports[Enums::k_number_of_incoming_object_functions];
-			TAG_PAD(int32, 41);
+			TAG_PAD(long, 41);
 
 			struct {
 				TAG_FIELD(tag_reference, material_effects, 'foot');
 				TAG_FIELD(tag_reference, collision_sound, 'snd!');
 			}references;
 
-			TAG_PAD(int32, 30);
+			TAG_PAD(long, 30);
 
 			struct {
 				real_bounds delay;

@@ -88,7 +88,7 @@ namespace Yelo::Scripting {
 
 		Enums::hs_thread_type type;
 		word_flags            flags;
-		int16                 script_index; // only when type==_hs_thread_type_script
+		short                 script_index; // only when type==_hs_thread_type_script
 		game_ticks_t          sleep_until;
 		game_ticks_t          prev_sleep_state; // when the thread is put to (sleep), this becomes sleep_until's old value, and then current value when (wake)'d
 		s_stack_frame         *stack_frame;
@@ -252,7 +252,7 @@ namespace Yelo::Scripting {
 		/// </param>
 		///
 		/// <returns>	null if it fails, else a pointer to the requested memory. </returns>
-		void *StackAllocate(size_t size, long_flags alignment_bit = Flags::k_alignment_32bit, _Out_opt_ int16 *stack_offset = nullptr) {
+		void *StackAllocate(size_t size, long_flags alignment_bit = Flags::k_alignment_32bit, _Out_opt_ short *stack_offset = nullptr) {
 			YELO_HS_THREAD_VALID_STACK(this);
 			YELO_HS_RUNTIME_ASSERT(size, this, "attempt to allocate zero space from the stack.");
 
@@ -271,7 +271,7 @@ namespace Yelo::Scripting {
 		}
 
 		template <typename T>
-		T *StackAllocate(size_t count = 1, long_flags alignment_bit = Flags::k_alignment_32bit, _Out_opt_ int16 *stack_offset = nullptr) {
+		T *StackAllocate(size_t count = 1, long_flags alignment_bit = Flags::k_alignment_32bit, _Out_opt_ short *stack_offset = nullptr) {
 			return CAST_PTR(T*, StackAllocate(sizeof(T) * count, alignment_bit, stack_offset));
 		}
 

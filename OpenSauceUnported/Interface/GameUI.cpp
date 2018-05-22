@@ -74,7 +74,7 @@ namespace Yelo
 		s_font_drawing_globals_data* FontDrawingGlobals()	PTR_IMP_GET2(font_drawing_globals);
 
 		s_hud_chat_globals* HudChatGlobals()				PTR_IMP_GET2(hud_chat_globals);
-		int32 HudChatLineCount()							PTR_IMP_GET(hud_chat_line_count);
+		long HudChatLineCount()							PTR_IMP_GET(hud_chat_line_count);
 
 
 		static TagGroups::s_weapon_definition const* FirstPersonWeaponGetWeaponDefinition(s_first_person_weapon* fp_weapon)
@@ -97,7 +97,7 @@ namespace Yelo
 
 			return anim_graph_index;
 		}
-		static void FirstPersonWeaponSetStatePermutateAnimation(s_first_person_weapon* fp_weapon, _enum animation_state, int16 animation_current_index)
+		static void FirstPersonWeaponSetStatePermutateAnimation(s_first_person_weapon* fp_weapon, _enum animation_state, short animation_current_index)
 		{
 			datum_index animation_graph_index = FirstPersonWeaponGetAnimationGraphIndex(fp_weapon);
 
@@ -190,7 +190,7 @@ namespace Yelo
 		}
 
 		static bool SendHudChatToPlayers(byte src_player_number, proc_send_hud_chat_predicate send_predicate,
-			int32 message_size)
+			long message_size)
 		{
 			if(send_predicate == SendHudChatToEveryonePredicate)
 				return MessageDeltas::SvSendMessageToAllIngame(message_size, 
@@ -203,7 +203,7 @@ namespace Yelo
 
 				for(auto player : Players::Players())
 				{
-					int32 player_machine_index = player->network_player.machine_index;
+					long player_machine_index = player->network_player.machine_index;
 					if(	player_machine_index == NONE ||
 						!send_predicate(player.datum, src_player, src_player_vehicle_index))
 						continue;
@@ -220,7 +220,7 @@ namespace Yelo
 		}
 
 		static bool SendHudChatServer(byte src_player_number, proc_send_hud_chat_predicate send_predicate,
-			int32 message_size, Enums::hud_chat_type msg_type)
+			long message_size, Enums::hud_chat_type msg_type)
 		{
 			if(send_predicate == nullptr)
 			{
@@ -236,7 +236,7 @@ namespace Yelo
 			return SendHudChatToPlayers(src_player_number, send_predicate, message_size);
 		}
 
-		static bool SendHudChatClient(int32 message_size)
+		static bool SendHudChatClient(long message_size)
 		{
 			return MessageDeltas::ClientSendMessageToServer(message_size, true);
 		}
@@ -253,7 +253,7 @@ namespace Yelo
 				network_data.player_number = src_player_number;
 				network_data.message = message;
 
-				int32 bits_encoded = MessageDeltas::EncodeStateless(
+				long bits_encoded = MessageDeltas::EncodeStateless(
 					Enums::_message_delta_hud_chat,
 					nullptr, &network_data);
 

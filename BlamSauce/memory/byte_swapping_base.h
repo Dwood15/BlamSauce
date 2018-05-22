@@ -8,7 +8,7 @@
 #include "../cseries/base.h"
 
 namespace Yelo {
-	typedef int32 byte_swap_code_t;
+	typedef long byte_swap_code_t;
 
 	namespace Enums {
 		enum {
@@ -22,7 +22,7 @@ namespace Yelo {
 			_bs_code_array_start = -100, // _begin_bs_array
 
 			_bs_code_8byte = 0 - (byte_swap_code_t) sizeof(uint64), // _8byte
-			_bs_code_4byte = 0 - (byte_swap_code_t) sizeof(uint32), // _4byte
+			_bs_code_4byte = 0 - (byte_swap_code_t) sizeof(uint), // _4byte
 			_bs_code_2byte = 0 - (byte_swap_code_t) sizeof(uint16), // _2byte
 
 			_bs_code_1byte = sizeof(byte), // _byte

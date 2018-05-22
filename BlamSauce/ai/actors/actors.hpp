@@ -101,9 +101,9 @@ namespace Yelo {
 
 		static auto actor_c_f_unit = K_ACTOR_CREATE_FOR_UNIT;
 		datum_index
-		__cdecl actor_create_for_unit(const bool is_swarm, const datum_index unit_index, const datum_index actor_variant, const datum_index encounter_index, const int32 squad_index, const int32 arg7,
-												const int32 arg6, const bool magic_sight_after_timer, const Enums::actor_default_state initial_state, const Enums::actor_default_state return_state,
-												const int32 command_list_index, const int32 sequence_id);
+		__cdecl actor_create_for_unit(const bool is_swarm, const datum_index unit_index, const datum_index actor_variant, const datum_index encounter_index, const long squad_index, const long arg7,
+												const long arg6, const bool magic_sight_after_timer, const Enums::actor_default_state initial_state, const Enums::actor_default_state return_state,
+												const long command_list_index, const long sequence_id);
 
 		static auto actor_a_change = K_ACTOR_ACTION_CHANGE;
 		void __cdecl actor_action_change(const datum_index actor_index, const Enums::actor_action new_action_type, const byte *new_action_data);

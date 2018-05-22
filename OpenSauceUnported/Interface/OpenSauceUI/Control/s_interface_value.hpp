@@ -14,9 +14,9 @@ namespace Yelo
 				byte m_byte;
 				sbyte m_sbyte;
 				uint16 m_uint16;
-				int16 m_int16;
-				uint32 m_uint32;
-				int32 m_int32;
+				short m_int16;
+				uint m_uint32;
+				long m_int32;
 				uint64 m_uint64;
 				int64 m_int64;
 				real m_real;
@@ -40,7 +40,7 @@ namespace Yelo
 			bool is_cstring;
 			bool is_wstring;
 			bool is_string_owner;
-			PAD8;
+			unsigned char : 8;
 
 			/// <summary>	Deletes the string value data if present. </summary>
 			void DeleteString();
@@ -82,16 +82,16 @@ namespace Yelo
 			///
 			/// <param name="data">	[in] A pointer to the data to copy. </param>
 			/// <param name="size">	The size of the data to copy. </param>
-			s_interface_value(void* data, const int32 size);
+			s_interface_value(void* data, const long size);
 
 		public:
 			s_interface_value(bool value);
 			s_interface_value(byte value);
 			s_interface_value(sbyte value);
 			s_interface_value(uint16 value);
-			s_interface_value(int16 value);
-			s_interface_value(uint32 value);
-			s_interface_value(int32 value);
+			s_interface_value(short value);
+			s_interface_value(uint value);
+			s_interface_value(long value);
 			s_interface_value(uint64 value);
 			s_interface_value(int64 value);
 			s_interface_value(real value);

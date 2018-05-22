@@ -30,7 +30,7 @@ namespace Yelo
 			void* base_address;
 			Memory::s_lruv_cache* lruv_cache;
 			bool initialized;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		};
 
 		struct s_physical_memory_map_globals

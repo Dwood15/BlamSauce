@@ -50,7 +50,7 @@ namespace
 		{  _bs_code_4byte, _bs_code_4byte, sizeof(tag_block_definition*), 0 };
 
 	static byte_swap_code_t k_tag_data_byte_swap_codes[] =
-		{  _bs_code_4byte, sizeof(int32)*2, sizeof(void*)*2, 0 };
+		{  _bs_code_4byte, sizeof(long)*2, sizeof(void*)*2, 0 };
 
 	static byte_swap_code_t k_start_array_byte_swap_codes[] =
 		{ _bs_code_array_start, 0 };
@@ -77,10 +77,10 @@ namespace Yelo { namespace TagGroups {
 			"tag_string" },
 		{ sizeof(sbyte),				"char integer",			k_char_integer_byte_swap_codes,
 			"byte" },
-		{ sizeof(int16),				"short integer",		k_short_integer_byte_swap_codes,
-			"int16" },
-		{ sizeof(int32),				"long integer",			k_long_integer_byte_swap_codes,
-			"int32" },
+		{ sizeof(short),				"short integer",		k_short_integer_byte_swap_codes,
+			"short" },
+		{ sizeof(long),				"long integer",			k_long_integer_byte_swap_codes,
+			"long" },
 		{ sizeof(angle),				"angle",				k_long_integer_byte_swap_codes,
 			"angle" },
 		{ sizeof(tag),					"tag",					k_long_integer_byte_swap_codes,
@@ -147,10 +147,10 @@ namespace Yelo { namespace TagGroups {
 			"tag_reference" },
 		{ sizeof(tag_block),			"block",				k_tag_block_byte_swap_codes,
 			"tag_block" },
-		{ sizeof(int16),				"short block index",	k_short_integer_byte_swap_codes,
-			"int16" },
-		{ sizeof(int32),				"long block index",		k_long_integer_byte_swap_codes,
-			"int32" },
+		{ sizeof(short),				"short block index",	k_short_integer_byte_swap_codes,
+			"short" },
+		{ sizeof(long),				"long block index",		k_long_integer_byte_swap_codes,
+			"long" },
 		{ sizeof(tag_data),				"data",					k_tag_data_byte_swap_codes,
 			"tag_data" },
 

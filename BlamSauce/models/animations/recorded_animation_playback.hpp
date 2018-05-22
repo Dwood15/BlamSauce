@@ -55,8 +55,8 @@ namespace Yelo
 
 		struct s_recorded_animation_control_vector
 		{
-			int16 yaw;
-			int16 pitch;
+			short yaw;
+			short pitch;
 		};
 		struct s_recorded_animation_controller
 		{

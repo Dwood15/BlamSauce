@@ -102,8 +102,8 @@ namespace Yelo
 			static uintptr_t STOCK_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_DEFINED_KEYFRAME_STOCK_RETN);
 			static uintptr_t SKIP_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_DEFINED_KEYFRAME_SKIP_RETN);
 		
-			static int32 STATE_COUNT_STOCK = Enums::_unit_animation_state;
-			static int32 STATE_COUNT_YELO = Enums::_unit_animation_state_yelo;
+			static long STATE_COUNT_STOCK = Enums::_unit_animation_state;
+			static long STATE_COUNT_YELO = Enums::_unit_animation_state_yelo;
 
 			_asm
 			{
@@ -133,8 +133,8 @@ namespace Yelo
 			static uintptr_t STOCK_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_FINAL_KEYFRAME_STOCK_RETN);
 			static uintptr_t SKIP_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_FINAL_KEYFRAME_SKIP_RETN);
 		
-			static int32 STATE_COUNT_STOCK = Enums::_unit_animation_state;
-			static int32 STATE_COUNT_YELO = Enums::_unit_animation_state_yelo;
+			static long STATE_COUNT_STOCK = Enums::_unit_animation_state;
+			static long STATE_COUNT_YELO = Enums::_unit_animation_state_yelo;
 
 			_asm
 			{

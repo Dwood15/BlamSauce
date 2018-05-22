@@ -10,7 +10,7 @@ namespace Yelo
 {
 	namespace Configuration
 	{
-		c_point2d_container::c_point2d_container(const std::string& name, int16 default_x, int16 default_y)
+		c_point2d_container::c_point2d_container(const std::string& name, short default_x, short default_y)
 			: Configuration::c_type_container<point2d>(name)
 			, m_x("X", default_x)
 			, m_y("Y", default_y)

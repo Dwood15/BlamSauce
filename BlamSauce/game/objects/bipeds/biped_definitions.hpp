@@ -25,7 +25,7 @@ namespace Yelo
 	{
 		struct s_contact_point
 		{
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_FIELD(tag_string, marker_name);
 		}; static_assert( sizeof(s_contact_point) == 0x40 ); // max count: 2
 		struct _biped_definition
@@ -52,7 +52,7 @@ namespace Yelo
 			TAG_FIELD(angle, moving_turning_speed, "degrees per second");
 			TAG_FIELD(__flags, flags);
 			TAG_FIELD(angle, stationary_turning_threshold);
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 			short function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::biped_function_mode
 			TAG_FIELD(tag_reference, dont_use, 'jpt!');
 
@@ -69,7 +69,7 @@ namespace Yelo
 			TAG_FIELD(angle, angular_velocity_maximum, "degrees per second", "turn rate");
 			TAG_FIELD(angle, angular_acceleration_maximum, "degrees per second squared", "turn acceleration rate");
 			TAG_FIELD(real, crouch_velocity_modifier, "[0,1]", "how much slower we fly if crouching (zero = same speed)");
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 
 			////////////////////////////////////////////////////////////////
 			// movement
@@ -80,34 +80,34 @@ namespace Yelo
 			TAG_FIELD(angle, uphill_falloff_angle, "degrees");
 			TAG_FIELD(angle, uphill_cutoff_angle, "degrees");
 			TAG_FIELD(real, uphill_velocity_scale);
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 			TAG_FIELD(tag_reference, footsteps, 'foot');
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 
 			////////////////////////////////////////////////////////////////
 			// jumping and landing
 			TAG_FIELD(real, jump_velocity, "world units per second");
-			TAG_PAD(int32, 7);
+			TAG_PAD(long, 7);
 			TAG_FIELD(real, maximum_soft_landing_time, "seconds", "the longest amount of time the bipeds can take to recover from a soft landing");
 			TAG_FIELD(real, maximum_hard_landing_time, "seconds", "the longest amount of time the bipeds can take to recover from a hard landing");
 			TAG_FIELD(real, minimum_soft_landing_velocity, "world units per second", "below this velocity the bipeds does not react when landing");
 			TAG_FIELD(real, minimum_hard_landing_velocity, "world units per second", "below this velocity the bipeds will not do a soft landing when returning to the ground");
 			TAG_FIELD(real, maximum_hard_landing_velocity, "world units per second", "the velocity corresponding to the maximum landing time");
 			TAG_FIELD(real, death_hard_landing_velocity, "world units per second", "the maximum velocity with which a character can strike the ground and live");
-			TAG_PAD(int32, 5);
+			TAG_PAD(long, 5);
 
 			////////////////////////////////////////////////////////////////
 			// camera, collision, and autoaim
 			TAG_FIELD(real, standing_camera_height, "world units");
 			TAG_FIELD(real, crouching_camera_height, "world units");
 			TAG_FIELD(real, crouch_transition_time, "seconds");
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 			TAG_FIELD(real, standing_collision_height, "world units");
 			TAG_FIELD(real, crouching_collision_height, "world units");
 			TAG_FIELD(real, collision_radius, "world units");
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 			TAG_FIELD(real, autoaim_width, "world units");
-			TAG_PAD(int32, 35);
+			TAG_PAD(long, 35);
 			TAG_TBLOCK(contact_points, s_contact_point);
 		};
 

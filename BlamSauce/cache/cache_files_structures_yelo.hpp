@@ -11,7 +11,7 @@
 namespace Yelo {
 	namespace Cache {
 		struct s_cache_file_resource_strings_storage_header {
-			int32  count;            // number of strings in the storage
+			long  count;            // number of strings in the storage
 			uint32 offset;            // offset of the null-terminated strings buffer
 			uint32 size;            // total size of the strings buffer
 			uint32 index_buffer_offset;   // offset of the buffer containing the offsets to each null-terminated string
@@ -33,8 +33,8 @@ namespace Yelo {
 			enum { k_signature = 'cssh' };
 
 			tag   signature;
-			int16 set_count;
-			PAD16;
+			short set_count;
+			unsigned short : 16;
 			//////////////////////////////////////////////////////////////////////////
 			// compression parameters for set_storage (which is compressed as a whole, not per-set)
 			uint32 compressed_length;
@@ -72,7 +72,7 @@ namespace Yelo {
 			struct {
 				byte project_yellow;
 				byte project_yellow_globals;
-				PAD16;
+				unsigned short : 16;
 			}    tag_versioning; // versions of core tags
 			real k_memory_upgrade_increase_amount;
 
@@ -88,7 +88,7 @@ namespace Yelo {
 			tag_string mod_name; // if the map uses a specific mod's data_files, this equals the mod prefix
 
 			struct {
-				PAD16;
+				unsigned short : 16;
 				short  stage; // see Enums::production_build_stage
 				uint32 revision;
 				time_t timestamp;

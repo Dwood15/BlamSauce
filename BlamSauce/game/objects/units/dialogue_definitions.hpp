@@ -274,8 +274,8 @@ namespace Yelo
 		{
 			enum { k_group_tag = 'udlg' };
 
-			int16 skip;
-			PAD16;
+			short skip;
+			unsigned short : 16;
 			TAG_PAD(tag_block, 1);
 			TAG_FIELD(tag_reference, vocalizations, 'snd!')[Enums::k_number_of_dialogue_vocalizations];
 			TAG_PAD(tag_reference, 

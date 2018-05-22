@@ -14,14 +14,14 @@ namespace Yelo {
 	namespace Memory {
 		struct s_data_array {
 			tag_string name;
-			int16      max_datum;
-			int16      datum_size;
+			short      max_datum;
+			short      datum_size;
 			bool       is_valid;
 			bool       identifier_zero_invalid;
-			PAD16;
+			unsigned short : 16;
 			tag         signature;
-			int16       next_index;      // Next index to use when creating a new datum
-			int16       last_datum;      // Last used datum index
+			short       next_index;      // Next index to use when creating a new datum
+			short       last_datum;      // Last used datum index
 			datum_index next_datum;   // Next datum value to use
 			/// <summary>	Base address of the array's datum. </summary>
 			void        *base_address;
@@ -40,11 +40,11 @@ namespace Yelo {
 				return ++cursor != 0 ? cursor : k_datum_index_salt_msb;
 			}
 
-			int16 NumberOfInvalidDatums() const {
+			short NumberOfInvalidDatums() const {
 				assert(base_address);
 
 				auto  *datum_address = CAST_PTR(const byte*, base_address);
-				int16 invalid_count  = 0;
+				short invalid_count  = 0;
 
 				for (int x = 0, max_count = max_datum; x < max_count; x++, datum_address += datum_size)
 					if (CAST_PTR(const s_datum_base*, datum_address)->IsNull())
@@ -53,7 +53,7 @@ namespace Yelo {
 				return invalid_count;
 			}
 
-			int16 NumberOfValidDatums() const {
+			short NumberOfValidDatums() const {
 				return max_datum - NumberOfInvalidDatums();
 			}
 		};
@@ -62,8 +62,8 @@ namespace Yelo {
 
 		struct s_data_iterator {
 			s_data_array *data;
-			int16        next_index;
-			int16        finished_flag; // actually alignment, unused by the engine
+			short        next_index;
+			short        finished_flag; // actually alignment, unused by the engine
 			datum_index  index;
 			tag          signature;
 
@@ -94,7 +94,7 @@ namespace Yelo {
 
 		static_assert(sizeof(s_data_iterator) == 0x10);
 
-		s_data_array *DataNewAndMakeValid(cstring name, int32 maximum_count, size_t datum_size) {
+		s_data_array *DataNewAndMakeValid(cstring name, long maximum_count, size_t datum_size) {
 			//
 			// Memory::s_data_array *data = blam::data_new(name, maximum_count, datum_size);
 			//
@@ -118,14 +118,14 @@ namespace Yelo {
 
 		//A little hacky until I figure out a better way of doing the maximum_count thing.
 		//Perhaps make the function into a templated constexpr function?
-		Memory::s_data_array *__cdecl data_new(cstring name, int32 maximum_count, size_t datum_size);
+		Memory::s_data_array *__cdecl data_new(cstring name, long maximum_count, size_t datum_size);
 
 		template <typename T, const int maximum_count>
 		Memory::s_data_array *data_new(cstring name) {
 			return data_new(name, maximum_count, sizeof(T));
 		}
 
-		Memory::s_data_array *__cdecl data_new(cstring name, int32 maximum_count, size_t datum_size) {
+		Memory::s_data_array *__cdecl data_new(cstring name, long maximum_count, size_t datum_size) {
 			static const uintptr_t FUNCTION = K_DATA_NEW;
 
 			API_FUNC_NAKED_START()
@@ -175,7 +175,7 @@ namespace Yelo {
 		datum_index __cdecl data_next_index(const Memory::s_data_array *data, datum_index cursor) {
 			static const uintptr_t FUNCTION = K_DATA_NEXT_INDEX;
 
-			if (data == nullptr || cursor.IsNull()) return {static_cast<uint32>(-1)};
+			if (data == nullptr || cursor.IsNull()) return {static_cast<uint>(-1)};
 
 			__asm {
 			push   esi
@@ -199,7 +199,7 @@ namespace Yelo {
 			iterator.data          = data;
 			iterator.next_index    = 0;
 			iterator.finished_flag = false;
-			iterator.index         = {static_cast<uint32>(-1)};
+			iterator.index         = {static_cast<uint>(-1)};
 			iterator.signature     = CAST_PTR(uintptr_t, data) ^ Enums::k_data_iterator_signature;
 		}
 
@@ -215,10 +215,10 @@ namespace Yelo {
 				throw std::exception("tried to iterate when it was in an invalid state ");
 			}
 			datum_index::index_t absolute_index = iterator.next_index;
-			int32                datum_size     = data->datum_size;
+			long                datum_size     = data->datum_size;
 			byte                 *pointer       = CAST_PTR(byte *, data->base_address) + (datum_size * absolute_index);
 
-			for (int16 last_datum  = data->last_datum; absolute_index < last_datum; pointer += datum_size, absolute_index++) {
+			for (short last_datum  = data->last_datum; absolute_index < last_datum; pointer += datum_size, absolute_index++) {
 				auto datum = CAST_PTR(const s_datum_base*, pointer);
 
 				if (!datum->IsNull()) {
@@ -229,14 +229,14 @@ namespace Yelo {
 			}
 			iterator.next_index    = absolute_index; // will equal last_datum at this point
 			iterator.finished_flag = true;
-			iterator.index         = {static_cast<uint32>(-1)};
+			iterator.index         = {static_cast<uint>(-1)};
 			return nullptr;
 		}
 
 		datum_index __cdecl datum_new_at_index(Memory::s_data_array *data, datum_index index) {
 			static constexpr uintptr_t FUNCTION = K_DATUM_NEW_AT_INDEX;
 
-			if (data == nullptr || index.IsNull()) return {static_cast<uint32>(-1)};
+			if (data == nullptr || index.IsNull()) return {static_cast<uint>(-1)};
 
 			__asm {
 			mov      eax, index
@@ -249,7 +249,7 @@ namespace Yelo {
 		datum_index __cdecl datum_new(Memory::s_data_array *data) {
 			static constexpr uintptr_t FUNCTION = K_DATUM_NEW;
 
-			if (data == nullptr) return {static_cast<uint32>(-1)};
+			if (data == nullptr) return {static_cast<uint>(-1)};
 
 			__asm {
 			mov      edx, data

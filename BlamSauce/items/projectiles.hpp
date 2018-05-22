@@ -32,10 +32,10 @@ namespace Yelo
 			// FLAG(1) - tracer
 			long_flags flags;									// 0x22C
 			short action;										// 0x230
-			UNKNOWN_TYPE(int16);								// 0x232, material index
+			UNKNOWN_TYPE(short);								// 0x232, material index
 			datum_index source_unit_index;						// 0x234
 			datum_index target_object_index;					// 0x238
-			int32 contrail_attachment_index;					// 0x23C, index for the proj's definition's object_attachment_block, index is relative to object.attachments.attachment_indices or NONE
+			long contrail_attachment_index;					// 0x23C, index for the proj's definition's object_attachment_block, index is relative to object.attachments.attachment_indices or NONE
 			real time_remaining;								// 0x240, to target, or 0.0
 			real arming_rate;									// 0x244, related to detonation coundown timer
 			real unknown_real2;									// 0x248
@@ -53,7 +53,7 @@ namespace Yelo
 			sbyte message_index;								// 0x27B
 			s_projectile_datum_network_data update_baseline;	// 0x27C
 			UNKNOWN_TYPE(bool);									// 0x294, delta_valid?
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			s_projectile_datum_network_data update_delta;		// 0x298
 		}; static_assert( sizeof(s_projectile_data) == (Enums::k_object_size_projectile - Enums::k_object_size_item) );
 

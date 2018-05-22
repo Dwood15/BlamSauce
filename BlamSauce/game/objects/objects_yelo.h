@@ -78,7 +78,7 @@ namespace Yelo::Objects {
 	/// <param name="step_count">  	(Optional) the step count to walk down the object tree. </param>
 	///
 	/// <returns>	The next object after the specified steps. </returns>
-	datum_index GetNextObjectN(datum_index object_index, int32 step_count = 0) {
+	datum_index GetNextObjectN(datum_index object_index, long step_count = 0) {
 		if (!object_index.IsNull()) {
 			const auto *object_header_datums = Objects::ObjectHeader().Datums();
 			const auto *current_obj          = object_header_datums[object_index.index]._object;
@@ -240,7 +240,7 @@ namespace Yelo::Objects {
 	/// <param name="include_yelo_upgrades">	(Optional) include yelo upgrades. </param>
 	///
 	/// <returns>	The memory usage for the specified type. </returns>
-	size_t PredictMemoryPoolUsage(const Enums::object_type type, const int32 node_count, const bool include_yelo_upgrades = false) {
+	size_t PredictMemoryPoolUsage(const Enums::object_type type, const long node_count, const bool include_yelo_upgrades = false) {
 		size_t total_headers_size     = sizeof(Memory::s_memory_pool_block);
 		size_t total_node_memory_size = (sizeof(real_orientation3d) * 2) + sizeof(real_matrix4x3);
 		total_node_memory_size *= node_count;

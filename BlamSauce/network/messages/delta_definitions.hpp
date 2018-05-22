@@ -131,7 +131,7 @@ namespace Yelo {
 			union {
 				void  *address;
 				real  *real;
-				int32 *integer;
+				long *integer;
 			} value;
 		}; static_assert(sizeof(message_delta_parameter) == 0xC);
 
@@ -139,7 +139,7 @@ namespace Yelo {
 		struct s_index_resolution_table {
 			struct s_entry {
 				datum_index key;// local_index
-				int32       value;   // translated_index, what we get from the network
+				long       value;   // translated_index, what we get from the network
 				s_entry *next;
 			}; static_assert(sizeof(s_entry) == 0xC);
 
@@ -154,22 +154,22 @@ namespace Yelo {
 			}; static_assert(sizeof(s_entry_pool_list) == 0x8);
 
 			struct s_slot {
-				int32 count;
+				long count;
 				s_entry *first_entry;
 			}; static_assert(sizeof(s_slot) == 0x8);
 
 			bool  is_initialized;
-					PAD24;
-			int32 number_of_slots;
+					unsigned char : 8; unsigned short : 16;
+			long number_of_slots;
 			s_slot *slots;                  // [number_of_slots]
-			int32 slots_in_use;
+			long slots_in_use;
 			s_entry           *entry_free_list;
 			s_entry_pool_list *entry_pool_list;
 		};
 
 #pragma region field_type_definition
 
-		typedef int32 (__cdecl *mdp_field_type_maximum_size_calculator)(struct field_properties_definition *properties_definition);
+		typedef long (__cdecl *mdp_field_type_maximum_size_calculator)(struct field_properties_definition *properties_definition);
 
 		typedef bool  (__cdecl *mdp_field_type_initialize)(struct field_properties_definition *properties_definition);
 
@@ -178,12 +178,12 @@ namespace Yelo {
 		struct field_type_definition {
 			Enums::field_type                      type;
 			bool                                   requires_parameters;
-																PAD24;
+																unsigned char : 8; unsigned short : 16;
 			mdp_field_type_maximum_size_calculator proc_maximum_size_calculator;
 			mdp_field_type_initialize              proc_initialize;
 			mdp_field_type_dispose                 proc_dispose;
 			bool                                   initialized;
-																PAD24;
+																unsigned char : 8; unsigned short : 16;
 		};
 #pragma endregion
 
@@ -191,10 +191,10 @@ namespace Yelo {
 
 		// returns the amount of bits written
 		// If [source_data] == [baseline_data], [source_data] isn't encoded
-		typedef int32 (__cdecl *mdp_field_encode)(struct field_properties_definition *field_properties, const void *baseline_data, const void *source_data, Memory::s_bitstream *output_stream);
+		typedef long (__cdecl *mdp_field_encode)(struct field_properties_definition *field_properties, const void *baseline_data, const void *source_data, Memory::s_bitstream *output_stream);
 
 		// returns the amount of bits read
-		typedef int32 (__cdecl *mdp_field_decode)(struct field_properties_definition *field_properties, void *baseline_data, void *destination_data, Memory::s_bitstream *input_stream);
+		typedef long (__cdecl *mdp_field_decode)(struct field_properties_definition *field_properties, void *baseline_data, void *destination_data, Memory::s_bitstream *input_stream);
 
 		struct field_properties_definition {
 			Enums::field_type type;
@@ -202,10 +202,10 @@ namespace Yelo {
 			mdp_field_encode  proc_encode;
 			mdp_field_decode  proc_decode;
 			union field_type_definition_parameters *parameters;
-			int32 maximum_size; ///< in bits
-			int32 header_bit_size;
+			long maximum_size; ///< in bits
+			long header_bit_size;
 			bool  initialized;
-					PAD24;
+					unsigned char : 8; unsigned short : 16;
 		};
 #pragma endregion
 
@@ -214,12 +214,12 @@ namespace Yelo {
 			uint32 offset; ///< in bytes
 			uint32 baseline_offset; ///< in bytes
 			bool   initialized;
-					 PAD24;
+					 unsigned char : 8; unsigned short : 16;
 		};
 
 		struct field_reference_set {
-			int32 field_count;
-			int32 max_data_size; ///< in bits
+			long field_count;
+			long max_data_size; ///< in bits
 #pragma warning( push )
 #pragma warning( disable : 4200 ) // nonstandard extension used : zero-sized array in struct/union, Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array
 			field_reference fields[];
@@ -233,16 +233,16 @@ namespace Yelo {
 			// [translated_index_allocations] are memset to NONE (datum_index::null())
 			// First element of [translated_index_allocations] is set to '1'
 
-			int32                    maximum_active_at_once; // should be +1 of actual max, for the 'null' entry (which is always the first)
-			int32                    number_of_slots;
-			int32                    bits_needed;
+			long                    maximum_active_at_once; // should be +1 of actual max, for the 'null' entry (which is always the first)
+			long                    number_of_slots;
+			long                    bits_needed;
 			s_index_resolution_table table;
-			int32                    cursor;
+			long                    cursor;
 			// allocations[translated_index] == local_index (eg, player_index)
 			datum_index *translated_index_allocations; // [maximum_active_at_once]. These are the local indexes
-			int32 peak;
-			int32 codings;
-			int32 none;
+			long peak;
+			long codings;
+			long none;
 		};
 
 		union field_type_definition_parameters // Note: engine code doesn't actually use unions, so be sure you're accessing the right structure!
@@ -251,18 +251,18 @@ namespace Yelo {
 				Enums::integer_width_type width;
 			} integer;
 			struct {
-				int32 maximum_length;
+				long maximum_length;
 			} ascii_string, wide_string;
 			struct {
-				int32 max_size;
+				long max_size;
 			} arbitrary_data;
 			struct {
 				Enums::field_type width;
-										PAD32; // unknown
+										unsigned long : 32; // unknown
 				field_properties_definition *member_properties;
 			} array;
 			struct {
-				int32 field_count;
+				long field_count;
 #pragma warning( push )
 #pragma warning( disable : 4200 ) // nonstandard extension used : zero-sized array in struct/union, Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array
 				field_reference members_references[];
@@ -275,35 +275,35 @@ namespace Yelo {
 				Enums::enumeration_width_type width;
 			}                                      enumeration;
 			struct {
-				int32 minimum_value;
-				int32 maximum_value;
+				long minimum_value;
+				long maximum_value;
 			}                                      bounded_index;
 			field_type_translated_index_parameters translated_index;
 			struct {
-				int32 component_count;
+				long component_count;
 			}                                      point, vector;
 			struct {
-				int32 count;
+				long count;
 				bool  valid_bits[Enums::k_mdp_maximum_flags]; // I guess
 			}                                      flags;
 			struct {
-				int32 number_of_bits;
-				int32 range_of_values;
+				long number_of_bits;
+				long range_of_values;
 			}                                      fixed_width;
 			struct {
-				int32 number_of_bits_theta_internet;
-				int32 number_of_bits_phi_internet;
-				int32 number_of_bits_theta_lan;
-				int32 number_of_bits_phi_lan;
+				long number_of_bits_theta_internet;
+				long number_of_bits_phi_internet;
+				long number_of_bits_theta_lan;
+				long number_of_bits_phi_lan;
 			}                                      fixed_width_normal_vector;
 			struct {
 				real          minimum_value;
 				real          maximum_value;
-				int32         number_of_bits_theta_internet;
-				int32         number_of_bits_phi_internet; // unused
-				int32         number_of_bits_theta_lan;
-				int32         number_of_bits_phi_lan; // unused
-				int32         vectors_count;
+				long         number_of_bits_theta_internet;
+				long         number_of_bits_phi_internet; // unused
+				long         number_of_bits_theta_lan;
+				long         number_of_bits_phi_lan; // unused
+				long         vectors_count;
 				real_vector3d decode_vectors[32];
 				real_vector3d encode_vectors[32];
 			}                                      smart_vector;
@@ -313,13 +313,13 @@ namespace Yelo {
 #pragma region message_delta_definition
 		struct message_delta_definition {
 			long_enum definition_type;            // 0x0 [Enums::message_delta]
-			int32     message_dependent_header_size;   // 0x4 body_size + body field count
-			int32     iteration_size;               // 0x8
-			int32     iteration_independent_header_size;// 0xC
-			int32     total_size;                  // 0x10
-			int32     max_iterations;               // 0x14
+			long     message_dependent_header_size;   // 0x4 body_size + body field count
+			long     iteration_size;               // 0x8
+			long     iteration_independent_header_size;// 0xC
+			long     total_size;                  // 0x10
+			long     max_iterations;               // 0x14
 			bool      initialized;
-						 PAD24;         // 0x18
+						 unsigned char : 8; unsigned short : 16;         // 0x18
 			field_reference_set *header_field_set;   // 0x1C
 			field_reference_set body_field_set;      // 0x20
 		};
@@ -328,18 +328,18 @@ namespace Yelo {
 		struct decoding_information_data {
 			Enums::message_delta_mode mode;      // 0x0
 			long_enum                 definition_type;         // 0x4 [Enums::message_delta]
-			int32                     iteration_count;            // 0x8
-			int32                     state;                  // 0xC
+			long                     iteration_count;            // 0x8
+			long                     state;                  // 0xC
 			Memory::s_bitstream *input_stream;   // 0x10
-			int32 unknown1;                  // 0x14
-			int32 current_iteration;         // 0x18
+			long unknown1;                  // 0x14
+			long current_iteration;         // 0x18
 			bool  iteration_header_decoded;      // 0x1C
 			bool  iteration_body_decoded;      // 0x1D
-					PAD16;
-			UNKNOWN_TYPE(int32);   // 0x20, iteration_independent_overhead_type = 3
-			UNKNOWN_TYPE(int32);   // 0x24, iteration_independent_overhead_type = 2
-			UNKNOWN_TYPE(int32);   // 0x28, iteration_independent_overhead_type = 1
-			UNKNOWN_TYPE(int32);   // 0x2C, iteration_independent_overhead_type = 0
+					unsigned short : 16;
+			UNKNOWN_TYPE(long);   // 0x20, iteration_independent_overhead_type = 3
+			UNKNOWN_TYPE(long);   // 0x24, iteration_independent_overhead_type = 2
+			UNKNOWN_TYPE(long);   // 0x28, iteration_independent_overhead_type = 1
+			UNKNOWN_TYPE(long);   // 0x2C, iteration_independent_overhead_type = 0
 
 			// This structure may have 8 more bytes of data, but I haven't seen them used in code yet...
 		};

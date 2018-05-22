@@ -29,7 +29,7 @@ namespace Yelo
 			return m_members.m_fade.current;
 		}
 
-		int16 c_effect_instance::GetFadeDirection()
+		short c_effect_instance::GetFadeDirection()
 		{
 			if(m_members.m_fade.current == m_members.m_fade.end)
 				return -1;

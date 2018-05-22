@@ -35,7 +35,7 @@ namespace Yelo {
 		// IDirectInputDevice8 Properties
 		IDirectInputDevice8* InputDeviceKeyboard();
 		IDirectInputDevice8* InputDeviceMouse();
-		IDirectInputDevice8* InputDeviceJoystick(int16 index);
+		IDirectInputDevice8* InputDeviceJoystick(short index);
 
 		void GetSMVersion(const DWORD sm_version, byte& major, byte& minor);
 	};

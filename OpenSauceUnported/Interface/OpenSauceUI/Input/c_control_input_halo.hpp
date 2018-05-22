@@ -27,7 +27,7 @@ namespace Yelo
 			Yelo::rectangle2d m_mouse_bounds;
 			Yelo::point2d m_mouse_position;
 			bool m_mouse_button_states[3];
-			PAD8;
+			unsigned char : 8;
 
 		public:
 			/// <summary>	Default constructor. </summary>

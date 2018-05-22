@@ -25,21 +25,21 @@ namespace Yelo
 
 		// [out_components] - Returns a list of components, or NULL if no components exist
 		// returns: Number of components in [out_components] minus 1, or NONE if no components exist in this build
-		int32 GetProjectComponents(s_project_component*& out_components);
+		long GetProjectComponents(s_project_component*& out_components);
 		// [out_components] - Returns a list of components, or NULL if no components exist
 		// returns: Number of components in [out_components] minus 1, or NONE if no components exist in this build
-		int32 GetProjectComponents(s_project_map_component*& out_components);
+		long GetProjectComponents(s_project_map_component*& out_components);
 		// [out_components] - Returns a list of components, or NULL if no components exist
 		// returns: Number of components in [out_components] minus 1, or NONE if no components exist in this build
-		int32 GetProjectComponents(s_project_bsp_component*& out_components);
+		long GetProjectComponents(s_project_bsp_component*& out_components);
 		// [out_components] - Returns a list of components, or NULL if no components exist
 		// returns: Number of components in [out_components] minus 1, or NONE if no components exist in this build
-		int32 GetProjectComponents(s_project_game_state_component*& out_components);
+		long GetProjectComponents(s_project_game_state_component*& out_components);
 
 
 		// [out_components] - Returns a list of components, or NULL if no components exist
 		// returns: Number of components in [out_components] minus 1, or NONE if no components exist in this build
-		int32 GetDXComponents(s_dx_component*& out_components);
+		long GetDXComponents(s_dx_component*& out_components);
 
 		void InsertHooks();
 	};

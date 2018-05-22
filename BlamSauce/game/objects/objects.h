@@ -52,8 +52,8 @@ namespace Yelo::Objects {
 	struct s_object_header_datum : Memory::s_datum_base {
 		Flags::object_header_flags flags;
 		byte_enum                  object_type;
-		int16                      cluster_index;
-		int16                      data_size;
+		short                      cluster_index;
+		short                      data_size;
 		union {
 			void *address;
 
@@ -95,20 +95,20 @@ namespace Yelo::Objects {
 		bool object_marker_initialized;
 		bool garbage_collect_now;
 		UNKNOWN_TYPE(bool);
-		int16 object_type_being_placed; // hs type
-		UNKNOWN_TYPE(int16);
+		short object_type_being_placed; // hs type
+		UNKNOWN_TYPE(short);
 		UNKNOWN_TYPE(datum_index);
 		long_flags pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];
 		long_flags pvs2[BIT_VECTOR_SIZE_IN_DWORDS(512)];
-		int32      last_garbage_collection_tick;               // 0x8C
+		long      last_garbage_collection_tick;               // 0x8C
 		// none = 0
 		// object = 1
 		// cluster = 2
 		short      pvs_activator_type;                     // 0x90
-		PAD16;
+		unsigned short : 16;
 		union {                                    // 0x94
 			datum_index pvs_activating_object_index;
-			int16       pvs_activating_cluster_index;
+			short       pvs_activating_cluster_index;
 		};
 	}; static_assert(sizeof(s_object_globals_data) == 0x98);
 
@@ -121,8 +121,8 @@ namespace Yelo::Objects {
 
 		long_flags                 type_mask;                  // object types to iterate
 		Flags::object_header_flags ignore_flags;   // When any of these bits are set, the object is skipped
-		PAD8;
-		int16       next_index;
+		unsigned char : 8;
+		short       next_index;
 		datum_index object_index;
 		tag         signature;
 
@@ -132,8 +132,8 @@ namespace Yelo::Objects {
 	};
 
 	struct s_object_marker {
-		int16 node_index;
-		PAD16;
+		short node_index;
+		unsigned short : 16;
 		real_matrix4x3 matrix;
 		real_matrix4x3 transformed_matrix;
 	}; static_assert(sizeof(s_object_marker) == 0x6C);
@@ -203,18 +203,18 @@ namespace Yelo::blam {
 		}
 	}
 
-	static datum_index object_name_list_lookup(int16 name_index) {
+	static datum_index object_name_list_lookup(short name_index) {
 		if (name_index < 0 || name_index > Enums::k_maximum_object_names_per_scenario)
 			return datum_index::null();
 
 		return Objects::ObjectNameList()->object_name_to_datum_table[name_index];
 	}
 
-	datum_index object_index_from_name_index(int16 name_index) {
+	datum_index object_index_from_name_index(short name_index) {
 		return object_name_list_lookup(name_index);
 	}
 
-	void object_set_object_index_for_name_index(int16 name_index, datum_index object_index) {
+	void object_set_object_index_for_name_index(short name_index, datum_index object_index) {
 		if (name_index < 0 || name_index >= Scenario::Scenario()->object_names.Count) {
 			return;
 		}
@@ -251,7 +251,7 @@ namespace Yelo::blam {
 
 	void __cdecl object_disconnect_from_map(datum_index object_index);
 
-	int16 __cdecl object_get_marker_by_name(const datum_index object_index, cstring marker_name, s_object_marker *markers, const int16 maximum_marker_count);
+	short __cdecl object_get_marker_by_name(const datum_index object_index, cstring marker_name, s_object_marker *markers, const short maximum_marker_count);
 
 	// Attaches the object to the target_object (marker names can be empty strings)
 	void __cdecl object_attach_to_marker(datum_index target_object_index, cstring target_marker_name, datum_index object_index, cstring marker_name);
@@ -272,7 +272,7 @@ namespace Yelo::blam {
 	// Get the scenario location of [object_index]
 	Yelo::Scenario::s_scenario_location &__cdecl object_get_location(datum_index object_index, __out Yelo::Scenario::s_scenario_location &return_location);
 
-	void __cdecl object_start_interpolation(datum_index object_index, int32 interpolation_frame_count);
+	void __cdecl object_start_interpolation(datum_index object_index, long interpolation_frame_count);
 
 	s_object_data *__cdecl object_try_and_get_and_verify_type(datum_index object_index, long_flags expected_types) {
 		s_object_data *object = object_get(object_index);
@@ -297,13 +297,13 @@ namespace Yelo::blam {
 
 	s_object_data *__cdecl object_iterator_next(s_object_iterator &iter);
 
-	int16 __cdecl objects_in_sphere(Flags::objects_find_flags find_flags,
+	short __cdecl objects_in_sphere(Flags::objects_find_flags find_flags,
 											  long_flags object_type_flags,
 											  const Yelo::Scenario::s_scenario_location &location,
 											  const real_point3d &center,
 											  real radius,
 											  datum_index object_indices[],
-											  int16 maximum_object_indices);
+											  short maximum_object_indices);
 
 	// Loads the predicted resources defined in [object_index]'s tag definition (if they're not already loaded)
 	void __cdecl object_definition_predict(datum_index object_index);
@@ -311,7 +311,7 @@ namespace Yelo::blam {
 	bool __cdecl object_header_block_allocate(datum_index object_index, size_t block_reference_offset, size_t size);
 
 	// Sets the scale of an object over a duration of time (game ticks)
-	void __cdecl objects_scripting_set_scale(datum_index object_index, real scale, int32 ticks);
+	void __cdecl objects_scripting_set_scale(datum_index object_index, real scale, long ticks);
 
 	real __cdecl object_get_level_of_detail_pixels(datum_index object_index);
 

@@ -21,11 +21,11 @@ namespace Yelo {
 			return K_SECONDS_PER_TICK;
 		}
 
-		real game_ticks_to_seconds(int32 ticks) {
+		real game_ticks_to_seconds(long ticks) {
 			return CAST(real, ticks) * K_SECONDS_PER_TICK;
 		}
 
-		int32 game_seconds_to_ticks(int32 seconds) {
+		long game_seconds_to_ticks(long seconds) {
 			return seconds * K_TICKS_PER_SECOND;
 		}
 
@@ -33,8 +33,8 @@ namespace Yelo {
 			return seconds * CAST(real, K_TICKS_PER_SECOND);
 		}
 
-		int32 game_seconds_to_ticks_round(real seconds) {
-			return CAST(int32, game_seconds_to_ticks(seconds));
+		long game_seconds_to_ticks_round(real seconds) {
+			return CAST(long, game_seconds_to_ticks(seconds));
 		}
 
 		game_ticks_t game_time_get() {

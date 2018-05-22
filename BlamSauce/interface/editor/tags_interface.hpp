@@ -26,7 +26,7 @@ namespace Yelo
 	{
 		void** vftable;
 	public:
-		UNUSED_TYPE(int32);
+		UNUSED_TYPE(long);
 		tag_field* field;
 		void* address;
 		tag_information* tag_info;
@@ -36,7 +36,7 @@ namespace Yelo
 	class block_information : public field_information
 	{
 	public:
-		int32 block_index;
+		long block_index;
 		field_information* first_child_field;
 		field_information* block_name_field;
 	}; static_assert( sizeof(block_information) == 0x28 );

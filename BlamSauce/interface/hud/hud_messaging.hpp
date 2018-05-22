@@ -13,6 +13,6 @@ namespace Yelo
 
 	namespace blam
 	{
-		void __cdecl hud_print_message(int16 local_player_index, wcstring message);
+		void __cdecl hud_print_message(short local_player_index, wcstring message);
 	};
 };

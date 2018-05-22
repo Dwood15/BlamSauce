@@ -13,8 +13,8 @@ namespace Yelo
 		struct s_object_lighting
 		{
 			real_rgb_color ambient_color;
-			int16 distant_light_count;
-			PAD16;
+			short distant_light_count;
+			unsigned short : 16;
 			struct {
 				real_rgb_color color;
 				real_vector3d color_direction;
@@ -22,8 +22,8 @@ namespace Yelo
 
 			//////////////////////////////////////////////////////////////////////////
 			// not tag based, used by the game state
-			int16 point_light_count;
-			PAD16;
+			short point_light_count;
+			unsigned short : 16;
 			datum_index point_light_indices[2]; // light_data
 			//////////////////////////////////////////////////////////////////////////
 

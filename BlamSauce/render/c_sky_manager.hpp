@@ -11,7 +11,7 @@ namespace Yelo {
 				class s_sky_entry final {
 					datum_index                   m_sky_tag_index;
 					bool                          m_is_override;
-															PAD24;
+															unsigned char : 8; unsigned short : 16;
 					std::shared_ptr <s_sky_entry> m_original_sky_entry;
 
 				public:

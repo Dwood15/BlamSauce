@@ -53,7 +53,7 @@ namespace Yelo
 			word_flags auxilary_meters_active[BIT_VECTOR_SIZE_IN_WORDS(Enums::k_number_of_hud_auxilary_meter_types)];
 			game_time_t auxilary_meter_times[Enums::k_number_of_hud_auxilary_meter_types];
 			word_flags active_sound_elements;
-			PAD16;
+			unsigned short : 16;
 			datum_index sound_elements[Enums::k_maximum_number_of_hud_sounds]; // sound cache index
 		}; static_assert( sizeof(s_hud_unit_interface_unit) == 0x58 );
 		struct s_hud_unit_interface

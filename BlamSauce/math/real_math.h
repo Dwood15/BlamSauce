@@ -344,7 +344,7 @@ namespace Yelo {
 			out[3] = (uint16) MATH_FLOAT_TO_LONG(this->w * 32767.0f);
 		}
 
-		void Decompress64bit(int16 in[4]) {
+		void Decompress64bit(short in[4]) {
 			this->i = (real) (in[0] / 32767.0f);
 			this->j = (real) (in[1] / 32767.0f);
 			this->k = (real) (in[2] / 32767.0f);

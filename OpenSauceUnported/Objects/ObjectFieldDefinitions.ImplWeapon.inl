@@ -50,7 +50,7 @@ static void* WeaponDataFieldMagazineGetIntegerImpl(const s_object_field_definiti
 
 	switch(field.definition_index)
 	{
-	case _weapon_field_integer_magazine_state:				return CAST_PTR(int16*, &magazine.state); // state is an _enum
+	case _weapon_field_integer_magazine_state:				return CAST_PTR(short*, &magazine.state); // state is an _enum
 	case _weapon_field_integer_magazine_reload:
 			 if( !strcmp(subdata_name,"time_remaining") )	return &magazine.reload_time_remaining;
 		else if( !strcmp(subdata_name,"time") )				return &magazine.reload_time;

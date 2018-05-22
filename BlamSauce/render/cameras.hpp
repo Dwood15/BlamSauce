@@ -1,10 +1,5 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -17,12 +12,15 @@ namespace Yelo
 			real_vector3d up;
 
 			UNKNOWN_TYPE(bool); // controls the rendering of stuff related to certain objects
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			real vertical_field_of_view;
 			rectangle2d viewport_bounds;
 			rectangle2d window_bounds;
 			real z_near ,z_far;
-			PAD32; PAD32; PAD32; PAD32; // just looks like 16 bytes of unused poop
+			unsigned long : 32;
+			unsigned long : 32;
+			unsigned long : 32;
+			unsigned long : 32; // just looks like 16 bytes of unused poop
 		}; static_assert( sizeof(s_render_camera) == 0x54 );
 
 		struct s_render_frustum_matricies
@@ -52,10 +50,14 @@ namespace Yelo
 			PAD_TYPE(real_point3d);	PAD_TYPE(real_point3d);
 			PAD_TYPE(real_point3d);	PAD_TYPE(real_point3d);
 
-			bool projection_valid;		PAD24;
+			bool projection_valid;
+			unsigned char : 8; unsigned short : 16;
 
 			// projection matrix
-			PAD128;	PAD128;	PAD128;	PAD128;
+			PAD128;
+			PAD128;
+			PAD128;
+			PAD128;
 
 			PAD_TYPE(real_point2d);
 

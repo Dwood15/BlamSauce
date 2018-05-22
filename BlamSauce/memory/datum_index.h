@@ -12,11 +12,11 @@ namespace Yelo {
 
 	/// <summary>	Handle to data allocated by the engine's data-array construct. </summary>
 	struct datum_index {
-		typedef int16 index_t;
-		typedef int16 salt_t;
+		typedef short index_t;
+		typedef short salt_t;
 
 		union {
-			uint32 handle;
+			uint handle;
 			struct {
 				////////////////////////////////////////////////////////////////////////////////////////////////////
 				/// <summary>
@@ -30,13 +30,13 @@ namespace Yelo {
 			};
 		};
 
-		static constexpr datum_index null() { return { static_cast<uint32>(-1) }; };
+		static constexpr datum_index null() { return { static_cast<uint>(-1) }; };
 
 		bool IsNull() const { return -1 == handle; }
 
 		static datum_index Create(index_t index, salt_t salt) {
 			datum_index result;
-			result.handle = (static_cast<uint32>(salt) << 16) | index;
+			result.handle = (static_cast<uint>(salt) << 16) | index;
 			return result;
 		}
 
@@ -62,9 +62,9 @@ namespace Yelo {
 		// 	}
 		// };
 
-		OVERRIDE_OPERATOR_CAST_THIS(uint32);
+		OVERRIDE_OPERATOR_CAST_THIS(uint);
 
-		datum_index& operator = (uint32 arg) {
+		datum_index& operator = (uint arg) {
 			this->handle = arg;
 			return *this;
 		}
@@ -74,12 +74,12 @@ namespace Yelo {
 
 	private:
 
-		inline bool operator ==(const uint32& rhs) const { return this->handle == rhs; }
-		inline bool operator !=(const uint32& rhs) const { return this->handle != rhs; }
+		inline bool operator ==(const uint& rhs) const { return this->handle == rhs; }
+		inline bool operator !=(const uint& rhs) const { return this->handle != rhs; }
 	};
 
 	static_assert(sizeof(datum_index) == 0x4);
-#define pad_datum_index PAD16 PAD16
+#define pad_datum_index unsigned short : 16; unsigned short : 16
 #define DATUM_INDEX_TO_IDENTIFIER(datum)      (datum & 0xFFFF0000)
 #define DATUM_INDEX_TO_ABSOLUTE_INDEX(datum)   (datum & 0x0000FFFF)
 };

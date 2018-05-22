@@ -50,7 +50,7 @@ uint32 CalculateCRC(void* cache_file)
 		uint32 bsp_data_offset = 0;
 		for(uint32 i = 0; i < bsp_count; i++)
 		{
-			int32 bsp_data_size = structure_bsps_block[i].bsp_data_size;
+			long bsp_data_size = structure_bsps_block[i].bsp_data_size;
 			Memory::CRC(CRC, CAST_PTR(void*, bsp_data_start + bsp_data_offset), bsp_data_size);
 			bsp_data_offset += bsp_data_size;
 		}

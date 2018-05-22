@@ -133,9 +133,9 @@ namespace Yelo {
 
 			TAG_FIELD(__flags, flags);
 			TAG_FIELD(__more_flags, more_flags);
-			TAG_PAD(actor_def_00, int32, 3);
+			TAG_PAD(actor_def_00, long, 3);
 			TAG_ENUM(type, Enums::actor_type);
-			PAD16;
+			unsigned short : 16;
 
 			////////////////////////////////////////////////////////////////
 			// perception
@@ -151,12 +151,12 @@ namespace Yelo {
 			TAG_FIELD(real, hearing_distance, "world units", "maximum range at which sounds can be heard");
 			TAG_FIELD(real, notice_projectile_chance, "[0,1]", "random chance of noticing a dangerous enemy projectile (e.g. grenade)");
 			TAG_FIELD(real, notice_vehicle_chance, "[0,1]", "random chance of noticing a dangerous vehicle");
-			TAG_PAD(actor_def_01, int32, 2);
+			TAG_PAD(actor_def_01, long, 2);
 			TAG_FIELD(real, combat_perception_time, "seconds", "time required to acknowledge a visible enemy when we are already in combat or searching for them");
 			TAG_FIELD(real, guard_perception_time, "seconds", "time required to acknowledge a visible enemy when we have been alerted");
 			TAG_FIELD(real, non_combat_perception_time, "seconds", "time required to acknowledge a visible enemy when we are not alerted");
-			TAG_PAD(actor_def_02, int32, 3);
-			TAG_PAD(actor_def_03, int32, 2);
+			TAG_PAD(actor_def_02, long, 3);
+			TAG_PAD(actor_def_03, long, 2);
 
 			////////////////////////////////////////////////////////////////
 			// movement
@@ -190,10 +190,10 @@ namespace Yelo {
 			TAG_FIELD(real_bounds, combat_idle_facing, "seconds", "rate at which we change facing when looking around randomly when searching or in combat");
 			TAG_FIELD(real_bounds, combat_idle_aiming, "seconds", "rate at which we change aiming directions when looking around randomly when searching or in combat");
 			TAG_FIELD(real_bounds, combat_idle_looking, "seconds", "rate at which we change look around randomly when searching or in combat");
-			TAG_PAD(actor_def_04, int32, 2);
-			TAG_PAD(actor_def_05, int32, 4);
+			TAG_PAD(actor_def_04, long, 2);
+			TAG_PAD(actor_def_05, long, 4);
 			TAG_FIELD(tag_reference, do_not_use, 'weap');
-			TAG_PAD(actor_def_06, int32, 67);
+			TAG_PAD(actor_def_06, long, 67);
 			TAG_FIELD(tag_reference, do_not_use_1, 'proj');
 
 			////////////////////////////////////////////////////////////////
@@ -201,24 +201,24 @@ namespace Yelo {
 			TAG_ENUM(unreachable_danger_trigger, Enums::danger_trigger, "danger level of an unreachable enemy which will trigger a retreat if it continues over time");
 			TAG_ENUM(vehicle_danger_trigger, Enums::danger_trigger, "danger level of a vehicle-based enemy which will trigger a retreat if it continues over time");
 			TAG_ENUM(player_danger_trigger, Enums::danger_trigger, "danger level of an enemy player_update which will trigger a retreat if it continues over time");
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real_bounds, danger_trigger_time, "seconds", "how long it takes for an unopposable enemy that has the above danger level to trigger a retreat");
-			TAG_FIELD(int16, friends_killed_trigger, "", "if this many of our friends are killed by an unopposable enemy, we trigger a retreat (zero = never use this as a retreat condition)");
-			TAG_FIELD(int16, friends_retreating_trigger, "", "if this many of our friends are retreating from an unopposable enemy, we retreat as well (zero = never use this as a retreat condition)");
-			TAG_PAD(actor_def_07, int32, 3);
+			TAG_FIELD(short, friends_killed_trigger, "", "if this many of our friends are killed by an unopposable enemy, we trigger a retreat (zero = never use this as a retreat condition)");
+			TAG_FIELD(short, friends_retreating_trigger, "", "if this many of our friends are retreating from an unopposable enemy, we retreat as well (zero = never use this as a retreat condition)");
+			TAG_PAD(actor_def_07, long, 3);
 			TAG_FIELD(real_bounds, retreat_time, "seconds", "how long we retreat from an unopposable enemy for");
-			TAG_PAD(actor_def_08, int32, 2);
+			TAG_PAD(actor_def_08, long, 2);
 
 			////////////////////////////////////////////////////////////////
 			// panic
 			TAG_FIELD(real_bounds, cowering_time, "seconds", "how long we hide in cover after being panicked");
 			TAG_FIELD(real, friend_killed_panic_chance, "[0,1]", "chance of panicking when we see a friend killed near us and the enemy is looking at us too");
 			TAG_ENUM(leader_type, Enums::actor_type, "if we see a friend of this type killed we have a chance of panicking");
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, leader_killed_panic_chance, "[0,1]", "chance of panicking when we see a leader killed");
 			TAG_FIELD(real, panic_damage_threshold, "[0,1]", "panic if we take this much body damage in a short period of time");
 			TAG_FIELD(real, surprise_distance, "world units", "the distance at which newly acknowledged props or weapon impacts are considered 'close' for surprise purposes");
-			TAG_PAD(actor_def_09, int32, 7);
+			TAG_PAD(actor_def_09, long, 7);
 
 			////////////////////////////////////////////////////////////////
 			// defensive
@@ -231,9 +231,9 @@ namespace Yelo {
 			TAG_FIELD(real, hide_shield_fraction, "[0,1]", "elites and jackals only seek cover if their shield falls below this value");
 			TAG_FIELD(real, attack_shield_fraction, "[0,1]", "elites and jackals only come out from cover to attack if they have this much shields");
 			TAG_FIELD(real, pursue_shield_fraction, "[0,1]", "elites and jackals only come out from cover to pursue if they have this much shields");
-			TAG_PAD(actor_def_10, int32, 4);
+			TAG_PAD(actor_def_10, long, 4);
 			TAG_ENUM(defensive_crouch_type, Enums::defensive_crouch_type);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, attacking_crouch_threshold, "",
 						 "when in attacking mode, if our crouch type is based on shields, we crouch when our shields are below this number; if our crouch type is based on danger, we crouch when our danger is above this number");
 			TAG_FIELD(real, defending_crouch_threshold, "",
@@ -259,9 +259,9 @@ namespace Yelo {
 			TAG_FIELD(real_bounds, uncover_delay_time, "seconds", "time to look at target's position after it becomes visible");
 			TAG_FIELD(real_bounds, target_search_time, "seconds", "time we search at target's position");
 			TAG_FIELD(real_bounds, pursuit_position_time, "seconds", "time we search at a pursuit position");
-			TAG_FIELD(int16, num_positions, "[0,n]", "number of pursuit positions to check when in coordinated group search mode");
-			TAG_FIELD(int16, num_positions_1, "[0,n]", "number of pursuit positions to check when in normal search mode");
-			TAG_PAD(actor_def_22, int32, 8);
+			TAG_FIELD(short, num_positions, "[0,n]", "number of pursuit positions to check when in coordinated group search mode");
+			TAG_FIELD(short, num_positions_1, "[0,n]", "number of pursuit positions to check when in normal search mode");
+			TAG_PAD(actor_def_22, long, 8);
 
 			////////////////////////////////////////////////////////////////
 			// berserk
@@ -278,7 +278,7 @@ namespace Yelo {
 			TAG_FIELD(real, berserk_proximity, "world units", "if we ever get this close to a target, we berserk");
 			TAG_FIELD(real, suicide_sensing_dist, "world units", "when we are this close to a target, we check to see if they're getting away and if so blow up");
 			TAG_FIELD(real, berserk_grenade_chance, "[0,1]", "chance of berserking when we have a dangerous projectile stuck to us");
-			TAG_PAD(actor_def_11, int32, 3);
+			TAG_PAD(actor_def_11, long, 3);
 
 			////////////////////////////////////////////////////////////////
 			// firing positions
@@ -286,22 +286,22 @@ namespace Yelo {
 			TAG_FIELD(real_bounds, combat_position_time, "seconds", "time after which we change combat firing positions");
 			TAG_FIELD(real, old_position_avoid_dist, "world units", "distance we try and stay from our last discarded firing position");
 			TAG_FIELD(real, friend_avoid_dist, "world units", "distance we try and stay from any friends");
-			TAG_PAD(actor_def_12, int32, 10);
+			TAG_PAD(actor_def_12, long, 10);
 
 			////////////////////////////////////////////////////////////////
 			// communication
 			TAG_FIELD(real_bounds, noncombat_idle_speech_time, "seconds", "time between idle vocalizations when we are not in combat");
 			TAG_FIELD(real_bounds, combat_idle_speech_time, "seconds", "time between idle vocalizations when we are in combat or searching");
-			TAG_PAD(actor_def_13, int32, 12);
-			TAG_PAD(actor_def_14, int32, 32);
+			TAG_PAD(actor_def_13, long, 12);
+			TAG_PAD(actor_def_14, long, 32);
 			TAG_FIELD(tag_reference, do_not_use_2, 'actr');
-			TAG_PAD(actor_def_15, int32, 12);
+			TAG_PAD(actor_def_15, long, 12);
 		}; static_assert(sizeof(s_actor_definition) == 0x4F8); // max count: 1
 
 		struct s_actor_variant_change_colors {
 			TAG_FIELD(real_rgb_color, color_lower_bound);
 			TAG_FIELD(real_rgb_color, color_upper_bound);
-			TAG_PAD(actor_def_16, int32, 2);
+			TAG_PAD(actor_def_16, long, 2);
 		}; static_assert(sizeof(s_actor_variant_change_colors) == 0x20); // max count: 4
 
 		struct s_actor_variant_definition {
@@ -322,13 +322,13 @@ namespace Yelo {
 			TAG_FIELD(tag_reference, actor_definition, 'actr');
 			TAG_FIELD(tag_reference, unit, 'unit');
 			TAG_FIELD(tag_reference, major_variant, 'actv');
-			TAG_PAD(actor_def_17, int32, 6);
+			TAG_PAD(actor_def_17, long, 6);
 
 			////////////////////////////////////////////////////////////////
 			// movement switching
 			// note: only the flood combat forms will ever try to switch movement types voluntarily during combat
 			TAG_ENUM(movement_type, Enums::actor_movement_type, "when we have a choice of movement types, which type we will use");
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, initial_crouch_chance, "[0,1]", "actors that start their movement try to maintain this fraction of crouched actors");
 			TAG_FIELD(real_bounds, crouch_time, "seconds", "when switching movement types, how long we will stay crouched for before running");
 			TAG_FIELD(real_bounds, run_time, "seconds", "when switching movement types, how long we will run for before slowing to a crouch");
@@ -386,17 +386,17 @@ namespace Yelo {
 			TAG_FIELD(real, new_target_burst_separation, "", "burst separation multiplier for newly appeared targets (zero = unchanged)");
 			TAG_FIELD(real, new_target_rate_of_fire, "", "rate-of-fire multiplier for newly appeared targets (zero = unchanged)");
 			TAG_FIELD(real, new_target_projectile_error, "", "error multiplier for newly appeared targets (zero = unchanged)");
-			TAG_PAD(actor_def_18, int32, 2);
+			TAG_PAD(actor_def_18, long, 2);
 			TAG_FIELD(real, moving_burst_duration, "", "burst duration multiplier when the actor is moving (zero = unchanged)");
 			TAG_FIELD(real, moving_burst_separation, "", "burst separation multiplier when the actor is moving (zero = unchanged)");
 			TAG_FIELD(real, moving_rate_of_fire, "", "rate-of-fire multiplier when the actor is moving (zero = unchanged)");
 			TAG_FIELD(real, moving_projectile_error, "", "error multiplier when the actor is moving (zero = unchanged)");
-			TAG_PAD(actor_def_19, int32, 2);
+			TAG_PAD(actor_def_19, long, 2);
 			TAG_FIELD(real, berserk_burst_duration, "", "burst duration multiplier when the actor is berserk (zero = unchanged)");
 			TAG_FIELD(real, berserk_burst_separation, "", "burst separation multiplier when the actor is berserk (zero = unchanged)");
 			TAG_FIELD(real, berserk_rate_of_fire, "", "rate-of-fire multiplier when the actor is berserk (zero = unchanged)");
 			TAG_FIELD(real, berserk_projectile_error, "", "error multiplier when the actor is berserk (zero = unchanged)");
-			TAG_PAD(actor_def_20, int32, 2);
+			TAG_PAD(actor_def_20, long, 2);
 
 			////////////////////////////////////////////////////////////////
 			// special-case firing properties
@@ -415,14 +415,14 @@ namespace Yelo {
 			TAG_FIELD(real_bounds, berserk_firing_ranges, "world units", "if we are outside maximum range, we advance towards target, stopping when we reach minimum range");
 			TAG_FIELD(real, berserk_melee_range, "world units", "while berserking, how close an enemy target must get before triggering a melee charge");
 			TAG_FIELD(real, berserk_melee_abort_range, "world units", "while berserking, if our target gets this far away from us, we stop trying to melee them");
-			TAG_PAD(actor_def_21, int32, 2);
+			TAG_PAD(actor_def_21, long, 2);
 
 			////////////////////////////////////////////////////////////////
 			// grenades
 			TAG_ENUM(grenade_type, Enums::grenade_type, "type of grenades that we throw");
 			TAG_ENUM(trajectory_type, Enums::trajectory_type, "how we throw our grenades");
 			TAG_ENUM(grenade_stimulus, Enums::grenade_stimulus, "what causes us to consider throwing a grenade");
-			TAG_FIELD(int16, minimum_enemy_count, "", "how many enemies must be within the radius of the grenade before we will consider throwing there");
+			TAG_FIELD(short, minimum_enemy_count, "", "how many enemies must be within the radius of the grenade before we will consider throwing there");
 			TAG_FIELD(real, enemy_radius, "world units", "we consider enemies within this radius when determining where to throw");
 			PAD32;
 			TAG_FIELD(real, grenade_velocity, "world units per second", "how fast we can throw our grenades");
@@ -431,7 +431,7 @@ namespace Yelo {
 			TAG_FIELD(real_fraction, grenade_chance, "[0,1]", "how likely we are to throw a grenade");
 			TAG_FIELD(real, grenade_check_time, "seconds", "for continuous stimuli (e.g. visible target), how often we check to see if we want to throw a grenade");
 			TAG_FIELD(real, encounter_grenade_timeout, "seconds", "we cannot throw grenades if someone else in our encounter threw one this recently");
-			TAG_PAD(actor_def_22, int32, 5);
+			TAG_PAD(actor_def_22, long, 5);
 
 			////////////////////////////////////////////////////////////////
 			// items
@@ -440,17 +440,17 @@ namespace Yelo {
 			TAG_FIELD(real, dont_drop_grenades_chance, "[0,1]", "how likely we are not to drop any grenades when we die, even if we still have some");
 			TAG_FIELD(real_bounds, drop_weapon_loaded, "", "amount of ammo loaded into the weapon that we drop (in fractions of a clip, e.g. 0.3 to 0.5)");
 			TAG_FIELD(short_bounds, drop_weapon_ammo, "", "total number of rounds in the weapon that we drop (ignored for energy weapons)");
-			TAG_PAD(actor_def_23, int32, 3);
-			TAG_PAD(actor_def_24, int32, 4);
+			TAG_PAD(actor_def_23, long, 3);
+			TAG_PAD(actor_def_24, long, 4);
 
 			////////////////////////////////////////////////////////////////
 			// unit
 			TAG_FIELD(real, body_vitality, "", "maximum body vitality of our unit");
 			TAG_FIELD(real, shield_vitality, "", "maximum shield vitality of our unit");
 			TAG_FIELD(real, shield_sapping_radius, "world units", "how far away we can drain the player_update's shields");
-			TAG_FIELD(int16, forced_shader_permutation, "", "if nonzero, overrides the unit's shader permutation");
-			PAD16;
-			TAG_PAD(actor_def_25, int32, 4);
+			TAG_FIELD(short, forced_shader_permutation, "", "if nonzero, overrides the unit's shader permutation");
+			unsigned short : 16;
+			TAG_PAD(actor_def_25, long, 4);
 			TAG_PAD(actor_def_26, tag_block, 1);
 			Yelo::TagBlock<s_actor_variant_change_colors> change_colors;
 		}; static_assert(sizeof(s_actor_variant_definition) == 0x238); // max count: 1

@@ -68,28 +68,28 @@ namespace Yelo {
 			TAG_FIELD(real_fraction, starting_shield_damage);
 			struct {
 				TAG_FIELD(tag_reference, weapon, 'weap');
-				TAG_FIELD(int16, rounds_loaded);
-				TAG_FIELD(int16, rounds_total);
+				TAG_FIELD(short, rounds_loaded);
+				TAG_FIELD(short, rounds_total);
 			} weapons[2];
 			TAG_FIELD(byte, grenade_counts[/*Enums::k_unit_grenade_types_count_yelo*/ 4]);
-			TAG_PAD(scen_srt_prof, int32, 5);
+			TAG_PAD(scen_srt_prof, long, 5);
 		}; static_assert(sizeof(scenario_starting_profile) == 0x68);
 
 		struct scenario_player {
 			TAG_FIELD(real_point3d, position);
 			TAG_FIELD(angle, facing);
-			TAG_FIELD(int16, team_designator);
-			TAG_FIELD(int16, bsp_index);
+			TAG_FIELD(short, team_designator);
+			TAG_FIELD(short, bsp_index);
 			TAG_ENUM(game_types, Enums::scenario_netgame_type)[4];
 
-			TAG_PAD(scen_plyr, int32, 6);
+			TAG_PAD(scen_plyr, long, 6);
 		}; static_assert(sizeof(scenario_player) == 0x34);
 
 		struct scenario_trigger_volume {
 			// _scenario_trigger_volume_type_? = 0
 			// _scenario_trigger_volume_type_? = 1
 			TAG_FIELD(short, type); // This is actually treated as a skip-4 field in Halo1's defs
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(real_vector3d, data0);
 			TAG_FIELD(real_vector3d, forward);
@@ -102,72 +102,72 @@ namespace Yelo {
 			TAG_FIELD(real_point3d, position);
 			TAG_FIELD(angle, facing_degrees);
 			TAG_ENUM(type, Enums::scenario_netgame_flag_type);
-			TAG_FIELD(int16, team_index);
+			TAG_FIELD(short, team_index);
 			TAG_FIELD(tag_reference, weapon_group, 'itmc');
-			TAG_PAD(netpt, int32, 28);
+			TAG_PAD(netpt, long, 28);
 		}; static_assert(sizeof(scenario_netpoint) == 0x94);
 
 		struct scenario_netgame_equipment {
 			TAG_FIELD(long_flags, flags);
 			TAG_ENUM(game_types, Enums::scenario_netgame_type)[4];
-			TAG_FIELD(int16, team_index);
-			TAG_FIELD(int16, respawn_time);
+			TAG_FIELD(short, team_index);
+			TAG_FIELD(short, respawn_time);
 			datum_index                                       runtime_object_index; // initialized to NONE in scenario_load
-			TAG_PAD(ngame_eqip, int32, 11);
+			TAG_PAD(ngame_eqip, long, 11);
 			TAG_FIELD(real_point3d, position);
 			TAG_FIELD(angle, facing_degrees);
 			TAG_FIELD(tag_reference, item_collection, 'itmc');
-																			  TAG_PAD(int32, 12);
+																			  TAG_PAD(long, 12);
 		}; static_assert(sizeof(scenario_netgame_equipment) == 0x90);
 
 		struct scenario_starting_equipment {
 			TAG_FIELD(long_flags, flags);
 			TAG_ENUM(game_types, Enums::scenario_netgame_type)[4];
-			TAG_PAD(strt_eqip0, int32, 12);
+			TAG_PAD(strt_eqip0, long, 12);
 			TAG_FIELD(tag_reference, item_collections, 'itmc')[6];
-			TAG_PAD(strt_eqip1, int32, 12);
+			TAG_PAD(strt_eqip1, long, 12);
 		}; static_assert(sizeof(scenario_starting_equipment) == 0xCC);
 
 
 		struct scenario_cutscene_flag {
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(real_point3d, position);
 			TAG_FIELD(real_euler_angles2d, facing);
-			TAG_PAD(cutscnpd, int32, 9);
+			TAG_PAD(cutscnpd, long, 9);
 		}; static_assert(sizeof(scenario_cutscene_flag) == 0x5C);
 
 		struct scenario_cutscene_camera_point {
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(tag_string, name);
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(real_point3d, position);
 			TAG_FIELD(real_euler_angles3d, orientation);
 			TAG_FIELD(angle, field_of_view);
-			TAG_PAD(cut_campt, int32, 9);
+			TAG_PAD(cut_campt, long, 9);
 		}; static_assert(sizeof(scenario_cutscene_camera_point) == 0x68);
 
 		struct s_scenario_cutscene_title {
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(tag_string, name);
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(rectangle2d, text_bounds);
-			TAG_FIELD(int16, string_index);
-			PAD16;
+			TAG_FIELD(short, string_index);
+			unsigned short : 16;
 			TAG_ENUM(justification, Enums::text_justification);
-			PAD16; // font enum in Halo2
-			PAD32;
+			unsigned short : 16; // font enum in Halo2
+			unsigned long : 32;
 			TAG_FIELD(argb_color, text_color);
 			TAG_FIELD(argb_color, shadow_color);
 			TAG_FIELD(real, fade_in_time);
 			TAG_FIELD(real, up_time);
 			TAG_FIELD(real, fade_out_time);
-			TAG_PAD(cutsn0, int32, 4);
+			TAG_PAD(cutsn0, long, 4);
 		}; static_assert(sizeof(s_scenario_cutscene_title) == 0x60);
 
 		struct s_scenario_bsp_lightmap_set {
 			TAG_FIELD(tag_string, name);
-			TAG_PAD(lmap0, int32, 1);
+			TAG_PAD(lmap0, long, 1);
 			TAG_FIELD(tag_reference, standard_lightmap, 'bitm');
 			TAG_FIELD(tag_reference, directional_lightmap_1, 'bitm');
 			TAG_FIELD(tag_reference, directional_lightmap_2, 'bitm');
@@ -176,8 +176,8 @@ namespace Yelo {
 		};
 
 		struct s_scenario_bsp_sky_set_sky {
-			PAD16;
-			TAG_FIELD(int16, sky_index);
+			unsigned short : 16;
+			TAG_FIELD(short, sky_index);
 			TAG_FIELD(tag_reference, sky);
 		};
 
@@ -187,8 +187,8 @@ namespace Yelo {
 		};
 
 		struct s_scenario_bsp_modifier {
-			PAD16;
-			TAG_FIELD(int16, bsp_index);
+			unsigned short : 16;
+			TAG_FIELD(short, bsp_index);
 			TAG_TBLOCK(lightmap_sets, s_scenario_bsp_lightmap_set);
 			TAG_TBLOCK(sky_sets, s_scenario_bsp_sky_set);
 			TAG_PAD(tag_block, 3);
@@ -196,10 +196,10 @@ namespace Yelo {
 
 		struct structure_bsp_header;
 		struct scenario_structure_bsp_reference {
-			int32 cache_offset;
-			TAG_FIELD(int32, bsp_data_size);
+			long cache_offset;
+			TAG_FIELD(long, bsp_data_size);
 			structure_bsp_header *header;
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(tag_reference, structure_bsp, 'sbsp');
 		}; static_assert(sizeof(scenario_structure_bsp_reference) == 0x20); // max count: 32
 
@@ -219,14 +219,14 @@ namespace Yelo {
 			TAG_PAD(child_ref, tag_block, 1); // scenario_child_scenario_reference
 			TAG_FIELD(angle, local_north);
 			TAG_PAD(scnr_pad0, ttag_data, 1);
-			TAG_PAD(scnr_pad1, int32, 34); // 136
+			TAG_PAD(scnr_pad1, long, 34); // 136
 			TAG_PAD(scnr_pad2, tag_block,
 					  1 + // predicted_resource_block
 					  1); // scenario_function
 			TAG_PAD(scnr_pad3, tag_data, 1); // editor_scenario_data
 			TAG_PAD(scnr_pad4, tag_block, 1); // editor_comment_definition
 			TAG_PAD(scnr_pad5, tag_block, 1); // Halo2. scenario_environment_object
-			TAG_PAD(scnr_pad6, int32, 53); // 212
+			TAG_PAD(scnr_pad6, long, 53); // 212
 
 			TAG_TBLOCK(object_names, scenario_object_name
 			);
@@ -282,7 +282,7 @@ namespace Yelo {
 					  1   // Halo2. scenario_object_palette_entry
 			);
 
-			TAG_PAD(scnr_pad8, int32, 15); // 60
+			TAG_PAD(scnr_pad8, long, 15); // 60
 
 			TAG_TBLOCK(player_starting_profiles, scenario_starting_profile
 			);
@@ -304,7 +304,7 @@ namespace Yelo {
 					  1   // scenario_detail_object_collection_palette_entry
 			);
 
-			TAG_PAD(scnr_pad10, int32, 9); // 36
+			TAG_PAD(scnr_pad10, long, 9); // 36
 
 			TAG_PAD(scnr_pad11, tag_block,
 					  1 + // Halo2. style_palette_entry
@@ -347,7 +347,7 @@ namespace Yelo {
 			TAG_TBLOCK(bsp_modifiers, s_scenario_bsp_modifier
 			);
 
-			TAG_PAD(scnr_pad15, int32, 24); // 96
+			TAG_PAD(scnr_pad15, long, 24); // 96
 			TAG_FIELD(tag_reference, custom_object_names, 'ustr');
 			TAG_FIELD(tag_reference, ingame_help_text, 'ustr');
 			TAG_FIELD(tag_reference, hud_messages, 'hmt ');

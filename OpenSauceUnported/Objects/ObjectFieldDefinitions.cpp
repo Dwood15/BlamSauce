@@ -209,7 +209,7 @@ namespace Yelo
 #include "Objects/ObjectFieldDefinitions.ImplWeapon.inl"
 		//////////////////////////////////////////////////////////////////////////
 		//
-		void WeaponTagDataTriggerSetRealByName(s_weapon_datum* weapon, int32 trigger_index, 
+		void WeaponTagDataTriggerSetRealByName(s_weapon_datum* weapon, long trigger_index,
 			cstring data_name, cstring subdata_name, 
 			real data_value)
 		{
@@ -248,7 +248,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// magazine - Integer
-		void WeaponDataMagazineGetIntegerByName(s_weapon_datum* weapon, int32 magazine_index, 
+		void WeaponDataMagazineGetIntegerByName(s_weapon_datum* weapon, long magazine_index,
 			cstring data_name, cstring subdata_name, 
 			_Inout_ TypeHolder& result)
 		{
@@ -261,9 +261,9 @@ namespace Yelo
 					WeaponDataFieldMagazineGetInteger);
 			}
 		}
-		void WeaponDataMagazineSetIntegerByName(s_weapon_datum* weapon, int32 magazine_index, 
+		void WeaponDataMagazineSetIntegerByName(s_weapon_datum* weapon, long magazine_index,
 			cstring data_name, cstring subdata_name, 
-			int32 data_value)
+			long data_value)
 		{
 			if (magazine_index >= 0 && magazine_index < Enums::k_maximum_number_of_magazines_per_weapon)
 			{
@@ -299,7 +299,7 @@ namespace Yelo
 		}
 		void UnitDataSetIntegerByName(s_unit_datum* unit, 
 			cstring data_name,
-			int32 data_value)
+			long data_value)
 		{
 			ObjectFieldSetImpl(g_unit_integer_fields, data_name, unit->unit, 
 				data_value, (void*)nullptr,

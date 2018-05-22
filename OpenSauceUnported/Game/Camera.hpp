@@ -46,7 +46,7 @@ namespace Yelo
 		struct s_camera_command
 		{
 			Flags::observer_globals_data_flags flags;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 
 			real_point3d position;
 			real_point3d offset;
@@ -58,7 +58,7 @@ namespace Yelo
 			real time; // 0 when ever not in transition into 3rdperson
 
 			byte_flags command_flags[Enums::k_number_of_director_game_modes]; // 3 in fp, 0 default
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			real commands[Enums::k_number_of_director_game_modes]; // all the same during transitions, 0.0f = command finished
 		}; BOOST_STATIC_ASSERT( sizeof(s_camera_command) == 0x68 );
 
@@ -69,7 +69,7 @@ namespace Yelo
 			s_camera_command command;			// 0x8
 			bool updated_for_frame;
 			UNKNOWN_TYPE(bool);
-			PAD16;
+			unsigned short : 16;
 
 			// calculated / camera
 			struct s_calculated_result
@@ -127,8 +127,8 @@ namespace Yelo
 			bool enabled;
 			Enums::camera_script_mode mode;
 			struct {
-				int16 next; // next camera point index
-				PAD16;
+				short next; // next camera point index
+				unsigned short : 16;
 				real time; // multiply by 30 to then ftol to get camera_time
 				real_point3d position;
 				real_vector3d forward;
@@ -139,7 +139,7 @@ namespace Yelo
 
 			struct {
 				datum_index tag_index; // [model_animation]
-				int16 animation_index; // index in the animations block
+				short animation_index; // index in the animations block
 			}animation;
 		};
 		s_camera_script_globals_data*	CameraScriptGlobals();
@@ -148,7 +148,7 @@ namespace Yelo
 		struct s_director_scripting_data
 		{
 			bool initialized;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		};
 		s_director_scripting_data*	DirectorScripting();
 
@@ -161,8 +161,8 @@ namespace Yelo
 			bool can_be_skipped;
 			bool suppress_bsp_object_creation;
 			struct {
-				int16 title_index;
-				int16 title_delay;
+				short title_index;
+				short title_delay;
 			}chapter_titles[4];
 		};
 		s_cinematic_globals_data*		CinematicGlobals();

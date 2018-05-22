@@ -60,12 +60,12 @@ namespace Yelo
 			Enums::text_style style;
 			Enums::text_justification justification;
 			real_argb_color color;
-			int16 tab_stop_count;
+			short tab_stop_count;
 			wchar_t tab_stops[Enums::k_maximum_number_of_tab_stops];
-			int16 highlight_start;
-			int16 highlight_end;
-			int16 initial_indent;
-			int16 paragraph_indent[72];
+			short highlight_start;
+			short highlight_end;
+			short initial_indent;
+			short paragraph_indent[72];
 		};
 		s_font_drawing_globals_data*	FontDrawingGlobals();
 	};

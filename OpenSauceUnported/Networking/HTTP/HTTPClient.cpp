@@ -42,7 +42,7 @@ namespace Yelo
 				bool							m_in_use;
 				bool							m_delete_buffer;
 				bool							m_manual_think;
-				PAD8;
+				unsigned char : 8;
 			}m_flags;
 
 			struct
@@ -244,13 +244,13 @@ namespace Yelo
 		 * 
 		 * Searches for a free request slot and prepares it for a new request.
 		 */
-		bool		SetupRequest(int32& index)
+		bool		SetupRequest(long& index)
 		{
 			index = NONE;
 
 			// TODO: just range for g_request_index and use break when the if() is true
 			// find a slot that is not in use
-			for(int32 i = 0; (i < k_max_simultaneous_requests) && (index == NONE); i++)
+			for(long i = 0; (i < k_max_simultaneous_requests) && (index == NONE); i++)
 				if(g_request_index[i].m_flags.m_in_use == false)
 					index = i;
 
@@ -420,7 +420,7 @@ namespace Yelo
 		 * 
 		 * Ends a request that is in progress.
 		 */
-		void		HTTPRequestAbort(int32& index)
+		void		HTTPRequestAbort(long& index)
 		{
 			WaitForSingleObject(g_request_index_mutex, INFINITE);
 
@@ -453,7 +453,7 @@ namespace Yelo
 		 * 
 		 * Forces the requested HTTP request to be updated, outside of the normal update loop.
 		 */
-		void		HTTPRequestThink(int32 index)
+		void		HTTPRequestThink(long index)
 		{
 			YELO_ASSERT_DISPLAY(index >= 0 && index < k_max_simultaneous_requests, "http request index outside of the arrays bounds");
 			ghttpRequestThink(g_request_index[index].m_request_id);
@@ -495,19 +495,19 @@ namespace Yelo
 		 * 
 		 * Starts a HTTP Get request.
 		 */
-		int32		HTTPRequestGet(const char* URL,
+		long		HTTPRequestGet(const char* URL,
 			const char* headers,
 			Enums::http_client_component component_index,
 			void* component_data,
 			char* buffer,
-			int32 buffer_size,
+			long buffer_size,
 			bool delete_buffer,
 			bool blocking,
 			bool manual_think)
 		{
 			WaitForSingleObject(g_request_index_mutex, INFINITE);
 
-			int32 request_index = NONE;
+			long request_index = NONE;
 			// allocate a request slot and reset its values
 			// if no request slots are available, return -1
 			if(!SetupRequest(request_index))
@@ -533,7 +533,7 @@ namespace Yelo
 				header_string.append(headers);
 
 			// start the request
-			int32 request_id = ghttpGetEx(URL,
+			long request_id = ghttpGetEx(URL,
 				header_string.c_str(),
 				buffer,
 				buffer_size,
@@ -570,7 +570,7 @@ namespace Yelo
 		 * 
 		 * Gets the total bytes that will be received by an in-progress request.
 		 */
-		int QueryBytesTotal(int32 request_index)
+		int QueryBytesTotal(long request_index)
 		{
 			if(request_index <= NONE || !g_request_index[request_index].m_flags.m_in_use)
 				return NONE;
@@ -590,7 +590,7 @@ namespace Yelo
 		 * 
 		 * Gets the number of bytes received so far by an in-progress request.
 		 */
-		int QueryBytesReceived(int32 request_index)
+		int QueryBytesReceived(long request_index)
 		{
 			if(request_index <= NONE || !g_request_index[request_index].m_flags.m_in_use)
 				return NONE;
@@ -611,7 +611,7 @@ namespace Yelo
 		 * 
 		 * Gets the URL for the data being received by an in-progress request.
 		 */
-		const char* QueryDownloadURL(int32 request_index)
+		const char* QueryDownloadURL(long request_index)
 		{
 			if(request_index <= NONE || !g_request_index[request_index].m_flags.m_in_use)
 				return nullptr;
@@ -632,7 +632,7 @@ namespace Yelo
 		 * 
 		 * Gets the current download stage of an in-progress request.
 		 */
-		GHTTPState QueryDownloadState(int32 request_index)
+		GHTTPState QueryDownloadState(long request_index)
 		{
 			if(request_index <= NONE || !g_request_index[request_index].m_flags.m_in_use)
 				return GHTTPSocketInit;
@@ -652,7 +652,7 @@ namespace Yelo
 		 * 
 		 * Gets the status code returned for an in-progress request, when GHTTP successfully connected to a server.
 		 */
-		int QueryResponseStatus(int32 request_index)
+		int QueryResponseStatus(long request_index)
 		{
 			if(request_index <= NONE || !g_request_index[request_index].m_flags.m_in_use)
 				return 0;

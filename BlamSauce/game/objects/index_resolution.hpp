@@ -19,6 +19,6 @@ namespace Yelo
 
 	namespace blam
 	{
-		int32 __cdecl index_resolution_table_translate(MessageDeltas::s_index_resolution_table& table, datum_index local_index);
+		long __cdecl index_resolution_table_translate(MessageDeltas::s_index_resolution_table& table, datum_index local_index);
 	};
 };

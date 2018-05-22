@@ -22,7 +22,7 @@ namespace Yelo
 		TagGroups::structure_bsp* StructureBsp();
 
 		datum_index ScenarioIndex();
-		int16 StructureBspIndex();
+		short StructureBspIndex();
 
 		void Initialize();
 		void Dispose();

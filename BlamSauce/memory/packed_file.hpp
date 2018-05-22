@@ -63,7 +63,7 @@ namespace Yelo
 			uint32		m_base_address;
 		};
 		bool			m_file_mapped;
-		PAD24;
+		unsigned char : 8; unsigned short : 16;
 	public:
 		struct s_element_editor : s_element
 		{

@@ -39,25 +39,25 @@ namespace Yelo
 			// allocations
 			struct s_tag_allocation_definition
 			{
-				typedef int16 block_index_t;
+				typedef short block_index_t;
 
 				TAG_FIELD(size_t, element_runtime_size);
 				TAG_FIELD(word_flags, flags);
-				TAG_FIELD(int16, alignment_bit);
+				TAG_FIELD(short, alignment_bit);
 			};
 			struct s_tag_allocation
 			{
-				typedef int32 block_index_t;
+				typedef long block_index_t;
 
 				TAG_BLOCK_INDEX(s_tag_allocation_definition, allocation_index);
-				PAD16;
+				unsigned short : 16;
 				TAG_FIELD(size_t, size);
 				TAG_FIELD(uintptr_t, rva);
 			};
 
 			struct s_tag_block_allocation
 			{
-				typedef int32 block_index_t;
+				typedef long block_index_t;
 
 				TAG_BLOCK_INDEX(s_tag_allocation, allocation_index);
 				TAG_TBLOCK(child_allocations, s_tag_allocation::block_index_t);
@@ -72,17 +72,17 @@ namespace Yelo
 			// child data locations
 			struct s_tag_block_child_definition
 			{
-				typedef int16 block_index_t;
+				typedef short block_index_t;
 
 				TAG_BLOCK_INDEX(s_tag_allocation_definition, parent_definition_index);
 				TAG_FIELD(uint16, parent_offset);
 				TAG_ENUM(type, Enums::tag_block_child_type);
-				PAD16;
+				unsigned short : 16;
 			}; static_assert( sizeof(s_tag_block_child_definition) == 8 );
 
 			struct s_tag_block_child_instance
 			{
-				typedef int32 block_index_t;
+				typedef long block_index_t;
 
 				TAG_BLOCK_INDEX(s_tag_block_child_definition, definition_index);
 				TAG_BLOCK_INDEX(s_tag_allocation_definition, owner_block_index);
@@ -93,7 +93,7 @@ namespace Yelo
 				string_id_set_entry_location_t;
 			struct s_string_id_set
 			{
-				TAG_FIELD(int32, set_index);
+				TAG_FIELD(long, set_index);
 				TAG_TBLOCK(ids_bitvector, byte);
 				TAG_TBLOCK(id_locations, string_id_set_entry_location_t);
 			};

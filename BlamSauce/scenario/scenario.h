@@ -37,7 +37,7 @@ namespace Yelo {
 
 		TagGroups::scenario **GlobalScenarioReference();
 
-		int16 *GlobalStructureBspIndexReference();
+		short *GlobalStructureBspIndexReference();
 
 		TagGroups::structure_bsp **GlobalStructureBspReference();
 
@@ -83,7 +83,7 @@ namespace Yelo {
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Scenario structure bsp reference index of the currently loaded SBSP. </summary>
-		int16 StructureBspIndex();
+		short StructureBspIndex();
 	};
 
 	namespace blam {
@@ -111,13 +111,13 @@ namespace Yelo {
 
 		// Switches the bsp being used to the bsp at [bsp_index] in the scenario structure bsps block
 		// returns true if the switch executed. if [bsp_index] is invalid or equal to the current index, returns false
-		bool __cdecl scenario_switch_structure_bsp(int16 bsp_index);
+		bool __cdecl scenario_switch_structure_bsp(short bsp_index);
 
 		// Tests to see if [point] exists inside [trigger_volume_index] (index to a definition in the current scenario)
-		bool __cdecl scenario_trigger_volume_test_point(int32 trigger_volume_index, const real_point3d &point);
+		bool __cdecl scenario_trigger_volume_test_point(long trigger_volume_index, const real_point3d &point);
 
 		// Tests to see if [object_index] is inside [trigger_volume_index] (index to a definition in the current scenario)
-		bool __cdecl scenario_trigger_volume_test_object(int32 trigger_volume_index, datum_index object_index);
+		bool __cdecl scenario_trigger_volume_test_object(long trigger_volume_index, datum_index object_index);
 
 		bool __cdecl scenario_load(cstring scenario_name);
 

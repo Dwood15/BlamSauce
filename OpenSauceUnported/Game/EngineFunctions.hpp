@@ -23,7 +23,7 @@ namespace Yelo
 {
 	namespace Engine
 	{
-		void GatherException(const void* data = nullptr, int32 arg_0 = 0x89, int32 arg_4 = 0x7E, int32 arg_8 = 1);
+		void GatherException(const void* data = nullptr, long arg_0 = 0x89, long arg_4 = 0x7E, long arg_8 = 1);
 
 
 		// NOTE: we should just use GS's md5.c functions, but the GS SDK is no longer 'open' heh
@@ -38,11 +38,11 @@ namespace Yelo
 			// TranslatedIndexUnregister
 
 			// Translate a local object_index to a translated_index (ie, network)
-			int32 TranslateObject(datum_index local_object_index);
+			long TranslateObject(datum_index local_object_index);
 			// Translate a local player_index to a translated_index (ie, network)
-			int32 TranslatePlayer(datum_index local_player_index);
+			long TranslatePlayer(datum_index local_player_index);
 
-			int32 TranslatedIndexRegister(MessageDeltas::s_index_resolution_table& table, datum_index local_index);
+			long TranslatedIndexRegister(MessageDeltas::s_index_resolution_table& table, datum_index local_index);
 #endif
 		};
 	};

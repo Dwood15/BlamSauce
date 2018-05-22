@@ -69,7 +69,7 @@ namespace Yelo
 			DeleteString();
 		}
 
-		s_interface_value::s_interface_value(void* data, const int32 size)
+		s_interface_value::s_interface_value(void* data, const long size)
 			: s_interface_value()
 		{
 			memcpy_s(m_data, sizeof(m_data), data, size);
@@ -83,12 +83,12 @@ namespace Yelo
 			: s_interface_value(&value, sizeof(sbyte)) { }
 		s_interface_value::s_interface_value(uint16 value)
 			: s_interface_value(&value, sizeof(uint16)) { }
-		s_interface_value::s_interface_value(int16 value)
-			: s_interface_value(&value, sizeof(int16)) { }
+		s_interface_value::s_interface_value(short value)
+			: s_interface_value(&value, sizeof(short)) { }
 		s_interface_value::s_interface_value(uint32 value)
 			: s_interface_value(&value, sizeof(uint32)) { }
-		s_interface_value::s_interface_value(int32 value)
-			: s_interface_value(&value, sizeof(int32)) { }
+		s_interface_value::s_interface_value(long value)
+			: s_interface_value(&value, sizeof(long)) { }
 		s_interface_value::s_interface_value(uint64 value)
 			: s_interface_value(&value, sizeof(uint64)) { }
 		s_interface_value::s_interface_value(int64 value)

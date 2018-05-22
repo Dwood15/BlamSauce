@@ -9,10 +9,10 @@
 static void* scripting_volume_test_player_team_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 trigger_volume;
-		PAD16;
-		int16 team_index;
-		PAD16;
+		short trigger_volume;
+		unsigned short : 16;
+		short team_index;
+		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.boolean = false;
@@ -36,10 +36,10 @@ static void* scripting_volume_test_player_team_evaluate(void** arguments)
 static void* scripting_volume_test_player_team_all_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 trigger_volume;
-		PAD16;
-		int16 team_index;
-		PAD16;
+		short trigger_volume;
+		unsigned short : 16;
+		short team_index;
+		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.boolean = true;
@@ -64,10 +64,10 @@ static void* scripting_volume_test_player_team_all_evaluate(void** arguments)
 static void* scripting_player_team_teleport_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 team_index;
-		PAD16;
-		int16 cutscene_flag;
-		PAD16;
+		short team_index;
+		unsigned short : 16;
+		short cutscene_flag;
+		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
 	if(args->team_index >= 0 && GameEngine::GlobalVariant()->universal_variant.teams)
@@ -88,8 +88,8 @@ static void* scripting_player_team_teleport_evaluate(void** arguments)
 static void* scripting_player_team_players_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 team_index;
-		PAD16;
+		short team_index;
+		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.datum = datum_index::null;
 
@@ -117,7 +117,7 @@ static void* scripting_player_team_players_evaluate(void** arguments)
 }
 
 
-static int32 scripting_player_data_get_integer_by_name(s_player_datum* player, cstring data_name, bool for_team_data = false)
+static long scripting_player_data_get_integer_by_name(s_player_datum* player, cstring data_name, bool for_team_data = false)
 {
 	cstring s = data_name; // alias for keeping the code width down
 
@@ -143,12 +143,12 @@ static int32 scripting_player_data_get_integer_by_name(s_player_datum* player, c
 static void* scripting_player_data_get_integer_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 player_list_index;
-		PAD16;
+		short player_list_index;
+		unsigned short : 16;
 		cstring data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
-	result.int32 = NONE;
+	result.long = NONE;
 
 	if(args->player_list_index >= 0)
 	{
@@ -156,7 +156,7 @@ static void* scripting_player_data_get_integer_evaluate(void** arguments)
 		{
 			if(player->network_player.player_list_index == args->player_list_index)
 			{
-				result.int32 = scripting_player_data_get_integer_by_name(player.datum, args->data_name);
+				result.long = scripting_player_data_get_integer_by_name(player.datum, args->data_name);
 				break;
 			}
 		}
@@ -167,19 +167,19 @@ static void* scripting_player_data_get_integer_evaluate(void** arguments)
 static void* scripting_player_team_data_get_integer_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 team_index;
-		PAD16;
+		short team_index;
+		unsigned short : 16;
 		cstring data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
-	result.int32 = NONE;
+	result.long = NONE;
 
 	if(args->team_index >= 0 && GameEngine::GlobalVariant()->universal_variant.teams)
 	{
 		for(auto player : Players::Players())
 		{
 			if(player->team_index == args->team_index)
-				result.int32 += scripting_player_data_get_integer_by_name(player.datum, args->data_name, true);
+				result.long += scripting_player_data_get_integer_by_name(player.datum, args->data_name, true);
 		}
 	}
 
@@ -210,8 +210,8 @@ static datum_index scripting_player_data_get_object_by_name(s_player_datum* play
 static void* scripting_player_data_get_object_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 player_list_index;
-		PAD16;
+		short player_list_index;
+		unsigned short : 16;
 		cstring data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
@@ -245,8 +245,8 @@ static real* scripting_player_data_get_real_by_name(s_player_datum* player, cstr
 static void* scripting_player_data_get_real_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 player_list_index;
-		PAD16;
+		short player_list_index;
+		unsigned short : 16;
 		cstring data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
@@ -271,8 +271,8 @@ static void* scripting_player_data_get_real_evaluate(void** arguments)
 static void* scripting_player_data_set_real_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int16 player_list_index;
-		PAD16;
+		short player_list_index;
+		unsigned short : 16;
 		cstring data_name;
 		real data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
@@ -301,11 +301,11 @@ static void* scripting_player_data_set_real_evaluate(void** arguments)
 static void* scripting_player_local_get_evaluate()
 {
 	TypeHolder result; result.pointer = nullptr;
-	result.int32 = NONE;
+	result.long = NONE;
 
 	auto* local_player = Players::LocalPlayer();
 	if(local_player != nullptr)
-		result.int32 = local_player->network_player.player_list_index;
+		result.long = local_player->network_player.player_list_index;
 
 	return result.pointer;
 }

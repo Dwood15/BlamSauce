@@ -19,7 +19,7 @@ namespace Yelo
 			return m_members_internal.definition->name;
 		}
 
-		int16 c_effect_internal::GetScriptedVariableIndex(const char* name)
+		short c_effect_internal::GetScriptedVariableIndex(const char* name)
 		{
 			// compare the names of all script variables with the test string, return the index if found
 			for(int i = 0; i < m_members_internal.definition->script_variables.Count; i++)
@@ -54,7 +54,7 @@ namespace Yelo
 
 		/////////////////////////////////////////////////
 		// scripting
-		void c_effect_internal::SetScriptedVariable(int16 index, real change_time, bool value)
+		void c_effect_internal::SetScriptedVariable(short index, real change_time, bool value)
 		{
 			if(index >= m_members_internal.definition->script_variables.Count)
 				return;
@@ -65,7 +65,7 @@ namespace Yelo
 				parameter->SetOverrideInterp(value, change_time);
 		}
 
-		void c_effect_internal::SetScriptedVariable(int16 index, real change_time, int32 value)
+		void c_effect_internal::SetScriptedVariable(short index, real change_time, long value)
 		{
 			if(index >= m_members_internal.definition->script_variables.Count)
 				return;
@@ -76,7 +76,7 @@ namespace Yelo
 				parameter->SetOverrideInterp(value, change_time);
 		}
 
-		void c_effect_internal::SetScriptedVariable(int16 index, real change_time, real value0, real value1, real value2, real value3)
+		void c_effect_internal::SetScriptedVariable(short index, real change_time, real value0, real value1, real value2, real value3)
 		{
 			if(index >= m_members_internal.definition->script_variables.Count)
 				return;

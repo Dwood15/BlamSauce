@@ -13,15 +13,15 @@ namespace ActionResults
 	static void InitializePlayerHandleActionJmpTable()
 	{
 		// how much the stock jmp table is offset from the action_result enum
-		const int32 offset = Enums::_player_action_result_swap_equipment;
+		const long offset = Enums::_player_action_result_swap_equipment;
 
 		// write the game's default jump case into our jump table
 		for (auto& ptr : player_handle_action_jmp_table_yelo)
 			ptr = GET_PTR2(PLAYER_HANDLE_ACTION_JMP_TABLE)[1];
 
 		// copy the game's jmp table to our own and account for the offset
-		int32 handle_action_last_entry_type = GET_PTR(PLAYER_HANDLE_ACTION_LAST_ENTRY_TYPE);
-		for (int32 x = offset; x <= handle_action_last_entry_type + offset; x++)
+		long handle_action_last_entry_type = GET_PTR(PLAYER_HANDLE_ACTION_LAST_ENTRY_TYPE);
+		for (long x = offset; x <= handle_action_last_entry_type + offset; x++)
 			player_handle_action_jmp_table_yelo[x] = GET_PTR2(PLAYER_HANDLE_ACTION_JMP_TABLE)[x - offset];
 
 		static const byte k_null_opcode[] = { Enums::_x86_opcode_nop, Enums::_x86_opcode_nop, Enums::_x86_opcode_nop };

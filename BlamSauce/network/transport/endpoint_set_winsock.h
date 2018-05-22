@@ -19,9 +19,9 @@ namespace Yelo
 			fd_set select_set;
 
 			s_transport_endpoint** ep_array;
-			int32 max_endpoints;
-			int32 count;
-			int32 array_cursor;
+			long max_endpoints;
+			long count;
+			long array_cursor;
 		}; static_assert( sizeof(s_transport_endpoint_set) == 0x114 );
 	};
 };

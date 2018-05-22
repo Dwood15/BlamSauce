@@ -29,7 +29,7 @@ namespace Yelo
 		{
 			struct s_nav_point
 			{
-				int16 navpoint_index;
+				short navpoint_index;
 				struct {
 					// if the bitfield size was calculated in their code, and not by hand then it
 					// probably factored in k_number_of_waypoint_types's value (not value-1).
@@ -39,9 +39,9 @@ namespace Yelo
 					real vertical_offset;
 
 					union {
-						int32 cutscene_flag_index;
+						long cutscene_flag_index;
 						datum_index object_index;
-						int16 game_goal_index;
+						short game_goal_index;
 					};
 				}waypoint;
 			}; static_assert( sizeof(s_nav_point) == 0xC );
@@ -58,7 +58,7 @@ namespace Yelo
 
 	namespace blam
 	{
-		void __cdecl render_nav_point(int16 local_player_index, const real_point3d& point,
-			int32 waypoint_arrow_index, long_enum waypoint_type);
+		void __cdecl render_nav_point(short local_player_index, const real_point3d& point,
+			long waypoint_arrow_index, long_enum waypoint_type);
 	};
 };

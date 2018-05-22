@@ -24,7 +24,7 @@ namespace Yelo
 		struct predicted_resource
 		{
 			short type;
-			int16 resource_index;
+			short resource_index;
 			datum_index tag_index;
 		}; static_assert( sizeof(predicted_resource) == 0x8 ); // max count: 1024
 	};
@@ -33,7 +33,7 @@ namespace Yelo
 	{
 #if PLATFORM_TYPE == PLATFORM_TOOL
 		void predicted_resources_add_resource(TagBlock<TagGroups::predicted_resource>& predicted_resources,
-			long_enum resource_type, datum_index tag_index, int32 resource_index = NONE);
+			long_enum resource_type, datum_index tag_index, long resource_index = NONE);
 #endif
 
 		// NOTE: function is actually defined in the engine's physical_memory_map.c

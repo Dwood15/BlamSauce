@@ -2,7 +2,7 @@ void* scripting_game_change_version_id_evaluate(void** arguments)
 {
 	struct s_arguments {
 		bool and_game_build;
-		PAD24;
+		unsigned char : 8; unsigned short : 16;
 		cstring version_str;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
@@ -20,20 +20,20 @@ static void* scripting_game_engine_data_get_integer_evaluate(void** arguments)
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-		 if( !strcmp(args->data_name,"type") )			result.int32 = GameEngine::Current() != nullptr ? GameEngine::GlobalVariant()->game_engine_index : Enums::_game_engine_none;
-	else if( !strcmp(args->data_name,"is_teams") )		result.int32 = CAST(int32, GameEngine::GlobalVariant()->universal_variant.teams);
-	else if( !strcmp(args->data_name,"is_odd_man_out") )result.int32 = CAST(int32, GameEngine::GlobalVariant()->universal_variant.odd_man_out);
-	else if( !strcmp(args->data_name,"lives") )			result.int32 = GameEngine::GlobalVariant()->universal_variant.lives;
-	else if( !strcmp(args->data_name,"score_to_win") )	result.int32 = GameEngine::GlobalVariant()->universal_variant.score_to_win;
+		 if( !strcmp(args->data_name,"type") )			result.long = GameEngine::Current() != nullptr ? GameEngine::GlobalVariant()->game_engine_index : Enums::_game_engine_none;
+	else if( !strcmp(args->data_name,"is_teams") )		result.long = CAST(long, GameEngine::GlobalVariant()->universal_variant.teams);
+	else if( !strcmp(args->data_name,"is_odd_man_out") )result.long = CAST(long, GameEngine::GlobalVariant()->universal_variant.odd_man_out);
+	else if( !strcmp(args->data_name,"lives") )			result.long = GameEngine::GlobalVariant()->universal_variant.lives;
+	else if( !strcmp(args->data_name,"score_to_win") )	result.long = GameEngine::GlobalVariant()->universal_variant.score_to_win;
 
 	// CTF
-//	else if( !strcmp(args->data_name,"ctf:") )			result.int32 = GameEngine::GlobalVariant();
+//	else if( !strcmp(args->data_name,"ctf:") )			result.long = GameEngine::GlobalVariant();
 
 	// Oddball
-	else if( !strcmp(args->data_name,"oddball:ball_count") )	result.int32 = GameEngine::GlobalVariant()->game_engine_variant.oddball.ball_count;
-//	else if( !strcmp(args->data_name,"oddball:") )		result.int32 = GameEngine::GlobalVariant();
+	else if( !strcmp(args->data_name,"oddball:ball_count") )	result.long = GameEngine::GlobalVariant()->game_engine_variant.oddball.ball_count;
+//	else if( !strcmp(args->data_name,"oddball:") )		result.long = GameEngine::GlobalVariant();
 
-	else												result.int32 = NONE;
+	else												result.long = NONE;
 
 	return result.pointer;
 }
@@ -62,11 +62,11 @@ static void* scripting_machine_is_dedi()
 static void* scripting_abs_integer_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
+		long value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	result.int32 = abs(args->value);
+	result.long = abs(args->value);
 
 	return result.pointer;
 }
@@ -85,8 +85,8 @@ static void* scripting_abs_real_evaluate(void** arguments)
 static void* scripting_bitwise_and_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int32 flags;
+		long value;
+		long flags;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
@@ -97,8 +97,8 @@ static void* scripting_bitwise_and_evaluate(void** arguments)
 static void* scripting_bitwise_or_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int32 flags;
+		long value;
+		long flags;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
@@ -109,8 +109,8 @@ static void* scripting_bitwise_or_evaluate(void** arguments)
 static void* scripting_bitwise_xor_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int32 flags;
+		long value;
+		long flags;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
@@ -121,12 +121,12 @@ static void* scripting_bitwise_xor_evaluate(void** arguments)
 static void* scripting_bitwise_lhs_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int32 bit_count;
+		long value;
+		long bit_count;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(int32))
+	if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(long))
 		result.uint32 = CAST(uint32,args->value) << args->bit_count;
 
 	return result.pointer;
@@ -134,12 +134,12 @@ static void* scripting_bitwise_lhs_evaluate(void** arguments)
 static void* scripting_bitwise_rhs_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int32 bit_count;
+		long value;
+		long bit_count;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(int32))
+	if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(long))
 		result.uint32 = CAST(uint32,args->value) >> args->bit_count;
 
 	return result.pointer;
@@ -147,13 +147,13 @@ static void* scripting_bitwise_rhs_evaluate(void** arguments)
 static void* scripting_bit_test_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int16 bit_index;
-		PAD16;
+		long value;
+		short bit_index;
+		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(int32))
+	if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(long))
 		result.boolean = TEST_FLAG(CAST(uint32,args->value), args->bit_index);
 
 	return result.pointer;
@@ -161,15 +161,15 @@ static void* scripting_bit_test_evaluate(void** arguments)
 static void* scripting_bit_toggle_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int16 bit_index;
-		PAD16;
+		long value;
+		short bit_index;
+		unsigned short : 16;
 		bool add_or_remove;
-		PAD24;
+		unsigned char : 8; unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(int32))
+	if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(long))
 	{
 		uint32 value = CAST(uint32,args->value);
 		result.uint32 = SET_FLAG(value, args->bit_index, args->add_or_remove);
@@ -181,8 +181,8 @@ static void* scripting_bit_toggle_evaluate(void** arguments)
 static void* scripting_bit_flags_test_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int32 flags;
+		long value;
+		long flags;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
@@ -193,10 +193,10 @@ static void* scripting_bit_flags_test_evaluate(void** arguments)
 static void* scripting_bit_flags_toggle_evaluate(void** arguments)
 {
 	struct s_arguments {
-		int32 value;
-		int32 flags;
+		long value;
+		long flags;
 		bool add_or_remove;
-		PAD24;
+		unsigned char : 8; unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 

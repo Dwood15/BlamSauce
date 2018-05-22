@@ -122,7 +122,7 @@ namespace Yelo
 			std::string					m_username;
 			std::string					m_password;
 			std::string					m_address;
-			int32						m_port;
+			long						m_port;
 
 			std::vector<std::string>	m_path;
 

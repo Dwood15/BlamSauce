@@ -28,10 +28,10 @@ namespace Yelo::Enums {
 
 namespace Yelo::Interface {
 	struct s_map_list_map_info {
-		int32   system_map_index; // index used for things like the UI map list
+		long   system_map_index; // index used for things like the UI map list
 		cstring name;
 		bool    is_original; // ie, bungie made it
-		PAD24;
+		unsigned char : 8; unsigned short : 16;
 	}; static_assert(sizeof(s_map_list_map_info) == 0xC);
 };
 
@@ -86,7 +86,7 @@ namespace Yelo {
 		// We don't define an actual ctor\dtor because of this
 		struct s_map_list_map {
 			char  *name;
-			int32 system_map_index;
+			long system_map_index;
 			bool  valid;
 			struct {
 				// is this a multiplayer map?
@@ -99,11 +99,11 @@ namespace Yelo {
 				// has the crc already been calculated yet?
 				byte_flags valid_crc : 1;
 			}     yelo_flags;
-			PAD16;
+			unsigned short : 16;
 			uint32 crc;
 
 			// Our ctor initializer for this engine struct
-			void Initialize(int32 system_map_index) {
+			void Initialize(long system_map_index) {
 				memset(this, 0, sizeof(*this)); // engine doesn't do this, it does explicit field init, but we have custom fields
 				this->system_map_index = system_map_index;
 				this->valid            = true; // engine defaults valid to true...
@@ -178,7 +178,7 @@ namespace Yelo {
 		/// <param name="system_map_index">	(Optional) zero-based index of the map. </param>
 		///
 		/// <returns>	Index of the new s_map_list_map, or NONE if it failed to add. </returns>
-		int32 MapListAddMapFromPath(cstring maps_path, cstring map_file_name, int32 system_map_index) {
+		long MapListAddMapFromPath(cstring maps_path, cstring map_file_name, long system_map_index) {
 			assert(maps_path);
 			assert(map_file_name);
 
@@ -228,10 +228,10 @@ namespace Yelo {
 		/// <param name="map_name">	Name of the map; lowercase and without any path components. </param>
 		///
 		/// <returns>	Index of the found s_map_list_map, or NONE if the map isn't registered in the map list. </returns>
-		int32 MapListMapGetIndexFromName(cstring map_name) {
+		long MapListMapGetIndexFromName(cstring map_name) {
 			auto& multiplayer_maps = *MultiplayerMaps();
 
-			for (int32 x = 0; x < multiplayer_maps.count; x++)
+			for (long x = 0; x < multiplayer_maps.count; x++)
 			{
 				const auto* entry = multiplayer_maps[x];
 
@@ -327,26 +327,26 @@ namespace Yelo {
 
 	namespace blam {
 
-		cstring map_list_map_name(int32 index);
+		cstring map_list_map_name(long index);
 
-		int32 map_list_map_index(int32 index);
+		long map_list_map_index(long index);
 
-		bool map_list_map_valid(int32 index);
+		bool map_list_map_valid(long index);
 
-		uint32 map_list_map_get_crc(int32 index);
+		uint32 map_list_map_get_crc(long index);
 
-		bool map_list_map_is_original(int32 index);
+		bool map_list_map_is_original(long index);
 
-		int32 map_list_map_get_index(cstring map_path) {
+		long map_list_map_get_index(cstring map_path) {
 			char map_name[_MAX_FNAME] = "";
 			auto map_file_type        = Yelo::Cache::GetMapNameFromPath(map_name, map_path);
 
 			return Interface::MapListMapGetIndexFromName(map_name);
 		}
 
-		int32 map_list_map_count();
+		long map_list_map_count();
 
-		void map_list_add_map(cstring map_name, int32 map_index);
+		void map_list_add_map(cstring map_name, long map_index);
 
 		bool map_list_should_ignore(cstring map_path) {
 			assert(map_path);

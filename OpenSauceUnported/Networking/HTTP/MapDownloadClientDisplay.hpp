@@ -35,7 +35,7 @@ namespace Yelo
 		class c_map_download_display
 		{
 			map_download_state m_download_state;
-			PAD16;
+			unsigned short : 16;
 
 			real m_part_progress;
 			real m_map_progress;

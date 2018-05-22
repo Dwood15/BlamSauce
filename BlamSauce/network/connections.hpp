@@ -71,24 +71,24 @@ namespace Yelo
 			Memory::s_bitstream bitstream;
 			bool empty;
 			byte buffer[k_protocol_bits / BIT_COUNT(byte)]; // 0x1D
-			PAD24;
-			PAD32;
+			unsigned char : 8; unsigned short : 16;
+			unsigned long : 32;
 		}; static_assert( sizeof(s_message_stream) == 0x534 );
 
 		struct s_connection_message // made up name, nothing to verify name with
 		{
-			bool has_data; PAD24; // engine sets this to false after the message stream has been flushed
-			int32 priority;
-			int32 headerMaxSizeInBytes;
-			int32 dataMaxSizeInBytes;
-			int32 header_size_in_bits;
-			int32 data_size_in_bits;
+			bool has_data; unsigned char : 8; unsigned short : 16; // engine sets this to false after the message stream has been flushed
+			long priority;
+			long headerMaxSizeInBytes;
+			long dataMaxSizeInBytes;
+			long header_size_in_bits;
+			long data_size_in_bits;
 			byte* header_buffer;
 			byte* data_buffer;
 		}; static_assert( sizeof(s_connection_message) == 0x20 );
 		struct s_connection_prioritization_buffer
 		{
-			int32 numMessages;				// 0xA78
+			long numMessages;				// 0xA78
 			s_connection_message* messages;	// 0xA7C
 			UNKNOWN_TYPE(uint32);			// 0xA80, I've only seen this as 0xE0
 			DWORD time_of_last_flush;		// 0xA84, initialize by GetTickCount
@@ -108,9 +108,9 @@ namespace Yelo
 			s_connection_prioritization_buffer prioritization_buffer;	// 0xA78
 			Enums::network_connection_class connection_class;			// 0xA88
 			long_flags flags; // Flags::network_connection_flags
-			UNUSED_TYPE(int32);
+			UNUSED_TYPE(long);
 			s_network_server_connection* server_connection;
-			bool is_local_connection; PAD24;
+			bool is_local_connection; unsigned char : 8; unsigned short : 16;
 		}; static_assert( sizeof(s_network_connection) == 0xA9C );
 		
 		struct s_network_server_connection
@@ -119,7 +119,7 @@ namespace Yelo
 			s_transport_endpoint_set* endpoint_set;
 			s_network_connection* client_list[Enums::k_maximum_network_machine_count];
 			UNKNOWN_TYPE(bool);
-			bool has_local_connection; PAD16;
+			bool has_local_connection; unsigned short : 16;
 		}; static_assert( sizeof(s_network_server_connection) == 0xAE4 );
 	};
 };

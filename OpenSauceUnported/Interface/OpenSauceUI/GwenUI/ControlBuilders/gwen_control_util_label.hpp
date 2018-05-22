@@ -49,15 +49,15 @@ namespace Yelo
 		///
 		/// <param name="label">	[in] The label. </param>
 		///
-		/// <returns>	An int32. </returns>
-		int32 Label_GetTextSize(Gwen::Controls::Label& label);
+		/// <returns>	An long. </returns>
+		long Label_GetTextSize(Gwen::Controls::Label& label);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Sets the text size of a label. </summary>
 		///
 		/// <param name="label">	[in] The label. </param>
 		/// <param name="value">	The value to set. </param>
-		void Label_SetTextSize(Gwen::Controls::Label& label, const int32 value);
+		void Label_SetTextSize(Gwen::Controls::Label& label, const long value);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Gets whether a labels text is bold. </summary>
@@ -95,14 +95,14 @@ namespace Yelo
 		/// <param name="label">	[in] The label. </param>
 		///
 		/// <returns>	The alignment. </returns>
-		int32 Label_GetHorizontalAlignment(Gwen::Controls::Label& label);
+		long Label_GetHorizontalAlignment(Gwen::Controls::Label& label);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Sets a labels horizontal alignment. </summary>
 		///
 		/// <param name="label">	[in] The label. </param>
 		/// <param name="value">	The alignment to use. </param>
-		void Label_SetHorizontalAlignment(Gwen::Controls::Label& label, const int32 value);
+		void Label_SetHorizontalAlignment(Gwen::Controls::Label& label, const long value);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Sets a labels horizontal alignment. </summary>
@@ -117,14 +117,14 @@ namespace Yelo
 		/// <param name="label">	[in] The label. </param>
 		///
 		/// <returns>	The alignment. </returns>
-		int32 Label_GetVerticalAlignment(Gwen::Controls::Label& label);
+		long Label_GetVerticalAlignment(Gwen::Controls::Label& label);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Sets a labels vertical alignment. </summary>
 		///
 		/// <param name="label">	[in] The label. </param>
 		/// <param name="value">	The alignment to use. </param>
-		void Label_SetVerticalAlignment(Gwen::Controls::Label& label, const int32 value);
+		void Label_SetVerticalAlignment(Gwen::Controls::Label& label, const long value);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Sets a labels vertical alignment. </summary>

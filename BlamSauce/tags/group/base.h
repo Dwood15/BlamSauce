@@ -1,10 +1,3 @@
-#pragma once
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
-#pragma once
 
 #include <precompile.h>
 #include "../../cseries/base.h"
@@ -18,6 +11,7 @@
 #include "loading.hpp"
 #include "../../memory/memory_yelo.hpp"
 #include "../../cache/cache_files.hpp"
+#pragma once
 
 namespace Yelo::TagGroups {
 	/// <summary>	when true, all 'model' references are loaded or get as gbxmodels </summary>
@@ -45,7 +39,7 @@ namespace Yelo {
 
 	struct tag_reference {
 		enum {
-			k_debug_data_size = sizeof(tag_reference_name_reference) + sizeof(int32),
+			k_debug_data_size = sizeof(tag_reference_name_reference) + sizeof(long),
 		};
 
 		// group tag identifier for this reference
@@ -53,7 +47,7 @@ namespace Yelo {
 		// path, without tag group extension, to the tag reference
 		tag_reference_name_reference name;
 		// length of the reference name
-		int32                        name_length;
+		long                        name_length;
 		// datum index of this reference in the tag index
 		datum_index                  tag_index;
 
@@ -174,7 +168,7 @@ namespace Yelo {
 		};
 
 		// element count for this block
-		int32                             count;
+		long                             count;
 		// elements pointer
 		void                              *address;
 		// definition pointer for this block instance
@@ -185,13 +179,13 @@ namespace Yelo {
 		template <typename T>
 		T *Elements() { return CAST_PTR(T*, address); }
 
-		void *get_element(int32 element_index);
+		void *get_element(long element_index);
 
-		void delete_element(int32 element_index);
+		void delete_element(long element_index);
 
-		int32 add_element();
+		long add_element();
 
-		bool resize(int32 element_count);
+		bool resize(long element_count);
 
 		void *add_and_get_element();
 
@@ -201,15 +195,15 @@ namespace Yelo {
 
 		struct s_iterator_result {
 			void  *address;
-			int32 index;
+			long index;
 
-			s_iterator_result(void *ptr, int32 i) : address(ptr), index(i) {}
+			s_iterator_result(void *ptr, long i) : address(ptr), index(i) {}
 		};
 
 		// NOTE: Design assumes there's no concurrent element changing (adding or removing)
 		struct s_iterator {
 			byte   *m_address;
-			int32  m_element_index;
+			long  m_element_index;
 			size_t m_element_size;
 		public:
 			s_iterator(tag_block &block, size_t element_size, size_t element_index = 0)
@@ -241,13 +235,13 @@ namespace Yelo {
 
 	namespace blam {
 		// Get the address of a block element which exists at [element_index]
-		void *__cdecl tag_block_get_element(tag_block *block, int32 element_index);
+		void *__cdecl tag_block_get_element(tag_block *block, long element_index);
 
-		const void *__cdecl tag_block_get_element(const tag_block *block, int32 element_index);
+		const void *__cdecl tag_block_get_element(const tag_block *block, long element_index);
 
 		// Add a new block element and return the index which
 		// represents the newly added element
-		int32 __cdecl tag_block_add_element(tag_block *block) {
+		long __cdecl tag_block_add_element(tag_block *block) {
 			// YELO_ASSERT(block && block->definition);
 			//
 			// auto *definition = block->definition;
@@ -268,7 +262,7 @@ namespace Yelo {
 			// void *new_element = blam::tag_block_get_element(block, add_index);
 			// blam::tag_block_generate_default_element(definition, new_element);
 			//
-			// int32 dummy_position;
+			// long dummy_position;
 			// bool  success     = blam::tag_block_read_children_recursive(definition, new_element, 1, &dummy_position,
 			// 																				FLAG(Flags::_tag_load_for_editor_bit), datum_index::null();
 			//
@@ -282,7 +276,7 @@ namespace Yelo {
 
 		// Resize the block to a new count of elements, returning the
 		// success result of the operation
-		bool __cdecl tag_block_resize(tag_block *block, int32 element_count) {
+		bool __cdecl tag_block_resize(tag_block *block, long element_count) {
 			// YELO_ASSERT(block && block->definition);
 			// YELO_ASSERT(block->count >= 0);
 			//
@@ -301,7 +295,7 @@ namespace Yelo {
 		}
 
 		// Frees the pointers used in more complex fields (tag_data, etc)
-		static void tag_block_delete_element_pointer_data(tag_block *block, int32 element_index) {
+		static void tag_block_delete_element_pointer_data(tag_block *block, long element_index) {
 			// auto *definition = block->definition;
 			//
 			// if (definition->delete_proc != nullptr)
@@ -335,7 +329,7 @@ namespace Yelo {
 		}
 
 		// Delete the block element at [element_index]
-		void __cdecl tag_block_delete_element(tag_block *block, int32 element_index) {
+		void __cdecl tag_block_delete_element(tag_block *block, long element_index) {
 			YELO_ASSERT(block && block->definition);
 			YELO_ASSERT(block->count >= 0);
 
@@ -369,15 +363,15 @@ namespace Yelo {
 
 	struct tag_data {
 		enum {
-			k_debug_data_size = sizeof(long_flags) + sizeof(int32) + sizeof(struct tag_block_definition *),
+			k_debug_data_size = sizeof(long_flags) + sizeof(long) + sizeof(struct tag_block_definition *),
 		};
 
 		// byte count of this data blob
-		int32                            size;
+		long                            size;
 		// unknown
 		long_flags                       flags;
 		// offset in the source tag file (relative to the start of the definition bytes)
-		int32                            stream_position;
+		long                            stream_position;
 		// data blob bytes pointer
 		void                             *address;
 		// definition pointer of this data blob instance
@@ -392,14 +386,14 @@ namespace Yelo {
 		// Just makes coding a little more cleaner
 		byte *Bytes() { return CAST_PTR(byte*, address); }
 
-		bool resize(int32 new_size = 0);
+		bool resize(long new_size = 0);
 	};
 
 	static_assert(sizeof(tag_data) == 0x14);
 #define pad_tag_data PAD32 PAD32 PAD32 PAD32 PAD32
 
 	namespace blam {
-		bool __cdecl tag_data_resize(tag_data *data, int32 new_size) {
+		bool __cdecl tag_data_resize(tag_data *data, long new_size) {
 			// YELO_ASSERT(data->address);
 			//
 			// bool result = false;
@@ -421,7 +415,7 @@ namespace Yelo {
 			return false;
 		}
 
-		void *__cdecl tag_data_get_pointer(tag_data &data, int32 offset, int32 size) {
+		void *__cdecl tag_data_get_pointer(tag_data &data, long offset, long size) {
 			YELO_ASSERT(size >= 0);
 			YELO_ASSERT(offset >= 0 && offset + size <= data.size);
 
@@ -430,7 +424,7 @@ namespace Yelo {
 
 		template <typename T>
 		inline
-		T *tag_data_get_pointer(tag_data &data, int32 offset, int32 index = 0) {
+		T *tag_data_get_pointer(tag_data &data, long offset, long index = 0) {
 			return CAST_PTR(T*, tag_data_get_pointer(data, offset + (sizeof(T) * index), sizeof(T)));
 		}
 	};
@@ -547,7 +541,7 @@ namespace Yelo {
 		union group_tag_to_string {
 			struct {
 				tag group;
-				PAD8; // null terminator
+				unsigned char : 8; // null terminator
 			};
 			char str[sizeof(tag) + 1];
 
@@ -567,7 +561,7 @@ namespace Yelo {
 		static_assert(sizeof(s_tag_iterator) == 0x14);
 	};
 
-	static int32 __cdecl tag_block_insert_element_impl(tag_block *block, int32 index) {
+	static long __cdecl tag_block_insert_element_impl(tag_block *block, long index) {
 		YELO_ASSERT(block && block->definition); // engine actually does the asserts these after the allocation
 		YELO_ASSERT(index >= 0 && index <= block->count);
 
@@ -608,7 +602,7 @@ namespace Yelo {
 		return index;
 	}
 
-	static bool tag_block_duplicate_element_recursive(tag_block *source_block, int32 source_element_index, tag_block *destination_block, int32 destination_element_index) {
+	static bool tag_block_duplicate_element_recursive(tag_block *source_block, long source_element_index, tag_block *destination_block, long destination_element_index) {
 		// YELO_ASSERT(source_block->definition == destination_block->address); // engine doesn't actually do this first
 		//
 		// TagGroups::c_tag_field_scanner source(source_block->definition->fields,
@@ -662,7 +656,7 @@ namespace Yelo {
 		return false;
 	}
 
-	int32 __cdecl tag_block_duplicate_element_impl(tag_block *block, int32 element_index) {
+	long __cdecl tag_block_duplicate_element_impl(tag_block *block, long element_index) {
 		int dup_index = blam::tag_block_add_element(block);
 		if (dup_index != NONE) {
 			tag_block_duplicate_element_recursive(
@@ -673,7 +667,7 @@ namespace Yelo {
 		return dup_index;
 	}
 
-	bool __cdecl tag_block_swap_elements_impl(tag_block *block, int32 left_element_index, int32 right_element_index) {
+	bool __cdecl tag_block_swap_elements_impl(tag_block *block, long left_element_index, long right_element_index) {
 		YELO_ASSERT(block && block->definition); // engine actually does this after the allocation
 
 		auto   *definition  = block->definition;

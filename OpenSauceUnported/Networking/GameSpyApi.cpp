@@ -32,7 +32,7 @@ namespace Yelo
 
 		bool s_gamespy_qr2_buffer::add(cstring value)
 		{
-			int32 copylen = (int32)strlen(value)+1;
+			long copylen = (long)strlen(value)+1;
 			if(copylen > NUMBEROF(buffer))
 				copylen = NUMBEROF(buffer);
 			if(copylen <= 0)
@@ -50,7 +50,7 @@ namespace Yelo
 
 			return result;
 		}
-		bool s_gamespy_qr2_buffer::add(int32 value)
+		bool s_gamespy_qr2_buffer::add(long value)
 		{
 			char buffer[20];
 			bool result = sprintf_s(buffer, "%d", value) != -1;
@@ -69,7 +69,7 @@ namespace Yelo
 
 		s_gamespy_product* GsProducts()										PTR_IMP_GET2(gamespy_products_list);
 
-		API_FUNC_NAKED s_gamespy_client* GsGetClient(int32 client_id)
+		API_FUNC_NAKED s_gamespy_client* GsGetClient(long client_id)
 		{
 			static const uintptr_t FUNCTION = GET_FUNC_PTR(GAMESPY_GET_CLIENT_KEY_HASH);
 
@@ -109,7 +109,7 @@ _return:
 				return strcmp(buffer, GetGameVer())==0;
 			}
 
-			static int32 gamespy_patch_check_for_updates_sans_check()
+			static long gamespy_patch_check_for_updates_sans_check()
 			{
 				return GsConfig()->check_for_updates_status = Enums::_gamespy_update_status_no_update;
 			}

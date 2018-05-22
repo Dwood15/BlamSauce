@@ -124,7 +124,7 @@ namespace Yelo {
 
 		protected:
 			Enums::hs_type m_type;
-			PAD16;
+			unsigned short : 16;
 
 		public:
 			c_hs_type_abi(Enums::hs_type type) : m_type(type) {}
@@ -149,7 +149,7 @@ namespace Yelo {
 
 			virtual bool CastableToValueUnion() const { return CastableTo_hs_type_long(); }
 
-			virtual s_hs_value_union GetValue(s_hs_value_union value) { return GetValue(value.int32); }
+			virtual s_hs_value_union GetValue(s_hs_value_union value) { return GetValue(value.long); }
 
 			virtual bool CastableTo_hs_type_bool() const { return false; }
 
@@ -161,11 +161,11 @@ namespace Yelo {
 
 			virtual bool CastableTo_hs_type_short() const { return false; }
 
-			virtual s_hs_value_union GetValue(int16 value) const { return k_none_value_union; }
+			virtual s_hs_value_union GetValue(short value) const { return k_none_value_union; }
 
 			virtual bool CastableTo_hs_type_long() const { return false; }
 
-			virtual s_hs_value_union GetValue(int32 value) const { return k_none_value_union; }
+			virtual s_hs_value_union GetValue(long value) const { return k_none_value_union; }
 
 			virtual bool CastableTo_hs_type_string() const { return false; }
 

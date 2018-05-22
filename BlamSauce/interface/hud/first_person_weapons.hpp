@@ -52,18 +52,18 @@ namespace Yelo {
 			// 0x70 real_point3d
 			// 0x7C real_point3d?
 			//////////////////////////////////////////////////////////////////////////
-			// 0x88 int16 frame index
-			// 0x8A int16 frame count
+			// 0x88 short frame index
+			// 0x8A short frame count
 			// 0x8C real_orientation3d node orientations[128]
 			// 0x108C real_matrix4x3 node matrices[64]
 			//////////////////////////////////////////////////////////////////////////
 			// 0x1D8C bool remapped weapon?
-			// PAD8;
-			// 0x1D8E int16 node_remappings[64]
+			// unsigned char : 8;
+			// 0x1D8E short node_remappings[64]
 			//////////////////////////////////////////////////////////////////////////
 			// 0x1E0E bool remapped hands
-			// PAD8;
-			// 0x1E10 int16 node_remappings[64]
+			// unsigned char : 8;
+			// 0x1E10 short node_remappings[64]
 			//////////////////////////////////////////////////////////////////////////
 			// 0x1E90 bool
 			// 0x1E94 short shotgun_reload_type;

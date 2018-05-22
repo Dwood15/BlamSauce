@@ -149,7 +149,7 @@ public:
 	{
 		for(auto ptr : K_CACHE_PATH_SPRINTF_CALLS)
 			Memory::WriteRelativeCall(PathHack, ptr);
-		for(int32 x = 0; x < NUMBEROF(K_CACHE_PATH_SNPRINTF_CALLS)-1; x++)
+		for(long x = 0; x < NUMBEROF(K_CACHE_PATH_SNPRINTF_CALLS)-1; x++)
 			Memory::WriteRelativeCall(PathHackN, K_CACHE_PATH_SNPRINTF_CALLS[x]);
 
 		// Redirect all game calls to cache_file_read_header to our implementation which supports .yelo validation

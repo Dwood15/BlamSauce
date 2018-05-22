@@ -38,7 +38,7 @@ namespace Yelo
 			uint32 allocation_crc;
 			char level[256];
 			tag_string version;
-			int16 player_spawn_count;
+			short player_spawn_count;
 			short game_difficulty;
 			uint32 cache_crc;
 
@@ -56,23 +56,24 @@ namespace Yelo
 			uint32 crc;
 			bool locked;
 			bool saved;
-					 PAD16;
+					 unsigned short : 16;
 			uint32 revert_time;
 			s_header_data* header;
 			HANDLE autosave_thread;
-			bool buffer_allocated; PAD24;
+			bool buffer_allocated;
+			unsigned char : 8; unsigned short : 16;
 			void* buffer;
 			uint32 buffer_size;
 			bool file_open;
 			bool file_valid_for_read;
-					 PAD16;
+					 unsigned short : 16;
 			HANDLE file_handle;
 			char file_path[256];
 			char core_path[256];
 			HANDLE autosave_event;
 			bool autosave_finished;
 			bool creating_autosave;
-					 PAD16;
+					 unsigned short : 16;
 		}; static_assert( sizeof(s_game_state_globals) == 0x23C );
 	};
 };

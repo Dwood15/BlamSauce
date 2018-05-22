@@ -125,10 +125,10 @@ mapping_not_found:
 #pragma region Campaign Level Data
 		struct {
 			cstring ScenarioPath;
-			PAD8; // bools
-			PAD8;
-			PAD8;
-			PAD8;
+			unsigned char : 8; // bools
+			unsigned char : 8;
+			unsigned char : 8;
+			unsigned char : 8;
 		}CampaignLevelData[Enums::_campaign_level];
 
 		static void CampaignLevelDataInitialize()

@@ -22,7 +22,7 @@ namespace Yelo
 		{
 		private:
 			i_control& m_parent;
-			uint32 m_resource_id;
+			uint m_resource_id;
 			control_list_t m_child_controls;
 			property_interface_map_t m_property_interfaces;
 			event_handler_map_t m_event_handlers;
@@ -41,14 +41,14 @@ namespace Yelo
 			///
 			/// <param name="interface_id">		 	Identifier for the interface. </param>
 			/// <param name="property_interface">	[in] The property interface object. </param>
-			void AddPropertyInterface(const uint32 interface_id, i_property_interface* property_interface);
+			void AddPropertyInterface(const uint interface_id, i_property_interface* property_interface);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Adds an event handler to the control. </summary>
 			///
 			/// <param name="event_id">			Identifier for the event. </param>
 			/// <param name="event_handler">	[in] The event handler. </param>
-			void AddEventHandler(const uint32 event_id, const event_handler_ptr_t& event_handler);
+			void AddEventHandler(const uint event_id, const event_handler_ptr_t& event_handler);
 
 		public:
 			////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ namespace Yelo
 			/// <param name="interface_id">	Identifier for the interface. </param>
 			///
 			/// <returns>	null if it fails, else the found property interface. </returns>
-			i_property_interface* FindPropertyInterface(const uint32 interface_id) const;
+			i_property_interface* FindPropertyInterface(const uint interface_id) const;
 			
 #pragma region i_control
 			////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,13 +76,13 @@ namespace Yelo
 			/// <summary>	Gets the resource identifier of the control. </summary>
 			///
 			/// <returns>	The controls resource identifier. </returns>
-			uint32 GetResourceID() const final override;
+			uint GetResourceID() const final override;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Sets the resource identifier of the control. </summary>
 			///
 			/// <param name="resource_id">	Identifier for the control resource. </param>
-			void SetResourceID(const uint32 resource_id) final override;
+			void SetResourceID(const uint resource_id) final override;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Adds a control to the child control list. </summary>
@@ -112,7 +112,7 @@ namespace Yelo
 			/// <param name="interface_id">	The interface id. </param>
 			///
 			/// <returns>	null if it fails, else the property interface. </returns>
-			i_property_interface* GetPropertyInterface(const uint32 interface_id) const final override;
+			i_property_interface* GetPropertyInterface(const uint interface_id) const final override;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Adds an event callback. </summary>
@@ -121,14 +121,14 @@ namespace Yelo
 			/// <param name="callback_id">	Identifier for the callback. </param>
 			/// <param name="callback">   	The callback function. </param>
 			/// <param name="userdata">   	[in] The userdata for the event. </param>
-			void AddEventCallback(const uint32 event_id, const uint32 callback_id, const event_callback_t& function, void* userdata) final override;
+			void AddEventCallback(const uint event_id, const uint callback_id, const event_callback_t& function, void* userdata) final override;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Removes an event callback. </summary>
 			///
 			/// <param name="event_id">   	Identifier for the event. </param>
 			/// <param name="callback_id">	The callback identifier. </param>
-			void RemoveEventCallback(const uint32 event_id, const uint32 callback_id) final override;
+			void RemoveEventCallback(const uint event_id, const uint callback_id) final override;
 #pragma endregion
 		};
 	};};};

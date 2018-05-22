@@ -29,18 +29,18 @@ namespace Yelo
 		struct s_collision_result
 		{
 			Enums::collision_result type;
-			PAD16;
+			unsigned short : 16;
 			struct {
-				int32 first_leaf_index;
-				int16 count;
-				PAD16;
+				long first_leaf_index;
+				short count;
+				unsigned short : 16;
 			}leaves;
 			s_scenario_location location;
 			UNKNOWN_TYPE(real);
 			real_point3d point;
 			real_plane3d plane;
 			short material_type;
-			PAD16;
+			unsigned short : 16;
 			datum_index object_index;
 			s_collision_model_test_result model_test;
 			s_collision_bsp_test_surface_result surface;

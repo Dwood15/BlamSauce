@@ -13,9 +13,9 @@ namespace Yelo
 	{
 		struct sound_environment
 		{
-			PAD32;
-			int16 priority;
-			PAD16;
+			unsigned long : 32;
+			short priority;
+			unsigned short : 16;
 			real room_intensity_db;
 			real room_intensity_hf_db;
 			real room_rolloff_factor;

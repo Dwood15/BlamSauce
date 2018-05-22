@@ -244,7 +244,7 @@ namespace Yelo
 					Model::g_extension_usage_mask = Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_detail_normal |
 					Flags::_shader_extension_usage_specular_map | Flags::_shader_extension_usage_specular_lighting;
 
-					int32 usage_mask = Flags::_shader_extension_usage_none;
+					long usage_mask = Flags::_shader_extension_usage_none;
 					
 					auto& settings_instance = Get();
 					usage_mask |= (settings_instance.m_shader_model.m_normal_maps ? Flags::_shader_extension_usage_normal_map : Flags::_shader_extension_usage_none);
@@ -270,7 +270,7 @@ namespace Yelo
 				{
 					Environment::g_extension_usage_mask = Flags::_shader_extension_usage_directional_lightmaps_diff | Flags::_shader_extension_usage_directional_lightmaps_spec;
 
-					int32 usage_mask = Flags::_shader_extension_usage_none;
+					long usage_mask = Flags::_shader_extension_usage_none;
 					
 					usage_mask |= (Get().m_shader_environment.m_diffuse_directional_lightmaps ? Flags::_shader_extension_usage_directional_lightmaps_diff : Flags::_shader_extension_usage_none);
 					usage_mask |= (Get().m_shader_environment.m_specular_directional_lightmaps ? Flags::_shader_extension_usage_directional_lightmaps_spec : Flags::_shader_extension_usage_none);
@@ -290,7 +290,7 @@ namespace Yelo
 				{
 					Effect::g_extension_usage_mask = Flags::_shader_extension_usage_depth_fade;
 
-					int32 usage_mask = Flags::_shader_extension_usage_none;
+					long usage_mask = Flags::_shader_extension_usage_none;
 
 					usage_mask |= (Get().m_shader_effect.m_depth_fade ? Flags::_shader_extension_usage_depth_fade : Flags::_shader_extension_usage_none);
 
@@ -322,7 +322,7 @@ namespace Yelo
 
 			void		ApplyHooks()
 			{
-				int32 i = 0;
+				long i = 0;
 				// replace the vertex shader collection paths
 				for(i = 0; i < NUMBEROF(K_VSH_COLLECTION_PATH_REFERENCES); i++)
 					*K_VSH_COLLECTION_PATH_REFERENCES[i] = g_vs_collection_path;

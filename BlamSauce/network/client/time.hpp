@@ -17,9 +17,9 @@ namespace Yelo
 			{
 			};
 
-			int32 time_delta;
-			int32 number_of_time_samples;
-			PAD32; // unknown
+			long time_delta;
+			long number_of_time_samples;
+			unsigned long : 32; // unknown
 			s_time_sample samples[TIME_SYNCH_SAMPLES];
 		}; static_assert( sizeof(s_network_client_time) == 0x264 );
 	};

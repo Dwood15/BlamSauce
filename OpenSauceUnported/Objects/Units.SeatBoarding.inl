@@ -20,7 +20,7 @@ namespace Yelo
 
 		void UnitCanEnterBoardingSeat(const datum_index unit_index
 			, const datum_index target_unit_index
-			, const int16 target_seat_index
+			, const short target_seat_index
 			, bool& result)
 		{
 			g_unit_seat_transition_manager.UnitCanEnterBoardingSeat(unit_index, target_unit_index, target_seat_index, result);
@@ -28,7 +28,7 @@ namespace Yelo
 
 		void UnitCanEnterTargetSeat(const datum_index unit_index
 			, const datum_index target_unit_index
-			, const int16 target_seat_index
+			, const short target_seat_index
 			, bool& result)
 		{
 			g_unit_seat_transition_manager.UnitCanEnterTargetSeat(unit_index, target_unit_index, target_seat_index, result);

@@ -56,7 +56,7 @@ namespace Yelo
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Slider, control.GetControlPtr());
 
-				int32 value;
+				long value;
 				ValueConversion::FromString(value_string, value);
 				gwen_control.SetNotchCount(value);
 			}

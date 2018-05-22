@@ -183,9 +183,9 @@ namespace Yelo
 			SetControlPropertyImpl<bool>(control_id, property_id, value);
 		}
 
-		void c_screen_controller_base::SetControlProperty(const uint32 control_id, const uint32 property_id, const int32 value)
+		void c_screen_controller_base::SetControlProperty(const uint32 control_id, const uint32 property_id, const long value)
 		{
-			SetControlPropertyImpl<int32>(control_id, property_id, value);
+			SetControlPropertyImpl<long>(control_id, property_id, value);
 		}
 
 		void c_screen_controller_base::SetControlProperty(const uint32 control_id, const uint32 property_id, const real value)

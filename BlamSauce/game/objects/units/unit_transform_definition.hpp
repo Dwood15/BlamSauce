@@ -126,7 +126,7 @@ namespace Yelo {
 			TAG_FIELD(Enums::unit_animation_keyframe, keyframe);
 			TAG_FIELD(Enums::actor_variant_transform_keyframe_rider_handling, rider_handling);
 			TAG_FIELD(Enums::actor_variant_transform_keyframe_effect_target, target);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(tag_reference, damage_effect);
 			TAG_FIELD(tag_reference, effect);
 			TAG_FIELD(tag_string, effect_marker);
@@ -135,25 +135,25 @@ namespace Yelo {
 		struct actor_variant_transform_in_target {
 			TAG_FIELD(tag_string, target_name);
 			TAG_FIELD(word_flags, flags);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real_fraction, selection_chance)[Enums::k_number_of_game_difficulty_levels];
 
 			TAG_FIELD(tag_reference, actor_variant);
 			TAG_FIELD(Enums::actor_variant_transform_in_encounter_squad_handling, encounter_squad_handling);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(Enums::actor_variant_transform_team_handling, team_handling);
 			TAG_FIELD(Enums::game_team, team_override);
 			TAG_FIELD(Enums::actor_variant_transform_in_actor_state_handling, initial_state_handling);
 			TAG_FIELD(Enums::actor_default_state, initial_state_override);
 			TAG_FIELD(Enums::actor_variant_transform_in_actor_state_handling, return_state_handling);
 			TAG_FIELD(Enums::actor_default_state, return_state_override);
-			PAD16; // TAG_FIELD(Enums::actor_variant_transform_in_actor_action_handling, actor_action_handling);
-			PAD16; // TAG_FIELD(Enums::actor_action, actor_action_override);
+			unsigned short : 16; // TAG_FIELD(Enums::actor_variant_transform_in_actor_action_handling, actor_action_handling);
+			unsigned short : 16; // TAG_FIELD(Enums::actor_action, actor_action_override);
 
 			TAG_FIELD(tag_string, transform_in_anim);
 			TAG_TBLOCK(keyframe_actions, actor_variant_transform_keyframe_action);
 
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(Enums::actor_variant_transform_in_vitality_handling, vitality_inheritance);
 			TAG_FIELD(Enums::actor_variant_transform_in_vitality_handling, vitality_override);
 			TAG_FIELD(real, shield_override);
@@ -173,7 +173,7 @@ namespace Yelo {
 		struct actor_variant_transform_out_instigator {
 			TAG_FIELD(tag_reference, unit);
 			TAG_FIELD(Enums::actor_variant_transform_out_damage_type, damage_type);
-			PAD16;
+			unsigned short : 16;
 			TAG_PAD(tag_block, 1);
 		};
 		static_assert(sizeof(actor_variant_transform_out_instigator) == 0x20);
@@ -182,8 +182,8 @@ namespace Yelo {
 			TAG_FIELD(tag_reference, object_type);
 			TAG_FIELD(tag_string, object_marker);
 			TAG_FIELD(tag_string, destination_marker);
-			TAG_FIELD(int16, destination_marker_count);
-			PAD16;
+			TAG_FIELD(short, destination_marker_count);
+			unsigned short : 16;
 			TAG_FIELD(Enums::actor_variant_transform_team_handling, team_handling);
 			TAG_FIELD(Enums::game_team, team_override);
 			TAG_FIELD(real_bounds, attachment_scale);
@@ -195,10 +195,10 @@ namespace Yelo {
 			enum { k_group_tag = 'avto' };
 
 			TAG_FIELD(word_flags, flags);
-			PAD16;
+			unsigned short : 16;
 
 			TAG_FIELD(word_flags, criteria_flags);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(word_flags, actor_action);
 			TAG_FIELD(word_flags, actor_state);
 			TAG_FIELD(real_bounds, shield_range);
@@ -211,7 +211,7 @@ namespace Yelo {
 			TAG_TBLOCK(keyframe_actions, actor_variant_transform_keyframe_action);
 
 			TAG_FIELD(word_flags, attachment_flags);
-			PAD16;
+			unsigned short : 16;
 			TAG_TBLOCK(attachments, actor_variant_transform_out_attachment);
 
 			TAG_PAD(tag_block, 2);
@@ -221,7 +221,7 @@ namespace Yelo {
 
 		struct actor_variant_transform_collection_transform {
 			TAG_FIELD(word_flags, flags);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(tag_string, transform_name);
 			TAG_FIELD(real_fraction, selection_chance)[Enums::k_number_of_game_difficulty_levels];
 

@@ -47,11 +47,11 @@ namespace Yelo
 					bool is_ready;
 					bool is_unloaded;
 					bool is_enabled;
-					PAD8;
+					unsigned char : 8;
 				}m_flags;
 
 				Enums::pp_component_status status;
-				PAD16;
+				unsigned short : 16;
 			}m_members;
 
 			struct
@@ -63,21 +63,21 @@ namespace Yelo
 				struct
 				{
 					uint16 count;
-					PAD16;
+					unsigned short : 16;
 					c_shader_internal* shader_list;
 				}m_shaders;
 
 				struct
 				{
 					uint16 count;
-					PAD16;
+					unsigned short : 16;
 					s_effect_set* effect_list;
 				}m_effects;
 
 				struct
 				{
 					uint16 count;
-					PAD16;
+					unsigned short : 16;
 					c_effect_instance_generic* effect_instance_list;
 				}m_effect_instances;
 			}m_members_internal;
@@ -156,20 +156,20 @@ namespace Yelo
 			/////////////////////////////////////////////////
 			// scripting
 		public:
-			int16 GetEffectInstanceIndexByName(const char* name);
-			void SetEffectInstanceActive(int16 index, bool active);
-			void SetEffectInstanceFade(int16 index, real start, real end, real time);
-			real GetEffectInstanceCurrentFade(int16 index);
-			int16 GetEffectInstanceFadeDirection(int16 index);
+			short GetEffectInstanceIndexByName(const char* name);
+			void SetEffectInstanceActive(short index, bool active);
+			void SetEffectInstanceFade(short index, real start, real end, real time);
+			real GetEffectInstanceCurrentFade(short index);
+			short GetEffectInstanceFadeDirection(short index);
 
-			int16 GetEffectIndexByName(const char* name);
-			bool GetEffectIsValid(int16 index);
-			int16 GetEffectShaderVariableIndexByName(int16 index, const char* name);
-			void SetEffectShaderVariableBoolean(int16 index, int16 variable_index, bool value, real time);
-			void SetEffectShaderVariableInteger(int16 index, int16 variable_index, int32 value, real time);
-			void SetEffectShaderVariableReal(int16 index, int16 variable_index, real value0, real value1, real value2, real value3, real time);
+			short GetEffectIndexByName(const char* name);
+			bool GetEffectIsValid(short index);
+			short GetEffectShaderVariableIndexByName(short index, const char* name);
+			void SetEffectShaderVariableBoolean(short index, short variable_index, bool value, real time);
+			void SetEffectShaderVariableInteger(short index, short variable_index, long value, real time);
+			void SetEffectShaderVariableReal(short index, short variable_index, real value0, real value1, real value2, real value3, real time);
 
-			void SetEffectShaderInstanceActive(int16 index, int16 instance_index, bool active);
+			void SetEffectShaderInstanceActive(short index, short instance_index, bool active);
 		};
 	};};};};
 };

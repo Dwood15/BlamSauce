@@ -5,6 +5,7 @@
 */
 #pragma once
 
+#include <precompile.h>
 #include "../cseries/base.h"
 #include "../scenario/scenario.h"
 #include "../memory/data.h"
@@ -14,7 +15,7 @@
 #include "../tags/bitmap_grp.h"
 #include "data_file.hpp"
 #include "../interface/hud/hud_messaging_definitions.hpp"
-#include "constants.hpp"
+
 #include "cache_files_globals.hpp"
 #include "cache_files_yelo.hpp"
 #include "cache_base.hpp"
@@ -89,7 +90,7 @@ namespace Yelo {
 
 	namespace blam {
 		bool __cdecl cache_file_read_request(/*datum_index tag_index,*/ // unused, and optimized out, at runtime
-			uint32 offset, uint32 size, void *buffer, const Cache::s_cache_file_request_params &params,
+			uint offset, uint size, void *buffer, const Cache::s_cache_file_request_params &params,
 			bool block = true, Enums::cache_file_request_source source = Enums::_cache_file_request_source_open_map);
 
 		// made up names; H1 didn't have a "geometry_cache" like it does for textures and sounds
@@ -129,7 +130,7 @@ namespace Yelo {
 			return header_signature == k_header_signature && footer_signature == k_footer_signature;
 		}
 
-		bool s_cache_header::ValidFileSize(int32 max) const {
+		bool s_cache_header::ValidFileSize(long max) const {
 			return file_length >= 0 && file_length <= max;
 		}
 
@@ -169,8 +170,8 @@ namespace Yelo {
 			return true;
 		}
 
-		int16 s_cache_file_globals::FindMapFileIndexByName(cstring scenario_name) {
-			for (int16 map_file_index = 0; map_file_index < std::size(map_files); map_file_index++) {
+		short s_cache_file_globals::FindMapFileIndexByName(cstring scenario_name) {
+			for (short map_file_index = 0; map_file_index < std::size(map_files); map_file_index++) {
 				if (!_stricmp(scenario_name, map_files[map_file_index].header.name))
 					return map_file_index;
 			}
@@ -183,7 +184,7 @@ namespace Yelo {
 			assert(header);
 			assert(open_map_file_index == NONE);
 
-			int16 map_file_index = FindMapFileIndexByName(scenario_name);
+			short map_file_index = FindMapFileIndexByName(scenario_name);
 			assert(map_file_index != NONE);
 
 			memset(Requests(), 0, sizeof(*Requests()) * Enums::k_maximum_simultaneous_cache_requests);

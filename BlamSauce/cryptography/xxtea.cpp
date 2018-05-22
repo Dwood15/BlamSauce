@@ -24,7 +24,7 @@ namespace Yelo::Cryptography::XXTEA {
 	 *
 	 * Encrypts a block of data using the XXTEA algorithm.
 	 */
-	void XXTEAEncrypt(uint32 *data, uint32 block_size, int32 *key) {
+	void XXTEAEncrypt(uint32 *data, uint32 block_size, long *key) {
 		uint32 z = data[block_size - 1], y = data[0], sum = 0, e, DELTA = 0x9e3779b9;
 		uint32 p, q;
 
@@ -53,7 +53,7 @@ namespace Yelo::Cryptography::XXTEA {
 	 *
 	 * Decrypts a block of data using the XXTEA algorithm.
 	 */
-	void XXTEADecrypt(uint32 *data, uint32 block_size, int32 *key) {
+	void XXTEADecrypt(uint32 *data, uint32 block_size, long *key) {
 		uint32 z = data[block_size - 1], y = data[0], sum = 0, e, DELTA = 0x9e3779b9;
 		uint32 p, q;
 
@@ -110,7 +110,7 @@ namespace Yelo::Cryptography::XXTEA {
 		// encrypt the data in individual blocks, up to however many can be fit in the data provided
 		byte *data_pointer = CAST_PTR(byte * , data);
 		for (uint32 i = 0; i < block_count; i++) {
-			XXTEAEncrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(int32 * , key));
+			XXTEAEncrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(long * , key));
 			data_pointer += block_size;
 		}
 
@@ -118,7 +118,7 @@ namespace Yelo::Cryptography::XXTEA {
 		// at the end is encrypted seperately, with the overlap getting double encrypted.
 		if (block_remainder) {
 			data_pointer = CAST_PTR(byte * , data) + (data_length - block_size);
-			XXTEAEncrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(int32 * , key));
+			XXTEAEncrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(long * , key));
 		}
 
 		return true;
@@ -168,13 +168,13 @@ namespace Yelo::Cryptography::XXTEA {
 		byte *data_pointer;
 		if (block_remainder) {
 			data_pointer = CAST_PTR(byte * , data) + (data_length - block_size);
-			XXTEADecrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(int32 * , key));
+			XXTEADecrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(long * , key));
 		}
 
 		// decrypt the data in individual blocks, up to however many can be fit in the data provided
 		data_pointer = CAST_PTR(byte * , data);
 		for (uint32 i = 0; i < block_count; i++) {
-			XXTEADecrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(int32 * , key));
+			XXTEADecrypt(CAST_PTR(uint32 * , data_pointer), block_size / 4, CAST_PTR(long * , key));
 			data_pointer += block_size;
 		}
 

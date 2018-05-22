@@ -106,14 +106,14 @@ namespace Yelo
 			cstring data_name,
 			real data_value);
 
-		void WeaponDataMagazineGetIntegerByName(s_weapon_datum* weapon, int32 magazine_index, 
+		void WeaponDataMagazineGetIntegerByName(s_weapon_datum* weapon, long magazine_index,
 			cstring data_name, cstring subdata_name, 
 			_Inout_ TypeHolder& result);
-		void WeaponDataMagazineSetIntegerByName(s_weapon_datum* weapon, int32 magazine_index, 
+		void WeaponDataMagazineSetIntegerByName(s_weapon_datum* weapon, long magazine_index,
 			cstring data_name, cstring subdata_name, 
-			int32 data_value);
+			long data_value);
 
-		void WeaponTagDataTriggerSetRealByName(s_weapon_datum* weapon, int32 trigger_index, 
+		void WeaponTagDataTriggerSetRealByName(s_weapon_datum* weapon, long trigger_index,
 			cstring data_name, cstring subdata_name, 
 			real data_value);
 
@@ -127,7 +127,7 @@ namespace Yelo
 			_Inout_ TypeHolder& result);
 		void UnitDataSetIntegerByName(s_unit_datum* unit, 
 			cstring data_name,
-			int32 data_value);
+			long data_value);
 		void UnitDataGetRealByName(s_unit_datum* unit, 
 			cstring data_name,
 			_Inout_ TypeHolder& result);

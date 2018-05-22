@@ -47,7 +47,7 @@ namespace Yelo::Main {
 };
 
 namespace Yelo::blam {
-	int16 __cdecl  main_get_campaign_level_from_name(cstring level_name);
+	short __cdecl  main_get_campaign_level_from_name(cstring level_name);
 
 	inline cstring __cdecl main_get_campaign_level_name(short level_index)(short level_index) {
 		if (level_index >= 0 && level_index < std::size(Main::k_halo1_campaign_level_names))

@@ -28,10 +28,10 @@ namespace Yelo
 			long_flags flags;					// 0x1F4
 			game_time_t detonation_countdown;	// 0x1F8
 			struct {
-				int16 surface_index;			// 0x1FA
-				int16 bsp_reference_index;		// 0x1FC
+				short surface_index;			// 0x1FA
+				short bsp_reference_index;		// 0x1FC
 			}bsp_collision;
-			PAD16;								// 0x1FE
+			unsigned short : 16;								// 0x1FE
 			datum_index dropped_by_unit_index;	// 0x200 set when the unit who had this item drops it
 			game_ticks_t last_update_time;		// 0x204
 			struct {
@@ -46,8 +46,8 @@ namespace Yelo
 		struct s_garbage_data
 		{
 			game_time_t ticks_until_gc;
-			PAD16;
-			int32 _unused[5];
+			unsigned short : 16;
+			long _unused[5];
 		}; static_assert( sizeof(s_garbage_data) == (Enums::k_object_size_garbage - Enums::k_object_size_item) );
 
 

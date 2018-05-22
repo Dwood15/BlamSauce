@@ -25,7 +25,7 @@ namespace Yelo
 		struct s_import_class {
 			cstring				name;
 			cstring				usage;
-			int32				argument_count;
+			long				argument_count;
 			proc_import_class	import_proc;
 
 			static int __cdecl CompareProc(void*, const s_import_class* lhs, const s_import_class* rhs);

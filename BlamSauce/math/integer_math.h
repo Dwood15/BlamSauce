@@ -10,38 +10,38 @@
 namespace Yelo {
 	// 2 shorts representing 'x' and 'y'
 	struct point2d {
-		int16 x;
-		int16 y;
+		short x;
+		short y;
 
-		OVERRIDE_OPERATOR_CAST_THIS(int16);
+		OVERRIDE_OPERATOR_CAST_THIS(short);
 	};
 
-#define pad_point2d PAD16 PAD16
+#define pad_point2d unsigned short : 16; unsigned short : 16
 
 	// 4 shorts, Top, Left, Bottom, Right
 	struct rectangle2d {
 		// Top
-		int16 top;
+		short top;
 
 		// Left
-		int16 left;
+		short left;
 
 		// Bottom
-		int16 bottom;
+		short bottom;
 
 		// Right
-		int16 right;
+		short right;
 
-		OVERRIDE_OPERATOR_CAST_THIS(int16);
+		OVERRIDE_OPERATOR_CAST_THIS(short);
 	};
 
-#define pad_rectangle2d PAD16 PAD16 PAD16 PAD16
+#define pad_rectangle2d unsigned short : 16; unsigned short : 16; unsigned short : 16; unsigned short : 16
 
 	// bounding in short integer values
 	struct short_bounds {
-		int16 lower;
-		int16 upper;
+		short lower;
+		short upper;
 
-		OVERRIDE_OPERATOR_CAST_THIS(int16);
+		OVERRIDE_OPERATOR_CAST_THIS(short);
 	};
 };

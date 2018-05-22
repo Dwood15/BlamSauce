@@ -26,17 +26,17 @@ namespace Yelo
 		struct s_equipment_data
 		{
 			union {												// 0x22C, unknown (and unused?) bytes
-				struct s_unknown { PAD128; PAD64; }unknown;
+				struct s_unknown { PAD128;unsigned __int64 : 64; }unknown;
 
 				s_equipment_data_yelo yelo;
 			};
 			bool baseline_valid;								// 0x244
 			sbyte baseline_index;
 			sbyte message_index;
-			PAD8;
+			unsigned char : 8;
 			s_equipment_datum_network_data update_baseline;		// 0x248
 			UNKNOWN_TYPE(bool);									// 0x26C probably delta_valid
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			s_equipment_datum_network_data update_delta;		// 0x270
 		}; static_assert( sizeof(s_equipment_data) == (Enums::k_object_size_equipment - Enums::k_object_size_item) );
 

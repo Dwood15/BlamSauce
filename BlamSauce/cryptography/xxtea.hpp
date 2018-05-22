@@ -23,8 +23,8 @@ namespace Yelo
 	};
 	namespace Cryptography { namespace XXTEA
 	{
-		void XXTEAEncrypt(uint32* data, uint32 block_size, int32* key);
-		void XXTEADecrypt(uint32* data, uint32 block_size, int32* key);
+		void XXTEAEncrypt(uint32* data, uint32 block_size, long* key);
+		void XXTEADecrypt(uint32* data, uint32 block_size, long* key);
 		bool Encrypt(Enums::cryptography_xxtea_block_size block_size, void* data, uint32 data_length, byte* key);
 		bool Decrypt(Enums::cryptography_xxtea_block_size block_size, void* data, uint32 data_length, byte* key);
 	}; };

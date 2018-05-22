@@ -46,10 +46,10 @@ namespace Yelo
 				point2d			tessellation;
 				real_bounds		x_bounds;
 				real_bounds		y_bounds;
-				int32			vertex_count;
-				int32			primitive_count;
-				int32			start_vertex;
-				int32			start_index;
+				long			vertex_count;
+				long			primitive_count;
+				long			start_vertex;
+				long			start_index;
 			}m_quad;
 
 			/////////////////////////////////////////////////
@@ -113,7 +113,7 @@ namespace Yelo
 
 			struct s_face
 			{
-				int16 m_indices[3];
+				short m_indices[3];
 			};
 
 			/////////////////////////////////////////////////
@@ -123,7 +123,7 @@ namespace Yelo
 				struct
 				{
 					bool is_disabled;
-					PAD8;
+					unsigned char : 8;
 				}m_flags;
 				Enums::pp_component_status status;
 
@@ -167,8 +167,8 @@ namespace Yelo
 			void DestroyBuffersImpl();
 			
 			c_quad_instance* GetExistingQuad(const point2d tesselation, const real_bounds& x_bounds, const real_bounds& y_bounds);
-			int32 GetVertexCount();
-			int32 GetIndexCount();
+			long GetVertexCount();
+			long GetIndexCount();
 			void AddVertices(s_postprocess_vertex*& buffer_pointer, 
 				c_quad_instance* quad,
 				const point2d dimensions);

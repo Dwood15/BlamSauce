@@ -21,18 +21,18 @@ namespace Yelo::Networking {
 		};
 
 		wchar_t player_name[Enums::k_player_name_length + 1];
-		int32   player_number;
-		int32   team_index;
+		long   player_number;
+		long   team_index;
 		char    ip_address[32];
 		char    cdkey[74];
-				  PAD16;
+				  unsigned short : 16;
 	}; static_assert(sizeof(s_network_client_machine_dedi) == 0x8C);
 
 	struct s_network_client_machine {
 		s_network_connection *connection;                     // 0x0
-		int32                                   last_received_update_sequence_number;               // 0x4
-		int32                                   stall_start_time;                              // 0x8
-		int16                                   machine_index;                              // 0xC
+		long                                   last_received_update_sequence_number;               // 0x4
+		long                                   stall_start_time;                              // 0x8
+		short                                   machine_index;                              // 0xC
 		// BIT(0) - marked for removal
 		// BIT(1) - is_joined_to_game
 		// BIT(2) - game_loading_complete
@@ -40,23 +40,23 @@ namespace Yelo::Networking {
 		// BIT(4) - is holding up
 		word_flags                              flags;                                 // 0xE
 		bool                                    should_be_removed;
-															 PAD24;                        // 0x10
-		int32                                   removal_reject_time;                           // 0x14 game time the removal was initiated
-		int32                                   removal_process_time;                           // 0x18 game time the removal will take effect
+															 unsigned char : 8; unsigned short : 16;                        // 0x10
+		long                                   removal_reject_time;                           // 0x14 game time the removal was initiated
+		long                                   removal_process_time;                           // 0x18 game time the removal will take effect
 		s_network_client_machine_message_header message_header;      // 0x1C
 		bool                                    has_players;                                 // 0x50
 		bool                                    is_cleaned_up;                                 // 0x51 true if touched by client_machine_cleanup
 		char                                    challenge[Enums::k_network_game_challenge_length + 1];   // 0x52 gamespy challenge string
-															 PAD16;
-		int32                                   machine_key;                                 // 0x5C same value as gs_machine_data->unknown1
+															 unsigned short : 16;
+		long                                   machine_key;                                 // 0x5C same value as gs_machine_data->unknown1
 	};
 
 	static_assert(sizeof(s_network_client_machine) == 0x60);
 
 	struct s_countdown_timer {
-		int32 time_remaining;
-		int32 relative_to; // system tick when time remaining was set
-		int32 start_time;
+		long time_remaining;
+		long relative_to; // system tick when time remaining was set
+		long start_time;
 
 		UNKNOWN_TYPE(bool);
 
@@ -64,7 +64,7 @@ namespace Yelo::Networking {
 
 		UNKNOWN_TYPE(bool);
 
-				PAD8;
+				unsigned char : 8;
 	};
 
 	static_assert(sizeof(s_countdown_timer) == 0x10);
@@ -85,16 +85,16 @@ namespace Yelo::Networking {
 		s_network_game                   game;                        // 0x8
 		s_network_client_machine         client_machines
 													[Enums::k_maximum_network_machine_count];      // 0x3F8
-		int32                            next_update_number;                     // 0x9F8+k_dedi_offset
-		int32                            time_of_last_keep_alive;                  // 0x9FC+k_dedi_offset
-		int32                            time_of_last_ping;                     // 0xA00+k_dedi_offset
-		int32                            time_of_first_client_loading_completion;      // 0xA04+k_dedi_offset
+		long                            next_update_number;                     // 0x9F8+k_dedi_offset
+		long                            time_of_last_keep_alive;                  // 0x9FC+k_dedi_offset
+		long                            time_of_last_ping;                     // 0xA00+k_dedi_offset
+		long                            time_of_first_client_loading_completion;      // 0xA04+k_dedi_offset
 		s_countdown_timer                countdown_timer;               // 0xA08+k_dedi_offset
 		s_network_game_player            queued_player;            // 0xA18+k_dedi_offset
 		bool                             queued_player_valid;                     // 0xA38+k_dedi_offset
 		bool                             game_has_started;                        // 0xA39+k_dedi_offset
 		UNKNOWN_TYPE(bool);                           // 0xA3A
-													PAD8;
+													unsigned char : 8;
 		wchar_t                          password
 													[Enums::k_network_server_password_length + 1];   // 0xA3C+k_dedi_offset
 		UNKNOWN_TYPE(bool);                           // 0xA4E

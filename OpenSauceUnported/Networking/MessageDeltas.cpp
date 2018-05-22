@@ -162,14 +162,14 @@ skip_hook:
 #pragma region Yelo packet handlers
 		static bool NetworkGameClientHandleMessageDeltaMessageBodyOverride(Networking::s_network_game_client* client, message_dependant_header* header)
 		{
-			//int32 msg_type = header->decoding_information->definition_type;
+			//long msg_type = header->decoding_information->definition_type;
 
 			return false;
 		}
 		// Returns true if we handled a Yelo packet
 		static bool NetworkGameClientHandleMessageDeltaMessageBodyYelo(Networking::s_network_game_client* client, message_dependant_header* header)
 		{
-			int32 msg_type = header->decoding_information->definition_type;
+			long msg_type = header->decoding_information->definition_type;
 
 			if(msg_type >= Enums::k_message_deltas_count && 
 				msg_type < Enums::k_message_deltas_new_count)
@@ -234,10 +234,10 @@ the_end:
 
 
 #pragma region MdpiEncode
-		API_FUNC_NAKED int32 MdpiEncode(long_enum mode, long_enum definition_type, 
+		API_FUNC_NAKED long MdpiEncode(long_enum mode, long_enum definition_type,
 			const void* buffer, size_t buffer_size_in_bits, 
 			const void** headers, const void** datas, const void** baselines, 
-			int32 iterations, int32 unk)
+			long iterations, long unk)
 		{
 			static const uintptr_t FUNCTION = GET_FUNC_PTR(MDPI_ENCODE);
 
@@ -257,7 +257,7 @@ the_end:
 		}
 #pragma endregion
 
-		int32 EncodeStateless(long_enum definition_type, 
+		long EncodeStateless(long_enum definition_type,
 			const void* source_header, const void* source_data, 
 			void* buffer, size_t buffer_size_in_bits)
 		{
@@ -265,7 +265,7 @@ the_end:
 				buffer, buffer_size_in_bits, 
 				&source_header, &source_data);
 		}
-		int32 EncodeStateless(long_enum definition_type, 
+		long EncodeStateless(long_enum definition_type,
 			const void* source_header, const void* source_data)
 		{
 			return EncodeStateless(definition_type,

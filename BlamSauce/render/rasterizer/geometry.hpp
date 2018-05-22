@@ -71,16 +71,16 @@ namespace Yelo
 	{
 		struct rasterizer_triangle
 		{
-			int16 vertex0_index;
-			int16 vertex1_index;
-			int16 vertex2_index;
+			short vertex0_index;
+			short vertex1_index;
+			short vertex2_index;
 		}; static_assert(sizeof(rasterizer_triangle) == 0x6);
 
 		struct rasterizer_triangle_buffer
 		{
 			Enums::triangle_buffer_type type;
-			PAD16;
-			int32 count;
+			unsigned short : 16;
+			long count;
 			void* data;
 			void* hardware_format;
 		}; static_assert( sizeof(rasterizer_triangle_buffer) == 0x10 );
@@ -88,9 +88,9 @@ namespace Yelo
 		struct rasterizer_vertex_buffer
 		{
 			Enums::rasterizer_vertex_type type;
-			PAD16;
-			int32 vertex_start_index;
-			int32 vertex_count;
+			unsigned short : 16;
+			long vertex_start_index;
+			long vertex_count;
 			void* data;
 			void* hardware_format;
 		}; static_assert( sizeof(rasterizer_vertex_buffer) == 0x14 );
@@ -128,7 +128,7 @@ namespace Yelo
 			real_vector3d tangent;
 			real_point2d texcoord;
 
-			int16 node_indices[2];
+			short node_indices[2];
 			real node_weights[2];
 		};
 		struct model_vertex_compressed

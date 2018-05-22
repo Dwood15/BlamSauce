@@ -77,7 +77,7 @@ namespace Yelo {
 				bool is_readable;
 				bool is_writable;
 				bool is_memory_mapped;
-				PAD8;
+				unsigned char : 8;
 			} m_flags;
 
 			HANDLE file_handle;

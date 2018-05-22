@@ -17,18 +17,18 @@ namespace Yelo::Scripting {
 	using hs_syntax_data_t = Memory::DataArray<hs_syntax_node, Enums::k_maximum_hs_syntax_nodes_per_scenario, Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade>;
 
 	union script_idx {
-		int16 script_index;
-		int16 global_index;
+		short script_index;
+		short global_index;
 	};
 
 	struct s_hs_script_container_datum_index {
 		script_idx idx;
-		//			int16 script_container_index;
+		//			short script_container_index;
 
 		bool IsNull() const { return HandleIsNone(*this); }
 
 		// TODO: remove default parameter when containers come online
-		static s_hs_script_container_datum_index CreateIndex(int16 index, int16 script_container_index = 0) {
+		static s_hs_script_container_datum_index CreateIndex(short index, short script_container_index = 0) {
 			return {
 				index,
 				//script_container_index // TODO: uncomment when containers come online
@@ -52,8 +52,8 @@ namespace Yelo::Scripting {
 
 		bool    boolean;
 		real    real;
-		int16   int16;
-		int32   int32;
+		short   short;
+		long   long;
 		cstring string;
 
 		hs_script_index_t script;
@@ -95,15 +95,15 @@ namespace Yelo::blam {
 		}
 	}
 
-	Scripting::hs_function_definition *hs_function_get(int16 function_index) {
+	Scripting::hs_function_definition *hs_function_get(short function_index) {
 		return c_hs_library::GetFunction(function_index);
 	}
 
-	Scripting::hs_global_definition *hs_global_external_get(int16 global_index) {
+	Scripting::hs_global_definition *hs_global_external_get(short global_index) {
 		return c_hs_library::GetGlobal(global_index);
 	}
 
-	Enums::hs_type hs_global_get_type(int16 global_index) {
+	Enums::hs_type hs_global_get_type(short global_index) {
 		assert(global_index != NONE); // engine doesn't do this
 
 		bool is_internal = (global_index & Enums::_hs_global_index_is_external_mask) == 0;
@@ -116,7 +116,7 @@ namespace Yelo::blam {
 		return hs_global_external_get(global_index)->type;
 	}
 
-	cstring hs_global_get_name(int16 global_index) {
+	cstring hs_global_get_name(short global_index) {
 		assert(global_index != NONE); // engine doesn't do this
 
 		bool is_internal = (global_index & Enums::_hs_global_index_is_external_mask) == 0;
@@ -129,16 +129,16 @@ namespace Yelo::blam {
 		return hs_global_external_get(global_index)->name;
 	}
 
-	int16 hs_find_global_by_name(cstring name) {
+	short hs_find_global_by_name(cstring name) {
 		// TODO: update code when containers come online
 
 		// search the globals external from the scenario first
-		int32     global_index = 0;
+		long     global_index = 0;
 		for (auto *external_global : c_hs_library::GetExternalGlobals()) {
 			if (!_stricmp(name, external_global->name)) {
 				global_index |= Enums::_hs_global_index_is_external_mask;
 				// engine casts down as well, so we will too
-				return CAST(int16, global_index);
+				return CAST(short, global_index);
 			}
 
 			global_index++;
@@ -154,7 +154,7 @@ namespace Yelo::blam {
 		for (auto &internal_global : scenario->globals) {
 			if (!_stricmp(name, internal_global.name)) {
 				// engine casts down as well, so we will too
-				return CAST(int16, global_index);
+				return CAST(short, global_index);
 			}
 
 			global_index++;
@@ -164,12 +164,12 @@ namespace Yelo::blam {
 		return NONE;
 	}
 
-	int16 hs_find_function_by_name(cstring name) {
-		int32     function_index = 0;
+	short hs_find_function_by_name(cstring name) {
+		long     function_index = 0;
 		for (auto *function : c_hs_library::GetFunctionsTable()) {
 			if (!_stricmp(name, function->name)) {
 				// engine casts down as well, so we will too
-				return CAST(int16, function_index);
+				return CAST(short, function_index);
 			}
 
 			function_index++;
@@ -179,7 +179,7 @@ namespace Yelo::blam {
 		return NONE;
 	}
 
-	int16 hs_find_tag_reference_by_index(datum_index tag_index) {
+	short hs_find_tag_reference_by_index(datum_index tag_index) {
 		// TODO: update code when containers come online
 
 		auto *scenario = global_scenario_try_and_get();
@@ -188,11 +188,11 @@ namespace Yelo::blam {
 			return -1;
 		}
 
-		int32     reference_index = 0;
+		long     reference_index = 0;
 		for (auto &reference : scenario->references) {
 			if (reference.reference.tag_index == tag_index) {
 				// engine casts down as well, so we will too
-				return static_cast<int16>(reference_index);
+				return static_cast<short>(reference_index);
 			}
 
 			reference_index++;
@@ -211,10 +211,10 @@ namespace Yelo::blam {
 			return hs_script_index_t::k_null;
 		}
 
-		int32     script_index = 0;
+		long     script_index = 0;
 		for (auto &script : scenario->scripts) {
 			if (!_stricmp(name, script.name)) {
-				return hs_script_index_t::CreateIndex(static_cast<int16>(script_index));
+				return hs_script_index_t::CreateIndex(static_cast<short>(script_index));
 			}
 
 			script_index++;

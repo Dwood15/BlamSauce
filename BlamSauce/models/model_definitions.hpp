@@ -33,42 +33,42 @@ namespace Yelo
 			TAG_FIELD(sbyte, region_index);
 			TAG_FIELD(sbyte, permutation_index);
 			TAG_FIELD(sbyte, node_index);
-			PAD8;
+			unsigned char : 8;
 			TAG_FIELD(real_point3d, translation);
 			TAG_FIELD(real_quaternion, rotation);
 		}; static_assert( sizeof(model_marker_instance) == 0x20 ); // max count: 32
 		struct model_markers
 		{
 			TAG_FIELD(tag_string, name);
-			TAG_FIELD(int16, magic_identifier);
-			PAD16;
-			TAG_PAD(int32, 4);
+			TAG_FIELD(short, magic_identifier);
+			unsigned short : 16;
+			TAG_PAD(long, 4);
 			TAG_TBLOCK(instances, model_marker_instance);
 		}; static_assert( sizeof(model_markers) == 0x40 ); // max count: 256
 
 		struct model_node
 		{
 			TAG_FIELD(tag_string, name);
-			TAG_FIELD(int16, next_sibling_node_index);
-			TAG_FIELD(int16, first_child_node_index);
-			TAG_FIELD(int16, parent_node_index);
-			PAD16;
+			TAG_FIELD(short, next_sibling_node_index);
+			TAG_FIELD(short, first_child_node_index);
+			TAG_FIELD(short, parent_node_index);
+			unsigned short : 16;
 			//TAG_FIELD(real_point3d, default_translation);
 			//TAG_FIELD(real_quaternion, default_rotation);
 			//TAG_FIELD(real, node_distance_from_parent);
 			real_orientation3d orientation;
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			real_matrix4x3 inverse_matrix;
 		}; static_assert( sizeof(model_node) == 0x9C ); // max count: 64
 
 		struct model_region_permutation_marker
 		{
 			TAG_FIELD(tag_string, name);
-			TAG_FIELD(int16, node_index);
-			PAD16;
+			TAG_FIELD(short, node_index);
+			unsigned short : 16;
 			TAG_FIELD(real_quaternion, rotation);
 			TAG_FIELD(real_point3d, translation);
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 		}; static_assert( sizeof(model_region_permutation_marker) == 0x50 ); // max count: 64
 		struct gbxmodel_region_permutation
 		{
@@ -79,24 +79,24 @@ namespace Yelo
 
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(__flags, flags);
-			TAG_PAD(int32, 7);
-			TAG_FIELD(int16, detail_geometry_index[Enums::k_number_of_geometry_detail_levels]);
-			PAD16;
+			TAG_PAD(long, 7);
+			TAG_FIELD(short, detail_geometry_index[Enums::k_number_of_geometry_detail_levels]);
+			unsigned short : 16;
 			TAG_TBLOCK(markers, model_region_permutation_marker);
 		}; static_assert( sizeof(gbxmodel_region_permutation) == 0x58 ); // max count: 32
 		struct gbxmodel_region
 		{
 			TAG_FIELD(tag_string, name);
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_TBLOCK(permutations, gbxmodel_region_permutation);
 		}; static_assert( sizeof(gbxmodel_region) == 0x4C ); // max count: 32
 
 
 		struct model_triangle
 		{
-			TAG_FIELD(int16, vertex0_index);
-			TAG_FIELD(int16, vertex1_index);
-			TAG_FIELD(int16, vertex2_index);
+			TAG_FIELD(short, vertex0_index);
+			TAG_FIELD(short, vertex1_index);
+			TAG_FIELD(short, vertex2_index);
 		}; static_assert( sizeof(model_triangle) == 0x6 ); // max count: 65535
 		struct gbxmodel_geometry_part
 		{
@@ -107,11 +107,11 @@ namespace Yelo
 			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
 
 			TAG_FIELD(__flags, flags);
-			TAG_FIELD(int16, shader_index);
+			TAG_FIELD(short, shader_index);
 			TAG_FIELD(sbyte, prev_filthy_part_index);
 			TAG_FIELD(sbyte, next_filthy_part_index);
-			TAG_FIELD(int16, centroid_primary_node);
-			TAG_FIELD(int16, centroid_secondary_node);
+			TAG_FIELD(short, centroid_primary_node);
+			TAG_FIELD(short, centroid_secondary_node);
 			TAG_FIELD(real_fraction, centroid_primary_weight);
 			TAG_FIELD(real_fraction, centroid_secondary_weight);
 			TAG_FIELD(real_point3d, centroid);
@@ -126,7 +126,7 @@ namespace Yelo
 			sbyte num_nodes;
 
 			sbyte node_table[Enums::k_maximum_nodes_per_model_geometry_part];
-			PAD16;
+			unsigned short : 16;
 		}; static_assert( sizeof(gbxmodel_geometry_part) == 0x84 ); // max count: 32
 		struct gbxmodel_geometry
 		{
@@ -136,16 +136,16 @@ namespace Yelo
 			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
 
 			TAG_FIELD(__flags, flags);
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_TBLOCK(parts, gbxmodel_geometry_part);
 		}; static_assert( sizeof(gbxmodel_geometry) == 0x30 ); // max count: 256
 
 		struct model_shader_reference
 		{
 			TAG_FIELD(tag_reference, shader, 'shdr');
-			TAG_FIELD(int16, permutation);
-			PAD16;
-			TAG_PAD(int32, 3);
+			TAG_FIELD(short, permutation);
+			unsigned short : 16;
+			TAG_PAD(long, 3);
 		}; static_assert( sizeof(model_shader_reference) == 0x20 ); // max count: 64
 		struct gbxmodel_definition
 		{
@@ -159,14 +159,14 @@ namespace Yelo
 			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
 
 			TAG_FIELD(__flags, flags);
-			TAG_FIELD(int32, node_list_checksum);
+			TAG_FIELD(long, node_list_checksum);
 			TAG_FIELD(real, detail_level_cutoffs[Enums::k_number_of_geometry_detail_levels], "pixels");
-			TAG_FIELD(int16, detail_level_node_counts[Enums::k_number_of_geometry_detail_levels], "nodes");
-			PAD16;
-			TAG_PAD(int32, 2);
+			TAG_FIELD(short, detail_level_node_counts[Enums::k_number_of_geometry_detail_levels], "nodes");
+			unsigned short : 16;
+			TAG_PAD(long, 2);
 			TAG_FIELD(real, base_map_u_scale, "", "0 defaults to 1");
 			TAG_FIELD(real, base_map_v_scale, "", "0 defaults to 1");
-			TAG_PAD(int32, 29);
+			TAG_PAD(long, 29);
 			TAG_TBLOCK(markers, model_markers);
 			TAG_TBLOCK(nodes, model_node);
 			TAG_TBLOCK(regions, gbxmodel_region);

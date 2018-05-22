@@ -2,14 +2,13 @@
 
 #include <precompile.h>
 
-#include "../../cache/constants.hpp"
 #include "../../render/constants.hpp"
 #include "../../effects/effects_constants.hpp"
 #include "../../game/configuration.hpp"
 #include "../../network/connections.hpp"
 #include "../../game/state.h"
 #include "../../render/rasterizer/geometry.hpp"
-#include "../../cseries/base.h"
+
 // How much more memory we're adding.
 // 50%
 
@@ -267,3 +266,4 @@ namespace Yelo::Flags {
 		_alignment_128_bit,
 	};
 };
+#undef uint32

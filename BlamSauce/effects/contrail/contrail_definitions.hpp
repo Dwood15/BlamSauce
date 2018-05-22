@@ -47,7 +47,7 @@ namespace Yelo
 			////////////////////////////////////////////////////////////////
 			// point variables
 			TAG_FIELD(tag_reference, physics, 'pphy');
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_FIELD(real, width, "world units", "contrail width at this point");
 			TAG_FIELD(real_argb_color, color_lower_bound, "", "contrail color at this point");
 			TAG_FIELD(real_argb_color, color_upper_bound, "", "contrail color at this point");
@@ -96,16 +96,16 @@ namespace Yelo
 			////////////////////////////////////////////////////////////////
 			// rendering
 			TAG_ENUM(render_type, Enums::contrail_render_type, "this specifies how the contrail is oriented in space");
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, texture_repeats_u, "", "texture repeats per contrail segment");
 			TAG_FIELD(real, texture_repeats_v, "", "texture repeats across contrail width");
 			TAG_FIELD(real, texture_animation_u, "repeats per second", "the texture along the contrail is animated by this value");
 			TAG_FIELD(real, texture_animation_v, "repeats per second", "the texture across the contrail is animated by this value");
 			TAG_FIELD(real, animation_rate, "frames per second");
 			TAG_FIELD(tag_reference, bitmap, 'bitm');
-			TAG_FIELD(int16, first_sequence_index);
-			TAG_FIELD(int16, sequence_count);
-			TAG_PAD(int32, 16);
+			TAG_FIELD(short, first_sequence_index);
+			TAG_FIELD(short, sequence_count);
+			TAG_PAD(long, 16);
 			s_shader_effect shader_effect;
 			TAG_TBLOCK(point_states, s_contrail_point_states);
 		}; static_assert( sizeof(s_contrail_definition) == 0x144 ); // max count: 1

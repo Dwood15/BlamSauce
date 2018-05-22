@@ -43,7 +43,7 @@ namespace Yelo {
 			datum_index      responsible_player_index;         // 0x8
 			datum_index      responsible_unit_index;            // 0xC
 			Enums::game_team responsible_units_team;      // 0x10
-			PAD16;                                 // 0x12
+			unsigned short : 16;                                 // 0x12
 			Yelo::Scenario::s_scenario_location location;               // 0x14
 			real_point3d                        damage_position;               // 0x1C
 			UNKNOWN_TYPE(real_vector3d); // position		// 0x28
@@ -55,8 +55,8 @@ namespace Yelo {
 			real damage_multiplier;                     // 0x44
 			UNKNOWN_TYPE(real);                        // 0x48 shield or body amount prior to the damage was applied
 			Enums::material_type material;               // 0x4C
-			PAD16;                                 // 0x4E
-			UNKNOWN_TYPE(int32); // only seen this written to, and when it was it was set to a s_projectile_material_response_definition*
+			unsigned short : 16;                                 // 0x4E
+			UNKNOWN_TYPE(long); // only seen this written to, and when it was it was set to a s_projectile_material_response_definition*
 		}; static_assert(sizeof(s_damage_data) == 0x54);
 	};
 
@@ -86,7 +86,7 @@ namespace Yelo {
 		void __cdecl area_of_effect_cause_damage(s_damage_data &data, datum_index unused_object_index = datum_index::null());
 
 		void __cdecl object_cause_damage(s_damage_data &data, datum_index damaged_object_index,
-													int16 node_index = NONE, int16 region_index = NONE, int16 damage_materials_element_index = NONE,
+													short node_index = NONE, short region_index = NONE, short damage_materials_element_index = NONE,
 													real_vector3d *normal = NULL);
 	};
 };

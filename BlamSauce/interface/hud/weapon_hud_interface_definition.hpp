@@ -91,65 +91,65 @@ namespace Yelo
 		{
 			TAG_ENUM(state_attached_to, Enums::weapon_hud_state);
 			byte_flags runtime_flags;
-			PAD8;
+			unsigned char : 8;
 			TAG_ENUM(can_use_on_map_type, Enums::hud_use_on_map_type); // actually treated as byte_flags
-			PAD16;
-			TAG_PAD(int32, 7);
+			unsigned short : 16;
+			TAG_PAD(long, 7);
 		}; static_assert( sizeof(weapon_hud_element) == 0x24 );
 
 		struct weapon_hud_static_element : public weapon_hud_element
 		{
 			s_hud_element_overlay overlay;
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 		}; static_assert( sizeof(weapon_hud_static_element) == 0xB4 );
 
 		struct weapon_hud_meter_element : public weapon_hud_element
 		{
 			s_hud_element_meter element;
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 		}; static_assert( sizeof(weapon_hud_meter_element) == 0xB4 );
 
 		struct weapon_hud_number_element : public weapon_hud_element
 		{
 			s_hud_element_number element;
 			TAG_FIELD(word_flags, weapon_flags);
-			PAD16;
-			TAG_PAD(int32, 9);
+			unsigned short : 16;
+			TAG_PAD(long, 9);
 		}; static_assert( sizeof(weapon_hud_number_element) == 0xA0 );
 
 		struct weapon_hud_crosshair_item
 		{
 			s_hud_element element;
 			s_hud_color_flash flash;
-			TAG_FIELD(int16, frame_rate);
-			TAG_FIELD(int16, sequence_index);
+			TAG_FIELD(short, frame_rate);
+			TAG_FIELD(short, sequence_index);
 			TAG_FIELD(long_flags, flags);
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 		}; static_assert( sizeof(weapon_hud_crosshair_item) == 0x6C );
 		struct weapon_hud_crosshairs_element
 		{
 			TAG_ENUM(crosshair_type, Enums::weapon_crosshair_type);
 			byte_flags runtime_flags;
-			PAD8;
+			unsigned char : 8;
 			TAG_ENUM(can_use_on_map_type, Enums::hud_use_on_map_type); // actually byte_enum
-			PAD16;
-			TAG_PAD(int32, 7);
+			unsigned short : 16;
+			TAG_PAD(long, 7);
 			TAG_FIELD(tag_reference, crosshair_bitmap, 'bitm');
 			TAG_TBLOCK(crosshair_overlays, weapon_hud_crosshair_item);
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 		}; static_assert( sizeof(weapon_hud_crosshairs_element) == 0x68 );
 
 		struct weapon_hud_overlay_item
 		{
 			s_hud_element element;
 			s_hud_color_flash flash;
-			TAG_FIELD(int16, frame_rate);
-			PAD16;
-			TAG_FIELD(int16, sequence_index);
+			TAG_FIELD(short, frame_rate);
+			unsigned short : 16;
+			TAG_FIELD(short, sequence_index);
 			TAG_FIELD(word_flags, type);
 			TAG_FIELD(long_flags, flags);
 			TAG_PAD(tag_reference, 1);
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 		}; static_assert( sizeof(weapon_hud_overlay_item) == 0x88 );
 		struct weapon_hud_overaly
 		{
@@ -159,19 +159,19 @@ namespace Yelo
 		struct weapon_hud_overlays_element : public weapon_hud_element
 		{
 			weapon_hud_overaly overlay;
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 		}; static_assert( sizeof(weapon_hud_overlays_element) == 0x68 );
 
 		struct weapon_hud_messaging_information
 		{
-			TAG_FIELD(int16, sequence_index);
-			TAG_FIELD(int16, width_offset);
+			TAG_FIELD(short, sequence_index);
+			TAG_FIELD(short, width_offset);
 			TAG_FIELD(point2d, offset_from_reference_corner);
 			TAG_FIELD(argb_color, override_icon_color);
 			TAG_FIELD(sbyte, frame_rate);
 			TAG_FIELD(byte_flags, flags);
-			TAG_FIELD(int16, text_index);
-			TAG_PAD(int32, 12);
+			TAG_FIELD(short, text_index);
+			TAG_PAD(long, 12);
 		};
 
 		struct weapon_hud_interface_definition
@@ -181,12 +181,12 @@ namespace Yelo
 			TAG_FIELD(tag_reference, child_hud, 'wphi');
 			struct {
 				TAG_FIELD(word_flags, flags);
-				PAD16;
-				TAG_FIELD(int16, inventory_ammo);
-				TAG_FIELD(int16, loaded_ammo);
-				TAG_FIELD(int16, heat);
-				TAG_FIELD(int16, age);
-				TAG_PAD(int32, 8);
+				unsigned short : 16;
+				TAG_FIELD(short, inventory_ammo);
+				TAG_FIELD(short, loaded_ammo);
+				TAG_FIELD(short, heat);
+				TAG_FIELD(short, age);
+				TAG_PAD(long, 8);
 			}flash_cutoffs;
 
 			s_hud_absolute_placement placement;
@@ -215,12 +215,12 @@ namespace Yelo
 			s_hud_element_overlay total_grenades_background;
 			struct {
 				s_hud_element_number element;
-				TAG_FIELD(int16, flash_cutoff);
-				PAD16;
+				TAG_FIELD(short, flash_cutoff);
+				unsigned short : 16;
 			}total_grenades_numbers;
 			weapon_hud_overaly total_grenade_overlays;
 			TAG_TBLOCK(warning_sounds, sound_hud_element_definition);
-			TAG_PAD(int32, 17);
+			TAG_PAD(long, 17);
 			weapon_hud_messaging_information messaging_information;
 		}; static_assert( sizeof(grenade_hud_interface_definition) == 0x1F8 );
 	};

@@ -29,8 +29,8 @@ namespace Yelo
 	{
 		struct s_collision_features
 		{
-			int16 count[Enums::k_number_of_collision_features];
-			PAD16;
+			short count[Enums::k_number_of_collision_features];
+			unsigned short : 16;
 
 			byte spheres[0x1C][Enums::k_maximum_collision_features_per_test];
 			// 0x0 ?
@@ -38,7 +38,7 @@ namespace Yelo
 			// 0x18 real_point3d height
 			// 0x24 real radius
 			byte cylinders[0x28][Enums::k_maximum_collision_features_per_test];
-			// 0x24 int32 point_count
+			// 0x24 long point_count
 			byte prisms[0x68][Enums::k_maximum_collision_features_per_test];
 		}; static_assert( sizeof(s_collision_features) == 0xAC08 );
 	};

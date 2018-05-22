@@ -38,14 +38,14 @@ namespace Yelo
 			volatile bool m_thread_running;
 			volatile bool m_end_thread;
 			volatile bool m_dump_initiated;
-			PAD8;
+			unsigned char : 8;
 
 			struct
 			{
 				real time;
 				real current;
 				bool elapsed;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}m_delay;
 
 			struct
@@ -53,7 +53,7 @@ namespace Yelo
 				real time;
 				volatile real current;
 				bool elapsed;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}m_wait;
 		};
 		static s_freeze_dump_globals g_freeze_dump_globals;

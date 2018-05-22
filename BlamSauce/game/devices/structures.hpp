@@ -51,8 +51,8 @@ namespace Yelo
 			long_flags flags;					// 0x1F4
 
 			struct {
-				int16 device_group_index;
-				PAD16;
+				short device_group_index;
+				unsigned short : 16;
 				real value, change;
 			}	power,							// 0x1F8
 				position;						// 0x204
@@ -71,8 +71,8 @@ namespace Yelo
 		struct s_device_control_data
 		{
 			long_flags flags;					// 0x214
-			int16 custom_name_index;			// 0x218
-			PAD16;
+			short custom_name_index;			// 0x218
+			unsigned short : 16;
 		}; static_assert( sizeof(s_device_control_data) == Enums::k_object_size_control - Enums::k_object_size_device );
 
 		struct s_device_lightfixture_data

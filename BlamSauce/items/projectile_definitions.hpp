@@ -50,11 +50,11 @@ namespace Yelo
 			}potential_result;
 
 			TAG_ENUM(scale_effects_by, effect_scale);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, angular_noise, "degrees", "the angle of incidence is randomly perturbed by at most this amount to simulate irregularity.");
 			TAG_FIELD(real, velocity_noise, "world units per second", "the velocity is randomly perturbed by at most this amount to simulate irregularity.");
 			TAG_FIELD(tag_reference, detonation_effect, 'effe');
-			TAG_PAD(int32, 6); // 24
+			TAG_PAD(long, 6); // 24
 
 			TAG_FIELD(real, initial_friction, "the fraction of the projectile's velocity lost on penetration");
 			TAG_FIELD(real, max_distance, "the maximum distance the projectile can travel through on object of this material");
@@ -100,7 +100,7 @@ namespace Yelo
 			TAG_FIELD(real, final_velocity, "world units per second", "bullet's velocity when inflicting minimum damage");
 			TAG_FIELD(real, guided_angular_velocity, "degrees per second");
 			TAG_ENUM(detonation_noise, ai_sound_volume);
-			PAD16;
+			unsigned short : 16;
 
 			TAG_FIELD(tag_reference, detonation_started,		'effe');
 			TAG_FIELD(tag_reference, flyby_sound,				'snd!');

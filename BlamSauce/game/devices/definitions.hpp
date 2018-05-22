@@ -41,7 +41,7 @@ namespace Yelo
 
 			TAG_FIELD(tag_reference, delay_effect, 'snd!', 'effe');
 			TAG_FIELD(real, automatic_activation_radius, "world units");
-			TAG_PAD(int32, 21);
+			TAG_PAD(long, 21);
 
 			struct { // if([tag values] != 0) then * 30.0f, then 1.0f / result
 				struct {
@@ -60,7 +60,7 @@ namespace Yelo
 			TAG_ENUM(type, control_type);
 			TAG_ENUM(triggers_when, control_trigger);
 			TAG_FIELD(real, call_value);
-			TAG_PAD(int32, 20); // 80
+			TAG_PAD(long, 20); // 80
 
 			TAG_FIELD(tag_reference, on, 'snd!', 'effe');
 			TAG_FIELD(tag_reference, off, 'snd!', 'effe');
@@ -78,13 +78,13 @@ namespace Yelo
 				TAG_FLAG16(elevator, "lighting based on what's around, rather than what's below");
 			}flags;
 			TAG_FIELD(real, door_open_time, "seconds");
-			TAG_PAD(int32, 20); // 80
+			TAG_PAD(long, 20); // 80
 
 			TAG_ENUM(collision_response, machine_collision_response);
 			TAG_FIELD(short, elevator_node);
-			TAG_PAD(int32, 13); // 52
+			TAG_PAD(long, 13); // 52
 
-			int32 runtime_door_open_time; // door_open_time * 30.0f
+			long runtime_door_open_time; // door_open_time * 30.0f
 		}; static_assert( sizeof(_machine_definition) == 0x94 );
 
 		//////////////////////////////////////////////////////////////////////////

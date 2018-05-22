@@ -41,7 +41,7 @@ namespace Yelo {
 		}
 
 		bool FromString(cstring string, sbyte &output) {
-			int32 value;
+			long value;
 			auto  result = FromStringImpl("%d", 1, string, &value);
 			output = (sbyte) value;
 
@@ -56,10 +56,10 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, int16 &output) {
-			int32 value;
+		bool FromString(cstring string, short &output) {
+			long value;
 			auto  result = FromStringImpl("%d", 1, string, &value);
-			output = (int16) value;
+			output = (short) value;
 
 			return result;
 		}
@@ -68,7 +68,7 @@ namespace Yelo {
 			return FromStringImpl("%u", 1, string, &output);
 		}
 
-		bool FromString(cstring string, int32 &output) {
+		bool FromString(cstring string, long &output) {
 			return FromStringImpl("%d", 1, string, &output);
 		}
 
@@ -90,21 +90,21 @@ namespace Yelo {
 		}
 
 		bool FromString(cstring string, point2d &output) {
-			int32 x, y;
+			long x, y;
 			auto  result = FromStringImpl("%d %d", 2, string, &x, &y);
-			output.x = (int16) x;
-			output.y = (int16) y;
+			output.x = (short) x;
+			output.y = (short) y;
 
 			return result;
 		}
 
 		bool FromString(cstring string, rectangle2d &output) {
-			int32 top, left, bottom, right;
+			long top, left, bottom, right;
 			auto  result = FromStringImpl("%d %d %d %d", 4, string, &top, &left, &bottom, &right);
-			output.top    = (int16) top;
-			output.left   = (int16) left;
-			output.bottom = (int16) bottom;
-			output.right  = (int16) right;
+			output.top    = (short) top;
+			output.left   = (short) left;
+			output.bottom = (short) bottom;
+			output.right  = (short) right;
 
 			return result;
 		}

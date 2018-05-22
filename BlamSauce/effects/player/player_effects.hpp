@@ -13,12 +13,12 @@ namespace Yelo
 		struct s_player_screen_flash
 		{
 			short type;
-			PAD16;
+			unsigned short : 16;
 			real intensity;
 			UNKNOWN_TYPE(real);
 			UNKNOWN_TYPE(real); UNKNOWN_TYPE(real); UNKNOWN_TYPE(real);
-			UNKNOWN_TYPE(int32); // unused?
-			UNKNOWN_TYPE(int32); // unused?
+			UNKNOWN_TYPE(long); // unused?
+			UNKNOWN_TYPE(long); // unused?
 		}; static_assert( sizeof(s_player_screen_flash) == 0x20 );
 
 

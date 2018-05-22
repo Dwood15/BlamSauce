@@ -93,13 +93,13 @@ namespace Yelo
 		struct s_rasterizer_dx9_effect_shaders
 		{
 			char name[127+1]; // e.g., "environment_lightmap_normal"
-			int32 pixel_shader_count;
+			long pixel_shader_count;
 			s_rasterizer_dx9_pixel_shader* pixel_shaders;
 		}; BOOST_STATIC_ASSERT( sizeof(s_rasterizer_dx9_effect_shaders) == 0x88 );
 
 		struct s_rasterizer_dx9_effect_collection
 		{
-			int32 count;
+			long count;
 			s_rasterizer_dx9_effect_shaders* effect_shaders;
 		};
 		s_rasterizer_dx9_effect_collection* EffectCollections();
@@ -107,7 +107,7 @@ namespace Yelo
 		struct s_effect_shader_entry
 		{
 			s_rasterizer_dx9_effect_shaders* effect_shaders;
-			UNUSED_TYPE(int32);
+			UNUSED_TYPE(long);
 			Enums::rasterizer_vertex_shader vertex_shader;
 			cstring name;
 		};

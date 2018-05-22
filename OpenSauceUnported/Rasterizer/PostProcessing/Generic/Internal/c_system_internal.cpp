@@ -629,97 +629,97 @@ namespace Yelo
 
 		/////////////////////////////////////////////////
 		// scripting
-		void c_system_internal::SetEffectInstanceActive(int16 index, bool active)
+		void c_system_internal::SetEffectInstanceActive(short index, bool active)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return;
 
 			m_members_internal.m_effect_instances.effect_instance_list[index].SetIsActive(active);
 		}
 
-		void c_system_internal::SetEffectInstanceFade(int16 index, real start, real end, real time)
+		void c_system_internal::SetEffectInstanceFade(short index, real start, real end, real time)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return;
 
 			m_members_internal.m_effect_instances.effect_instance_list[index].SetEffectFade(start, end, time);
 		}
 
-		int16 c_system_internal::GetEffectIndexByName(const char* name)
+		short c_system_internal::GetEffectIndexByName(const char* name)
 		{
-			for(int16 i = 0; i < m_members_internal.m_effects.count; i++)
+			for(short i = 0; i < m_members_internal.m_effects.count; i++)
 				if(strcmp(name, m_members_internal.m_effects.effect_list[i].effect->GetName()) == 0)
 					return i;
 			return NONE;
 		}
 
-		int16 c_system_internal::GetEffectInstanceIndexByName(const char* name)
+		short c_system_internal::GetEffectInstanceIndexByName(const char* name)
 		{
-			for(int16 i = 0; i < m_members_internal.m_effect_instances.count; i++)
+			for(short i = 0; i < m_members_internal.m_effect_instances.count; i++)
 				if(strcmp(name, m_members_internal.m_effect_instances.effect_instance_list[i].GetName()) == 0)
 					return i;
 			return NONE;
 		}
 
-		real c_system_internal::GetEffectInstanceCurrentFade(int16 index)
+		real c_system_internal::GetEffectInstanceCurrentFade(short index)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return false;
 
 			return m_members_internal.m_effect_instances.effect_instance_list[index].GetCurrentFade();
 		}
 
-		int16 c_system_internal::GetEffectInstanceFadeDirection(int16 index)
+		short c_system_internal::GetEffectInstanceFadeDirection(short index)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return false;
 
 			return m_members_internal.m_effect_instances.effect_instance_list[index].GetFadeDirection();
 		}
 
-		bool c_system_internal::GetEffectIsValid(int16 index)
+		bool c_system_internal::GetEffectIsValid(short index)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return false;
 
 			return m_members_internal.m_effects.effect_list[index].effect->IsValid();
 		}
 
-		int16 c_system_internal::GetEffectShaderVariableIndexByName(int16 index, const char* name)
+		short c_system_internal::GetEffectShaderVariableIndexByName(short index, const char* name)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return NONE;
 
 			return m_members_internal.m_effects.effect_list[index].effect->GetScriptedVariableIndex(name);
 		}
 
-		void c_system_internal::SetEffectShaderVariableBoolean(int16 index, int16 variable_index, bool value, real time)
+		void c_system_internal::SetEffectShaderVariableBoolean(short index, short variable_index, bool value, real time)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return;
 			m_members_internal.m_effects.effect_list[index].effect->SetScriptedVariable(variable_index, time, value);
 		}
 
-		void c_system_internal::SetEffectShaderVariableInteger(int16 index, int16 variable_index, int32 value, real time)
+		void c_system_internal::SetEffectShaderVariableInteger(short index, short variable_index, long value, real time)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return;
 			m_members_internal.m_effects.effect_list[index].effect->SetScriptedVariable(variable_index, time, value);
 		}
 
-		void c_system_internal::SetEffectShaderVariableReal(int16 index, int16 variable_index, real value0, real value1, real value2, real value3, real time)
+		void c_system_internal::SetEffectShaderVariableReal(short index, short variable_index, real value0, real value1, real value2, real value3, real time)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return;
 			m_members_internal.m_effects.effect_list[index].effect->SetScriptedVariable(variable_index, time, value0, value1, value2, value3);
 		}
 
-		void c_system_internal::SetEffectShaderInstanceActive(int16 index, int16 instance_index, bool active)
+		void c_system_internal::SetEffectShaderInstanceActive(short index, short instance_index, bool active)
 		{
-			if((index < 0) || (index >= (int16)m_members_internal.m_effect_instances.count))
+			if((index < 0) || (index >= (short)m_members_internal.m_effect_instances.count))
 				return;
 
-			if((instance_index < 0) || (instance_index >= (int16)m_members_internal.m_effects.effect_list[index].shader_instance_count))
+			if((instance_index < 0) || (instance_index >= (short)m_members_internal.m_effects.effect_list[index].shader_instance_count))
 				return;
 
 			m_members_internal.m_effects.effect_list[index].shader_instances[instance_index].IsActive() = active;

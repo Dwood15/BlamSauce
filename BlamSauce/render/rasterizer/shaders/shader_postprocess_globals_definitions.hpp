@@ -29,7 +29,7 @@ namespace Yelo
 				TAG_FLAG16(is_enabled);
 				TAG_FLAG16(apply_after_hud);
 			}flags;
-			PAD16;
+			unsigned short : 16;
 
 			s_shader_postprocess_bloom_definition bloom;
 		}; static_assert( sizeof(s_shader_postprocess_globals_bloom) == 0x28 );
@@ -38,8 +38,8 @@ namespace Yelo
 		{
 			enum { k_group_tag = 'sppg' };
 
-			PAD16;
-			PAD16;
+			unsigned short : 16;
+			unsigned short : 16;
 			union {
 				TAG_PAD(tag_block, 20); // Up to to 20 blocks for subsystem globals
 

@@ -71,7 +71,7 @@ namespace Yelo
 		/// <param name="current_weapon_index">	[out] (Optional) the readied weapon index. </param>
 		///
 		/// <returns>	NULL if player handle or the unit handle for the player is NONE. </returns>
-		datum_index* GetWeapons(datum_index player_index, _Out_ int16* current_weapon_index = nullptr);
+		datum_index* GetWeapons(datum_index player_index, _Out_ short* current_weapon_index = nullptr);
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>
 		/// 	Use the handle to a player to get the active unit object of the vehicle which the unit the player is
@@ -86,6 +86,6 @@ namespace Yelo
 		/// 	vehicle NOTE: "vehicle" is a loose term here, could be another unit derived. NOTE: "vehicle" is a loose term
 		/// 	here, could be another unit derived type, possibly even a biped, who knows!
 		/// </returns>
-		Objects::s_unit_datum* GetVehicle(datum_index player_index, _Out_ int16* current_seat_index = nullptr);
+		Objects::s_unit_datum* GetVehicle(datum_index player_index, _Out_ short* current_seat_index = nullptr);
 	};
 };

@@ -99,7 +99,7 @@ namespace Yelo
 			// $$$ VEHICLE $$$
 			TAG_FIELD(__flags, flags);
 			TAG_ENUM(type, Enums::vehicle_type);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, maximum_forward_speed);
 			TAG_FIELD(real, maximum_reverse_speed);
 			TAG_FIELD(real, speed_acceleration);
@@ -110,17 +110,17 @@ namespace Yelo
 			TAG_FIELD(real, turn_rate);
 			TAG_FIELD(real, blur_speed);
 			short function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::vehicle_function_mode
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 			TAG_FIELD(real, maximum_left_slide);
 			TAG_FIELD(real, maximum_right_slide);
 			TAG_FIELD(real, slide_acceleration);
 			TAG_FIELD(real, slide_deceleration);
 			TAG_FIELD(real, minimum_flipping_angular_velocity);
 			TAG_FIELD(real, maximum_flipping_angular_velocity);
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 			TAG_FIELD(real, fixed_gun_yaw);
 			TAG_FIELD(real, fixed_gun_pitch);
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 			TAG_FIELD(real, ai_sideslip_distance);
 			TAG_FIELD(real, ai_destination_radius);
 			TAG_FIELD(real, ai_avoidance_distance);

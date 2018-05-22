@@ -25,7 +25,7 @@ namespace Yelo
 		struct s_lightmap_globals
 		{
 			/// <summary>	Index of the current lightmap being rendered. </summary>
-			int32 m_lightmap_index;
+			long m_lightmap_index;
 
 			/// <summary>	Lightmap manager that maintains the current standard and directional lightmaps. </summary>
 			c_lightmap_manager m_lightmap_manager;
@@ -131,7 +131,7 @@ namespace Yelo
 				DX9::Direct3DDevice(),
 				g_lightmap_globals.m_lightmap_index,
 				use_directional,
-				[](const datum_index tag_index, const int32 index) -> TagGroups::s_bitmap_data*
+				[](const datum_index tag_index, const long index) -> TagGroups::s_bitmap_data*
 				{
 					auto bitmap = TagGroups::TagGetForModify<TagGroups::s_bitmap_group>(tag_index);
 					auto bitmap_data = CAST_PTR(TagGroups::s_bitmap_data*, &bitmap->bitmaps[index]);

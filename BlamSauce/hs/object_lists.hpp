@@ -129,7 +129,7 @@ namespace Yelo::blam {
 		list->reference_count--;
 	}
 
-	int16 object_list_count(datum_index list_index) {
+	short object_list_count(datum_index list_index) {
 		if (list_index.IsNull())
 			return 0;
 

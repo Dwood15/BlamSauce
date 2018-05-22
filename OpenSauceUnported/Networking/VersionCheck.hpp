@@ -270,7 +270,7 @@ namespace Yelo
 				bool is_request_in_progress;
 
 				bool is_new_version_available;
-				PAD8;
+				unsigned char : 8;
 			}m_states;
 
 			c_version_downloader m_xml_sources[3];

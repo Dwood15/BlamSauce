@@ -17,7 +17,7 @@ namespace Yelo
 	{
 		struct s_network_game_map
 		{
-			int32 version;
+			long version;
 			char name[128];
 		}; static_assert( sizeof(s_network_game_map) == 0x84 );
 
@@ -28,13 +28,13 @@ namespace Yelo
 			GameEngine::s_game_variant game_variant;// 0x104
 			byte _unused_game_engine;				// 0x1DC
 			byte maximum_players;					// 0x1DD
-			int16 difficulty_level;					// 0x1DE
-			int16 player_count;						// 0x1E0
+			short difficulty_level;					// 0x1DE
+			short player_count;						// 0x1E0
 			s_network_game_player players[Enums::k_network_game_maximum_player_count];	// 0x1E2
-			PAD16;									// 0x3E2
-			int32 network_game_random_seed;			// 0x3E4
-			int32 number_of_games_played;			// 0x3E8
-			int32 local_data;						// 0x3EC
+			unsigned short : 16;									// 0x3E2
+			long network_game_random_seed;			// 0x3E4
+			long number_of_games_played;			// 0x3E8
+			long local_data;						// 0x3EC
 		}; static_assert( sizeof(s_network_game) == 0x3F0 );
 
 		// For increased player counts game states

@@ -102,12 +102,12 @@ namespace Yelo
 		// Remote console password for this machine
 		cstring ServerRconPassword();
 		// Time limit for this machine
-		int32 ServerTimelimit();
+		long ServerTimelimit();
 
 		// Port used to host a server
-		int32 ConnectionPort();
+		long ConnectionPort();
 		// Port used to connect to the server
-		int32 ConnectionClientPort();
+		long ConnectionClientPort();
 	};
 
 	namespace Server
@@ -117,10 +117,10 @@ namespace Yelo
 			wchar_t player_name[12+1];	// 0x0
 			char cd_hash[32];			// 0x1A
 			UNKNOWN_TYPE(bool);			// 0x3A
-			PAD8;
-			int16 ban_count;			// 0x3C
+			unsigned char : 8;
+			short ban_count;			// 0x3C
 			bool banned_to_infinity;	// 0x3E
-			PAD8;
+			unsigned char : 8;
 			__time32_t ban_end_time;	// 0x40
 
 			typedef Memory::DynamicArray<s_banlist_entry> array_t;
@@ -136,7 +136,7 @@ namespace Yelo
 		{
 			Memory::DynamicArray<s_banlist_entry> banlist;
 			Memory::DynamicArray<s_mapcycle_entry> mapcycles; // defined in 'client' builds, but no code which references it
-			PAD32;
+			unsigned long : 32;
 #if PLATFORM_IS_DEDI
 			bool log_enabled; // this isn't padded...
 
@@ -145,13 +145,13 @@ namespace Yelo
 
 		public:
 			bool logging_enabled;
-			PAD16;
+			unsigned short : 16;
 
 			uint32 log_rotation_threshold;
 
 			byte event_enable_logging[Enums::_server_event_type_stock];
 			byte event_enable_echoing[Enums::_server_event_type_stock];
-			PAD32;
+			unsigned long : 32;
 #endif
 		private:
 			char banlist_file[0x108];
@@ -161,14 +161,14 @@ namespace Yelo
 		struct s_network_sv_mapcycle_entry
 		{
 			s_mapcycle_entry definition;
-			PAD32; // ? if this is anything, it isn't a pointer, that I can be sure of
+			unsigned long : 32; // ? if this is anything, it isn't a pointer, that I can be sure of
 			GameEngine::s_game_variant variant;
 		};
 
 		struct s_network_sv_mapcycle_globals
 		{
 			Memory::GbxArray<s_network_sv_mapcycle_entry> loaded_mapcycles;
-			int32 current_cycle;
+			long current_cycle;
 
 			// dedi only: 4CF2C0. loads the map-cycle definitions
 		};
@@ -177,24 +177,24 @@ namespace Yelo
 		struct s_network_sv_globals
 		{
 			bool initialized;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			uint32 last_status_display_time; // game_time
 			wchar_t server_password[Enums::k_network_server_password_length+1];
 			bool single_flag_force_reset;
-			PAD8;
+			unsigned char : 8;
 			char banlist_path[MAX_PATH];
 #if PLATFORM_IS_DEDI
 			HANDLE banlist_mutex;
 #endif
 			long_enum friendly_fire_type;
-			char rcon_password[Enums::k_network_server_password_length+1]; PAD24;
+			char rcon_password[Enums::k_network_server_password_length+1]; unsigned char : 8; unsigned short : 16;
 #if PLATFORM_IS_DEDI
 			struct {
 				uint32 last_time; // (last rotation time) game_time
 				uint32 next_time; // (next rotation time) game_time
 			}log_rotation;
 #else
-			PAD32;
+			unsigned long : 32;
 #endif
 			struct {
 				char file_name[256];
@@ -219,7 +219,7 @@ namespace Yelo
 
 
 #if PLATFORM_IS_DEDI
-		int32 ServerInstance();
+		long ServerInstance();
 
 
 		typedef void (__cdecl* proc_sv_event_log)(Enums::server_event_type type, wcstring format, ...);

@@ -61,7 +61,7 @@ namespace Yelo::Scripting {
 			return g_external_globals;
 		}
 
-		static hs_function_definition *GetFunction(int16 function_index) {
+		static hs_function_definition *GetFunction(short function_index) {
 			YELO_ASSERT(function_index>=0 && (size_t)function_index<g_functions.size());
 
 			auto* hs_function = g_functions[function_index];
@@ -70,7 +70,7 @@ namespace Yelo::Scripting {
 			return hs_function;
 		}
 
-		static hs_global_definition *GetGlobal(int16 global_index) {
+		static hs_global_definition *GetGlobal(short global_index) {
 			YELO_ASSERT(global_index>=0 && (size_t)global_index<g_external_globals.size());
 
 			auto* hs_global = g_external_globals[global_index];
@@ -79,13 +79,13 @@ namespace Yelo::Scripting {
 			return hs_global;
 		}
 
-		static hs_function_definition *GetYeloFunction(int16 function_index) {
+		static hs_function_definition *GetYeloFunction(short function_index) {
 			YELO_ASSERT(function_index>=0);
 
 			return GetFunction(g_functions_yelo_start_index+function_index);
 		}
 
-		static hs_global_definition *GetYeloGlobal(int16 function_index) {
+		static hs_global_definition *GetYeloGlobal(short function_index) {
 			YELO_ASSERT(global_index>=0);
 
 			return GetGlobal(g_external_globals_yelo_start_index+global_index);

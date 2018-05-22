@@ -1,12 +1,5 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
+#include <precompile.h>
 #pragma once
-
-#include <array>
-
 //////////////////////////////////////////////////////////////////////////
 // Engine pointer markup system
 //
@@ -144,7 +137,7 @@ namespace Yelo {
 			// jmp short imm8
 				_x86_opcode_jmp_short = 0xEB,
 		};
-		enum x86_opcode_twobyte : uint16 {
+		enum x86_opcode_twobyte : unsigned __int16 {
 			// call ds:[address]
 				_x86_opcode_call_abs = 0x15FF, /*FF 15*/
 			// call ds:[address]
@@ -157,24 +150,24 @@ namespace Yelo {
 		struct Opcode {
 			struct s_call {
 				byte   Op;
-				uint32 Address;
+				unsigned int Address;
 			};
 
 			struct s_call_ret : s_call {
 				byte   Ret;
-				uint16 Count;
+				unsigned __int16 Count;
 			};
 
 			// absolute call opcode
 			struct s_call_abs {
-				uint16 Op;
-				uint32 Address;
+				unsigned __int16 Op;
+				unsigned __int32 Address;
 			};
 
 			// absolute call opcode with return
 			struct s_call_abs_ret : s_call_abs {
 				byte   Ret;
-				uint16 Count;
+				unsigned __int16 Count;
 			};
 		};
 
@@ -223,7 +216,7 @@ namespace Yelo {
 
 		// makes the 32 bits at [address] equal [value]
 		BOOL WriteMemory(void *address, void *value) {
-			*CAST_PTR(uint32 * , address) = CAST_PTR(uintptr_t, value);
+			*reinterpret_cast<unsigned __int32 *>(address) = reinterpret_cast<uintptr_t>(value);
 			return true;
 		}
 
@@ -256,7 +249,7 @@ namespace Yelo {
 			if (write_opcode)
 				WriteMemory(jmp_address, &real_opcode, sizeof(real_opcode));
 
-			uintptr_t original = CAST_PTR(intptr_t, jmp_address) + *CAST_PTR(intptr_t * , CAST_PTR(uint32, jmp_address) + 1) + sizeof(Opcode::s_call);
+			uintptr_t original = CAST_PTR(intptr_t, jmp_address) + *reinterpret_cast<intptr_t *>( reinterpret_cast<unsigned __int32>(jmp_address) + 1) + sizeof(Opcode::s_call);
 
 			uintptr_t relative = CAST_PTR(intptr_t, to_address) - (CAST_PTR(intptr_t, jmp_address) + sizeof(Opcode::s_call));
 			WriteMemory(CAST_PTR(void * , CAST_PTR(uintptr_t, jmp_address) + 1), CAST_PTR(void * , relative));
@@ -272,14 +265,10 @@ namespace Yelo {
 			if (write_opcode)
 				WriteMemory(call_address, &real_opcode, sizeof(real_opcode));
 
-			uintptr_t original = CAST_PTR(intptr_t, call_address) +
-										*CAST_PTR(intptr_t * , CAST_PTR(uint32, call_address) + 1) +
-										sizeof(Opcode::s_call);
+			uintptr_t original = reinterpret_cast<intptr_t>(call_address) + *reinterpret_cast<intptr_t *>(reinterpret_cast<unsigned long>(call_address) + 1) + sizeof(Opcode::s_call);
 
-			uintptr_t relative = CAST_PTR(intptr_t, to_address) -
-										(CAST_PTR(intptr_t, call_address) +
-										 sizeof(Opcode::s_call));
-			WriteMemory(CAST_PTR(void * , CAST_PTR(uintptr_t, call_address) + 1), CAST_PTR(void * , relative));
+			uintptr_t relative = reinterpret_cast<intptr_t>(to_address) - (reinterpret_cast<intptr_t>(call_address) + sizeof(Opcode::s_call));
+			WriteMemory(reinterpret_cast<void *>(reinterpret_cast<uintptr_t>(call_address) + 1), reinterpret_cast<void *>(relative));
 
 			return original;
 		}
@@ -301,10 +290,8 @@ namespace Yelo {
 			call_address->Op = Enums::_x86_opcode_call_near;// set the new
 			call->Address    = call_address->Address;         // copy the old
 			call_address->Address =                     // set the new
-				CAST_PTR(intptr_t, target) -            // cast the pointer to a number to perform math on
-				(
-					CAST_PTR(intptr_t, address) + sizeof(Opcode::s_call)
-				);
+				// cast the pointer to a number to perform math on
+				reinterpret_cast<intptr_t>(target) - ( reinterpret_cast<intptr_t>(address) + sizeof(Opcode::s_call) );
 		}
 
 		// [call_ret_buffer] is a buffer to receive the old bytes
@@ -322,7 +309,7 @@ namespace Yelo {
 		// [target] address to make the call goto
 		// [count] number of 32-bit args in the function we're modding. If there are any 
 		// 64-bit arguments, count them twice!
-		void WriteCallRet(void *call_ret_buffer, void *address, const void *target, const uint16 count) {
+		void WriteCallRet(void *call_ret_buffer, void *address, const void *target, const unsigned __int16 count) {
 			CAST_PTR(Opcode::s_call_ret * , call_ret_buffer)->Ret =
 				CAST_PTR(Opcode::s_call_ret * , address)->Ret;                  // copy the old
 			WriteCall(call_ret_buffer, address, target);
@@ -335,7 +322,7 @@ namespace Yelo {
 		// [call] buffer containing the data we wish to write
 		// [address] address to put [call]
 		void WriteRet(Opcode::s_call_ret &call, void *address) {
-			memcpy(address, &call, sizeof(call) - sizeof(uint16)); // don't include the retn's count
+			memcpy(address, &call, sizeof(call) - sizeof(unsigned long)); // don't include the retn's count
 		}
 
 		// [call] buffer containing the data we wish to write
@@ -348,16 +335,16 @@ namespace Yelo {
 		// [address] address to put\overwrite a jmp
 		// [target] address to make the jmp goto
 		void WriteJmp(void *jmp_buffer, void *address, const void *target) {
-			Opcode::s_call *jmp         = CAST_PTR(Opcode::s_call * , jmp_buffer);
-			Opcode::s_call *jmp_address = CAST_PTR(Opcode::s_call * , address);
+			auto jmp         = reinterpret_cast<Opcode::s_call *>(jmp_buffer);
+			auto jmp_address = reinterpret_cast<Opcode::s_call *>(address);
 
 			jmp->Op         = jmp_address->Op;                  // copy the old
 			jmp_address->Op = Enums::_x86_opcode_jmp_near;   // set the new
 			jmp->Address    = jmp_address->Address;         // copy the old
 			jmp_address->Address =                     // set the new
-				CAST_PTR(intptr_t, target) -            // cast the pointer to a number to perform math on
+				reinterpret_cast<intptr_t>(target) -            // cast the pointer to a number to perform math on
 				(
-					CAST_PTR(intptr_t, address) + sizeof(Opcode::s_call)
+					reinterpret_cast<intptr_t>(address) + sizeof(Opcode::s_call)
 				);
 		}
 
@@ -367,13 +354,13 @@ namespace Yelo {
 		// REMARKS:
 		// Jmp type can be anything as long as the address used is 32bits
 		void OverwriteJmp(void *jmp_buffer, void *address, const void *target) {
-			Opcode::s_call *jmp_address = CAST_PTR(Opcode::s_call * , address);
+			auto jmp_address = reinterpret_cast<Opcode::s_call *>(address);
 
-			CAST_PTR(Opcode::s_call * , jmp_buffer)->Address = jmp_address->Address; // copy the old
+			reinterpret_cast<Opcode::s_call *>(jmp_buffer)->Address = jmp_address->Address; // copy the old
 			jmp_address->Address =            // set the new
-				CAST_PTR(intptr_t, target) -   // cast the pointer to a number to perform math on
+				reinterpret_cast<intptr_t>(target) -   // cast the pointer to a number to perform math on
 				(
-					CAST_PTR(intptr_t, address) + sizeof(Opcode::s_call)
+					reinterpret_cast<intptr_t>(address) + sizeof(Opcode::s_call)
 				);
 		}
 
@@ -385,9 +372,9 @@ namespace Yelo {
 
 			const bool          WriteOpcode;
 			bool                IsInitialized;
-									  PAD16;
+									  unsigned short : 16;
 			std::array<byte, 5> UndoData;/// <summary>	internal buffer to store. </summary>
-									  PAD24;
+									  unsigned char : 8; unsigned short : 16;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>
@@ -552,34 +539,31 @@ namespace Yelo {
 		template <typename T>
 		inline
 		T *RebasePointer(uintptr_t pointer, uintptr_t base_address, uintptr_t virtual_base_address) {
-			T *result = CAST_PTR(T * ,
-										(pointer - base_address) + virtual_base_address);
-
-			return result;
+			return reinterpret_cast<T *>((pointer - base_address) + virtual_base_address);
 		}
 
 		template <typename T>
 		inline
 		T *RebasePointer(T *pointer, uintptr_t base_address, uintptr_t virtual_base_address) {
-			return RebasePointer < T > (CAST_PTR(uintptr_t, pointer), base_address, virtual_base_address);
+			return RebasePointer < T > (reinterpret_cast<uintptr_t>(pointer), base_address, virtual_base_address);
 		}
 
 		template <typename T>
 		inline
 		T *AlignPointer(T *pointer, unsigned alignment_bit) {
-			uintptr_t aligned_ptr = CAST_PTR(uintptr_t, pointer);
+			uintptr_t aligned_ptr = reinterpret_cast<uintptr_t>(pointer);
 			aligned_ptr = AlignValue(aligned_ptr, alignment_bit);
 
-			return CAST_PTR(T * , aligned_ptr);
+			return reinterpret_cast<T *>(aligned_ptr);
 		}
 
-		uint32 CRC(uint32 &crc_reference, const void *buffer, int32 size) {
+		unsigned long CRC(unsigned long&crc_reference, const void *buffer, long size) {
 			auto p = CAST_PTR(
 			const byte*, buffer);
 
 			while (size--) {
-				uint32 a = (crc_reference >> 8) & 0x00FFFFFFL;
-				uint32 b = g_crc32_table[((int32) crc_reference ^ *p++) & 0xFF];
+				unsigned long a = (crc_reference >> 8) & 0x00FFFFFFL;
+				unsigned long b = g_crc32_table[((long) crc_reference ^ *p++) & 0xFF];
 				crc_reference = a ^ b;
 			}
 
@@ -588,11 +572,11 @@ namespace Yelo {
 	};
 
 	namespace blam {
-		inline void crc_new(uint32 &crc_reference) {
-			crc_reference = std::numeric_limits<uint32>::max();
+		inline void crc_new(long &crc_reference) {
+			crc_reference = std::numeric_limits<unsigned long>::max();
 		}
 
-		inline uint32 crc_checksum_buffer(uint32 &crc_reference, const void *buffer, int32 size) {
+		inline uint32 crc_checksum_buffer(unsigned long &crc_reference, const void *buffer, long size) {
 			return Memory::CRC(crc_reference, buffer, size);
 		}
 	};

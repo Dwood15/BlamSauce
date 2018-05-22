@@ -30,26 +30,26 @@ namespace Yelo
 			word_flags flags;
 			datum_index definition_index;
 			struct { // Enums::object_function_reference - 1
-				int16 primary_scale;	// a
-				int16 secondary_scale;	// b
-				int16 change_color;
+				short primary_scale;	// a
+				short secondary_scale;	// b
+				short change_color;
 			}object_function_indexes;
-			PAD16;
+			unsigned short : 16;
 			s_scenario_location location;
 			real_rgb_color color;				// defaults to white
 			real_vector3d transitional_velocity;
 			//////////////////////////////////////////////////////////////////////////
 			// no code which creates effects seems to actually set this struct up
 			PAD(0, 12);
-			// 0x30 UNKNOWN_TYPE(int32)
+			// 0x30 UNKNOWN_TYPE(long)
 			// 0x34 void (__cdecl* )(__out real_vector3d&, __out real_point3d&, ?) // last arg is the value at 0x30
 			// 0x38 ?
 			//////////////////////////////////////////////////////////////////////////
 			datum_index object_index;			// object this effect was created on
 			datum_index attached_object_index;	// object attached to this effect
 			real scale_a, scale_b;
-			int16 local_player_index;
-			int16 event_index;
+			short local_player_index;
+			short event_index;
 			UNKNOWN_TYPE(real);
 			real event_delay_time;
 			UNKNOWN_TYPE(real);
@@ -67,7 +67,7 @@ namespace Yelo
 		struct s_effect_location_datum : Memory::s_datum_base
 		{
 			// if != NONE and the sign bit is set, it's a first person weapon node
-			int16 node_index;
+			short node_index;
 			datum_index next_location_index;
 			real_matrix4x3 node_matrix;
 		}; static_assert( sizeof(s_effect_location_datum) == 0x3C );

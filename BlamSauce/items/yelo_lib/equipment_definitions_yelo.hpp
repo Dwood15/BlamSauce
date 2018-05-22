@@ -43,8 +43,8 @@ namespace Yelo
 			struct s_tank {
 				TAG_FIELD(real, size);
 				TAG_FIELD(real, recharge_rate);
-				TAG_FIELD(int16, count);
-				TAG_FIELD(int16, swap_time);
+				TAG_FIELD(short, count);
+				TAG_FIELD(short, swap_time);
 			}energy_tank;
 
 			struct s_energy {
@@ -55,8 +55,8 @@ namespace Yelo
 		};
 		struct s_equipment_yelo_deployable
 		{
-			TAG_FIELD(int16, usage_count);
-			PAD16;
+			TAG_FIELD(short, usage_count);
+			unsigned short : 16;
 		};
 
 		struct s_equipment_yelo_definition
@@ -64,8 +64,10 @@ namespace Yelo
 			enum { k_max_definition_size = sizeof(tag_reference)*9 }; // size of the useless padding in equipment
 
 			TAG_FIELD(Flags::equipment_yelo_flags, flags);
-			PAD16;
-			PAD32; PAD32; PAD32;
+			unsigned short : 16;
+			unsigned long : 32;
+			unsigned long : 32;
+			unsigned long : 32;
 
 			struct s_effects {
 				TAG_FIELD(tag_reference, activate, 'effe', 'snd!');

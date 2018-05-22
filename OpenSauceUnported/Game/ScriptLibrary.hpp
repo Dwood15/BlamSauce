@@ -28,15 +28,15 @@ namespace Yelo
 		#pragma region hs_function
 		const hs_function_definition* HSFunctionTable();
 
-		const hs_function_definition& HSYeloFunction(int16 index);
-		int32 HSYeloFunctionCount();
+		const hs_function_definition& HSYeloFunction(short index);
+		long HSYeloFunctionCount();
 		#pragma endregion
 
 		#pragma region hs_global
 		const hs_global_definition* HSExternalGlobals();
 
-		const hs_global_definition& HSYeloGlobal(int16 index);
-		int32 HSYeloGlobalCount();
+		const hs_global_definition& HSYeloGlobal(short index);
+		long HSYeloGlobalCount();
 		#pragma endregion
 
 		// Unlocks or Locks all functions\globals that can't be used normally

@@ -124,8 +124,8 @@ namespace Yelo {
 
 	namespace TagGroups {
 		struct s_bitmap_group_sprite {
-			TAG_FIELD(int16, bitmap_index);
-			PAD16;
+			TAG_FIELD(short, bitmap_index);
+			unsigned short : 16;
 			PAD32;
 			TAG_FIELD(real, left);
 			TAG_FIELD(real, right);
@@ -136,9 +136,9 @@ namespace Yelo {
 
 		struct s_bitmap_group_sequence {
 			TAG_FIELD(tag_string, name);
-			TAG_FIELD(int16, first_bitmap_index);
-			TAG_FIELD(int16, bitmap_count);
-			TAG_PAD(bmp_pad0, int32, 4);
+			TAG_FIELD(short, first_bitmap_index);
+			TAG_FIELD(short, bitmap_count);
+			TAG_PAD(bmp_pad0, long, 4);
 			TagBlock <s_bitmap_group_sprite> sprites;
 		}; static_assert(sizeof(s_bitmap_group_sequence) == 0x40); // max count: 256
 
@@ -156,18 +156,18 @@ namespace Yelo {
 			}; static_assert(sizeof(_flags) == sizeof(word_flags));
 
 			TAG_FIELD(tag, signature);
-			TAG_FIELD(int16, width, "pixels");
-			TAG_FIELD(int16, height, "pixels");
-			TAG_FIELD(int16, depth, "pixels", "depth is 1 for 2D textures and cube maps", "depth is 1 for 2D textures and cube maps");
+			TAG_FIELD(short, width, "pixels");
+			TAG_FIELD(short, height, "pixels");
+			TAG_FIELD(short, depth, "pixels", "depth is 1 for 2D textures and cube maps", "depth is 1 for 2D textures and cube maps");
 			TAG_ENUM(type, Enums::bitmap_type, "determines bitmap 'geometry'");
 			TAG_ENUM(format, Enums::bitmap_pixel_format, "determines how pixels are represented internally");
 			TAG_FIELD(_flags, flags);
 			TAG_FIELD(point2d, registration_point);
-			TAG_FIELD(int16, mipmap_count);
-			PAD16;
-			TAG_FIELD(int32, pixels_offset);
+			TAG_FIELD(short, mipmap_count);
+			unsigned short : 16;
+			TAG_FIELD(long, pixels_offset);
 
-			UNKNOWN_TYPE(int32);
+			UNKNOWN_TYPE(long);
 			datum_index owner_tag_index;
 			datum_index texture_cache_index;
 			void        *hardware_format; // IDirect3DBaseTexture9*
@@ -227,13 +227,13 @@ namespace Yelo {
 			// sprite processing
 			// When creating a sprite group, specify the number and size of textures that the group is allowed to occupy. During importing, you'll receive feedback about how well the alloted space was used.
 			TAG_ENUM(sprite_budget_size, Enums::sprite_budget);
-			TAG_FIELD(int16, sprite_budget_count);
+			TAG_FIELD(short, sprite_budget_count);
 
 			////////////////////////////////////////////////////////////////
 			// color plate
 			// The original TIFF file used to import the bitmap group.
-			TAG_FIELD(int16, color_plate_width, "pixels");
-			TAG_FIELD(int16, color_plate_height, "pixels");
+			TAG_FIELD(short, color_plate_width, "pixels");
+			TAG_FIELD(short, color_plate_height, "pixels");
 			TAG_FIELD(tag_data, compressed_color_plate_data);
 
 			////////////////////////////////////////////////////////////////
@@ -245,14 +245,14 @@ namespace Yelo {
 			// miscellaneous
 			TAG_FIELD(real, blur_filter_size, "[0,10] pixels", "blurs the bitmap before generating mipmaps");
 			TAG_FIELD(real, alpha_bias, "[-1,1]", "affects alpha mipmap generation");
-			TAG_FIELD(int16, mipmap_count, "levels", "0 defaults to all levels");
+			TAG_FIELD(short, mipmap_count, "levels", "0 defaults to all levels");
 
 			////////////////////////////////////////////////////////////////
 			// ...more sprite processing
 			// Sprite usage controls the background color of sprite plates.
 			TAG_ENUM(sprite_usage, Enums::sprite_usage);
-			TAG_FIELD(int16, sprite_spacing);
-			PAD16;
+			TAG_FIELD(short, sprite_spacing);
+			unsigned short : 16;
 			TagBlock <s_bitmap_group_sequence> sequences;
 			TagBlock <s_bitmap_data>           bitmaps;
 

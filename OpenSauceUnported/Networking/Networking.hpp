@@ -49,29 +49,29 @@ namespace Yelo
 		bool ConnectionWrite(const s_network_connection& connection, 
 			const void* data, size_t data_size_in_bits,
 			const void* header, size_t header_size_in_bits,
-			bool unbuffered = false, bool flush_queue = false, int32 buffer_priority = Enums::k_message_highest_priority);
+			bool unbuffered = false, bool flush_queue = false, long buffer_priority = Enums::k_message_highest_priority);
 
 		bool ClientSendMessageToServer(
 			const void* data, size_t data_size_in_bits, 
 			Enums::network_messsage_type message_type = Enums::_network_messsage_type_message_delta, 
-			bool unbuffered = false, bool flush_queue = false, int32 buffer_priority = Enums::k_message_highest_priority);
+			bool unbuffered = false, bool flush_queue = false, long buffer_priority = Enums::k_message_highest_priority);
 
 		bool ServerSendRejectionMessage(s_network_game_player& rejected_player, Enums::transport_rejection_code code);
 		bool ServerHoldupNewClient(s_network_client_machine& client_machine);
 
 		// Sends [data] of the packet buffer to [machine_index]
-		bool SvSendMessageToMachine(int32 machine_index, 
+		bool SvSendMessageToMachine(long machine_index,
 			const void* data, size_t data_size_in_bits, 
 			Enums::network_messsage_type message_type = Enums::_network_messsage_type_message_delta, 
 			BOOL unbuffered = false, BOOL flush_queue = false, BOOL write_to_local_connection = false, 
-			int32 buffer_priority = Enums::k_message_highest_priority);
+			long buffer_priority = Enums::k_message_highest_priority);
 
 		// Sends [data] of the packet buffer to all machines
 		bool SvSendMessageToAll(
 			const void* data, size_t data_size_in_bits, 
 			Enums::network_messsage_type message_type = Enums::_network_messsage_type_message_delta, 
 			BOOL unbuffered = false, BOOL flush_queue = false, BOOL write_to_local_connection = false, 
-			int32 buffer_priority = Enums::k_message_highest_priority,
+			long buffer_priority = Enums::k_message_highest_priority,
 			BOOL ingame_only = false);
 
 		// Sends [data] of the packet buffer to all machines ingame
@@ -79,7 +79,7 @@ namespace Yelo
 			const void* data, size_t data_size_in_bits, 
 			Enums::network_messsage_type message_type = Enums::_network_messsage_type_message_delta, 
 			BOOL unbuffered = false, BOOL flush_queue = false, BOOL write_to_local_connection = false, 
-			int32 buffer_priority = Enums::k_message_highest_priority)
+			long buffer_priority = Enums::k_message_highest_priority)
 		{
 			return SvSendMessageToAll(
 				data, data_size_in_bits, 

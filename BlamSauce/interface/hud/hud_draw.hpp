@@ -31,11 +31,11 @@ namespace Yelo
 
 	namespace blam
 	{
-		void __cdecl hud_draw_meter(int16 local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_meter* element,
+		void __cdecl hud_draw_meter(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_meter* element,
 			byte, byte, long_flags flags, real, real);
-		void __cdecl hud_draw_numbers(int16 local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_number* element,
-			int32 number, int16, long_flags flags, game_ticks_t first_render_time, real);
-		void __cdecl hud_draw_static_element(int16 local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_static* element,
+		void __cdecl hud_draw_numbers(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_number* element,
+			long number, short, long_flags flags, game_ticks_t first_render_time, real);
+		void __cdecl hud_draw_static_element(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_static* element,
 			long_flags flags, game_ticks_t first_render_time);
 	};
 };

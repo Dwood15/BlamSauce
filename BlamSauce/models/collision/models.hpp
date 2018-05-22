@@ -23,10 +23,10 @@ namespace Yelo
 
 		struct s_collision_model_test_result
 		{
-			int16 node_index; // collision_model_definition->nodes
-			int16 region_index; // collision_model_definition->regions
-			int16 collision_bsp_index; // collision_model_node->bsp
-			PAD16;
+			short node_index; // collision_model_definition->nodes
+			short region_index; // collision_model_definition->regions
+			short collision_bsp_index; // collision_model_node->bsp
+			unsigned short : 16;
 		};
 		struct s_collision_model_test_vector_result
 		{

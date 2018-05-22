@@ -26,10 +26,10 @@ namespace Yelo
 
 			struct s_tag_allocation_definition
 			{
-				typedef int16 block_index_t;
+				typedef short block_index_t;
 
 				TAG_ENUM(type, Enums::tag_allocation_type);
-				PAD16;
+				unsigned short : 16;
 				TAG_FIELD(size_t, name_offset);
 
 				void* definition_code_address;

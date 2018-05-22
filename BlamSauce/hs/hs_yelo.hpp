@@ -150,7 +150,7 @@ namespace Yelo
 						//////////////////////////////////////////////////////////////////////////
 					case HS_TYPE(object_name):
 					case HS_TYPE(short):
-						data.int16 = NONE;
+						data.short = NONE;
 						break;
 					case HS_TYPE(real):
 						data.real = -1.0f;
@@ -175,7 +175,7 @@ namespace Yelo
 					case HS_TYPE(scenery):
 						//////////////////////////////////////////////////////////////////////////
 					case HS_TYPE(long):
-						data.int32 = NONE;
+						data.long = NONE;
 						break;
 
 						//////////////////////////////////////////////////////////////////////////

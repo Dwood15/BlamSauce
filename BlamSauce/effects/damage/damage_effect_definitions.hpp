@@ -75,40 +75,40 @@ namespace Yelo
 			TAG_FIELD(real_bounds, radius);
 			TAG_FIELD(real_fraction, cutoff_scale);
 			TAG_FIELD(long_flags, flags); // not exposed for continuous_damage_effect
-			TAG_PAD(int32, 5);
+			TAG_PAD(long, 5);
 		}; static_assert( sizeof(s_damage_effect) == 0x24 );
 
 		struct s_damage_camera_effect
 		{
 			PAD32;
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 			TAG_FIELD(real, shake_duration); // not exposed for continuous_damage_effect
 			TAG_ENUM(shake_falloff_function, Enums::transition_function); // not exposed for continuous_damage_effect
-			PAD16;
+			unsigned short : 16;
 
 			TAG_FIELD(real, random_translation);
 			TAG_FIELD(real, random_rotation);
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 
 			TAG_ENUM(wobble_function, Enums::periodic_function);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, wobble_period);
 			TAG_FIELD(real_fraction, wobble_weight);
 			PAD32;
 
-			TAG_PAD(int32, 5);
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 5);
+			TAG_PAD(long, 2);
 		}; static_assert( sizeof(s_damage_camera_effect) == 0x58 );
 
 		struct s_damage_breaking_effect
 		{
-			TAG_PAD(int32, 28);
+			TAG_PAD(long, 28);
 
 			struct {
 				TAG_FIELD(real, velocity);
 				TAG_FIELD(real, radius);
 				TAG_FIELD(real, exponent);
-				TAG_PAD(int32, 3);
+				TAG_PAD(long, 3);
 			}forward, outward;
 		}; static_assert( sizeof(s_damage_breaking_effect) == 0xA0 );
 
@@ -144,7 +144,7 @@ namespace Yelo
 		struct s_damage_modifiers
 		{
 			real modifier[Enums::k_number_of_material_types];
-			TAG_PAD(int32, 7);
+			TAG_PAD(long, 7);
 		}; static_assert( sizeof(s_damage_modifiers) == 0xA0 );
 
 		struct s_damage_effect_definition
@@ -154,7 +154,7 @@ namespace Yelo
 			struct s_duration_function {
 				TAG_FIELD(real, duration);
 				TAG_ENUM(fade_function, Enums::transition_function);
-				PAD16;
+				unsigned short : 16;
 
 				TAG_FIELD(angle, rotation); // these are only exposed for camera impulse freq
 				TAG_FIELD(real, pushback);
@@ -165,7 +165,7 @@ namespace Yelo
 			struct s_screen_flash {
 				TAG_ENUM(type, );
 				TAG_ENUM(priority, );
-				TAG_PAD(int32, 3);
+				TAG_PAD(long, 3);
 
 				s_duration_function function;
 				TAG_FIELD(real_fraction, max_intensity);

@@ -54,19 +54,19 @@ namespace Yelo
 	{
 		struct s_collision_surface_result
 		{
-			int32 index;
-			int32 plane_index;
+			long index;
+			long plane_index;
 			Flags::collision_surface_flags flags;
 			sbyte breakable_surface_index;
-			int16 material_index; // collision_model_definition->materials or structure_bsp->collision_materials
+			short material_index; // collision_model_definition->materials or structure_bsp->collision_materials
 		};
 		struct s_collision_bsp_test_vector_result
 		{
 			UNKNOWN_TYPE(real); // set to FLT_MAX most of the time
 			real_plane3d* plane; // collision_bsp->planes
 			s_collision_surface_result surface;
-			int32 stack_depth;
-			int32 stack[256]; // leaves indices
+			long stack_depth;
+			long stack[256]; // leaves indices
 		}; static_assert( sizeof(s_collision_bsp_test_vector_result) == 0x418 );
 	};
 };

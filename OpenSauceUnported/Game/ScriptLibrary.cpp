@@ -56,9 +56,9 @@ namespace Yelo
 
 #pragma region script functions related
 
-		static const int32 K_HS_YELO_FUNCTION_COUNT = NUMBEROF(hs_yelo_functions);
-		int32 HSYeloFunctionCount() { return K_HS_YELO_FUNCTION_COUNT; }
-		const hs_function_definition& HSYeloFunction(int16 index) { return *hs_yelo_functions[index]; }
+		static const long K_HS_YELO_FUNCTION_COUNT = NUMBEROF(hs_yelo_functions);
+		long HSYeloFunctionCount() { return K_HS_YELO_FUNCTION_COUNT; }
+		const hs_function_definition& HSYeloFunction(short index) { return *hs_yelo_functions[index]; }
 
 
 		static hs_function_definition** hs_function_table;
@@ -68,9 +68,9 @@ namespace Yelo
 
 #pragma region script globals related
 
-		static const int32 K_HS_YELO_GLOBALS_COUNT = NUMBEROF(hs_yelo_globals);
-		int32 HSYeloGlobalCount() { return K_HS_YELO_GLOBALS_COUNT; }
-		const hs_global_definition& HSYeloGlobal(int16 index) { return *hs_yelo_globals[index]; }
+		static const long K_HS_YELO_GLOBALS_COUNT = NUMBEROF(hs_yelo_globals);
+		long HSYeloGlobalCount() { return K_HS_YELO_GLOBALS_COUNT; }
+		const hs_global_definition& HSYeloGlobal(short index) { return *hs_yelo_globals[index]; }
 
 
 		static hs_global_definition** hs_external_globals;
@@ -234,7 +234,7 @@ namespace Yelo
 		// So ignore this comment :p
 		API_CODEDATA static uint32 hs_eval_func_ptrs[Enums::k_hs_script_functions_count_upgrade - Enums::k_hs_functions_count];
 		// next free hs_eval_func_ptrs index
-		static int32 hs_eval_func = 0;
+		static long hs_eval_func = 0;
 		API_CODEDATA static byte hs_func_pool[NUMBEROF(hs_eval_func_ptrs)][sizeof(hs_eval_func_has_param)];
 
 #pragma warning( push )
@@ -349,7 +349,7 @@ namespace Yelo
 			{
 				is_valid = false;
 				// continue checking each EXPORTED function with the yelo script definitions
-				for(int32 f = 0; f < K_HS_YELO_FUNCTION_COUNT && !is_valid; f++)
+				for(long f = 0; f < K_HS_YELO_FUNCTION_COUNT && !is_valid; f++)
 				{
 					const hs_function_definition& yelo_def = *hs_yelo_functions[f];
 
@@ -359,7 +359,7 @@ namespace Yelo
 						)
 					{
 						const _enum* params = def.parameters.Definitions;			// check if the parameter types are the same
-						for(int32 p = 0; 
+						for(long p = 0;
 							p < def.parameters.Count && is_valid;					// continue checking while things compare as a match
 							p++)
 							is_valid = params[p] == yelo_def.params[p];
@@ -379,7 +379,7 @@ namespace Yelo
 			for(const auto& def : data.new_globals)
 			{
 				is_valid = false;
-				for(int32 g = 0; g < K_HS_YELO_GLOBALS_COUNT && !is_valid; g++)
+				for(long g = 0; g < K_HS_YELO_GLOBALS_COUNT && !is_valid; g++)
 				{
 					const hs_global_definition& yelo_def = *hs_yelo_globals[g];
 

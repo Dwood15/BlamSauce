@@ -19,7 +19,7 @@ namespace Yelo
 			: public c_screen_controller_base
 		{
 			bool m_available_version_set;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 
 		public:
 			////////////////////////////////////////////////////////////////////////////////////////////////////

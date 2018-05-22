@@ -144,9 +144,9 @@ namespace Yelo
 	}
 
 	template<typename TNode>
-	TNode* GetNodeByIndex(TNode*& list_head, int32 index)
+	TNode* GetNodeByIndex(TNode*& list_head, long index)
 	{
-		int32 i = 0;
+		long i = 0;
 
 		TNode* cur, * next;
 		for(cur = list_head; cur != nullptr && (next = CAST_PTR(TNode*, cur->GetNext())) != nullptr && i < index; cur = next, i++)

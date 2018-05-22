@@ -18,8 +18,8 @@ namespace Yelo {
 			sbyte software_reference_count;            // 0x5
 			sbyte hardware_reference_count;            // 0x6
 			UNKNOWN_TYPE(byte);                     // 0x7 haven't seen this used, don't know the exact type
-			int16 cache_read_request_index;
-			PAD16;
+			short cache_read_request_index;
+			unsigned short : 16;
 			TagGroups::s_sound_permutation *sound;
 		}; static_assert(sizeof(s_sound_cache_datum) == 0x10);
 	};

@@ -31,7 +31,7 @@ namespace Yelo
 		struct s_vehicle_datum_network_data
 		{
 			bool at_rest_bit;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			real_point3d position;
 			real_vector3d transitional_velocity;
 			real_vector3d angular_velocity;
@@ -75,8 +75,8 @@ namespace Yelo
 			// block index of the scenario datum used for respawning
 			// For all game engines besides race, this will be a scenario vehicle datum
 			// For race, it's a scenario_netpoint, aka "scenario_netgame_flags_block"
-			TStructSubGetPtrImpl(int16,							ScenarioDatumRespawningIndex, 0x5B0);
-			// 0x5B2 PAD16
+			TStructSubGetPtrImpl(short,							ScenarioDatumRespawningIndex, 0x5B0);
+			// 0x5B2 unsigned short : 16
 			// 0x5B4, real_point3d, position based
 		};
 

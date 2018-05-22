@@ -8,12 +8,12 @@ namespace Yelo::TagGroups {
 		struct {
 			real easy, normal, hard, impossible;
 		} values[Enums::k_number_of_game_difficulty_values];
-		  TAG_PAD(int32, 17); // could potentially have 4 more difficulty values, with 4 bytes left over
+		  TAG_PAD(long, 17); // could potentially have 4 more difficulty values, with 4 bytes left over
 	}; static_assert(sizeof(s_game_globals_difficulty_information) <= 0x284);
 
 	struct s_game_globals_grenade {
-		TAG_FIELD(int16, maximum_count);
-		TAG_FIELD(int16, multiplayer_spawn_count); // PC only
+		TAG_FIELD(short, maximum_count);
+		TAG_FIELD(short, multiplayer_spawn_count); // PC only
 		TAG_FIELD(tag_reference, throwing_effect, 'effe');
 		TAG_FIELD(tag_reference, hud_interface, 'grhi');
 		TAG_FIELD(tag_reference, equipment, 'eqip');
@@ -32,7 +32,7 @@ namespace Yelo::TagGroups {
 		TAG_FIELD(tag_reference, flag_shader, 'shdr');
 		TAG_FIELD(tag_reference, ball, 'item');
 		TAG_TBLOCK(sounds, s_game_globals_tag_reference); // 60
-		TAG_PAD(int32, 14);
+		TAG_PAD(long, 14);
 	}; static_assert(sizeof(s_game_globals_multiplayer_information) == 0xA0);
 
 	struct s_game_globals_player_information {
@@ -70,7 +70,7 @@ namespace Yelo::TagGroups {
 		} first_person;
 		  PAD_TYPE(tag_reference);
 		TAG_FIELD(tag_reference, coop_respawn_effect, 'effe'); // 0xB8
-		  TAG_PAD(int32, 11);
+		  TAG_PAD(long, 11);
 	}; static_assert(sizeof(s_game_globals_player_information) == 0xF4);
 
 	struct s_game_globals_player_representation // game_globals_first_person_interface
@@ -85,7 +85,7 @@ namespace Yelo::TagGroups {
 			TAG_FIELD(tag_reference, off_on_effect, 'effe');
 			TAG_FIELD(tag_reference, on_off_effect, 'effe');
 		} night_vision;
-		  TAG_PAD(int32, 22);
+		  TAG_PAD(long, 22);
 	}; static_assert(sizeof(s_game_globals_player_representation) == 0xC0);
 
 	struct s_game_globals_falling_damage {
@@ -108,8 +108,8 @@ namespace Yelo::TagGroups {
 	}; static_assert(sizeof(s_game_globals_falling_damage) == 0x98);
 
 	struct material_definition {
-		  TAG_PAD(int32, 25);
-		  TAG_PAD(int32, 12);
+		  TAG_PAD(long, 25);
+		  TAG_PAD(long, 12);
 		struct {
 			TAG_FIELD(real, ground_friction_scale, "fraction of original velocity parallel to the ground after one tick");
 			TAG_FIELD(real, ground_friction_normal_k1_scale, "cosine of angle at which friction falls off");
@@ -117,18 +117,18 @@ namespace Yelo::TagGroups {
 			TAG_FIELD(real, ground_depth_scale, "depth a point mass rests in the ground");
 			TAG_FIELD(real, ground_damp_fraction_scale, "fraction of original velocity perpendicular to the ground after one tick");
 		} vehicle_terrain_params;
-		  TAG_PAD(int32, 19);
-		  TAG_PAD(int32, 120);
+		  TAG_PAD(long, 19);
+		  TAG_PAD(long, 120);
 		struct {
 			TAG_FIELD(real, maximum_vitality);
 			PAD64;
 			PAD32;
 			TAG_FIELD(tag_reference, effect, 'effe');
 			TAG_FIELD(tag_reference, sound, 'snd!');
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 			TAG_BLOCK(particle_effects, breakable_surface_particle_effect);
 		} breakable_surface_params;
-		  TAG_PAD(int32, 15);
+		  TAG_PAD(long, 15);
 		TAG_FIELD(tag_reference, melee_hit_sound, 'snd!');
 	}; static_assert(sizeof(material_definition) == 0x374);
 

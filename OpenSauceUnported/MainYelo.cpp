@@ -39,7 +39,7 @@ namespace Yelo
 	{
 		static struct {
 			bool enabled;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			HMODULE module_handle;
 		}_main_globals = {
 			false,

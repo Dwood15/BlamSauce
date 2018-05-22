@@ -12,7 +12,7 @@ namespace Model
 
 	struct s_shader_feature_mix {
 		const _enum		feature_mask;
-		PAD16;
+		unsigned short : 16;
 		const uint32	shader_index_offset;
 		const uint32	shader_index_half_offset;
 		const char		feature_mix_id[64];
@@ -27,7 +27,7 @@ namespace Model
 		real base_normal_map_coefficient;
 		real base_normal_map_z_coefficient;
 		real c_spec_color_exponent_mask_toggle;
-		PAD32;
+		unsigned long : 32;
 
 		real detail_normal_map_1_interpolation;
 		real detail_normal_map_2_interpolation;

@@ -40,9 +40,9 @@ namespace Yelo
 				: public Configuration::c_configuration_container
 			{
 			public:
-				Configuration::c_configuration_value<int32> m_day;
-				Configuration::c_configuration_value<int32> m_month;
-				Configuration::c_configuration_value<int32> m_year;
+				Configuration::c_configuration_value<long> m_day;
+				Configuration::c_configuration_value<long> m_month;
+				Configuration::c_configuration_value<long> m_year;
 
 				c_version_check_date()
 					: Configuration::c_configuration_container("Date")
@@ -66,7 +66,7 @@ namespace Yelo
 				: public Configuration::c_configuration_container
 			{
 			public:
-				Configuration::c_configuration_value<int32> m_version;
+				Configuration::c_configuration_value<long> m_version;
 				Configuration::c_configuration_value_list<std::string> m_servers;
 
 				c_version_check_server_list()

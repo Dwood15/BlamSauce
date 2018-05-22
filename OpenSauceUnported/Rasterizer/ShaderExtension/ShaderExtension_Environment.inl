@@ -15,7 +15,7 @@ namespace Environment
 		real base_normal_map_coefficient;
 		real base_normal_map_z_coefficient;
 		real spec_color_exponent_mask_toggle;
-		PAD32;
+		unsigned long : 32;
 
 		real specular_color_map_exponent;
 		real specular_color_map_coefficient;

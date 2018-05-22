@@ -245,7 +245,7 @@ namespace Yelo
 			m_normals_set = false;
 			m_index_set = false;
 		}
-		void		c_gbuffer_debug_effect::Render(IDirect3DDevice9* device, int16 debug_target)
+		void		c_gbuffer_debug_effect::Render(IDirect3DDevice9* device, short debug_target)
 		{
 			if(!IsAvailable()) return;
 
@@ -1030,7 +1030,7 @@ skip_disable_velocity:
 		// c_gbuffer_system		
 		datum_index				c_gbuffer_system::g_object_index;
 		c_gbuffer_system		c_gbuffer_system::g_default_system;
-		int16					c_gbuffer_system::g_debug_index;
+		short					c_gbuffer_system::g_debug_index;
 		bool					c_gbuffer_system::g_system_enabled;
 		Enums::render_progress	c_gbuffer_system::g_current_render_state;
 		uint32					c_gbuffer_system::g_current_object_lod;

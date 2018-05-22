@@ -22,7 +22,7 @@
 
 	static void MemoryUpgradesInitialize()
 	{
-		const uint32 k_allocation_size = Enums::k_physical_memory_map_allocation_size_upgrade;
+		const uint k_allocation_size = Enums::k_physical_memory_map_allocation_size_upgrade;
 		Memory::WriteMemory(GET_DATA_VPTR(PHYSICAL_MEMORY_ALLOCATION_SIZE), CAST_PTR(void*, k_allocation_size));
 
 		PhysicalMemoryReInitialize();

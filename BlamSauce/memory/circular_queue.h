@@ -13,9 +13,9 @@ namespace Yelo {
 		struct s_circular_queue {
 			cstring name;
 			tag     signature;
-			int32   read_offset;
-			int32   write_offset;
-			int32   buffer_size;
+			long   read_offset;
+			long   write_offset;
+			long   buffer_size;
 			void *buffer;
 		};
 	};

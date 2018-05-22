@@ -23,7 +23,7 @@ namespace Yelo::Enums {
 namespace Yelo {
 	// tags are terminated by a new line character
 	namespace blam {
-		bool tag_block_read_recursive(const tag_block_definition *definition, tag_block *block, int32 *position_reference, long_flags read_flags,
+		bool tag_block_read_recursive(const tag_block_definition *definition, tag_block *block, long *position_reference, long_flags read_flags,
 			// NOTE: nonstandard parameters
 												datum_index tag_index);
 
@@ -110,7 +110,7 @@ namespace Yelo {
 		}
 
 		static bool tag_data_read_recursive(tag_data_definition *data_definition, void *block_element, tag_data *data,
-														int32 *position_reference, long_flags read_flags) {
+														long *position_reference, long_flags read_flags) {
 			YELO_ASSERT(data_definition);
 			void *data_address = nullptr;
 			bool success       = false;
@@ -170,9 +170,9 @@ namespace Yelo {
 		}
 
 		static bool verify_tag_string_field(TagGroups::c_tag_field_scanner::s_iterator_result field,
-														tag_block_definition *block_definition, int32 element_index) {
+														tag_block_definition *block_definition, long element_index) {
 			auto  &string       = *field.As<tag_string>();
-			int32 string_length = field.GetStringFieldLength(); // For supporting non-standard tag_string lengths
+			long string_length = field.GetStringFieldLength(); // For supporting non-standard tag_string lengths
 
 			if (strnlen_s(string, string_length) == string_length &&
 				 string[string_length] != '\0') {
@@ -203,7 +203,7 @@ namespace Yelo {
 		}
 
 		static bool tag_reference_read_recursive(tag_reference_definition *definition, tag_reference *reference,
-															  int32 *position_reference, long_flags read_flags) {
+															  long *position_reference, long_flags read_flags) {
 			// NOTE: engine doesn't ASSERT anything
 
 			if (reference->group_tag == 0) // handles cases were tag_reference fields were added to old useless padding
@@ -243,9 +243,9 @@ namespace Yelo {
 
 		template <typename TEnum>
 		static bool verify_enum_field(TagGroups::c_tag_field_scanner::s_iterator_result field,
-												tag_block_definition *block_definition, int32 element_index) {
+												tag_block_definition *block_definition, long element_index) {
 			auto  &value = *field.As<TEnum>();
-			int32 count  = field.DefinitionAs<string_list>()->count;
+			long count  = field.DefinitionAs<string_list>()->count;
 			if (value >= 0 && value < count)
 				return true;
 
@@ -257,9 +257,9 @@ namespace Yelo {
 
 		template <typename TFlags>
 		static bool verify_flags_field(TagGroups::c_tag_field_scanner::s_iterator_result field,
-												 tag_block_definition *block_definition, int32 element_index) {
+												 tag_block_definition *block_definition, long element_index) {
 			auto  &flags    = *field.As<TFlags>();
-			int32 bit_count = field.DefinitionAs<string_list>()->count;
+			long bit_count = field.DefinitionAs<string_list>()->count;
 			if (bit_count >= BIT_COUNT(TFlags) || (flags >> bit_count) == 0)
 				return true;
 
@@ -271,7 +271,7 @@ namespace Yelo {
 
 		template <typename TIndex>
 		static bool verify_block_index_field(TagGroups::c_tag_field_scanner::s_iterator_result field,
-														 tag_block_definition *block_definition, int32 element_index) {
+														 tag_block_definition *block_definition, long element_index) {
 			auto &index                    = *field.As<TIndex>();
 			auto *indexed_block_definition = field.DefinitionAs<tag_block_definition>();
 			if (index >= NONE && index < indexed_block_definition->maximum_element_count)
@@ -283,8 +283,8 @@ namespace Yelo {
 			return false;
 		}
 
-		bool tag_block_read_children_recursive(const tag_block_definition *definition, void *address, int32 count,
-															int32 *position_reference, long_flags read_flags,
+		bool tag_block_read_children_recursive(const tag_block_definition *definition, void *address, long count,
+															long *position_reference, long_flags read_flags,
 			// NOTE: nonstandard parameters
 															datum_index tag_index) {
 			bool success = true;
@@ -372,7 +372,7 @@ namespace Yelo {
 
 							// NOTE: technically the engine treats enum fields as signed
 						case Enums::_field_enum:
-							if (!verify_enum_field<int16>(field, definition, x)) valid = false;
+							if (!verify_enum_field<short>(field, definition, x)) valid = false;
 							break;
 
 							// NOTE: engine only verified long_flags, we added support for the others
@@ -398,10 +398,10 @@ namespace Yelo {
 							// NOTE: engine doesn't verify block indices, we added support for them
 							// TODO: should we enable this as an option via XML setting instead?
 						case Enums::_field_short_block_index:
-							if (!verify_block_index_field<int16>(field, definition, x)) valid = false;
+							if (!verify_block_index_field<short>(field, definition, x)) valid = false;
 							break;
 						case Enums::_field_long_block_index:
-							if (!verify_block_index_field<int32>(field, definition, x)) valid = false;
+							if (!verify_block_index_field<long>(field, definition, x)) valid = false;
 							break;
 					}
 				}
@@ -462,7 +462,7 @@ namespace Yelo {
 		}
 
 		static bool tag_block_read_recursive(const tag_block_definition *definition, tag_block *block,
-														 int32 *position_reference, long_flags read_flags,
+														 long *position_reference, long_flags read_flags,
 			// NOTE: nonstandard parameters
 														 datum_index tag_index) {
 			int count = block->count;
@@ -562,7 +562,7 @@ namespace Yelo {
 				instance->root_block.definition = root_definition;
 				tag_block_generate_default_element(root_definition, root_element);
 
-				int32 position = root_definition->element_size;
+				long position = root_definition->element_size;
 				if (!tag_block_read_children_recursive(root_definition, root_element, 1,
 																	&position, FLAG(Flags::_tag_load_for_editor_bit), tag_index)) {
 					YELO_WARN("couldn't create new %s tag '%s'.",
@@ -635,7 +635,7 @@ namespace Yelo {
 				instance->root_block.definition = group->header_block_definition;
 
 				cstring failed_to_load_reason = nullptr;
-				int32   position              = 0;
+				long   position              = 0;
 				if (!tag_block_read_recursive(group->header_block_definition, &instance->root_block, &position, flags, tag_index))
 					failed_to_load_reason = "read error";
 				else if (!tag_references_resolve_recursive(group->header_block_definition, &instance->root_block, flags))

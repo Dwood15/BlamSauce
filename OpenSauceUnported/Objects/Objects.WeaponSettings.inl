@@ -122,7 +122,7 @@ namespace Yelo
 						const auto* definition = blam::tag_get<TagGroups::s_item_definition>(definition_index);
 						if(definition != nullptr) // WTF! HOW? idk. also, lazy :(
 						{
-							int16 msg_index = definition->item.message_index;
+							short msg_index = definition->item.message_index;
 
 							wcstring msg = blam::hud_get_item_string(msg_index);
 

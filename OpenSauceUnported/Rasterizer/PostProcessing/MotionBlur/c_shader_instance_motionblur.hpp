@@ -19,7 +19,7 @@ namespace Yelo
 				{
 					bool vignette_enabled_prev;
 					bool vignette_enabled;
-					PAD16;
+					unsigned short : 16;
 				}m_flags;
 
 				c_shader_motionblur* definition;

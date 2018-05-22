@@ -13,7 +13,7 @@ namespace Yelo
 		{
 		private:
 			Control::control_ptr_t m_root_control;
-			std::map<uint32, Control::control_ptr_t> m_control_resource_list;
+			std::map<uint, Control::control_ptr_t> m_control_resource_list;
 
 		public:
 			////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ namespace Yelo
 			/// <param name="resource_id">	Identifier for the control resource. </param>
 			///
 			/// <returns>	The found control or nullptr if not found. </returns>
-			Control::control_ptr_t GetControl(const uint32 resource_id) override;
+			Control::control_ptr_t GetControl(const uint resource_id) override;
 
 			/// <summary>	Shows the screen. </summary>
 			void Show() override;

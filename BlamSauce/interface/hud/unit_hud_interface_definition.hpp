@@ -50,21 +50,21 @@ namespace Yelo
 		{
 			TAG_ENUM(type, Enums::auxilary_overlay_type);
 			TAG_FIELD(Flags::hud_auxilary_overlay_flags, flags);
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 		}; static_assert( sizeof(auxilary_overlay_definition) == 0x84 ); // max count: 16
 
 		struct auxilary_meter_definition
 		{
 			TAG_ENUM(type, Enums::hud_auxilary_meter_type);
-			PAD16;
-			TAG_PAD(int32, 4);
+			unsigned short : 16;
+			TAG_PAD(long, 4);
 
 			s_hud_element_overlay background;
 			s_hud_element_meter meter;
 			TAG_FIELD(real, minimum_fraction_cutoff);
 			TAG_FIELD(Flags::hud_auxilary_panel_flags, flags);
-			TAG_PAD(int32, 6);
-			TAG_PAD(int32, 16);
+			TAG_PAD(long, 6);
+			TAG_PAD(long, 16);
 		}; static_assert( sizeof(auxilary_meter_definition) == 0x144 ); // max count: 16
 
 		struct unit_hud_interface_definition
@@ -84,7 +84,7 @@ namespace Yelo
 					TAG_FIELD(rgb_color, overcharge_maximum_color);
 					TAG_FIELD(rgb_color, overcharge_flash_color);
 					TAG_FIELD(rgb_color, overcharge_empty_color);
-					TAG_PAD(int32, 4);
+					TAG_PAD(long, 4);
 				}meter;
 			}shield_panel;
 
@@ -96,14 +96,14 @@ namespace Yelo
 					TAG_FIELD(rgb_color, medium_health_left_color);
 					TAG_FIELD(real, max_color_health_fraction_cutoff);
 					TAG_FIELD(real, min_color_health_fraction_cutoff);
-					TAG_PAD(int32, 5);
+					TAG_PAD(long, 5);
 				}meter; // same size as shield_panel.meter, so this may be union'd
 			}health_panel;
 
 			struct {
 				s_hud_element_overlay background;
 				s_hud_element_overlay forground;
-				TAG_PAD(int32, 8);
+				TAG_PAD(long, 8);
 
 				s_hud_element center; // The blips use this as a reference point
 			}motion_sensor;
@@ -114,14 +114,14 @@ namespace Yelo
 				TAG_TBLOCK(overlays, auxilary_overlay_definition);
 			}auxilary_overlays;
 
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 
 			TAG_TBLOCK(sounds, sound_hud_element_definition);
 
 			TAG_TBLOCK(meters, auxilary_meter_definition);
 
-			TAG_PAD(int32, 89);
-			TAG_PAD(int32, 12);
+			TAG_PAD(long, 89);
+			TAG_PAD(long, 12);
 		}; static_assert( sizeof(unit_hud_interface_definition) == 0x56C );
 	};
 };

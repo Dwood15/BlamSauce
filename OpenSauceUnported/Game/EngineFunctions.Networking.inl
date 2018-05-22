@@ -21,7 +21,7 @@ void EncodeObjectDeletionMessage(datum_index object_index)
 	}
 }
 
-void EncodeHudChatNetworkData(int32 player_number, long_enum chat_type, wcstring msg)
+void EncodeHudChatNetworkData(long player_number, long_enum chat_type, wcstring msg)
 {
 	static const uintptr_t CALL_ADDR = GET_FUNC_PTR(HUD_CHAT_TO_NETWORK);
 
@@ -46,7 +46,7 @@ void EncodeHudChatNetworkData(int32 player_number, long_enum chat_type, wcstring
 	}
 }
 
-API_FUNC_NAKED int32 TranslateIndex(MessageDeltas::s_index_resolution_table& table, datum_index local_index)
+API_FUNC_NAKED long TranslateIndex(MessageDeltas::s_index_resolution_table& table, datum_index local_index)
 {
 	// Function is actually part of the index_resolution module in objects/
 	static const uintptr_t CALL_ADDR = GET_FUNC_PTR(INDEX_RESOLUTION_TABLE_TRANSLATE);
@@ -62,21 +62,21 @@ API_FUNC_NAKED int32 TranslateIndex(MessageDeltas::s_index_resolution_table& tab
 	API_FUNC_NAKED_END(2)
 }
 
-int32 TranslateObject(datum_index local_object_index)
+long TranslateObject(datum_index local_object_index)
 {
 	if(local_object_index.IsNull()) return 0;
 
 	return TranslateIndex(MessageDeltas::ObjectIndexParameters()->table, local_object_index);
 }
 
-int32 TranslatePlayer(datum_index local_player_index)
+long TranslatePlayer(datum_index local_player_index)
 {
 	if(local_player_index.IsNull()) return 0;
 
 	return TranslateIndex(MessageDeltas::PlayerIndexParameters()->table, local_player_index);
 }
 
-int32 TranslatedIndexRegister(MessageDeltas::s_index_resolution_table& table, datum_index local_index)
+long TranslatedIndexRegister(MessageDeltas::s_index_resolution_table& table, datum_index local_index)
 {
 	if(local_index.IsNull()) return 0;
 

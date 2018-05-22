@@ -51,7 +51,7 @@ namespace Yelo
 				m_renderer.reset();
 			}
 
-			void c_canvas_gwen::SetSize(const int32 width, const int32 height)
+			void c_canvas_gwen::SetSize(const long width, const long height)
 			{
 				m_canvas->SetSize(width, height);
 			}

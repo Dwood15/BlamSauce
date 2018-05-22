@@ -26,11 +26,11 @@ namespace Yelo
 		{
 			return m_property_tree.get_value(default_value);
 		}
-		int16 c_property_tree_leaf::GetValue(const int16 default_value)
+		short c_property_tree_leaf::GetValue(const short default_value)
 		{
 			return m_property_tree.get_value(default_value);
 		}
-		int32 c_property_tree_leaf::GetValue(const int32 default_value)
+		long c_property_tree_leaf::GetValue(const long default_value)
 		{
 			return m_property_tree.get_value(default_value);
 		}
@@ -67,11 +67,11 @@ namespace Yelo
 		{
 			m_property_tree.put_value(value);
 		}
-		void c_property_tree_leaf::SetValue(const int16 value)
+		void c_property_tree_leaf::SetValue(const short value)
 		{
 			m_property_tree.put_value(value);
 		}
-		void c_property_tree_leaf::SetValue(const int32 value)
+		void c_property_tree_leaf::SetValue(const long value)
 		{
 			m_property_tree.put_value(value);
 		}

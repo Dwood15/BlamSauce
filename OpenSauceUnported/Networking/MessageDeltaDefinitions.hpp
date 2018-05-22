@@ -165,12 +165,12 @@ namespace Yelo
 			unsigned short flag7 : 1;
 			unsigned short flag8 : 1;
 			unsigned short flag9 : 1;
-			PAD16;
+			unsigned short : 16;
 		}; BOOST_STATIC_ASSERT( sizeof(universal_variant_flags) == 0x4 );
 		struct					game_variant_flags
 		{
 			unsigned char flag1 : 1;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		}; BOOST_STATIC_ASSERT( sizeof(game_variant_flags) == 0x4 );
 		typedef integer_small	game_engine_variant[56];
 		struct					universal_variant
@@ -196,10 +196,10 @@ namespace Yelo
 			integer_large			vehicle_set2;
 			integer_large			vehicles_respawn;
 			integer_small			friendly_fire;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			integer_large			friendly_fire_penalty;
 			boolean					team_autobalance;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			integer_large			time_limit;
 		};
 		struct						game_variant
@@ -230,7 +230,7 @@ namespace Yelo
 			unsigned char flag6 : 1;
 			unsigned char flag7 : 1;
 			unsigned char flag8 : 1;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		}; BOOST_STATIC_ASSERT( sizeof(damage_data_flags) == 0x4 );
 		typedef ascii_character motd_text[255+1];
 		typedef ascii_character rcon_response[80+1];
@@ -249,7 +249,7 @@ namespace Yelo
 			integer_small	baseline_index;
 			integer_small	message_index;
 			boolean			update_baseline;
-			PAD8;
+			unsigned char : 8;
 		};
 
 		struct message_delta_game_object_header_timestamped
@@ -258,7 +258,7 @@ namespace Yelo
 			integer_small	baseline_index;
 			integer_small	message_index;
 			boolean			update_baseline;
-			PAD8;
+			unsigned char : 8;
 			time_t			timestamp;
 		};
 
@@ -312,9 +312,9 @@ namespace Yelo
 		struct hud_chat_network_data
 		{
 			integer_small msg_type; // [Enums::hud_chat_type], see GameUI.hpp
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			integer_small player_number;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			hud_chat_message_ptr message;
 		};
 	};

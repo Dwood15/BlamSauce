@@ -42,21 +42,21 @@ namespace Yelo
 			TAG_FIELD(real, fade_in_end_height, "world units", "Particles become fully visible above this height");
 			TAG_FIELD(real, fade_out_start_height, "world units", "Particles begin to fade out of visibility above this height");
 			TAG_FIELD(real, fade_out_end_height, "world units", "Particles become fully invisible above this height");
-			TAG_PAD(int32, 24);
+			TAG_PAD(long, 24);
 			TAG_FIELD(real_bounds, particle_count, "particles per cubic world unit");
 			TAG_FIELD(tag_reference, physics, 'pphy');
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 			TAG_FIELD(real_bounds, acceleration_magnitude);
 			TAG_FIELD(real_fraction, acceleration_turning_rate);
 			TAG_FIELD(real, acceleration_change_rate);
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_FIELD(real_bounds, particle_radius, "world units");
 			TAG_FIELD(real_bounds, animation_rate, "frames per second");
 			TAG_FIELD(angle_bounds, rotation_rate, "degrees per second");
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_FIELD(real_argb_color, color_lower_bound);
 			TAG_FIELD(real_argb_color, color_upper_bound);
-			TAG_PAD(int32, 16);
+			TAG_PAD(long, 16);
 
 			////////////////////////////////////////////////////////////////
 			// SHADER
@@ -76,7 +76,7 @@ namespace Yelo
 			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
 
 			TAG_FIELD(__flags, flags);
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_TBLOCK(particle_types, s_weather_particle_type);
 		}; static_assert( sizeof(s_weather_particle_system_definition) == 0x30 ); // max count: 1
 	};

@@ -37,10 +37,10 @@ namespace Yelo
 		struct s_biped_datum_network_data
 		{
 			byte grenade_counts[Enums::k_unit_grenade_types_count];
-			PAD16;
+			unsigned short : 16;
 			real body_vitality, shield_vitality;
 			bool shield_stun_ticks_greater_than_zero;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		}; static_assert( sizeof(s_biped_datum_network_data) == 0x10 );
 
 		struct s_biped_data
@@ -50,14 +50,14 @@ namespace Yelo
 			UNKNOWN_TYPE(byte);								// 0x4D1
 			Enums::biped_movement_state movement_state;		// 0x4D2
 			UNKNOWN_TYPE(byte);								// 0x4D3
-			UNKNOWN_TYPE(int32);							// 0x4D4
-			UNKNOWN_TYPE(int32);							// 0x4D8
-			UNKNOWN_TYPE(int32);							// 0x4DC
+			UNKNOWN_TYPE(long);							// 0x4D4
+			UNKNOWN_TYPE(long);							// 0x4D8
+			UNKNOWN_TYPE(long);							// 0x4DC
 			UNKNOWN_TYPE(real_point3d);						// 0x4E0
-			UNKNOWN_TYPE(int32);							// 0x4EC
-			UNKNOWN_TYPE(int32);							// 0x4F0
-			UNKNOWN_TYPE(int32);							// 0x4F4
-			UNKNOWN_TYPE(int32);							// 0x4F8
+			UNKNOWN_TYPE(long);							// 0x4EC
+			UNKNOWN_TYPE(long);							// 0x4F0
+			UNKNOWN_TYPE(long);							// 0x4F4
+			UNKNOWN_TYPE(long);							// 0x4F8
 			datum_index bump_source_unit_index;				// 0x4FC
 			sbyte ticks_since_bump;							// 0x500
 			sbyte airborne_ticks;							// 0x501
@@ -66,9 +66,9 @@ namespace Yelo
 			UNKNOWN_TYPE(byte);								// 0x504 sbyte
 			sbyte melee_animation_time;						// 0x505 sbyte timer, melee related
 			sbyte melee_cause_damage_time;					// 0x506 sbyte timer, melee related
-			PAD8;
-			UNKNOWN_TYPE(int16);							// 0x508
-			PAD16;
+			unsigned char : 8;
+			UNKNOWN_TYPE(short);							// 0x508
+			unsigned short : 16;
 			UNKNOWN_TYPE(real);								// 0x50C
 			UNKNOWN_TYPE(real);								// 0x510
 			UNKNOWN_TYPE(real_plane3d);						// 0x514 physics related
@@ -79,10 +79,10 @@ namespace Yelo
 			bool baseline_valid;							// 0x526
 			sbyte baseline_index;							// 0x527
 			sbyte message_index;							// 0x528
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			s_biped_datum_network_data update_baseline;		// 0x52C
 			UNKNOWN_TYPE(bool);								// 0x53C probably delta_valid. engine only writes to this, never reads. consider it 'unused'
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			s_biped_datum_network_data update_delta;		// 0x540
 		}; static_assert( sizeof(s_biped_data) == (Enums::k_object_size_biped - Enums::k_object_size_unit) );
 

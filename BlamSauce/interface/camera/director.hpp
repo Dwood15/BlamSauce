@@ -31,6 +31,6 @@ namespace Yelo
 		// Loads the camera location from "camera.txt" and places the camera there
 		void __cdecl director_load_camera();
 
-		int16 __cdecl director_desired_perspective(const datum_index unit_index, Enums::game_perspective& desired_perspective);
+		short __cdecl director_desired_perspective(const datum_index unit_index, Enums::game_perspective& desired_perspective);
 	};
 };

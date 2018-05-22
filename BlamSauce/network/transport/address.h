@@ -46,23 +46,23 @@ namespace Yelo {
 				} ipv4;
 
 				struct _ipv6 {
-					int16 class_a;
-					int16 class_b;
-					int16 class_c;
-					int16 class_d;
+					short class_a;
+					short class_b;
+					short class_c;
+					short class_d;
 
-					int16 class_e;
-					int16 class_f;
-					int16 class_g;
-					int16 class_h;
+					short class_e;
+					short class_f;
+					short class_g;
+					short class_h;
 				} ipv6;
 
 				byte ip[Enums::k_ipv6_address_length];
 			};
-			int16 address_length;
-			int16 port;
+			short address_length;
+			short port;
 
-			int32 unknown;
+			long unknown;
 		}; static_assert(sizeof(s_transport_address) == 0x18);
 	};
 };

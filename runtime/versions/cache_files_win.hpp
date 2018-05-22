@@ -13,7 +13,7 @@ namespace Yelo::Cache {
 		return ::GetFileSize(file_handle, nullptr);
 	}
 
-	bool s_build_cache_file_globals::WriteToFile(const void *buffer, int32 buffer_size) {
+	bool s_build_cache_file_globals::WriteToFile(const void *buffer, long buffer_size) {
 		DWORD bytes_written;
 		BOOL  result = WriteFile(file_handle, buffer, CAST(DWORD, buffer_size), &bytes_written, nullptr);
 
@@ -55,11 +55,11 @@ namespace Yelo::Cache {
 namespace Yelo::blam {
 	using namespace Yelo::Cache;
 
-	int32 build_cache_file_size() {
+	long build_cache_file_size() {
 		return Cache::BuildCacheFileGlobals()->GetFileSize();
 	}
 
-	uint32 build_cache_file_checksum() {
+	uint build_cache_file_checksum() {
 		return Cache::BuildCacheFileGlobals()->crc;
 	}
 
@@ -72,8 +72,8 @@ namespace Yelo::blam {
 		SetLastError(0);
 	}
 
-	static bool build_cache_file_write(const void *buffer, int32 buffer_size, int32 *return_file_offset = nullptr) {
-		int32 pad_size = buffer_size;
+	static bool build_cache_file_write(const void *buffer, long buffer_size, long *return_file_offset = nullptr) {
+		long pad_size = buffer_size;
 		assert(pad_size >= 0 && pad_size < Enums::k_cache_file_page_size);
 		assert(((buffer_size + pad_size) & Enums::k_cache_file_page_size_mask) == 0);
 
@@ -132,7 +132,7 @@ namespace Yelo::blam {
 		return build_cache_file_write(&header, sizeof(header));
 	}
 
-	bool build_cache_file_add_resource(const void *buffer, int32 buffer_size, int32 *return_file_offset, bool include_in_crc) {
+	bool build_cache_file_add_resource(const void *buffer, long buffer_size, long *return_file_offset, bool include_in_crc) {
 		auto &build_cache_file_globals = *Cache::BuildCacheFileGlobals();
 		assert(build_cache_file_globals.building);
 

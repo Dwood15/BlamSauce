@@ -48,7 +48,7 @@ namespace Yelo
 		{
 			struct s_screen_instance
 			{
-				const uint32 m_screen_id;
+				const uint m_screen_id;
 				const Flags::osui_game_state m_loaded_game_states;
 				const Flags::osui_game_state m_active_game_states;
 				const Flags::osui_screen_flags m_screen_flags;
@@ -64,12 +64,12 @@ namespace Yelo
 			ControlFactory::c_control_factory& m_control_factory;
 
 			Flags::osui_game_state m_current_state;
-			int16 m_active_screen_count;
-			int16 m_mouse_show_count;
-			int16 m_modal_screen_count;
-			int16 m_disable_movement_count;
+			short m_active_screen_count;
+			short m_mouse_show_count;
+			short m_modal_screen_count;
+			short m_disable_movement_count;
 			byte m_previous_esckey_state;
-			PAD8;
+			unsigned char : 8;
 
 			std::vector<s_screen_instance> m_screen_instances;
 			std::vector<s_screen_instance*> m_current_stage_instances;
@@ -99,7 +99,7 @@ namespace Yelo
 			/// <param name="screen_flags">		 	The screens flags. </param>
 			/// <param name="toggle_key">		 	The toggle key. </param>
 			/// <param name="controller">		 	The screen controller. </param>
-			void AddScreenController(const uint32 screen_id
+			void AddScreenController(const uint screen_id
 				, const Flags::osui_game_state loaded_game_states
 				, const Flags::osui_game_state active_game_states
 				, const Flags::osui_screen_flags screen_flags
@@ -122,13 +122,13 @@ namespace Yelo
 			/// <summary>	Shows a particular screen. </summary>
 			///
 			/// <param name="screen_id">	Identifier for the screen. </param>
-			void ShowScreen(const uint32 screen_id);
+			void ShowScreen(const uint screen_id);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Hides a particular screen. </summary>
 			///
 			/// <param name="screen_id">	Identifier for the screen. </param>
-			void HideScreen(const uint32 screen_id);
+			void HideScreen(const uint screen_id);
 
 		private:
 			////////////////////////////////////////////////////////////////////////////////////////////////////

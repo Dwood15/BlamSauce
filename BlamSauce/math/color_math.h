@@ -12,14 +12,14 @@ namespace Yelo {
 
 	// 0 - 255, represents a color
 	struct rgb_color {
-		PAD8;
+		unsigned char : 8;
 		byte red;
 		byte green;
 		byte blue;
 
 		OVERRIDE_OPERATOR_CAST_THIS(argb_color);
 
-		OVERRIDE_OPERATOR_CAST_THIS(uint32);
+		OVERRIDE_OPERATOR_CAST_THIS(uint);
 	};
 
 #define pad_rgb_color PAD32
@@ -33,7 +33,7 @@ namespace Yelo {
 
 		OVERRIDE_OPERATOR_CAST_THIS(rgb_color);
 
-		OVERRIDE_OPERATOR_CAST_THIS(uint32);
+		OVERRIDE_OPERATOR_CAST_THIS(uint);
 	};
 
 #define pad_argb_color PAD32

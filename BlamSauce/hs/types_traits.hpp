@@ -17,7 +17,7 @@ namespace Yelo
 
 		struct hs_type_default_traits_for_scenario_datum
 		{
-			typedef int16 ctype;
+			typedef short ctype;
 		};
 		struct hs_type_default_traits_for_game_state_datum
 		{
@@ -50,13 +50,13 @@ namespace Yelo
 		template<>
 		struct hs_type_traits<Enums::_hs_type_short>
 		{
-			typedef int16 ctype;
+			typedef short ctype;
 		};
 
 		template<>
 		struct hs_type_traits<Enums::_hs_type_long>
 		{
-			typedef int32 ctype;
+			typedef long ctype;
 		};
 
 		template<>
@@ -165,7 +165,7 @@ namespace Yelo
 #if 0
 		struct hs_type_default_traits_for_object_name
 		{
-			typedef int16 ctype;
+			typedef short ctype;
 		};
 		template<>
 		struct hs_type_traits<Enums::_hs_type_object_name> : hs_type_default_traits_for_object_name {};

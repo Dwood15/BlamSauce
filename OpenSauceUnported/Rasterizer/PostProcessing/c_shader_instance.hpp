@@ -18,7 +18,7 @@ namespace Yelo
 				{
 					bool is_valid;
 					bool is_active;
-					PAD16;
+					unsigned short : 16;
 				}m_flags;
 
 				c_shader_postprocess* definition;

@@ -138,7 +138,7 @@ namespace Yelo {
 
 	struct tag_field {
 		Enums::field_type type;
-		PAD16;
+		unsigned short : 16;
 		cstring name;
 		void    *definition;
 
@@ -167,7 +167,7 @@ namespace Yelo {
 
 				case Enums::_field_pad:
 				case Enums::_field_skip:
-					field_size = DefinitionCast<int32>();
+					field_size = DefinitionCast<long>();
 					break;
 
 				default:
@@ -204,15 +204,15 @@ namespace Yelo {
 	typedef bool    (__cdecl *proc_tag_block_postprocess_element)(void *element, Enums::tag_postprocess_mode mode, datum_index tag_index);
 
 	// if [formatted_buffer] returns empty, the default block formatting is done
-	typedef cstring (__cdecl *proc_tag_block_format)(datum_index tag_index, tag_block *block, int32 element_index, char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
+	typedef cstring (__cdecl *proc_tag_block_format)(datum_index tag_index, tag_block *block, long element_index, char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 
 	// Procedure called during tag_block_delete_element, but before all the child data is freed
-	typedef void    (__cdecl *proc_tag_block_delete_element)(tag_block *block, int32 element_index);
+	typedef void    (__cdecl *proc_tag_block_delete_element)(tag_block *block, long element_index);
 
 	struct tag_block_definition {
 		cstring                            name;
 		long_flags                         flags;
-		int32                              maximum_element_count;
+		long                              maximum_element_count;
 		size_t                             element_size;
 		void                               *unused0;
 		tag_field                          *fields;
@@ -225,7 +225,7 @@ namespace Yelo {
 		// Searches the definition for a field of type [field_type] with a name which starts
 		// with [name] characters. Optionally starts at a specific field index.
 		// Returns NONE if this fails.
-		int32 FindFieldIndex(short field_type, cstring name, int32 start_index = NONE) const {
+		long FindFieldIndex(short field_type, cstring name, long start_index = NONE) const {
 			YELO_ASSERT(this);
 			YELO_ASSERT(this->fields);
 			YELO_ASSERT(IN_RANGE_ENUM(field_type, Enums::k_number_of_tag_field_types));
@@ -243,8 +243,8 @@ namespace Yelo {
 			return NONE;
 		}
 
-		tag_field *FindField(short field_type, cstring name, int32 start_index = NONE) {
-			int32 index = FindFieldIndex(field_type, name, start_index);
+		tag_field *FindField(short field_type, cstring name, long start_index = NONE) {
+			long index = FindFieldIndex(field_type, name, start_index);
 
 			YELO_ASSERT_DISPLAY(index != NONE, "failed to find a %s field named %s in %s",
 									  TagGroups::k_tag_field_definitions[field_type].name, name, this->name);
@@ -252,7 +252,7 @@ namespace Yelo {
 			return &this->fields[index];
 		}
 
-		tag_block_definition *FindBlockField(cstring name, int32 start_index = NONE) {
+		tag_block_definition *FindBlockField(cstring name, long start_index = NONE) {
 			tag_field *block_field = FindField(Enums::_field_block, name, start_index);
 
 			return block_field->Definition<tag_block_definition>();
@@ -345,12 +345,12 @@ namespace Yelo {
 
 	static_assert(sizeof(tag_block_definition) == 0x2C);
 
-	typedef void (__cdecl *proc_tag_data_byte_swap)(void *block_element, void *address, int32 size);
+	typedef void (__cdecl *proc_tag_data_byte_swap)(void *block_element, void *address, long size);
 
 	struct tag_data_definition {
 		cstring                 name;
 		long_flags              flags;
-		int32                   maximum_size;
+		long                   maximum_size;
 		proc_tag_data_byte_swap byte_swap_proc;
 
 		bool IsConsideredDebugOnly() const {
@@ -423,13 +423,13 @@ namespace Yelo {
 		long_flags flags;
 		tag        group_tag;
 		tag        parent_group_tag;
-		int16      version;
-		PAD16;
+		short      version;
+		unsigned short : 16;
 		proc_tag_group_postprocess postprocess_proc;
 		tag_block_definition       *header_block_definition;
 		tag                        child_group_tags[Enums::k_maximum_children_per_tag];
-		int16                      child_count;
-		PAD16;
+		short                      child_count;
+		unsigned short : 16;
 
 		TagGroups::s_tag_field_set_runtime_data *GetHeaderRuntimeInfo() const { return header_block_definition->GetRuntimeInfo(); }
 

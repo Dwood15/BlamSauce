@@ -14,10 +14,10 @@ namespace Yelo
 
 		struct s_unit_globals_data
 		{
-			UNKNOWN_TYPE(int16);
-			UNKNOWN_TYPE(int16);
+			UNKNOWN_TYPE(short);
+			UNKNOWN_TYPE(short);
 			UNKNOWN_TYPE(bool);
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		};
 	};
 
@@ -27,20 +27,20 @@ namespace Yelo
 
 		void __cdecl unit_set_animation(datum_index unit_index
 			, datum_index animation_graph_index
-			, int32 animation_index);
+			, long animation_index);
 
-		int16 __cdecl unit_find_nearby_seat(datum_index unit_index
+		short __cdecl unit_find_nearby_seat(datum_index unit_index
 			, datum_index target_unit_index
-			, __out int16& parent_seat_index);
+			, __out short& parent_seat_index);
 
 		bool __cdecl unit_can_enter_seat(datum_index unit_index
 			, datum_index target_unit_index
-			, int16 seat_index
+			, short seat_index
 			, __out datum_index* unit_in_seat_index);
 
 		bool __cdecl unit_enter_seat(datum_index unit_index
 			, datum_index target_unit_index
-			, int32 seat_index);
+			, long seat_index);
 
 		// Calculates the viewing position based on the unit's 'head' marker if it has one. 
 		// If not, it will estimate the position based on the object's origin.
@@ -72,7 +72,7 @@ namespace Yelo
 			, const real view_radians);
 
 		// Returns the number of frames remaining in an unit's custom animation
-		int16 unit_get_custom_animation_time(datum_index unit_index);
+		short unit_get_custom_animation_time(datum_index unit_index);
 
 		bool __cdecl unit_start_user_animation(const datum_index unit_index
 			, const datum_index animation_definition_index
@@ -85,7 +85,7 @@ namespace Yelo
 
 		void __cdecl unit_drop_current_weapon(const datum_index unit_index, const bool force);
 
-		datum_index __cdecl unit_inventory_get_weapon(const datum_index unit_index, const int16 index);
+		datum_index __cdecl unit_inventory_get_weapon(const datum_index unit_index, const short index);
 
 		void __cdecl unit_ready_desired_weapon(const datum_index unit_index, const bool force);
 
@@ -99,7 +99,7 @@ namespace Yelo
 			, const real shield_amount
 			, const real body_amount
 			, void* arg6
-			, const int32 damage_part
+			, const long damage_part
 #if PLATFORM_TYPE == PLATFORM_SAPIEN
 			, const datum_index dead_unit_index
 #endif

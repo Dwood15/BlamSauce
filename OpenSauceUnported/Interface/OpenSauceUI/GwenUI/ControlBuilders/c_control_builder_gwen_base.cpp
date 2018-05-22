@@ -86,7 +86,7 @@ namespace Yelo
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 
-				int32 value = 0;
+				long value = 0;
 
 				std::string str_value(value_string);
 				if(str_value == "Left")

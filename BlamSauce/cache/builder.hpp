@@ -51,15 +51,15 @@ namespace Yelo {
 			char       scenario_name[Enums::k_max_tag_name_length + 1];
 			byte_flags begin_flags; // NOTE: non-standard member
 			bool       canceled; // NOTE: non-standard member
-			PAD8;
+			unsigned char : 8;
 			uint32              crc;
 			HANDLE              file_handle;
-			int32               cache_stream_size;
+			long               cache_stream_size;
 			s_data_file_globals data_files;
 
 			DWORD GetFileSize() const;
 
-			bool WriteToFile(const void *buffer, int32 buffer_size);
+			bool WriteToFile(const void *buffer, long buffer_size);
 
 			bool TemporaryFileOpen(cstring filename = k_temp_cache_file_name);
 
@@ -83,15 +83,15 @@ namespace Yelo {
 	};
 
 	namespace blam {
-		int32 build_cache_file_size();
+		long build_cache_file_size();
 
 		uint32 build_cache_file_checksum();
 
 		bool build_cache_file_begin(cstring scenario_name,
 											 byte_flags flags);
 
-		bool build_cache_file_add_resource(const void *buffer, int32 buffer_size,
-													  int32 *return_file_offset = nullptr, bool include_in_crc = true);
+		bool build_cache_file_add_resource(const void *buffer, long buffer_size,
+													  long *return_file_offset = nullptr, bool include_in_crc = true);
 
 		void build_cache_file_cancel();
 
@@ -252,7 +252,7 @@ namespace Yelo::blam {
 	
 	static void *build_cache_file_add_tag_to_stream(datum_index tag_index,
 																	uintptr_t stream_base_address,
-																	s_cache_tag_instance *tag_instances, int32 tag_instance_index,
+																	s_cache_tag_instance *tag_instances, long tag_instance_index,
 																	void *stream, build_cache_file_tag_names_t &tag_names) {
 		YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 		auto *tag_instance = &tag_instances[tag_instance_index];
@@ -297,14 +297,14 @@ namespace Yelo::blam {
 	
 
 	static API_FUNC_NAKED bool __cdecl build_cache_file_add_tags(
-		s_cache_header &cache_header, void *scratch, build_cache_file_tag_names_t &tag_names, int32 largest_structure_bsp_size) {
+		s_cache_header &cache_header, void *scratch, build_cache_file_tag_names_t &tag_names, long largest_structure_bsp_size) {
 		static const uintptr_t FUNCTION = 0x454D40;
 
 		__asm jmp   FUNCTION
 	}
 
 	static API_FUNC_NAKED bool build_cache_file_add_structure_bsps(
-		void *scratch, build_cache_file_tag_names_t &tag_names, int32 &largest_structure_bsp_size) {
+		void *scratch, build_cache_file_tag_names_t &tag_names, long &largest_structure_bsp_size) {
 		static const uintptr_t FUNCTION = 0x454B70;
 
 		API_FUNC_NAKED_START()
@@ -319,7 +319,7 @@ namespace Yelo::blam {
 
 	static bool build_cache_file_add_tags(build_cache_file_tag_names_t &tag_indexes,
 													  s_cache_header &cache_header, void *scratch) {
-		int32 largest_structure_bsp_size = 0;
+		long largest_structure_bsp_size = 0;
 		return
 			build_cache_file_add_tags(cache_header, nullptr, tag_indexes, 0) &&
 			build_cache_file_add_structure_bsps(scratch, tag_indexes, largest_structure_bsp_size) &&
@@ -330,7 +330,7 @@ namespace Yelo::blam {
 		cache_header.file_length = build_cache_file_size();
 		cache_header.crc         = build_cache_file_checksum();
 
-		int32 maximum_cache_file_length = Enums::k_max_cache_size_upgrade;
+		long maximum_cache_file_length = Enums::k_max_cache_size_upgrade;
 		if (!BuildCacheFileForYelo()) {
 			switch (cache_header.cache_type) {
 				case Enums::_cache_file_type_campaign:

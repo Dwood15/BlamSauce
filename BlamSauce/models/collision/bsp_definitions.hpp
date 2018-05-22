@@ -18,54 +18,54 @@ namespace Yelo
 	{
 		struct bsp3d_node
 		{
-			TAG_FIELD(int32, plane);
-			TAG_FIELD(int32, back_child);
-			TAG_FIELD(int32, front_child);
+			TAG_FIELD(long, plane);
+			TAG_FIELD(long, back_child);
+			TAG_FIELD(long, front_child);
 		}; static_assert( sizeof(bsp3d_node) == 0xC );
 
 		struct collision_leaf
 		{
 			TAG_FIELD(word_flags, flags);
-			TAG_FIELD(int16, reference_count);
-			TAG_FIELD(int32, first_reference, bsp2d_reference);
+			TAG_FIELD(short, reference_count);
+			TAG_FIELD(long, first_reference, bsp2d_reference);
 		}; static_assert( sizeof(collision_leaf) == 0x8 );
 
 		struct bsp2d_reference
 		{
-			TAG_FIELD(int32, plane);
-			TAG_FIELD(int32, bsp2d_node);
+			TAG_FIELD(long, plane);
+			TAG_FIELD(long, bsp2d_node);
 		}; static_assert( sizeof(bsp2d_reference) == 0x8 );
 
 		struct bsp2d_node
 		{
 			TAG_FIELD(real_plane2d, plane);
-			TAG_FIELD(int32, left_child);
-			TAG_FIELD(int32, right_child);
+			TAG_FIELD(long, left_child);
+			TAG_FIELD(long, right_child);
 		}; static_assert( sizeof(bsp2d_node) == 0x14 );
 
 		struct collision_surface
 		{
-			TAG_FIELD(int32, plane);
-			TAG_FIELD(int32, first_edge);
+			TAG_FIELD(long, plane);
+			TAG_FIELD(long, first_edge);
 			TAG_FIELD(Flags::collision_surface_flags, flags);
 			TAG_FIELD(sbyte, breakable_surface);
-			TAG_FIELD(int16, material);
+			TAG_FIELD(short, material);
 		}; static_assert( sizeof(collision_surface) == 0xC );
 
 		struct collision_edge
 		{
-			TAG_FIELD(int32, start_vertex);
-			TAG_FIELD(int32, end_vertex);
-			TAG_FIELD(int32, forward_edge);
-			TAG_FIELD(int32, reverse_edge);
-			TAG_FIELD(int32, left_surface);
-			TAG_FIELD(int32, right_surface);
+			TAG_FIELD(long, start_vertex);
+			TAG_FIELD(long, end_vertex);
+			TAG_FIELD(long, forward_edge);
+			TAG_FIELD(long, reverse_edge);
+			TAG_FIELD(long, left_surface);
+			TAG_FIELD(long, right_surface);
 		}; static_assert( sizeof(collision_edge) == 0x18 );
 
 		struct collision_vertex
 		{
 			TAG_FIELD(real_point3d, point);
-			TAG_FIELD(int32, first_edge);
+			TAG_FIELD(long, first_edge);
 		}; static_assert( sizeof(collision_vertex) == 0x10 );
 
 		struct collision_bsp

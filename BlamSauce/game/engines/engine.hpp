@@ -41,7 +41,7 @@ namespace Yelo {
 			cstring name;                                 // 0x0
 
 			short type;                                    // 0x4
-			PAD16;                                       // 0x6
+			unsigned short : 16;                                       // 0x6
 
 			typedef void (__cdecl *_dispose)();
 
@@ -100,11 +100,11 @@ namespace Yelo {
 
 			_update update;                                 // 0x48
 
-			typedef int32 (__cdecl *_get_score)(datum_index player_index, int32 use_team_score);
+			typedef long (__cdecl *_get_score)(datum_index player_index, long use_team_score);
 
 			_get_score get_score;                           // 0x4C
 
-			typedef int32 (__cdecl *_get_team_score)(int32 team_index);
+			typedef long (__cdecl *_get_team_score)(long team_index);
 
 			_get_team_score get_team_score;                     // 0x50
 
@@ -119,7 +119,7 @@ namespace Yelo {
 			_get_score_header_string get_score_header_string;      // 0x58
 
 			// returns out buffer
-			typedef wchar_t *(__cdecl *_get_team_score_string)(int32 team_index, wchar_t *out_buffer);
+			typedef wchar_t *(__cdecl *_get_team_score_string)(long team_index, wchar_t *out_buffer);
 
 			_get_team_score_string get_team_score_string;         // 0x5C
 
@@ -135,7 +135,7 @@ namespace Yelo {
 
 			_player_killed_player player_killed_player;            // 0x68
 
-			typedef bool (__cdecl *_display_score)(datum_index player_index, int32 format_type, wchar_t *out_buffer, int32 max_length);
+			typedef bool (__cdecl *_display_score)(datum_index player_index, long format_type, wchar_t *out_buffer, long max_length);
 
 			_display_score display_score;                     // 0x6C
 
@@ -174,7 +174,7 @@ namespace Yelo {
 			// new to pc
 
 			// -1 for machine sends to all.
-			typedef void (__cdecl *_to_network)(void *baselines, int32 specific_machine /* = NONE*/ );
+			typedef void (__cdecl *_to_network)(void *baselines, long specific_machine /* = NONE*/ );
 
 			_to_network to_network;                           // 0x90
 
@@ -197,11 +197,11 @@ namespace Yelo {
 			_create_player_score_strings create_player_score_strings;   // 0xA0
 
 			// 1st param must be 29 (_gamespy_qr_field_score_t) in order to return true
-			typedef bool (__cdecl *_create_team_score_strings)(long_enum field /*gamespy_field*/, int32 team_index, cstring out_buffer);
+			typedef bool (__cdecl *_create_team_score_strings)(long_enum field /*gamespy_field*/, long team_index, cstring out_buffer);
 
 			_create_team_score_strings create_team_score_strings;   // 0xA4
 
-			typedef int32 (__cdecl *_get_gamespy_key_count)(long_enum keytype);
+			typedef long (__cdecl *_get_gamespy_key_count)(long_enum keytype);
 
 			_get_gamespy_key_count get_gamespy_key_count;         // 0xA8
 

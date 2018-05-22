@@ -19,10 +19,10 @@ namespace Yelo
 		// Implementation has index second, but in OS we should mostly be calling with the tag index; no hardcoded strings!
 		s_ui_widget_instance* LoadByNameOrTag(datum_index ui_widget_definition_index, cstring name,
 			s_ui_widget_instance* parent, 
-			int16 controller_index, 
+			short controller_index,
 			datum_index topmost_widget_definition_index,
 			datum_index parent_widget_definition_index,
-			int16 child_index_from_parent)
+			short child_index_from_parent)
 		{
 			YELO_ASSERT_DISPLAY( !ui_widget_definition_index.IsNull() || name != nullptr,
 				"ui widget: tried to load without a name or tag index" );
@@ -70,10 +70,10 @@ namespace Yelo
 			cstring name,
 			datum_index ui_widget_definition_index,
 			s_ui_widget_instance* parent,
-			int16 controller_index,
+			short controller_index,
 			datum_index topmost_widget_definition_index,
 			datum_index parent_widget_definition_index,
-			int16 child_index_from_parent)
+			short child_index_from_parent)
 		{
 			static const uintptr_t FUNCTION = GET_FUNC_PTR(UI_WIDGET_LOAD_BY_NAME_OR_TAG);
 

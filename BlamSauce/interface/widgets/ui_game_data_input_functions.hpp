@@ -83,7 +83,7 @@ namespace Yelo
 		struct game_data_input_reference
 		{
 			TAG_ENUM(function, Enums::game_data_input_reference_function);
-			PAD16;
+			unsigned short : 16;
 			TAG_PAD(tag_string, 1);
 		}; static_assert( sizeof(game_data_input_reference) == 0x24 ); // max count: 64
 	};

@@ -61,7 +61,7 @@ namespace Yelo
 			TAG_FIELD(real, radius_multiplier, "", "This value will be multiplied into the radius computed by the type.");
 			TAG_FIELD(real, minimum_particle_count);
 			TAG_FIELD(real, particle_creation_rate, "particles per second");
-			TAG_PAD(int32, 21);
+			TAG_PAD(long, 21);
 			TAG_ENUM(particle_creation_physics, Enums::particle_creation_physics, "This controls the placement of particles created during this state.");
 			TAG_ENUM(particle_update_physics, Enums::particle_update_physics, "This controls the motion of particles during this state.");
 			TAG_TBLOCK(physics_constants, s_particle_system_physics_constants);
@@ -73,8 +73,8 @@ namespace Yelo
 			TAG_FIELD(real_bounds, duration_bounds, "seconds", "Time in this state.");
 			TAG_FIELD(real_bounds, transition_time_bounds, "seconds", "Time spent in transition to next state.");
 			TAG_FIELD(tag_reference, bitmaps, 'bitm');
-			TAG_FIELD(int16, sequence_index);
-			PAD16;
+			TAG_FIELD(short, sequence_index);
+			unsigned short : 16;
 			PAD32;
 			TAG_FIELD(real_bounds, scale, "world units per pixel", "Apparent size of the particles.");
 			TAG_FIELD(real_bounds, animation_rate, "frames per second", "Rate of sprite animation.");
@@ -83,7 +83,7 @@ namespace Yelo
 			TAG_FIELD(real_argb_color, color_2, "", "Particle will have a random color in the range determined by these two colors.");
 			TAG_FIELD(real, radius_multiplier, "", "This value will be multiplied into the radius computed by the type.");
 			TAG_FIELD(tag_reference, point_physics, 'pphy');
-			TAG_PAD(int32, 9);
+			TAG_PAD(long, 9);
 			s_shader_effect shader_effect;
 			TAG_TBLOCK(physics_constants, s_particle_system_physics_constants);
 		}; static_assert( sizeof(s_particle_system_type_particle_states) == 0x178 ); // max count: 8
@@ -119,14 +119,14 @@ namespace Yelo
 
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(__flags, flags);
-			TAG_FIELD(int16, initial_particle_count);
-			PAD16;
+			TAG_FIELD(short, initial_particle_count);
+			unsigned short : 16;
 			TAG_ENUM(complex_sprite_render_modes, Enums::complex_sprite_render_modes);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, radius, "world units");
-			TAG_PAD(int32, 9);
+			TAG_PAD(long, 9);
 			TAG_ENUM(particle_creation_physics, Enums::particle_creation_physics, "This controls the initial placement of particles.");
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(__physics_flags, physics_flags);
 			TAG_TBLOCK(physics_constants, s_particle_system_physics_constants);
 			TAG_TBLOCK(states, s_particle_system_type_states);
@@ -143,14 +143,14 @@ namespace Yelo
 			}; static_assert( sizeof(__physics_flags) == sizeof(long_flags) );
 
 			PAD32;
-			TAG_PAD(int32, 13);
+			TAG_PAD(long, 13);
 
 			////////////////////////////////////////////////////////////////
 			// system behavior
 			// These settings affect the behavior of the system's origin.
 			TAG_FIELD(tag_reference, point_physics, 'pphy');
 			TAG_ENUM(system_update_physics, Enums::system_update_physics);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(__physics_flags, physics_flags);
 			TAG_TBLOCK(physics_constants, s_particle_system_physics_constants);
 			TAG_TBLOCK(particle_types, s_particle_system_types);

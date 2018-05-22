@@ -17,12 +17,12 @@ namespace Yelo
 #if !PLATFORM_IS_EDITOR
 			const 
 #endif
-				int16 version;	enum { k_version = 1, k_group_tag = 'cher' };
+				short version;	enum { k_version = 1, k_group_tag = 'cher' };
 			struct _flags {
 				TAG_FLAG16(unused);
 			}flags; static_assert( sizeof(_flags) == sizeof(word_flags) );
 			TAG_FIELD(uint32, base_address);
-			TAG_FIELD(int32, starting_tag_index);
+			TAG_FIELD(long, starting_tag_index);
 			PAD32;
 
 			TAG_FIELD(tag_reference, explicit_references, 'tagc');

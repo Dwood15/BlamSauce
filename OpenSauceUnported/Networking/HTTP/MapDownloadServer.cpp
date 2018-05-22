@@ -230,7 +230,7 @@ namespace Yelo
 				volatile bool system_active;
 				bool host_set;
 				bool definitions_path_set;
-				PAD8;
+				unsigned char : 8;
 			}m_flags;
 
 			char					m_map_part_definitions_path[MAX_PATH];

@@ -39,11 +39,11 @@ namespace Yelo
 		struct s_parameters_protocol_globals // made-up structure
 		{
 			bool changeover_enabled;		// g_protocol_changeover_enabled
-			PAD24;
-			int32 version;					// protocol version
-			int32 exposed_params_count;		// g_num_exposed_params
+			unsigned char : 8; unsigned short : 16;
+			long version;					// protocol version
+			long exposed_params_count;		// g_num_exposed_params
 			bool encoding_parameters_set;	// true when a parameters_set is being encoded and queued to be sent across the network
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		}; static_assert( sizeof(s_parameters_protocol_globals) == 0x10 );
 	};
 };

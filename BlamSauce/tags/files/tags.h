@@ -43,7 +43,7 @@ namespace Yelo
 			return tag_file_open(T::k_group_tag, filename, is_readonly, crc, from_file_system);
 		}
 
-		bool __cdecl tag_file_read(int32 file_position, size_t buffer_size, void* buffer);
+		bool __cdecl tag_file_read(long file_position, size_t buffer_size, void* buffer);
 
 		// Is the tag file read only?
 		bool __cdecl tag_file_read_only(tag group_tag, cstring name);

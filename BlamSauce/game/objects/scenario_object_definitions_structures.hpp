@@ -15,7 +15,7 @@ namespace Yelo
 		struct scenario_object_name {
 			TAG_FIELD(tag_string, name);
 			short object_type;
-			int16 scenario_object_index;
+			short scenario_object_index;
 		}; static_assert( sizeof(scenario_object_name) == 0x24 );
 
 		struct scenario_device_group
@@ -23,7 +23,7 @@ namespace Yelo
 			tag_string name;
 			real initial_value;
 			long_flags flags;
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 		}; static_assert( sizeof(scenario_device_group) == 0x34 );
 
 		struct scenario_object_palette_entry
@@ -37,13 +37,13 @@ namespace Yelo
 		// object
 		struct s_scenario_object_header
 		{
-			int16 palette_index;
-			int16 name_index;
+			short palette_index;
+			short name_index;
 		}; static_assert( sizeof(s_scenario_object_header) == 0x4 );
 		struct s_scenario_object_datum
 		{
 			word_flags placement_flags;
-			int16 desired_permutation;
+			short desired_permutation;
 			real_point3d position;
 			real_euler_angles3d rotation;
 		}; static_assert( sizeof(s_scenario_object_datum) == 0x1C );
@@ -75,11 +75,11 @@ namespace Yelo
 		};
 		struct s_scenario_biped_datum
 		{
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 		};
 		struct s_scenario_vehicle_datum
 		{
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 		};
 
 		//////////////////////////////////////////////////////////////////////////
@@ -89,17 +89,17 @@ namespace Yelo
 			PAD64;
 			s_scenario_object_permutation permutation;
 
-			int16 rounds_left;
-			int16 rounds_total;
+			short rounds_left;
+			short rounds_total;
 			word_flags flags;
-			PAD16;
-			TAG_PAD(int32, 3);
+			unsigned short : 16;
+			TAG_PAD(long, 3);
 		};
 		struct s_scenario_equipment_datum
 		{
-			PAD16;
+			unsigned short : 16;
 			word_flags flags;
-			PAD32;
+			unsigned long : 32;
 		};
 
 		//////////////////////////////////////////////////////////////////////////
@@ -107,20 +107,20 @@ namespace Yelo
 		struct s_scenario_device_datum
 		{
 			PAD64;
-			int16 power_group_index;
-			int16 position_group_index;
+			short power_group_index;
+			short position_group_index;
 			long_flags flags;
 		};
 		struct s_scenario_machine_datum
 		{
 			long_flags flags;
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 		};
 		struct s_scenario_control_datum
 		{
 			long_flags flags;
-			int16 custom_name_index;
-			PAD16;
+			short custom_name_index;
+			unsigned short : 16;
 			PAD64;
 		};
 		struct s_scenario_light_fixture_datum

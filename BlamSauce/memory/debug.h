@@ -19,7 +19,7 @@ namespace Yelo::Debug {
 		size_t                size;
 		cstring               file;
 		uint32                line;
-		int32                 marker;
+		long                 marker;
 		uint32                checksum;
 
 		static size_t AllocationSize(size_t size) {
@@ -41,7 +41,7 @@ namespace Yelo::Debug {
 		s_debug_memory_header *heap;
 		s_debug_memory_header *first;
 		s_debug_memory_header *last;
-		int32                 next_marker;            // increments with each malloc and realloc, never decrements
+		long                 next_marker;            // increments with each malloc and realloc, never decrements
 		tag                   footer;
 	}; static_assert(sizeof(s_debug_memory_globals) == 0x20);
 

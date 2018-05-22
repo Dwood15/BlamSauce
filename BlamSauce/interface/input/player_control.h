@@ -26,7 +26,7 @@ namespace Yelo::Input {
 
 		PAD(0, sizeof(byte) * 383);
 
-		int32 MouseAxis[Enums::_MouseAxis];
+		long MouseAxis[Enums::_MouseAxis];
 		byte  MouseButton[Enums::_MouseButton];
 
 		PAD(1, sizeof(byte) * 4680);
@@ -36,15 +36,15 @@ namespace Yelo::Input {
 
 		PAD(2, sizeof(byte) * 56);
 
-		int32 GamepadDpad[Enums::_GamepadDpad];
+		long GamepadDpad[Enums::_GamepadDpad];
 	};
 
 	struct PositionState {
-		//PAD16;
+		//unsigned short : 16;
 		//bool Moving; // true during mouse movement
-		//PAD8;
+		//unsigned char : 8;
 		PAD32;
-		int32 Position[2]; // menu space coordinates (0,0) to (640,480)
+		long Position[2]; // menu space coordinates (0,0) to (640,480)
 	};
 
 	// #include "Memory/_EngineLayout.inl"
@@ -61,12 +61,12 @@ namespace Yelo::Input {
 
 	struct ControlSettings {
 		bool Initialized;
-		PAD8;
-		int16 Device; // ControlDevice
-		PAD16;
-		int16 Type; // ControlType
-		int16 Index; // Key / GamepadButton / GamepadAxis / MouseButton / MouseAxis
-		int16 Direction; // GamepadAxisDirection / GamepadDpadDirection / MouseAxisDirection
+		unsigned char : 8;
+		short Device; // ControlDevice
+		unsigned short : 16;
+		short Type; // ControlType
+		short Index; // Key / GamepadButton / GamepadAxis / MouseButton / MouseAxis
+		short Direction; // GamepadAxisDirection / GamepadDpadDirection / MouseAxisDirection
 	};
 
 	bool IsInGame() { return TEST_FLAG(*InputStateFlags, Flags::_input_state_enabled_bit); }
@@ -77,13 +77,13 @@ namespace Yelo::Input {
 
 	void AllowMovement(bool allow) { SET_FLAG(*InputStateFlags, Flags::_input_state_enabled_bit, allow); }
 
-	int16 SettingsGetDevice(Enums::PlayerControl control) { return Settings[control].Device; }
+	short SettingsGetDevice(Enums::PlayerControl control) { return Settings[control].Device; }
 
-	int16 SettingsGetType(Enums::PlayerControl control) { return Settings[control].Type; }
+	short SettingsGetType(Enums::PlayerControl control) { return Settings[control].Type; }
 
-	int16 SettingsGetIndex(Enums::PlayerControl control) { return Settings[control].Index; }
+	short SettingsGetIndex(Enums::PlayerControl control) { return Settings[control].Index; }
 
-	int16 SettingsGetDirection(Enums::PlayerControl control) { return Settings[control].Direction; }
+	short SettingsGetDirection(Enums::PlayerControl control) { return Settings[control].Direction; }
 
 	// device = [Enums::_ControlDeviceKeyboard]
 	//	* type = UNUSED
@@ -135,18 +135,18 @@ namespace Yelo::Input {
 
 	// Gets the current state of mouse [axis]
 	// The larger the return value, the longer its been held down
-	int32 GetMouseAxisState(Enums::MouseAxis axis) { return ControlState->MouseAxis[axis]; }
+	long GetMouseAxisState(Enums::MouseAxis axis) { return ControlState->MouseAxis[axis]; }
 
 	// Sets the current state of mouse [axis]
 	// The larger the value of [state], the longer its been held down
-	void SetMouseAxisState(Enums::MouseAxis axis, int32 state) { ControlState->MouseAxis[axis] = state; }
+	void SetMouseAxisState(Enums::MouseAxis axis, long state) { ControlState->MouseAxis[axis] = state; }
 
-	int32 GetMousePositionState(Enums::MouseAxis axis) {
+	long GetMousePositionState(Enums::MouseAxis axis) {
 		if (axis > Enums::_MouseAxisY) return 0;
 		return MousePositionState->Position[axis];
 	}
 
-	void SetMousePositionState(Enums::MouseAxis axis, int32 position) {
+	void SetMousePositionState(Enums::MouseAxis axis, long position) {
 		if (axis > Enums::_MouseAxisY) return;
 		MousePositionState->Position[axis] = position;
 	}
@@ -172,13 +172,13 @@ namespace Yelo::Input {
 
 	// Gets the current state of [dpad]
 	// The larger the return value, the longer its been held down
-	int32 GetGamepadDpadState(Enums::GamepadDpad dpad) {
+	long GetGamepadDpadState(Enums::GamepadDpad dpad) {
 		return ControlState->GamepadDpad[dpad];
 	}
 
 	// Sets the current state of [dpad]
 	// The larger the value of [state], the longer its been held down
-	void SetGamepadDpadState(Enums::GamepadDpad dpad, int32 state) {
+	void SetGamepadDpadState(Enums::GamepadDpad dpad, long state) {
 		ControlState->GamepadDpad[dpad] = state;
 	}
 
@@ -245,8 +245,8 @@ namespace Yelo::Input {
 		return string_list[value];
 	}
 
-	int32 GetControlState(int16 device, int16 type, int16 index, int16 direction) {
-		int32 state = 0;
+	long GetControlState(short device, short type, short index, short direction) {
+		long state = 0;
 
 		if (device == Enums::_ControlDeviceKeyboard) state = GetKeyState((Enums::key_code) index);
 		else if (device == Enums::_ControlDeviceMouse) {
@@ -270,7 +270,7 @@ namespace Yelo::Input {
 		return state;
 	}
 
-	void SetControlState(int16 device, int16 type, int16 index, int32 state) {
+	void SetControlState(short device, short type, short index, long state) {
 		if (device == Enums::_ControlDeviceKeyboard) SetKeyState((Enums::key_code) index, (byte) state);
 		else if (device == Enums::_ControlDeviceMouse) {
 			if (type == Enums::_ControlTypeButton) SetMouseButtonState((Enums::MouseButton) index, (byte) state);
@@ -283,10 +283,10 @@ namespace Yelo::Input {
 	}
 
 	// Returns >0 if [control] is active on any input devices currently being used
-	inline int32 GetControlState(Enums::PlayerControl control) {
+	inline long GetControlState(Enums::PlayerControl control) {
 		return GetControlState(SettingsGetDevice(control), SettingsGetType(control), SettingsGetIndex(control), SettingsGetDirection(control));
 	}
 
 	// Sets the state of [control] on all currently active input devices
-	inline void SetControlState(Enums::PlayerControl control, int32 state) { SetControlState(SettingsGetDevice(control), SettingsGetType(control), SettingsGetIndex(control), state); }
+	inline void SetControlState(Enums::PlayerControl control, long state) { SetControlState(SettingsGetDevice(control), SettingsGetType(control), SettingsGetIndex(control), state); }
 };

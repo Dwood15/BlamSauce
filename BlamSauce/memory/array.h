@@ -15,7 +15,7 @@ namespace Yelo {
 	namespace Memory {
 		struct s_dynamic_array {
 			size_t element_size;
-			int32  count;
+			long  count;
 			void   *elements;
 		}; static_assert(sizeof(s_dynamic_array) == 0xC);
 

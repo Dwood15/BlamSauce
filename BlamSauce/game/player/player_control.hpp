@@ -21,16 +21,16 @@ namespace Yelo
 		{
 			datum_index unit_index;									// 0x0
 			long_flags control_flags;								// 0x4
-			PAD16; // unknown field									// 0x8
-			PAD16; // unknown field									// 0xA
+			unsigned short : 16; // unknown field									// 0x8
+			unsigned short : 16; // unknown field									// 0xA
 			real_euler_angles2d	 desired_angles;					// 0xC
 			real_vector2d throttle;									// 0x14
 			real primary_trigger;									// 0x1C
-			int16 weapon_index;										// 0x20
-			int16 grenade_index;									// 0x22
-			int16 zoom_level;										// 0x24
+			short weapon_index;										// 0x20
+			short grenade_index;									// 0x22
+			short zoom_level;										// 0x24
 			sbyte weapon_swap_ticks; // unknown field				// 0x26
-			PAD8; // unknown field									// 0x27
+			unsigned char : 8; // unknown field									// 0x27
 			datum_index target_object_index;						// 0x28
 			real autoaim_level;										// 0x2C
 			PAD32; // unknown field									// 0x30
@@ -51,8 +51,8 @@ namespace Yelo
 		struct s_unit_camera_info
 		{
 			datum_index unit_index;
-			int16 seat_index;
-			PAD16;
+			short seat_index;
+			unsigned short : 16;
 			const TagGroups::s_unit_camera* unit_camera_definition;
 			real_point3d position;
 		}; static_assert( sizeof(s_unit_camera_info) == 0x18 );
@@ -62,6 +62,6 @@ namespace Yelo
 
 	namespace blam
 	{
-		void __cdecl player_control_get_unit_camera_info(const int16 player_index, Players::s_unit_camera_info& camera_info);
+		void __cdecl player_control_get_unit_camera_info(const short player_index, Players::s_unit_camera_info& camera_info);
 	};
 };

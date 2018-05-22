@@ -204,8 +204,8 @@ namespace Yelo {
 	namespace TagGroups {
 		struct animation_graph_weapon_type {
 			TAG_FIELD(tag_string, label);
-			TAG_PAD(int32, 4);
-			TAG_TBLOCK(animations, int16); // block index to model_animation
+			TAG_PAD(long, 4);
+			TAG_TBLOCK(animations, short); // block index to model_animation
 		};
 		static_assert( sizeof(animation_graph_weapon_type) == 0x3C ); // max count: 16
 		struct animation_graph_weapon {
@@ -217,14 +217,14 @@ namespace Yelo {
 			// aiming screen bounds
 			TAG_FIELD(angle, right_yaw_per_frame);
 			TAG_FIELD(angle, left_yaw_per_frame);
-			TAG_FIELD(int16, right_frame_count);
-			TAG_FIELD(int16, left_frame_count);
+			TAG_FIELD(short, right_frame_count);
+			TAG_FIELD(short, left_frame_count);
 			TAG_FIELD(angle, down_pitch_per_frame);
 			TAG_FIELD(angle, up_pitch_per_frame);
-			TAG_FIELD(int16, down_pitch_frame_count);
-			TAG_FIELD(int16, up_pitch_frame_count);
-			TAG_PAD(int32, 8);
-			TAG_TBLOCK(animations, int16); // block index to model_animation
+			TAG_FIELD(short, down_pitch_frame_count);
+			TAG_FIELD(short, up_pitch_frame_count);
+			TAG_PAD(long, 8);
+			TAG_TBLOCK(animations, short); // block index to model_animation
 			TAG_BLOCK(ik_points, animation_graph_unit_seat_ik_point);
 			TAG_TBLOCK(weapon_types, animation_graph_weapon_type);
 		};
@@ -236,14 +236,14 @@ namespace Yelo {
 			// looking screen bounds
 			TAG_FIELD(angle, right_yaw_per_frame);
 			TAG_FIELD(angle, left_yaw_per_frame);
-			TAG_FIELD(int16, right_frame_count);
-			TAG_FIELD(int16, left_frame_count);
+			TAG_FIELD(short, right_frame_count);
+			TAG_FIELD(short, left_frame_count);
 			TAG_FIELD(angle, down_pitch_per_frame);
 			TAG_FIELD(angle, up_pitch_per_frame);
-			TAG_FIELD(int16, down_pitch_frame_count);
-			TAG_FIELD(int16, up_pitch_frame_count);
-			TAG_PAD(int32, 2);
-			TAG_TBLOCK(animations, int16); // block index to model_animation
+			TAG_FIELD(short, down_pitch_frame_count);
+			TAG_FIELD(short, up_pitch_frame_count);
+			TAG_PAD(long, 2);
+			TAG_TBLOCK(animations, short); // block index to model_animation
 			TAG_BLOCK(ik_points, animation_graph_unit_seat_ik_point);
 			TAG_TBLOCK(weapons, animation_graph_weapon);
 		};
@@ -251,42 +251,42 @@ namespace Yelo {
 		struct model_animation {
 			TAG_FIELD(tag_string, name);
 			TAG_ENUM(type);
-			TAG_FIELD             (int16, frame_count);
-			TAG_FIELD(int16, frame_size);
+			TAG_FIELD             (short, frame_count);
+			TAG_FIELD(short, frame_size);
 			TAG_ENUM(frame_info_type);
-			TAG_FIELD        (int32, node_list_checksum);
-			TAG_FIELD(int16, node_count);
-			TAG_FIELD(int16, loop_frame_index);
+			TAG_FIELD        (long, node_list_checksum);
+			TAG_FIELD(short, node_count);
+			TAG_FIELD(short, loop_frame_index);
 			TAG_FIELD(real_fraction, weight);
-			TAG_FIELD(int16, key_frame_index);
-			TAG_FIELD(int16, second_key_frame_index);
-			TAG_FIELD(int16, next_animation);
+			TAG_FIELD(short, key_frame_index);
+			TAG_FIELD(short, second_key_frame_index);
+			TAG_FIELD(short, next_animation);
 			struct _flags {
 				TAG_FLAG16(compressed_data);
 				TAG_FLAG16(world_relative);
 				TAG_FLAG16(_25Hz_PAL);
 			} flags;
 			static_assert( sizeof(_flags) == sizeof(word_flags) );
-			TAG_FIELD(int16, sound);
-			TAG_FIELD(int16, sound_frame_index);
+			TAG_FIELD(short, sound);
+			TAG_FIELD(short, sound_frame_index);
 			TAG_FIELD(sbyte, left_foot_frame_index);
 			TAG_FIELD(sbyte, right_foot_frame_index);
 			//////////////////////////////////////////////////////////////////////////
 			// postprocessed fields (thus, not exposed to the editor)
-			int16         first_animation; // if this is a permutated animation, this represents the first animation (first animation will also have this set)
+			short         first_animation; // if this is a permutated animation, this represents the first animation (first animation will also have this set)
 			real_fraction random_fraction;
 			//////////////////////////////////////////////////////////////////////////
 			TAG_FIELD(tag_data, frame_info);
-			TAG_FIELD(int32, node_trans_flag_data1);
-			TAG_FIELD(int32, node_trans_flag_data2);
+			TAG_FIELD(long, node_trans_flag_data1);
+			TAG_FIELD(long, node_trans_flag_data2);
 			TAG_PAD(byte, 8);
-			TAG_FIELD(int32, node_rotation_flag_data1);
-			TAG_FIELD(int32, node_rotation_flag_data2);
+			TAG_FIELD(long, node_rotation_flag_data1);
+			TAG_FIELD(long, node_rotation_flag_data2);
 			TAG_PAD(byte, 8);
-			TAG_FIELD(int32, node_scale_flag_data1);
-			TAG_FIELD(int32, node_scale_flag_data2);
+			TAG_FIELD(long, node_scale_flag_data1);
+			TAG_FIELD(long, node_scale_flag_data2);
 			TAG_PAD(byte, 4);
-			TAG_FIELD(int32, offset_to_compressed_data);
+			TAG_FIELD(long, offset_to_compressed_data);
 			TAG_FIELD(tag_data, default_data);
 			TAG_FIELD(tag_data, frame_data);
 		};
@@ -308,7 +308,7 @@ namespace Yelo {
 				TAG_FLAG16(force_idle_compression);
 			} flags;
 			static_assert( sizeof(_flags) == sizeof(word_flags) );
-			PAD16;
+			unsigned short : 16;
 			TAG_BLOCK(nodes, animation_graph_node);
 			TAG_TBLOCK(animations, model_animation);
 		};

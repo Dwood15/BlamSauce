@@ -25,7 +25,7 @@ namespace Yelo {
 		}; static_assert(sizeof(s_remote_player_action_update_header) == 0x6);
 
 		struct s_remote_player_action_update_network_data {
-			int32                    ticks_to_apply_update_to;
+			long                    ticks_to_apply_update_to;
 			// desired_facing angles and zoom_index not synced
 			Players::s_player_action action;
 			real_vector3d            facing_vector;

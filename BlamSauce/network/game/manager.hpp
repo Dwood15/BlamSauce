@@ -15,8 +15,8 @@ namespace Yelo::Enums {
 namespace Yelo::Networking {
 	struct s_network_game_player {
 		wchar_t name[Enums::k_player_name_length + 1];   // 0x0
-		int16   primary_color_index;   // 0x18
-		int16   icon_index;         // 0x1A
+		short   primary_color_index;   // 0x18
+		short   icon_index;         // 0x1A
 		sbyte   machine_index;      // 0x1C
 		sbyte   controller_index;      // 0x1D
 		// These values will be the same on the client as they are on the server, so

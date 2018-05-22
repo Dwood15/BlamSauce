@@ -17,7 +17,7 @@ namespace Yelo::Flags {
 namespace Yelo::TagGroups {
 	struct s_tag_database_entry // tag_database_entry_block
 	{
-		typedef int32 block_index_t;
+		typedef long block_index_t;
 
 		TagData<char> name;
 		union {
@@ -31,7 +31,7 @@ namespace Yelo::TagGroups {
 		// Entries which reference this entry
 		TAG_TBLOCK(reference_ids, s_tag_database_entry::block_index_t);
 
-		TAG_PAD(db_pad0, int32, 3); // 12
+		TAG_PAD(db_pad0, long, 3); // 12
 		//void NameToBlockNameBuffer(char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 
 	}; static_assert(sizeof(s_tag_database_entry) == 0x44);
@@ -44,7 +44,7 @@ namespace Yelo::TagGroups {
 
 		TAG_TBLOCK(entries, s_tag_database_entry);
 
-		TAG_PAD(db_pad_01, int32, 6); // 24
+		TAG_PAD(db_pad_01, long, 6); // 24
 
 
 		// static void Initialize();
@@ -53,12 +53,12 @@ namespace Yelo::TagGroups {
 	// cstring __cdecl tag_database_entry_reference_block_format(
 	// 	datum_index tag_index,
 	// 	tag_block* block,
-	// 	int32 element,
+	// 	long element,
 	// 	char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 	//
 	// cstring __cdecl tag_database_entry_block_format(
 	// 	datum_index tag_index,
 	// 	tag_block* block,
-	// 	int32 element,
+	// 	long element,
 	// 	char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 };

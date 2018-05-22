@@ -115,9 +115,9 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 					bool active_bool;
-					PAD24;
+					unsigned char : 8; unsigned short : 16;
 				}* args = CAST_PTR(s_arguments*, arguments);
 
 				Generic::Internal::c_system_internal::Instance().SetEffectInstanceActive(args->effect_index, args->active_bool);
@@ -129,7 +129,7 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 					real fade_start;
 					real fade_end;
 					real fade_time;
@@ -144,7 +144,7 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
 
@@ -157,11 +157,11 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
 
-				result.int16 = Generic::Internal::c_system_internal::Instance().GetEffectInstanceFadeDirection(args->effect_index);
+				result.short = Generic::Internal::c_system_internal::Instance().GetEffectInstanceFadeDirection(args->effect_index);
 
 				return result.pointer;
 			}
@@ -182,7 +182,7 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
 
@@ -195,12 +195,12 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 					const char* test_string;
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
 
-				result.int16 = Generic::Internal::c_system_internal::Instance().GetEffectShaderVariableIndexByName(args->effect_index, args->test_string);
+				result.short = Generic::Internal::c_system_internal::Instance().GetEffectShaderVariableIndexByName(args->effect_index, args->test_string);
 
 				return result.pointer;
 			}
@@ -209,11 +209,11 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 					uint16 script_variable_index;
-					PAD16;
+					unsigned short : 16;
 					bool value;
-					PAD24;
+					unsigned char : 8; unsigned short : 16;
 					real interp_time;
 				}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -229,9 +229,9 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 					uint16 script_variable_index;
-					PAD16;
+					unsigned short : 16;
 					uint32 value;
 					real interp_time;
 				}* args = CAST_PTR(s_arguments*, arguments);
@@ -248,9 +248,9 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 					uint16 script_variable_index;
-					PAD16;
+					unsigned short : 16;
 					real values[4];
 					real interp_time;
 				}* args = CAST_PTR(s_arguments*, arguments);
@@ -270,9 +270,9 @@ namespace Yelo
 			{
 				struct s_arguments {
 					uint16 effect_index;
-					PAD16;
+					unsigned short : 16;
 					uint16 shader_instance_index;
-					PAD16;
+					unsigned short : 16;
 					bool active;
 				}* args = CAST_PTR(s_arguments*, arguments);
 

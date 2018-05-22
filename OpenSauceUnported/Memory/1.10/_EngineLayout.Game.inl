@@ -106,13 +106,13 @@ namespace Fov
 		//CAST_PTR(byte*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE_8BIT_1),
 	};
 
-	static int16* CampaignLevelCountReferences_16bit[] = {
-		CAST_PTR(int16*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE_16BIT_0),
+	static short* CampaignLevelCountReferences_16bit[] = {
+		CAST_PTR(short*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE_16BIT_0),
 	};
 
-	static int32* CampaignLevelCountReferences_32bit[] = {
-		CAST_PTR(int32*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE_32BIT_0),
-		//CAST_PTR(int32*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE_32BIT_1),
+	static long* CampaignLevelCountReferences_32bit[] = {
+		CAST_PTR(long*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE_32BIT_0),
+		//CAST_PTR(long*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE_32BIT_1),
 	};
 
 	//////////////////////////////////////////////////////////////////////////
@@ -127,10 +127,10 @@ namespace Fov
 		//CAST_PTR(byte*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE2_8BIT_6),
 	};
 
-	static int16* CampaignLevelCountReferences2_16bit[] = {
-		CAST_PTR(int16*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE2_16BIT_0),
-		CAST_PTR(int16*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE2_16BIT_1),
-		//CAST_PTR(int16*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE2_16BIT_2),
+	static short* CampaignLevelCountReferences2_16bit[] = {
+		CAST_PTR(short*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE2_16BIT_0),
+		CAST_PTR(short*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE2_16BIT_1),
+		//CAST_PTR(short*, K_CAMPAIGN_LEVEL_COUNT_REFERENCE2_16BIT_2),
 	};
 	#pragma endregion
 

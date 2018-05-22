@@ -52,10 +52,10 @@ namespace Yelo
 				}game_engine;
 
 				real_point2d world_position;
-				UNKNOWN_TYPE(int32); // game time related
+				UNKNOWN_TYPE(long); // game time related
 				UNKNOWN_TYPE(real); // related to calculations with objects and facing angle of the player_update
 				sbyte active_object_blips_count;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}; static_assert( sizeof(s_team_data) == 0x84 );
 			struct s_local_player
 			{
@@ -67,10 +67,10 @@ namespace Yelo
 			s_local_player local_players[Enums::k_maximum_number_of_local_players];
 
 			struct {
-				UNKNOWN_TYPE(int32); // game time related
-				int16 current_object_blip_index;
-				PAD8; // actually boolean, but you don't need to worry about this value!
-				PAD8;
+				UNKNOWN_TYPE(long); // game time related
+				short current_object_blip_index;
+				unsigned char : 8; // actually boolean, but you don't need to worry about this value!
+				unsigned char : 8;
 			}update_data;
 		}; static_assert( sizeof(s_motion_sensor) == 0x570 );
 		s_motion_sensor*			MotionSensor();

@@ -16,7 +16,7 @@ namespace Yelo {
 		// path, without tag group extension, to the tag reference
 		tag_reference_name_reference Name;
 		// length of the reference name
-		int32                        NameLength;
+		long                        NameLength;
 
 		// datum index of this reference in the tag index
 		datum_index TagIndex;
@@ -53,7 +53,7 @@ namespace Yelo {
 		typedef const T *const_pointer;
 
 		// Element count for this block
-		int32 Count;
+		long Count;
 
 		// Anonymous union for allowing less code for converting, and less 
 		// "#pragma warning" code entries
@@ -87,28 +87,28 @@ namespace Yelo {
 		}
 
 		// Indexer for getting a definition reference via the definition's index in the block
-		T &operator [](int32 index) {
+		T &operator [](long index) {
 			assert(index >= 0 && index < Count);
 			return this->Definitions[index];
 		}
 
 		// Indexer for getting a (const) definition reference via the definition's index in the block
-		const T &operator [](int32 index) const {
+		const T &operator [](long index) const {
 
 			assert(index >= 0 && index < Count);
 			return this->Definitions[index];
 		}
 
 		//index not defined if not editor
-		// T *get_element(int32 element) { return blam::tag_block_get_element(*this, index); }
+		// T *get_element(long element) { return blam::tag_block_get_element(*this, index); }
 		//
-		// void delete_element(int32 element) { blam::tag_block_delete_element(*this, element); }
+		// void delete_element(long element) { blam::tag_block_delete_element(*this, element); }
 		//
 		// bool delete_all_elements() { return blam::tag_block_delete_all_elements(*this); }
 		//
-		// int32 add_element() { return blam::tag_block_add_element(*this); }
+		// long add_element() { return blam::tag_block_add_element(*this); }
 		//
-		// bool resize(int32 element_count) { return blam::tag_block_resize(*this, element_count); }
+		// bool resize(long element_count) { return blam::tag_block_resize(*this, element_count); }
 		//
 		// T *add_and_get_element() { return blam::tag_block_add_and_get_element(*this); }
 
@@ -139,27 +139,27 @@ namespace Yelo {
 
 	namespace blam {
 		template<typename T>
-		T* tag_block_get_element(TagBlock<T>& block, int32 element)
+		T* tag_block_get_element(TagBlock<T>& block, long element)
 		{
 			return CAST_PTR(T*, tag_block_get_element(block.to_tag_block(), element));
 		}
 		template<typename T>
-		const T* tag_block_get_element(const TagBlock<T>& block, int32 element)
+		const T* tag_block_get_element(const TagBlock<T>& block, long element)
 		{
 			return CAST_PTR(const T*, tag_block_get_element(block.to_tag_block(), element));
 		}
 		template<typename T>
-		int32 tag_block_add_element(TagBlock<T>& block)
+		long tag_block_add_element(TagBlock<T>& block)
 		{
 			return tag_block_add_element(block.to_tag_block());
 		}
 		template<typename T>
-		bool tag_block_resize(TagBlock<T>& block, int32 element_count)
+		bool tag_block_resize(TagBlock<T>& block, long element_count)
 		{
 			return tag_block_resize(block.to_tag_block(), element_count);
 		}
 		template<typename T>
-		void tag_block_delete_element(TagBlock<T>& block, int32 element)
+		void tag_block_delete_element(TagBlock<T>& block, long element)
 		{
 			tag_block_delete_element(block.to_tag_block(), element);
 		}
@@ -184,10 +184,10 @@ namespace Yelo {
 		typedef const T *const_pointer;
 
 		// Size, in bytes, of the data blob
-		int32 Size;
+		long Size;
 
 		long_flags Flags;
-		int32      StreamPosition;
+		long      StreamPosition;
 
 		union {
 			// Address of the data blob
@@ -208,7 +208,7 @@ namespace Yelo {
 
 		const tag_data *to_tag_data() const { return CAST_PTR(const tag_data*, &this->Size); }
 
-		T *operator [](int32 index) { return &this->Definitions[index]; }
+		T *operator [](long index) { return &this->Definitions[index]; }
 
 		//////////////////////////////////////////////////////////////////////////
 		// STL-like APIs

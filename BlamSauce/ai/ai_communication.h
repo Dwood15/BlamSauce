@@ -127,20 +127,20 @@ typedef Memory::DataArray<s_ai_conversation_datum, 8>
 	ai_conversation_data_t;
 
 struct s_ai_communication_packet {
-	UNKNOWN_TYPE(int32);
-	UNKNOWN_TYPE(int16); // 4
+	UNKNOWN_TYPE(long);
+	UNKNOWN_TYPE(short); // 4
 	Enums::ai_communication_type dialogue_type_index; // 6
-	UNKNOWN_TYPE(int16); // 8
-	PAD16; // A ?
+	UNKNOWN_TYPE(short); // 8
+	unsigned short : 16; // A ?
 
-	UNKNOWN_TYPE(int16); // C
-	PAD16; // E ?
+	UNKNOWN_TYPE(short); // C
+	unsigned short : 16; // E ?
 	PAD32; // 10 ?
-	UNKNOWN_TYPE(int16); // 14
-	PAD16; // 16 ?
-										  UNKNOWN_TYPE(int16); // 18
-										  UNKNOWN_TYPE(int16); // 1A
+	UNKNOWN_TYPE(short); // 14
+	unsigned short : 16; // 16 ?
+										  UNKNOWN_TYPE(short); // 18
+										  UNKNOWN_TYPE(short); // 1A
 	bool                         broken; // 1C false = reformed
-	PAD24;
+	unsigned char : 8; unsigned short : 16;
 }; static_assert(sizeof(s_ai_communication_packet) == 0x20);
 };

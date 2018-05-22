@@ -25,7 +25,7 @@ namespace Yelo {
 				}                   m_current_lightmaps;
 
 			public:
-				typedef TagGroups::s_bitmap_data *(__stdcall *proc_get_bitmap_data)(const datum_index, const int32);
+				typedef TagGroups::s_bitmap_data *(__stdcall *proc_get_bitmap_data)(const datum_index, const long);
 
 				////////////////////////////////////////////////////////////////////////////////////////////////////
 				/// <summary>	Returns true if the lightmap set has certain lightmap types. </summary>
@@ -70,9 +70,9 @@ namespace Yelo {
 				/// <param name="device">		  	The current render device. </param>
 				/// <param name="lightmap_index"> 	Index of the lightmap. </param>
 				/// <param name="get_bitmap_data">	Function for getting a bitmap data block. </param>
-				void SetLightmapSamplers(LPDIRECT3DDEVICE9 device, const int32 lightmap_index, const bool use_directional, const proc_get_bitmap_data get_bitmap_data)  {
+				void SetLightmapSamplers(LPDIRECT3DDEVICE9 device, const long lightmap_index, const bool use_directional, const proc_get_bitmap_data get_bitmap_data)  {
 					auto set_sampler =
-							  [&](datum_index bitmap_tag_index, int32 sampler) {
+							  [&](datum_index bitmap_tag_index, long sampler) {
 								  auto bitmap_data = get_bitmap_data(bitmap_tag_index, lightmap_index);
 								  blam::rasterizer_set_texture_bitmap_data((short) sampler, bitmap_data);
 

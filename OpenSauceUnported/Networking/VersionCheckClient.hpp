@@ -27,7 +27,7 @@ namespace Yelo
 			struct {
 				/// Is the game currently on the main menu
 				bool is_in_menu;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 			}m_states_user;
 
 		public:

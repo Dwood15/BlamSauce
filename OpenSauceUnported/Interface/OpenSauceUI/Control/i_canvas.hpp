@@ -36,7 +36,7 @@ namespace Yelo
 			///
 			/// <param name="width"> 	The width of the canvas. </param>
 			/// <param name="height">	The height of the canvas. </param>
-			virtual void SetSize(const int32 width, const int32 height) = 0;
+			virtual void SetSize(const long width, const long height) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Sets the scale of the canvas. </summary>

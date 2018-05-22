@@ -15,7 +15,7 @@ namespace Yelo
 		{
 			datum_index definition_index;		// 0x0
 			cstring name;						// 0x4
-			int16 local_player_index;			// 0x8
+			short local_player_index;			// 0x8
 			point2d position;					// 0xA
 			short widget_type;					// 0xE
 			bool visible;						// 0x10
@@ -25,7 +25,7 @@ namespace Yelo
 			bool deleted;						// 0x14
 			UNKNOWN_TYPE(bool);					// 0x15
 			UNKNOWN_TYPE(bool);					// 0x16
-			PAD8;
+			unsigned char : 8;
 			DWORD creator_process_start_time;	// 0x18
 			DWORD ms_to_auto_close;				// 0x1C
 			DWORD ms_auto_close_fade_time;		// 0x20
@@ -38,30 +38,30 @@ namespace Yelo
 			union {								// 0x3C
 				struct {
 					wchar_t* buffer;
-					int16 string_index;			// 0x40
-					PAD16;
+					short string_index;			// 0x40
+					unsigned short : 16;
 				}textbox;
 
 				struct {
-					UNKNOWN_TYPE(int16);		// 0x3C seems to be a copy of element index
-					UNKNOWN_TYPE(int16);		// 0x3E 
+					UNKNOWN_TYPE(short);		// 0x3C seems to be a copy of element index
+					UNKNOWN_TYPE(short);		// 0x3E
 
-					int16 element_index;		// 0x40
-					UNKNOWN_TYPE(int16);		// 0x42 goto state (negative is prev, positive is next)
+					short element_index;		// 0x40
+					UNKNOWN_TYPE(short);		// 0x42 goto state (negative is prev, positive is next)
 					void* elements;				// 0x44
 					uint16 element_count;		// 0x48
-					PAD16;
+					unsigned short : 16;
 				}list;
 			};
 			s_ui_widget_instance* extended_desc_widget; // 0x4C
 			void* user_data;					// 0x50
-			UNKNOWN_TYPE(int16);				// 0x54 list related
-			PAD16;
+			UNKNOWN_TYPE(short);				// 0x54 list related
+			unsigned short : 16;
 
-			UNKNOWN_TYPE(int16);				// 0x58
-			UNKNOWN_TYPE(int16);				// 0x5A
-			UNKNOWN_TYPE(int16);				// 0x5C
-			UNKNOWN_TYPE(int16);				// 0x5E
+			UNKNOWN_TYPE(short);				// 0x58
+			UNKNOWN_TYPE(short);				// 0x5A
+			UNKNOWN_TYPE(short);				// 0x5C
+			UNKNOWN_TYPE(short);				// 0x5E
 		}; static_assert( sizeof(s_ui_widget_instance) == 0x60 );
 	};
 
@@ -72,9 +72,9 @@ namespace Yelo
 			datum_index ui_widget_definition_index,
 			UIWidgets::s_ui_widget_instance* parent = nullptr,
 			// don't set ctrl'er index unless you specify the last three params as well
-			int16 controller_index = NONE, 
+			short controller_index = NONE,
 			datum_index topmost_widget_definition_index = datum_index::null,
 			datum_index parent_widget_definition_index = datum_index::null,
-			int16 child_index_from_parent = NONE);
+			short child_index_from_parent = NONE);
 	};
 };

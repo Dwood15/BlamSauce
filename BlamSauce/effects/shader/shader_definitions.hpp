@@ -299,7 +299,7 @@ namespace Yelo
 			// texture scrolling animation
 			// Scrolls all 2D maps simultaneously.
 			TAG_ENUM(animation_function, Enums::periodic_function);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, animation_period, "seconds");
 			TAG_FIELD(real, animation_scale, "base map repeats");
 		}; static_assert( sizeof(s_shader_texture_animation_function) == 12 );
@@ -313,17 +313,17 @@ namespace Yelo
 			TAG_FIELD(real_rgb_color, on_color);
 			TAG_FIELD(real_rgb_color, off_color);
 			TAG_ENUM(animation_function, Enums::periodic_function);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, animation_period, "seconds", "0 defaults to 1");
 			TAG_FIELD(real, animation_phase, "seconds");
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 		}; static_assert( sizeof(s_shader_color_function) == 60 );
 		struct s_shader_shader_framebuffer_function
 		{
 			TAG_ENUM(shader_framebuffer_blend_function, Enums::shader_framebuffer_blend_function);
 			TAG_ENUM(shader_framebuffer_fade_mode, Enums::shader_framebuffer_fade_mode);
 			TAG_ENUM(shader_framebuffer_fade_source, Enums::object_function_reference, "fade is multiplied by this external value");
-			PAD16;
+			unsigned short : 16;
 		}; static_assert( sizeof(s_shader_shader_framebuffer_function) == 8 );
 		struct s_shader_radiosity_properties
 		{
@@ -421,9 +421,10 @@ namespace Yelo
 				TAG_FIELD(_map_flags, flags);
 				s_shader_animation animation;
 			}secondary_map;
-			PAD32;
+			unsigned long : 32;
 			real z_sprite_radius_scale;
-			PAD128; PAD32;
+			PAD128;
+			unsigned long : 32;
 		}; static_assert( sizeof(_shader_effect_definition) == 0x8C );
 		
 		// the following tags/blocks have inline instances of this:
@@ -517,20 +518,20 @@ namespace Yelo
 				}; static_assert(sizeof(_flags) == sizeof(word_flags));
 
 				TAG_FIELD(_flags, flags);
-				PAD16;
-				TAG_PAD(int32, 6);
+				unsigned short : 16;
+				TAG_PAD(long, 6);
 				TAG_FIELD(tag_reference, base_map, 'bitm');
-				TAG_PAD(int32, 6);
+				TAG_PAD(long, 6);
 				TAG_ENUM(detail_map_function, Enums::detail_map_function, "affects primary and secondary detail maps");
-				PAD16;
+				unsigned short : 16;
 				s_shader_scaled_map primary_detail_map;
 				s_shader_scaled_map secondary_detail_map;
-				TAG_PAD(int32, 6);
+				TAG_PAD(long, 6);
 				TAG_ENUM(micro_detail_map_function, Enums::detail_map_function);
-				PAD16;
+				unsigned short : 16;
 				s_shader_scaled_map micro_detail_map;
 				TAG_FIELD(real_rgb_color, material_color, "", "modulates incoming diffuse light, including lightmaps, but excluding self-illumination and specular effects");
-				TAG_PAD(int32, 3);
+				TAG_PAD(long, 3);
 			}diffuse;
 
 			////////////////////////////////////////////////////////////////
@@ -540,14 +541,14 @@ namespace Yelo
 				s_shader_scaled_map bump_map;
 				UNKNOWN_TYPE(real); // postprocessed
 				UNKNOWN_TYPE(real); // postprocessed
-				TAG_PAD(int32, 4);
+				TAG_PAD(long, 4);
 			}bump;
 
 			////////////////////////////////////////////////////////////////
 			// texture scrolling animation
 			// Scrolls all 2D maps simultaneously.
 			s_shader_texture_animation_function texture_scrolling[2];
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 
 			////////////////////////////////////////////////////////////////
 			// self-illumination properties
@@ -567,11 +568,11 @@ namespace Yelo
 				}; static_assert(sizeof(_flags) == sizeof(word_flags));
 
 				TAG_FIELD(_flags, flags);
-				PAD16;
-				TAG_PAD(int32, 6);
+				unsigned short : 16;
+				TAG_PAD(long, 6);
 				s_shader_color_function color_functions[3];
 				s_shader_scaled_map map;
-				TAG_PAD(int32, 6);
+				TAG_PAD(long, 6);
 			}self_illumination;
 
 			////////////////////////////////////////////////////////////////
@@ -588,13 +589,13 @@ namespace Yelo
 				}; static_assert(sizeof(_flags) == sizeof(word_flags));
 
 				TAG_FIELD(_flags, flags);
-				PAD16;
-				TAG_PAD(int32, 4);
+				unsigned short : 16;
+				TAG_PAD(long, 4);
 				TAG_FIELD(real_fraction, brightness, "[0,1]", "0 is no specular hilights");
-				TAG_PAD(int32, 5);
+				TAG_PAD(long, 5);
 				TAG_FIELD(real_rgb_color, perpendicular_color, "", "hilight color when viewed perpendicularly");
 				TAG_FIELD(real_rgb_color, parallel_color, "", "hilight color when viewed at a glancing angle");
-				TAG_PAD(int32, 4);
+				TAG_PAD(long, 4);
 			}specular;
 
 			////////////////////////////////////////////////////////////////
@@ -617,14 +618,14 @@ namespace Yelo
 				TAG_FIELD(_flags, flags);
 				TAG_ENUM(type, Enums::reflection_type);
 				TAG_FIELD(real_fraction, lightmap_brightness_scale, "[0,1]", "reflection brightness when lightmap brightness is 1");
-				TAG_PAD(int32, 7);
+				TAG_PAD(long, 7);
 				TAG_FIELD(real_fraction, perpendicular_brightness, "[0,1]", "brightness when viewed perpendicularly");
 				TAG_FIELD(real_fraction, parallel_brightness, "[0,1]", "brightness when viewed at a glancing angle");
-				TAG_PAD(int32, 4);
-				TAG_PAD(int32, 2);
-				TAG_PAD(int32, 4);
+				TAG_PAD(long, 4);
+				TAG_PAD(long, 2);
+				TAG_PAD(long, 4);
 				TAG_FIELD(tag_reference, cube_map, "bitm");
-				TAG_PAD(int32, 4);
+				TAG_PAD(long, 4);
 			}reflection;
 		}; static_assert( sizeof(_shader_environment_definition) == 0x31C );
 		
@@ -655,7 +656,7 @@ namespace Yelo
 						real coefficient; //used by all
 						union{
 							struct{
-								PAD32;
+								unsigned long : 32;
 								real exponent;  //only used by specular color
 								TAG_FIELD(__specular_color_flags, flags);
 							};
@@ -678,8 +679,8 @@ namespace Yelo
 			TAG_FIELD(real_rgb_color, parallel_tint_color, "", "reflection tint color when viewed at a glancing angle");
 			
 			TAG_FIELD(__diffuse_lighting_flags, diffuse_lighting_flags);
-			PAD16;
-			PAD32;
+			unsigned short : 16;
+			unsigned long : 32;
 
 			TAG_FIELD(real, specular_lighting_exponent);
 			TAG_FIELD(real, specular_lighting_coefficient);
@@ -707,30 +708,30 @@ namespace Yelo
 			// model shader
 			// Setting <true atmospheric fog> enables per-pixel atmospheric fog but disables point/spot lights, planar fog, and the ability to control the atmospheric fog density for this shader.
 			TAG_FIELD(__flags, flags);
-			PAD16;
-			TAG_PAD(int32, 3);
+			unsigned short : 16;
+			TAG_PAD(long, 3);
 			TAG_FIELD(real_fraction, translucency, "", "amount of light that can illuminate the shader from behind");
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 
 			////////////////////////////////////////////////////////////////
 			// change color
 			// Change color is used to recolor the diffuse map, it affects pixels based on the BLUE channel of the multipurpose map.
 			TAG_ENUM(change_color_source, Enums::object_change_color_reference);
-			PAD16;
-			TAG_PAD(int32, 7);
+			unsigned short : 16;
+			TAG_PAD(long, 7);
 
 			struct {
 				////////////////////////////////////////////////////////////////
 				// self-illumination
 				// Self-illumination adds diffuse light to pixels based on the GREEN channel of the multipurpose map. The external self-illumination color referenced by <color source> is modulated by the self-illumination animation.
 				TAG_FIELD(__flags_1, flags_1);
-				PAD16;
+				unsigned short : 16;
 				TAG_ENUM(color_source, Enums::object_change_color_reference);
 				TAG_ENUM(animation_function, Enums::periodic_function);
 				TAG_FIELD(real, animation_period, "seconds");
 				TAG_FIELD(real_rgb_color, animation_color_lower_bound);
 				TAG_FIELD(real_rgb_color, animation_color_upper_bound);
-				TAG_PAD(int32, 3);
+				TAG_PAD(long, 3);
 			}self_illumination;
 
 			struct { // 0x9C
@@ -750,16 +751,16 @@ namespace Yelo
 				TAG_FIELD(real, map_u_scale, "", "0 defaults to 1; scales all 2D maps simultaneously");
 				TAG_FIELD(real, map_v_scale, "", "0 defaults to 1; scales all 2D maps simultaneously");
 				TAG_FIELD(tag_reference, base_map, 'bitm');
-				TAG_PAD(int32, 2);
+				TAG_PAD(long, 2);
 				TAG_FIELD(tag_reference, multipurpose_map, 'bitm');
-				TAG_PAD(int32, 2);
+				TAG_PAD(long, 2);
 				TAG_ENUM(detail_function, Enums::detail_function, "controls how detail map is applied to diffuse map");
 				TAG_ENUM(detail_mask, Enums::detail_mask, "controls how detail map is masked");
 				s_shader_scaled_map detail_map;
 				TAG_FIELD(real, detail_map_v_scale, "", "0 defaults to 1 (applied on top of detail map scale above)");
 				TAG_TBLOCK(shader_extension, s_shader_model_extension);
 				s_shader_animation animation;
-				TAG_PAD(int32, 2);
+				TAG_PAD(long, 2);
 			}maps;
 
 			struct {
@@ -774,10 +775,10 @@ namespace Yelo
 				TAG_FIELD(tag_reference, reflection_cube_map, 'bitm');
 			}reflection_properties;
 
-			TAG_PAD(int32, 4);
-			PAD32;
-			TAG_PAD(int32, 4);
-			TAG_PAD(int32, 8);			
+			TAG_PAD(long, 4);
+			unsigned long : 32;
+			TAG_PAD(long, 4);
+			TAG_PAD(long, 8);
 		}; static_assert( sizeof(_shader_model_definition) == 0x190 );
 		
 		struct s_shader_model_definition : s_shader_definition
@@ -802,11 +803,11 @@ namespace Yelo
 			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
 
 			TAG_FIELD(__flags, flags);
-			PAD16;
-			TAG_PAD(int32, 10);
+			unsigned short : 16;
+			TAG_PAD(long, 10);
 			TAG_ENUM(color_function, Enums::color_function, "ignored for last map");
 			TAG_ENUM(alpha_function, Enums::color_function, "ignored for last map");
-			TAG_PAD(int32, 9);
+			TAG_PAD(long, 9);
 			TAG_FIELD(real, map_u_scale, "", "0 defaults to 1");
 			TAG_FIELD(real, map_v_scale, "", "0 defaults to 1");
 			TAG_FIELD(real, map_u_offset);
@@ -814,7 +815,7 @@ namespace Yelo
 			TAG_FIELD(real, map_rotation, "degrees");
 			TAG_FIELD(real_fraction, mipmap_bias, "[0,1]");
 			TAG_FIELD(tag_reference, map, 'bitm');
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 
 			////////////////////////////////////////////////////////////////
 			// 2D texture animation
@@ -843,7 +844,7 @@ namespace Yelo
 			TAG_TBLOCK(extra_layers, s_shader_transparent_layer);
 			TAG_TBLOCK(maps, s_shader_transparent_chicago_map);
 			TAG_FIELD(__extra_flags, extra_flags);
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 		};
 		
 		struct s_shader_transparent_chicago_definition : s_shader_definition
@@ -859,7 +860,7 @@ namespace Yelo
 			TAG_TBLOCK(_4_stage_maps, s_shader_transparent_chicago_map);
 			TAG_TBLOCK(_2_stage_maps, s_shader_transparent_chicago_map);
 			TAG_FIELD(__extra_flags, extra_flags);
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 		};
 		
 		struct s_shader_transparent_chicago_extended_definition : s_shader_definition
@@ -879,7 +880,7 @@ namespace Yelo
 			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
 
 			TAG_FIELD(__flags, flags);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, map_u_scale, "", "0 defaults to 1");
 			TAG_FIELD(real, map_v_scale, "", "0 defaults to 1");
 			TAG_FIELD(real, map_u_offset);
@@ -902,7 +903,7 @@ namespace Yelo
 			}; static_assert( sizeof(__flags) == sizeof(word_flags) );
 
 			TAG_FIELD(__flags, flags);
-			PAD16;
+			unsigned short : 16;
 
 			////////////////////////////////////////////////////////////////
 			// constants and animation
@@ -980,20 +981,20 @@ namespace Yelo
 			////////////////////////////////////////////////////////////////
 			// glass shader
 			TAG_FIELD(__flags, flags);
-			PAD16;
+			unsigned short : 16;
 
 			////////////////////////////////////////////////////////////////
 			// background tint properties
 			// Background pixels are multiplied by the tint map and constant tint color.
-			TAG_PAD(int32, 10);
+			TAG_PAD(long, 10);
 			TAG_FIELD(real_rgb_color, background_tint_color);
 			s_shader_scaled_map background_tint_map;
-			TAG_PAD(int32, 5);
+			TAG_PAD(long, 5);
 
 			////////////////////////////////////////////////////////////////
 			// reflection properties
 			// Reflection maps are multiplied by fresnel terms (glancing angles cause reflections to disappear) and then added to the background. The primary reflection map is textured normally, while the secondary reflection map is magnified.
-			PAD16;
+			unsigned short : 16;
 			TAG_ENUM(reflection_type, Enums::reflection_type);
 			TAG_FIELD(real_fraction, perpendicular_brightness, "[0,1]");
 			TAG_FIELD(real_rgb_color, perpendicular_tint_color);
@@ -1001,23 +1002,23 @@ namespace Yelo
 			TAG_FIELD(real_rgb_color, parallel_tint_color);
 			TAG_FIELD(tag_reference, reflection_map, "bitm");
 			s_shader_scaled_map bump_map;
-			TAG_PAD(int32, 32);
+			TAG_PAD(long, 32);
 
 			////////////////////////////////////////////////////////////////
 			// diffuse properties
 			// Diffuse lights are accumulated in monochrome and then alpha-blended with diffuse map and diffuse detail map. The color is determined by double-multiplying both maps and multiplying with the accumulated light, the result being alpha-blended into the framebuffer. The opacity is determined by multiplying both map's alpha channels. Since this effect is alpha-blended, it covers up tinting and reflection on pixels with high opacity.
-			PAD32;
+			unsigned long : 32;
 			s_shader_scaled_map diffuse_map;
 			s_shader_scaled_map diffuse_detail_map;
-			TAG_PAD(int32, 7);
+			TAG_PAD(long, 7);
 
 			////////////////////////////////////////////////////////////////
 			// specular properties
 			// Specular lights are accumulated in monochrome and then alpha-blended with diffuse map and diffuse detail map. The color is determined by double-multiplying both maps and multiplying with the accumulated light, the result being alpha-blended into the framebuffer. The opacity is determined by multiplying both map's alpha channels. Since this effect is alpha-blended, it covers up tinting, reflection and diffuse texture on pixels with high opacity.
-			PAD32;
+			unsigned long : 32;
 			s_shader_scaled_map specular_map;
 			s_shader_scaled_map specular_detail_map;
-			TAG_PAD(int32, 7);
+			TAG_PAD(long, 7);
 		};
 		
 		struct s_shader_transparent_glass_definition : s_shader_definition
@@ -1041,10 +1042,10 @@ namespace Yelo
 			////////////////////////////////////////////////////////////////
 			// meter shader
 			TAG_FIELD(__flags, flags);
-			PAD16;
-			TAG_PAD(int32, 8);
+			unsigned short : 16;
+			TAG_PAD(long, 8);
 			TAG_FIELD(tag_reference, map, 'bitm');
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 
 			////////////////////////////////////////////////////////////////
 			// colors
@@ -1055,7 +1056,7 @@ namespace Yelo
 			TAG_FIELD(real_rgb_color, tint_color, "", "modulates framebuffer color unless map alpha is zero");
 			TAG_FIELD(real_fraction, meter_transparency, "[0,1]", "used only when 'tint mode-2' is set");
 			TAG_FIELD(real_fraction, background_transparency, "[0,1]", "used only when 'tint mode-2' is set");
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 
 			////////////////////////////////////////////////////////////////
 			// external function sources
@@ -1064,8 +1065,8 @@ namespace Yelo
 			TAG_ENUM(value_source, Enums::object_function_reference, "position of flash leading edge (default is 1)");
 			TAG_ENUM(gradient_source, Enums::object_function_reference, "high color leading edge (default is 1)");
 			TAG_ENUM(flash_extension_source, Enums::object_function_reference, "position of flash extension leading edge (default is 1)");
-			PAD16;
-			TAG_PAD(int32, 8);
+			unsigned short : 16;
+			TAG_PAD(long, 8);
 		};
 		
 		struct s_shader_transparent_meter_definition : s_shader_definition
@@ -1079,24 +1080,24 @@ namespace Yelo
 		{	
 			////////////////////////////////////////////////////////////////
 			// plasma shader
-			PAD16;
-			PAD16;
+			unsigned short : 16;
+			unsigned short : 16;
 
 			////////////////////////////////////////////////////////////////
 			// intensity
 			// Controls how bright the plasma is.
 			TAG_ENUM(intensity_source, Enums::object_function_reference);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, intensity_exponent, "", "0 defaults to 1");
 
 			////////////////////////////////////////////////////////////////
 			// offset
 			// Controls how far the plasma energy extends from the model geometry.
 			TAG_ENUM(offset_source, Enums::object_function_reference);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, offset_amount, "world units");
 			TAG_FIELD(real, offset_exponent, "", "0 defaults to 1");
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 
 			////////////////////////////////////////////////////////////////
 			// color
@@ -1106,28 +1107,28 @@ namespace Yelo
 			TAG_FIELD(real_fraction, parallel_brightness, "[0,1]");
 			TAG_FIELD(real_rgb_color, parallel_tint_color);
 			TAG_ENUM(tint_color_source, Enums::object_change_color_reference, "modulates perpendicular and parallel colors above");
-			PAD16;
-			TAG_PAD(int32, 8);
-			PAD16;
-			PAD16;
-			TAG_PAD(int32, 4);
+			unsigned short : 16;
+			TAG_PAD(long, 8);
+			unsigned short : 16;
+			unsigned short : 16;
+			TAG_PAD(long, 4);
 
 			////////////////////////////////////////////////////////////////
 			// primary noise map
-			PAD32;
-			PAD32;
+			unsigned long : 32;
+			unsigned long : 32;
 			TAG_FIELD(real, primary_animation_period, "seconds");
 			TAG_FIELD(real_vector3d, primary_animation_direction);
 			s_shader_scaled_map primary_noise_map;
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 
 			////////////////////////////////////////////////////////////////
 			// secondary noise map
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(real, secondary_animation_period, "seconds");
 			TAG_FIELD(real_vector3d, secondary_animation_direction);
 			s_shader_scaled_map secondary_noise_map;
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 		};
 		
 		struct s_shader_transparent_plasma_definition : s_shader_definition
@@ -1139,16 +1140,16 @@ namespace Yelo
 		//////////////////////////////////////////////////////////////////////////
 		struct s_shader_transparent_water_ripple
 		{
-			PAD16;
-			PAD16;
+			unsigned short : 16;
+			unsigned short : 16;
 			TAG_FIELD(real_fraction, contribution_factor, "[0,1]", "0 defaults to 1");
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 			TAG_FIELD(angle, animation_angle, "[0,360]");
 			TAG_FIELD(real, animation_velocity);
 			TAG_FIELD(real_vector2d, map_offset);
-			TAG_FIELD(int16, map_repeats, "", "0 defaults to 1");
-			TAG_FIELD(int16, map_index, "", "index into ripple maps");
-			TAG_PAD(int32, 4);
+			TAG_FIELD(short, map_repeats, "", "0 defaults to 1");
+			TAG_FIELD(short, map_index, "", "index into ripple maps");
+			TAG_PAD(long, 4);
 		}; static_assert( sizeof(s_shader_transparent_water_ripple) == 0x4C ); // max count: 4
 		struct _shader_transparent_water_definition
 		{
@@ -1164,28 +1165,28 @@ namespace Yelo
 			// water shader
 			// Base map color modulates the background, while base map alpha modulates reflection brightness. Both of these effects can be independently enables and disabled. Note that if the <base map alpha modulates reflection> flag is not set, then the perpendicular/parallel brightness has no effect (but the perpendicular/parallel tint color DOES has an effect).
 			TAG_FIELD(__flags, flags);
-			PAD16;
-			TAG_PAD(int32, 8);
+			unsigned short : 16;
+			TAG_PAD(long, 8);
 			TAG_FIELD(tag_reference, base_map, 'bitm');
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 			TAG_FIELD(real_fraction, view_perpendicular_brightness, "[0,1]");
 			TAG_FIELD(real_rgb_color, view_perpendicular_tint_color);
 			TAG_FIELD(real_fraction, view_parallel_brightness, "[0,1]", "0 defaults to 1");
 			TAG_FIELD(real_rgb_color, view_parallel_tint_color);
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 			TAG_FIELD(tag_reference, reflection_map, 'bitm');
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 			TAG_FIELD(angle, ripple_animation_angle, "[0,360]");
 			TAG_FIELD(real, ripple_animation_velocity);
 			TAG_FIELD(real, ripple_scale, "", "0 defaults to 1");
 			TAG_FIELD(tag_reference, ripple_maps, 'bitm');
-			TAG_FIELD(int16, ripple_mipmap_levels, "", "0 defaults to 1");
-			PAD16;
+			TAG_FIELD(short, ripple_mipmap_levels, "", "0 defaults to 1");
+			unsigned short : 16;
 			TAG_FIELD(real_fraction, ripple_mipmap_fade_factor, "[0,1]", "flatness of last mipmap");
 			TAG_FIELD(real, ripple_mipmap_detail_bias);
-			TAG_PAD(int32, 16);
+			TAG_PAD(long, 16);
 			TAG_TBLOCK(ripples, s_shader_transparent_water_ripple);
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 		};
 		
 		struct s_shader_transparent_water_definition : s_shader_definition

@@ -12,11 +12,11 @@ namespace Yelo
 	{
 		struct s_simple_circular_queue
 		{
-			int32 max_queue_size;	// 0x0
+			long max_queue_size;	// 0x0
 			uint32 entry_size;		// 0x4
 			void** user_data;		// 0x8, references to user_data structures
-			int32 start;			// 0xC
-			int32 end;				// 0x10
+			long start;			// 0xC
+			long end;				// 0x10
 		}; static_assert( sizeof(s_simple_circular_queue) == 0x14 );
 	};
 };

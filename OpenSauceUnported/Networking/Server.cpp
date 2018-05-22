@@ -17,9 +17,9 @@ namespace Yelo
 	{
 		wcstring ServerPassword()											PTR_IMP_GET2(sv_password);
 		cstring ServerRconPassword()										PTR_IMP_GET2(sv_rcon_password);
-		int32 ServerTimelimit()												PTR_IMP_GET(sv_timelimit);
-		int32 ConnectionPort()												PTR_IMP_GET(halo_argv_port);
-		int32 ConnectionClientPort()										PTR_IMP_GET(halo_argv_client_port);
+		long ServerTimelimit()												PTR_IMP_GET(sv_timelimit);
+		long ConnectionPort()												PTR_IMP_GET(halo_argv_port);
+		long ConnectionClientPort()										PTR_IMP_GET(halo_argv_client_port);
 	};
 
 	namespace Server
@@ -103,7 +103,7 @@ namespace Yelo
 
 
 #if PLATFORM_IS_DEDI
-		int32 ServerInstance()						PTR_IMP_GET(server_instance);
+		long ServerInstance()						PTR_IMP_GET(server_instance);
 
 		// server log rotation shit: 0x4D1AC0
 		// hook somewhere around 0x4D17F4 to log that the log file is being rotated

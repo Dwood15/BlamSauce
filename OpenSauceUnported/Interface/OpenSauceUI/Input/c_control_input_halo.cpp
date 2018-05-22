@@ -168,7 +168,7 @@ namespace Yelo
 
 			// Update the mouse button's
 			auto get_mouse_input =
-				[&](const Enums::MouseButton button, const int32 index)
+				[&](const Enums::MouseButton button, const long index)
 				{
 					auto value = Yelo::Input::GetMouseButtonState(Enums::_MouseButton1) > 0;
 

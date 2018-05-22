@@ -14,7 +14,7 @@ namespace Yelo
 		struct s_widget_type_definition
 		{
 			tag group_tag;
-			bool needs_lighting; PAD24;
+			bool needs_lighting; unsigned char : 8; unsigned short : 16;
 			proc_initialize				initialize_proc;
 			proc_initialize_for_new_map initialize_for_new_map_proc;
 			proc_dispose_from_old_map	dispose_from_old_map_proc;

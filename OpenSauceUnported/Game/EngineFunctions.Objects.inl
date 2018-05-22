@@ -107,9 +107,9 @@ API_FUNC_NAKED void Detach(datum_index object_index)
 	API_FUNC_NAKED_END_CDECL(1)
 }
 
-API_FUNC_NAKED int16 FindInSphere(Flags::objects_find_flags find_flags, long_flags object_type_flags, 
+API_FUNC_NAKED short FindInSphere(Flags::objects_find_flags find_flags, long_flags object_type_flags,
 					const s_scenario_location& location, const real_point3d& center, real radius, 
-					datum_index object_indices[], int16 maximum_object_indices)
+					datum_index object_indices[], short maximum_object_indices)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECTS_FIND_IN_SPHERE);
 
@@ -126,7 +126,7 @@ API_FUNC_NAKED int16 FindInSphere(Flags::objects_find_flags find_flags, long_fla
 }
 
 
-void StartInterpolation(datum_index object_index, int32 interpolation_ticks) // Until PY's netcode is finalized, this function don't mean shit for MP games (read: doesn't sync)
+void StartInterpolation(datum_index object_index, long interpolation_ticks) // Until PY's netcode is finalized, this function don't mean shit for MP games (read: doesn't sync)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_START_INTERPOLATION);
 
@@ -318,9 +318,9 @@ void DoubleChargeShield(datum_index object_index)
 	}
 }
 
-void ObjectCauseDamage(Yelo::Objects::s_damage_data& damage_data, datum_index object_index, int32 node_index, int32 region_index, int32 damage_materials_index, real_vector3d* normal)
+void ObjectCauseDamage(Yelo::Objects::s_damage_data& damage_data, datum_index object_index, long node_index, long region_index, long damage_materials_index, real_vector3d* normal)
 {
-	typedef void (PLATFORM_API *object_cause_damage_t)(Yelo::Objects::s_damage_data&, datum_index, int32, int32, int32, real_vector3d*);
+	typedef void (PLATFORM_API *object_cause_damage_t)(Yelo::Objects::s_damage_data&, datum_index, long, long, long, real_vector3d*);
 	static const object_cause_damage_t FUNCTION = CAST_PTR(object_cause_damage_t, GET_FUNC_PTR(OBJECT_CAUSE_DAMAGE));
 
 	FUNCTION(damage_data, object_index, node_index, region_index, damage_materials_index, normal);
@@ -338,7 +338,7 @@ void DefinitionPredict(datum_index object_index)
 	}
 }
 
-API_FUNC_NAKED void SetScale(datum_index object_index, real scale, int32 ticks)
+API_FUNC_NAKED void SetScale(datum_index object_index, real scale, long ticks)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_SET_SCALE);
 
@@ -351,7 +351,7 @@ API_FUNC_NAKED void SetScale(datum_index object_index, real scale, int32 ticks)
 	API_FUNC_NAKED_END(3)
 }
 
-void ObjectOrient(datum_index unit_index, int32 cutscene_flag_index, bool teleport, bool set_facing)
+void ObjectOrient(datum_index unit_index, long cutscene_flag_index, bool teleport, bool set_facing)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(HS_OBJECT_ORIENT);
 
@@ -386,7 +386,7 @@ void UnitGetCameraPosition(datum_index unit_index, real_point3d* out_position)
 	}
 }
 
-void UnitSetAnimation(datum_index unit_index, datum_index animation_graph_index, int32 animation_index)
+void UnitSetAnimation(datum_index unit_index, datum_index animation_graph_index, long animation_index)
 {
 	// Code is in the units.c code region but only touches s_object_datum data, so technically unit_index 
 	// *could* safely be an generic object_index.
@@ -403,7 +403,7 @@ void UnitSetAnimation(datum_index unit_index, datum_index animation_graph_index,
 	}
 }
 
-API_FUNC_NAKED int16 UnitGetCustomAnimationTime(datum_index unit_index)
+API_FUNC_NAKED short UnitGetCustomAnimationTime(datum_index unit_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_GET_CUSTOM_ANIMATION_TIME);
 
@@ -413,7 +413,7 @@ API_FUNC_NAKED int16 UnitGetCustomAnimationTime(datum_index unit_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED bool UnitCanEnterSeat(datum_index unit_index, datum_index vehicle_index, int32 vehicle_seat_index, datum_index* unit_in_seat)
+API_FUNC_NAKED bool UnitCanEnterSeat(datum_index unit_index, datum_index vehicle_index, long vehicle_seat_index, datum_index* unit_in_seat)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_CAN_ENTER_SEAT);
 
@@ -427,7 +427,7 @@ API_FUNC_NAKED bool UnitCanEnterSeat(datum_index unit_index, datum_index vehicle
 	API_FUNC_NAKED_END(4)
 }
 
-API_FUNC_NAKED bool UnitEnterSeat(datum_index unit_index, datum_index vehicle_index, int32 vehicle_seat_index)
+API_FUNC_NAKED bool UnitEnterSeat(datum_index unit_index, datum_index vehicle_index, long vehicle_seat_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_ENTER_SEAT);
 
@@ -470,7 +470,7 @@ API_FUNC_NAKED void UnitClose(datum_index unit_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED int16 UnitFindNearbySeat(datum_index unit_index, datum_index vehicle_index, int16 &seat_index)
+API_FUNC_NAKED short UnitFindNearbySeat(datum_index unit_index, datum_index vehicle_index, short &seat_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_FIND_NEARBY_SEAT);
 

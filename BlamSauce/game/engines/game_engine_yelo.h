@@ -23,13 +23,13 @@ namespace Yelo::Game {
 	struct s_game_results_statistics {};
 	struct s_game_results {
 		bool finalized;
-			  PAD24;
+			  unsigned char : 8; unsigned short : 16;
 	};
 
 	struct s_game_result_globals {
 		bool recording;
 		bool pause;
 		bool updating;
-			  PAD8;
+			  unsigned char : 8;
 	};
 };

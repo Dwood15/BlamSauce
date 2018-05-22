@@ -44,10 +44,10 @@ namespace Yelo
 			TAG_FIELD(tag_reference, widget_tag, 'DeLa');
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(__flags, flags);
-			TAG_FIELD(int16, custom_controller_index);
+			TAG_FIELD(short, custom_controller_index);
 			
-			PAD16;
-			TAG_PAD(int32, 6);
+			unsigned short : 16;
+			TAG_PAD(long, 6);
 		}; static_assert( sizeof(ui_conditional_widget_reference) == 0x50 ); // max count: 32
 
 		struct ui_child_widget_reference
@@ -60,12 +60,12 @@ namespace Yelo
 			TAG_FIELD(tag_reference, widget_tag, 'DeLa');
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(__flags, flags);
-			TAG_FIELD(int16, custom_controller_index);
-			TAG_FIELD(int16, vertical_offset);
-			TAG_FIELD(int16, horizontal_offset);
+			TAG_FIELD(short, custom_controller_index);
+			TAG_FIELD(short, vertical_offset);
+			TAG_FIELD(short, horizontal_offset);
 			
-			PAD16;
-			TAG_PAD(int32, 5);
+			unsigned short : 16;
+			TAG_PAD(long, 5);
 		}; static_assert( sizeof(ui_child_widget_reference) == 0x50 ); // max count: 32
 
 		struct ui_widget_definition
@@ -97,8 +97,8 @@ namespace Yelo
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(rectangle2d, bounds);
 			TAG_FIELD(__flags, flags);
-			TAG_FIELD(int32, ms_to_auto_close, "<=0 to never auto-close");
-			TAG_FIELD(int32, ms_auto_close_fade_time, "<= 0 for immediate close");
+			TAG_FIELD(long, ms_to_auto_close, "<=0 to never auto-close");
+			TAG_FIELD(long, ms_auto_close_fade_time, "<= 0 for immediate close");
 			TAG_FIELD(tag_reference, background_bitmap, "bitm");
 
 			////////////////////////////////////////////////////////////////
@@ -123,7 +123,7 @@ namespace Yelo
 			// time the text box is rendered (after any game data input functions
 			// have been run). The searching is case-sensitive.
 			TAG_TBLOCK(search_and_replace_functions, ui_widget_search_and_replace_reference);
-			TAG_PAD(int32, 32);
+			TAG_PAD(long, 32);
 
 			////////////////////////////////////////////////////////////////
 			// text box
@@ -143,16 +143,16 @@ namespace Yelo
 				TAG_FIELD(real_argb_color, color);
 				TAG_ENUM(justification);
 				TAG_FIELD(__flags, flags);
-				TAG_PAD(int32, 3);
+				TAG_PAD(long, 3);
 
 				////////////////////////////////////////////////////////////////
 				// more text box parameters
-				TAG_FIELD(int16, string_list_index, "default is 0");
-				TAG_FIELD(int16, horiz_offset, "offsets text position in its bounding area");
-				TAG_FIELD(int16, vert_offset, "offsets the text position in its bounding area");
-				TAG_PAD(int16, 13);
+				TAG_FIELD(short, string_list_index, "default is 0");
+				TAG_FIELD(short, horiz_offset, "offsets text position in its bounding area");
+				TAG_FIELD(short, vert_offset, "offsets the text position in its bounding area");
+				TAG_PAD(short, 13);
 
-				PAD16; // because they didn't pad after justification
+				unsigned short : 16; // because they didn't pad after justification
 			}text_box;
 
 			////////////////////////////////////////////////////////////////
@@ -182,7 +182,7 @@ namespace Yelo
 					TAG_FIELD(tag_reference, list_footer_bitmap, 'bitm');
 					TAG_FIELD(rectangle2d, header_bounds);
 					TAG_FIELD(rectangle2d, footer_bounds);
-					TAG_PAD(int32, 8);
+					TAG_PAD(long, 8);
 				}spinner;
 
 				////////////////////////////////////////////////////////////////
@@ -191,8 +191,8 @@ namespace Yelo
 				// child widgets are the list items
 				struct {
 					TAG_FIELD(tag_reference, extended_description_widget, 'DeLa');
-					TAG_PAD(int32, 8);
-					TAG_PAD(int32, 64);
+					TAG_PAD(long, 8);
+					TAG_PAD(long, 64);
 				}column;
 			}list_items;
 
@@ -201,8 +201,8 @@ namespace Yelo
 			// use this to attach widgets that are loaded only
 			// if some internal criteria is met while processing a widget event
 			TAG_TBLOCK(conditional_widgets, ui_conditional_widget_reference);
-			TAG_PAD(int32, 32);
-			TAG_PAD(int32, 32);
+			TAG_PAD(long, 32);
+			TAG_PAD(long, 32);
 
 			////////////////////////////////////////////////////////////////
 			// child widgets

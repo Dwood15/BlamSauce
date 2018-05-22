@@ -47,7 +47,7 @@ namespace Yelo
 #ifndef YELO_NO_NETWORK
 		inline bool ClientSendMessageToServer(
 			size_t data_size_in_bits,
-			bool unbuffered = false, bool flush_queue = false, int32 buffer_priority = Enums::k_message_highest_priority)
+			bool unbuffered = false, bool flush_queue = false, long buffer_priority = Enums::k_message_highest_priority)
 		{
 			return Networking::ClientSendMessageToServer(
 				PacketBufferSent(), data_size_in_bits,
@@ -55,10 +55,10 @@ namespace Yelo
 				unbuffered, flush_queue, buffer_priority);
 		}
 
-		inline bool SvSendMessageToMachine(int32 machine_index, 
+		inline bool SvSendMessageToMachine(long machine_index,
 			size_t data_size_in_bits, 
 			bool unbuffered = false, bool flush_queue = false, bool write_to_local_connection = false, 
-			int32 buffer_priority = Enums::k_message_highest_priority)
+			long buffer_priority = Enums::k_message_highest_priority)
 		{
 			return Networking::SvSendMessageToMachine(machine_index,
 				PacketBufferSent(), data_size_in_bits,
@@ -69,7 +69,7 @@ namespace Yelo
 		inline bool SvSendMessageToAll(
 			size_t data_size_in_bits, 
 			BOOL unbuffered = false, BOOL flush_queue = false, BOOL write_to_local_connection = false, 
-			int32 buffer_priority = Enums::k_message_highest_priority)
+			long buffer_priority = Enums::k_message_highest_priority)
 		{
 			return Networking::SvSendMessageToAll(
 				PacketBufferSent(), data_size_in_bits,
@@ -80,7 +80,7 @@ namespace Yelo
 		inline bool SvSendMessageToAllIngame(
 			size_t data_size_in_bits, 
 			BOOL unbuffered = false, BOOL flush_queue = false, BOOL write_to_local_connection = false, 
-			int32 buffer_priority = Enums::k_message_highest_priority)
+			long buffer_priority = Enums::k_message_highest_priority)
 		{
 			return Networking::SvSendMessageToAllIngame(
 				PacketBufferSent(), data_size_in_bits,
@@ -96,15 +96,15 @@ namespace Yelo
 		// pointer array (0,1-n) for the base line updates for each of the datas
 		// # of iterations
 		// ?
-		int32 MdpiEncode(long_enum mode, long_enum definition_type, 
+		long MdpiEncode(long_enum mode, long_enum definition_type,
 			const void* buffer, size_t buffer_size_in_bits, 
 			const void** headers, const void** datas, const void** baselines = nullptr, 
-			int32 iterations = 1, int32 /*bool*/ unk = false);
+			long iterations = 1, long /*bool*/ unk = false);
 
-		int32 EncodeStateless(long_enum definition_type, 
+		long EncodeStateless(long_enum definition_type,
 			const void* source_header, const void* source_data, 
 			void* buffer, size_t buffer_size_in_bits);
-		int32 EncodeStateless(long_enum definition_type, 
+		long EncodeStateless(long_enum definition_type,
 			const void* source_header, const void* source_data);
 
 		// Decodes the current data in the packet buffer, and puts the data into [header] if there is a header, and [destination_data] for the main packet body

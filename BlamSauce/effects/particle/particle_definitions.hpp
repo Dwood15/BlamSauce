@@ -54,7 +54,7 @@ namespace Yelo
 			TAG_FIELD(tag_reference, collision_effect, 'snd!', 'effe');
 			TAG_FIELD(tag_reference, death_effect, 'snd!', 'effe');
 			TAG_FIELD(real, minimum_size, "pixels", "in the distance, don't get any smaller than this size on the screen");
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 			TAG_FIELD(real_bounds, radius_animation, "", "when created, the radius is multiplied by the first number. at the end of the lifetime, the radius is multiplied by the second number.");
 			PAD32;
 			TAG_FIELD(real_bounds, animation_rate, "frames per second", "rate at which the particle animates");
@@ -62,13 +62,13 @@ namespace Yelo
 			TAG_FIELD(real, fade_start_size, "pixels", "begin fading the particle out when it's smaller than this size on the screen");
 			TAG_FIELD(real, fade_end_size, "pixels", "kill the particle when it's smaller than this size on the screen");
 			PAD32;
-			TAG_FIELD(int16, first_sequence_index, "", "the index of the first sequence in the bitmap group used by this particle");
-			TAG_FIELD(int16, initial_sequence_count);
-			TAG_FIELD(int16, looping_sequence_count);
-			TAG_FIELD(int16, final_sequence_count);
-			TAG_PAD(int32, 3);
+			TAG_FIELD(short, first_sequence_index, "", "the index of the first sequence in the bitmap group used by this particle");
+			TAG_FIELD(short, initial_sequence_count);
+			TAG_FIELD(short, looping_sequence_count);
+			TAG_FIELD(short, final_sequence_count);
+			TAG_PAD(long, 3);
 			TAG_ENUM(orientation, Enums::particle_orientation);
-			PAD16;
+			unsigned short : 16;
 			s_shader_effect shader_effect;
 		}; static_assert( sizeof(s_particle_definition) == 0x164 ); // max count: 1
 	};

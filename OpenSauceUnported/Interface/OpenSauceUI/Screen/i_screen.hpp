@@ -33,7 +33,7 @@ namespace Yelo
 			/// <param name="resource_id">	Identifier for the control resource. </param>
 			///
 			/// <returns>	The found control or nullptr if not found. </returns>
-			virtual Control::control_ptr_t GetControl(const uint32 resource_id) = 0;
+			virtual Control::control_ptr_t GetControl(const uint resource_id) = 0;
 		};
 
 		/// <summary>	Defines an alias representing a shared screen pointer. </summary>

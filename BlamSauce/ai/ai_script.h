@@ -30,7 +30,7 @@ namespace Yelo
 
 		struct s_ai_index
 		{
-			int16 encounter_index;
+			short encounter_index;
 			union {
 				sbyte platoon_index;
 				sbyte squad_index;
@@ -42,9 +42,9 @@ namespace Yelo
 		struct s_ai_index_actor_iterator
 		{
 			// these are all absolute, not datum_index
-			int32 encounter_index;
-			int32 squad_index;
-			int32 platoon_index;
+			long encounter_index;
+			long squad_index;
+			long platoon_index;
 
 			s_encounter_actor_iterator actor_iterator;
 

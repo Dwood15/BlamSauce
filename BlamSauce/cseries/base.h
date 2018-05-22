@@ -6,7 +6,7 @@
 #pragma once
 
 namespace Yelo {
-#define pad_bool PAD8
+#define pad_bool  unsigned char : 8;
 
 	// # from 0 to 255
 	typedef unsigned char byte;
@@ -17,25 +17,25 @@ namespace Yelo {
 	// # from 0 to 65,535
 	typedef unsigned short uint16;
 	// # from -32,768 to 32,767
-	typedef signed short   int16;
-#define pad_int16 PAD16
+	//typedef // signed //short   ;
+#define pad_int16 unsigned short : 16;
 
 	// # from 0 to 4,294,967,295
-	typedef unsigned long uint32;
-#define pad_uint32 PAD32
+	typedef unsigned long uint;
+#define pad_uint32 unsigned long : 32
 	// # from -2147483648 to 2147483647
-	typedef signed long int32;
-#define pad_int32 PAD32
+	typedef signed long long;
+#define pad_int32 unsigned long : 32
 
 	// # from 0 to 18,446,744,073,709,551,615
 	typedef unsigned __int64 uint64;
 	// # from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 	typedef signed __int64   int64;
-#define pad_int64 PAD32 PAD32
+#define pad_int64 unsigned long : 32; unsigned long : 32
 
 	// a floating-point # from 1.175494351e-38F to 3.402823466e+38F
 	typedef float real;
-#define pad_real PAD32
+#define pad_real unsigned long : 32
 
 	// Constant '\0' terminated ascii string
 	typedef const char    *cstring;
@@ -51,14 +51,14 @@ namespace Yelo {
 
 	// 32 character ASCII string, with null terminator
 	typedef char tag_string[Yelo::Enums::k_tag_string_length + 1];
-#define pad_tag_string PAD32 PAD32 PAD32 PAD32 PAD32 PAD32 PAD32 PAD32
+#define pad_tag_string unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32
 	// 256 character ASCII string, with null terminator
 	typedef char long_string[Yelo::Enums::k_long_string_length + 1];
 #define pad_long_string PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128 PAD128
 
 	typedef char   string_id_value[Yelo::Enums::k_string_id_length + 1];
-	typedef uint32 string_id;
-#define pad_string_id PAD32
+	typedef uint string_id;
+#define pad_string_id unsigned long : 32
 
 	// 128 character ASCII string, with null terminator
 	typedef char string128[Yelo::Enums::k_string_128_length + 1];
@@ -74,7 +74,7 @@ namespace Yelo {
 		typedef cstring       *iterator;
 		typedef const cstring *const_iterator;
 
-		int32   count;
+		long   count;
 		cstring *strings;
 
 		const_iterator begin() const { return strings; }
@@ -85,7 +85,7 @@ namespace Yelo {
 
 		iterator end() { return strings + count; }
 
-		cstring operator [](int32 index) const {
+		cstring operator [](long index) const {
 			assert(index >= 0 && index < count);
 
 			return strings[index];
@@ -102,11 +102,11 @@ namespace Yelo {
 #define pad_byte_enum PAD8
 
 	// an enumerated value in a 2 byte range
-#define pad_enum PAD16
+#define pad_enum unsigned short : 16
 
 	// an enumerated value in a 4 byte range (not an officially used type in halo 1 tags, at least not up front anyway)
 	typedef signed long long_enum;
-#define pad_long_enum PAD32
+#define pad_long_enum unsigned long : 32
 
 	// bit flags in a 1 byte range
 	typedef unsigned char byte_flags;
@@ -114,11 +114,11 @@ namespace Yelo {
 
 	// bit flags in a 2 byte range
 	typedef unsigned short word_flags;
-#define pad_word_flags PAD16
+#define pad_word_flags unsigned short : 16
 
 	// bit flags in a 4 byte range
 	typedef unsigned long long_flags;
-#define pad_long_flags PAD32
+#define pad_long_flags unsigned long : 32
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>
@@ -164,7 +164,7 @@ namespace Yelo {
 		/// <param name="name">  	Getter's method name. </param>
 		/// <param name="offset">	Field offset within the struct to treat as the get result. </param>
 
-		/*   ^ use const here, instead of before the type, in case [type] is defined as something like "int32*" */
+		/*   ^ use const here, instead of before the type, in case [type] is defined as something like "long*" */
 #define TStructGetPtrImpl(type, name, offset) type const* Get##name() const   { return GetDataPtr<type, offset>(); } __cdecl( ( offset + sizeof( type )) <= k_size );
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////

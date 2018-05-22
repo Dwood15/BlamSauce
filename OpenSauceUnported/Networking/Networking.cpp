@@ -78,7 +78,7 @@ namespace Yelo
 
 		struct s_network_yelo_settings {
 			bool gs_no_update_check;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		}g_network_yelo_settings;
 
 		s_update_client_globals* UpdateClientGlobals()						PTR_IMP_GET2(update_client_globals);
@@ -184,7 +184,7 @@ namespace Yelo
 		static API_FUNC_NAKED bool NetworkConnectionWrite(const s_network_connection& connection,
 			const void* data, size_t data_size_in_bits,
 			const void* header, size_t header_size_in_bits,
-			BOOL unbuffered, BOOL flush_queue, int32 buffer_priority)
+			BOOL unbuffered, BOOL flush_queue, long buffer_priority)
 		{
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_CONNECTION_WRITE);
 
@@ -210,7 +210,7 @@ namespace Yelo
 		bool ConnectionWrite(const s_network_connection& connection, 
 			const void* data, size_t data_size_in_bits,
 			const void* header, size_t header_size_in_bits,
-			bool unbuffered, bool flush_queue, int32 buffer_priority)
+			bool unbuffered, bool flush_queue, long buffer_priority)
 		{
 			return NetworkConnectionWrite(connection, 
 				data, data_size_in_bits, 
@@ -221,7 +221,7 @@ namespace Yelo
 		bool ClientSendMessageToServer(
 			const void* data, size_t data_size_in_bits, 
 			Enums::network_messsage_type message_type, 
-			bool unbuffered, bool flush_queue, int32 buffer_priority)
+			bool unbuffered, bool flush_queue, long buffer_priority)
 		{
 			s_network_game_client* client = NetworkGameClient();
 			const s_network_connection& client_connection = *client->connection;
@@ -285,11 +285,11 @@ not_a_server:
 			API_FUNC_NAKED_END(1)
 		}
 
-		API_FUNC_NAKED bool SvSendMessageToMachine(int32 machine_index, 
+		API_FUNC_NAKED bool SvSendMessageToMachine(long machine_index,
 			const void* data, size_t data_size_in_bits, 
 			Enums::network_messsage_type message_type, 
 			BOOL unbuffered, BOOL flush_queue, BOOL write_to_local_connection, 
-			int32 buffer_priority)
+			long buffer_priority)
 		{
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_MESSAGE_TO_MACHINE);
 
@@ -317,7 +317,7 @@ not_a_server:
 			const void* data, size_t data_size_in_bits, 
 			Enums::network_messsage_type message_type, 
 			BOOL unbuffered, BOOL flush_queue, BOOL write_to_local_connection, 
-			int32 buffer_priority, 
+			long buffer_priority,
 			BOOL ingame_only)
 		{
 			static const uintptr_t CALL_ALL_MACHINES = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_MESSAGE_TO_ALL_MACHINES);

@@ -125,8 +125,8 @@ namespace Yelo
 		struct s_hud_absolute_placement
 		{
 			TAG_ENUM(anchor, Enums::hud_anchor);
-			PAD16;
-			TAG_PAD(int32, 8);
+			unsigned short : 16;
+			TAG_PAD(long, 8);
 		}; static_assert( sizeof(s_hud_absolute_placement) == 0x24 );
 
 		struct s_hud_element // same size as s_hud_absolute_placement...I think this may be union'd
@@ -135,8 +135,8 @@ namespace Yelo
 			TAG_FIELD(real, width_scale);
 			TAG_FIELD(real, height_scale);
 			TAG_FIELD(Flags::hud_scaling_flags, scaling_flags);
-			PAD16;
-			TAG_PAD(int32, 5);
+			unsigned short : 16;
+			TAG_PAD(long, 5);
 		}; static_assert( sizeof(s_hud_element) == 0x24 );
 
 		struct s_hud_color_flash // aka global_hud_color
@@ -145,25 +145,25 @@ namespace Yelo
 			TAG_FIELD(argb_color, flashing_color);
 			TAG_FIELD(real, flash_period);
 			TAG_FIELD(real, flash_delay);
-			TAG_FIELD(int16, number_of_flashes);
+			TAG_FIELD(short, number_of_flashes);
 			TAG_FIELD(Flags::hud_flash_flags, flash_flags);
 			TAG_FIELD(real, flash_length);
 			TAG_FIELD(argb_color, disabled_color);
 			//////////////////////////////////////////////////////////////////////////
 			// only seen objective colors expose these fields
-			TAG_FIELD(int16, uptime_ticks);
-			TAG_FIELD(int16, fade_ticks);
+			TAG_FIELD(short, uptime_ticks);
+			TAG_FIELD(short, fade_ticks);
 		}; static_assert( sizeof(s_hud_color_flash) == 0x20 );
 
 		struct icon_hud_element_definition
 		{
-			TAG_FIELD(int16, sequence_index);
-			TAG_FIELD(int16, width_offset);
+			TAG_FIELD(short, sequence_index);
+			TAG_FIELD(short, width_offset);
 			TAG_FIELD(point2d, offset_from_reference_corner);
 			TAG_FIELD(argb_color, override_icon_color);
 			TAG_FIELD(sbyte, frame_rate);
 			TAG_FIELD(byte_flags, flags);
-			TAG_FIELD(int16, text_index);
+			TAG_FIELD(short, text_index);
 		}; static_assert( sizeof(icon_hud_element_definition) == 0x10 );
 
 
@@ -191,13 +191,13 @@ namespace Yelo
 			TAG_FIELD(rgb_color, color);
 			TAG_FIELD(real, opacity);
 			TAG_FIELD(real, translucency);
-			TAG_FIELD(int16, on_screen_sequence_index);
-			TAG_FIELD(int16, off_screen_sequence_index);
-			TAG_FIELD(int16, occluded_sequence_index);
-			PAD16;
-			TAG_PAD(int32, 4);
+			TAG_FIELD(short, on_screen_sequence_index);
+			TAG_FIELD(short, off_screen_sequence_index);
+			TAG_FIELD(short, occluded_sequence_index);
+			unsigned short : 16;
+			TAG_PAD(long, 4);
 			TAG_FIELD(long_flags, flags);
-			TAG_PAD(int32, 6);
+			TAG_PAD(long, 6);
 		}; static_assert( sizeof(hud_waypoint_arrow) == 0x68 );
 
 		struct hud_globals_definition
@@ -211,7 +211,7 @@ namespace Yelo
 				TAG_PAD(tag_reference, 2);
 				TAG_FIELD(tag_reference, arrow_bitmap, 'bitm');
 				TAG_TBLOCK(arrows, hud_waypoint_arrow);
-				TAG_PAD(int32, 20);
+				TAG_PAD(long, 20);
 			}waypoint;
 			struct {
 				TAG_FIELD(real, hud_scale);
@@ -223,34 +223,34 @@ namespace Yelo
 				TAG_FIELD(real, motion_sensor_velocity_sensitivity);
 				TAG_FIELD(real, motion_sensor_scale);
 				TAG_FIELD(rectangle2d, chapter_title_bounds);
-				TAG_PAD(int32, 11);
+				TAG_PAD(long, 11);
 			}defaults;
 			struct {
 				struct { // short_rectangle2d
-					int16 x0, x1;
-					int16 y0, y1;
+					short x0, x1;
+					short y0, y1;
 				}offset;
 				TAG_PAD(tag_reference, 2);
 				TAG_FIELD(tag_reference, bitmap, 'bitm');
-				TAG_FIELD(int16, sequence_index);
-				TAG_FIELD(int16, multiplayer_sequence_index);
+				TAG_FIELD(short, sequence_index);
+				TAG_FIELD(short, multiplayer_sequence_index);
 				TAG_FIELD(argb_color, color);
 				TAG_PAD(tag_reference, 1);
 			}damage_indicators;
 			struct {
 				s_hud_color_flash not_much_time_left;
 				s_hud_color_flash out_of_time;
-				TAG_PAD(int32, 10);
+				TAG_PAD(long, 10);
 			}hud_timer;
 			TAG_FIELD(tag_reference, carnage_report_bitmap, 'bitm');
 			struct {
 				struct {
-					TAG_FIELD(int16, begin_text);
-					TAG_FIELD(int16, end_text);
+					TAG_FIELD(short, begin_text);
+					TAG_FIELD(short, end_text);
 				}loading_text,
 				 checkpoint_text;
 				TAG_FIELD(tag_reference, checkpoint_sound, 'snd!');
-				TAG_PAD(int32, 24);
+				TAG_PAD(long, 24);
 			}misc;
 		}; static_assert( sizeof(hud_globals_definition) == 0x450 );
 
@@ -263,7 +263,7 @@ namespace Yelo
 			TAG_FIELD(sbyte, maximum_number_of_digits);
 			TAG_FIELD(byte_flags, flags);
 			TAG_FIELD(sbyte, number_of_fractional_digits);
-			PAD8;
+			unsigned char : 8;
 			TAG_PAD(tag_block, 1);
 		}; static_assert( sizeof(s_hud_element_number) == 0x54 );
 
@@ -282,10 +282,10 @@ namespace Yelo
 			TAG_FIELD(argb_color, empty_color);
 			TAG_FIELD(Flags::hud_meter_flags, flags);
 			TAG_FIELD(byte, minumum_meter_value);
-			TAG_FIELD(int16, sequence_index);
+			TAG_FIELD(short, sequence_index);
 			TAG_FIELD(byte, alpha_multiplier);
 			TAG_FIELD(byte, alpha_bias);
-			TAG_FIELD(int16, value_scale, "used for non-integral values, i.e. health and shields");
+			TAG_FIELD(short, value_scale, "used for non-integral values, i.e. health and shields");
 			TAG_FIELD(real, opacity);
 			TAG_FIELD(real, translucency);
 			TAG_FIELD(argb_color, disabled_color);
@@ -298,31 +298,31 @@ namespace Yelo
 			PAD32;
 			struct {
 				TAG_FIELD(word_flags, flags);
-				PAD16;
+				unsigned short : 16;
 				TAG_PAD(tag_reference, 1);
 				TAG_FIELD(tag_reference, fullscreen_bitmap, 'bitm');
 				TAG_FIELD(tag_reference, splitscreen_bitmap, 'bitm');
-				TAG_PAD(int32, 2);
+				TAG_PAD(long, 2);
 			}mask;
 			struct {
 				TAG_FIELD(word_flags, flags);
-				PAD16;
+				unsigned short : 16;
 				TAG_FIELD(angle_bounds, fov_in_bounds);
 				TAG_FIELD(real_bounds, radius_out_bounds);
-				TAG_PAD(int32, 6);
+				TAG_PAD(long, 6);
 			}convolution;
 			struct {
 				TAG_FIELD(word_flags, flags);
-				TAG_FIELD(int16, script_source);
+				TAG_FIELD(short, script_source);
 				TAG_FIELD(real, intensity);
-				TAG_PAD(int32, 6);
+				TAG_PAD(long, 6);
 			}night_vision;
 			struct {
 				TAG_FIELD(word_flags, flags);
-				TAG_FIELD(int16, script_source);
+				TAG_FIELD(short, script_source);
 				TAG_FIELD(real, intensity);
 				TAG_FIELD(real_rgb_color, tint);
-				TAG_PAD(int32, 6);
+				TAG_PAD(long, 6);
 			}desaturation;
 		}; static_assert( sizeof(hud_screen_effect_definition) == 0xB8 );
 
@@ -331,7 +331,7 @@ namespace Yelo
 			TAG_FIELD(tag_reference, sound, 'snd!', 'lsnd');
 			TAG_FIELD(long_flags, latched_to); // unit_hud_sound_flags, grenade_hud_sound_flags
 			TAG_FIELD(real, scale);
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 		}; static_assert( sizeof(sound_hud_element_definition) == 0x38 );
 
 
@@ -339,7 +339,7 @@ namespace Yelo
 		// hud overlays
 		struct multitexture_overlay_hud_element_effector_definition // aka global_hud_multitexture_overlay_effector_definition
 		{
-			TAG_PAD(int32, 16);
+			TAG_PAD(long, 16);
 
 			////////////////////////////////////////////////////////////////
 			// source/destination
@@ -350,14 +350,14 @@ namespace Yelo
 			TAG_ENUM(destination_type, Enums::hud_multitexture_overlay_effector_type);
 			TAG_ENUM(destination, Enums::hud_multitexture_overlay_effector_destination);
 			TAG_ENUM(source, Enums::hud_multitexture_overlay_effector_source);
-			PAD16;
+			unsigned short : 16;
 
 			////////////////////////////////////////////////////////////////
 			// in/out bounds
 			// When the source is at the lower inbound, the destination ends up the lower outbound and vice-versa applies for the upper values.
 			TAG_FIELD(real_bounds, in_bounds, "source units");
 			TAG_FIELD(real_bounds, out_bounds, "pixels");
-			TAG_PAD(int32, 16);
+			TAG_PAD(long, 16);
 
 			////////////////////////////////////////////////////////////////
 			// tint color bounds
@@ -369,18 +369,18 @@ namespace Yelo
 			// periodic functions
 			// If you use a periodic function as the source, this lets you tweak it.
 			TAG_ENUM(periodic_function, Enums::periodic_function);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, function_period, "seconds");
 			TAG_FIELD(real, function_phase, "seconds");
-			TAG_PAD(int32, 8);
+			TAG_PAD(long, 8);
 		}; static_assert( sizeof(multitexture_overlay_hud_element_effector_definition) == 0xDC ); // max count: 30
 		struct multitexture_overlay_hud_element_definition // aka 'global_hud_multitexture_overlay_definition'
 		{
-			PAD16;
-			TAG_FIELD(int16, type);
+			unsigned short : 16;
+			TAG_FIELD(short, type);
 			TAG_ENUM(framebuffer_blend_func, Enums::shader_framebuffer_blend_function);
-			PAD16;
-			TAG_PAD(int32, 8);
+			unsigned short : 16;
+			TAG_PAD(long, 8);
 
 			////////////////////////////////////////////////////////////////
 			// anchors
@@ -396,7 +396,7 @@ namespace Yelo
 			// how to blend the textures together
 			TAG_ENUM(_0_to_1_blend_func, Enums::hud_multitexture_overlay_blend_mode);
 			TAG_ENUM(_1_to_2_blend_func, Enums::hud_multitexture_overlay_blend_mode);
-			PAD16;
+			unsigned short : 16;
 
 			////////////////////////////////////////////////////////////////
 			// map scales
@@ -421,16 +421,16 @@ namespace Yelo
 			TAG_ENUM(primary_wrap_mode, Enums::hud_multitexture_overlay_address);
 			TAG_ENUM(secondary_wrap_mode, Enums::hud_multitexture_overlay_address);
 			TAG_ENUM(tertiary_wrap_mode, Enums::hud_multitexture_overlay_address);
-			PAD16;
-			TAG_PAD(int32, 46);
+			unsigned short : 16;
+			TAG_PAD(long, 46);
 			TAG_TBLOCK(effectors, multitexture_overlay_hud_element_effector_definition);
-			TAG_PAD(int32, 32);
+			TAG_PAD(long, 32);
 		}; static_assert( sizeof(multitexture_overlay_hud_element_definition) == 0x1E0 ); // max count: 30
 
 		struct s_hud_element_overlay : public s_hud_element_static
 		{
-			TAG_FIELD(int16, sequence_index);
-			PAD16;
+			TAG_FIELD(short, sequence_index);
+			unsigned short : 16;
 			TAG_TBLOCK(multitex_overlay, multitexture_overlay_hud_element_definition);
 			PAD32;
 		}; static_assert( sizeof(s_hud_element_overlay) == 0x68 );

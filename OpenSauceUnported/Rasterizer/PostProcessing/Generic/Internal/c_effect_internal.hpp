@@ -25,7 +25,7 @@ namespace Yelo
 		public:
 			void SetEffectReferenceDefinition(TagGroups::s_effect_postprocess_collection_effect* definition);
 			const char* GetName();
-			int16 GetScriptedVariableIndex(const char* name);
+			short GetScriptedVariableIndex(const char* name);
 
 			/////////////////////////////////////////////////
 			// initializers
@@ -54,9 +54,9 @@ namespace Yelo
 			/////////////////////////////////////////////////
 			// scripting
 		public:
-			void SetScriptedVariable(int16 index, real change_time, bool value);
-			void SetScriptedVariable(int16 index, real change_time, int32 value);
-			void SetScriptedVariable(int16 index, real change_time, real value0, real value1, real value2, real value3);
+			void SetScriptedVariable(short index, real change_time, bool value);
+			void SetScriptedVariable(short index, real change_time, long value);
+			void SetScriptedVariable(short index, real change_time, real value0, real value1, real value2, real value3);
 		};
 	};};};};
 };

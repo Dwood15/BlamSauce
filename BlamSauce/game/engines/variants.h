@@ -79,31 +79,31 @@ namespace Yelo {
 	namespace GameEngine {
 		struct s_universal_variant {
 			bool teams;
-			PAD24;                              // these three pad bytes are encoded in game settings update messages...
+			unsigned char : 8; unsigned short : 16;                              // these three pad bytes are encoded in game settings update messages...
 			Flags::game_variant_flags      flags;
 			Enums::game_variant_goal_radar goal_rader;
 			bool                           odd_man_out;
-			PAD24;                              // these three pad bytes are encoded in game settings update messages...
+			unsigned char : 8; unsigned short : 16;                              // these three pad bytes are encoded in game settings update messages...
 
-			int32 respawn_time_growth;
-			int32 respawn_time;
-			int32 suicide_penalty;
-			int32 lives;
+			long respawn_time_growth;
+			long respawn_time;
+			long suicide_penalty;
+			long lives;
 
 			real                           health; // I thought this was damage_multiplier...
-			int32                          score_to_win;
+			long                          score_to_win;
 			Enums::game_variant_weapon_set weapon_set;
 
 			Objects::s_vehicle_set vehicle_set[Enums::k_number_of_multiplayer_teams];
-			int32                  vehicles_respawn;
+			long                  vehicles_respawn;
 
 			byte friendly_fire; // need an enum for this
-			PAD24;
-			int32 friendly_fire_penalty;
+			unsigned char : 8; unsigned short : 16;
+			long friendly_fire_penalty;
 			bool  team_autobalance;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 
-			int32 time_limit;
+			long time_limit;
 		}; static_assert(sizeof(s_universal_variant) == 0x48);
 
 		union s_game_engine_variant {
@@ -114,12 +114,12 @@ namespace Yelo {
 
 			struct s_ctf {
 				bool assault;
-				PAD8; // unused...
+				unsigned char : 8; // unused...
 
 				struct {
 					bool  reset;
 					bool  at_home_to_score;
-					int32 flag_type; // 1 = single
+					long flag_type; // 1 = single
 				}    flag;
 			} ctf;
 			static_assert(sizeof(s_ctf) == 0x8);
@@ -133,13 +133,13 @@ namespace Yelo {
 
 			struct s_oddball {
 				bool random_start;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 				Enums::oddball_carrier_speed ball_speed;
 
 				Enums::game_trait        nonball_trait;
 				Enums::game_trait        ball_trait;
 				Enums::oddball_ball_type type;
-				int32                    ball_count;
+				long                    ball_count;
 			} oddball;
 			static_assert(sizeof(s_oddball) == 0x18);
 

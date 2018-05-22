@@ -121,7 +121,7 @@ namespace Yelo
 			GT2SendFailed
 		};
 
-		enum e_gamespy_update_status : int32
+		enum e_gamespy_update_status : long
 		{
 			_gamespy_update_status_invalid = NONE,
 
@@ -146,7 +146,7 @@ namespace Yelo
 		{
 			SOCKET socket;
 			in_addr address;
-			int16 port; PAD16;
+			short port; unsigned short : 16;
 			void* connections;
 			void* closedConnections;
 			BOOL close;
@@ -157,16 +157,16 @@ namespace Yelo
 			void* receiveDumpCallback;
 			void* unrecognizedMessageCallback;
 			void* user_data; // 0x30, engine treats this as s_transport_endpoint*
-			int32 incomingBufferSize;
-			int32 outgoingBufferSize;
-			int32 protocolOffset;
-			UNKNOWN_TYPE(int32); // 0x40, I believe I saw some code treat this as a s_transport_endpoint* ...
+			long incomingBufferSize;
+			long outgoingBufferSize;
+			long protocolOffset;
+			UNKNOWN_TYPE(long); // 0x40, I believe I saw some code treat this as a s_transport_endpoint* ...
 			BOOL broadcastEnabled;
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_socket) == 0x48 );
 		struct s_gamespy_connection // GTI2Connection, gt\gt2Main.h
 		{
 			in_addr address;
-			int16 port; PAD16;
+			short port; unsigned short : 16;
 
 			s_gamespy_socket* socket;
 			Enums::gamespy_connection_state state;
@@ -176,14 +176,14 @@ namespace Yelo
 
 			uint32 startTime, timeout;
 
-			int32 callbackLevel;
+			long callbackLevel;
 			void* connectedCallback;
 			void* receivedCallback;
 			void* closedCallback;
 			void* pingCallback;
 
 			char* initialMessage;
-			int32 initialMessageLen;
+			long initialMessageLen;
 
 			void* user_data;
 
@@ -198,7 +198,7 @@ namespace Yelo
 			uint32 lastSend;
 			uint32 challengeTime;
 
-			PAD(1, sizeof(int32)*4);
+			PAD(1, sizeof(long)*4);
 			void* sendFilters;
 			void* receiveFilters;
 			PAD(2, sizeof(byte)*4);
@@ -208,7 +208,7 @@ namespace Yelo
 			PAD(6, sizeof(char)*32);
 			PAD(7, sizeof(char)*20);
 			PAD(8, sizeof(char)*16);
-			UNKNOWN_TYPE(int32);
+			UNKNOWN_TYPE(long);
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_connection) == 0x150 );
 
 		struct s_gamespy_qr_data // (query/response) qr2_implementation_s, qr2\qr2.h
@@ -229,13 +229,13 @@ namespace Yelo
 			uint32 last_keepalive_time;
 			long_enum listed_state;
 			BOOL is_public;
-			int32 query_port;
-			int32 read_socket;
-			int32 nat_negotiate;
+			long query_port;
+			long read_socket;
+			long nat_negotiate;
 			sockaddr_in heartbeat_addr;
 			void* proc_process_cdkey; // void (__cdecl*)(char* buffer, size_t buffer_size, sockaddr* src_addr)
-			int32 client_msg_keys[10];
-			int32 client_msg_key_index;
+			long client_msg_keys[10];
+			long client_msg_key_index;
 			void* user_data;
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr_data) == 0x108 );
 
@@ -247,15 +247,15 @@ namespace Yelo
 		};
 		struct s_gamespy_client // gsclient_s, gcdkey\gcdkeys.c
 		{
-			int32 id;					// 0x0
+			long id;					// 0x0
 			char cd_hash[33];			// 0x4
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			uint32 skey;				// 0x28, (GetTickCount ^ rand) & 0x3FFF
-			int32 ip;
+			long ip;
 			uint32 sent_req_time;		// 0x30, GetTickCount
-			int32 number_of_retries;	// 0x34
+			long number_of_retries;	// 0x34
 			long_enum state;			// 0x38, 0 = sent request, 1 = ok, 2 = not ok, 3 = done;
-			PAD32;						// 0x3C, void* proc_unk
+			unsigned long : 32;						// 0x3C, void* proc_unk
 			void* authenticate_proc;	// 0x40
 			char* errmsg;				// 0x44
 			// \auth\\pid\%d\ch\%s\resp\%s\ip\%d\skey\%dd
@@ -265,7 +265,7 @@ namespace Yelo
 
 		struct s_gamespy_product // gsproduct_s, gcdkey\gcdkeys.c
 		{
-			int32 game_pid;
+			long game_pid;
 			s_gamespy_client_node clients;
 		};
 
@@ -276,8 +276,8 @@ namespace Yelo
 		struct s_gamespy_qr2_keybuffer // qr2_keybuffer_s, qr2\qr2.c
 		{
 			byte keys[Enums::k_max_gamespy_qr_registered_keys];
-			PAD16;
-			int32 numkeys;
+			unsigned short : 16;
+			long numkeys;
 
 			bool add(Enums::gamespy_qr_field keyid);
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr2_keybuffer) == 0x104 );
@@ -286,10 +286,10 @@ namespace Yelo
 			enum { k_max_data_size = 2048 };
 
 			byte buffer[k_max_data_size];
-			int32 len;
+			long len;
 
 			bool add(cstring value);
-			bool add(int32 value);
+			bool add(long value);
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr2_buffer) == 0x804 );
 		struct s_gamespy_qr2 // qr2_implementation_s, qr2\qr2.h
 		{
@@ -302,7 +302,7 @@ namespace Yelo
 			typedef void (__cdecl* playerteamkeycallback_t)(int keyid, int index, s_gamespy_qr2_buffer outbuf, void *userdata);
 			typedef void (__cdecl* keylistcallback_t)(Enums::gamespy_qr_key_type keytype, s_gamespy_qr2_keybuffer* keybuffer, void *userdata);
 			typedef void (__cdecl* keylistcallback_t)(Enums::gamespy_qr_key_type keytype, s_gamespy_qr2_keybuffer* keybuffer, void *userdata);	
-			typedef int32(__cdecl* countcallback_t)(Enums::gamespy_qr_key_type keytype, void *userdata);
+			typedef long(__cdecl* countcallback_t)(Enums::gamespy_qr_key_type keytype, void *userdata);
 			typedef void (__cdecl* adderrorcallback_t)(long_enum error, char *errmsg, void *userdata);
 			typedef void (__cdecl* natnegcallback_t)(int cookie, void *userdata);	
 			typedef void (__cdecl* clientmessagecallback_t)(char *data, int len, void *userdata);
@@ -323,24 +323,24 @@ namespace Yelo
  			clientmessagecallback_t cm_callback;
 			uint32 lastheartbeat;
 			uint32 lastka;
-			int32 listed_state;
-			int32 ispublic;	
-			int32 qport;
-			int32 read_socket;
-			int32 nat_negotiate;
+			long listed_state;
+			long ispublic;
+			long qport;
+			long read_socket;
+			long nat_negotiate;
 			sockaddr_in hbaddr;
 			cdkey_process_t cdkeyprocess;
-			int32 client_message_keys[k_recent_client_messages_to_track];
-			int32 cur_message_key;
+			long client_message_keys[k_recent_client_messages_to_track];
+			long cur_message_key;
 			void* udata;
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr2) == 0x108 );
 
 
 		struct s_gamespy_config
 		{
-			int32 game_pid;
+			long game_pid;
 			bool is_public_server;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			Enums::e_gamespy_update_status check_for_updates_status;
 		};
 		struct s_gamespy_globals
@@ -348,21 +348,21 @@ namespace Yelo
 			char game_name[8];
 			char game_priv_key[8];
 			PAD128; // just another (unused) copy of the priv key
-			int32 server_port;
+			long server_port;
 
 			struct {
 				bool initialized;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 				void* mutex_reference;
 				void* thread_reference;
 				bool update_check_complete;
-				PAD24;
-				PAD32; // unused space...
+				unsigned char : 8; unsigned short : 16;
+				unsigned long : 32; // unused space...
 				char proxy_server[256];
 				bool proxy_server_initialized;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 
-				int32 file_id;
+				long file_id;
 				char download_url[256];
 				char version_name[64];
 			}game_patch;
@@ -370,7 +370,7 @@ namespace Yelo
 			struct {
 				long_enum state;
 				bool server_is_exiting;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 				s_gamespy_qr_data* obj;
 				uint32 last_state_change_heartbeat_time;
 				char temp_key_buffer[256];
@@ -381,21 +381,21 @@ namespace Yelo
 			struct {
 				s_gamespy_server* server;
 				bool has_password;
-				PAD24;
+				unsigned char : 8; unsigned short : 16;
 				wchar_t password[10]; // password provided by the user
 			}selected_server;
 
 			s_gamespy_server_browser* server_browser;
 			bool initialized;
-			PAD24;
-			int32 total_number_of_players; // total number of players on all servers in the current game version
-			UNKNOWN_TYPE(int32);
-			UNKNOWN_TYPE(int32);
-			UNKNOWN_TYPE(int32);
+			unsigned char : 8; unsigned short : 16;
+			long total_number_of_players; // total number of players on all servers in the current game version
+			UNKNOWN_TYPE(long);
+			UNKNOWN_TYPE(long);
+			UNKNOWN_TYPE(long);
 			UNKNOWN_TYPE(byte); // bool
 			UNKNOWN_TYPE(byte); // bool
-			PAD16;
-			UNKNOWN_TYPE(int32);
+			unsigned short : 16;
+			UNKNOWN_TYPE(long);
 			UNKNOWN_TYPE(bool);
 			byte_enum server_sort_mode;
 			UNKNOWN_TYPE(bool);
@@ -406,25 +406,25 @@ namespace Yelo
 			byte_enum team_count_filter; // stock only checks for 1 or 2
 			byte_enum ping_filter;
 			UNKNOWN_TYPE(bool);
-			PAD16; PAD32;
+			unsigned short : 16; unsigned long : 32;
 			wchar_t unknown[256]; // ticker message?
-			UNKNOWN_TYPE(int32); // probably some kind of state value
+			UNKNOWN_TYPE(long); // probably some kind of state value
 			UNKNOWN_TYPE(uint32); // flags
-			UNKNOWN_TYPE(int32);
-			int32 server_browser_update_error;
+			UNKNOWN_TYPE(long);
+			long server_browser_update_error;
 			struct {
 				void* thread_mutex;
 				void* thread;
-				PAD32;
+				unsigned long : 32;
 			}query_server_list;
 			UNKNOWN_TYPE(byte); // bool
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			UNKNOWN_TYPE(uint32); // time
 			struct {
 				s_gamespy_server** list;
-				int32 count;
+				long count;
 			}server_list;
-			PAD32; // set to zero, but never used
+			unsigned long : 32; // set to zero, but never used
 
 			// NOTE: this structure seems to have one less DWORD in it in dedi builds. 
 			// However, this structure shouldn't even be accessed in dedi builds so I'm not researching further!
@@ -443,7 +443,7 @@ namespace Yelo
 		// If this is a server, returns all the machines connected to this machine on a specific pid
 		s_gamespy_product* GsProducts(); // [4]
 
-		s_gamespy_client* GsGetClient(int32 client_id);
+		s_gamespy_client* GsGetClient(long client_id);
 
 
 		namespace GameSpy

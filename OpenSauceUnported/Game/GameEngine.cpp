@@ -43,12 +43,12 @@ namespace Yelo
 // 			nullptr, nullptr, nullptr, nullptr, nullptr, // space for new game engines
 // 			nullptr, // terminator
 		};
-		static int32 new_definitions_count = Enums::k_number_of_game_engines;
+		static long new_definitions_count = Enums::k_number_of_game_engines;
 #define GAME_ENGINE_REAL_COUNT (Enums::k_number_of_game_engines - 2)
 
 		const game_engine_definition* const* NewDefinitions() { return new_definitions; }
 
-		int32 NewDefinitionsCount() { return new_definitions_count; }
+		long NewDefinitionsCount() { return new_definitions_count; }
 
 		void RegisterNewGameEngine(game_engine_definition* engine)
 		{
@@ -63,11 +63,11 @@ namespace Yelo
 			// TODO: need to modify pre-jump table code before this works the way we want it to
 
 			// copy the game's jump table into our jmp table
-			for (int32 x = 0; x < Enums::k_number_of_game_engines - GAME_ENGINE_REAL_COUNT; x++)
+			for (long x = 0; x < Enums::k_number_of_game_engines - GAME_ENGINE_REAL_COUNT; x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(HUD_RENDER_UNIT_INTERFACE_JMP_TABLE) + (sizeof(void*) * x));
 
 			// just use the slayer variant of the code, it doesn't matter to us.
-			for (int32 x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
+			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(HUD_RENDER_UNIT_INTERFACE_JMP_TABLE) + (sizeof(void*) * (Enums::_game_engine_slayer - 1)));
 
 			// set the game's jump table address to our's
@@ -81,11 +81,11 @@ namespace Yelo
 			// TODO: reference jump table code for the changes to make this work the way we want it to
 
 			// copy the game's jump table into our jmp table
-			for (int32 x = 0; x < Enums::k_number_of_game_engines - GAME_ENGINE_REAL_COUNT; x++)
+			for (long x = 0; x < Enums::k_number_of_game_engines - GAME_ENGINE_REAL_COUNT; x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7440JmpTable) + (sizeof(void*) * x));
 
 			// just use the slayer variant of the code, it doesn't matter to us.
-			for (int32 x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
+			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7440JmpTable) + (sizeof(void*) * (Enums::_game_engine_slayer - 1)));
 
 			// set the game's jump table address to our's
@@ -99,11 +99,11 @@ namespace Yelo
 			// TODO: reference jump table code for the changes to make this work the way we want it to
 
 			// copy the game's jump table into our jmp table
-			for (int32 x = 0; x < Enums::k_number_of_game_engines - GAME_ENGINE_REAL_COUNT; x++)
+			for (long x = 0; x < Enums::k_number_of_game_engines - GAME_ENGINE_REAL_COUNT; x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7580JmpTable) + (sizeof(void*) * x));
 
 			// just use the slayer variant of the code, it doesn't matter to us.
-			for (int32 x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
+			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7580JmpTable) + (sizeof(void*) * (Enums::_game_engine_slayer - 1)));
 
 			// set the game's jump table address to our's
@@ -125,7 +125,7 @@ namespace Yelo
 
 #pragma region New Engines implementation
 			// copy the game engine pointers into our list
-			for(int32 x = 0; x < new_definitions_count; x++)
+			for(long x = 0; x < new_definitions_count; x++)
 				new_definitions[x] = GET_DPTR2(game_engines)[x];
 
 			// replace the game's game_engines list with ours

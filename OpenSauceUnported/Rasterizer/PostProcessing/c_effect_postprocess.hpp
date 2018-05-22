@@ -24,7 +24,7 @@ namespace Yelo
 
 				struct
 				{
-					int32 count;
+					long count;
 					c_shader_instance* list;
 				}m_shaders;
 			}m_members;

@@ -49,13 +49,13 @@ namespace Yelo {
 		}
 
 		static s_hs_value_union hs_bool_to_short(s_hs_value_union value) {
-			value.int16 = value.boolean ? TRUE : FALSE;
+			value.short = value.boolean ? TRUE : FALSE;
 
 			return value;
 		}
 
 		static s_hs_value_union hs_bool_to_long(s_hs_value_union value) {
-			value.int32 = value.boolean ? TRUE : FALSE;
+			value.long = value.boolean ? TRUE : FALSE;
 
 			return value;
 		}
@@ -70,13 +70,13 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// _hs_type_real
 		static s_hs_value_union hs_real_to_short(s_hs_value_union value) {
-			value.int16 = CAST(int16, value.real);
+			value.short = CAST(short, value.real);
 
 			return value;
 		}
 
 		static s_hs_value_union hs_real_to_long(s_hs_value_union value) {
-			value.int32 = CAST(int32, value.real);
+			value.long = CAST(long, value.real);
 
 			return value;
 		}
@@ -84,7 +84,7 @@ namespace Yelo {
 		// NOTE: non-standard, engine doesn't support this
 		static s_hs_value_union hs_real_to_enum(s_hs_value_union value) {
 			// because hs_enum_to_real adds 1 before float conversion
-			value.int16 = CAST(int16, value.real) - 1;
+			value.short = CAST(short, value.real) - 1;
 
 			return value;
 		}
@@ -99,19 +99,19 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// _hs_type_short
 		static s_hs_value_union hs_short_to_boolean(s_hs_value_union value) {
-			value.boolean = value.int16 != 0;
+			value.boolean = value.short != 0;
 
 			return value;
 		}
 
 		static s_hs_value_union hs_short_to_real(s_hs_value_union value) {
-			value.real = CAST(real, value.int16);
+			value.real = CAST(real, value.short);
 
 			return value;
 		}
 
 		static s_hs_value_union hs_short_to_long(s_hs_value_union value) {
-			value.int32 = CAST(int32, value.int16);
+			value.long = CAST(long, value.short);
 
 			return value;
 		}
@@ -120,25 +120,25 @@ namespace Yelo {
 			assert(type == Enums::_hs_type_short);
 
 			sprintf_s(buffer, buffer_size, "%d",
-						 value.int16);
+						 value.short);
 		}
 
 		//////////////////////////////////////////////////////////////////////////
 		// _hs_type_long
 		static s_hs_value_union hs_long_to_boolean(s_hs_value_union value) {
-			value.boolean = value.int32 != 0;
+			value.boolean = value.long != 0;
 
 			return value;
 		}
 
 		static s_hs_value_union hs_long_to_real(s_hs_value_union value) {
-			value.real = CAST(real, value.int32);
+			value.real = CAST(real, value.long);
 
 			return value;
 		}
 
 		static s_hs_value_union hs_long_to_short(s_hs_value_union value) {
-			value.int16 = CAST(int16, value.int32);
+			value.short = CAST(short, value.long);
 
 			return value;
 		}
@@ -147,13 +147,13 @@ namespace Yelo {
 			assert(type == Enums::_hs_type_long);
 
 			sprintf_s(buffer, buffer_size, "%ld",
-						 value.int32);
+						 value.long);
 		}
 
 		//////////////////////////////////////////////////////////////////////////
 		// _hs_type_string
 		static s_hs_value_union hs_string_to_boolean(s_hs_value_union value) {
-			value.int32 = strlen(value.string);
+			value.long = strlen(value.string);
 
 			return hs_long_to_boolean(value);
 		}
@@ -189,7 +189,7 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// scenario datums
 		template <typename T, bool k_supports_none = true>
-		static void hs_inspect_scenario_datum(Enums::hs_type type, char *buffer, size_t buffer_size, int32 index, const TAG_TBLOCK(&datums, T)) {
+		static void hs_inspect_scenario_datum(Enums::hs_type type, char *buffer, size_t buffer_size, long index, const TAG_TBLOCK(&datums, T)) {
 			static_assert(std::is_same<tag_string, decltype(T::name)>::value, "expected the scenario datum to have a field called 'name' that is a tag_string");
 
 			if (!k_supports_none) {
@@ -215,7 +215,7 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::scenario_trigger_volume>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->trigger_volumes);
+				value.short, global_scenario_get()->trigger_volumes);
 		}
 
 		static void hs_inspect_cutscene_flag(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
@@ -223,7 +223,7 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::scenario_cutscene_flag>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->cutscene_flags);
+				value.short, global_scenario_get()->cutscene_flags);
 		}
 
 		static void hs_inspect_cutscene_camera_point(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
@@ -231,13 +231,13 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::scenario_cutscene_flag>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->cutscene_flags);
+				value.short, global_scenario_get()->cutscene_flags);
 		}
 
 		static void hs_inspect_cutscene_title(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
 			assert(type == Enums::_hs_type_cutscene_title);
 
-			hs_inspect_scenario_datum<TagGroups::s_scenario_cutscene_title>(type, buffer, buffer_size, value.int16, global_scenario_get()->cutscene_titles);
+			hs_inspect_scenario_datum<TagGroups::s_scenario_cutscene_title>(type, buffer, buffer_size, value.short, global_scenario_get()->cutscene_titles);
 		}
 
 		static void hs_inspect_cutscene_recording(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
@@ -245,7 +245,7 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::recorded_animation_definition>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->recorded_animations);
+				value.short, global_scenario_get()->recorded_animations);
 		}
 
 		static void hs_inspect_device_group(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
@@ -253,7 +253,7 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::scenario_device_group>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->device_groups);
+				value.short, global_scenario_get()->device_groups);
 		}
 
 #if 0
@@ -263,7 +263,7 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::ai_command_list_definition>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->ai_command_lists);
+				value.short, global_scenario_get()->ai_command_lists);
 		}
 #endif
 
@@ -272,7 +272,7 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::scenario_starting_profile>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->player_starting_profiles);
+				value.short, global_scenario_get()->player_starting_profiles);
 		}
 
 #if 0
@@ -282,7 +282,7 @@ namespace Yelo {
 
 			hs_inspect_scenario_datum<TagGroups::ai_conversation>(
 				type, buffer, buffer_size,
-				value.int16, global_scenario_get()->ai_conversations);
+				value.short, global_scenario_get()->ai_conversations);
 		}
 #endif
 
@@ -303,7 +303,7 @@ namespace Yelo {
 		// NOTE: non-standard, engine doesn't support this
 		static s_hs_value_union hs_tag_reference_to_long(s_hs_value_union value) {
 			// can just fall through as long as this is true
-			static_assert(sizeof(value.int32) == sizeof(value.tag_index));
+			static_assert(sizeof(value.long) == sizeof(value.tag_index));
 
 			return value;
 		}
@@ -339,7 +339,7 @@ namespace Yelo {
 		// enums
 		static s_hs_value_union hs_enum_to_real(s_hs_value_union value) {
 			// yes, the engine adds 1 before converting to a float
-			value.real = CAST(real, value.int16 + 1);
+			value.real = CAST(real, value.short + 1);
 
 			return value;
 		}
@@ -348,7 +348,7 @@ namespace Yelo {
 			assert(hs_type_is_enum(type));
 
 			const auto &enum_definition = hs_enum_table[type - Enums::_hs_type_enum__first];
-			short enum_value = value.int16;
+			short enum_value = value.short;
 
 			// NOTE: engine doesn't handle NONE cases, it asserts
 			if (enum_value == NONE)
@@ -364,7 +364,7 @@ namespace Yelo {
 		// _hs_type_ai
 		// actually defined in ai_script.c
 		static s_hs_value_union object_list_from_ai_reference(s_hs_value_union value) {
-			if (value.int32 == NONE) {
+			if (value.long == NONE) {
 				value.datum = datum_index::null();
 				return value;
 			}
@@ -424,7 +424,7 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// _hs_type_object_name
 		static s_hs_value_union hs_object_name_to_object_list(s_hs_value_union value) {
-			datum_index object_index = object_index_from_name_index(value.int16);
+			datum_index object_index = object_index_from_name_index(value.short);
 			value.datum = object_index;
 
 			return hs_object_to_object_list(value);
@@ -433,7 +433,7 @@ namespace Yelo {
 		static void hs_inspect_object_name(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
 			assert(hs_type_is_object_name(type));
 
-			int16 name_index = value.int16;
+			short name_index = value.short;
 			if (name_index == NONE) {
 				hs_inspection_on_none(buffer, buffer_size);
 			}

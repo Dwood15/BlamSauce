@@ -39,7 +39,7 @@ namespace Yelo
 				bool							m_delete_buffer;
 				bool							m_blocking;
 				bool							m_manual_think;
-				PAD8;
+				unsigned char : 8;
 				real							m_request_timeout;
 
 				void Ctor()
@@ -63,12 +63,12 @@ namespace Yelo
 				{
 					bool	is_downloading;
 					bool	manual_think;
-					PAD16;
+					unsigned short : 16;
 				}m_flags;
 
 				struct
 				{
-					int32	request_index;
+					long	request_index;
 					real	timeout;
 					real	elapsed;
 				}m_http;
@@ -135,7 +135,7 @@ namespace Yelo
 				m_file_downloader.m_url[0] = '\0';
 			}
 
-			int32			HTTPRequestIndex();
+			long			HTTPRequestIndex();
 			Enums::http_file_download_status& Status();
 
 			bool			SetURL(const char* url);

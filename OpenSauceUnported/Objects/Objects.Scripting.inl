@@ -94,8 +94,8 @@ static void* scripting_object_data_set_vector_evaluate(void** arguments)
 	struct s_arguments {
 		datum_index object_index;
 		cstring data_name;
-		int16 vector_index;
-		PAD16;
+		short vector_index;
+		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
@@ -119,8 +119,8 @@ static void* scripting_object_data_save_vector_evaluate(void** arguments)
 	struct s_arguments {
 		datum_index object_index;
 		cstring data_name;
-		int16 vector_index;
-		PAD16;
+		short vector_index;
+		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
@@ -189,12 +189,12 @@ static void* scripting_weapon_data_magazine_get_integer_evaluate(void** argument
 {
 	struct s_arguments {
 		datum_index weapon_index;
-		int32 magazine_index;
+		long magazine_index;
 		cstring data_name;
 		cstring subdata_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
-	result.int32 = NONE;
+	result.long = NONE;
 
 	if(GameState::IsLocal() && !args->weapon_index.IsNull())
 	{
@@ -210,10 +210,10 @@ static void* scripting_weapon_data_magazine_set_integer_evaluate(void** argument
 {
 	struct s_arguments {
 		datum_index weapon_index;
-		int32 magazine_index;
+		long magazine_index;
 		cstring data_name;
 		cstring subdata_name;
-		int32 data_value;
+		long data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
 	if(GameState::IsLocal() && !args->weapon_index.IsNull())
@@ -234,7 +234,7 @@ static void* scripting_weapon_data_trigger_set_real_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index weapon_index;
-		int32 trigger_index;
+		long trigger_index;
 		cstring data_name;
 		cstring subdata_name;
 		real data_value;
@@ -290,7 +290,7 @@ static void* scripting_unit_data_get_integer_evaluate(void** arguments)
 		cstring data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
-	result.int32 = NONE;
+	result.long = NONE;
 
 	if(!args->unit_index.IsNull())
 	{
@@ -310,7 +310,7 @@ static void* scripting_unit_data_set_integer_evaluate(void** arguments)
 	struct s_arguments {
 		datum_index unit_index;
 		cstring data_name;
-		int32 data_value;
+		long data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
 	if(!args->unit_index.IsNull())

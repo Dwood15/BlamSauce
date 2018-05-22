@@ -16,14 +16,14 @@ namespace Yelo
 		typedef sbyte bits_type;
 	};
 	template<typename T>
-	struct handle_abi_type_traits<T, sizeof(int16)>
+	struct handle_abi_type_traits<T, sizeof(short)>
 	{
-		typedef int16 bits_type;
+		typedef short bits_type;
 	};
 	template<typename T>
-	struct handle_abi_type_traits<T, sizeof(int32)>
+	struct handle_abi_type_traits<T, sizeof(long)>
 	{
-		typedef int32 bits_type;
+		typedef long bits_type;
 	};
 	template<typename T>
 	struct handle_abi_type_traits<T, sizeof(int64)>

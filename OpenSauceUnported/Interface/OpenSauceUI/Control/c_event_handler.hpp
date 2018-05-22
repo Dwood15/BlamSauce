@@ -16,7 +16,7 @@ namespace Yelo
 		private:
 			struct s_event_callback
 			{
-				uint32 id;
+				uint id;
 				void* userdata;
 				event_callback_t function;
 
@@ -49,13 +49,13 @@ namespace Yelo
 			/// <param name="callback_id">	Identifier for the callback. </param>
 			/// <param name="function">   	The function. </param>
 			/// <param name="userdata">   	[in] If non-null, the userdata. </param>
-			void AddCallback(const uint32 callback_id, const event_callback_t& function, void* userdata) final override;
+			void AddCallback(const uint callback_id, const event_callback_t& function, void* userdata) final override;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Removes the callback described by callback_id. </summary>
 			///
 			/// <param name="callback_id">	Identifier for the callback. </param>
-			void RemoveCallback(const uint32 callback_id) final override;
+			void RemoveCallback(const uint callback_id) final override;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Triggers the event. </summary>

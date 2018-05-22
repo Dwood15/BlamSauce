@@ -20,7 +20,7 @@ namespace Yelo
 				bool show_hud;
 				bool scale_hud;
 				bool show_crosshair;
-				PAD8;
+				unsigned char : 8;
 			}m_flags;
 
 			point2d			m_screen_size;
@@ -323,8 +323,8 @@ namespace Yelo
 				output.y = anchor_bounds.y + input.y;
 				break;
 			case Enums::_hud_anchor_center:
-				output.x = (int16)(anchor_bounds.x / 2) + input.x;
-				output.y = (int16)(anchor_bounds.y / 2) + input.y;
+				output.x = (short)(anchor_bounds.x / 2) + input.x;
+				output.y = (short)(anchor_bounds.y / 2) + input.y;
 				break;
 			}
 		}
@@ -376,8 +376,8 @@ namespace Yelo
 			point2d anchor_scale_result;
 
 			// set the navpoint values
-			anchor_scale_result.x = (int16)(640 * anchor_scale.x);
-			anchor_scale_result.y = (int16)(480 * anchor_scale.y);
+			anchor_scale_result.x = (short)(640 * anchor_scale.x);
+			anchor_scale_result.y = (short)(480 * anchor_scale.y);
 
 			GET_PTR(HUD_RENDER_NAV_POINT_ANCHOR_HALF_X) = anchor_scale_result.x / 2;
 			GET_PTR(HUD_RENDER_NAV_POINT_ANCHOR_HALF_Y) = anchor_scale_result.y / 2;
@@ -402,8 +402,8 @@ namespace Yelo
 			g_hud_globals.m_hud_screen.translation = hud_scale_amount;
 			g_hud_globals.m_hud_screen.translation.x *= -1;
 
-			anchor_scale_result.x = (int16)(anchor_scale_result.x * hud_scale_amount.x);
-			anchor_scale_result.y = (int16)(anchor_scale_result.y * hud_scale_amount.y);
+			anchor_scale_result.x = (short)(anchor_scale_result.x * hud_scale_amount.x);
+			anchor_scale_result.y = (short)(anchor_scale_result.y * hud_scale_amount.y);
 
 			GET_PTR(HUD_POINT_ANCHOR_WIDTH) = anchor_scale_result.x - 16;
 			GET_PTR(HUD_POINT_ANCHOR_HEIGHT) = anchor_scale_result.y - 8;
@@ -505,8 +505,8 @@ namespace Yelo
 			g_hud_globals.m_original_screen.translation.y = 1;
 
 			// set the scale values for the current screen resolution
-			g_hud_globals.m_screen_size.x = (int16)pPP->BackBufferWidth;
-			g_hud_globals.m_screen_size.y = (int16)pPP->BackBufferHeight;
+			g_hud_globals.m_screen_size.x = (short)pPP->BackBufferWidth;
+			g_hud_globals.m_screen_size.y = (short)pPP->BackBufferHeight;
 			UpdateScreenScale();
 			UpdateAnchorScale();
 		}
@@ -516,8 +516,8 @@ namespace Yelo
 		void OnResetDevice(D3DPRESENT_PARAMETERS *pPP)
 		{
 			// set the scale values for the current screen resolution
-			g_hud_globals.m_screen_size.x = (int16)pPP->BackBufferWidth;
-			g_hud_globals.m_screen_size.y = (int16)pPP->BackBufferHeight;
+			g_hud_globals.m_screen_size.x = (short)pPP->BackBufferWidth;
+			g_hud_globals.m_screen_size.y = (short)pPP->BackBufferHeight;
 			UpdateScreenScale();
 			UpdateAnchorScale();
 		}

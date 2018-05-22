@@ -25,10 +25,10 @@ namespace Yelo
 			enum { k_group_tag = 'effe' };
 
 			TAG_FIELD(long_flags, flags);
-			TAG_FIELD(int16, loop_start_event_index, effect_event_definition);
-			TAG_FIELD(int16, loop_stop_event_index, effect_event_definition);
+			TAG_FIELD(short, loop_start_event_index, effect_event_definition);
+			TAG_FIELD(short, loop_stop_event_index, effect_event_definition);
 			UNKNOWN_TYPE(real); // runtime field
-			TAG_PAD(int32, 7);
+			TAG_PAD(long, 7);
 			TAG_BLOCK(locations, effect_location_definition);
 			TAG_BLOCK(events, effect_event_definition);
 		}; static_assert( sizeof(effect_definition) == 0x40 );

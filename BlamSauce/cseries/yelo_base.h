@@ -113,7 +113,7 @@ namespace Yelo {
 	// is assumed to be null terminated
 	// Returns [string] if successful
 	// If NULL is returned, you can use GetLastError() for error information
-	char *wstring_to_string(char *string, int32 string_length, wcstring wide, int32 wide_length = -1) {
+	char *wstring_to_string(char *string, long string_length, wcstring wide, long wide_length = -1) {
 		if (!WIN32_FUNC(WideCharToMultiByte)(CP_ACP, 0, wide, wide_length, string, string_length, nullptr, nullptr))
 			return nullptr;
 		else
@@ -121,11 +121,11 @@ namespace Yelo {
 	}
 
 	// [string_length] includes the null terminator
-	char *wstring_to_string_lazy(char *string, int32 string_length, wcstring wide) {
+	char *wstring_to_string_lazy(char *string, long string_length, wcstring wide) {
 		assert(string_length > 0);
 
 		string[--string_length] = '\0';
-		for (int32 x = 0; string_length--; x++) {
+		for (long x = 0; string_length--; x++) {
 			string[x] = CAST(char, wide[x]);
 			if (wide[x] == L'\0') break;
 		}
@@ -137,7 +137,7 @@ namespace Yelo {
 	// is assumed to be null terminated
 	// Returns [wide] if successful
 	// If NULL is returned, you can use GetLastError() for error information
-	wstring string_to_wstring(wstring wide, int32 wide_length, cstring string, int32 string_length = -1) {
+	wstring string_to_wstring(wstring wide, long wide_length, cstring string, long string_length = -1) {
 		if (!WIN32_FUNC(MultiByteToWideChar)(CP_ACP, 0, string, string_length, wide, wide_length))
 			return nullptr;
 		else
@@ -145,11 +145,11 @@ namespace Yelo {
 	}
 
 	// [string_length] includes the null terminator
-	wstring string_to_wstring_lazy(wstring string, int32 string_length, cstring ascii) {
+	wstring string_to_wstring_lazy(wstring string, long string_length, cstring ascii) {
 		assert(string_length > 0);
 
 		string[--string_length] = L'\0';
-		for (int32 x = 0; string_length--; x++) {
+		for (long x = 0; string_length--; x++) {
 			string[x] = CAST(wchar_t, ascii[x]);
 			if (ascii[x] == '\0') break;
 		}
@@ -199,9 +199,9 @@ namespace Yelo {
 				Yelo::byte   *byte;
 				Yelo::sbyte  *sbyte;
 				Yelo::uint16 *uint16;
-				Yelo::int16  *int16;
+				Yelo::short  *short;
 				Yelo::uint32 *uint32;
-				Yelo::int32  *int32;
+				Yelo::long  *long;
 				Yelo::real   *real;
 
 				datum_index *datum;
@@ -216,9 +216,9 @@ namespace Yelo {
 				Yelo::byte   byte[1];
 				Yelo::sbyte  sbyte[1];
 				Yelo::uint16 uint16[1];
-				Yelo::int16  int16[1];
+				Yelo::short  short[1];
 				Yelo::uint32 uint32[1];
-				Yelo::int32  int32[1];
+				Yelo::long  long[1];
 				Yelo::real   real[1];
 
 				datum_index datum[1];
@@ -232,9 +232,9 @@ namespace Yelo {
 			Yelo::byte   byte;
 			Yelo::sbyte  sbyte;
 			Yelo::uint16 uint16;
-			Yelo::int16  int16;
+			Yelo::short  short;
 			Yelo::uint32 uint32;
-			Yelo::int32  int32;
+			Yelo::long  long;
 			Yelo::real   real;
 
 			datum_index datum;

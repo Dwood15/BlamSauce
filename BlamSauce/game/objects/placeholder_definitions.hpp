@@ -19,7 +19,7 @@ namespace Yelo
 
 		struct _placeholder_definition
 		{
-			TAG_PAD(int32, 32);
+			TAG_PAD(long, 32);
 		}; static_assert( sizeof(_placeholder_definition) == 0x80 );
 
 		struct s_placeholder_definition : s_object_definition

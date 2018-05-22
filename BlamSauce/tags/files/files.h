@@ -138,10 +138,10 @@ namespace Yelo {
 			return reference;
 		}
 
-		int16 __cdecl find_files(long_flags flags, const s_file_reference &directory, int32 maximum_count, s_file_reference references[]);
+		short __cdecl find_files(long_flags flags, const s_file_reference &directory, long maximum_count, s_file_reference references[]);
 
 		template <size_t _SizeOfArray>
-		int16 find_files(long_flags flags, const s_file_reference &directory, s_file_reference (&references)[_SizeOfArray]) {
+		short find_files(long_flags flags, const s_file_reference &directory, s_file_reference (&references)[_SizeOfArray]) {
 			return find_files(flags, directory, _SizeOfArray, references);
 		}
 

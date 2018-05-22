@@ -40,13 +40,13 @@ namespace Yelo
 			}
 		}
 
-		int32 Label_GetTextSize(Gwen::Controls::Label& label)
+		long Label_GetTextSize(Gwen::Controls::Label& label)
 		{
 			auto& font = *label.GetFont();
 			return font.size;
 		}
 
-		void Label_SetTextSize(Gwen::Controls::Label& label, const int32 value)
+		void Label_SetTextSize(Gwen::Controls::Label& label, const long value)
 		{
 			auto& font = *label.GetFont();
 
@@ -84,9 +84,9 @@ namespace Yelo
 			label.SetTextColorOverride(Gwen::Color(value.red, value.green, value.blue, value.alpha));
 		}
 
-		int32 Label_GetHorizontalAlignment(Gwen::Controls::Label& label)
+		long Label_GetHorizontalAlignment(Gwen::Controls::Label& label)
 		{
-			int32 alignment = label.GetAlignment();
+			long alignment = label.GetAlignment();
 
 			alignment &= ~Gwen::Pos::Top;
 			alignment &= ~Gwen::Pos::CenterV;
@@ -95,9 +95,9 @@ namespace Yelo
 			return alignment;
 		}
 
-		void Label_SetHorizontalAlignment(Gwen::Controls::Label& label, const int32 value)
+		void Label_SetHorizontalAlignment(Gwen::Controls::Label& label, const long value)
 		{
-			int32 alignment = label.GetAlignment();
+			long alignment = label.GetAlignment();
 
 			alignment &= ~Gwen::Pos::Left;
 			alignment &= ~Gwen::Pos::CenterH;
@@ -124,9 +124,9 @@ namespace Yelo
 			}
 		}
 
-		int32 Label_GetVerticalAlignment(Gwen::Controls::Label& label)
+		long Label_GetVerticalAlignment(Gwen::Controls::Label& label)
 		{
-			int32 alignment = label.GetAlignment();
+			long alignment = label.GetAlignment();
 
 			alignment &= ~Gwen::Pos::Left;
 			alignment &= ~Gwen::Pos::CenterH;
@@ -135,9 +135,9 @@ namespace Yelo
 			return alignment;
 		}
 
-		void Label_SetVerticalAlignment(Gwen::Controls::Label& label, const int32 value)
+		void Label_SetVerticalAlignment(Gwen::Controls::Label& label, const long value)
 		{
-			int32 alignment = label.GetAlignment();
+			long alignment = label.GetAlignment();
 
 			alignment &= ~Gwen::Pos::Top;
 			alignment &= ~Gwen::Pos::CenterV;

@@ -72,7 +72,7 @@ namespace Yelo::TagGroups {
 
 
 	// Get the length, in characters, of a string field, excluding the null character
-	int32 StringFieldGetLength(const tag_field *field) {
+	long StringFieldGetLength(const tag_field *field) {
 		assert(field->type == Enums::_field_string);
 
 		uintptr_t definition = field->DefinitionCast<uintptr_t>();
@@ -80,11 +80,11 @@ namespace Yelo::TagGroups {
 		if (definition == 0 || TagFieldIsOldStringId(field))
 			return Enums::k_tag_string_length;
 		else // NOTE: the definition should have already been validated if tag_groups_initialize has already ran
-			return CAST(int32, definition);
+			return CAST(long, definition);
 	}
 
 	// Get the size, in characters, of a string field, inclusive of the null character
-	int32 StringFieldGetSize(const tag_field *field) {
+	long StringFieldGetSize(const tag_field *field) {
 		return StringFieldGetLength(field) + 1;
 	}
 
@@ -243,7 +243,7 @@ namespace blam {
 	// Rename the tag definition [tag_index] to [new_name]
 	void __cdecl tag_rename(datum_index tag_index, cstring new_name);
 
-	tag_block *__cdecl tag_block_index_resolve(datum_index tag_index, tag_field *block_index_field, int32 index);
+	tag_block *__cdecl tag_block_index_resolve(datum_index tag_index, tag_field *block_index_field, long index);
 
 	// Get the size in bytes of how much memory the tag definition [tag_index]
 	// consumes with all of its child data too
@@ -255,21 +255,21 @@ namespace blam {
 
 	// Insert a new block element at [index] and return the index
 	// of the inserted element
-	int32 __cdecl tag_block_insert_element(tag_block *block, int32 index);
+	long __cdecl tag_block_insert_element(tag_block *block, long index);
 
 	template <typename T>
 	inline
-	T *tag_block_insert_element(TagBlock<T> &block, int32 index) {
+	T *tag_block_insert_element(TagBlock<T> &block, long index) {
 		return CAST_PTR(T *, tag_block_insert_element(block.to_tag_block(), index));
 	}
 
 	// Duplicate the block element at [element_index] and return the index which
 	// represents the duplicated element
-	int32 __cdecl tag_block_duplicate_element(tag_block *block, int32 element_index);
+	long __cdecl tag_block_duplicate_element(tag_block *block, long element_index);
 
 	template <typename T>
 	inline
-	int32 tag_block_duplicate_element(TagBlock<T> &block, int32 element_index) {
+	long tag_block_duplicate_element(TagBlock<T> &block, long element_index) {
 		return tag_block_duplicate_element(block.to_tag_block(), element_index);
 	}
 
@@ -281,11 +281,11 @@ namespace blam {
 			.AddFieldType(Enums::_field_long_block_index)) {
 			switch (field.GetType()) {
 				case Enums::_field_short_block_index:
-					*field.As<int16>() = NONE;
+					*field.As<short>() = NONE;
 					break;
 
 				case Enums::_field_long_block_index:
-					*field.As<int32>() = NONE;
+					*field.As<long>() = NONE;
 					break;
 			}
 		}
@@ -315,7 +315,7 @@ namespace TagGroups {
 			action(group->header_block_definition);
 	}
 
-	// TAction: bool operator()([const] tag_block* block, int32 element_index, [const] void* element)
+	// TAction: bool operator()([const] tag_block* block, long element_index, [const] void* element)
 	template <class TAction>
 	bool tag_block_elements_do_action_sans_safe_get(tag_block *block, TAction &action = TAction()) {
 		auto *definition = block->definition;
@@ -338,19 +338,19 @@ namespace Yelo {
 		blam::tag_reference_set(*this, group_tag, name);
 	}
 
-	void *tag_block::get_element(int32 element) {
+	void *tag_block::get_element(long element) {
 		return blam::tag_block_get_element(this, element);
 	}
 
-	void tag_block::delete_element(int32 element) {
+	void tag_block::delete_element(long element) {
 		blam::tag_block_delete_element(this, element);
 	}
 
-	int32 tag_block::add_element() {
+	long tag_block::add_element() {
 		return blam::tag_block_add_element(this);
 	}
 
-	bool tag_block::resize(int32 element_count) {
+	bool tag_block::resize(long element_count) {
 		return blam::tag_block_resize(this, element_count);
 	}
 
@@ -358,7 +358,7 @@ namespace Yelo {
 		return blam::tag_block_add_and_get_element(this);
 	}
 
-	bool tag_data::resize(int32 new_size) {
+	bool tag_data::resize(long new_size) {
 		return blam::tag_data_resize(this, new_size);
 	}
 
@@ -389,7 +389,7 @@ namespace Yelo {
 
 	namespace blam {
 		void *tag_block_add_and_get_element(tag_block *block) {
-			int32 index = tag_block_add_element(block);
+			long index = tag_block_add_element(block);
 			return tag_block_get_element(block, index);
 		}
 	};

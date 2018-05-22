@@ -23,8 +23,8 @@ namespace Yelo
 			TagGroups::c_cache_file_memory_layout_table* m_layout;
 			TagGroups::c_cache_file_memory_gestalt* m_gesalt;
 
-			int16 RegisterBlockDefinition(const tag_block_definition* block_definition);
-			int16 RegisterDataDefinition(const tag_data_definition* data_definition);
+			short RegisterBlockDefinition(const tag_block_definition* block_definition);
+			short RegisterDataDefinition(const tag_data_definition* data_definition);
 
 		public:
 			uintptr_t GetVirtualBaseAddress() const;

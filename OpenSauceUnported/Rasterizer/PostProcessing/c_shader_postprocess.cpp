@@ -551,7 +551,7 @@ namespace Yelo
 
 			// render each pass of the effect
 			HRESULT hr = E_FAIL;
-			for(int32 pass = 0; pass < m_members.definition->runtime.active_technique->passes.Count; ++pass )
+			for(long pass = 0; pass < m_members.definition->runtime.active_technique->passes.Count; ++pass )
 			{
 				TagGroups::s_pass_definition& pass_element = m_members.definition->runtime.active_technique->passes[pass];
 

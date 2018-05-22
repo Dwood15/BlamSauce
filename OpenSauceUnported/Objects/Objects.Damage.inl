@@ -17,7 +17,7 @@ namespace Yelo
 	{
 
 static void __cdecl object_damage_object_body_hook(datum_index object_index,
-	int32 region_index, int32 node_index, void* /*unknown*/,
+	long region_index, long node_index, void* /*unknown*/,
 	const TagGroups::s_damage_resistance* damage_resistance, const TagGroups::collision_model_material* damage_material, 
 	const TagGroups::s_damage_definition* damage_definition, Objects::s_damage_data* damage_data,
 	void*, __out real&, __out real&, real, bool)
@@ -38,7 +38,7 @@ static void __cdecl object_damage_object_body_hook(datum_index object_index,
 	const datum_index* object_definition_index = object_data->GetTagDefinition();
 
 	const TagGroups::s_object_damage_extension* dmg_ext = nullptr;
-	for(int32 x = 0; x < damage_extensions.Count; x++)
+	for(long x = 0; x < damage_extensions.Count; x++)
 	{
 		const TagGroups::s_object_damage_extension* def = &damage_extensions[x];
 
@@ -52,11 +52,11 @@ static void __cdecl object_damage_object_body_hook(datum_index object_index,
 	if(false && dmg_ext != nullptr)
 	{
 		real max_vitality = *object_data->GetMaximumVitality();
-		int32 region_vitality = (*object_data->GetRegionVitality()) + region_index;
+		long region_vitality = (*object_data->GetRegionVitality()) + region_index;
 		real current_region_damage = CAST(real, region_vitality) / max_vitality;
 
 	#if 0
-		int32 region_count = dmg_ext->regions.Count;
+		long region_count = dmg_ext->regions.Count;
 		const TagGroups::s_object_damage_region_extension& region_ext = dmg_ext->regions[region_index];
 
 		// If the objects region count is greater than [k_maximum_regions_per_model], accommodate for its place in the region vitality/permutation array
@@ -66,7 +66,7 @@ static void __cdecl object_damage_object_body_hook(datum_index object_index,
 			region_index;
 
 		// loop through the object permutations and test the region's damage
-		for(int32 x = *region_perm + 1; x < region_ext.permutations.Count; x++)
+		for(long x = *region_perm + 1; x < region_ext.permutations.Count; x++)
 		{
 			real current_region_damage_threshold = region_ext.permutations[x].damage_threshold;
 

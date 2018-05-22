@@ -47,7 +47,7 @@ namespace Yelo
 #include "Game/Players.ActionResults.inl"
 #include "Game/Players.NearbyObjects.inl"
 
-		void PLATFORM_API FollowingCameraGetUnitCameraInfoImpl(const int16 player_index, Players::s_unit_camera_info& camera_info) {
+		void PLATFORM_API FollowingCameraGetUnitCameraInfoImpl(const short player_index, Players::s_unit_camera_info& camera_info) {
 			auto& local_player = PlayerControlGlobals()->local_players[player_index];
 			auto& player_unit_datum = *blam::object_get_and_verify_type<Objects::s_unit_datum>(local_player.unit_index);
 
@@ -202,7 +202,7 @@ namespace Yelo
 			return Players::Players()[player_index]->GetPlayerUnit();
 		}
 
-		datum_index* GetWeapons(datum_index player_index, int16* current_weapon_index)
+		datum_index* GetWeapons(datum_index player_index, short* current_weapon_index)
 		{
 			Objects::s_unit_datum* unit = GetPlayerUnit(player_index);
 
@@ -214,7 +214,7 @@ namespace Yelo
 			return unit->unit.weapon_object_indices;
 		}
 
-		Objects::s_unit_datum* GetVehicle(datum_index player_index, int16* current_seat_index)
+		Objects::s_unit_datum* GetVehicle(datum_index player_index, short* current_seat_index)
 		{
 			Objects::s_unit_datum* unit = GetPlayerUnit(player_index);
 

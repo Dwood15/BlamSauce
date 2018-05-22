@@ -41,13 +41,13 @@ namespace Yelo::Players {
 namespace Yelo::blam {
 	void __cdecl player_examine_nearby_vehicle(datum_index player_index, datum_index vehicle_index);
 
-	void __cdecl player_set_action_result(datum_index player_index, datum_index action_object_index, int32 action_result, int32 action_seat_index);
+	void __cdecl player_set_action_result(datum_index player_index, datum_index action_object_index, long action_result, long action_seat_index);
 
 	void __cdecl player_set_action_result_to_network(datum_index player_index,
 																	 datum_index action_object_index,
-																	 int32 action_result_type,
-																	 int32 action_result,
-																	 int32 action_seat_index,
+																	 long action_result_type,
+																	 long action_result,
+																	 long action_seat_index,
 																	 datum_index next_weapon_index);
 
 	datum_index __cdecl player_index_from_unit_index(datum_index unit_index);

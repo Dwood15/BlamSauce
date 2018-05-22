@@ -34,11 +34,11 @@ namespace Yelo
 					bool is_ready;
 					bool is_unloaded;
 					bool is_enabled;
-					PAD8;
+					unsigned char : 8;
 				}m_flags;
 
 				Enums::pp_component_status status;
-				PAD16;
+				unsigned short : 16;
 			}m_members;
 
 			/////////////////////////////////////////////////

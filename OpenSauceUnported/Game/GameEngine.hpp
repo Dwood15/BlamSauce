@@ -64,7 +64,7 @@ namespace Yelo
 		// List of original and custom made game engines
 		const game_engine_definition* const* NewDefinitions();
 		// How many total game engine definitions there are (that are valid and not null)
-		int32 NewDefinitionsCount();
+		long NewDefinitionsCount();
 
 		// Register a engine definition so that it may be used by the game code
 		void RegisterNewGameEngine(game_engine_definition* engine);

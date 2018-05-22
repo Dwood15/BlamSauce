@@ -38,8 +38,8 @@ namespace Yelo
 		struct s_player_action_result
 		{
 			datum_index action_object_index;
-			int16 action_result;			// enum object_type
-			int16 action_seat_index;
+			short action_result;			// enum object_type
+			short action_seat_index;
 		}; static_assert( sizeof(s_player_action_result) == 0x8 );
 
 		struct s_player_action
@@ -48,9 +48,9 @@ namespace Yelo
 			real_euler_angles2d desired_facing;
 			real_vector2d throttle;
 			real primary_trigger;
-			int16 desired_weapon_index, desired_grenade_index;
-			int16 desired_zoom_index;
-			PAD16;
+			short desired_weapon_index, desired_grenade_index;
+			short desired_zoom_index;
+			unsigned short : 16;
 		}; static_assert( sizeof(s_player_action) == 0x20 );
 
 		struct s_player_set_action_result_network_data

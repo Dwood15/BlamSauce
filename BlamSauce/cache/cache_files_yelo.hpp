@@ -174,7 +174,7 @@ namespace Yelo::Cache {
 
 	public:
 		byte *ReadExternalData(s_cache_tag_instance *tag_instance, Enums::data_file_reference_type data_file) {
-			int32 data_offset, data_size;
+			long data_offset, data_size;
 
 			if (!DataFileGetItemDataInfo(data_file, tag_instance->index_in_data_file, data_offset, data_size)) {
 				return nullptr;
@@ -326,7 +326,7 @@ namespace Yelo::Cache {
 			// crc the data for all bsp's
 			size_t   bsp_data_offset = 0;
 			for (int i               = 0; i < bsp_count; i++) {
-				int32 bsp_data_size = structure_bsps_block[i].bsp_data_size;
+				long bsp_data_size = structure_bsps_block[i].bsp_data_size;
 				Memory::CRC(crc, bsp_data_start + bsp_data_offset, bsp_data_size);
 				bsp_data_offset += bsp_data_size;
 			}

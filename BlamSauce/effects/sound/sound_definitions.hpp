@@ -43,14 +43,14 @@ namespace Yelo
 			TAG_FIELD(real, skip_fraction);
 			TAG_FIELD(real, gain);
 			TAG_FIELD(short, compression);
-			TAG_FIELD(int16, next_permutation_index);
+			TAG_FIELD(short, next_permutation_index);
 
 			datum_index cache_block_index;		// 0x2C
 			void* cache_base_address;			// 0x30
 			datum_index cache_tag_index;		// 0x34
-			//int32 unused0;						// 0x38, used on the pc. size of the decompressed xbox adpcm samples buffer (cache_base_address)
-			//int32 unused1;						// 0x3C, used on the pc. owner sound tag index
-			int32 decompressed_buffer_size;
+			//long unused0;						// 0x38, used on the pc. size of the decompressed xbox adpcm samples buffer (cache_base_address)
+			//long unused1;						// 0x3C, used on the pc. owner sound tag index
+			long decompressed_buffer_size;
 			datum_index owner_tag_index;
 
 			// samples' tag_data flags
@@ -66,8 +66,8 @@ namespace Yelo
 			TAG_FIELD(tag_string, name);
 			TAG_FIELD(real, natural_pitch);
 			TAG_FIELD(real_bounds, bend_bounds);
-			TAG_FIELD(int16, actual_permutation_count);
-			PAD16;
+			TAG_FIELD(short, actual_permutation_count);
+			unsigned short : 16;
 			TAG_PAD(tag_block, 1);
 			TAG_TBLOCK_(permutations, s_sound_permutation);
 		}; static_assert( sizeof(s_sound_pitch_range) == 0x48 );
@@ -91,8 +91,8 @@ namespace Yelo
 		struct s_sound_promotion_parameters
 		{
 			TAG_FIELD(tag_reference, sound, "snd!");
-			TAG_FIELD(int16, count);
-			PAD16;
+			TAG_FIELD(short, count);
+			unsigned short : 16;
 		};
 		struct sound_definition
 		{
@@ -136,8 +136,8 @@ namespace Yelo
 
 			datum_index runtime_scripting_sound_index;
 			real runtime_maximum_audible_distance;
-			PAD32;
-			PAD32;
+			unsigned long : 32;
+			unsigned long : 32;
 
 			TAG_FIELD(tag_reference, continuous_damage_effect, "cdmg");
 			TAG_BLOCK(tracks, looping_sound_track);

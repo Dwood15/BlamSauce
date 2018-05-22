@@ -107,7 +107,7 @@ namespace Yelo
 			///
 			/// <param name="control_id"> 	Identifier for the control. </param>
 			/// <param name="control_out">	[out] The found control. </param>
-			void FindControl(const uint32 control_id, Control::control_ptr_t& control_out);
+			void FindControl(const uint control_id, Control::control_ptr_t& control_out);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Searches for a control and property. </summary>
@@ -116,8 +116,8 @@ namespace Yelo
 			/// <param name="property_id"> 	Identifier for the property. </param>
 			/// <param name="control_out"> 	[out] The found control. </param>
 			/// <param name="property_out">	[out] The found property. </param>
-			void FindControlAndProperty(const uint32 control_id
-				, const uint32 property_id
+			void FindControlAndProperty(const uint control_id
+				, const uint property_id
 				, Control::control_ptr_t& control_out
 				, Control::i_property_interface*& property_out);
 
@@ -130,7 +130,7 @@ namespace Yelo
 			/// <param name="property_id">	Identifier for the property. </param>
 			/// <param name="value">	  	The value to set. </param>
 			template<typename Type>
-			void SetControlPropertyImpl(const uint32 control_id, const uint32 property_id, Type value);
+			void SetControlPropertyImpl(const uint control_id, const uint property_id, Type value);
 
 		protected:
 			////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -139,23 +139,15 @@ namespace Yelo
 			/// <param name="control_id"> 	Identifier for the control. </param>
 			/// <param name="property_id">	Identifier for the property. </param>
 			/// <param name="value">	  	true to value. </param>
-			void SetControlProperty(const uint32 control_id, const uint32 property_id, const bool value);
+			void SetControlProperty(const uint control_id, const uint property_id, const bool value);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
-			/// <summary>	Sets an int32 control property. </summary>
+			/// <summary>	Sets an long control property. </summary>
 			///
 			/// <param name="control_id"> 	Identifier for the control. </param>
 			/// <param name="property_id">	Identifier for the property. </param>
 			/// <param name="value">	  	The value. </param>
-			void SetControlProperty(const uint32 control_id, const uint32 property_id, const int32 value);
-
-			////////////////////////////////////////////////////////////////////////////////////////////////////
-			/// <summary>	Sets a string control property. </summary>
-			///
-			/// <param name="control_id"> 	Identifier for the control. </param>
-			/// <param name="property_id">	Identifier for the property. </param>
-			/// <param name="value">	  	The value. </param>
-			void SetControlProperty(const uint32 control_id, const uint32 property_id, const real value);
+			void SetControlProperty(const uint control_id, const uint property_id, const long value);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Sets a string control property. </summary>
@@ -163,7 +155,15 @@ namespace Yelo
 			/// <param name="control_id"> 	Identifier for the control. </param>
 			/// <param name="property_id">	Identifier for the property. </param>
 			/// <param name="value">	  	The value. </param>
-			void SetControlProperty(const uint32 control_id, const uint32 property_id, cstring value);
+			void SetControlProperty(const uint control_id, const uint property_id, const real value);
+
+			////////////////////////////////////////////////////////////////////////////////////////////////////
+			/// <summary>	Sets a string control property. </summary>
+			///
+			/// <param name="control_id"> 	Identifier for the control. </param>
+			/// <param name="property_id">	Identifier for the property. </param>
+			/// <param name="value">	  	The value. </param>
+			void SetControlProperty(const uint control_id, const uint property_id, cstring value);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Adds a dynamic property. </summary>
@@ -171,7 +171,7 @@ namespace Yelo
 			/// <param name="control_id"> 	Identifier for the control. </param>
 			/// <param name="property_id">	Identifier for the property. </param>
 			/// <param name="update">	  	The update function. </param>
-			void AddDynamicProperty(const uint32 control_id, const uint32 property_id, const dynamic_property_update_t& update);
+			void AddDynamicProperty(const uint control_id, const uint property_id, const dynamic_property_update_t& update);
 #pragma endregion
 
 #pragma region Event Setup
@@ -183,7 +183,7 @@ namespace Yelo
 			/// <param name="callback_id">	Identifier for the callback. </param>
 			/// <param name="userdata">   	[in] The userdata for the callback. </param>
 			/// <param name="function">   	The callback function. </param>
-			void AttachEvent(const uint32 control_id, const uint32 event_id, const uint32 callback_id, void* userdata, Control::event_callback_t function);
+			void AttachEvent(const uint control_id, const uint event_id, const uint callback_id, void* userdata, Control::event_callback_t function);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Detach event. </summary>
@@ -191,7 +191,7 @@ namespace Yelo
 			/// <param name="control_id"> 	Identifier for the control. </param>
 			/// <param name="event_id">   	Identifier for the event. </param>
 			/// <param name="callback_id">	Identifier for the callback. </param>
-			void DetachEvent(const uint32 control_id, const uint32 event_id, const uint32 callback_id);
+			void DetachEvent(const uint control_id, const uint event_id, const uint callback_id);
 #pragma endregion
 
 #pragma region i_visibility_toggle

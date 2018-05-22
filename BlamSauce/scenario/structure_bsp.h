@@ -173,8 +173,8 @@ namespace Yelo::StructureBSP {
 
 	static void *__stdcall scripting_structure_bsp_set_lightmap_set_evaluate(void **arguments) {
 		struct s_arguments {
-			int16   bsp_index;
-					  PAD16;
+			short   bsp_index;
+					  unsigned short : 16;
 			cstring set_name;
 		} *args = CAST_PTR(s_arguments * , arguments);
 		TypeHolder result;
@@ -226,8 +226,8 @@ namespace Yelo::StructureBSP {
 
 	scripting_structure_bsp_set_sky_set_evaluate(void **arguments) {
 		struct s_arguments {
-			int16   bsp_index;
-					  PAD16;
+			short   bsp_index;
+					  unsigned short : 16;
 			cstring set_name;
 		} *args = CAST_PTR(s_arguments * , arguments);
 		TypeHolder result;
@@ -246,7 +246,7 @@ namespace Yelo::StructureBSP {
 	/// <summary>	Sets current bsp modifier. </summary>
 	///
 	/// <param name="bsp_index">	Zero-based index of the bsp. </param>
-	void SetCurrentModifier(const int16 bsp_index) {
+	void SetCurrentModifier(const short bsp_index) {
 		if ((bsp_index != NONE) && (g_bsp_modifier_globals.m_bsp_modifier_bsp_map[bsp_index] != NONE)) {
 			const int modifier_index = g_bsp_modifier_globals.m_bsp_modifier_bsp_map[bsp_index];
 
@@ -261,7 +261,7 @@ namespace Yelo::StructureBSP {
 	/// <summary>	Sets the current game state. </summary>
 	///
 	/// <param name="bsp_index">	Zero-based index of the bsp. </param>
-	void SetToCurrentGameState(const int16 bsp_index) {
+	void SetToCurrentGameState(const short bsp_index) {
 		if (GameState::YeloGameStateEnabled()
 			 && (bsp_index != NONE)
 			 && (g_bsp_modifier_globals.m_bsp_modifier_bsp_map[bsp_index] != NONE)) {
@@ -335,7 +335,7 @@ namespace Yelo::StructureBSP {
 
 	/// <summary>	Initializes for new bsp. </summary>
 	void InitializeForNewBSP() {
-		const int16 bsp_index = Scenario::StructureBspIndex();
+		const short bsp_index = Scenario::StructureBspIndex();
 
 		SetCurrentModifier(bsp_index);
 		SetToCurrentGameState(bsp_index);

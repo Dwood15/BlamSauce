@@ -41,7 +41,7 @@ namespace Yelo
 		struct s_datum_base_aligned : s_datum_base
 		{
 		private:
-			PAD16;
+			unsigned short : 16;
 		}; static_assert( sizeof(s_datum_base_aligned) == 4 );
 	};
 };

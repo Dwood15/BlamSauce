@@ -54,7 +54,7 @@ namespace Yelo
 			, const real shield_amount
 			, const real body_amount
 			, void* arg6
-			, const int32 damage_part)
+			, const long damage_part)
 		{
 			blam::unit_damage_aftermath(unit_index, damage_data, damage_flags, shield_amount, body_amount, arg6, damage_part);
 
@@ -63,7 +63,7 @@ namespace Yelo
 
 		bool __cdecl UnitCanEnterSeat(datum_index unit_index
 			, datum_index target_unit_index
-			, int16 target_seat_index,
+			, short target_seat_index,
 			_Out_opt_ datum_index* return_unit_in_seat)
 		{
 			bool result = true;
@@ -85,7 +85,7 @@ namespace Yelo
 				mov		ecx, [esp+24]
 				mov		ebx, [esp+20]
 				push	ecx		// datum_index* unit_in_seat_index
-				push	ebx		// int16 target_seat_index
+				push	ebx		// short target_seat_index
 				push	edx		// datum_index target_unit_index
 				push	eax		// datum_index unit_index
 				call	UnitCanEnterSeat

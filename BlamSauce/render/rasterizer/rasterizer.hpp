@@ -61,13 +61,13 @@ namespace Yelo {
 
 		struct s_rasterizer_globals {
 			bool initialized;
-				  PAD8;
-			UNKNOWN_TYPE(int16);
+				  unsigned char : 8;
+			UNKNOWN_TYPE(short);
 			UNKNOWN_TYPE(rectangle2d);
 			UNKNOWN_TYPE(rectangle2d);
 			PAD32;
-			UNKNOWN_TYPE(int32);
-			UNKNOWN_TYPE(int32);
+			UNKNOWN_TYPE(long);
+			UNKNOWN_TYPE(long);
 			PAD32;
 			PAD32;
 			PAD32;
@@ -79,16 +79,16 @@ namespace Yelo {
 			IDirect3DBaseTexture9 **default_texture_2d_texture;
 			IDirect3DBaseTexture9 **default_texture_3d_texture; // engine actually uses 2d for 3d cases
 			IDirect3DBaseTexture9 **default_texture_cubemap;
-			int16                 lightmap_mode;
-			int16                 maximum_nodes_per_model;
+			short                 lightmap_mode;
+			short                 maximum_nodes_per_model;
 			bool                  using_software_vertex_processing;
-										 PAD8;
-			UNKNOWN_TYPE(int16); // only set, never read (in any meaningful way)
+										 unsigned char : 8;
+			UNKNOWN_TYPE(short); // only set, never read (in any meaningful way)
 			uint32 fixed_function_ambient; // ambient light value for FF
 			UNKNOWN_TYPE(bool); // active camo related
 			UNKNOWN_TYPE(bool); // shadows related
 			UNKNOWN_TYPE(bool); // render targets related
-					 PAD8;
+					 unsigned char : 8;
 					 PAD32;
 		};
 
@@ -99,12 +99,12 @@ namespace Yelo {
 
 		struct s_rasterizer_window_parameters {
 			short rasterizer_target;
-			int16 window_index;
+			short window_index;
 
 			UNKNOWN_TYPE(bool); // mirror rendering related
 			UNKNOWN_TYPE(bool);
 
-													 PAD16;
+													 unsigned short : 16;
 			Render::s_render_camera        camera;
 			Render::s_render_frustum       frustum;
 			Render::s_render_fog           fog;
@@ -116,12 +116,12 @@ namespace Yelo {
 
 		struct s_rasterizer_debug_options {
 			bool  fps;
-					PAD8;
-			int16 stats;
-			int16 mode;
+					unsigned char : 8;
+			short stats;
+			short mode;
 			bool  wireframe;
 			bool  debug_model_vertices;
-			int16 debug_model_lod;
+			short debug_model_lod;
 			bool  debug_transparents;
 			bool  debug_meter_shader;
 			bool  models;
@@ -154,13 +154,13 @@ namespace Yelo {
 			bool  fog_atmosphere;
 			bool  fog_plane;
 			bool  bump_mapping;
-					PAD16;
+					unsigned short : 16;
 			real  lightmap_ambient;
-					PAD16;
-			int16 pad3;
+					unsigned short : 16;
+			short pad3;
 			bool  lightmaps_incident;
 			bool  lightmaps_filtering;
-					PAD16;
+					unsigned short : 16;
 			real  model_lightning_ambient;
 			bool  environment_alpha_testing;
 			bool  environment_specular_mask;
@@ -179,24 +179,24 @@ namespace Yelo {
 			bool  soft_filter;
 			bool  secondary_render_target_debug;
 			bool  profile_log;
-					PAD24;
+					unsigned char : 8; unsigned short : 16;
 			real  detail_objects_offset_multiplier;
 			real  zbias;
 			real  zoffset;
 			bool  force_all_player_views_to_default_player;
 			bool  safe_frame_bounds;
-			int16 freeze_flying_camera;
+			short freeze_flying_camera;
 			bool  zsprites;
 			bool  filthy_decal_fog_hack;
 			bool  smart;
 			bool  splitscreen_VB_optimization;
 			bool  profile_print_locks;
-					PAD24;
-			int32 profile_objectlook_time;
-			int16 effects_level;
-			int16 _unk1;
-			int16 _unk2;
-					PAD16;
+					unsigned char : 8; unsigned short : 16;
+			long profile_objectlook_time;
+			short effects_level;
+			short _unk1;
+			short _unk2;
+					unsigned short : 16;
 			real  pad3_scale;
 			real  f0;
 			real  f1;

@@ -7,16 +7,16 @@ namespace Yelo {
 	struct Console::s_console_globals {
 		bool active;
 		bool enabled; // HaloPC only, for -console
-		PAD16;
+		unsigned short : 16;
 
 		s_terminal_state terminal_state;
 
 		struct {
 			char  entries[8][Enums::k_terminal_line_max_characters + 1];
-			int16 entries_count;
-			int16 current_index;
-			UNKNOWN_TYPE(int16);
-			PAD16;
+			short entries_count;
+			short current_index;
+			UNKNOWN_TYPE(short);
+			unsigned short : 16;
 		}                history;
 
 	}; static_assert(sizeof(Console::s_console_globals) == 0x9C4);
@@ -63,7 +63,7 @@ namespace Yelo {
 #if !PLATFORM_IS_STUBBS
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <remarks>	access_flags = 0. </remarks>
-		bool __cdecl console_process_remote_command(cstring command, int32 machine_index);
+		bool __cdecl console_process_remote_command(cstring command, long machine_index);
 
 #endif
 	};

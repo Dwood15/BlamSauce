@@ -23,28 +23,28 @@ namespace Yelo {
 	namespace Debug {
 		struct s_profile_section {
 			cstring name;
-			int32   index;
+			long   index;
 			bool    active;
-			PAD8; // alignment
-			int16 stack_depth;
+			unsigned char : 8; // alignment
+			short stack_depth;
 
 			PAD32; // alignment
 			UNKNOWN_TYPE(int64); // ticks
-			UNKNOWN_TYPE(int32); // count
+			UNKNOWN_TYPE(long); // count
 			PAD32; // alignment
 			UNKNOWN_TYPE(int64); // ticks
-			byte field_28[sizeof(int32) * 120]; // counts
+			byte field_28[sizeof(long) * 120]; // counts
 			byte field_208[sizeof(int64) * 120]; // ticks
-			UNKNOWN_TYPE(int32); // element count for the above arrays
+			UNKNOWN_TYPE(long); // element count for the above arrays
 
-			UNKNOWN_TYPE(int32); // count
+			UNKNOWN_TYPE(long); // count
 			UNKNOWN_TYPE(int64); // ticks
 
-			UNKNOWN_TYPE(int32); // count
+			UNKNOWN_TYPE(long); // count
 			PAD32; // alignment
 			UNKNOWN_TYPE(int64); // ticks
 
-			UNKNOWN_TYPE(int32); // count
+			UNKNOWN_TYPE(long); // count
 			PAD32; // alignment
 			UNKNOWN_TYPE(int64); // ticks
 		}; static_assert(sizeof(s_profile_section) == 0x5F8); // 0x730

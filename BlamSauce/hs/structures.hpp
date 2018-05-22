@@ -45,8 +45,8 @@ namespace Yelo
 
 	namespace Scripting
 	{
-		typedef void (__cdecl* proc_hs_parse)(int32 function_index, datum_index expression_index);
-		typedef void (__cdecl* proc_hs_evaluate)(int32 function_index, datum_index thread_index, bool initialize_stack);
+		typedef void (__cdecl* proc_hs_parse)(long function_index, datum_index expression_index);
+		typedef void (__cdecl* proc_hs_evaluate)(long function_index, datum_index thread_index, bool initialize_stack);
 
 		// halo script function definition
 		struct hs_function_definition
@@ -59,14 +59,14 @@ namespace Yelo
 			cstring info;
 			cstring param_info;
 			word_flags access;
-			int16 paramc;
+			short paramc;
 #pragma warning( push )
 #pragma warning( disable : 4200 ) // nonstandard extension used : zero-sized array in struct/union, Cannot generate copy-ctor or copy-assignment operator when UDT contains a zero-sized array
 			// don't access directly, use GetParameter
 			Enums::hs_type params[];
 #pragma warning( pop )
 
-			Enums::hs_type GetParameter(int16 index)
+			Enums::hs_type GetParameter(short index)
 			{
 				assert(index >= 0 && index<paramc);
 
@@ -101,7 +101,7 @@ namespace Yelo
 				s_hs_value_union value;
 			};
 			word_flags access;
-			PAD16;
+			unsigned short : 16;
 		}; static_assert( sizeof(hs_global_definition) == 0x10 );
 
 
@@ -109,16 +109,16 @@ namespace Yelo
 		{
 			union {
 				Enums::hs_type constant_type;
-				int16 function_index;
-				int16 script_index;
+				short function_index;
+				short script_index;
 			};
 			Enums::hs_type type;
 			union {
 				word_flags flags;
-				int16 pointer_type;
+				short pointer_type;
 			};
 			datum_index next_expression;
-			int32 source_offset;
+			long source_offset;
 			union {
 				void* address;
 

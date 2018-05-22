@@ -47,11 +47,11 @@
 /// Add an anonymous 8-bit (1 byte) field to a structure.
 #define PAD8 unsigned char : 8;
 /// Add an anonymous 16-bit (2 byte) field to a structure.
-#define PAD16 unsigned short : 16;
+//#define PAD16 unsigned short : 16;
 /// Add an anonymous 24-bit field to a structure.
 #define PAD24 unsigned char : 8; unsigned short : 16;
 /// Add an anonymous 32-bit (4 byte) field to a structure.
-#define PAD32 unsigned long : 32;
+// #define PAD32 unsigned long : 32;
 /// Add an anonymous 48-bit field to a structure.
 #define PAD48 unsigned short : 16; unsigned long : 32;
 /// Add an anonymous 64-bit (8 byte) field to a structure.

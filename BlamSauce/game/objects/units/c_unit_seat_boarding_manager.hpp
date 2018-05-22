@@ -25,7 +25,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 		/// <param name="target_unit_index">	Datum index of the target unit. </param>
 		/// <param name="damage_effect">		The damage effect. </param>
 		/// <param name="region_index">			(Optional) Zero-based index of the region to target. </param>
-		void UnitApplyDamage(const datum_index unit_index, const datum_index target_unit_index, const datum_index damage_effect, const int16 region_index = NONE) const {
+		void UnitApplyDamage(const datum_index unit_index, const datum_index target_unit_index, const datum_index damage_effect, const short region_index = NONE) const {
 			if (damage_effect.IsNull()) {
 				return;
 			}
@@ -105,7 +105,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 		/// <param name="unit_index">			Datum index of the unit. </param>
 		/// <param name="target_unit_index">	Datum index of the target unit. </param>
 		/// <param name="target_seat">			The target seat index. </param>
-		void UnitEnterSeat(const datum_index unit_index, const datum_index target_unit_index, const int16 target_seat) const {
+		void UnitEnterSeat(const datum_index unit_index, const datum_index target_unit_index, const short target_seat) const {
 			// If the target seat is manned when we need to enter, kick the existing unit
 			auto target_seat_unit = GetUnitInSeat(target_unit_index, target_seat);
 			if (!target_seat_unit.IsNull()) {
@@ -120,7 +120,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 		/// <param name="unit_index">			Datum index of the unit. </param>
 		/// <param name="target_unit_index">	Datum index of the target unit. </param>
 		/// <param name="target_seat">			The target seat index. </param>
-		void UnitEnterPoweredSeat(const datum_index unit_index, const datum_index target_unit_index, const int16 target_seat) const {
+		void UnitEnterPoweredSeat(const datum_index unit_index, const datum_index target_unit_index, const short target_seat) const {
 			auto *target_unit_datum = blam::object_get_and_verify_type<s_unit_datum>(unit_index);
 			auto &seat_definition   = *GetSeatDefinition(target_unit_index, target_seat);
 
@@ -220,7 +220,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 			auto &unit_definition = *blam::tag_get<TagGroups::s_unit_definition>(unit_datum.object.definition_index);
 
 			// Apply actions to all mounted units
-			for (int16 index = 0; index < unit_definition.unit.seats.Count; index++) {
+			for (short index = 0; index < unit_definition.unit.seats.Count; index++) {
 				auto *seat_extension = GetSeatExtensionDefinition(unit_index, index);
 				if (!seat_extension) {
 					continue;
@@ -280,7 +280,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 				return false;
 			}
 
-			int32 animation_index = animation_seat.animations[animation];
+			long animation_index = animation_seat.animations[animation];
 			if (animation_index == NONE) {
 				return false;
 			}
@@ -309,7 +309,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 			}
 
 			// If a seat that triggers the mounted state is occupied, start the mounted state
-			for (int16 index = 0; index < unit_definition.unit.seats.Count; index++) {
+			for (short index = 0; index < unit_definition.unit.seats.Count; index++) {
 				auto *seat_extension = GetSeatExtensionDefinition(unit_index, index);
 				if (!seat_extension || GetUnitInSeat(unit_index, index).IsNull()) {
 					continue;
@@ -444,7 +444,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 
 			// If no seats that trigger the mounting state are occupied, clear the state
 			bool       is_mounted = false;
-			for (int16 index      = 0; index < unit_definition.unit.seats.Count; index++) {
+			for (short index      = 0; index < unit_definition.unit.seats.Count; index++) {
 				auto *seat_extension = GetSeatExtensionDefinition(unit_index, index);
 				if (!seat_extension) {
 					continue;
@@ -472,7 +472,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 		/// <param name="seat_index">			Datum index of the seat. </param>
 		/// <param name="is_targeted_seat"> 	Whether the seat is a targeted seat. </param>
 		/// <param name="result">				[in,out] The result. </param>
-		void CanEnterSeat(const datum_index unit_index, const datum_index target_unit_index, const int16 seat_index, const bool is_targeted_seat, bool &result) const {
+		void CanEnterSeat(const datum_index unit_index, const datum_index target_unit_index, const short seat_index, const bool is_targeted_seat, bool &result) const {
 			auto &unit_datum = *blam::object_get_and_verify_type<s_unit_datum>(unit_index);
 
 			s_unit_datum *target_unit_datum = nullptr;
@@ -640,7 +640,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 		/// <param name="target_unit_index">	Datum index of the target unit. </param>
 		/// <param name="target_seat_index">	Index of the target seat. </param>
 		/// <param name="result">				[in,out] The result. </param>
-		void UnitCanEnterBoardingSeat(const datum_index unit_index, const datum_index target_unit_index, const int16 target_seat_index, bool &result) const {
+		void UnitCanEnterBoardingSeat(const datum_index unit_index, const datum_index target_unit_index, const short target_seat_index, bool &result) const {
 			// Can't enter if there is already a unit in the seat
 			if (!GetUnitInSeat(target_unit_index, target_seat_index).IsNull()) {
 				result = false;
@@ -657,7 +657,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 
 			// Can't enter seats if an occupied seat disallows it
 			auto       *unit_definition = blam::tag_get<TagGroups::s_unit_definition>(unit_datum->object.definition_index);
-			for (int16 index            = 0; index < unit_definition->unit.seats.Count; index++) {
+			for (short index            = 0; index < unit_definition->unit.seats.Count; index++) {
 				auto *seat_extension = GetSeatExtensionDefinition(unit_index, index);
 				if (!seat_extension) {
 					continue;
@@ -724,7 +724,7 @@ namespace Yelo::Objects::Units::SeatBoarding {
 		/// <param name="target_unit_index">	Datum index of the target unit. </param>
 		/// <param name="target_seat_index">	Index of the target seat. </param>
 		/// <param name="result">				[in,out] The result. </param>
-		void UnitCanEnterTargetSeat(const datum_index unit_index, const datum_index target_unit_index, const int16 target_seat_index, bool &result) const {
+		void UnitCanEnterTargetSeat(const datum_index unit_index, const datum_index target_unit_index, const short target_seat_index, bool &result) const {
 			// Handle the seat enter case for when the unit is boarding
 			auto *unit_datum = blam::object_get_and_verify_type<s_unit_datum>(unit_index);
 			if (unit_datum && (unit_datum->unit.animation.state != Enums::_unit_animation_state_yelo_seat_boarding)) {

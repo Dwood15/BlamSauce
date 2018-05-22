@@ -14,7 +14,7 @@ namespace Yelo
 		struct s_render_target_chain
 		{
 			bool m_first_render;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			// 2 render targets
 			Render::s_render_target m_targets[2];
 			// pointers to the current setup of targets

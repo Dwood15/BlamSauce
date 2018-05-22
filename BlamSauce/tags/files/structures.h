@@ -63,11 +63,11 @@ namespace Yelo::TagGroups {
 
 		tag    group_tag;
 		uint32 crc;
-		int32  offset;      // actual offset in the file
-		int32  size;         // UNUSED in Halo
+		long  offset;      // actual offset in the file
+		long  size;         // UNUSED in Halo
 
 		uint32 user_data;   // UNUSED in Halo
-		int16  version;
+		short  version;
 
 		sbyte foundation_tag_file_index;   // UNUSED in Halo
 		sbyte owner_index;   // UNUSED in Halo. default value is NONE
@@ -78,20 +78,20 @@ namespace Yelo::TagGroups {
 
 		bool IsYeloFormat() const { return signature == k_signature_yelo; }
 
-		void InitializeForBungieFormat(int16 tag_version) {
+		void InitializeForBungieFormat(short tag_version) {
 			Initialize(tag_version);
 
 			signature = k_signature;
 		}
 
-		void InitializeForYeloFormat(int16 tag_version) {
+		void InitializeForYeloFormat(short tag_version) {
 			Initialize(tag_version);
 
 			signature = k_signature_yelo;
 		}
 
 	private:
-		void Initialize(int16 tag_version) {
+		void Initialize(short tag_version) {
 			ZeroMemory(this, sizeof(*this));
 
 			crc         = NONE;

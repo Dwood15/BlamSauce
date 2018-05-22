@@ -29,7 +29,7 @@ namespace Yelo {
 
 		tag                            signature;
 		string_id_yelo_value_reference value;
-		int32                          value_length;
+		long                          value_length;
 		datum_index                    tag_index;
 
 		string_id id;

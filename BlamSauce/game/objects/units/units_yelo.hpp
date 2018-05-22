@@ -22,9 +22,9 @@ namespace Yelo {
 	};
 
 	namespace Objects {
-		static int16 GetSeatWeaponAnimation(const TagGroups::model_animation_graph &animation_graph,
-														const int16 seat_index,
-														const int16 weapon_index,
+		static short GetSeatWeaponAnimation(const TagGroups::model_animation_graph &animation_graph,
+														const short seat_index,
+														const short weapon_index,
 														const Enums::weapon_class_animation animation_class) {
 			if ((seat_index == NONE) || (weapon_index == NONE)) {
 				return NONE;
@@ -72,7 +72,7 @@ namespace Yelo {
 		/// <param name="seat_index">	Index of the seat. </param>
 		///
 		/// <returns>	The seat definition. </returns>
-		const TagGroups::unit_seat *GetSeatDefinition(const datum_index unit_index, const int16 seat_index) {
+		const TagGroups::unit_seat *GetSeatDefinition(const datum_index unit_index, const short seat_index) {
 			if (seat_index == NONE) {
 				return nullptr;
 			}
@@ -101,7 +101,7 @@ namespace Yelo {
 		/// <param name="seat_index">	Datum index of the seat. </param>
 		///
 		/// <returns>	null if it fails, else the seat extension definition. </returns>
-		const TagGroups::unit_seat_extensions *GetSeatExtensionDefinition(const datum_index unit_index, const int16 seat_index) {
+		const TagGroups::unit_seat_extensions *GetSeatExtensionDefinition(const datum_index unit_index, const short seat_index) {
 			auto *seat = GetSeatDefinition(unit_index, seat_index);
 			if (seat && (seat->seat_extensions.Count != 0)) {
 				return &seat->seat_extensions[0];
@@ -117,7 +117,7 @@ namespace Yelo {
 		/// <param name="seat_index">	Datum index of the seat. </param>
 		///
 		/// <returns>	The unit in seat. </returns>
-		datum_index GetUnitInSeat(const datum_index unit_index, const int16 seat_index) {
+		datum_index GetUnitInSeat(const datum_index unit_index, const short seat_index) {
 			// Traverse the object's children to find a unit in the matching seat
 			auto             *unit_datum = blam::object_get_and_verify_type<s_unit_datum>(unit_index);
 			for (datum_index current     = unit_datum->object.first_object_index;
@@ -238,7 +238,7 @@ namespace Yelo {
 		/// <param name="target_seat_index">  	Datum index of the target seat. </param>
 		/// <param name="return_unit_in_seat">	[out] If non-null, the return unit in seat. </param>
 		/// <param name="result">			  	[in,out] The result. </param>
-		void UnitCanEnterSeatMultiteam(datum_index unit_index, datum_index target_unit_index, int16 target_seat_index, _Out_opt_ datum_index *return_unit_in_seat, bool &result) {
+		void UnitCanEnterSeatMultiteam(datum_index unit_index, datum_index target_unit_index, short target_seat_index, _Out_opt_ datum_index *return_unit_in_seat, bool &result) {
 			datum_index unit_in_seat = datum_index::null();
 
 			auto unit        = blam::object_get_and_verify_type<s_unit_datum>(unit_index);

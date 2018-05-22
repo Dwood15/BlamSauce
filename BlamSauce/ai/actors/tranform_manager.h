@@ -33,7 +33,7 @@ namespace Yelo::AI::Transform {
 			datum_index::index_t m_unit_index;
 			Enums::game_team     m_instigator_team;
 			datum_index          m_instigator_encounter;
-			int16                m_instigator_squad;
+			short                m_instigator_squad;
 			sbyte                m_transform_entry_index;
 			sbyte                m_transform_index;
 			sbyte                m_target_index;
@@ -41,7 +41,7 @@ namespace Yelo::AI::Transform {
 		};
 
 		bool m_transforms_enabled;
-		PAD24;
+		unsigned char : 8; unsigned short : 16;
 		s_actor_variant_transform_state                          *m_transform_states;
 		TagGroups::actor_variant_transform_collection_definition *m_transform_collection;
 
@@ -162,7 +162,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="instigator_encounter">   	Datum index of the instigators encounter. </param>
 		/// <param name="instigator_squad">		  	Index of the instigators squad. </param>
 		void CreateUnitActor(const datum_index unit_index, const TagGroups::actor_variant_transform_in_target &target, const datum_index source_actor_index, const datum_index instigator_encounter,
-									const int16 instigator_squad) const;
+									const short instigator_squad) const;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Creates a new unit reusing the old unit. </summary>
@@ -254,7 +254,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="attachment_team">		   	The attachment's team. </param>
 		/// <param name="attachment_scale">		   	The attachment's scale. </param>
 		void AttachObject(const datum_index unit_index, const Objects::s_unit_datum *unit_datum, const datum_index object_type, const tag_string &object_marker_name,
-								const tag_string &destination_marker_name, const int32 destination_marker_index, const Enums::game_team attachment_team, const real attachment_scale) const;
+								const tag_string &destination_marker_name, const long destination_marker_index, const Enums::game_team attachment_team, const real attachment_scale) const;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Attach the transform definition's attachment objects to the target unit. </summary>
@@ -777,7 +777,7 @@ namespace Yelo::AI::Transform {
 	}
 
 	void c_actor_variant_transform_manager::AttachObject(const datum_index unit_index, const Objects::s_unit_datum *unit_datum, const datum_index object_type, const tag_string &object_marker_name,
-																		  const tag_string &destination_marker_name, const int32 destination_marker_index, const Enums::game_team attachment_team,
+																		  const tag_string &destination_marker_name, const long destination_marker_index, const Enums::game_team attachment_team,
 																		  const real attachment_scale) const {
 		// If there is only 1 marker do not append a marker index to the name
 		cstring destination_marker = destination_marker_name;
@@ -830,7 +830,7 @@ namespace Yelo::AI::Transform {
 			if (attachment.destination_marker_count == 1) {
 				AttachObject(unit_index, unit_datum, attachment.object_type.tag_index, attachment.object_marker, attachment.destination_marker, NONE, attachment_team, attachment_scale);
 			} else {
-				for (int32 marker_index = 0; marker_index < attachment.destination_marker_count; marker_index++) {
+				for (long marker_index = 0; marker_index < attachment.destination_marker_count; marker_index++) {
 					AttachObject(unit_index, unit_datum, attachment.object_type.tag_index, attachment.object_marker, attachment.destination_marker, marker_index, attachment_team, attachment_scale);
 				}
 			}
@@ -842,13 +842,13 @@ namespace Yelo::AI::Transform {
 #pragma region Unit Creation
 
 	void c_actor_variant_transform_manager::CreateUnitActor(const datum_index unit_index, const TagGroups::actor_variant_transform_in_target &target, const datum_index source_actor_index,
-																			  const datum_index instigator_encounter, const int16 instigator_squad) const {
+																			  const datum_index instigator_encounter, const short instigator_squad) const {
 		// Set up the unit's inventory
 		blam::actor_customize_unit(target.actor_variant, unit_index);
 
 		// Inherit the encounter and squad if desired
 		datum_index encounter_index = datum_index::null();
-		int16       squad_index     = NONE;
+		short       squad_index     = NONE;
 
 		const auto actor_data = AI::Actors()[source_actor_index];
 
@@ -992,7 +992,7 @@ namespace Yelo::AI::Transform {
 
 			if (TEST_FLAG(transform_target.flags, Flags::_actor_variant_transform_in_target_flags_inherit_seated_units)) {
 				auto &unit_definition = *blam::tag_get<TagGroups::s_unit_definition>(unit_datum->object.definition_index);
-				for (int16 index = 0; index < unit_definition.unit.seats.Count; index++) {
+				for (short index = 0; index < unit_definition.unit.seats.Count; index++) {
 					auto seated_unit_index = Objects::GetUnitInSeat(unit_index, index);
 					if (!seated_unit_index.IsNull()) {
 						blam::unit_exit_seat_end(seated_unit_index, false, true, false);
@@ -1263,7 +1263,7 @@ namespace Yelo::AI::Transform {
 		std::vector<datum_index> riders;
 		if ((action.target == Enums::_actor_variant_transform_keyframe_effect_target_riders)
 			 || (action.rider_handling != Enums::_actor_variant_transform_keyframe_rider_handling_none)) {
-			for (int16 index = 0; index < unit_definition.unit.seats.Count; index++) {
+			for (short index = 0; index < unit_definition.unit.seats.Count; index++) {
 				auto seated_unit_index = Objects::GetUnitInSeat(unit_index, index);
 				if (seated_unit_index.IsNull()) {
 					continue;

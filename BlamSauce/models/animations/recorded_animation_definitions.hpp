@@ -20,9 +20,9 @@ namespace Yelo
 			TAG_FIELD(byte, version); // a Enums::e_recorded_animation_version, with +1  (to support NONE)
 			TAG_FIELD(sbyte, raw_animation_data);
 			TAG_FIELD(sbyte, unit_control_data_version);
-			PAD8;
-			TAG_FIELD(int16, length_of_animation);
-			PAD16;
+			unsigned char : 8;
+			TAG_FIELD(short, length_of_animation);
+			unsigned short : 16;
 			PAD32;
 			TAG_FIELD(tag_data, event_stream);
 

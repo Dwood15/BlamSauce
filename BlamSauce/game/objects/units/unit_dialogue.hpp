@@ -49,9 +49,9 @@ namespace Yelo
 			Enums::unit_speech_priority priority;
 			Enums::unit_scream_type scream;
 			datum_index sound_definition_index;
-			UNKNOWN_TYPE(int16); // time related
-			PAD16;
-			UNKNOWN_TYPE(int32); // haven't verified what is here yet
+			UNKNOWN_TYPE(short); // time related
+			unsigned short : 16;
+			UNKNOWN_TYPE(long); // haven't verified what is here yet
 			AI::s_ai_communication_packet ai_information;
 		}; static_assert( sizeof(s_unit_speech) == 0x30 );
 	};

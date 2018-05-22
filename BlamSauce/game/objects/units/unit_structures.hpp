@@ -159,9 +159,9 @@ namespace Yelo {
 	namespace Objects {
 		struct s_unit_datum_animation_data {
 			word_flags flags;                     // 0x298
-			UNKNOWN_TYPE(int16);                  // 0x29A animation index, weapon type
-			UNKNOWN_TYPE(int16);                  // 0x29C animation index
-			UNKNOWN_TYPE(int16);                  // 0x29E, appears unused except for getting initialized in unit_new
+			UNKNOWN_TYPE(short);                  // 0x29A animation index, weapon type
+			UNKNOWN_TYPE(short);                  // 0x29C animation index
+			UNKNOWN_TYPE(short);                  // 0x29E, appears unused except for getting initialized in unit_new
 			//////////////////////////////////////////////////////////////////////////
 			// animation graph unit indexes
 			sbyte             seat_index;                     // 0x2A0
@@ -174,7 +174,7 @@ namespace Yelo {
 			byte_enum         desired_animation_state;         // 0x2A6, set from s_unit_control_data's animation_state
 			byte_enum         base_seat;                  // 0x2A7 [Enums::unit_base_seat]
 			sbyte             emotion;                        // 0x2A8
-									PAD8;
+									unsigned char : 8;
 			s_animation_state replacement_animation;   // 0x2AA
 			s_animation_state overlay_animation;      // 0x2AE
 			s_animation_state weapon_ik;            // 0x2B2
@@ -189,7 +189,7 @@ namespace Yelo {
 			// These values are also used in determining assists
 			// These values would be checked in the killed unit's data.
 			struct s_recent_damage {
-				int32       game_tick;            // the last game tick damage was dealt
+				long       game_tick;            // the last game tick damage was dealt
 				real        damage;               // total (read: additive) damage the responsible object has done
 				datum_index responsible_unit;
 				datum_index responsible_player;   // would be NONE if killed by AI
@@ -201,17 +201,17 @@ namespace Yelo {
 			datum_index swarm_prev_unit_index;                        // 0x200
 			long_flags  flags;                                    // 0x204
 			long_flags  control_flags;                              // 0x208
-			UNKNOWN_TYPE(int16);                                 // 0x20C related to the first two int16's in s_unit_globals_data
+			UNKNOWN_TYPE(short);                                 // 0x20C related to the first two short's in s_unit_globals_data
 			sbyte       shield_sapping;                                 // 0x20E
 			sbyte       base_seat_index;                                 // 0x20F
 			struct {
-				int32      ticks_remaining;                              // 0x210
+				long      ticks_remaining;                              // 0x210
 				long_flags flags;                                 // 0x214
 			}           persistent_control;
 			datum_index controlling_player_index;                     // 0x218
 			short       ai_effect_type;                                 // 0x21C ai_unit_effect
-			int16       emotion_animation_index;                           // 0x21E
-			UNKNOWN_TYPE(int32);                                 // 0x220 time (game ticks) of next update for ai_effect_type related code
+			short       emotion_animation_index;                           // 0x21E
+			UNKNOWN_TYPE(long);                                 // 0x220 time (game ticks) of next update for ai_effect_type related code
 			real_vector3d       desired_facing_vector;                     // 0x224
 			real_vector3d       desired_aiming_vector;                     // 0x230
 			real_vector3d       aiming_vector;                           // 0x23C
@@ -229,21 +229,21 @@ namespace Yelo {
 			// also set to the same PersistentControlTicks value when an actor dies and they fire-wildely
 			UNKNOWN_TYPE(byte);                                    // 0x28C sbyte
 			byte_enum throwing_grenade_state;                        // 0x28D
-			UNKNOWN_TYPE(int16);                                 // 0x28E
-			UNKNOWN_TYPE(int16);                                 // 0x290
-												 PAD16;                                             // 0x292
+			UNKNOWN_TYPE(short);                                 // 0x28E
+			UNKNOWN_TYPE(short);                                 // 0x290
+												 unsigned short : 16;                                             // 0x292
 			datum_index                 throwing_grenade_projectile_index;               // 0x294
 			s_unit_datum_animation_data animation;                        // 0x298
 			real                        ambient;                                       // 0x2E0
 			real                        illumination;                                    // 0x2E4
 			real                        mouth_aperture;                                 // 0x2E8
 												 PAD32;                                             // 0x2EC unused
-			int16                       vehicle_seat_index;                              // 0x2F0
-			int16                       current_weapon_index;                              // 0x2F2
-			int16                       next_weapon_index;                              // 0x2F4
-												 PAD16;                                             // 0x2F6 need to verify this is padding
+			short                       vehicle_seat_index;                              // 0x2F0
+			short                       current_weapon_index;                              // 0x2F2
+			short                       next_weapon_index;                              // 0x2F4
+												 unsigned short : 16;                                             // 0x2F6 need to verify this is padding
 			datum_index                 weapon_object_indices[Enums::k_maximum_weapons_per_unit];   // 0x2F8
-			int32                       weapon_ready_times[Enums::k_maximum_weapons_per_unit];   // 0x308
+			long                       weapon_ready_times[Enums::k_maximum_weapons_per_unit];   // 0x308
 			datum_index                 equipment_index;                           // 0x218
 			sbyte                       current_grenade_index;                           // 0x31C
 			sbyte                       next_grenade_index;                              // 0x31D
@@ -265,10 +265,10 @@ namespace Yelo {
 			//////////////////////////////////////////////////////////////////////////
 			// these fields are all related
 			UNKNOWN_TYPE(datum_index);                              // 0x32C object index
-			UNKNOWN_TYPE(int32);                                 // 0x330 game time
+			UNKNOWN_TYPE(long);                                 // 0x330 game time
 			//////////////////////////////////////////////////////////////////////////
-			int16 encounter_index;                                 // 0x334
-			int16 squad_index;                                    // 0x336
+			short encounter_index;                                 // 0x334
+			short squad_index;                                    // 0x336
 			real  powered_seats_power[Enums::k_number_of_powered_seats];      // 0x338
 			real  integrated_light_power;                           // 0x340
 			real  integrated_light_toggle_power;                        // 0x344
@@ -286,38 +286,38 @@ namespace Yelo {
 			struct {
 				s_unit_speech current;                              // 0x388
 				s_unit_speech next;                                 // 0x3B8 not *positive* of this field
-				UNKNOWN_TYPE(int16);                              // 0x3E8
-				UNKNOWN_TYPE(int16);                              // 0x3EA
-				UNKNOWN_TYPE(int16);                              // 0x3EC
-				UNKNOWN_TYPE(int16);                              // 0x3EE
-				UNKNOWN_TYPE(int32);                              // 0x3F0 time related
+				UNKNOWN_TYPE(short);                              // 0x3E8
+				UNKNOWN_TYPE(short);                              // 0x3EA
+				UNKNOWN_TYPE(short);                              // 0x3EC
+				UNKNOWN_TYPE(short);                              // 0x3EE
+				UNKNOWN_TYPE(long);                              // 0x3F0 time related
 				UNKNOWN_TYPE(bool);                                 // 0x3F4
 				UNKNOWN_TYPE(bool);                                 // 0x3F5
 				UNKNOWN_TYPE(bool);                                 // 0x3F6
-								PAD8;                                          // 0x3F7
-				UNKNOWN_TYPE(int16);                              // 0x3F8
-				UNKNOWN_TYPE(int16);                              // 0x3FA
-				UNKNOWN_TYPE(int16);                              // 0x3FC
-				UNKNOWN_TYPE(int16);                              // 0x3FE
-				UNKNOWN_TYPE(int32);                              // 0x400
+								unsigned char : 8;                                          // 0x3F7
+				UNKNOWN_TYPE(short);                              // 0x3F8
+				UNKNOWN_TYPE(short);                              // 0x3FA
+				UNKNOWN_TYPE(short);                              // 0x3FC
+				UNKNOWN_TYPE(short);                              // 0x3FE
+				UNKNOWN_TYPE(long);                              // 0x400
 			}           speech;
 
 			struct {
 				short       category;                                    // 0x404 Enums::damage_category
-				int16       ai_handle_delay_ticks;                        // 0x406 ticks remaining until the engine tells the AI code to handle the damage result
+				short       ai_handle_delay_ticks;                        // 0x406 ticks remaining until the engine tells the AI code to handle the damage result
 				real        amount;                                    // 0x408
 				datum_index responsible_unit_index;                     // 0x40C
 			}           damage_result;
 			datum_index responsible_flamer_object_index;               // 0x410 object which caused us to start flaming to death
 			UNKNOWN_TYPE(real);                                    // 0x414
 											  PAD32;
-			int32                     death_time;                                    // 0x41C // game time when this unit died
-			int16                     feign_death_timer;                              // 0x420
+			long                     death_time;                                    // 0x41C // game time when this unit died
+			short                     feign_death_timer;                              // 0x420
 			Enums::unit_camo_regrowth camo_regrowth;                  // 0x422
 			real                      stun;                                          // 0x424
-			int16                     stun_timer;                                    // 0x428
-			int16                     killing_spree_count;                              // 0x42A
-			int32                     killing_spree_start_time;                           // 0x42C
+			short                     stun_timer;                                    // 0x428
+			short                     killing_spree_count;                              // 0x42A
+			long                     killing_spree_start_time;                           // 0x42C
 			s_recent_damage           recent_damage[4];                        // 0x430
 											  PAD32;                                             // 0x470 unused
 			//////////////////////////////////////////////////////////////////////////
@@ -326,7 +326,7 @@ namespace Yelo {
 			UNKNOWN_TYPE(bool);                                    // 0x475 networking related. engine only writes to this, never reads. consider it 'unused'
 		private:
 			union {                                             // 0x476
-				PAD16;
+				unsigned short : 16;
 
 				//////////////////////////////////////////////////////////////////////////
 				// OS-modified game states only
@@ -338,8 +338,8 @@ namespace Yelo {
 		public:
 			s_unit_control_data control_data;                        // 0x478
 			bool                last_completed_client_update_id_valid;                  // 0x4B8
-									  PAD24;
-			int32               last_completed_client_update_id;                     // 0x4BC
+									  unsigned char : 8; unsigned short : 16;
+			long               last_completed_client_update_id;                     // 0x4BC
 									  PAD32;                                             // 0x4C0 unused
 									  PAD32;                                             // 0x4C4 unused
 									  PAD32;                                             // 0x4C8 unused

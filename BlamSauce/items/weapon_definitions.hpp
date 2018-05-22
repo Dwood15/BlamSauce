@@ -29,12 +29,13 @@ namespace Yelo
 			TAG_FIELD(angle, magnetism_angle);
 			TAG_FIELD(real, magnetism_range);
 			TAG_FIELD(angle, deviation_angle);
-			PAD32;
+			unsigned long : 32;
 		};
 		struct weapon_ammunition_object
 		{
-			TAG_FIELD(int16, rounds);
-			PAD16; PAD64;
+			TAG_FIELD(short, rounds);
+			unsigned short : 16;
+			PAD64;
 			TAG_FIELD(tag_reference, equipment);
 		}; static_assert( sizeof(weapon_ammunition_object) == 0x1C); // VS2012.2's intellisense is broken http://connect.microsoft.com/VisualStudio/feedback/details/745237/invalid-byte-order-in-intellisense
 		struct weapon_magazine_definition
@@ -43,16 +44,16 @@ namespace Yelo
 				TAG_FLAG(wastes_rounds_when_reloaded);
 				TAG_FLAG(every_round_must_be_chambered);
 			}flags; static_assert( sizeof(_flags) == sizeof(long_flags) );
-			TAG_FIELD(int16, rounds_recharged);
-			TAG_FIELD(int16, rounds_total_initial);
-			TAG_FIELD(int16, rounds_total_maximum);
-			TAG_FIELD(int16, rounds_loaded_maximum);
-			TAG_PAD(int32, 2);
+			TAG_FIELD(short, rounds_recharged);
+			TAG_FIELD(short, rounds_total_initial);
+			TAG_FIELD(short, rounds_total_maximum);
+			TAG_FIELD(short, rounds_loaded_maximum);
+			TAG_PAD(long, 2);
 			TAG_FIELD(real, reload_time);
-			TAG_FIELD(int16, rounds_reloaded);
-			PAD16;
+			TAG_FIELD(short, rounds_reloaded);
+			unsigned short : 16;
 			TAG_FIELD(real, chamber_time);
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 			TAG_PAD(tag_reference, 1);
 			TAG_FIELD(tag_reference, reloading_effect);
 			TAG_FIELD(tag_reference, chambering_effect);
@@ -94,50 +95,50 @@ namespace Yelo
 			TAG_FIELD(real, firing_acceleration_time);
 			TAG_FIELD(real, firing_deceleration_time);
 			TAG_FIELD(real_fraction, blurred_rate_of_fire);
-			TAG_PAD(int32, 2);
-			TAG_FIELD(int16, magazine);
-			TAG_FIELD(int16, rounds_per_shot);
-			TAG_FIELD(int16, minimum_rounds_loaded);
-			TAG_FIELD(int16, rounds_between_tracers);
-			PAD32;
-			PAD16;
+			TAG_PAD(long, 2);
+			TAG_FIELD(short, magazine);
+			TAG_FIELD(short, rounds_per_shot);
+			TAG_FIELD(short, minimum_rounds_loaded);
+			TAG_FIELD(short, rounds_between_tracers);
+			unsigned long : 32;
+			unsigned short : 16;
 			TAG_ENUM(firing_noise);
 
 			//error
 			TAG_FIELD(real_bounds, error);
 			TAG_FIELD(real, error_acceleration_time);
 			TAG_FIELD(real, error_deceleration_time);
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 
 			//charging
 			TAG_FIELD(real, charging_time);
 			TAG_FIELD(real, charged_time);
 			TAG_ENUM(overcharged_action);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real, charged_illumination);
 			TAG_FIELD(real, spew_time);
 			TAG_FIELD(tag_reference, charging_effect);
 
 			//projectile
 			TAG_ENUM(distribution_function);
-			TAG_FIELD(int16, projectiles_per_shot);
+			TAG_FIELD(short, projectiles_per_shot);
 			TAG_FIELD(real, distribution_angle);
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(angle, minimum_error);
 			TAG_FIELD(angle_bounds, error_angle);
 			TAG_FIELD(real_point3d, first_person_offset);
-			PAD32;
+			unsigned long : 32;
 			TAG_FIELD(tag_reference, projectile);
 
 			//misc
 			TAG_FIELD(real, ejection_port_recovery_time);
 			TAG_FIELD(real, illumination_recovery_time);
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 			TAG_FIELD(real_fraction, heat_generated_per_round);
 			TAG_FIELD(real_fraction, age_generated_per_round);
 			TAG_FIELD(real_fraction, age_generated_while_charged);
 			TAG_FIELD(real, overload_time);
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 			TAG_PAD(tag_string, 1);
 			struct { // all times are in game ticks (source fields are in seconds)
 				real illumination_recovery_time;
@@ -172,7 +173,7 @@ namespace Yelo
 			}flags; static_assert( sizeof(_flags) == sizeof(long_flags) );
 			TAG_FIELD(tag_string, label);
 			TAG_ENUM(secondary_trigger_mode);
-			TAG_FIELD(int16, maximum_alternate_shots_loaded);
+			TAG_FIELD(short, maximum_alternate_shots_loaded);
 
 			short function_exports[Enums::k_number_of_incoming_object_functions];
 			TAG_FIELD(real, ready_time);
@@ -185,12 +186,12 @@ namespace Yelo
 			TAG_FIELD(real_fraction, heat_detonation_fraction);
 			TAG_FIELD(real_fraction, heat_loss_per_second);
 			TAG_FIELD(real_fraction, heat_illumination);
-			TAG_PAD(int32, 4);
+			TAG_PAD(long, 4);
 			TAG_FIELD(tag_reference, overheated);
 			TAG_FIELD(tag_reference, detonation);
 			TAG_FIELD(tag_reference, player_melee_damage);
 			TAG_FIELD(tag_reference, player_melee_response);
-			TAG_PAD(int32, 2);
+			TAG_PAD(long, 2);
 
 			//actor firing parameters
 			TAG_FIELD(tag_reference, actor_firing_parameters);
@@ -201,23 +202,23 @@ namespace Yelo
 			TAG_FIELD(real, intersection_reticle_range);
 
 			//zoom
-			PAD16;
-			TAG_FIELD(int16, magnification_levels);
+			unsigned short : 16;
+			TAG_FIELD(short, magnification_levels);
 			TAG_FIELD(real_bounds, magnification_range);
 
 			aim_assist_parameters aim_assist;
 
 			//movement
 			TAG_ENUM(movement_penalized);
-			PAD16;
+			unsigned short : 16;
 			TAG_FIELD(real_fraction, forward_movement_penalty);
 			TAG_FIELD(real_fraction, sideways_movement_penalty);
-			PAD32;
+			unsigned long : 32;
 
 			//AI targeting parameters
 			TAG_FIELD(real, minimum_target_range);
 			TAG_FIELD(real, looking_time_modifier);
-			PAD32;
+			unsigned long : 32;
 
 			//miscellaneous
 			TAG_FIELD(real, light_power_on_time);
@@ -228,7 +229,7 @@ namespace Yelo
 			TAG_FIELD(real, age_rate_of_fire_penalty);
 			TAG_FIELD(real_fraction, age_misfire_start);
 			TAG_FIELD(real_fraction, age_misfire_chance);
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 
 			//interface
 			TAG_FIELD(tag_reference, first_person_model);
@@ -241,10 +242,10 @@ namespace Yelo
 			TAG_PAD(tag_block, 1);
 			TAG_FIELD(real, active_camo_ding);
 			TAG_FIELD(real, active_camo_regrowth_rate);
-			TAG_PAD(int32, 3);
+			TAG_PAD(long, 3);
 
 			//more miscellaneous
-			PAD16;
+			unsigned short : 16;
 			TAG_ENUM(weapon_type);
 			TAG_TBLOCK(predicted_resources, predicted_resource);
 			TAG_TBLOCK(magazines, weapon_magazine_definition);

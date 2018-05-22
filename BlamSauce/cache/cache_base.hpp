@@ -17,6 +17,6 @@ namespace Yelo::Cache {
 		};
 
 		tag   signature;
-		int16 version;
+		short version;
 	};
 };

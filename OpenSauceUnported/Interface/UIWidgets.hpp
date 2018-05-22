@@ -20,10 +20,10 @@ namespace Yelo
 		s_ui_widget_instance* LoadByNameOrTag(datum_index ui_widget_definition_index, cstring name = nullptr,
 			s_ui_widget_instance* parent = nullptr, 
 			// don't set ctrl'er index unless you specify the last three params as well
-			int16 controller_index = NONE, 
+			short controller_index = NONE,
 			datum_index topmost_widget_definition_index = datum_index::null,
 			datum_index parent_widget_definition_index = datum_index::null,
-			int16 child_index_from_parent = NONE);
+			short child_index_from_parent = NONE);
 
 		bool DisplayScriptedWidget(cstring name);
 	};

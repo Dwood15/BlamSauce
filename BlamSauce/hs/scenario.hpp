@@ -20,13 +20,13 @@ namespace Yelo {
 			};
 			struct _global {
 				Enums::hs_type type;
-				PAD16;
+				unsigned short : 16;
 				PAD32;
 				TAG_FIELD(datum_index, initialization_expression_index);
 			};
 			TAG_FIELD(tag_string, name);
 			union {
-				TAG_PAD(u_p0, int32, 15); // 60
+				TAG_PAD(u_p0, long, 15); // 60
 				_script script;
 				_global global;
 			};
@@ -34,7 +34,7 @@ namespace Yelo {
 		struct hs_script : hs_scenario_data_base {}; static_assert(sizeof(hs_script) == 0x5C);
 		struct hs_global_internal : hs_scenario_data_base {}; static_assert(sizeof(hs_global_internal) == 0x5C);
 		struct hs_tag_reference {
-			TAG_PAD(htr0, int32, 6); // 24
+			TAG_PAD(htr0, long, 6); // 24
 			TAG_FIELD(tag_reference, reference);
 		}; static_assert(sizeof(hs_tag_reference) == 0x28);
 		struct hs_source_file {

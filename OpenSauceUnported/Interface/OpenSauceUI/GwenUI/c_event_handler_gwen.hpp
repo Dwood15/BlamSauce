@@ -29,7 +29,7 @@ namespace Yelo
 			const c_event_handler_gwen& m_owner;
 			Gwen::Event::Caller& m_caller;
 			bool is_attached;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 			const event_data_transform_t m_data_transform;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////

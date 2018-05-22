@@ -103,14 +103,14 @@ namespace Yelo
 		}
 		static bool PLATFORM_API InitializeForNewBSPHook()
 		{
-			static int16 bsp_index = 0;
+			static short bsp_index = 0;
 
 			_asm
 			{
 				mov		bsp_index, si
 			};
 
-			bool return_value = blam::scenario_switch_structure_bsp((int16)bsp_index);
+			bool return_value = blam::scenario_switch_structure_bsp((short)bsp_index);
 
 			InitializeForNewBSP();
 
@@ -192,9 +192,9 @@ namespace Yelo
 		void Update(real delta_time)
 		{
 			Main::s_project_component* components;
-			const int32 component_count = Main::GetProjectComponents(components);
+			const long component_count = Main::GetProjectComponents(components);
 
-			for(int32 x = 0; x <= component_count; x++)
+			for(long x = 0; x <= component_count; x++)
 				if( components[x].Update != nullptr )
 					components[x].Update(delta_time);
 		}
@@ -232,9 +232,9 @@ namespace Yelo
 			InitializeForNewMapPrologue();
 
 			Main::s_project_map_component* components;
-			const int32 component_count = Main::GetProjectComponents(components);
+			const long component_count = Main::GetProjectComponents(components);
 
-			for(int32 x = 0; x <= component_count; x++)
+			for(long x = 0; x <= component_count; x++)
 				if( components[x].InitializeForNewMap != nullptr )
 					components[x].InitializeForNewMap();
 
@@ -248,9 +248,9 @@ namespace Yelo
 			DisposeFromOldMapPrologue();
 
 			Main::s_project_map_component* components;
-			const int32 component_count = Main::GetProjectComponents(components);
+			const long component_count = Main::GetProjectComponents(components);
 
-			for(int32 x = component_count; x >= 0; x--)
+			for(long x = component_count; x >= 0; x--)
 				if( components[x].DisposeFromOldMap != nullptr )
 					components[x].DisposeFromOldMap();
 		}
@@ -258,18 +258,18 @@ namespace Yelo
 		void PLATFORM_API InitializeForNewBSP()
 		{
 			Yelo::Main::s_project_bsp_component* components;
-			const int32 component_count = Yelo::Main::GetProjectComponents(components);
+			const long component_count = Yelo::Main::GetProjectComponents(components);
 
-			for(int32 x = 0; x <= component_count; x++)
+			for(long x = 0; x <= component_count; x++)
 				if (components[x].InitializeForNewBSP != nullptr)
 					components[x].InitializeForNewBSP();
 		}
 		void PLATFORM_API DisposeFromOldBSP()
 		{
 			Yelo::Main::s_project_bsp_component* components;
-			const int32 component_count = Yelo::Main::GetProjectComponents(components);
+			const long component_count = Yelo::Main::GetProjectComponents(components);
 
-			for(int32 x = component_count; x >= 0; x--)
+			for(long x = component_count; x >= 0; x--)
 				if (components[x].DisposeFromOldBSP != nullptr)
 					components[x].DisposeFromOldBSP();
 		}
@@ -277,18 +277,18 @@ namespace Yelo
 		void PLATFORM_API InitializeForNewGameState()
 		{
 			Main::s_project_game_state_component* components;
-			const int32 component_count = Main::GetProjectComponents(components);
+			const long component_count = Main::GetProjectComponents(components);
 
-			for(int32 x = 0; x <= component_count; x++)
+			for(long x = 0; x <= component_count; x++)
 				if( components[x].InitializeForNewGameState != nullptr )
 					components[x].InitializeForNewGameState();
 		}
 		void InitializeForYeloGameState(bool enabled)
 		{
 			Main::s_project_game_state_component* components;
-			const int32 component_count = Main::GetProjectComponents(components);
+			const long component_count = Main::GetProjectComponents(components);
 
-			for(int32 x = 0; x <= component_count; x++)
+			for(long x = 0; x <= component_count; x++)
 				if( components[x].InitializeForYeloGameState != nullptr )
 					components[x].InitializeForYeloGameState(enabled);
 		}
@@ -297,9 +297,9 @@ namespace Yelo
 			YELO_ASSERT_DISPLAY( IN_RANGE_ENUM(life_cycle, Enums::k_number_of_game_state_life_cycles), "What fucking life cycle is this shit?");
 
 			Main::s_project_game_state_component* components;
-			const int32 component_count = Main::GetProjectComponents(components);
+			const long component_count = Main::GetProjectComponents(components);
 
-			for(int32 x = 0; x <= component_count; x++)
+			for(long x = 0; x <= component_count; x++)
 				if( components[x].HandleGameStateLifeCycle != nullptr )
 					components[x].HandleGameStateLifeCycle(life_cycle);
 		}

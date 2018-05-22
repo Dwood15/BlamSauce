@@ -59,13 +59,13 @@ namespace Yelo
 
 		struct s_project_yellow_scenario_build_info
 		{
-			PAD16;
+			unsigned short : 16;
 			TAG_ENUM(build_stage, Enums::production_build_stage);
 			TAG_FIELD(uint32, revision);
 			time_t timestamp;			static_assert(sizeof(time_t) == 0x8);
 			byte uuid_buffer[Enums::k_uuid_buffer_size];
 
-			TAG_PAD(tpy_1299, int32, 4); // 16
+			TAG_PAD(tpy_1299, long, 4); // 16
 
 			bool HasUuid() const { return false; }
 			void GenerateUuid() { return; }
@@ -84,7 +84,7 @@ namespace Yelo
 			// internal name of the cache's Yelo tag when the user doesn't supply a definition
 			static cstring k_default_name  = "i've got a lovely bunch of corncobs";
 
-			const int16 version;
+			const short version;
 			TAG_FIELD(word_flags, flags, Flags::project_yellow_flags);
 
 
@@ -94,7 +94,7 @@ namespace Yelo
 			TAG_FIELD(tag_reference, explicit_references, "tagc");
 			TAG_TBLOCK(build_info, s_project_yellow_scenario_build_info); // 1
 
-			TAG_PAD(tpy_0, int32, 10); // 40
+			TAG_PAD(tpy_0, long, 10); // 40
 			/* --- Misc --- */
 
 
@@ -102,7 +102,7 @@ namespace Yelo
 			struct {
 				TAG_TBLOCK(scripted_widgets, s_project_yellow_scripted_ui_widget); // 128
 
-				TAG_PAD(tp_000, int32, 4); // 16
+				TAG_PAD(tp_000, long, 4); // 16
 			}ui;
 			/* --- UI/GUI --- */
 
@@ -112,7 +112,7 @@ namespace Yelo
 				TAG_FIELD(real, gravity_scale, "[0,2]", "amount to scale gravity ingame");
 				TAG_FIELD(real, player_speed_scale, "[0,6]", "amount to scale the player speeds");
 
-				TAG_PAD(tpy_01, int32, 5); // 20
+				TAG_PAD(tpy_01, long, 5); // 20
 
 				bool IsGravityScaleValid() const {
 					return gravity_scale >= 0.0f || gravity_scale <= 2.0f;
@@ -139,7 +139,7 @@ namespace Yelo
 					TAG_FLAG(unused);
 				}flags;	static_assert( sizeof(_networking_flags) == sizeof(long_flags) );
 
-				TAG_PAD(tpy_0123, int32, 5); // 20
+				TAG_PAD(tpy_0123, long, 5); // 20
 			}networking;
 			/* --- Netgame --- */
 
@@ -148,7 +148,7 @@ namespace Yelo
 			struct {
 				TAG_FIELD(long_flags, flags, Flags::project_yellow_gameplay_flags);
 
-				TAG_PAD(tpy_032, int32, 5); // 20
+				TAG_PAD(tpy_032, long, 5); // 20
 			}gameplay;
 			/* !-- Gameplay --! */
 
@@ -158,7 +158,7 @@ namespace Yelo
 			/* !-- Scripting --! */
 
 
-			TAG_PAD(tpy_011, int32, 23); // 92
+			TAG_PAD(tpy_011, long, 23); // 92
 
 			project_yellow(const bool invalid = false)
 				: version(project_yellow::k_version)

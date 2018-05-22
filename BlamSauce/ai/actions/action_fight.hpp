@@ -12,8 +12,8 @@ namespace Yelo
 	{
 		struct s_action_fight_state
 		{
-			UNKNOWN_TYPE(int16); // timer
-			PAD16;
+			UNKNOWN_TYPE(short); // timer
+			unsigned short : 16;
 		}; static_assert( sizeof(s_action_fight_state) == 0x4 );
 	};
 };

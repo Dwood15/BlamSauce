@@ -68,14 +68,14 @@ namespace Yelo
 		typedef bool (__cdecl* proc_object_type_new)(datum_index object_index);
 		typedef bool (__cdecl* proc_object_type_update)(datum_index object_index);
 		typedef void (__cdecl* proc_object_type_handle_deleted_object)(datum_index object_index, datum_index deleted_object_index);
-		typedef void (__cdecl* proc_object_type_handle_region_destroyed)(datum_index object_index, int32 region_index, long_flags damage_region_flags);
+		typedef void (__cdecl* proc_object_type_handle_region_destroyed)(datum_index object_index, long region_index, long_flags damage_region_flags);
 		typedef bool (__cdecl* proc_object_type_handle_parent_destroyed)(datum_index object_index);
 		typedef void (__cdecl* proc_object_type_preprocess_node_orientations)(datum_index object_index, real_orientation3d* orientations);
 		typedef void (__cdecl* proc_object_type_postprocess_node_matrices)(datum_index object_index, real_matrix4x3* matrices);
 		typedef void (__cdecl* proc_object_type_notify_impulse_sound)(datum_index object_index, datum_index sound_definition_index, datum_index sound_index);
 		typedef bool (__cdecl* proc_object_type_render_message_debug)(datum_index object_index);
-		typedef int32 (__cdecl* proc_object_type_create_to_network)(datum_index object_index, void* buffer, int32 buffer_size_in_bits);
-		typedef int32 (__cdecl* proc_object_type_build_update_delta)(datum_index object_index, void* buffer, int32 buffer_size_in_bits, short message_delta_mode);
+		typedef long (__cdecl* proc_object_type_create_to_network)(datum_index object_index, void* buffer, long buffer_size_in_bits);
+		typedef long (__cdecl* proc_object_type_build_update_delta)(datum_index object_index, void* buffer, long buffer_size_in_bits, short message_delta_mode);
 		typedef void (__cdecl* proc_object_type_process_update_delta)(datum_index object_index, MessageDeltas::message_dependant_header* header, Networking::s_network_game_client* client);
 		typedef bool (__cdecl* proc_object_type_is_network_time_valid)(datum_index object_index);
 		typedef bool (__cdecl* proc_object_type_unknown78)(datum_index object_index, void*); // IDK what the 2nd parameter's type is
@@ -83,11 +83,11 @@ namespace Yelo
 		{
 			cstring name;													// 0x0
 			tag group_tag;													// 0x4
-			int16 datum_size;												// 0x8
-			int16 placement_tag_block_offset;								// 0xA
-			int16 palette_tag_block_offset;									// 0xC
-			int16 placement_tag_block_size;									// 0xE
-			int32 update_message_type;										// 0x10
+			short datum_size;												// 0x8
+			short placement_tag_block_offset;								// 0xA
+			short palette_tag_block_offset;									// 0xC
+			short placement_tag_block_size;									// 0xE
+			long update_message_type;										// 0x10
 			proc_initialize				initialize;										// 0x14
 			proc_dispose				dispose;										// 0x18
 			proc_initialize_for_new_map initialize_for_new_map;							// 0x1C
@@ -120,7 +120,7 @@ namespace Yelo
 
 			s_object_type_definition* object_type;
 			s_object_type_definition* base_object_types[2];
-			int32 _unused1[13]; // s_object_type_definition*.
+			long _unused1[13]; // s_object_type_definition*.
 			s_object_type_definition* next;
 			PAD32;
 		}; static_assert( sizeof(s_object_type_definition) == 0xC8 );

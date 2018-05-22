@@ -102,7 +102,7 @@ namespace Yelo {
 					break;
 
 				case Enums::_field_enum:
-					VerifyEnumFieldDefinition<int16>(field, block_definition);
+					VerifyEnumFieldDefinition<short>(field, block_definition);
 					break;
 
 				case Enums::_field_long_flags:
@@ -143,7 +143,7 @@ namespace Yelo {
 				case Enums::_field_array_start:
 				case Enums::_field_pad:
 				case Enums::_field_skip:
-					YELO_ASSERT(CAST_PTR(int32, field.definition) > 0);
+					YELO_ASSERT(CAST_PTR(long, field.definition) > 0);
 					break;
 
 				case Enums::_field_explanation: {

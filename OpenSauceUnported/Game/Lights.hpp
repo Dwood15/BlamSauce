@@ -22,7 +22,7 @@ namespace Yelo
 		struct s_lights_globals_data
 		{
 			bool enabled;
-			PAD24;
+			unsigned char : 8; unsigned short : 16;
 		};
 		s_lights_globals_data*			LightsGlobals();
 
