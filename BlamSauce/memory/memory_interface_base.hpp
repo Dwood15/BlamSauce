@@ -79,9 +79,7 @@
 // Double pointer implement get by-reference
 #define DPTR_IMP_GET2(name)      { PTR_IMPL_GET_GUTS(GET_DPTR2, GET_DPTR2, name) }
 // Pointer implement get by-value
-#define PTR_IMP_GET(name)      { PTR_IMPL_GET_GUTS(GET_PTR2 , GET_PTR  , name) }
 // Pointer implement get by-reference
-#define PTR_IMP_GET2(name)      { PTR_IMPL_GET_GUTS(GET_PTR2 , GET_PTR2 , name) }
 
 // Double pointer implement get by-reference, with debug assert
 #define DPTR_IMP_GET_BYREF(name){ PTR_IMPL_GET_GUTS(GET_DPTR2, GET_DPTR, name, *) }

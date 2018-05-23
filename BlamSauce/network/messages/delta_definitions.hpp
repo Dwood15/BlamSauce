@@ -1,6 +1,8 @@
 /* See LICENSE for specific license information */
 #pragma once
 
+#include "../../cseries/base.h"
+
 namespace Yelo {
 	namespace Memory {
 		struct s_bitstream;
@@ -8,7 +10,7 @@ namespace Yelo {
 
 	namespace Enums {
 #pragma region field_type
-		enum field_type : long_enum {
+		enum network_field_type : long_enum {
 			_field_type_integer,
 			_field_type_real,
 			_field_type_boolean,
@@ -176,7 +178,7 @@ namespace Yelo {
 		typedef void  (__cdecl *mdp_field_type_dispose)(struct field_properties_definition *properties_definition);
 
 		struct field_type_definition {
-			Enums::field_type                      type;
+			Enums::network_field_type                      type;
 			bool                                   requires_parameters;
 																unsigned char : 8; unsigned short : 16;
 			mdp_field_type_maximum_size_calculator proc_maximum_size_calculator;
@@ -197,7 +199,7 @@ namespace Yelo {
 		typedef long (__cdecl *mdp_field_decode)(struct field_properties_definition *field_properties, void *baseline_data, void *destination_data, Memory::s_bitstream *input_stream);
 
 		struct field_properties_definition {
-			Enums::field_type type;
+			Enums::network_field_type type;
 			char              name[76];
 			mdp_field_encode  proc_encode;
 			mdp_field_decode  proc_decode;
@@ -257,7 +259,7 @@ namespace Yelo {
 				long max_size;
 			} arbitrary_data;
 			struct {
-				Enums::field_type width;
+				Enums::network_field_type width;
 										unsigned long : 32; // unknown
 				field_properties_definition *member_properties;
 			} array;
@@ -336,10 +338,10 @@ namespace Yelo {
 			bool  iteration_header_decoded;      // 0x1C
 			bool  iteration_body_decoded;      // 0x1D
 					unsigned short : 16;
-			UNKNOWN_TYPE(long);   // 0x20, iteration_independent_overhead_type = 3
-			UNKNOWN_TYPE(long);   // 0x24, iteration_independent_overhead_type = 2
-			UNKNOWN_TYPE(long);   // 0x28, iteration_independent_overhead_type = 1
-			UNKNOWN_TYPE(long);   // 0x2C, iteration_independent_overhead_type = 0
+			long : 32;   // 0x20, iteration_independent_overhead_type = 3
+			long : 32;   // 0x24, iteration_independent_overhead_type = 2
+			long : 32;   // 0x28, iteration_independent_overhead_type = 1
+			long : 32;   // 0x2C, iteration_independent_overhead_type = 0
 
 			// This structure may have 8 more bytes of data, but I haven't seen them used in code yet...
 		};

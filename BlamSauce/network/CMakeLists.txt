@@ -24,6 +24,7 @@ set(N_PLAYER_UPDATE_H
 
 set(N_SERVER_H
 	${CMAKE_CURRENT_SOURCE_DIR}/server/network_server_manager.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/server/server.h
 	${CMAKE_CURRENT_SOURCE_DIR}/server/network_server_manager_structures.hpp)
 
 set(N_TRANSPORT_H

@@ -1,5 +1,14 @@
 #pragma once
 
+#include <precompile.h>
+#include "../../game/configuration.hpp"
+#include "../../cseries/base.h"
+#include "update.hpp"
+#include "../../game/player/player_action.hpp"
+#include "../../game/action_queue.hpp"
+#include "../../memory/position_queue.h"
+#include "../../game/objects/vehicles/vehicle_update_queue.hpp"
+
 namespace Yelo
 {
 	namespace Networking

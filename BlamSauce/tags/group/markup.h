@@ -4,8 +4,10 @@
 #define TAG_FLAG8(name, ...)            Yelo::byte_flags name##_bit : 1
 
 // [arg2] = documentation
+#define TAG_FLAG16(name, ...)            unsigned short name##_bit : 1
 
 // [arg2] = documentation
+#define TAG_FLAG(name, ...)               Yelo::long_flags name##_bit : 1
 
 // [arg2] = enum type
 // [arg3] = documentation
@@ -13,6 +15,8 @@
 
 // [arg2] = enum type
 // [arg3] = documentation
+#define TAG_ENUM(name, ...)               short name
+
 // [arg2] = enum type
 // [arg3] = documentation
 #define TAG_ENUM32(name, ...)            long name
@@ -24,6 +28,7 @@
 //#d/efine T/AG_PAD(type, count)            type : 8 * sizeof(type) * count
 // [arg2] = units
 // [arg3] = documentation
+#define TAG_FIELD(type, name, ...)         type name
 
 #define TAG_ARRAY(type, name, count)      type name[count]
 

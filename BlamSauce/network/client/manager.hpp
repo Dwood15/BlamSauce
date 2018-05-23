@@ -1,10 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
+
+#include "manager_structures.hpp"
 
 namespace Yelo::Enums {
 	enum network_game_client_state : short {
@@ -19,8 +15,6 @@ namespace Yelo::Enums {
 };
 
 namespace Yelo::Networking {
-	struct s_network_game_client;
-	struct s_network_game_client_yelo;
 
 	// Gets the network game client pointer
 	s_network_game_client *NetworkGameClient();

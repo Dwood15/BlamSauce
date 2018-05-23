@@ -1,4 +1,11 @@
 #pragma once
+#include <precompile.h>
+#include "../../cseries/base.h"
+#include "../game/globals.hpp"
+#include "../transport/address.h"
+#include "../game/manager_structures.hpp"
+#include "manager.hpp"
+
 namespace Yelo::Networking {
 		struct s_network_client_time;
 		struct s_network_connection;
@@ -12,7 +19,7 @@ namespace Yelo::Networking {
 		{
 			struct s_join_parameters
 			{
-				UNKNOWN_TYPE(short);						// 0xAEE
+				short pad_;						// 0xAEE
 				wchar_t password[Enums::k_network_server_password_length+1];// 0xAF0
 				char token[Enums::k_network_game_join_token_size];			// 0xB02
 			}; static_assert( sizeof(s_join_parameters) == 0x24 );
