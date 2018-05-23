@@ -29,7 +29,7 @@ namespace Environment
 	};
 
 	/// <summary>	The list of feature combinations available. </summary>
-	const uint32 g_shader_offsets[] = {
+	const uint g_shader_offsets[] = {
 		sizeof(DX9::s_rasterizer_dx9_pixel_shader) * 0, // Standard
 		sizeof(DX9::s_rasterizer_dx9_pixel_shader) * 1, // Directional Diffuse
 		sizeof(DX9::s_rasterizer_dx9_pixel_shader) * 2, // Directional Diffuse with Normal map
@@ -41,7 +41,7 @@ namespace Environment
 	
 	bool					g_rasterizer_environment_dlm_diffuse = true;
 	bool					g_rasterizer_environment_dlm_specular = true;
-	static uint32			g_current_shader_offset = 0;
+	static uint			g_current_shader_offset = 0;
 	static _enum			g_extension_usage_mask;
 
 	/// <summary>	Hook to change the used pixel shader to a custom one. </summary>

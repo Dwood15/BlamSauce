@@ -35,10 +35,10 @@ namespace Yelo
 
 
 		bool __cdecl tag_file_open(tag group_tag, cstring filename,
-			_Out_opt_ bool* is_readonly, _Out_opt_ uint32* crc, bool from_file_system);
+			_Out_opt_ bool* is_readonly, _Out_opt_ uint* crc, bool from_file_system);
 		template<typename T> inline
 		bool tag_file_open(cstring filename, 
-			_Out_opt_ bool* is_readonly, _Out_opt_ uint32* crc, bool from_file_system)
+			_Out_opt_ bool* is_readonly, _Out_opt_ uint* crc, bool from_file_system)
 		{
 			return tag_file_open(T::k_group_tag, filename, is_readonly, crc, from_file_system);
 		}

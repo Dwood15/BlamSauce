@@ -1,12 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
-
-#include <blamlib/Halo1/cache/predicted_resources.hpp>
-#include <blamlib/Halo1/items/item_definitions.hpp>
+#include <precompile.h>
+#include "../cache/predicted_resources.hpp"
+#include "item_definitions.hpp"
 
 namespace Yelo
 {
@@ -24,122 +19,122 @@ namespace Yelo
 	{
 		struct aim_assist_parameters
 		{
-			TAG_FIELD(angle, autoaim_angle);
-			TAG_FIELD(real, autoaim_range);
-			TAG_FIELD(angle, magnetism_angle);
-			TAG_FIELD(real, magnetism_range);
-			TAG_FIELD(angle, deviation_angle);
+			angle autoaim_angle;
+			real autoaim_range;
+			angle magnetism_angle;
+			real magnetism_range;
+			angle deviation_angle;
 			unsigned long : 32;
 		};
 		struct weapon_ammunition_object
 		{
-			TAG_FIELD(short, rounds);
+			short rounds;
 			unsigned short : 16;
-			PAD64;
-			TAG_FIELD(tag_reference, equipment);
+			unsigned __int64:64;;
+			tag_reference equipment;
 		}; static_assert( sizeof(weapon_ammunition_object) == 0x1C); // VS2012.2's intellisense is broken http://connect.microsoft.com/VisualStudio/feedback/details/745237/invalid-byte-order-in-intellisense
 		struct weapon_magazine_definition
 		{
 			struct _flags {
-				TAG_FLAG(wastes_rounds_when_reloaded);
-				TAG_FLAG(every_round_must_be_chambered);
-			}flags; static_assert( sizeof(_flags) == sizeof(long_flags) );
-			TAG_FIELD(short, rounds_recharged);
-			TAG_FIELD(short, rounds_total_initial);
-			TAG_FIELD(short, rounds_total_maximum);
-			TAG_FIELD(short, rounds_loaded_maximum);
-			TAG_PAD(long, 2);
-			TAG_FIELD(real, reload_time);
-			TAG_FIELD(short, rounds_reloaded);
+				unsigned long wastes_rounds_when_reloaded_bit:1;
+				unsigned long every_round_must_be_chambered_bit:1;
+			}flags; static_assert( sizeof(_flags) == sizeof(unsigned long) );
+			short rounds_recharged;
+			short rounds_total_initial;
+			short rounds_total_maximum;
+			short rounds_loaded_maximum;
+			long:8 * sizeof(long) * 2;
+			real reload_time;
+			short rounds_reloaded;
 			unsigned short : 16;
-			TAG_FIELD(real, chamber_time);
-			TAG_PAD(long, 2);
-			TAG_PAD(tag_reference, 1);
-			TAG_FIELD(tag_reference, reloading_effect);
-			TAG_FIELD(tag_reference, chambering_effect);
-			TAG_PAD(tag_block, 1);
-			TAG_TBLOCK(magazines, weapon_ammunition_object);
+			real chamber_time;
+			long:8 * sizeof(long) * 2;
+			tag_reference:8 * sizeof(tag_reference) * 1;
+			tag_reference reloading_effect;
+			tag_reference chambering_effect;
+			tag_block:8 * sizeof(tag_block) * 1;
+			Yelo::TagBlock<const weapon_ammunition_object> magazines;
 		}; static_assert( sizeof(weapon_magazine_definition) == 0x70);
 		struct weapon_trigger_firing_effect
 		{
-			TAG_FIELD(short_bounds, shot_count);
-			TAG_PAD(tag_string, 1);
-			TAG_FIELD(tag_reference, firing_effect);
-			TAG_FIELD(tag_reference, misfire_effect);
-			TAG_FIELD(tag_reference, empty_effect);
-			TAG_FIELD(tag_reference, firing_damage);
-			TAG_FIELD(tag_reference, misfire_damage);
-			TAG_FIELD(tag_reference, empty_damage);
+			short_bounds shot_count;
+			tag_string:8 * sizeof(tag_string) * 1;
+			tag_reference firing_effect;
+			tag_reference misfire_effect;
+			tag_reference empty_effect;
+			tag_reference firing_damage;
+			tag_reference misfire_damage;
+			tag_reference empty_damage;
 		}; static_assert( sizeof(weapon_trigger_firing_effect) == 0x84);
 		struct weapon_trigger_definition
 		{
 			struct _flags{
-				TAG_FLAG(tracks_fired_projectile);
-				TAG_FLAG(random_firing_effects);
-				TAG_FLAG(can_fire_with_partial_ammo);
-				TAG_FLAG(does_not_repeat_automatically);
-				TAG_FLAG(locks_in_on_off_state);
-				TAG_FLAG(projectiles_use_weapon_origin);
-				TAG_FLAG(sticks_when_dropped);
-				TAG_FLAG(ejects_during_chamber);
-				TAG_FLAG(discharging_spews);
-				TAG_FLAG(analog_rate_of_fire);
-				TAG_FLAG(use_error_when_unzoomed);
-				TAG_FLAG(projectile_vector_cannot_be_adjusted);
-				TAG_FLAG(projectiles_have_identical_error);
-				TAG_FLAG(projectile_is_client_side_only); // added in HaloPC
-			}flags; static_assert( sizeof(_flags) == sizeof(long_flags) );
+				unsigned long tracks_fired_projectile_bit:1;
+				unsigned long random_firing_effects_bit:1;
+				unsigned long can_fire_with_partial_ammo_bit:1;
+				unsigned long does_not_repeat_automatically_bit:1;
+				unsigned long locks_in_on_off_state_bit:1;
+				unsigned long projectiles_use_weapon_origin_bit:1;
+				unsigned long sticks_when_dropped_bit:1;
+				unsigned long ejects_during_chamber_bit:1;
+				unsigned long discharging_spews_bit:1;
+				unsigned long analog_rate_of_fire_bit:1;
+				unsigned long use_error_when_unzoomed_bit:1;
+				unsigned long projectile_vector_cannot_be_adjusted_bit:1;
+				unsigned long projectiles_have_identical_error_bit:1;
+				unsigned long projectile_is_client_side_only_bit:1; // added in HaloPC
+			}flags; static_assert( sizeof(_flags) == sizeof(unsigned long) );
 
 			//firing
-			TAG_FIELD(real_bounds, rounds_per_second);
-			TAG_FIELD(real, firing_acceleration_time);
-			TAG_FIELD(real, firing_deceleration_time);
-			TAG_FIELD(real_fraction, blurred_rate_of_fire);
-			TAG_PAD(long, 2);
-			TAG_FIELD(short, magazine);
-			TAG_FIELD(short, rounds_per_shot);
-			TAG_FIELD(short, minimum_rounds_loaded);
-			TAG_FIELD(short, rounds_between_tracers);
+			real_bounds rounds_per_second;
+			real firing_acceleration_time;
+			real firing_deceleration_time;
+			real_fraction blurred_rate_of_fire;
+			long:8 * sizeof(long) * 2;
+			short magazine;
+			short rounds_per_shot;
+			short minimum_rounds_loaded;
+			short rounds_between_tracers;
 			unsigned long : 32;
 			unsigned short : 16;
-			TAG_ENUM(firing_noise);
+			short firing_noise;
 
 			//error
-			TAG_FIELD(real_bounds, error);
-			TAG_FIELD(real, error_acceleration_time);
-			TAG_FIELD(real, error_deceleration_time);
-			TAG_PAD(long, 2);
+			real_bounds error;
+			real error_acceleration_time;
+			real error_deceleration_time;
+			long:8 * sizeof(long) * 2;
 
 			//charging
-			TAG_FIELD(real, charging_time);
-			TAG_FIELD(real, charged_time);
-			TAG_ENUM(overcharged_action);
+			real charging_time;
+			real charged_time;
+			short overcharged_action;
 			unsigned short : 16;
-			TAG_FIELD(real, charged_illumination);
-			TAG_FIELD(real, spew_time);
-			TAG_FIELD(tag_reference, charging_effect);
+			real charged_illumination;
+			real spew_time;
+			tag_reference charging_effect;
 
 			//projectile
-			TAG_ENUM(distribution_function);
-			TAG_FIELD(short, projectiles_per_shot);
-			TAG_FIELD(real, distribution_angle);
+			short distribution_function;
+			short projectiles_per_shot;
+			real distribution_angle;
 			unsigned long : 32;
-			TAG_FIELD(angle, minimum_error);
-			TAG_FIELD(angle_bounds, error_angle);
-			TAG_FIELD(real_point3d, first_person_offset);
+			angle minimum_error;
+			angle_bounds error_angle;
+			real_point3d first_person_offset;
 			unsigned long : 32;
-			TAG_FIELD(tag_reference, projectile);
+			tag_reference projectile;
 
 			//misc
-			TAG_FIELD(real, ejection_port_recovery_time);
-			TAG_FIELD(real, illumination_recovery_time);
-			TAG_PAD(long, 3);
-			TAG_FIELD(real_fraction, heat_generated_per_round);
-			TAG_FIELD(real_fraction, age_generated_per_round);
-			TAG_FIELD(real_fraction, age_generated_while_charged);
-			TAG_FIELD(real, overload_time);
-			TAG_PAD(long, 2);
-			TAG_PAD(tag_string, 1);
+			real ejection_port_recovery_time;
+			real illumination_recovery_time;
+			long:8 * sizeof(long) * 3;
+			real_fraction heat_generated_per_round;
+			real_fraction age_generated_per_round;
+			real_fraction age_generated_while_charged;
+			real overload_time;
+			long:8 * sizeof(long) * 2;
+			tag_string:8 * sizeof(tag_string) * 1;
 			struct { // all times are in game ticks (source fields are in seconds)
 				real illumination_recovery_time;
 				real ejection_port_recovery_time;
@@ -148,108 +143,108 @@ namespace Yelo
 				real error_acceleration_time;
 				real error_deceleration_time;
 			}postprocessed;
-			TAG_TBLOCK(firing_effects, weapon_trigger_firing_effect);
+			Yelo::TagBlock<const weapon_trigger_firing_effect> firing_effects;
 		}; static_assert( sizeof(weapon_trigger_definition) == 0x114);
 		struct _weapon_definition
 		{
 			struct _flags {
-				TAG_FLAG(vertical_heat_display);
-				TAG_FLAG(mutually_exclusive_triggers);
-				TAG_FLAG(attacks_automatically_on_bump);
-				TAG_FLAG(must_be_readied);
-				TAG_FLAG(doesnt_count_toward_maximum);
-				TAG_FLAG(aim_assists_only_when_zoomed);
-				TAG_FLAG(prevents_grenade_throwing);
-				TAG_FLAG(must_be_picked_up);
-				TAG_FLAG(holds_triggers_when_dropped);
-				TAG_FLAG(prevents_melee_attack);
-				TAG_FLAG(detonates_when_dropped);
-				TAG_FLAG(cannot_fire_at_maximum_age);
-				TAG_FLAG(secondary_trigger_overrides_grenades);
-				TAG_FLAG(OBSOLETEdoes_not_depower_active_camo_in_multiplayer);
-				TAG_FLAG(enables_integrated_night_vision);
-				TAG_FLAG(AIs_use_weapon_melee_damage);
-				TAG_FLAG(third_person_weapon);
-			}flags; static_assert( sizeof(_flags) == sizeof(long_flags) );
-			TAG_FIELD(tag_string, label);
-			TAG_ENUM(secondary_trigger_mode);
-			TAG_FIELD(short, maximum_alternate_shots_loaded);
+				unsigned long vertical_heat_display_bit:1;
+				unsigned long mutually_exclusive_triggers_bit:1;
+				unsigned long attacks_automatically_on_bump_bit:1;
+				unsigned long must_be_readied_bit:1;
+				unsigned long doesnt_count_toward_maximum_bit:1;
+				unsigned long aim_assists_only_when_zoomed_bit:1;
+				unsigned long prevents_grenade_throwing_bit:1;
+				unsigned long must_be_picked_up_bit:1;
+				unsigned long holds_triggers_when_dropped_bit:1;
+				unsigned long prevents_melee_attack_bit:1;
+				unsigned long detonates_when_dropped_bit:1;
+				unsigned long cannot_fire_at_maximum_age_bit:1;
+				unsigned long secondary_trigger_overrides_grenades_bit:1;
+				unsigned long OBSOLETEdoes_not_depower_active_camo_in_multiplayer_bit:1;
+				unsigned long enables_integrated_night_vision_bit:1;
+				unsigned long AIs_use_weapon_melee_damage_bit:1;
+				unsigned long third_person_weapon_bit:1;
+			}flags; static_assert( sizeof(_flags) == sizeof(unsigned long) );
+			tag_string label;
+			short secondary_trigger_mode;
+			short maximum_alternate_shots_loaded;
 
 			short function_exports[Enums::k_number_of_incoming_object_functions];
-			TAG_FIELD(real, ready_time);
-			TAG_FIELD(tag_reference, ready_effect);
+			real ready_time;
+			tag_reference ready_effect;
 
 			//heat
-			TAG_FIELD(real_fraction, heat_recovery_threshold);
-			TAG_FIELD(real_fraction, overheated_threshold);
-			TAG_FIELD(real_fraction, heat_detonation_threshold);
-			TAG_FIELD(real_fraction, heat_detonation_fraction);
-			TAG_FIELD(real_fraction, heat_loss_per_second);
-			TAG_FIELD(real_fraction, heat_illumination);
-			TAG_PAD(long, 4);
-			TAG_FIELD(tag_reference, overheated);
-			TAG_FIELD(tag_reference, detonation);
-			TAG_FIELD(tag_reference, player_melee_damage);
-			TAG_FIELD(tag_reference, player_melee_response);
-			TAG_PAD(long, 2);
+			real_fraction heat_recovery_threshold;
+			real_fraction overheated_threshold;
+			real_fraction heat_detonation_threshold;
+			real_fraction heat_detonation_fraction;
+			real_fraction heat_loss_per_second;
+			real_fraction heat_illumination;
+			long:8 * sizeof(long) * 4;
+			tag_reference overheated;
+			tag_reference detonation;
+			tag_reference player_melee_damage;
+			tag_reference player_melee_response;
+			long:8 * sizeof(long) * 2;
 
 			//actor firing parameters
-			TAG_FIELD(tag_reference, actor_firing_parameters);
+			tag_reference actor_firing_parameters;
 
 			//reticle
-			TAG_FIELD(real, near_reticle_range);
-			TAG_FIELD(real, far_reticle_range);
-			TAG_FIELD(real, intersection_reticle_range);
+			real near_reticle_range;
+			real far_reticle_range;
+			real intersection_reticle_range;
 
 			//zoom
 			unsigned short : 16;
-			TAG_FIELD(short, magnification_levels);
-			TAG_FIELD(real_bounds, magnification_range);
+			short magnification_levels;
+			real_bounds magnification_range;
 
 			aim_assist_parameters aim_assist;
 
 			//movement
-			TAG_ENUM(movement_penalized);
+			short movement_penalized;
 			unsigned short : 16;
-			TAG_FIELD(real_fraction, forward_movement_penalty);
-			TAG_FIELD(real_fraction, sideways_movement_penalty);
+			real_fraction forward_movement_penalty;
+			real_fraction sideways_movement_penalty;
 			unsigned long : 32;
 
 			//AI targeting parameters
-			TAG_FIELD(real, minimum_target_range);
-			TAG_FIELD(real, looking_time_modifier);
+			real minimum_target_range;
+			real looking_time_modifier;
 			unsigned long : 32;
 
 			//miscellaneous
-			TAG_FIELD(real, light_power_on_time);
-			TAG_FIELD(real, light_power_off_time);
-			TAG_FIELD(tag_reference, light_power_on_effect);
-			TAG_FIELD(tag_reference, light_power_off_effect);
-			TAG_FIELD(real, age_heat_recovery_penalty);
-			TAG_FIELD(real, age_rate_of_fire_penalty);
-			TAG_FIELD(real_fraction, age_misfire_start);
-			TAG_FIELD(real_fraction, age_misfire_chance);
-			TAG_PAD(long, 3);
+			real light_power_on_time;
+			real light_power_off_time;
+			tag_reference light_power_on_effect;
+			tag_reference light_power_off_effect;
+			real age_heat_recovery_penalty;
+			real age_rate_of_fire_penalty;
+			real_fraction age_misfire_start;
+			real_fraction age_misfire_chance;
+			long:8 * sizeof(long) * 3;
 
 			//interface
-			TAG_FIELD(tag_reference, first_person_model);
-			TAG_FIELD(tag_reference, first_person_animations);
-			PAD32;
-			TAG_FIELD(tag_reference, hud_interface);
-			TAG_FIELD(tag_reference, pickup_sound);
-			TAG_FIELD(tag_reference, zoom_in_sound);
-			TAG_FIELD(tag_reference, zoom_out_sound);
-			TAG_PAD(tag_block, 1);
-			TAG_FIELD(real, active_camo_ding);
-			TAG_FIELD(real, active_camo_regrowth_rate);
-			TAG_PAD(long, 3);
+			tag_reference first_person_model;
+			tag_reference first_person_animations;
+			long: 32;
+			tag_reference hud_interface;
+			tag_reference pickup_sound;
+			tag_reference zoom_in_sound;
+			tag_reference zoom_out_sound;
+			tag_block:8 * sizeof(tag_block) * 1;
+			real active_camo_ding;
+			real active_camo_regrowth_rate;
+			long:8 * sizeof(long) * 3;
 
 			//more miscellaneous
 			unsigned short : 16;
-			TAG_ENUM(weapon_type);
-			TAG_TBLOCK(predicted_resources, predicted_resource);
-			TAG_TBLOCK(magazines, weapon_magazine_definition);
-			TAG_TBLOCK(triggers, weapon_trigger_definition);
+			short weapon_type;
+			Yelo::TagBlock<const predicted_resource> predicted_resources;
+			Yelo::TagBlock<const weapon_magazine_definition> magazines;
+			Yelo::TagBlock<const weapon_trigger_definition> triggers;
 		}; static_assert( sizeof(_weapon_definition) == 0x200);
 
 		struct s_weapon_definition : s_item_definition

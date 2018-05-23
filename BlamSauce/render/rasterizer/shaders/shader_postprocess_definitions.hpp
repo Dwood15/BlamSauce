@@ -97,43 +97,43 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// shader_postprocess base
 		struct s_pass_definition {
-			TAG_FIELD(tag_string, name);
+			tag_string name;
 
 			struct _flags {
-				TAG_FLAG16(clear_target);
-				TAG_FLAG16(copy_scene_to_target);
-				TAG_FLAG16(clear_buffer_texture);
+				unsigned short clear_target_bit:1;
+				unsigned short copy_scene_to_target_bit:1;
+				unsigned short clear_buffer_texture_bit:1;
 			} flags;   static_assert(sizeof(_flags) == sizeof(unsigned short));
-			TAG_FIELD(short, render_chain);
+			short render_chain;
 
-			TAG_PAD(ss_pass_def0, long, 3);
+			long:8 * sizeof(long) * 3;
 		}; static_assert(sizeof(s_pass_definition) == 0x30);
 
 		struct s_technique_definition {
-			TAG_FIELD(tag_string, name);
+			tag_string name;
 
 			struct _flags {
-				TAG_FLAG16(sm_1_0);
-				TAG_FLAG16(sm_2_0);
-				TAG_FLAG16(sm_3_0);
+				unsigned short sm_1_0_bit:1;
+				unsigned short sm_2_0_bit:1;
+				unsigned short sm_3_0_bit:1;
 			} shader_model;   static_assert(sizeof(_flags) == sizeof(unsigned short));
 
 			unsigned short : 16;
 
-			TAG_PAD(ss_tech_def0, long, 4);
+			long:8 * sizeof(long) * 4;;
 
-			TAG_TBLOCK_(passes, s_pass_definition);
+			Yelo::TagBlock<s_pass_definition> passes;
 		}; static_assert(sizeof(s_technique_definition) == 0x40);
 
 		struct s_shader_postprocess_definition {
 			enum { k_group_tag = 'shpp' };
 			unsigned short : 16;
 			struct _flags {
-				TAG_FLAG16(shader_is_binary);
+				unsigned short shader_is_binary_bit:1;
 			} flags;
 
-			TAG_FIELD(tag_data, shader_code_text);
-			TAG_FIELD(tag_data, shader_code_binary);
+			tag_data shader_code_text;
+			tag_data shader_code_binary;
 
 			t_shader_variable_matrix  ortho_wvp_matrix;   // Orthographic projection matrix handle
 			t_shader_variable_real2d  scene_size;         // Handle to the scene size float2 value
@@ -147,22 +147,22 @@ namespace Yelo {
 			t_shader_variable_texture tex_scene;         // Handle to the saved scene texture
 			t_shader_variable_texture tex_buffer;         // Handle to the secondary buffer
 
-			TAG_PAD(ss_pp_def0, long, 5);
+			long:8 * sizeof(long) * 5;;
 
-			TAG_TBLOCK_(techniques, s_technique_definition);
-			TAG_TBLOCK_(predicted_resources, predicted_resource);
+			Yelo::TagBlock<s_technique_definition> techniques;
+			Yelo::TagBlock<predicted_resource> predicted_resources;
 
 			struct _runtime {
 				struct _postprocess_flags {
-					TAG_FLAG16(valid_shader);
-					TAG_FLAG16(uses_gbuffer);
+					unsigned short valid_shader_bit:1;
+					unsigned short uses_gbuffer_bit:1;
 				} flags;
 				unsigned short : 16;   static_assert(sizeof(_postprocess_flags) == sizeof(unsigned short));
 
-				TAG_FIELD(LPD3DXEFFECT, dx_effect);
-				TAG_FIELD(D3DXHANDLE, postprocess_handle);
-				TAG_FIELD(s_technique_definition*, active_technique);
-				TAG_PAD(ss_pp_padaasdf, long, 4);
+				LPD3DXEFFECT dx_effect;
+				D3DXHANDLE postprocess_handle;
+				s_technique_definition *active_technique;
+				long:8 * sizeof(long) * 4;
 			}                         runtime;
 
 			s_shader_postprocess_definition() {}
@@ -174,34 +174,34 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// effect_postprocess base
 		struct s_effect_postprocess_custom_vertex_data {
-			TAG_FIELD(real_bounds, x_data);
-			TAG_FIELD(real_bounds, y_data);
-			TAG_FIELD(real_bounds, z_data);
-			TAG_FIELD(real_bounds, w_data);
+			real_bounds x_data;
+			real_bounds y_data;
+			real_bounds z_data;
+			real_bounds w_data;
 		}; static_assert(sizeof(s_effect_postprocess_custom_vertex_data) == 0x20);
 
 		struct s_effect_postprocess_quad_definition {
-			TAG_FIELD(point2d, tessellation);
-			TAG_FIELD(real_bounds, x_bounds);
-			TAG_FIELD(real_bounds, y_bounds);
-			TAG_TBLOCK_(custom_vertex_data, s_effect_postprocess_custom_vertex_data); // not implemented
+			point2d tessellation;
+			real_bounds x_bounds;
+			real_bounds y_bounds;
+			Yelo::TagBlock<s_effect_postprocess_custom_vertex_data> custom_vertex_data; // not implemented
 		};
 
 		struct s_effect_postprocess_definition {
 			enum { k_group_tag = 'shpe' };
-			TAG_PAD(ss_pp_def_e0, byte, 12);
+			byte:8 * sizeof(byte) * 12;
 
-			TAG_FIELD(s_effect_postprocess_quad_definition, quad_definition);
+			s_effect_postprocess_quad_definition quad_definition;
 
 			struct _runtime {
 				struct _postprocess_flags {
-					TAG_FLAG16(valid_effect);
-					TAG_FLAG16(is_active);
-					TAG_FLAG16(uses_gbuffer);
+					unsigned short valid_effect_bit:1;
+					unsigned short is_active_bit:1;
+					unsigned short uses_gbuffer_bit:1;
 				} flags;
 				unsigned short : 16;
 
-				TAG_PAD(ss_pp_def_e1, byte, 12);
+				byte:8 * sizeof(byte) * 12;
 			} runtime;
 
 		}; static_assert(sizeof(s_effect_postprocess_definition) == 0x3C);
@@ -333,7 +333,7 @@ namespace Yelo::TagGroups {
 			}
 		} else {
 			if (bitmap_value.runtime.external.source != nullptr)
-				hr = D3DXCreateTextureFromFile(pDevice, bitmap_value.runtime.external.source, &bitmap_value.runtime.external.texture_2d);
+				hr = D3DXCreateTextureFromFileA(pDevice, bitmap_value.runtime.external.source, &bitmap_value.runtime.external.texture_2d);
 		}
 		bitmap_value.flags.is_loaded_bit = SUCCEEDED(hr);
 		return hr;
@@ -354,7 +354,7 @@ namespace Yelo::TagGroups {
 
 		if (!bitmap_value.flags.is_loaded_bit)
 			return nullptr;
-		return bitmap_value.flags.is_external_bit ? bitmap_value.runtime.external.texture_2d : CAST_PTR(IDirect3DTexture9*, bitmap_value.runtime._internal.bitmap->hardware_format);
+		return bitmap_value.flags.is_external_bit ? bitmap_value.runtime.external.texture_2d : (reinterpret_cast<IDirect3DTexture9 *>(bitmap_value.runtime._internal.bitmap->hardware_format));
 	}
 
 	void s_shader_postprocess_parameter::SetParameter(const s_shader_postprocess_value_base *value_source) {
@@ -366,7 +366,7 @@ namespace Yelo::TagGroups {
 	}
 
 	void s_shader_postprocess_parameter::SetParameter(const s_shader_postprocess_bitmap *value_source) {
-		SetParameter(CAST_PTR(const s_shader_postprocess_value_base*, value_source));
+		SetParameter((reinterpret_cast<const s_shader_postprocess_value_base *>(value_source)));
 
 		bitmap_value.bitmap.tag_index = value_source->bitmap.tag_index;
 

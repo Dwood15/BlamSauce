@@ -13,7 +13,7 @@ namespace Yelo
 		struct s_unit_camera_track
 		{
 			TAG_FIELD(tag_reference, track, 'trak');
-			PAD32; PAD32; PAD32;
+			unsigned long : 32; unsigned long : 32; unsigned long : 32;
 		}; static_assert(sizeof(s_unit_camera_track) == 0x1C);
 
 		struct s_unit_camera

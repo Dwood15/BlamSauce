@@ -15,7 +15,7 @@ namespace Yelo
 				sbyte m_sbyte;
 				unsigned short m_uint16;
 				short m_int16;
-				uint m_uint32;
+				uint m_uint;
 				long m_int32;
 				uint64 m_uint64;
 				__int64 m_int64;

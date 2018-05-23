@@ -14,6 +14,7 @@ set(I_EDITOR_H
 	)
 
 set(I_HUD_H
+	${CMAKE_CURRENT_SOURCE_DIR}/hud/equipment_hud_interface_definition.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hud/first_person_weapons.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hud/first_person_weapons_structures.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/hud/hud.hpp

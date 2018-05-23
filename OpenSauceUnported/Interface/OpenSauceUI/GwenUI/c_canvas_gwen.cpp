@@ -73,7 +73,7 @@ namespace Yelo
 				return this;
 			}
 
-			uint32 c_canvas_gwen::GetResourceID() const
+			uint c_canvas_gwen::GetResourceID() const
 			{
 				return RESOURCE_ID("#CNV_main_canvas", 0x356C7F9C);
 			}

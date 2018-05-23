@@ -12,9 +12,9 @@ namespace Yelo {
 	namespace Cache {
 		struct s_cache_file_resource_strings_storage_header {
 			long  count;            // number of strings in the storage
-			uint32 offset;            // offset of the null-terminated strings buffer
-			uint32 size;            // total size of the strings buffer
-			uint32 index_buffer_offset;   // offset of the buffer containing the offsets to each null-terminated string
+			uint offset;            // offset of the null-terminated strings buffer
+			uint size;            // total size of the strings buffer
+			uint index_buffer_offset;   // offset of the buffer containing the offsets to each null-terminated string
 		};
 
 		struct s_cache_file_resource_compression_parameters_header {
@@ -37,8 +37,8 @@ namespace Yelo {
 			unsigned short : 16;
 			//////////////////////////////////////////////////////////////////////////
 			// compression parameters for set_storage (which is compressed as a whole, not per-set)
-			uint32 compressed_length;
-			uint32 decompressed_length;
+			uint compressed_length;
+			uint decompressed_length;
 
 			s_cache_file_resource_strings_storage_header set_storage[_string_id::k_number_of_sets];
 
@@ -77,10 +77,10 @@ namespace Yelo {
 			real k_memory_upgrade_increase_amount;
 
 			struct {
-				uint32 size;
-				uint32 decompressed_size;
-				uint32 offset;
-				PAD32;
+				uint size;
+				uint decompressed_size;
+				uint offset;
+				unsigned long : 32;
 
 				tag_string build_string; // Build string for the CheApe tools (ie, OS HEK)
 			}    cheape_definitions;
@@ -90,7 +90,7 @@ namespace Yelo {
 			struct {
 				unsigned short : 16;
 				short  stage; // see Enums::production_build_stage
-				uint32 revision;
+				uint revision;
 				time_t timestamp;
 
 				tag_string build_string;
@@ -110,16 +110,16 @@ namespace Yelo {
 					unsigned short build;
 				}    minimum_os_build;
 
-				PAD32;
-				PAD32;
-				PAD32; // unused for now
+				unsigned long : 32;
+				unsigned long : 32;
+				unsigned long : 32; // unused for now
 			}          build_info; // User-defined build info
 
 			struct {
-				uint32 compression_params_header_offset;
-				uint32 tag_symbol_storage_header_offset;
-				uint32 string_id_storage_header_offset;         // for debug only
-				uint32 tag_string_to_id_storage_header_offset;
+				uint compression_params_header_offset;
+				uint tag_symbol_storage_header_offset;
+				uint string_id_storage_header_offset;         // for debug only
+				uint tag_string_to_id_storage_header_offset;
 			}          resources;
 
 			void InitializeForNewMap() {
@@ -146,7 +146,7 @@ namespace Yelo {
 			}
 
 		public://private: // TODO: this should be private once the BCF code is rewritten
-			void s_cache_header_yelo::InitializeBuildInfo(short stage, uint32 revision, const byte (&uuid_buffer)[Enums::k_uuid_buffer_size]) {
+			void s_cache_header_yelo::InitializeBuildInfo(short stage, uint revision, const byte (&uuid_buffer)[Enums::k_uuid_buffer_size]) {
 				build_info.stage    = stage;
 				build_info.revision = revision;
 				time(&build_info.timestamp);

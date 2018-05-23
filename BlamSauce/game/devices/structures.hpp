@@ -1,12 +1,4 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
-
-#include <blamlib/Halo1/game/game_configuration.hpp>
-#include <blamlib/Halo1/objects/object_structures.hpp>
 
 namespace Yelo
 {
@@ -48,7 +40,7 @@ namespace Yelo
 	{
 		struct s_device_data
 		{
-			long_flags flags;					// 0x1F4
+			unsigned long flags;					// 0x1F4
 
 			struct {
 				short device_group_index;
@@ -57,20 +49,20 @@ namespace Yelo
 			}	power,							// 0x1F8
 				position;						// 0x204
 
-			long_flags user_interation_flags;	// 0x210
+			unsigned long user_interation_flags;	// 0x210
 		}; static_assert( sizeof(s_device_data) == Enums::k_object_size_device - Enums::k_object_size_object );
 
 
 		struct s_device_machine_data
 		{
-			long_flags flags;					// 0x214
+			unsigned long flags;					// 0x214
 			game_ticks_t door_opening_ticks;	// 0x218, number of ticks passed since the door started opening
 			real_point3d elevator_position;		// 0x21C
 		}; static_assert( sizeof(s_device_machine_data) == Enums::k_object_size_machine - Enums::k_object_size_device );
 
 		struct s_device_control_data
 		{
-			long_flags flags;					// 0x214
+			unsigned long flags;					// 0x214
 			short custom_name_index;			// 0x218
 			unsigned short : 16;
 		}; static_assert( sizeof(s_device_control_data) == Enums::k_object_size_control - Enums::k_object_size_device );

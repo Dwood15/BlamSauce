@@ -1,16 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/cache/cache_files.hpp>
-#include <blamlib/Halo1/cache/cache_files_structures.hpp>
-#include <blamlib/Halo1/cache/data_file_structures.hpp>
-
-#include <zlib/zlib.h>
-static_assert( sizeof(z_stream) == 0x38 );
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -56,7 +46,7 @@ namespace Yelo
 
 				char file_name[_MAX_PATH];
 				s_cache_header header;
-				long_flags flags;
+				unsigned long flags;
 				z_stream zstream;
 				void* zlib_buffer;
 				uint zlib_buffer_size;
@@ -71,8 +61,8 @@ namespace Yelo
 				void* write_buffers[Enums::k_number_of_cache_write_buffers];
 				UNKNOWN_TYPE(bool); unsigned char : 8; unsigned short : 16;
 				HANDLE write_file_handle, read_file_handle;
-				long_flags overlapped_in_use_flags[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_cache_overlapped_structures)];
-				long_flags overlapped_completed_flags[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_cache_overlapped_structures)];
+				unsigned long overlapped_in_use_flags[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_cache_overlapped_structures)];
+				unsigned long overlapped_completed_flags[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_cache_overlapped_structures)];
 				OVERLAPPED overlapped[Enums::k_number_of_cache_overlapped_structures];
 				s_read_request read_requests[Enums::k_number_of_cache_read_buffers];
 				s_write_request write_requests[Enums::k_number_of_cache_write_buffers];

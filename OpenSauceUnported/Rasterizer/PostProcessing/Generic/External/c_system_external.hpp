@@ -59,7 +59,7 @@ namespace Yelo
 			{
 				s_effect_postprocess_external* definition;
 				c_effect_external* effect;
-				uint32 shader_instance_count;
+				uint shader_instance_count;
 				c_shader_instance_generic* shader_instances;
 			};
 
@@ -108,19 +108,19 @@ namespace Yelo
 
 				struct
 				{
-					uint32 count;
+					uint count;
 					s_shader_set* shader_sets;
 				}m_shaders;
 
 				struct
 				{
-					uint32 count;
+					uint count;
 					s_effect_set* effect_sets;
 				}m_effects;
 
 				struct
 				{
-					uint32 count;
+					uint count;
 					s_effect_instance_set* effect_instance_sets;
 				}m_effect_instances;
 			}m_members_external;
@@ -197,10 +197,10 @@ namespace Yelo
 
 			/////////////////////////////////////////////////
 			// shader parameters
-			uint32 GetParameterHandles(LPD3DXEFFECTCOMPILER compiler,
+			uint GetParameterHandles(LPD3DXEFFECTCOMPILER compiler,
 				s_parameter_handle*& list,
 				const char* semantic_format,
-				const uint32 count,
+				const uint count,
 				const short parameter_type,
 				const short parameter_type_count);
 			void SetupParameter(LPD3DXEFFECTCOMPILER compiler,

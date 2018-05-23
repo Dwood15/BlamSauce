@@ -43,7 +43,7 @@ namespace Yelo::Input {
 		//unsigned short : 16;
 		//bool Moving; // true during mouse movement
 		//unsigned char : 8;
-		PAD32;
+		unsigned long : 32;
 		long Position[2]; // menu space coordinates (0,0) to (640,480)
 	};
 

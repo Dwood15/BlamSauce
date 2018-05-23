@@ -90,7 +90,7 @@ static void* scripting_bitwise_and_evaluate(void** arguments)
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	result.uint32 = CAST(uint32,args->value) & CAST(uint32,args->flags);
+	result.uint = CAST(uint,args->value) & CAST(uint,args->flags);
 
 	return result.pointer;
 }
@@ -102,7 +102,7 @@ static void* scripting_bitwise_or_evaluate(void** arguments)
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	result.uint32 = CAST(uint32,args->value) | CAST(uint32,args->flags);
+	result.uint = CAST(uint,args->value) | CAST(uint,args->flags);
 
 	return result.pointer;
 }
@@ -114,7 +114,7 @@ static void* scripting_bitwise_xor_evaluate(void** arguments)
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	result.uint32 = CAST(uint32,args->value) ^ CAST(uint32,args->flags);
+	result.uint = CAST(uint,args->value) ^ CAST(uint,args->flags);
 
 	return result.pointer;
 }
@@ -127,7 +127,7 @@ static void* scripting_bitwise_lhs_evaluate(void** arguments)
 	TypeHolder result; result.pointer = nullptr;
 
 	if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(long))
-		result.uint32 = CAST(uint32,args->value) << args->bit_count;
+		result.uint = CAST(uint,args->value) << args->bit_count;
 
 	return result.pointer;
 }
@@ -140,7 +140,7 @@ static void* scripting_bitwise_rhs_evaluate(void** arguments)
 	TypeHolder result; result.pointer = nullptr;
 
 	if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(long))
-		result.uint32 = CAST(uint32,args->value) >> args->bit_count;
+		result.uint = CAST(uint,args->value) >> args->bit_count;
 
 	return result.pointer;
 }
@@ -154,7 +154,7 @@ static void* scripting_bit_test_evaluate(void** arguments)
 	TypeHolder result; result.pointer = nullptr;
 
 	if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(long))
-		result.boolean = TEST_FLAG(CAST(uint32,args->value), args->bit_index);
+		result.boolean = TEST_FLAG(CAST(uint,args->value), args->bit_index);
 
 	return result.pointer;
 }
@@ -171,10 +171,10 @@ static void* scripting_bit_toggle_evaluate(void** arguments)
 
 	if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(long))
 	{
-		uint32 value = CAST(uint32,args->value);
-		result.uint32 = SET_FLAG(value, args->bit_index, args->add_or_remove);
+		uint value = CAST(uint,args->value);
+		result.uint = SET_FLAG(value, args->bit_index, args->add_or_remove);
 	}
-	else result.uint32 = CAST(uint32,args->value);
+	else result.uint = CAST(uint,args->value);
 
 	return result.pointer;
 }
@@ -186,7 +186,7 @@ static void* scripting_bit_flags_test_evaluate(void** arguments)
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	result.boolean = (CAST(uint32,args->value) & CAST(uint32,args->flags)) != 0;
+	result.boolean = (CAST(uint,args->value) & CAST(uint,args->flags)) != 0;
 
 	return result.pointer;
 }
@@ -201,9 +201,9 @@ static void* scripting_bit_flags_toggle_evaluate(void** arguments)
 	TypeHolder result; result.pointer = nullptr;
 
 	{
-		uint32 value = CAST(uint32,args->value);
-		uint32 flags = CAST(uint32,args->flags);
-		result.uint32 = args->add_or_remove ? value | flags : value & ~flags;
+		uint value = CAST(uint,args->value);
+		uint flags = CAST(uint,args->flags);
+		result.uint = args->add_or_remove ? value | flags : value & ~flags;
 	}
 
 	return result.pointer;
@@ -215,7 +215,7 @@ static void* scripting_hex_string_to_long_evaluate(void** arguments)
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 
-	sscanf_s(args->str, "%x", &result.uint32);
+	sscanf_s(args->str, "%x", &result.uint);
 
 	return result.pointer;
 }

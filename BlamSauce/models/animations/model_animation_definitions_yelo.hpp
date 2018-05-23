@@ -1,9 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include "definitions.hpp"
@@ -27,8 +21,8 @@ namespace Yelo {
 	namespace TagGroups {
 		// The actual definition part of an OS-extended
 		struct model_animation_graph_yelo_definition {
-			TAG_FIELD(tag_reference, stock_animation, 'antr');
-			TAG_PAD(magyd_pad0, tag_block, 13);
+			tag_reference stock_animation;
+			tag_block:8 * sizeof(tag_block) * 13;
 		}; static_assert(sizeof(model_animation_graph_yelo_definition) == 0xAC);
 		struct model_animation_graph_yelo {
 			enum { k_group_tag = 'magy' };

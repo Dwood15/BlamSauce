@@ -37,7 +37,7 @@ namespace Yelo
 			return m_active_screen_count > 0;
 		}
 
-		void c_screen_display_manager::AddScreenController(const uint32 screen_id
+		void c_screen_display_manager::AddScreenController(const uint screen_id
 			, const Flags::osui_game_state loaded_game_states
 			, const Flags::osui_game_state active_game_states
 			, const Flags::osui_screen_flags screen_flags
@@ -178,7 +178,7 @@ namespace Yelo
 			}
 		}
 
-		void c_screen_display_manager::ShowScreen(const uint32 screen_id)
+		void c_screen_display_manager::ShowScreen(const uint screen_id)
 		{
 			auto found_entry = std::find_if(m_current_stage_instances.begin(), m_current_stage_instances.end(),
 				[screen_id](s_screen_instance* instance)
@@ -192,7 +192,7 @@ namespace Yelo
 			}
 		}
 
-		void c_screen_display_manager::HideScreen(const uint32 screen_id)
+		void c_screen_display_manager::HideScreen(const uint screen_id)
 		{
 			auto found_entry = std::find_if(m_current_stage_instances.begin(), m_current_stage_instances.end(),
 				[screen_id](s_screen_instance* instance)

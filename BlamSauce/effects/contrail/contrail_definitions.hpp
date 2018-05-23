@@ -1,12 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (Editing Kit) Edition
-
-	See license\OpenSauce\Halo1_CheApe for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/shaders/shader_definitions.hpp>
+#include <precompile.h>
+#include "../shader/shader_definitions.hpp"
 
 namespace Yelo
 {
@@ -31,27 +26,27 @@ namespace Yelo
 		{
 			struct __scale_flags
 			{
-				TAG_FLAG(duration);
-				TAG_FLAG(duration_delta);
-				TAG_FLAG(transition_duration);
-				TAG_FLAG(transition_duration_delta);
-				TAG_FLAG(width);
-				TAG_FLAG(color);
-			}; static_assert( sizeof(__scale_flags) == sizeof(long_flags) );
+				unsigned long duration_bit:1;
+				unsigned long duration_delta_bit:1;
+				unsigned long transition_duration_bit:1;
+				unsigned long transition_duration_delta_bit:1;
+				unsigned long width_bit:1;
+				unsigned long color_bit:1;
+			}; static_assert( sizeof(__scale_flags) == sizeof(unsigned long) );
 
 			////////////////////////////////////////////////////////////////
 			// state timing
-			TAG_FIELD(real_bounds, duration, "seconds:seconds", "the time a point spends in this state");
-			TAG_FIELD(real_bounds, transition_duration, "seconds", "the time a point takes to transition to the next state");
+			real_bounds duration;
+			real_bounds transition_duration;
 
 			////////////////////////////////////////////////////////////////
 			// point variables
-			TAG_FIELD(tag_reference, physics, 'pphy');
-			TAG_PAD(long, 8);
-			TAG_FIELD(real, width, "world units", "contrail width at this point");
-			TAG_FIELD(real_argb_color, color_lower_bound, "", "contrail color at this point");
-			TAG_FIELD(real_argb_color, color_upper_bound, "", "contrail color at this point");
-			TAG_FIELD(__scale_flags, scale_flags, "these flags determine which fields are scaled by the contrail density");
+			tag_reference physics;
+			long:8 * sizeof(long) * 8;
+			real width;
+			real_argb_color color_lower_bound;
+			real_argb_color color_upper_bound;
+			__scale_flags scale_flags;
 		}; static_assert( sizeof(s_contrail_point_states) == 0x68 ); // max count: 16
 
 		struct s_contrail_definition
@@ -60,54 +55,55 @@ namespace Yelo
 
 			struct __flags
 			{
-				TAG_FLAG16(first_point_unfaded);
-				TAG_FLAG16(last_point_unfaded);
-				TAG_FLAG16(points_start_pinned_to_media);
-				TAG_FLAG16(points_start_pinned_to_ground);
-				TAG_FLAG16(points_always_pinned_to_media);
-				TAG_FLAG16(points_always_pinned_to_ground);
-				TAG_FLAG16(edge_effect_fades_slowly);
+				unsigned short first_point_unfaded_bit:1;
+				unsigned short last_point_unfaded_bit:1;
+				unsigned short points_start_pinned_to_media_bit:1;
+				unsigned short points_start_pinned_to_ground_bit:1;
+				unsigned short points_always_pinned_to_media_bit:1;
+				unsigned short points_always_pinned_to_ground_bit:1;
+				unsigned short edge_effect_fades_slowly_bit:1;
 			}; static_assert( sizeof(__flags) == sizeof(unsigned short) );
 
 			struct __scale_flags
 			{
-				TAG_FLAG16(point_generation_rate);
-				TAG_FLAG16(point_velocity);
-				TAG_FLAG16(point_velocity_delta);
-				TAG_FLAG16(point_velocity_cone_angle);
-				TAG_FLAG16(inherited_velocity_fraction);
-				TAG_FLAG16(sequence_animation_rate);
-				TAG_FLAG16(texture_scale_u);
-				TAG_FLAG16(texture_scale_v);
-				TAG_FLAG16(texture_animation_u);
-				TAG_FLAG16(texture_animation_v);
+				unsigned short point_generation_rate_bit:1;
+				unsigned short point_velocity_bit:1;
+				unsigned short point_velocity_delta_bit:1;
+				unsigned short point_velocity_cone_angle_bit:1;
+				unsigned short inherited_velocity_fraction_bit:1;
+				unsigned short sequence_animation_rate_bit:1;
+				unsigned short texture_scale_u_bit:1;
+				unsigned short texture_scale_v_bit:1;
+				unsigned short texture_animation_u_bit:1;
+				unsigned short texture_animation_v_bit:1;
 			}; static_assert( sizeof(__scale_flags) == sizeof(unsigned short) );
 
-			TAG_FIELD(__flags, flags);
-			TAG_FIELD(__scale_flags, scale_flags, "these flags determine which fields are scaled by the contrail density");
+			__flags flags;
+			__scale_flags scale_flags;
 
 			////////////////////////////////////////////////////////////////
 			// point creation
-			TAG_FIELD(real, point_generation_rate, "points per second", "this many points are generated per second");
-			TAG_FIELD(real_bounds, point_velocity, "world units per second", "velocity added to each point's initial velocity");
-			TAG_FIELD(angle, point_velocity_cone_angle, "degrees", "initial velocity is inside the cone defined by the marker's forward vector and this angle");
-			TAG_FIELD(real_fraction, inherited_velocity_fraction, "", "fraction of parent object's velocity that is inherited by contrail points.");
+			real point_generation_rate;
+			real_bounds point_velocity;
+			angle point_velocity_cone_angle;
+			real_fraction inherited_velocity_fraction;
 
 			////////////////////////////////////////////////////////////////
 			// rendering
-			TAG_ENUM(render_type, Enums::contrail_render_type, "this specifies how the contrail is oriented in space");
+			//"this specifies how the contrail is oriented in space"
+			Enums::contrail_render_type render_type;
 			unsigned short : 16;
-			TAG_FIELD(real, texture_repeats_u, "", "texture repeats per contrail segment");
-			TAG_FIELD(real, texture_repeats_v, "", "texture repeats across contrail width");
-			TAG_FIELD(real, texture_animation_u, "repeats per second", "the texture along the contrail is animated by this value");
-			TAG_FIELD(real, texture_animation_v, "repeats per second", "the texture across the contrail is animated by this value");
-			TAG_FIELD(real, animation_rate, "frames per second");
-			TAG_FIELD(tag_reference, bitmap, 'bitm');
-			TAG_FIELD(short, first_sequence_index);
-			TAG_FIELD(short, sequence_count);
-			TAG_PAD(long, 16);
+			real texture_repeats_u;
+			real texture_repeats_v;
+			real texture_animation_u;
+			real texture_animation_v;
+			real animation_rate;
+			tag_reference bitmap;
+			short first_sequence_index;
+			short sequence_count;
+			long:8 * sizeof(long) * 16;
 			s_shader_effect shader_effect;
-			TAG_TBLOCK(point_states, s_contrail_point_states);
+			Yelo::TagBlock<const s_contrail_point_states> point_states;
 		}; static_assert( sizeof(s_contrail_definition) == 0x144 ); // max count: 1
 	};
 };

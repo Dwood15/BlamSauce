@@ -33,7 +33,7 @@ namespace Yelo {
 			unsigned short : 16; // unknown field
 			unsigned short : 16; // unknown field
 			datum_index first_encounterless_actor_index;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			bool dialogue_triggers_enabled;
 			unsigned char : 8; unsigned short : 16;
 			PAD(1, 8); // unknown field

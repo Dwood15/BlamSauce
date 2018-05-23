@@ -6,7 +6,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum pp_component_status : uint32
+		enum pp_component_status : uint
 		{
 			pp_component_status_initialised,
 			pp_component_status_uninitialised,
@@ -44,7 +44,7 @@ namespace Yelo
 		template<class T>
 		struct s_component_toggle_ref
 		{
-			uint32 component_index;
+			uint component_index;
 			T* m_component;
 		};
 

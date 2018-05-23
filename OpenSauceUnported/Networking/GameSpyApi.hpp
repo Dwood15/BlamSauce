@@ -138,8 +138,8 @@ namespace Yelo
 		struct s_gamespy_buffer // GTI2Buffer, gt\gt2Main.h
 		{
 			byte* buffer;
-			uint32 buffer_size;
-			uint32 length;
+			uint buffer_size;
+			uint length;
 		};
 
 		struct s_gamespy_socket // GTI2Socket, gt\gt2Main.h
@@ -174,7 +174,7 @@ namespace Yelo
 			BOOL freeAtAcceptReject;
 			Enums::gamespy_connection_result connectionResult;
 
-			uint32 startTime, timeout;
+			uint startTime, timeout;
 
 			long callbackLevel;
 			void* connectedCallback;
@@ -195,8 +195,8 @@ namespace Yelo
 
 			char response[32];
 
-			uint32 lastSend;
-			uint32 challengeTime;
+			uint lastSend;
+			uint challengeTime;
 
 			PAD(1, sizeof(long)*4);
 			void* sendFilters;
@@ -225,8 +225,8 @@ namespace Yelo
 			void* proc_adderror;
 			void* nn_callback;
 			void* cm_callback;
-			uint32 last_heartbeat_time;
-			uint32 last_keepalive_time;
+			uint last_heartbeat_time;
+			uint last_keepalive_time;
 			long_enum listed_state;
 			BOOL is_public;
 			long query_port;
@@ -250,9 +250,9 @@ namespace Yelo
 			long id;					// 0x0
 			char cd_hash[33];			// 0x4
 			unsigned char : 8; unsigned short : 16;
-			uint32 skey;				// 0x28, (GetTickCount ^ rand) & 0x3FFF
+			uint skey;				// 0x28, (GetTickCount ^ rand) & 0x3FFF
 			long ip;
-			uint32 sent_req_time;		// 0x30, GetTickCount
+			uint sent_req_time;		// 0x30, GetTickCount
 			long number_of_retries;	// 0x34
 			long_enum state;			// 0x38, 0 = sent request, 1 = ok, 2 = not ok, 3 = done;
 			unsigned long : 32;						// 0x3C, void* proc_unk
@@ -260,7 +260,7 @@ namespace Yelo
 			char* errmsg;				// 0x44
 			// \auth\\pid\%d\ch\%s\resp\%s\ip\%d\skey\%dd
 			char* req_str;				// 0x48, malloc'd char*
-			uint32 req_str_length;		// 0x4C
+			uint req_str_length;		// 0x4C
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_client) == 0x50 );
 
 		struct s_gamespy_product // gsproduct_s, gcdkey\gcdkeys.c
@@ -321,8 +321,8 @@ namespace Yelo
  			adderrorcallback_t adderror_callback;
  			natnegcallback_t nn_callback;
  			clientmessagecallback_t cm_callback;
-			uint32 lastheartbeat;
-			uint32 lastka;
+			uint lastheartbeat;
+			uint lastka;
 			long listed_state;
 			long ispublic;
 			long qport;
@@ -372,7 +372,7 @@ namespace Yelo
 				bool server_is_exiting;
 				unsigned char : 8; unsigned short : 16;
 				s_gamespy_qr_data* obj;
-				uint32 last_state_change_heartbeat_time;
+				uint last_state_change_heartbeat_time;
 				char temp_key_buffer[256];
 			}qr2;
 		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_globals) == 0x390 );
@@ -409,7 +409,7 @@ namespace Yelo
 			unsigned short : 16; unsigned long : 32;
 			wchar_t unknown[256]; // ticker message?
 			UNKNOWN_TYPE(long); // probably some kind of state value
-			UNKNOWN_TYPE(uint32); // flags
+			UNKNOWN_TYPE(uint); // flags
 			UNKNOWN_TYPE(long);
 			long server_browser_update_error;
 			struct {
@@ -419,7 +419,7 @@ namespace Yelo
 			}query_server_list;
 			UNKNOWN_TYPE(byte); // bool
 			unsigned char : 8; unsigned short : 16;
-			UNKNOWN_TYPE(uint32); // time
+			UNKNOWN_TYPE(uint); // time
 			struct {
 				s_gamespy_server** list;
 				long count;

@@ -68,7 +68,7 @@ namespace Yelo
 		typedef bool (__cdecl* proc_object_type_new)(datum_index object_index);
 		typedef bool (__cdecl* proc_object_type_update)(datum_index object_index);
 		typedef void (__cdecl* proc_object_type_handle_deleted_object)(datum_index object_index, datum_index deleted_object_index);
-		typedef void (__cdecl* proc_object_type_handle_region_destroyed)(datum_index object_index, long region_index, long_flags damage_region_flags);
+		typedef void (__cdecl* proc_object_type_handle_region_destroyed)(datum_index object_index, long region_index, unsigned long damage_region_flags);
 		typedef bool (__cdecl* proc_object_type_handle_parent_destroyed)(datum_index object_index);
 		typedef void (__cdecl* proc_object_type_preprocess_node_orientations)(datum_index object_index, real_orientation3d* orientations);
 		typedef void (__cdecl* proc_object_type_postprocess_node_matrices)(datum_index object_index, real_matrix4x3* matrices);
@@ -122,7 +122,7 @@ namespace Yelo
 			s_object_type_definition* base_object_types[2];
 			long _unused1[13]; // s_object_type_definition*.
 			s_object_type_definition* next;
-			PAD32;
+			unsigned long : 32;
 		}; static_assert( sizeof(s_object_type_definition) == 0xC8 );
 	};
 };

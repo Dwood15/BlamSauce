@@ -1,18 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
+#include <precompile.h>
 
-namespace Yelo
-{
-	namespace TagGroups
-	{
-		struct s_sound_permutation;
-	};
-
-	namespace blam
+namespace Yelo::blam
 	{
 		void __cdecl sound_cache_open();
 		void __cdecl sound_cache_close();

@@ -33,7 +33,7 @@ namespace Yelo {
 		}
 
 		bool FromString(cstring string, byte &output) {
-			uint32 value;
+			uint value;
 			auto   result = FromStringImpl("%u", 1, string, &value);
 			output = (byte) value;
 
@@ -49,7 +49,7 @@ namespace Yelo {
 		}
 
 		bool FromString(cstring string, unsigned short &output) {
-			uint32 value;
+			uint value;
 			auto   result = FromStringImpl("%u", 1, string, &value);
 			output = (unsigned short) value;
 
@@ -64,7 +64,7 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, uint32 &output) {
+		bool FromString(cstring string, uint &output) {
 			return FromStringImpl("%u", 1, string, &output);
 		}
 
@@ -130,7 +130,7 @@ namespace Yelo {
 		}
 
 		bool FromString(cstring string, rgb_color &output) {
-			uint32 red, green, blue;
+			uint red, green, blue;
 			auto   result = FromStringImpl("%u %u %u", 3, string, &red, &green, &blue);
 			output.red   = (byte) red;
 			output.green = (byte) green;
@@ -140,7 +140,7 @@ namespace Yelo {
 		}
 
 		bool FromString(cstring string, argb_color &output) {
-			uint32 red, green, blue, alpha;
+			uint red, green, blue, alpha;
 			auto   result = FromStringImpl("%u %u %u %u", 4, string, &red, &green, &blue, &alpha);
 			output.red   = (byte) red;
 			output.green = (byte) green;

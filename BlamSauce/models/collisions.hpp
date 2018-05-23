@@ -49,7 +49,7 @@ namespace Yelo
 
 	namespace blam
 	{
-		bool __cdecl collision_test_vector(long_flags flags, real_point3d& location, real_vector3d& vector,
+		bool __cdecl collision_test_vector(unsigned long flags, real_point3d& location, real_vector3d& vector,
 			datum_index object_index, Physics::s_collision_result& collision);
 	};
 };

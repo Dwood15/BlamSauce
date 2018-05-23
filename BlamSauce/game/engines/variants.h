@@ -66,7 +66,7 @@ namespace Yelo {
 	};
 
 	namespace Flags {
-		enum game_variant_flags : long_flags {
+		enum game_variant_flags : unsigned long {
 			_game_variant_show_players_on_radar_bit,
 			_game_variant_show_homies_bit,
 			_game_variant_infinite_grenades_bit,
@@ -166,7 +166,7 @@ namespace Yelo {
 			PAD64;               // 0x7C, unused...
 			s_game_engine_variant game_engine_variant;   // 0x9C
 			long_flags            flags;                     // 0xD4
-			//uint32 crc;								// 0xD8, not actually part of the structure, only "used" when presisting to/from files
+			//uint crc;								// 0xD8, not actually part of the structure, only "used" when presisting to/from files
 		}; static_assert(sizeof(s_game_variant) == 0xD8/*0xDC*/ );
 	};
 };

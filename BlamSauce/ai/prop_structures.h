@@ -1,9 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include "../cseries/base.h"
@@ -35,8 +29,8 @@ namespace Yelo {
 			real        danger_radius;                  //	0x20
 			short       state;                     //	0x24
 			unsigned short : 16; // unknown field						0x26
-			PAD32; // unknown field						0x28
-			PAD32; // unknown field						0x2C
+			unsigned long : 32; // unknown field						0x28
+			unsigned long : 32; // unknown field						0x2C
 			Enums::actor_perception_type perception; //	0x30
 			unsigned short : 16; // unknown field						0x32
 			unsigned short : 16; // unknown field						0x34
@@ -49,10 +43,10 @@ namespace Yelo {
 			unsigned short : 16; // unknown field						0x4C
 			unsigned char : 8; // unknown field						0x4E
 			unsigned char : 8;                           //	0x4F
-			PAD32; // unknown field						0x50
-			PAD32; // unknown field						0x54
-			PAD32; // unknown field						0x58
-			PAD32; // unknown field						0x5C
+			unsigned long : 32; // unknown field						0x50
+			unsigned long : 32; // unknown field						0x54
+			unsigned long : 32; // unknown field						0x58
+			unsigned long : 32; // unknown field						0x5C
 			bool enemy;                        //	0x60
 			bool ally;                        //	0x61
 			unsigned char : 8; // unknown field						0x62
@@ -64,19 +58,19 @@ namespace Yelo {
 			unsigned short : 16; // unknown field						0x6A
 			unsigned short : 16; // unknown field						0x6C
 			unsigned short : 16;                           //	0x6E
-			PAD32; // unknown field						0x70
+			unsigned long : 32; // unknown field						0x70
 			unsigned char : 8; // unknown field						0x74
 			unsigned char : 8;                           //	0x75
 			unsigned short : 16; // unknown field						0x76
 			unsigned short : 16; // unknown field						0x78
 			unsigned short : 16;                           //	0x7A
-			PAD32; // unknown field						0x7C
+			unsigned long : 32; // unknown field						0x7C
 			PAD_TYPE(real_point3d); // unknown field	0x80
-			PAD32; // unknown field						0x8C
+			unsigned long : 32; // unknown field						0x8C
 			PAD_TYPE(real_point3d); // unknown field	0x90
 			unsigned short : 16; // unknown field						0x9C
 			unsigned short : 16;                           //	0x9E
-			PAD32; // unknown field						0xA0
+			unsigned long : 32; // unknown field						0xA0
 			bool is_unopposable;               //	0xA4
 			unsigned char : 8;                           //	0xA5
 			short               unopposable_casualties_inflicted; //	0xA6
@@ -86,7 +80,7 @@ namespace Yelo {
 			unsigned short : 16; // unknown field						0xAE
 			unsigned short : 16; // unknown field						0xB0
 			unsigned short : 16;                           //	0xB2
-			PAD32; // unknown field						0xB4
+			unsigned long : 32; // unknown field						0xB4
 			unsigned char : 8; // unknown field						0xB8
 			unsigned char : 8; // unknown field						0xB9
 			unsigned char : 8; // unknown field						0xBA
@@ -95,15 +89,15 @@ namespace Yelo {
 			PAD_TYPE(real_point3d); // unknown field	0xC8
 			PAD_TYPE(real_vector3d); // unknown field	0xD4
 			PAD_TYPE(real_vector3d); // unknown field	0xE0
-			PAD32; // unknown field						0xEC
+			unsigned long : 32; // unknown field						0xEC
 			PAD_TYPE(real_point3d); // unknown field	0xF0
 			Scenario::s_scenario_location location;         //	0xFC
 			PAD_TYPE(real_point3d); // unknown field	0x104
-			PAD32; // unknown field						0x110
-			PAD32; // unknown field						0x114
+			unsigned long : 32; // unknown field						0x110
+			unsigned long : 32; // unknown field						0x114
 			unsigned char : 8; // unknown field						0x118
 			unsigned char : 8; unsigned short : 16;                           //	0x119
-			PAD32; // unknown field						0x11C
+			unsigned long : 32; // unknown field						0x11C
 			unsigned char : 8; // unknown field						0x120
 			unsigned char : 8; // unknown field						0x121
 			unsigned char : 8; // unknown field						0x122

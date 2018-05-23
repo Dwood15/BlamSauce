@@ -18,7 +18,7 @@ namespace Yelo
 			return m_shader_id;
 		}
 
-		const void* c_shader_data_pp_shaders::GetData(uint32& data_size)
+		const void* c_shader_data_pp_shaders::GetData(uint& data_size)
 		{
 			data_size = 0;
 			return c_post_processing_main::Instance().Globals().shader_file.GetDataPointer(&m_shader_id[0], &data_size);

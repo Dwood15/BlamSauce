@@ -62,14 +62,14 @@ namespace Yelo::Random {
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Gets a random uint32 within the specified bounds. </summary>
+	/// <summary>	Gets a random uint within the specified bounds. </summary>
 	///
 	/// <param name="lower">	The lower value. </param>
 	/// <param name="upper">	The upper value. </param>
 	///
-	/// <returns>	A random uint32. </returns>
-	uint32 GetUInt32(const uint32 lower, const uint32 upper) {
-		std::uniform_int_distribution<uint32> distribution(lower, upper);
+	/// <returns>	A random uint. </returns>
+	uint GetUInt32(const uint lower, const uint upper) {
+		std::uniform_int_distribution<uint> distribution(lower, upper);
 
 		return distribution(g_generator);
 	}

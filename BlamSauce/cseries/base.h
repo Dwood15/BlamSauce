@@ -1,9 +1,9 @@
-#include <precompile.h>>
+#pragma once
+
 #include <cstddef>
+#include <precompile.h>>
 #include "MacrosCpp.h"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
-
-#pragma once
 
 namespace Yelo {
 #define pad_bool  unsigned char : 8;
@@ -22,9 +22,10 @@ namespace Yelo {
 
 	// # from 0 to 4,294,967,295
 	typedef unsigned long uint;
-#define pad_uint32 unsigned long : 32
+#define pad_uint unsigned long : 32
 	// # from -2147483648 to 2147483647
-	typedef signed long long;
+	//Gotta watch out for this sin...
+	//typedef //signed long long;
 #define pad_int32 unsigned long : 32
 
 	// # from 0 to 18,446,744,073,709,551,615
@@ -152,8 +153,9 @@ namespace Yelo {
 		/// <param name="type">  	Getter's return type. </param>
 		/// <param name="name">  	Getter's method name. </param>
 		/// <param name="offset">	Field offset within the struct to treat as the get result. </param>
-#define TStructGetImpl(type, name, offset) type Get##name() { return GetData<type, offset>(); } \
-         type Get##name() const         { return GetData<type, offset>(); } __cdecl( ( offset + sizeof( type )) <= k_size );
+#define TStructGetImpl(type, name, offset) type Get##name() { return GetData<type, offset>(); } type Get##name() const \
+		{ return GetData<type, offset>(); } __cdecl( ( offset + sizeof( type )) <= k_size );
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Implement a by-address getter. </summary>
 		///

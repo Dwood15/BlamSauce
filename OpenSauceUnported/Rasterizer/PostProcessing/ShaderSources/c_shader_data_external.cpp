@@ -10,7 +10,7 @@ namespace Yelo
 	{
 		const char* c_shader_data_external::DataSourceID()
 		{
-			uint32 id_length = strlen(m_file_path) + 1;
+			uint id_length = strlen(m_file_path) + 1;
 			if(id_length > k_data_source_id_max_length)
 				return &m_file_path[id_length - k_data_source_id_max_length];
 			else
@@ -23,7 +23,7 @@ namespace Yelo
 			m_include_path = include_path;
 		}
 
-		const void* c_shader_data_external::GetData(uint32& data_size)
+		const void* c_shader_data_external::GetData(uint& data_size)
 		{
 			FileIO::s_file_info file_info;
 			bool success = false;

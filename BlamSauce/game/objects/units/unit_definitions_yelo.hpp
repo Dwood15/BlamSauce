@@ -1,14 +1,8 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/units/unit_camera.hpp>
-
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "../../../tags/group/markup.h"
+#include "../../../tags/group/base.h"
 
 namespace Yelo
 {
@@ -187,109 +181,110 @@ namespace Yelo
 
 		struct unit_mounted_state_keyframe_action
 		{
-			TAG_FIELD(Enums::unit_animation_keyframe, keyframe);
-			TAG_FIELD(unsigned short, flags);
-			TAG_FIELD(Enums::unit_seat_mounted_keyframe_action_target, target);
+			Enums::unit_animation_keyframe keyframe;
+			unsigned short flags;
+			Enums::unit_seat_mounted_keyframe_action_target target;
 			unsigned short : 16;
-			TAG_FIELD(tag_reference, damage_effect, "jpt!");
-			TAG_FIELD(tag_reference, effect, "effe");
-			TAG_FIELD(tag_string, effect_marker);
-			TAG_PAD(tag_block, 2);
+			tag_reference damage_effect;
+			tag_reference effect;
+			tag_string effect_marker;
+			tag_block:8 * sizeof(tag_block) * 2;
 		}; static_assert(sizeof(unit_mounted_state_keyframe_action) == 0x60);
 
 		struct unit_mounted_state
 		{
-			TAG_FIELD(unsigned short, flags);
+			unsigned short flags;
 			unsigned short : 16;
-			TAG_FIELD(s_unit_camera, unit_camera);
-			TAG_TBLOCK(keyframe_actions, unit_mounted_state_keyframe_action);
-			TAG_PAD(tag_block, 2);
+			s_unit_camera unit_camera;
+			Yelo::TagBlock<const unit_mounted_state_keyframe_action> keyframe_actions;
+			tag_block:8 * sizeof(tag_block) * 2;
 		}; static_assert(sizeof(unit_mounted_state) == 0x80);
 
 		struct unit_extensions
 		{
-			TAG_TBLOCK(mounted_state, unit_mounted_state);
-			TAG_PAD(tag_block, 4);
+			Yelo::TagBlock<const unit_mounted_state> mounted_state;
+			tag_block:8 * sizeof(tag_block) * 4;
 		}; static_assert(sizeof(unit_extensions) == 0x3C);
 
 
 		struct unit_seat_keyframe_action
 		{
-			TAG_FIELD(Enums::unit_animation_keyframe, keyframe);
-			TAG_FIELD(unsigned short, flags);
-			TAG_FIELD(Enums::unit_seat_keyframe_action_self_seat_action, self_seat_action);
-			TAG_FIELD(Enums::unit_seat_keyframe_action_target_seat_unit_action, target_seat_unit_action);
-			TAG_FIELD(Enums::unit_seat_keyframe_action_unit_door_action, unit_door_action);
+			Enums::unit_animation_keyframe keyframe;
+			unsigned short flags;
+			Enums::unit_seat_keyframe_action_self_seat_action self_seat_action;
+			Enums::unit_seat_keyframe_action_target_seat_unit_action target_seat_unit_action;
+			Enums::unit_seat_keyframe_action_unit_door_action unit_door_action;
 			unsigned short : 16;
 
-			TAG_FIELD(Enums::unit_seat_keyframe_action_apply_damage_effect, apply_damage_to);
-			TAG_FIELD(short, region_index);
-			TAG_FIELD(tag_string, region_name);
-			TAG_FIELD(tag_reference, damage_effect, "jpt!");
+			Enums::unit_seat_keyframe_action_apply_damage_effect apply_damage_to;
+			short region_index;
+			tag_string region_name;
+			tag_reference damage_effect;
 
-			TAG_FIELD(Enums::unit_seat_keyframe_action_apply_effect, apply_effect_to);
+			Enums::unit_seat_keyframe_action_apply_effect apply_effect_to;
 			unsigned short : 16;
-			TAG_FIELD(tag_reference, effect, "effe");
-			TAG_FIELD(tag_string, effect_marker);
-			TAG_PAD(tag_block, 3);
+			tag_reference effect;
+			tag_string effect_marker;
+			tag_block:8 * sizeof(tag_block) * 3;
 		}; static_assert(sizeof(unit_seat_keyframe_action) == 0x98);
 
 		struct unit_seat_boarding
 		{
-			TAG_FIELD(Enums::unit_seat_boarding_type, boarding_type);
-			TAG_FIELD(unsigned short, delay_until);
-			TAG_FIELD(Enums::unit_seat_boarding_vitality_threshold_source, unit_vitality_source);
+			Enums::unit_seat_boarding_type boarding_type;
+			unsigned short delay_until;
+			Enums::unit_seat_boarding_vitality_threshold_source unit_vitality_source;
 			unsigned short : 16;
-			TAG_FIELD(real_fraction, unit_shield_threshold);
-			TAG_FIELD(real_fraction, unit_health_threshold);
+			real_fraction unit_shield_threshold;
+			real_fraction unit_health_threshold;
 			unsigned short : 16;
-			TAG_FIELD(short, region_index);
-			TAG_FIELD(tag_string, region_name);
-			TAG_PAD(tag_block, 2);
-			TAG_TBLOCK(keyframe_actions, unit_seat_keyframe_action);
-			TAG_PAD(tag_block, 2);
+			short region_index;
+			tag_string region_name;
+			tag_block:8 * sizeof(tag_block) * 2;
+			Yelo::TagBlock<const unit_seat_keyframe_action> keyframe_actions;
+			tag_block:8 * sizeof(tag_block) * 2;
 		}; static_assert(sizeof(unit_seat_boarding) == 0x70);
 
 		struct unit_seat_damage
 		{
-			TAG_FIELD(unsigned short, flags);
-			TAG_FIELD(Enums::unit_seat_damage_melee, melee);
-			TAG_FIELD(tag_reference, melee_damage_effect, "jpt!");
-			TAG_FIELD(Enums::unit_seat_damage_grenade, grenade);
-			TAG_FIELD(unsigned short, disabled_grenade_types);
-			TAG_FIELD(real, grenade_detonation_time_scale);
-			TAG_FIELD(tag_string, grenade_marker);
-			TAG_FIELD(unsigned short, region_flags);
-			TAG_FIELD(short, region_index);
-			TAG_FIELD(tag_string, region_name);
-			TAG_FIELD(tag_reference, region_damage_effect, "jpt!");
-			TAG_PAD(tag_block, 2);
+			unsigned short flags;
+			Enums::unit_seat_damage_melee melee;
+			tag_reference melee_damage_effect;
+			Enums::unit_seat_damage_grenade grenade;
+			unsigned short disabled_grenade_types;
+			real grenade_detonation_time_scale;
+			tag_string grenade_marker;
+			unsigned short region_flags;
+			short region_index;
+			tag_string region_name;
+			tag_reference region_damage_effect;
+			tag_block:8 * sizeof(tag_block) * 2;
 		}; static_assert(sizeof(unit_seat_damage) == 0x88);
 
 		struct unit_seat_access
 		{
-			TAG_FIELD(unsigned short, flags);
+			unsigned short flags;
 			unsigned short : 16;
-			TAG_FIELD(angle, unit_sight_angle);
-			TAG_FIELD(tag_string, unit_sight_marker);
-			TAG_FIELD(angle, mounting_unit_sight_angle);
-			TAG_FIELD(tag_string, mounting_unit_sight_marker);
-			TAG_FIELD(real_fraction, unit_shield_threshold);
-			TAG_FIELD(real_fraction, unit_health_threshold);
-			TAG_FIELD(unsigned short, permitted_ai_states);
+			angle unit_sight_angle;
+			tag_string unit_sight_marker;
+			angle mounting_unit_sight_angle;
+			tag_string mounting_unit_sight_marker;
+			real_fraction unit_shield_threshold;
+			real_fraction unit_health_threshold;
+			unsigned short permitted_ai_states;
 			unsigned short : 16;
-			TAG_PAD(tag_block, 3);
+			tag_block:8 * sizeof(tag_block) * 3;
 		}; static_assert(sizeof(unit_seat_access) == 0x7C);
 
 		struct unit_seat_extensions
 		{
-			TAG_FIELD(unsigned short, flags);
-			TAG_FIELD(short, target_seat_index);
-			TAG_TBLOCK(seat_targeting_seats, short);
-			TAG_TBLOCK(seat_access, unit_seat_access);
-			TAG_TBLOCK(seat_boarding, unit_seat_boarding);
-			TAG_TBLOCK(seat_damage, unit_seat_damage);
-			TAG_PAD(tag_block, 4);
+			unsigned short flags;
+			short target_seat_index;
+
+			Yelo::TagBlock<const short> seat_targeting_seats;
+			Yelo::TagBlock<const unit_seat_access> seat_access;
+			Yelo::TagBlock<const unit_seat_boarding> seat_boarding;
+			Yelo::TagBlock<const unit_seat_damage> seat_damage;
+			tag_block:8 * sizeof(tag_block) * 4;
 		}; static_assert(sizeof(unit_seat_extensions) == 0x64);
 	};
 };

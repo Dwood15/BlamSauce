@@ -19,7 +19,7 @@ namespace Yelo
 			return m_root_control;
 		}
 
-		Control::control_ptr_t c_screen::GetControl(const uint32 resource_id)
+		Control::control_ptr_t c_screen::GetControl(const uint resource_id)
 		{
 			YELO_ASSERT_DISPLAY(m_control_resource_list.find(resource_id) != m_control_resource_list.end(), "Unknown resource ID");
 

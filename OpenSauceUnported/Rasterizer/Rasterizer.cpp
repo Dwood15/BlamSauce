@@ -33,7 +33,7 @@ namespace Yelo
 		struct rasterizer_debug_table
 		{
 			size_t field;
-			uint32 index;
+			uint index;
 		};
 		static const rasterizer_debug_table k_rasterizer_debug_table[] = {
 			{offsetof(s_rasterizer_debug_options, stats),									0xC},
@@ -211,7 +211,7 @@ namespace Yelo
 				components[x].Release();
 
 			// Return the code flow back to the game
-			static uint32 RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_DISPOSE);
+			static uint RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_DISPOSE);
 			__asm	call RETN_ADDRESS
 		}
 

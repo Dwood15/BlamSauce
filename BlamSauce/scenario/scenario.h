@@ -1,5 +1,3 @@
-/* See LICENSE for specific license information
-*/
 #pragma once
 
 #include "../cseries/base.h"

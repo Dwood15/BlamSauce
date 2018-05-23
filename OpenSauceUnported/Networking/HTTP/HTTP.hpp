@@ -126,7 +126,7 @@ namespace Yelo
 
 			std::vector<std::string>	m_path;
 
-			uint32						m_query_count;
+			uint						m_query_count;
 			c_query_pair				m_queries[Enums::k_max_url_query_count];
 
 			std::string					m_fragment;
@@ -153,7 +153,7 @@ namespace Yelo
 
 		struct s_status_code
 		{
-			const uint32 m_code;
+			const uint m_code;
 			const char* m_reason;
 		};
 

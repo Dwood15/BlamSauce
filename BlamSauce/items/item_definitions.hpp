@@ -1,25 +1,21 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
+#include <precompile.h>
 
-#include <blamlib/Halo1/objects/object_definitions.hpp>
+#include "../tags/group/markup.h"
+#include "../cseries/base.h"
+#include "../game/objects/object_definitions.hpp"
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
-
-namespace Yelo
-{
-	namespace TagGroups
+namespace Yelo::TagGroups
 	{
 		struct _item_definition
 		{
 			struct _item_definition_flags {
-				TAG_FLAG(maintains_z_up);
-				TAG_FLAG(destroyed_by_explosions);
-				TAG_FLAG(unaffected_by_gravity);
-			}flags; static_assert( sizeof(_item_definition_flags) == sizeof(long_flags) );
+				unsigned long maintains_z_up_bit:1;
+				unsigned long destroyed_by_explosions_bit:1;
+				unsigned long unaffected_by_gravity_bit:1;
+			} flags;
+
+			static_assert( sizeof(_item_definition_flags) == sizeof(unsigned long) );
 
 			short message_index;
 			short sort_order;
@@ -27,22 +23,22 @@ namespace Yelo
 			short hud_message_value_scale;
 			unsigned short : 16;
 
-			TAG_PAD(long, 4);
+			long:8 * sizeof(long) * 4;
 			short function_exports[Enums::k_number_of_incoming_object_functions];
-			TAG_PAD(long, 41);
+			long:8 * sizeof(long) * 41;
 
 			struct {
-				TAG_FIELD(tag_reference, material_effects, 'foot');
-				TAG_FIELD(tag_reference, collision_sound, 'snd!');
-			}references;
+				tag_reference material_effects;
+				tag_reference collision_sound;
+			} references;
 
-			TAG_PAD(long, 30);
+			long:8 * sizeof(long) * 30;
 
 			struct {
 				real_bounds delay;
-				TAG_FIELD(tag_reference, detonating_effect, 'effe');
-				TAG_FIELD(tag_reference, effect, 'effe');
-			}detonation;
+				tag_reference detonating_effect;
+				tag_reference effect;
+			} detonation;
 		}; static_assert( sizeof(_item_definition) == 0x18C );
 
 
@@ -51,4 +47,3 @@ namespace Yelo
 			_item_definition item;
 		}; static_assert( sizeof(s_item_definition) == 0x308 );
 	};
-};

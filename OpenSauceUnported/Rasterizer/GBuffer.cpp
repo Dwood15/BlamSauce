@@ -178,7 +178,7 @@ namespace Yelo
 
 		c_gbuffer_rtclear_effect& GBufferClear() { return g_gbuffer_clear; }
 		c_gbuffer_debug_effect& GBufferDebug() { return g_gbuffer_debug; }
-		HRESULT		c_gbuffer_fullscreen_effect::AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height)
+		HRESULT		c_gbuffer_fullscreen_effect::AllocateResources(IDirect3DDevice9* device, uint width, uint height)
 		{
 			TEXTURE_VERTEX quad[4] = 
 			{
@@ -212,7 +212,7 @@ namespace Yelo
 			return m_effect != nullptr;
 		}
 
-		HRESULT		c_gbuffer_debug_effect::AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height)
+		HRESULT		c_gbuffer_debug_effect::AllocateResources(IDirect3DDevice9* device, uint width, uint height)
 		{
 			c_gbuffer_fullscreen_effect::AllocateResources(device, width, height);
 
@@ -315,7 +315,7 @@ namespace Yelo
 				);
 		}
 
-		HRESULT		c_gbuffer_rtclear_effect::AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height)
+		HRESULT		c_gbuffer_rtclear_effect::AllocateResources(IDirect3DDevice9* device, uint width, uint height)
 		{
 			c_gbuffer_fullscreen_effect::AllocateResources(device, width, height);
 
@@ -355,14 +355,14 @@ namespace Yelo
 			m_effect->Begin(&cPasses, 0);
 			for(p = 0; p < cPasses; ++p)
 			{
-				for(uint32 i = 0; i < m_multi_rt.count; i++)
+				for(uint i = 0; i < m_multi_rt.count; i++)
 					device->SetRenderTarget(i, m_multi_rt.output[p][i]);
 
 				m_effect->BeginPass(p);
 				device->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, m_vertices, sizeof(TEXTURE_VERTEX));
 				m_effect->EndPass();
 				
-				for(uint32 i = 1; i < m_multi_rt.count; i++)
+				for(uint i = 1; i < m_multi_rt.count; i++)
 					device->SetRenderTarget(i, nullptr);
 			}
 			m_effect->End();
@@ -836,7 +836,7 @@ skip_disable_velocity:
 
 			for( p = 0; p < cPasses; ++p )
 			{
-				for(uint32 i = 0; i < m_multi_rt.count; i++)
+				for(uint i = 0; i < m_multi_rt.count; i++)
 					pDevice->SetRenderTarget(i, m_multi_rt.output[p][i]);
 
 				m_gbuffer_ps->BeginPass(p);
@@ -846,7 +846,7 @@ skip_disable_velocity:
 				hr = pDevice->DrawIndexedPrimitive(Type, BaseVertexIndex, MinVertexIndex, NumVertices, startIndex, primCount);
 				m_gbuffer_ps->EndPass();
 
-				for(uint32 i = 1; i < m_multi_rt.count; i++)
+				for(uint i = 1; i < m_multi_rt.count; i++)
 					pDevice->SetRenderTarget(i, nullptr);
 			}
 			m_gbuffer_ps->End();
@@ -994,7 +994,7 @@ skip_disable_velocity:
 		{
 			HRESULT hr = S_OK;
 			LPD3DXBUFFER error_buffer = nullptr;
-			uint32 data_size = 0;
+			uint data_size = 0;
 			void* data_pointer = m_shader_package.GetDataPointer(EffectID, &data_size);
 
 			if(!data_pointer || data_size == 0)
@@ -1033,7 +1033,7 @@ skip_disable_velocity:
 		short					c_gbuffer_system::g_debug_index;
 		bool					c_gbuffer_system::g_system_enabled;
 		Enums::render_progress	c_gbuffer_system::g_current_render_state;
-		uint32					c_gbuffer_system::g_current_object_lod;
+		uint					c_gbuffer_system::g_current_object_lod;
 		BOOL					c_gbuffer_system::g_output_object_tbn;
 		BOOL					c_gbuffer_system::g_output_object_velocity;
 		BOOL					c_gbuffer_system::g_output_velocity;

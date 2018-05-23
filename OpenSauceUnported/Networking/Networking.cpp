@@ -225,7 +225,7 @@ namespace Yelo
 		{
 			s_network_game_client* client = NetworkGameClient();
 			const s_network_connection& client_connection = *client->connection;
-			long_flags flags = client_connection.flags;
+			unsigned long flags = client_connection.flags;
 
 			if(!TEST_FLAG(flags, Flags::_connection_create_server_bit))
 			{

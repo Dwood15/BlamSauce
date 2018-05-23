@@ -281,7 +281,7 @@ namespace Yelo {
 				std::memcpy(&data.angular_velocity,		&angular_velocity, sizeof(angular_velocity));
 			}
 
-			bool VerifyType(long_flags type_mask) const {
+			bool VerifyType(unsigned long type_mask) const {
 				return TEST_FLAG(type_mask, type);
 			}
 
@@ -313,7 +313,7 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// scenery
 		struct s_scenery_data {
-			long_flags flags; // FLAG(0) - playing animation
+			unsigned long flags; // FLAG(0) - playing animation
 		}; static_assert(sizeof(s_scenery_data) == (Enums::k_object_size_scenery - Enums::k_object_size_object));
 
 		struct s_scenery_datum {

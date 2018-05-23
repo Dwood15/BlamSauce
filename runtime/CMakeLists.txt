@@ -89,11 +89,24 @@ set(RUNTIME_DIR ${PROJECT_SOURCE_DIR}/runtime)
 
 include_directories(AFTER ${GAME_DIR} ${LEVELS_DIR})
 
+set(R_ENGINELAYOUT_INL
+	${GAME_DIR}/enginelayout/Game.inl
+	${GAME_DIR}/enginelayout/Networking.inl
+	${GAME_DIR}/enginelayout/Objects.inl
+	${GAME_DIR}/enginelayout/OpenSauce.inl
+	${GAME_DIR}/enginelayout/Rasterizer.DX9.inl
+	${GAME_DIR}/enginelayout/Rasterizer.inl
+	${GAME_DIR}/enginelayout/Rasterizer.ShaderDraw.inl
+	${GAME_DIR}/enginelayout/Rasterizer.ShaderExtension.inl
+	${GAME_DIR}/enginelayout/TagGroups.inl
+	)
+
 set(RUNTIME_H
 	${GAME_DIR}/memory_locations.h
 	${GAME_DIR}/engine_functions.h
 	${GAME_DIR}/current_engine.h
 	${LEVELS_DIR}/levels.h
+	${R_ENGINELAYOUT_INL}
 	${RUNTIME_DIR}/versions/cache_files_win.hpp
 	${RUNTIME_DIR}/versions/precompile.h
 	${RUNTIME_DIR}/versions/versions.h

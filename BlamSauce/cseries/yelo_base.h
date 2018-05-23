@@ -200,7 +200,7 @@ namespace Yelo {
 				Yelo::sbyte  *sbyte;
 				Yelo::unsigned short *unsigned short;
 				Yelo::short  *short;
-				Yelo::uint32 *uint32;
+				Yelo::uint *uint;
 				Yelo::long  *long;
 				Yelo::real   *real;
 
@@ -217,7 +217,7 @@ namespace Yelo {
 				Yelo::sbyte  sbyte[1];
 				Yelo::unsigned short unsigned short[1];
 				Yelo::short  short[1];
-				Yelo::uint32 uint32[1];
+				Yelo::uint uint[1];
 				Yelo::long  long[1];
 				Yelo::real   real[1];
 
@@ -233,7 +233,7 @@ namespace Yelo {
 			Yelo::sbyte  sbyte;
 			Yelo::unsigned short unsigned short;
 			Yelo::short  short;
-			Yelo::uint32 uint32;
+			Yelo::uint uint;
 			Yelo::long  long;
 			Yelo::real   real;
 

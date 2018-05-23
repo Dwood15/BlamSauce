@@ -1,5 +1,6 @@
 #pragma once
-#include "precompile.h"
+#include <precompile.h>
+#include "../cseries/base.h"
 
 namespace Yelo::Cache {
 	struct s_cache_header_base {

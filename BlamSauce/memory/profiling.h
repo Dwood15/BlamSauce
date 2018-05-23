@@ -28,10 +28,10 @@ namespace Yelo {
 			unsigned char : 8; // alignment
 			short stack_depth;
 
-			PAD32; // alignment
+			unsigned long : 32; // alignment
 			UNKNOWN_TYPE(__int64); // ticks
 			UNKNOWN_TYPE(long); // count
-			PAD32; // alignment
+			unsigned long : 32; // alignment
 			UNKNOWN_TYPE(__int64); // ticks
 			byte field_28[sizeof(long) * 120]; // counts
 			byte field_208[sizeof(__int64) * 120]; // ticks
@@ -41,11 +41,11 @@ namespace Yelo {
 			UNKNOWN_TYPE(__int64); // ticks
 
 			UNKNOWN_TYPE(long); // count
-			PAD32; // alignment
+			unsigned long : 32; // alignment
 			UNKNOWN_TYPE(__int64); // ticks
 
 			UNKNOWN_TYPE(long); // count
-			PAD32; // alignment
+			unsigned long : 32; // alignment
 			UNKNOWN_TYPE(__int64); // ticks
 		}; static_assert(sizeof(s_profile_section) == 0x5F8); // 0x730
 

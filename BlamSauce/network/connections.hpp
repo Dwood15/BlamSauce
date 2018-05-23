@@ -90,7 +90,7 @@ namespace Yelo
 		{
 			long numMessages;				// 0xA78
 			s_connection_message* messages;	// 0xA7C
-			UNKNOWN_TYPE(uint32);			// 0xA80, I've only seen this as 0xE0
+			UNKNOWN_TYPE(uint);			// 0xA80, I've only seen this as 0xE0
 			DWORD time_of_last_flush;		// 0xA84, initialize by GetTickCount
 		}; static_assert( sizeof(s_connection_prioritization_buffer) == 0x10 );
 
@@ -100,14 +100,14 @@ namespace Yelo
 			typedef void (__cdecl* proc_connection_reject)(s_transport_endpoint* ep, long_enum rejection_code);
 
 			s_transport_endpoint* reliable_endpoint;
-			uint32 keep_alive_time;
+			uint keep_alive_time;
 			proc_connection_reject connection_rejection_proc;
 			Memory::s_circular_queue* incoming_queue;
 			s_message_stream reliable_outgoing_sled;					// 0x10
 			s_message_stream unreliable_outgoing_sled;					// 0x544
 			s_connection_prioritization_buffer prioritization_buffer;	// 0xA78
 			Enums::network_connection_class connection_class;			// 0xA88
-			long_flags flags; // Flags::network_connection_flags
+			unsigned long flags; // Flags::network_connection_flags
 			UNUSED_TYPE(long);
 			s_network_server_connection* server_connection;
 			bool is_local_connection; unsigned char : 8; unsigned short : 16;

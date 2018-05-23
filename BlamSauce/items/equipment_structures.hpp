@@ -1,20 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
+#include <precompile.h>
+#include "../game/objects/object_structures.h"
+#include "item_structures.hpp"
 
-#include <blamlib/Halo1/objects/object_structures.hpp>
-#include <blamlib/Halo1/items/item_structures.hpp>
-
-#include <blamlib/Halo1/items/equipment_definitions.hpp>
-
-#include <YeloLib/Halo1/items/equipment_structures_yelo.hpp>
-
-namespace Yelo
-{
-	namespace Objects
+namespace Yelo::Objects
 	{
 		struct s_equipment_datum_network_data
 		{
@@ -48,4 +37,3 @@ namespace Yelo
 			s_equipment_data equipment;
 		}; static_assert( sizeof(s_equipment_datum) == Enums::k_object_size_equipment );
 	};
-};

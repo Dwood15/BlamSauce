@@ -364,7 +364,7 @@ namespace Yelo {
 	static_assert(sizeof(tag_data_definition) == 0x10);
 
 	struct tag_reference_definition {
-		long_flags flags;
+		unsigned long flags;
 		tag        group_tag;
 		tag        *group_tags;
 
@@ -420,7 +420,7 @@ namespace Yelo {
 
 	struct tag_group {
 		cstring    name;
-		long_flags flags;
+		unsigned long flags;
 		tag        group_tag;
 		tag        parent_group_tag;
 		short      version;
@@ -462,7 +462,7 @@ namespace Yelo {
 		bool        is_orphan;            // 0x112
 		bool        is_reload;            // 0x113 true if this instance is the one used for another tag during tag_reload
 		datum_index reload_index;   // 0x114 index of the instance used to reload -this- tag's definition
-		uint32      file_checksum;      // 0x118
+		uint      file_checksum;      // 0x118
 		tag_block   root_block;      // 0x11C
 	}; static_assert(sizeof(s_tag_instance) == 0x128);
 

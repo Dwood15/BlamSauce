@@ -44,7 +44,7 @@ namespace Yelo
 
 		struct s_player_action
 		{
-			long_flags control_flags;
+			unsigned long control_flags;
 			real_euler_angles2d desired_facing;
 			real_vector2d throttle;
 			real primary_trigger;

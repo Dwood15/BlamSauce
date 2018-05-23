@@ -1,11 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <winnt.h>
+#include <precompile.h>
 #include "../cseries/base.h"
 #include "data_file.hpp"
 #include "../cseries/errors.h"
@@ -70,7 +65,7 @@ namespace Yelo {
 				}
 			}
 
-			bool Read(uint32 position, void *buffer, size_t buffer_size) {
+			bool Read(uint position, void *buffer, size_t buffer_size) {
 				DWORD bytes_read;
 
 				OVERLAPPED overlapped = {};
@@ -208,7 +203,7 @@ namespace Yelo {
 				return true;
 			}
 
-			bool ReadItemData(uint32 position, void *buffer, size_t buffer_size) {
+			bool ReadItemData(uint position, void *buffer, size_t buffer_size) {
 				assert(file_handle != INVALID_HANDLE_VALUE);
 
 				return Read(position, buffer, buffer_size);

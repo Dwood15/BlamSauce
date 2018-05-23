@@ -41,7 +41,7 @@ namespace Yelo
 			/////////////////////////////////////////////////
 			// members
 		protected:
-			uint32		m_reference_count;
+			uint		m_reference_count;
 			struct s_quad{
 				point2d			tessellation;
 				real_bounds		x_bounds;
@@ -89,7 +89,7 @@ namespace Yelo
 			/////////////////////////////////////////////////
 			// application
 		public:
-			uint32					GetRef();
+			uint					GetRef();
 			void					AddRef();
 			void					Release();
 		};

@@ -71,7 +71,7 @@ namespace Yelo
 			TStructSubGetPtrImpl(s_vehicle_datum_network_data,	UpdateBaseline, 0x528);
 			// 0x568 unused?
 			TStructSubGetPtrImpl(s_vehicle_datum_network_data,	UpdateDelta, 0x56C);
-			// 0x5AC, uint32, game time related
+			// 0x5AC, uint, game time related
 			// block index of the scenario datum used for respawning
 			// For all game engines besides race, this will be a scenario vehicle datum
 			// For race, it's a scenario_netpoint, aka "scenario_netgame_flags_block"

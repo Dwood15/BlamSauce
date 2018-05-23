@@ -72,7 +72,7 @@ namespace Yelo
 		namespace Cache
 		{
 			API_FUNC_NAKED bool FileReadRequest(/*datum_index tag_index,*/
-				uint32 offset_, uint32 size_, void* buffer, const Yelo::Cache::s_cache_file_request_params& params, 
+				uint offset_, uint size_, void* buffer, const Yelo::Cache::s_cache_file_request_params& params,
 				bool block, Enums::cache_file_request_source source)
 			{
 				static const uintptr_t FUNCTION = GET_FUNC_PTR(CACHE_FILE_READ_REQUEST);
@@ -456,7 +456,7 @@ namespace Yelo
 		//////////////////////////////////////////////////////////////////////////
 		// cache_files_windows.c
 		bool __cdecl cache_file_read_request(/*datum_index tag_index,*/
-			uint32 offset, uint32 size, void* buffer, const Cache::s_cache_file_request_params& params, 
+			uint offset, uint size, void* buffer, const Cache::s_cache_file_request_params& params,
 			bool block, Enums::cache_file_request_source source)
 		{
 			return Engine::Cache::FileReadRequest(offset, size, buffer, params, block, source);
@@ -808,7 +808,7 @@ namespace Yelo
 		//////////////////////////////////////////////////////////////////////////
 		// hud_draw.c
 		API_FUNC_NAKED void PLATFORM_API hud_draw_meter(short /*local_player_index*/, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_meter* element,
-			byte arg_C, byte arg_10, long_flags flags, real arg_18, real arg_1C)
+			byte arg_C, byte arg_10, unsigned long flags, real arg_18, real arg_1C)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_DRAW_METER);
 
@@ -831,7 +831,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
 		API_FUNC_NAKED void PLATFORM_API hud_draw_numbers(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_number* element,
-			long number, short arg_10, long_flags flags, game_ticks_t first_render_time, real arg_1C)
+			long number, short arg_10, unsigned long flags, game_ticks_t first_render_time, real arg_1C)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_DRAW_NUMBERS);
 
@@ -855,7 +855,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
 		API_FUNC_NAKED void PLATFORM_API hud_draw_static_element(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_static* element,
-			long_flags flags, game_ticks_t first_render_time)
+			unsigned long flags, game_ticks_t first_render_time)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_DRAW_STATIC_ELEMENT);
 
@@ -889,7 +889,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// ui_video_screen.c
-		void PLATFORM_API ui_video_screen_add_resolution(uint32 width, uint32 height, uint32 refresh_rate)
+		void PLATFORM_API ui_video_screen_add_resolution(uint width, uint height, uint refresh_rate)
 		{
 			Engine::RasterizerAddResolution(width, height, refresh_rate);
 		}
@@ -988,7 +988,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// console.c
-		API_FUNC_NAKED bool PLATFORM_API console_process_command(long_flags access_flags, cstring command)
+		API_FUNC_NAKED bool PLATFORM_API console_process_command(unsigned long access_flags, cstring command)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_PROCESS_COMMAND);
 
@@ -1336,7 +1336,7 @@ namespace Yelo
 			return Engine::Objects::IteratorNext(iter);
 		}
 
-		short PLATFORM_API objects_in_sphere(Flags::objects_find_flags find_flags, long_flags object_type_flags,
+		short PLATFORM_API objects_in_sphere(Flags::objects_find_flags find_flags, unsigned long object_type_flags,
 			const s_scenario_location& location, const real_point3d& center, real radius, 
 			datum_index object_indices[], short maximum_object_indices)
 		{
@@ -1410,7 +1410,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// collisions.c
-		API_FUNC_NAKED bool PLATFORM_API collision_test_vector(long_flags flags, real_point3d& location, real_vector3d& vector, 
+		API_FUNC_NAKED bool PLATFORM_API collision_test_vector(unsigned long flags, real_point3d& location, real_vector3d& vector,
 			datum_index object_index, Physics::s_collision_result& collision)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(COLLISION_TEST_VECTOR);

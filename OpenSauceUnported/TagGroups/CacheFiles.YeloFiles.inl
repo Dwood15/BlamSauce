@@ -18,7 +18,7 @@ static bool CacheFileReadHeaderHookImpl(cstring relative_map_name, s_cache_heade
 	const void* k_cache_files_precache_map_ra = CAST_PTR(byte*,K_CACHE_FILE_READ_HEADER_CALLS[0])+sizeof(Memory::Opcode::s_call);
 	if(return_address == k_cache_files_precache_map_ra)
 	{
-		const uint32* stack_mem = (&out_header.footer_signature)+1; // skip the header data on the stack
+		const uint* stack_mem = (&out_header.footer_signature)+1; // skip the header data on the stack
 		stack_mem += 1; // skip the return address on the stack
 		exception_on_fail = *stack_mem != FALSE; // get arg_0 of cache_files_precache_map, which determines if the game's stock code exceptions on error (we'll thus inherit this trait)
 	}

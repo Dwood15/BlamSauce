@@ -28,7 +28,7 @@ namespace Yelo
 			char text[Enums::k_terminal_line_max_characters+1];
 			UNKNOWN_TYPE(long);	// I don't think this is used...
 			real_argb_color color;
-			uint32 display_time;	// how long this has been alive, in tick counts
+			uint display_time;	// how long this has been alive, in tick counts
 		};
 		typedef Memory::DataArray<s_terminal_output_datum, 32> terminal_output_data_t;
 
@@ -58,7 +58,7 @@ namespace Yelo
 			// dedi builds so why not vOv
 			struct {
 				HANDLE handle, output;
-				PAD32;
+				unsigned long : 32;
 
 				// these just seem to be taken from current_state anyway, so wtf...
 				tag_string prefix; // prefix string, ie "halo( "
@@ -75,7 +75,7 @@ namespace Yelo
 			s_terminal_state* current_state;
 			bool receiving_input;
 			unsigned char : 8; unsigned short : 16;
-			uint32 receiving_input_start_tick; // local time, when input began to be inputed
+			uint receiving_input_start_tick; // local time, when input began to be inputed
 
 #if !PLATFORM_IS_STUBBS
 			bool is_active;

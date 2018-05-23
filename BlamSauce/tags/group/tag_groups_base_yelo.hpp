@@ -23,7 +23,7 @@ namespace Yelo {
 
 		operator datum_index() { return TagIndex; }
 
-		inline bool operator ==(const uint32& rhs) { return this->TagIndex == rhs ; }
+		inline bool operator ==(const uint& rhs) { return this->TagIndex == rhs ; }
 		// Returns whether or not this reference has a valid group reference
 		bool IsValid() const { return GroupTag == K_TAG; }
 
@@ -186,7 +186,7 @@ namespace Yelo {
 		// Size, in bytes, of the data blob
 		long Size;
 
-		long_flags Flags;
+		unsigned long Flags;
 		long      StreamPosition;
 
 		union {

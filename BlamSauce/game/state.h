@@ -35,12 +35,12 @@ namespace Yelo
 
 		struct s_header_data
 		{
-			uint32 allocation_crc;
+			uint allocation_crc;
 			char level[256];
 			tag_string version;
 			short player_spawn_count;
 			short game_difficulty;
-			uint32 cache_crc;
+			uint cache_crc;
 
 			union {
 				byte _unused[32];
@@ -51,19 +51,19 @@ namespace Yelo
 		struct s_game_state_globals
 		{
 			void* base_address;
-			uint32 cpu_allocation_size;
-			uint32 gpu_allocation_size; // unused
-			uint32 crc;
+			uint cpu_allocation_size;
+			uint gpu_allocation_size; // unused
+			uint crc;
 			bool locked;
 			bool saved;
 					 unsigned short : 16;
-			uint32 revert_time;
+			uint revert_time;
 			s_header_data* header;
 			HANDLE autosave_thread;
 			bool buffer_allocated;
 			unsigned char : 8; unsigned short : 16;
 			void* buffer;
-			uint32 buffer_size;
+			uint buffer_size;
 			bool file_open;
 			bool file_valid_for_read;
 					 unsigned short : 16;

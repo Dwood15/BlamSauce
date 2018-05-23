@@ -7,6 +7,7 @@
 #include "group/markup.h"
 #include "../memory/datum_index.h"
 #include "group/base.h"
+#include "../cseries/base.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -124,48 +125,48 @@ namespace Yelo {
 
 	namespace TagGroups {
 		struct s_bitmap_group_sprite {
-			TAG_FIELD(short, bitmap_index);
+			short bitmap_index;
 			unsigned short : 16;
-			PAD32;
-			TAG_FIELD(real, left);
-			TAG_FIELD(real, right);
-			TAG_FIELD(real, top);
-			TAG_FIELD(real, bottom);
-			TAG_FIELD(real_point2d, registration_point);
+			unsigned long : 32;
+			real left;
+			real right;
+			real top;
+			real bottom;
+			real_point2d registration_point;
 		}; static_assert(sizeof(s_bitmap_group_sprite) == 0x20); // max count: 64
 
 		struct s_bitmap_group_sequence {
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(short, first_bitmap_index);
-			TAG_FIELD(short, bitmap_count);
-			TAG_PAD(bmp_pad0, long, 4);
+			tag_string name;
+			short first_bitmap_index;
+			short bitmap_count;
+			long:8 * sizeof(long) * 4;
 			TagBlock <s_bitmap_group_sprite> sprites;
 		}; static_assert(sizeof(s_bitmap_group_sequence) == 0x40); // max count: 256
 
 		struct s_bitmap_data {
 			struct _flags {
-				TAG_FLAG16(power_of_two_dimensions);
-				TAG_FLAG16(compressed);
-				TAG_FLAG16(palettized);
-				TAG_FLAG16(swizzled);
-				TAG_FLAG16(linear);
-				TAG_FLAG16(v16u16);
-				TAG_FLAG16(orphan); // this bitmap and its pixel data are allocated outside of the tag system
-				TAG_FLAG16(cached); // _bitmap_cached_bit
-				TAG_FLAG16(in_data_file); // data is in the bitmaps data file, not the cache file
+				unsigned short power_of_two_dimensions_bit:1;
+				unsigned short compressed_bit:1;
+				unsigned short palettized_bit:1;
+				unsigned short swizzled_bit:1;
+				unsigned short linear_bit:1;
+				unsigned short v16u16_bit:1;
+				unsigned short orphan_bit:1; // this bitmap and its pixel data are allocated outside of the tag system
+				unsigned short cached_bit:1; // _bitmap_cached_bit
+				unsigned short in_data_file_bit:1; // data is in the bitmaps data file, not the cache file
 			}; static_assert(sizeof(_flags) == sizeof(unsigned short));
 
-			TAG_FIELD(tag, signature);
-			TAG_FIELD(short, width, "pixels");
-			TAG_FIELD(short, height, "pixels");
-			TAG_FIELD(short, depth, "pixels", "depth is 1 for 2D textures and cube maps", "depth is 1 for 2D textures and cube maps");
-			TAG_ENUM(type, Enums::bitmap_type, "determines bitmap 'geometry'");
-			TAG_ENUM(format, Enums::bitmap_pixel_format, "determines how pixels are represented internally");
-			TAG_FIELD(_flags, flags);
-			TAG_FIELD(point2d, registration_point);
-			TAG_FIELD(short, mipmap_count);
+			tag signature;
+			short width;
+			short height;
+			short depth;
+			short type;
+			short format;
+			_flags flags;
+			point2d registration_point;
+			short mipmap_count;
 			unsigned short : 16;
-			TAG_FIELD(long, pixels_offset);
+			long pixels_offset;
 
 			UNKNOWN_TYPE(long);
 			datum_index owner_tag_index;
@@ -186,7 +187,7 @@ namespace Yelo {
 			// * CUBE MAPS: Cube maps will be generated from each consecutive set of six 2D textures in each sequence, all faces of a cube map must be square and the same size.
 			// * SPRITES: Sprite texture pages will be generated.
 			// * INTERFACE BITMAPS: Similar to 2D TEXTURES, but without mipmaps and without the power of two restriction.
-			TAG_ENUM(type, Enums::bitmap_group_type);
+			short type;
 
 			////////////////////////////////////////////////////////////////
 			// format
@@ -200,7 +201,7 @@ namespace Yelo {
 			// * MONOCHROME: Uses either 8 or 16 bits per pixel. Bitmap formats are a8 (alpha), y8 (intensity), ay8 (combined alpha-intensity) and a8y8 (separate alpha-intensity).
 			//
 			// Note: Height maps (a.k.a. bump maps) should use 32-bit color; this is internally converted to a palettized format which takes less memory.
-			TAG_ENUM(format, Enums::bitmap_group_format);
+			short format;
 
 			////////////////////////////////////////////////////////////////
 			// usage
@@ -212,46 +213,45 @@ namespace Yelo {
 			// * DETAIL MAP: Mipmap color fades to gray, controlled by <detail fade factor> below. Alpha fades to white.
 			// * LIGHT MAP: Generates no mipmaps. Do not use!
 			// * VECTOR MAP: Used mostly for special effects; pixels are treated as XYZ vectors and normalized after downsampling. Alpha is passed through unmodified.
-			TAG_ENUM(usage, Enums::bitmap_group_usage);
-			TAG_FIELD(unsigned short, flags, Flags::bitmap_group_flags);
+			short usage;
+			unsigned short flags;
 
 			////////////////////////////////////////////////////////////////
 			// post-processing
 			// These properties control how mipmaps are post-processed.
-			TAG_FIELD(real_fraction, detail_fade_factor, "[0,1]", "0 means fade to gray by last mipmap, 1 means fade to gray by first mipmap");
-			TAG_FIELD(real_fraction, sharpen_amount, "[0,1]", "sharpens mipmap after downsampling");
-			TAG_FIELD(real_fraction, bump_height, "repeats",
-						 "the apparent height of the bump map above the triangle it is textured onto, in texture repeats (i.e., 1.0 would be as high as the texture is wide)");
+			real_fraction detail_fade_factor;
+			real_fraction sharpen_amount;
+			real_fraction bump_height;
 
 			////////////////////////////////////////////////////////////////
 			// sprite processing
 			// When creating a sprite group, specify the number and size of textures that the group is allowed to occupy. During importing, you'll receive feedback about how well the alloted space was used.
-			TAG_ENUM(sprite_budget_size, Enums::sprite_budget);
-			TAG_FIELD(short, sprite_budget_count);
+			short sprite_budget_size;
+			short sprite_budget_count;
 
 			////////////////////////////////////////////////////////////////
 			// color plate
 			// The original TIFF file used to import the bitmap group.
-			TAG_FIELD(short, color_plate_width, "pixels");
-			TAG_FIELD(short, color_plate_height, "pixels");
-			TAG_FIELD(tag_data, compressed_color_plate_data);
+			short color_plate_width;
+			short color_plate_height;
+			tag_data compressed_color_plate_data;
 
 			////////////////////////////////////////////////////////////////
 			// processed pixel data
 			// Pixel data after being processed by the tool.
-			TAG_FIELD(tag_data, processed_pixel_data);
+			tag_data processed_pixel_data;
 
 			////////////////////////////////////////////////////////////////
 			// miscellaneous
-			TAG_FIELD(real, blur_filter_size, "[0,10] pixels", "blurs the bitmap before generating mipmaps");
-			TAG_FIELD(real, alpha_bias, "[-1,1]", "affects alpha mipmap generation");
-			TAG_FIELD(short, mipmap_count, "levels", "0 defaults to all levels");
+			real blur_filter_size;
+			real alpha_bias;
+			short mipmap_count;
 
 			////////////////////////////////////////////////////////////////
 			// ...more sprite processing
 			// Sprite usage controls the background color of sprite plates.
-			TAG_ENUM(sprite_usage, Enums::sprite_usage);
-			TAG_FIELD(short, sprite_spacing);
+			short sprite_usage;
+			short sprite_spacing;
 			unsigned short : 16;
 			TagBlock <s_bitmap_group_sequence> sequences;
 			TagBlock <s_bitmap_data>           bitmaps;

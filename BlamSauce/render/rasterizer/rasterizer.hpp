@@ -65,12 +65,12 @@ namespace Yelo {
 			UNKNOWN_TYPE(short);
 			UNKNOWN_TYPE(rectangle2d);
 			UNKNOWN_TYPE(rectangle2d);
-			PAD32;
+			unsigned long : 32;
 			UNKNOWN_TYPE(long);
 			UNKNOWN_TYPE(long);
-			PAD32;
-			PAD32;
-			PAD32;
+			unsigned long : 32;
+			unsigned long : 32;
+			unsigned long : 32;
 			UNKNOWN_TYPE(real);
 			UNKNOWN_TYPE(real);
 			UNKNOWN_TYPE(real);
@@ -84,12 +84,12 @@ namespace Yelo {
 			bool                  using_software_vertex_processing;
 										 unsigned char : 8;
 			UNKNOWN_TYPE(short); // only set, never read (in any meaningful way)
-			uint32 fixed_function_ambient; // ambient light value for FF
+			uint fixed_function_ambient; // ambient light value for FF
 			UNKNOWN_TYPE(bool); // active camo related
 			UNKNOWN_TYPE(bool); // shadows related
 			UNKNOWN_TYPE(bool); // render targets related
 					 unsigned char : 8;
-					 PAD32;
+					 unsigned long : 32;
 		};
 
 		static_assert(sizeof(s_rasterizer_globals) == 0x60);
@@ -234,7 +234,7 @@ namespace Yelo::Rasterizer {
 		void InitializeRenderedTrianglesUpgrade() {
 			//ayyyy metaprogramming, thanks, c++ 17!
 			if constexpr (with_max_tri_upgrades) {
-				static uint32 rendered_triangles[Enums::k_maximum_rendered_triangles_upgrade];
+				static uint rendered_triangles[Enums::k_maximum_rendered_triangles_upgrade];
 
 				// redirect all rendered triangle pointers to the new array
 				for (auto ptr : K_RENDERED_TRIANGLE_ARRAY_UPGRADE_ADDRESS_LIST)

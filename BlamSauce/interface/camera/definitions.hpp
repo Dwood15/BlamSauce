@@ -1,34 +1,23 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-namespace Yelo
-{
-	namespace TagGroups
-	{
-		struct s_camera_track_control_point
-		{
-			TAG_FIELD(real_vector3d, position);
-			TAG_FIELD(real_quaternion, orientation);
-			TAG_PAD(long, 8);
-		}; static_assert( sizeof(s_camera_track_control_point) == 0x3C ); // max count: 16
+#include <precompile.h>
 
-		struct s_camera_track_definition
-		{
-			enum { k_group_tag = 'trak' };
+namespace Yelo::TagGroups {
+	struct s_camera_track_control_point {
+		real_vector3d   position;
+		real_quaternion orientation;
+		long:8 * sizeof(long) * 8;
+	}; static_assert(sizeof(s_camera_track_control_point) == 0x3C); // max count: 16
 
-			struct __flags
-			{
-				TAG_FLAG(unused);
-			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+	struct s_camera_track_definition {
+		enum { k_group_tag = 'trak' };
 
-			TAG_FIELD(__flags, flags);
-			TAG_TBLOCK(control_points, s_camera_track_control_point);
-			TAG_PAD(long, 8);
-		}; static_assert( sizeof(s_camera_track_definition) == 0x30 ); // max count: 1
-	};
+		struct __flags {
+			unsigned long unused_bit:1;
+		}; static_assert(sizeof(__flags) == sizeof(unsigned long));
+
+		__flags                                            flags;
+		Yelo::TagBlock<const s_camera_track_control_point> control_points;
+		long:8 * sizeof(long) * 8;
+	}; static_assert(sizeof(s_camera_track_definition) == 0x30); // max count: 1
 };

@@ -16,7 +16,7 @@ namespace Yelo
 
 		bool c_packed_texture_loader::LoadTexture(const std::string& texture_id, IDirect3DTexture9** target_texture, D3DXIMAGE_INFO* image_info)
 		{
-			uint32 data_size = 0;
+			uint data_size = 0;
 			auto* texture_file = m_packed_file.GetDataPointer(texture_id.c_str(), &data_size);
 
 			if(!texture_file)

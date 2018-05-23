@@ -9,6 +9,8 @@
 #include <blamlib/Halo1/interface/hud_definitions.hpp>
 
 #include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include "../../tags/group/markup.h"
+#include "../../tags/group/tag_groups_base_yelo.hpp"
 
 namespace Yelo
 {
@@ -89,117 +91,121 @@ namespace Yelo
 		// weapon hud interface
 		struct weapon_hud_element
 		{
-			TAG_ENUM(state_attached_to, Enums::weapon_hud_state);
+			Enums::weapon_hud_state state_attached_to;
 			byte_flags runtime_flags;
 			unsigned char : 8;
-			TAG_ENUM(can_use_on_map_type, Enums::hud_use_on_map_type); // actually treated as byte_flags
+			Enums::hud_use_on_map_type can_use_on_map_type; // actually treated as byte_flags
 			unsigned short : 16;
-			TAG_PAD(long, 7);
+			long:8 * sizeof(long) * 7;
 		}; static_assert( sizeof(weapon_hud_element) == 0x24 );
 
 		struct weapon_hud_static_element : public weapon_hud_element
 		{
 			s_hud_element_overlay overlay;
-			TAG_PAD(long, 10);
+			long:8 * sizeof(long) * 10;
 		}; static_assert( sizeof(weapon_hud_static_element) == 0xB4 );
 
 		struct weapon_hud_meter_element : public weapon_hud_element
 		{
 			s_hud_element_meter element;
-			TAG_PAD(long, 10);
+			long:8 * sizeof(long) * 10;
 		}; static_assert( sizeof(weapon_hud_meter_element) == 0xB4 );
 
 		struct weapon_hud_number_element : public weapon_hud_element
 		{
 			s_hud_element_number element;
-			TAG_FIELD(unsigned short, weapon_flags);
+			unsigned short weapon_flags;
 			unsigned short : 16;
-			TAG_PAD(long, 9);
+			long:8 * sizeof(long) * 9;
 		}; static_assert( sizeof(weapon_hud_number_element) == 0xA0 );
 
 		struct weapon_hud_crosshair_item
 		{
 			s_hud_element element;
 			s_hud_color_flash flash;
-			TAG_FIELD(short, frame_rate);
-			TAG_FIELD(short, sequence_index);
-			TAG_FIELD(long_flags, flags);
-			TAG_PAD(long, 8);
+			short frame_rate;
+			short sequence_index;
+			unsigned long flags;
+
+			long:8 * sizeof(long) * 8;
 		}; static_assert( sizeof(weapon_hud_crosshair_item) == 0x6C );
 		struct weapon_hud_crosshairs_element
 		{
-			TAG_ENUM(crosshair_type, Enums::weapon_crosshair_type);
+			Enums::weapon_crosshair_type crosshair_type;
 			byte_flags runtime_flags;
 			unsigned char : 8;
-			TAG_ENUM(can_use_on_map_type, Enums::hud_use_on_map_type); // actually byte_enum
+			Enums::hud_use_on_map_type can_use_on_map_type; // actually byte_enum
 			unsigned short : 16;
-			TAG_PAD(long, 7);
-			TAG_FIELD(tag_reference, crosshair_bitmap, 'bitm');
-			TAG_TBLOCK(crosshair_overlays, weapon_hud_crosshair_item);
-			TAG_PAD(long, 10);
+			long:8 * sizeof(long) * 7;
+			tag_reference crosshair_bitmap;
+			Yelo::TagBlock<const weapon_hud_crosshair_item> crosshair_overlays;
+			long:8 * sizeof(long) * 10;
 		}; static_assert( sizeof(weapon_hud_crosshairs_element) == 0x68 );
 
 		struct weapon_hud_overlay_item
 		{
 			s_hud_element element;
 			s_hud_color_flash flash;
-			TAG_FIELD(short, frame_rate);
+			short frame_rate;
 			unsigned short : 16;
-			TAG_FIELD(short, sequence_index);
-			TAG_FIELD(unsigned short, type);
-			TAG_FIELD(long_flags, flags);
-			TAG_PAD(tag_reference, 1);
-			TAG_PAD(long, 10);
+			short sequence_index;
+			unsigned short type;
+			unsigned long flags;
+
+			tag_reference:8 * sizeof(tag_reference) * 1;
+			long:8 * sizeof(long) * 10;
 		}; static_assert( sizeof(weapon_hud_overlay_item) == 0x88 );
 		struct weapon_hud_overaly
 		{
-			TAG_FIELD(tag_reference, overlay_bitmap, 'bitm');
-			TAG_TBLOCK(overlays, weapon_hud_overlay_item);
+			tag_reference overlay_bitmap;
+			Yelo::TagBlock<const weapon_hud_overlay_item> overlays;
 		};
 		struct weapon_hud_overlays_element : public weapon_hud_element
 		{
 			weapon_hud_overaly overlay;
-			TAG_PAD(long, 10);
+			long:8 * sizeof(long) * 10;
 		}; static_assert( sizeof(weapon_hud_overlays_element) == 0x68 );
 
 		struct weapon_hud_messaging_information
 		{
-			TAG_FIELD(short, sequence_index);
-			TAG_FIELD(short, width_offset);
-			TAG_FIELD(point2d, offset_from_reference_corner);
-			TAG_FIELD(argb_color, override_icon_color);
-			TAG_FIELD(sbyte, frame_rate);
-			TAG_FIELD(byte_flags, flags);
-			TAG_FIELD(short, text_index);
-			TAG_PAD(long, 12);
+			short sequence_index;
+			short width_offset;
+			point2d offset_from_reference_corner;
+			argb_color override_icon_color;
+			sbyte frame_rate;
+			byte_flags flags;
+			short text_index;
+
+			long:8 * sizeof(long) * 12;
 		};
 
 		struct weapon_hud_interface_definition
 		{
 			enum { k_group_tag = 'wphi' };
 
-			TAG_FIELD(tag_reference, child_hud, 'wphi');
+			tag_reference child_hud;
 			struct {
-				TAG_FIELD(unsigned short, flags);
+				unsigned short flags;
 				unsigned short : 16;
-				TAG_FIELD(short, inventory_ammo);
-				TAG_FIELD(short, loaded_ammo);
-				TAG_FIELD(short, heat);
-				TAG_FIELD(short, age);
-				TAG_PAD(long, 8);
+				short inventory_ammo;
+				short loaded_ammo;
+				short heat;
+				short age;
+
+				long:8 * sizeof(long) * 8;
 			}flash_cutoffs;
 
 			s_hud_absolute_placement placement;
 
-			TAG_TBLOCK(static_elements, weapon_hud_static_element);
-			TAG_TBLOCK(meter_elements, weapon_hud_meter_element);
-			TAG_TBLOCK(number_elements, weapon_hud_number_element);
-			TAG_TBLOCK(crosshairs, weapon_hud_crosshairs_element);
-			TAG_TBLOCK(overlay_elements, weapon_hud_overlays_element);
-			long_flags runtime_used_crosshairs[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_weapon_crosshair_types)];
-			TAG_PAD(tag_block, 1);
-			TAG_TBLOCK(screen_effect, hud_screen_effect_definition);
-			TAG_PAD(tag_block, 11);
+			Yelo::TagBlock<const weapon_hud_static_element> static_elements;
+			Yelo::TagBlock<const weapon_hud_meter_element> meter_elements;
+			Yelo::TagBlock<const weapon_hud_number_element> number_elements;
+			Yelo::TagBlock<const weapon_hud_crosshairs_element> crosshairs;
+			Yelo::TagBlock<const weapon_hud_overlays_element> overlay_elements;
+			unsigned long runtime_used_crosshairs[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_weapon_crosshair_types)];
+			tag_block:8 * sizeof(tag_block) * 1;
+			Yelo::TagBlock<const hud_screen_effect_definition> screen_effect;
+			tag_block:8 * sizeof(tag_block) * 11;
 			weapon_hud_messaging_information messaging_information;
 		}; static_assert( sizeof(weapon_hud_interface_definition) == 0x17C );
 
@@ -215,12 +221,12 @@ namespace Yelo
 			s_hud_element_overlay total_grenades_background;
 			struct {
 				s_hud_element_number element;
-				TAG_FIELD(short, flash_cutoff);
+				short flash_cutoff;
 				unsigned short : 16;
 			}total_grenades_numbers;
 			weapon_hud_overaly total_grenade_overlays;
-			TAG_TBLOCK(warning_sounds, sound_hud_element_definition);
-			TAG_PAD(long, 17);
+			Yelo::TagBlock<const sound_hud_element_definition> warning_sounds;
+			long:8 * sizeof(long) * 17;
 			weapon_hud_messaging_information messaging_information;
 		}; static_assert( sizeof(grenade_hud_interface_definition) == 0x1F8 );
 	};

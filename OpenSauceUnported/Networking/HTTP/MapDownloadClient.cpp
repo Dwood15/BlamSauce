@@ -173,12 +173,12 @@ namespace Yelo
 		public:
 			char					m_name[MAX_PATH];
 			char					m_md5[k_md5_string_length_max];
-			uint32					m_size;
+			uint					m_size;
 			bool					m_encrypted;
 			unsigned char : 8; unsigned short : 16;
 			char					m_unencrypted_md5[k_md5_string_length_max];
-			uint32					m_total_bytes;
-			uint32					m_received_bytes;
+			uint					m_total_bytes;
+			uint					m_received_bytes;
 
 			void Ctor()
 			{
@@ -198,8 +198,8 @@ namespace Yelo
 			char					m_name[MAX_PATH];
 			char					m_filename[MAX_PATH];
 			char					m_md5[k_md5_string_length_max];
-			uint32					m_uncompressed_size;
-			uint32					m_compressed_size;
+			uint					m_uncompressed_size;
+			uint					m_compressed_size;
 			map_compression_format	m_format;
 			bool					m_map_is_yelo;
 			unsigned char : 8;
@@ -751,8 +751,8 @@ namespace Yelo
 			struct
 			{
 				c_part_element*				m_part_element;
-				uint32						m_total_bytes;
-				uint32						m_received_bytes;
+				uint						m_total_bytes;
+				uint						m_received_bytes;
 				byte*						m_decryption_key;
 				byte						m_data[k_max_part_download_size];
 
@@ -962,8 +962,8 @@ namespace Yelo
 				}
 
 				// download size can be less than 1MB
-				m_part_downloader.m_total_bytes = (uint32)buffer_length;
-				m_part_downloader.m_received_bytes = (uint32)buffer_length;
+				m_part_downloader.m_total_bytes = (uint)buffer_length;
+				m_part_downloader.m_received_bytes = (uint)buffer_length;
 
 				// validate and decrypt the part
 				if(!ValidatePart() || !DecryptPart())
@@ -1141,7 +1141,7 @@ namespace Yelo
 				LinkedListIterator<c_part_element> part_iterator(g_map_download_globals.m_map_part_definition.downloader.MapElement().m_parts);
 
 				// get the cumulative byte count of all the parts downloaded
-				uint32 received_bytes_total = 0;
+				uint received_bytes_total = 0;
 				while(part_iterator.MoveNext())
 					received_bytes_total += part_iterator.Current()->m_received_bytes;
 
@@ -1175,8 +1175,8 @@ namespace Yelo
 					http_request = g_map_download_globals.m_part_download.downloader.HTTPRequestIndex();
 
 					// get the download progress of the part
-					uint32 received = 0;
-					uint32 total = 0;
+					uint received = 0;
+					uint total = 0;
 					if(g_map_download_globals.m_part_download.part_iterator && g_map_download_globals.m_part_download.part_iterator->Current())
 					{
 						received = g_map_download_globals.m_part_download.part_iterator->Current()->m_received_bytes;
@@ -1537,7 +1537,7 @@ namespace Yelo
 					list_indices[i] = i;
 
 				// re-seed the random number generator, always get the same sequence otherwise, even if seeded on load
-				srand((uint32)time(0));
+				srand((uint)time(0));
 
 				// shuffle the indices to a pseudo random pattern
 				// this uses the Durstenfeld shuffle algorithm

@@ -1,15 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/items/item_definitions.hpp>
-
-#include <YeloLib/Halo1/items/equipment_definitions_yelo.hpp>
-
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "item_definitions.hpp"
 
 namespace Yelo
 {
@@ -35,12 +27,12 @@ namespace Yelo
 	{
 		struct _equipment_definition
 		{
-			TAG_ENUM(powerup_type, Enums::equipment_powerup);
-			TAG_ENUM(grenade_type, Enums::grenade_type);
-			TAG_FIELD(real, powerup_time);
-			TAG_FIELD(tag_reference, pickup_sound, 'snd!');
+			Enums::equipment_powerup powerup_type;
+			Enums::grenade_type grenade_type;
+			real powerup_time;
+			tag_reference pickup_sound;
 			union {
-				TAG_PAD(byte, s_equipment_yelo_definition::k_max_definition_size);
+				byte p0[sizeof(byte) * (s_equipment_yelo_definition::k_max_definition_size)];
 				//s_equipment_yelo_definition yelo;
 			};
 		}; static_assert( sizeof(_equipment_definition) == 0xA8 );

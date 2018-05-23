@@ -1,9 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include "../../cseries/base.h"
@@ -140,7 +134,7 @@ namespace Yelo {
 
 				struct {
 					Yelo::Networking::s_player_client_update update_data;
-					PAD32;                              // 0x1FC
+					unsigned long : 32;                              // 0x1FC
 				}    client;
 				struct {
 					Networking::s_player_server_update update_data;
@@ -182,8 +176,8 @@ namespace Yelo {
 			short respawn_failure;                                             // 0x14
 			bool  was_teleported;                                             // 0x16, or respawned
 			unsigned char : 8;
-			long_flags combined_pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];                  // 0x18 combined pvs of all players in the game
-			long_flags combined_pvs_local[BIT_VECTOR_SIZE_IN_DWORDS(512)];               // 0x58 combined pvs of all local players
+			unsigned long combined_pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];                  // 0x18 combined pvs of all players in the game
+			unsigned long combined_pvs_local[BIT_VECTOR_SIZE_IN_DWORDS(512)];               // 0x58 combined pvs of all local players
 		}; static_assert(sizeof(s_players_globals_data) == 0x98);
 	};
 };

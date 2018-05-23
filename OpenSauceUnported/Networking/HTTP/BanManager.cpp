@@ -41,7 +41,7 @@ namespace Yelo
 						byte	b;
 						byte	a;
 					};
-					uint32 abcd;
+					uint abcd;
 				}v4;
 
 				union
@@ -65,7 +65,7 @@ namespace Yelo
 		public:
 			bool& IsActive() { return m_flags.is_active; }
 
-			bool CompareIP(uint32 ip)
+			bool CompareIP(uint ip)
 			{
 				return ip == m_ip.v4.abcd;
 			}
@@ -91,7 +91,7 @@ namespace Yelo
 			}
 
 		public:
-			c_http_ip_ban_base(uint32 ip)
+			c_http_ip_ban_base(uint ip)
 			{
 				ClearNodeData();
 				m_flags.is_active = false;
@@ -139,7 +139,7 @@ namespace Yelo
 
 			struct
 			{
-				uint32	total_connections;
+				uint	total_connections;
 				real	cooldown_delta;
 			}m_connection_count;
 
@@ -151,7 +151,7 @@ namespace Yelo
 				return m_connection_ban_flags.forget;
 			}
 
-			void Update(real delta, const uint32 max_connections, const real connection_cooldown, const real forget_connection_time)
+			void Update(real delta, const uint max_connections, const real connection_cooldown, const real forget_connection_time)
 			{
 				// if the forget connection time has elapsed, this can be deleted
 				m_forget_connection_delta += delta;
@@ -173,7 +173,7 @@ namespace Yelo
 					m_flags.is_active = false;
 			}
 
-			void AddConnection(const uint32 max_connections)
+			void AddConnection(const uint max_connections)
 			{
 				// increase the number of connections this IP has made
 				m_connection_count.total_connections++;
@@ -186,7 +186,7 @@ namespace Yelo
 				m_connection_count.cooldown_delta = 0;
 			}
 
-			c_http_ip_ban_connection(uint32 ip) : c_http_ip_ban_base(ip)
+			c_http_ip_ban_connection(uint ip) : c_http_ip_ban_base(ip)
 			{
 				m_connection_ban_flags.forget = false;
 
@@ -221,7 +221,7 @@ namespace Yelo
 		class c_http_ip_ban_permanent : public c_http_ip_ban_base
 		{
 		public:
-			c_http_ip_ban_permanent(uint32 ip) : c_http_ip_ban_base(ip)
+			c_http_ip_ban_permanent(uint ip) : c_http_ip_ban_base(ip)
 			{
 				m_flags.is_active = true;
 			}
@@ -242,7 +242,7 @@ namespace Yelo
 		public:
 			char				m_ban_list_file[MAX_PATH];
 
-			volatile uint32		m_max_connections_per_ip;
+			volatile uint		m_max_connections_per_ip;
 			volatile real		m_connection_cooldown_time;
 			volatile real		m_forget_connection_time;
 		};
@@ -257,14 +257,14 @@ namespace Yelo
 		 * Looks for an IP in the ban lists and returns whether the IP is banned or not.
 		 * 
 		 * \param ip
-		 * The IPv4 IP in a single uint32.
+		 * The IPv4 IP in a single uint.
 		 * 
 		 * \returns
 		 * True if the IP is banned, otherwise returns false.
 		 * 
 		 * Looks for an IP in th ban lists and returns whether the IP is banned or not.
 		 */
-		bool IPBanned(uint32 ip)
+		bool IPBanned(uint ip)
 		{
 			WaitForSingleObject(g_ban_list_mutex, INFINITE);
 
@@ -660,7 +660,7 @@ namespace Yelo
 			c_http_ip_ban_base* permanent_ban = g_permanent_ban_list;
 
 			// print the index and ip of each ban entry
-			uint32 index = 0;
+			uint index = 0;
 			while(permanent_ban)
 			{
 				switch(permanent_ban->m_ip_version)
@@ -708,7 +708,7 @@ namespace Yelo
 		 * 
 		 * Sets the connection ban variables.
 		 */
-		void SetConnectionBan(const uint32 max_connections, const real cooldown_time, const real forget_time)
+		void SetConnectionBan(const uint max_connections, const real cooldown_time, const real forget_time)
 		{
 			g_ban_manager_globals.m_max_connections_per_ip = max_connections;
 			g_ban_manager_globals.m_connection_cooldown_time = cooldown_time;
@@ -720,12 +720,12 @@ namespace Yelo
 		 * Increments the number of connections an IP has had.
 		 * 
 		 * \param ip
-		 * The IPv4 IP in a single uint32.
+		 * The IPv4 IP in a single uint.
 		 * 
 		 * Increments the number of connections an IP has had. If no matching IP is found in the connection
 		 * ban list a new element is added.
 		 */
-		void AddConnection(uint32 ip)
+		void AddConnection(uint ip)
 		{
 			if(g_ban_manager_globals.m_max_connections_per_ip == 0)
 				return;
@@ -890,7 +890,7 @@ namespace Yelo
 		{
 			WaitForSingleObject(g_ban_list_mutex, INFINITE);
 
-			uint32 banlist_count = GetListLength(g_permanent_ban_list);
+			uint banlist_count = GetListLength(g_permanent_ban_list);
 			if(!banlist_count || (ban_index >= banlist_count))
 			{
 				blam::console_printf(false, "IP ban index out of bounds.");

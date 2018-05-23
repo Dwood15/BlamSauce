@@ -1,31 +1,19 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
 
-namespace Yelo
-{
-	namespace TagGroups
-	{
-		struct s_shared_cache_file_definition
-		{
-#if !PLATFORM_IS_EDITOR
-			const 
-#endif
-				short version;	enum { k_version = 1, k_group_tag = 'cher' };
-			struct _flags {
-				TAG_FLAG16(unused);
-			}flags; static_assert( sizeof(_flags) == sizeof(unsigned short) );
-			TAG_FIELD(uint32, base_address);
-			TAG_FIELD(long, starting_tag_index);
-			PAD32;
+namespace Yelo::TagGroups {
+	struct s_shared_cache_file_definition {
+		short version;
+		enum { k_version = 1, k_group_tag = 'cher' };
+		struct _flags {
+			unsigned short unused_bit:1;
+		}     flags; static_assert(sizeof(_flags) == sizeof(unsigned short));
+		uint base_address;
+		long starting_tag_index;
+		unsigned long : 32;
 
-			TAG_FIELD(tag_reference, explicit_references, 'tagc');
-		};
+		tag_reference explicit_references;
 	};
 };
+

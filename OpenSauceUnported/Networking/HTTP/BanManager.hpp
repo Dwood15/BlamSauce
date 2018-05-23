@@ -22,10 +22,10 @@ namespace Yelo
 	};
 	namespace Networking { namespace HTTP { namespace Server { namespace BanManager
 	{
-		bool IPBanned(uint32 ip);
+		bool IPBanned(uint ip);
 		bool IPBanned(Enums::http_ip_ban_ip_version version, unsigned short a, unsigned short b, unsigned short c, unsigned short d, unsigned short e, unsigned short f, unsigned short g, unsigned short h);
 
-		void AddConnection(uint32 ip);
+		void AddConnection(uint ip);
 		void UpdateConnectionBans(real delta);
 
 		void Initialize();

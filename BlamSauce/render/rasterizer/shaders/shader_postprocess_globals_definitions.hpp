@@ -1,52 +1,39 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
-#include <YeloLib/Halo1/shaders/shader_postprocess_definitions.hpp>
+#include <precompile.h>
 
-namespace Yelo
-{
-	namespace TagGroups
-	{
-		struct s_shader_postprocess_bloom_definition
-		{
-			TAG_FIELD(real,							size);
-			TAG_FIELD(real,							exposure);
-			TAG_FIELD(real_fraction,				mix_amount);
+namespace Yelo::TagGroups {
+	struct s_shader_postprocess_bloom_definition {
+		real          size;
+		real          exposure;
+		real_fraction mix_amount;
 
-			TAG_FIELD(real_rgb_color,				minimum_color);
-			TAG_FIELD(real_rgb_color,				maximum_color);
-		};
-
-		struct s_shader_postprocess_globals_bloom
-		{
-			struct _flags {
-				TAG_FLAG16(is_enabled);
-				TAG_FLAG16(apply_after_hud);
-			}flags;
-			unsigned short : 16;
-
-			s_shader_postprocess_bloom_definition bloom;
-		}; static_assert( sizeof(s_shader_postprocess_globals_bloom) == 0x28 );
-
-		struct s_shader_postprocess_globals
-		{
-			enum { k_group_tag = 'sppg' };
-
-			unsigned short : 16;
-			unsigned short : 16;
-			union {
-				TAG_PAD(tag_block, 20); // Up to to 20 blocks for subsystem globals
-
-				struct {
-					TAG_TBLOCK_(bloom_globals, s_shader_postprocess_globals_bloom);
-				};
-			};
-		}; static_assert( sizeof(s_shader_postprocess_globals) == 0xF4 );
+		real_rgb_color minimum_color;
+		real_rgb_color maximum_color;
 	};
+
+	struct s_shader_postprocess_globals_bloom {
+		struct _flags {
+			unsigned short is_enabled_bit:1;
+			unsigned short apply_after_hud_bit:1;
+		} flags;
+		unsigned short : 16;
+
+		s_shader_postprocess_bloom_definition bloom;
+	}; static_assert(sizeof(s_shader_postprocess_globals_bloom) == 0x28);
+
+	struct s_shader_postprocess_globals {
+		enum { k_group_tag = 'sppg' };
+
+		unsigned short : 16;
+		unsigned short : 16;
+		union {
+			tag_block:8 * sizeof(tag_block) * 20; // Up to to 20 blocks for subsystem globals
+
+			struct {
+				Yelo::TagBlock<s_shader_postprocess_globals_bloom> bloom_globals;
+			};
+		};
+	}; static_assert(sizeof(s_shader_postprocess_globals) == 0xF4);
 };
+

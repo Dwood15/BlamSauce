@@ -196,14 +196,14 @@ namespace Yelo {
 		/// <param name="path_count">  	The number of paths being combined. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool PathBuild(char *destination, bool append_slash, uint32 path_count, ...) {
+		bool PathBuild(char *destination, bool append_slash, uint path_count, ...) {
 			destination[0] = 0;
 
 			va_list list;
 				va_start(list, path_count);
 
 			bool        success = true;
-			for (uint32 i       = 0; success && (i < path_count); i++) {
+			for (uint i       = 0; success && (i < path_count); i++) {
 				const char *path = va_arg(list, const char*);
 
 				if (!PathCombine(destination, destination, path))
@@ -225,7 +225,7 @@ namespace Yelo {
 		/// <param name="separator_char">	(Optional) The separator character to append. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool AppendDirectorySlash(char *path, uint32 length, const char separator_char = '\\') {
+		bool AppendDirectorySlash(char *path, uint length, const char separator_char = '\\') {
 			const char *final_char = strrchr(path, '\0');
 
 			if (!final_char)
@@ -249,7 +249,7 @@ namespace Yelo {
 		/// <param name="path">		  	Full pathname of the file. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool GetDirectoryPath(char *destination, uint32 size, cstring path) {
+		bool GetDirectoryPath(char *destination, uint size, cstring path) {
 			if (!destination || (size <= 1))
 				return false;
 
@@ -260,7 +260,7 @@ namespace Yelo {
 
 			destination[0] = '\0';
 			// calculate the character index from the two pointers
-			uint32 index = CAST(uint32, filename_offset - path);
+			uint index = CAST(uint, filename_offset - path);
 			// include the path divider
 			index++;
 			// copy the directory path to the destination
@@ -276,7 +276,7 @@ namespace Yelo {
 		/// <param name="path">		  	Full pathname of the file. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool GetFileExtension(char *destination, uint32 size, cstring path) {
+		bool GetFileExtension(char *destination, uint size, cstring path) {
 			const char *extension_start = strrchr(path, '.');
 			if (!extension_start)
 				return false;

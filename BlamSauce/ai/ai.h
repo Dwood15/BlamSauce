@@ -1,7 +1,7 @@
 /* See GPLv3 for licensing information*/
 #pragma once
+#include <precompile.h>
 
-#include "../memory/datum_index.h"
 #include "actors/actor_structures.hpp"
 
 namespace Yelo {

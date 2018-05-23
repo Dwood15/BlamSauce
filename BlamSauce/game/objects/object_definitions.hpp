@@ -1,15 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/cache/predicted_resources.hpp>
-#include <blamlib/Halo1/models/model_definitions.hpp>
-#include <blamlib/Halo1/objects/object_types.hpp>
-
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "../../math/periodic_functions.h"
+#include "../../cache/predicted_resources.hpp"
+#include "object_types.h"
 
 namespace Yelo
 {
@@ -120,48 +114,48 @@ namespace Yelo
 				short change_color;
 				unsigned short : 16;
 			}function_references; // Enums::object_function_reference
-			TAG_PAD(long, 4);
+			long:8 * sizeof(long) * 4;
 		};
 
 		struct object_definition_widget
 		{
 			tag_reference reference;
-			TAG_PAD(long, 4);
+			long:8 * sizeof(long) * 4;
 		};
 
 		struct s_object_function_definition
 		{
 			struct _object_function_flags {
-				TAG_FLAG(invert);
-				TAG_FLAG(additive);
-				TAG_FLAG(always_active);
-			}flags; static_assert( sizeof(_object_function_flags) == sizeof(long_flags) );
+				unsigned long invert_bit:1;
+				unsigned long additive_bit:1;
+				unsigned long always_active_bit:1;
+			}flags; static_assert( sizeof(_object_function_flags) == sizeof(unsigned long) );
 
-			TAG_FIELD(real, period);
-			TAG_ENUM(period_scale, Enums::object_function_scalar);
+			real period;
+			Enums::object_function_scalar period_scale;
 
-			TAG_ENUM(function, Enums::periodic_function);
-			TAG_ENUM(function_scale, Enums::object_function_scalar);
+			Enums::periodic_function function;
+			Enums::object_function_scalar function_scale;
 
-			TAG_ENUM(wobble_function, Enums::periodic_function);
-			TAG_FIELD(real, wobble_period);
-			TAG_FIELD(real, wobble_magnitude);
+			Enums::periodic_function wobble_function;
+			real wobble_period;
+			real wobble_magnitude;
 
-			TAG_FIELD(real, square_wave_threshold);
-			TAG_FIELD(short, step_count);
-			TAG_ENUM(map_to, Enums::transition_function);
-			TAG_FIELD(short, sawtooth_count);
+			real square_wave_threshold;
+			short step_count;
+			Enums::transition_function map_to;
+			short sawtooth_count;
 
-			TAG_ENUM(add, Enums::object_function_scalar);
-			TAG_ENUM(result_scale, Enums::object_function_scalar);
+			Enums::object_function_scalar add;
+			Enums::object_function_scalar result_scale;
 
-			TAG_ENUM(bounds_mode, Enums::object_function_bounds_mode);
-			TAG_FIELD(real_fraction_bounds, bounds);
+			Enums::object_function_bounds_mode bounds_mode;
+			real_fraction_bounds bounds;
 			unsigned long : 32;
 			unsigned short : 16;
-			TAG_FIELD(short, turn_off_with, s_object_function_definition);
-			TAG_FIELD(real, scale_by);
-			TAG_PAD(byte, 252); // useless padding
+			short turn_off_with;
+			real scale_by;
+			byte:8 * sizeof(byte) * 252; // useless padding
 
 			// postprocessed fields; labeled as PAD(16) in group definitions
 			real_fraction bounds_normal;		// 1f / (max - min)
@@ -169,46 +163,46 @@ namespace Yelo
 			real_fraction sawtooth_count_normal;// 1f / (--sawtooth_count)
 			real_fraction period_normal;		// 1f / period
 
-			TAG_FIELD(tag_string, usage);
+			tag_string usage;
 		}; static_assert( sizeof(s_object_function_definition) == 0x168 );
 
 		struct _object_definition
 		{
-			TAG_ENUM(runtime_object_type, Enums::object_type);
+			Enums::object_type runtime_object_type;
 			unsigned short flags;
 
 			real bounding_radius;
 			real_point3d bounding_offset, origin_offset;
 			real acceleration_scale;
 			struct {
-				TAG_FLAG(change_colors_scaled_by_function); // toggled when there is 1+ change colors that have their scale-by set to something other than NONE
+				unsigned long change_colors_scaled_by_function_bit:1; // toggled when there is 1+ change colors that have their scale-by set to something other than NONE
 			}runtime_flags;
 
 			struct {
-				TAG_FIELD(tag_reference, render_model,		'mod2');
-				TAG_FIELD(tag_reference, animations,		'antr');
-				TAG_PAD(long, 10);
-				TAG_FIELD(tag_reference, collision,			'coll');
-				TAG_FIELD(tag_reference, physics,			'phys');
-				TAG_FIELD(tag_reference, modifier_shader,	'shdr');
-				TAG_FIELD(tag_reference, creation_effect,	'effe');
+				tag_reference render_model;
+				tag_reference animations;
+				long:8 * sizeof(long) * 10;
+				tag_reference collision;
+				tag_reference physics;
+				tag_reference modifier_shader;
+				tag_reference creation_effect;
 			}references;
-			TAG_PAD(long, 21);
+			long:8 * sizeof(long) * 21;
 
 			real render_bounding_radius;
 			
 			short function_exports[Enums::k_number_of_incoming_object_functions];
-			TAG_PAD(long, 11);
+			long:8 * sizeof(long) * 11;
 			short hud_text_message_index;
 			short forced_shader_permutation;
 
-			TAG_TBLOCK(attachments, object_attachment_definition);
+			Yelo::TagBlock<const object_attachment_definition> attachments;
 
-			TAG_TBLOCK(widgets, object_definition_widget);
+			Yelo::TagBlock<const object_definition_widget> widgets;
 
-			TAG_PAD(tag_block, 1); // object_function_definition
-			TAG_PAD(tag_block, 1); // object_change_color_definition
-			TAG_TBLOCK_(predicted_resources, predicted_resource); // predicted resources
+			tag_block:8 * sizeof(tag_block) * 1; // object_function_definition
+			tag_block:8 * sizeof(tag_block) * 1; // object_change_color_definition
+			Yelo::TagBlock<predicted_resource> predicted_resources; // predicted resources
 		}; static_assert( sizeof(_object_definition) == 0x17C );
 
 

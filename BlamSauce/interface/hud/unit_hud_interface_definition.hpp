@@ -1,15 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/interface/hud_definitions.hpp>
-#include <blamlib/Halo1/interface/hud_unit.hpp>
-
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "hud_unit.hpp"
 
 namespace Yelo
 {
@@ -48,23 +40,23 @@ namespace Yelo
 	{
 		struct auxilary_overlay_definition : public s_hud_element_overlay
 		{
-			TAG_ENUM(type, Enums::auxilary_overlay_type);
-			TAG_FIELD(Flags::hud_auxilary_overlay_flags, flags);
-			TAG_PAD(long, 6);
+			Yelo::Enums::auxilary_overlay_type type;
+			Flags::hud_auxilary_overlay_flags flags;
+			long:8 * sizeof(long) * 6;
 		}; static_assert( sizeof(auxilary_overlay_definition) == 0x84 ); // max count: 16
 
 		struct auxilary_meter_definition
 		{
-			TAG_ENUM(type, Enums::hud_auxilary_meter_type);
+			Enums::hud_auxilary_meter_type type;
 			unsigned short : 16;
-			TAG_PAD(long, 4);
+			long:8 * sizeof(long) * 4;
 
 			s_hud_element_overlay background;
 			s_hud_element_meter meter;
-			TAG_FIELD(real, minimum_fraction_cutoff);
-			TAG_FIELD(Flags::hud_auxilary_panel_flags, flags);
-			TAG_PAD(long, 6);
-			TAG_PAD(long, 16);
+			real minimum_fraction_cutoff;
+			Flags::hud_auxilary_panel_flags flags;
+			long:8 * sizeof(long) * 6;
+			long:8 * sizeof(long) * 16;
 		}; static_assert( sizeof(auxilary_meter_definition) == 0x144 ); // max count: 16
 
 		struct unit_hud_interface_definition
@@ -80,11 +72,11 @@ namespace Yelo
 
 				struct {
 					s_hud_element_meter element;
-					TAG_FIELD(rgb_color, overcharge_minimum_color);
-					TAG_FIELD(rgb_color, overcharge_maximum_color);
-					TAG_FIELD(rgb_color, overcharge_flash_color);
-					TAG_FIELD(rgb_color, overcharge_empty_color);
-					TAG_PAD(long, 4);
+					rgb_color overcharge_minimum_color;
+					rgb_color overcharge_maximum_color;
+					rgb_color overcharge_flash_color;
+					rgb_color overcharge_empty_color;
+					long:8 * sizeof(long) * 4;
 				}meter;
 			}shield_panel;
 
@@ -93,17 +85,17 @@ namespace Yelo
 
 				struct {
 					s_hud_element_meter element;
-					TAG_FIELD(rgb_color, medium_health_left_color);
-					TAG_FIELD(real, max_color_health_fraction_cutoff);
-					TAG_FIELD(real, min_color_health_fraction_cutoff);
-					TAG_PAD(long, 5);
+					rgb_color medium_health_left_color;
+					real max_color_health_fraction_cutoff;
+					real min_color_health_fraction_cutoff;
+					long:8 * sizeof(long) * 5;
 				}meter; // same size as shield_panel.meter, so this may be union'd
 			}health_panel;
 
 			struct {
 				s_hud_element_overlay background;
 				s_hud_element_overlay forground;
-				TAG_PAD(long, 8);
+				long:8 * sizeof(long) * 8;
 
 				s_hud_element center; // The blips use this as a reference point
 			}motion_sensor;
@@ -111,17 +103,17 @@ namespace Yelo
 			struct {
 				s_hud_absolute_placement placement;
 
-				TAG_TBLOCK(overlays, auxilary_overlay_definition);
+				Yelo::TagBlock<const auxilary_overlay_definition> overlays;
 			}auxilary_overlays;
 
-			TAG_PAD(long, 4);
+			long:8 * sizeof(long) * 4;
 
-			TAG_TBLOCK(sounds, sound_hud_element_definition);
+			Yelo::TagBlock<const sound_hud_element_definition> sounds;
 
-			TAG_TBLOCK(meters, auxilary_meter_definition);
+			Yelo::TagBlock<const auxilary_meter_definition> meters;
 
-			TAG_PAD(long, 89);
-			TAG_PAD(long, 12);
+			long:8 * sizeof(long) * 89;
+			long:8 * sizeof(long) * 12;
 		}; static_assert( sizeof(unit_hud_interface_definition) == 0x56C );
 	};
 };

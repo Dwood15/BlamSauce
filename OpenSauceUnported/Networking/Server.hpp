@@ -147,7 +147,7 @@ namespace Yelo
 			bool logging_enabled;
 			unsigned short : 16;
 
-			uint32 log_rotation_threshold;
+			uint log_rotation_threshold;
 
 			byte event_enable_logging[Enums::_server_event_type_stock];
 			byte event_enable_echoing[Enums::_server_event_type_stock];
@@ -178,7 +178,7 @@ namespace Yelo
 		{
 			bool initialized;
 			unsigned char : 8; unsigned short : 16;
-			uint32 last_status_display_time; // game_time
+			uint last_status_display_time; // game_time
 			wchar_t server_password[Enums::k_network_server_password_length+1];
 			bool single_flag_force_reset;
 			unsigned char : 8;
@@ -190,8 +190,8 @@ namespace Yelo
 			char rcon_password[Enums::k_network_server_password_length+1]; unsigned char : 8; unsigned short : 16;
 #if PLATFORM_IS_DEDI
 			struct {
-				uint32 last_time; // (last rotation time) game_time
-				uint32 next_time; // (next rotation time) game_time
+				uint last_time; // (last rotation time) game_time
+				uint next_time; // (next rotation time) game_time
 			}log_rotation;
 #else
 			unsigned long : 32;

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef WIN32
 #define WIN32
 #endif
@@ -49,4 +51,4 @@
 #include "../../BlamSauce/tags/group/base.h"
 #include "../../BlamSauce/tags/group/markup.h"
 
-#pragma once
+

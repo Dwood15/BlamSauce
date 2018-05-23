@@ -28,7 +28,7 @@ void GatherException(const void* data, long arg_0, long arg_4, long arg_8)
 	}
 }
 
-bool SetTextureSamplerStage(Yelo::TagGroups::s_bitmap_data* bitmap, uint32 texture_stage)
+bool SetTextureSamplerStage(Yelo::TagGroups::s_bitmap_data* bitmap, uint texture_stage)
 {
 	// use this instead of TextureCacheRequestTexture where applicable as this function
 	// tests whether the texture is already loaded and sets the texture sampler itself
@@ -85,7 +85,7 @@ bool SoundCacheRequestSound(Yelo::TagGroups::s_sound_permutation* sound_perm,
 	}
 }
 
-void RasterizerAddResolution(uint32 width, uint32 height, uint32 refresh_rate)
+void RasterizerAddResolution(uint width, uint height, uint refresh_rate)
 {
 	static const uintptr_t TEMP_CALL_ADDR = GET_FUNC_PTR(RESOLUTION_LIST_ADD_RESOLUTION);
 

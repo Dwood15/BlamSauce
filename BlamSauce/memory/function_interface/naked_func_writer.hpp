@@ -68,7 +68,7 @@ namespace Yelo
 				{
 					const byte* bytes = GetNakedFuncBytes();
 					for(size_t x = 0; x < Enums::k_naked_func_writer_max_asm_length; x++)
-						if( *CAST_PTR(const uint32*, bytes+x) == NAKED_FUNC_WRITER_EMIT_EOF_WORD )
+						if( *CAST_PTR(const uint*, bytes+x) == NAKED_FUNC_WRITER_EMIT_EOF_WORD )
 						{
 							g_length = x;
 							break;

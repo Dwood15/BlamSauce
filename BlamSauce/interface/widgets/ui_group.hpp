@@ -1,16 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/interface/ui_widget_event_handler_functions.hpp>
-#include <blamlib/Halo1/interface/ui_widget_game_data_input_functions.hpp>
-#include <blamlib/Halo1/interface/ui_widget_text_search_and_replace_functions.hpp>
-
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "ui_game_data_input_functions.hpp"
+#include "ui_event_handler_functions.hpp"
+#include "ui_text_search_and_replace_functions.hpp"
 
 namespace Yelo
 {
@@ -38,34 +31,34 @@ namespace Yelo
 		{
 			struct __flags
 			{
-				TAG_FLAG(load_if_event_handler_function_fails);
-			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+				unsigned long load_if_event_handler_function_fails_bit:1;
+			}; static_assert( sizeof(__flags) == sizeof(unsigned long) );
 
-			TAG_FIELD(tag_reference, widget_tag, 'DeLa');
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(__flags, flags);
-			TAG_FIELD(short, custom_controller_index);
+			tag_reference widget_tag;
+			tag_string name;
+			__flags flags;
+			short custom_controller_index;
 			
 			unsigned short : 16;
-			TAG_PAD(long, 6);
+			long:8 * sizeof(long) * 6;
 		}; static_assert( sizeof(ui_conditional_widget_reference) == 0x50 ); // max count: 32
 
 		struct ui_child_widget_reference
 		{
 			struct __flags
 			{
-				TAG_FLAG(use_custom_controller_index);
-			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+				unsigned long use_custom_controller_index_bit:1;
+			}; static_assert( sizeof(__flags) == sizeof(unsigned long) );
 
-			TAG_FIELD(tag_reference, widget_tag, 'DeLa');
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(__flags, flags);
-			TAG_FIELD(short, custom_controller_index);
-			TAG_FIELD(short, vertical_offset);
-			TAG_FIELD(short, horizontal_offset);
+			tag_reference widget_tag;
+			tag_string name;
+			__flags flags;
+			short custom_controller_index;
+			short vertical_offset;
+			short horizontal_offset;
 			
 			unsigned short : 16;
-			TAG_PAD(long, 5);
+			long:8 * sizeof(long) * 5;
 		}; static_assert( sizeof(ui_child_widget_reference) == 0x50 ); // max count: 32
 
 		struct ui_widget_definition
@@ -74,46 +67,46 @@ namespace Yelo
 
 			struct __flags
 			{
-				TAG_FLAG(pass_unhandled_events_to_focused_child);
-				TAG_FLAG(pause_game_time);
-				TAG_FLAG(flash_background_bitmap);
-				TAG_FLAG(dpad_up_down_tabs_thru_children);
-				TAG_FLAG(dpad_left_right_tabs_thru_children);
-				TAG_FLAG(dpad_up_down_tabs_thru_list_items);
-				TAG_FLAG(dpad_left_right_tabs_thru_list_items);
-				TAG_FLAG(dont_focus_a_specific_child_widget);
-				TAG_FLAG(pass_unhandled_events_to_all_children);
-				TAG_FLAG(render_regardless_of_controller_index);
-				TAG_FLAG(pass_handled_events_to_all_children);
-				TAG_FLAG(return_to_main_menu_if_no_history);
-				TAG_FLAG(always_use_tag_controller_index);
-				TAG_FLAG(always_use_nifty_render_fx);
-				TAG_FLAG(don_t_push_history);
-				TAG_FLAG(force_handle_mouse);
-			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+				unsigned long pass_unhandled_events_to_focused_child_bit:1;
+				unsigned long pause_game_time_bit:1;
+				unsigned long flash_background_bitmap_bit:1;
+				unsigned long dpad_up_down_tabs_thru_children_bit:1;
+				unsigned long dpad_left_right_tabs_thru_children_bit:1;
+				unsigned long dpad_up_down_tabs_thru_list_items_bit:1;
+				unsigned long dpad_left_right_tabs_thru_list_items_bit:1;
+				unsigned long dont_focus_a_specific_child_widget_bit:1;
+				unsigned long pass_unhandled_events_to_all_children_bit:1;
+				unsigned long render_regardless_of_controller_index_bit:1;
+				unsigned long pass_handled_events_to_all_children_bit:1;
+				unsigned long return_to_main_menu_if_no_history_bit:1;
+				unsigned long always_use_tag_controller_index_bit:1;
+				unsigned long always_use_nifty_render_fx_bit:1;
+				unsigned long don_t_push_history_bit:1;
+				unsigned long force_handle_mouse_bit:1;
+			}; static_assert( sizeof(__flags) == sizeof(unsigned long) );
 
-			TAG_ENUM(widget_type, ui_widget_type);
-			TAG_ENUM(controller_index, ui_controller_index);
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(rectangle2d, bounds);
-			TAG_FIELD(__flags, flags);
-			TAG_FIELD(long, ms_to_auto_close, "<=0 to never auto-close");
-			TAG_FIELD(long, ms_auto_close_fade_time, "<= 0 for immediate close");
-			TAG_FIELD(tag_reference, background_bitmap, "bitm");
+			short widget_type;
+			short controller_index;
+			tag_string name;
+			rectangle2d bounds;
+			__flags flags;
+			long ms_to_auto_close;
+			long ms_auto_close_fade_time;
+			tag_reference background_bitmap;
 
 			////////////////////////////////////////////////////////////////
 			// game data input fxns
 			// These functions use current game data to modify the appearance of
 			// the widget. These functions are called every time the widget is
 			// rendered.
-			TAG_TBLOCK(game_data_inputs, game_data_input_reference);
+			Yelo::TagBlock<const game_data_input_reference> game_data_inputs;
 
 			////////////////////////////////////////////////////////////////
 			// event handlers
 			// These allow actions to be tied to certain ui events.
 			// The event handler is run every time the widget receives the specified event.
 			// By default, the 'back' and 'B' buttons will take you to the previous screen.
-			TAG_TBLOCK(event_handlers, ui_widget_event_handler_reference);
+			Yelo::TagBlock<const ui_widget_event_handler_reference> event_handlers;
 
 			////////////////////////////////////////////////////////////////
 			// search-and-replace
@@ -122,35 +115,35 @@ namespace Yelo
 			// with the output of the replace-function. These are invoked each
 			// time the text box is rendered (after any game data input functions
 			// have been run). The searching is case-sensitive.
-			TAG_TBLOCK(search_and_replace_functions, ui_widget_search_and_replace_reference);
-			TAG_PAD(long, 32);
+			Yelo::TagBlock<const ui_widget_search_and_replace_reference> search_and_replace_functions;
+			long:8 * sizeof(long) * 32;
 
 			////////////////////////////////////////////////////////////////
 			// text box
 			// parameters specific to text box widgets
 			// NOTE: the string list tag can also be used for lists whose items come from a string list tag
-			struct {
+			struct __textbox {
 				struct __flags
 				{
-					TAG_FLAG(editable);
-					TAG_FLAG(password);
-					TAG_FLAG(flashing);
-					TAG_FLAG(dont_do_that_weird_focus_test);
-				}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+					unsigned long editable_bit:1;
+					unsigned long password_bit:1;
+					unsigned long flashing_bit:1;
+					unsigned long dont_do_that_weird_focus_test_bit:1;
+				}; static_assert( sizeof(__flags) == sizeof(unsigned long) );
 
-				TAG_FIELD(tag_reference, label_unicode_strings_list, 'ustr');
-				TAG_FIELD(tag_reference, font, 'font');
-				TAG_FIELD(real_argb_color, color);
-				TAG_ENUM(justification);
-				TAG_FIELD(__flags, flags);
-				TAG_PAD(long, 3);
+				tag_reference label_unicode_strings_list;
+				tag_reference font;
+				real_argb_color color;
+				short justification;
+				__flags flags;
+				long:8 * sizeof(long) * 3;
 
 				////////////////////////////////////////////////////////////////
 				// more text box parameters
-				TAG_FIELD(short, string_list_index, "default is 0");
-				TAG_FIELD(short, horiz_offset, "offsets text position in its bounding area");
-				TAG_FIELD(short, vert_offset, "offsets the text position in its bounding area");
-				TAG_PAD(short, 13);
+				short string_list_index;
+				short horiz_offset;
+				short vert_offset;
+				short:8 * sizeof(short) * 13;
 
 				unsigned short : 16; // because they didn't pad after justification
 			}text_box;
@@ -165,24 +158,24 @@ namespace Yelo
 			struct {
 				struct __flags
 				{
-					TAG_FLAG(list_items_generated_in_code);
-					TAG_FLAG(list_items_from_string_list_tag);
-					TAG_FLAG(list_items_only_one_tooltip);
-					TAG_FLAG(list_single_preview_no_scroll);
-				}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+					unsigned long list_items_generated_in_code_bit:1;
+					unsigned long list_items_from_string_list_tag_bit:1;
+					unsigned long list_items_only_one_tooltip_bit:1;
+					unsigned long list_single_preview_no_scroll_bit:1;
+				}; static_assert( sizeof(__flags) == sizeof(unsigned long) );
 
-				TAG_FIELD(__flags, flags);
+				__flags flags;
 
 				////////////////////////////////////////////////////////////////
 				// spinner list
 				// parameters specific to spinner list widgets
 				// child widgets are the list items
 				struct {
-					TAG_FIELD(tag_reference, list_header_bitmap, 'bitm');
-					TAG_FIELD(tag_reference, list_footer_bitmap, 'bitm');
-					TAG_FIELD(rectangle2d, header_bounds);
-					TAG_FIELD(rectangle2d, footer_bounds);
-					TAG_PAD(long, 8);
+					tag_reference list_header_bitmap;
+					tag_reference list_footer_bitmap;
+					rectangle2d header_bounds;
+					rectangle2d footer_bounds;
+					long:8 * sizeof(long) * 8;
 				}spinner;
 
 				////////////////////////////////////////////////////////////////
@@ -190,9 +183,9 @@ namespace Yelo
 				// parameters specific to column list widgets
 				// child widgets are the list items
 				struct {
-					TAG_FIELD(tag_reference, extended_description_widget, 'DeLa');
-					TAG_PAD(long, 8);
-					TAG_PAD(long, 64);
+					tag_reference extended_description_widget;
+					long:8 * sizeof(long) * 8;
+					long:8 * sizeof(long) * 64;
 				}column;
 			}list_items;
 
@@ -200,15 +193,15 @@ namespace Yelo
 			// conditional widgets
 			// use this to attach widgets that are loaded only
 			// if some internal criteria is met while processing a widget event
-			TAG_TBLOCK(conditional_widgets, ui_conditional_widget_reference);
-			TAG_PAD(long, 32);
-			TAG_PAD(long, 32);
+			Yelo::TagBlock<const ui_conditional_widget_reference> conditional_widgets;
+			long:8 * sizeof(long) * 32;
+			long:8 * sizeof(long) * 32;
 
 			////////////////////////////////////////////////////////////////
 			// child widgets
 			// use this to attach widgets that are loaded as 'children'
 			// of this widget (children are always loaded as part of the parent widget)
-			TAG_TBLOCK(child_widgets, ui_child_widget_reference);
+			Yelo::TagBlock<const ui_child_widget_reference> child_widgets;
 		}; static_assert( sizeof(ui_widget_definition) == 0x3EC );
 	};
 

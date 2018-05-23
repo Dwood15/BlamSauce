@@ -13,7 +13,7 @@ namespace Yelo
 	namespace TagGroups
 	{
 		struct scenario_object_name {
-			TAG_FIELD(tag_string, name);
+			tag_string name;
 			short object_type;
 			short scenario_object_index;
 		}; static_assert( sizeof(scenario_object_name) == 0x24 );
@@ -22,8 +22,8 @@ namespace Yelo
 		{
 			tag_string name;
 			real initial_value;
-			long_flags flags;
-			TAG_PAD(long, 3);
+			unsigned long flags;
+			long:8 * sizeof(long) * 3;
 		}; static_assert( sizeof(scenario_device_group) == 0x34 );
 
 		struct scenario_object_palette_entry
@@ -70,16 +70,16 @@ namespace Yelo
 			PAD64;
 			s_scenario_object_permutation permutation;
 			real body_vitality;
-			long_flags flags;
+			unsigned long flags;
 			PAD64;
 		};
 		struct s_scenario_biped_datum
 		{
-			TAG_PAD(long, 8);
+			long:8 * sizeof(long) * 8;
 		};
 		struct s_scenario_vehicle_datum
 		{
-			TAG_PAD(long, 8);
+			long:8 * sizeof(long) * 8;
 		};
 
 		//////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ namespace Yelo
 			short rounds_total;
 			unsigned short flags;
 			unsigned short : 16;
-			TAG_PAD(long, 3);
+			long:8 * sizeof(long) * 3;
 		};
 		struct s_scenario_equipment_datum
 		{
@@ -109,16 +109,16 @@ namespace Yelo
 			PAD64;
 			short power_group_index;
 			short position_group_index;
-			long_flags flags;
+			unsigned long flags;
 		};
 		struct s_scenario_machine_datum
 		{
-			long_flags flags;
-			TAG_PAD(long, 3);
+			unsigned long flags;
+			long:8 * sizeof(long) * 3;
 		};
 		struct s_scenario_control_datum
 		{
-			long_flags flags;
+			unsigned long flags;
 			short custom_name_index;
 			unsigned short : 16;
 			PAD64;

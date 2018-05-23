@@ -52,7 +52,7 @@ namespace Yelo
 			const Enums::http_status_code status,
 			c_http_header* header = nullptr,
 			const char* body = nullptr,
-			const uint32 body_length = 0);
+			const uint body_length = 0);
 
 		void* HTTPServerSetThreadCount(void** arguments);
 		void* HTTPServerSetRoot(void** arguments);

@@ -92,7 +92,7 @@ namespace Yelo
 				return;
 
 			// do device lost logic on the shaders
-			for(uint32 i = 0; i < m_members_internal.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_internal.m_shaders.count; i++)
 			{
 				m_members_internal.m_shaders.shader_list[i].OnDeviceLost();
 				m_members_internal.m_shaders.shader_list[i].Validate();
@@ -115,7 +115,7 @@ namespace Yelo
 
 			HRESULT hr = S_OK;
 			// do device reset logic on the shaders
-			for(uint32 i = 0; i < m_members_internal.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_internal.m_shaders.count; i++)
 			{
 				hr |= m_members_internal.m_shaders.shader_list[i].OnDeviceReset();
 				m_members_internal.m_shaders.shader_list[i].Validate();
@@ -216,7 +216,7 @@ namespace Yelo
 		 */
 		void c_system_internal::Update(real delta_time)
 		{
-			uint32 i = 0;
+			uint i = 0;
 			// update the standard variables in each shader that can change each frame
 			for(i = 0; i < m_members_internal.m_shaders.count; i++)
 				m_members_internal.m_shaders.shader_list[i].UpdateVariables();
@@ -371,7 +371,7 @@ namespace Yelo
 			m_members_internal.m_shaders.shader_list = new c_shader_internal[m_members_internal.m_shaders.count];
 
 			// set up each shader
-			for(uint32 i = 0; i < m_members_internal.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_internal.m_shaders.count; i++)
 			{
 				// initialise the shader class
 				m_members_internal.m_shaders.shader_list[i].Ctor();
@@ -394,7 +394,7 @@ namespace Yelo
 		void c_system_internal::ClearInternalShaders()
 		{
 			// destroy each shader
-			for(uint32 i = 0; i < m_members_internal.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_internal.m_shaders.count; i++)
 				m_members_internal.m_shaders.shader_list[i].Dtor();
 
 			// delete the shader list
@@ -414,22 +414,22 @@ namespace Yelo
 			m_members_internal.m_effect_instances.effect_instance_list = new c_effect_instance_generic[m_members_internal.m_effect_instances.count];
 
 			// set up each effect
-			for(uint32 i = 0; i < m_members_internal.m_effects.count; i++)
+			for(uint i = 0; i < m_members_internal.m_effects.count; i++)
 				SetupEffect(m_members_internal.m_effects.effect_list[i], &m_members_internal.cache_shader_collection->effects[i]);
 
 			// set up each effect instance
-			for(uint32 i = 0; i < m_members_internal.m_effect_instances.count; i++)
+			for(uint i = 0; i < m_members_internal.m_effect_instances.count; i++)
 				SetupEffectInstance(&m_members_internal.m_effect_instances.effect_instance_list[i], &m_members_internal.cache_shader_collection->effect_instances[i]);
 		}
 
 		void c_system_internal::ClearInternalEffects()
 		{
 			// destroy the effect instances and delete allocated effect instance memory
-			for(uint32 i = 0; i < m_members_internal.m_effect_instances.count; i++)
+			for(uint i = 0; i < m_members_internal.m_effect_instances.count; i++)
 				DestroyEffectInstance(&m_members_internal.m_effect_instances.effect_instance_list[i]);
 
 			// destroy the effects and delete allocated effect memory
-			for(uint32 i = 0; i < m_members_internal.m_effects.count; i++)
+			for(uint i = 0; i < m_members_internal.m_effects.count; i++)
 				DestroyEffect(m_members_internal.m_effects.effect_list[i]);
 
 			// delete the effect instance list
@@ -449,7 +449,7 @@ namespace Yelo
 			c_post_processing_main::s_post_processing_globals& globals = c_post_processing_main::Instance().Globals();
 
 			// allocate direct3d resources for all shaders
-			for(uint32 i = 0; i < m_members_internal.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_internal.m_shaders.count; i++)
 			{
 				success |= m_members_internal.m_shaders.shader_list[i].LoadShader(globals.render_device);
 				success |= m_members_internal.m_shaders.shader_list[i].LoadBitmaps(globals.render_device);
@@ -460,7 +460,7 @@ namespace Yelo
 		void c_system_internal::UnloadShaders()
 		{
 			// release all shader direct3d resources
-			for(uint32 i = 0; i < m_members_internal.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_internal.m_shaders.count; i++)
 				m_members_internal.m_shaders.shader_list[i].UnloadShader();
 		}
 
@@ -468,7 +468,7 @@ namespace Yelo
 		{
 			HRESULT success = S_OK;
 
-			uint32 i = 0;
+			uint i = 0;
 			// set up data in the effects that require d3d resources to be allocated first
 			for(i = 0; i < m_members_internal.m_effects.count; i++)
 				m_members_internal.m_effects.effect_list[i].effect->SetupEffectPostCreation();
@@ -482,7 +482,7 @@ namespace Yelo
 		void c_system_internal::UnloadEffects()
 		{
 			// release all effect instance quad instances
-			for(uint32 i = 0; i < m_members_internal.m_effect_instances.count; i++)
+			for(uint i = 0; i < m_members_internal.m_effect_instances.count; i++)
 				m_members_internal.m_effect_instances.effect_instance_list[i].UnloadEffectInstance();
 		}
 
@@ -510,7 +510,7 @@ namespace Yelo
 			effect_set.shader_instances = new c_shader_instance_generic[effect_definition->shader_indices.Count];
 
 			// set up each instance and add it to the effect
-			for(uint32 i = 0; i < effect_set.shader_instance_count; i++)
+			for(uint i = 0; i < effect_set.shader_instance_count; i++)
 			{
 				// since the shaders are loaded in a list created from all the effects
 				// we need to use the datum index to find the shader in the list
@@ -526,7 +526,7 @@ namespace Yelo
 		void c_system_internal::DestroyEffect(s_effect_set& effect_set)
 		{
 			// destroy each shader instance
-			for(uint32 i = 0; i < effect_set.shader_instance_count; i++)
+			for(uint i = 0; i < effect_set.shader_instance_count; i++)
 				effect_set.shader_instances[i].Dtor();
 
 			// delete the effects shader instance list
@@ -583,8 +583,8 @@ namespace Yelo
 		void c_system_internal::SetRenderSet(c_effect_render_set& set, Enums::postprocess_render_stage render_stage)
 		{
 			// get the number of effects for this render stage
-			uint32 count = 0;
-			for(uint32 i = 0; i < m_members_internal.m_effect_instances.count; i++)
+			uint count = 0;
+			for(uint i = 0; i < m_members_internal.m_effect_instances.count; i++)
 				if(m_members_internal.m_effect_instances.effect_instance_list[i].GetRenderStage() == render_stage)
 					count++;
 
@@ -596,7 +596,7 @@ namespace Yelo
 
 			// add each effect instance for this render stage to the render set
 			count = 0;
-			for(uint32 i = 0; i < m_members_internal.m_effect_instances.count; i++)
+			for(uint i = 0; i < m_members_internal.m_effect_instances.count; i++)
 				if(m_members_internal.m_effect_instances.effect_instance_list[i].GetRenderStage() == render_stage)
 				{
 					set.SetEffectInstance(count, &m_members_internal.m_effect_instances.effect_instance_list[i]);
@@ -606,7 +606,7 @@ namespace Yelo
 
 		void c_system_internal::ValidateSystem()
 		{
-			uint32 i = 0;
+			uint i = 0;
 			for(i = 0; i < m_members_internal.m_shaders.count; i++)
 				m_members_internal.m_shaders.shader_list[i].Validate();
 			for(i = 0; i < m_members_internal.m_effects.count; i++)

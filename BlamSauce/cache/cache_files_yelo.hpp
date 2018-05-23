@@ -183,7 +183,7 @@ namespace Yelo::Cache {
 			size_t buffer_size = CAST(size_t, data_size);
 			byte   *buffer     = Alloc(tag_instance, buffer_size);
 
-			if (buffer != nullptr && !DataFileReadItemData(data_file, CAST(uint32, data_offset), buffer, buffer_size)) {
+			if (buffer != nullptr && !DataFileReadItemData(data_file, CAST(uint, data_offset), buffer, buffer_size)) {
 				return nullptr;
 			}
 
@@ -289,8 +289,8 @@ namespace Yelo::Cache {
 	/// <param name="cache_file">	The memory map view base address of the cache file. </param>
 	///
 	/// <returns>	The calculated checksum (CRC32) of the cache file. </returns>
-	static uint32 CalculateChecksumFromMemoryMap(const byte *cache_file) {
-		uint32 crc = NONE;
+	static uint CalculateChecksumFromMemoryMap(const byte *cache_file) {
+		uint crc = NONE;
 
 		// get pointers to the necessary cache data
 		auto *header        =
@@ -341,8 +341,8 @@ namespace Yelo::Cache {
 		return crc;
 	}
 
-	uint32 CalculateChecksum(cstring map_path) {
-		uint32 map_crc = NONE;
+	uint CalculateChecksum(cstring map_path) {
+		uint map_crc = NONE;
 
 		FileIO::s_file_info map_file;
 		//do-while-false for simpler cleanup
@@ -362,8 +362,8 @@ namespace Yelo::Cache {
 		return map_crc;
 	}
 
-	uint32 FindMapFileAndCalculateChecksum(cstring map_name) {
-		uint32 map_crc = NONE;
+	uint FindMapFileAndCalculateChecksum(cstring map_name) {
+		uint map_crc = NONE;
 
 		// first, try to find the map file
 		std::string map_path;

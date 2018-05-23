@@ -5,7 +5,7 @@ namespace Yelo
 {
 	namespace Rasterizer { namespace PostProcessing
 	{
-		void c_effect_render_set::SetCount(uint32 effect_count)
+		void c_effect_render_set::SetCount(uint effect_count)
 		{
 			if(effect_count == 0)
 				return;
@@ -16,7 +16,7 @@ namespace Yelo
 			ZeroMemory(m_effect_list, sizeof(c_effect_instance*) * (effect_count + 1));
 		}
 
-		void c_effect_render_set::SetEffectInstance(uint32 index, c_effect_instance* effect)
+		void c_effect_render_set::SetEffectInstance(uint index, c_effect_instance* effect)
 		{
 			m_effect_list[index] = effect;
 		}

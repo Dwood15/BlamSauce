@@ -75,7 +75,7 @@ namespace Yelo
 
 		struct packet_decoder
 		{
-			long_flags Flags;			// [message_deltas_new_flags]
+			unsigned long Flags;			// [message_deltas_new_flags]
 			proc_message_delta_from_network Proc;
 		};
 

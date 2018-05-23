@@ -203,114 +203,114 @@ namespace Yelo {
 
 	namespace TagGroups {
 		struct animation_graph_weapon_type {
-			TAG_FIELD(tag_string, label);
-			TAG_PAD(long, 4);
-			TAG_TBLOCK(animations, short); // block index to model_animation
+			tag_string label;
+			long:8 * sizeof(long) * 4;
+			Yelo::TagBlock<const short> animations; // block index to model_animation
 		};
 		static_assert( sizeof(animation_graph_weapon_type) == 0x3C ); // max count: 16
 		struct animation_graph_weapon {
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(tag_string, grip_marker, "", "the marker name on the weapon to which the hand is attached (leave blank to use origin)");
-			TAG_FIELD(tag_string, hand_marker, "", "the marker name on the unit to which the weapon is attached");
+			tag_string name;
+			tag_string grip_marker;
+			tag_string hand_marker;
 
 			////////////////////////////////////////////////////////////////
 			// aiming screen bounds
-			TAG_FIELD(angle, right_yaw_per_frame);
-			TAG_FIELD(angle, left_yaw_per_frame);
-			TAG_FIELD(short, right_frame_count);
-			TAG_FIELD(short, left_frame_count);
-			TAG_FIELD(angle, down_pitch_per_frame);
-			TAG_FIELD(angle, up_pitch_per_frame);
-			TAG_FIELD(short, down_pitch_frame_count);
-			TAG_FIELD(short, up_pitch_frame_count);
-			TAG_PAD(long, 8);
-			TAG_TBLOCK(animations, short); // block index to model_animation
-			TAG_BLOCK(ik_points, animation_graph_unit_seat_ik_point);
-			TAG_TBLOCK(weapon_types, animation_graph_weapon_type);
+			angle right_yaw_per_frame;
+			angle left_yaw_per_frame;
+			short right_frame_count;
+			short left_frame_count;
+			angle down_pitch_per_frame;
+			angle up_pitch_per_frame;
+			short down_pitch_frame_count;
+			short up_pitch_frame_count;
+			long:8 * sizeof(long) * 8;
+			Yelo::TagBlock<const short> animations; // block index to model_animation
+			tag_block ik_points;
+			Yelo::TagBlock<const animation_graph_weapon_type> weapon_types;
 		};
 		static_assert( sizeof(animation_graph_weapon) == 0xBC ); // max count: 16
 		struct animation_graph_unit_seat {
-			TAG_FIELD(tag_string, label);
+			tag_string label;
 
 			////////////////////////////////////////////////////////////////
 			// looking screen bounds
-			TAG_FIELD(angle, right_yaw_per_frame);
-			TAG_FIELD(angle, left_yaw_per_frame);
-			TAG_FIELD(short, right_frame_count);
-			TAG_FIELD(short, left_frame_count);
-			TAG_FIELD(angle, down_pitch_per_frame);
-			TAG_FIELD(angle, up_pitch_per_frame);
-			TAG_FIELD(short, down_pitch_frame_count);
-			TAG_FIELD(short, up_pitch_frame_count);
-			TAG_PAD(long, 2);
-			TAG_TBLOCK(animations, short); // block index to model_animation
-			TAG_BLOCK(ik_points, animation_graph_unit_seat_ik_point);
-			TAG_TBLOCK(weapons, animation_graph_weapon);
+			angle right_yaw_per_frame;
+			angle left_yaw_per_frame;
+			short right_frame_count;
+			short left_frame_count;
+			angle down_pitch_per_frame;
+			angle up_pitch_per_frame;
+			short down_pitch_frame_count;
+			short up_pitch_frame_count;
+			long:8 * sizeof(long) * 2;
+			Yelo::TagBlock<const short> animations; // block index to model_animation
+			tag_block ik_points;
+			Yelo::TagBlock<const animation_graph_weapon> weapons;
 		};
 		static_assert( sizeof(animation_graph_unit_seat) == 0x64 ); // max count: 32
 		struct model_animation {
-			TAG_FIELD(tag_string, name);
-			TAG_ENUM(type);
-			TAG_FIELD             (short, frame_count);
-			TAG_FIELD(short, frame_size);
-			TAG_ENUM(frame_info_type);
-			TAG_FIELD        (long, node_list_checksum);
-			TAG_FIELD(short, node_count);
-			TAG_FIELD(short, loop_frame_index);
-			TAG_FIELD(real_fraction, weight);
-			TAG_FIELD(short, key_frame_index);
-			TAG_FIELD(short, second_key_frame_index);
-			TAG_FIELD(short, next_animation);
+			tag_string name;
+			short type;
+			short frame_count;
+			short frame_size;
+			short frame_info_type;
+			long node_list_checksum;
+			short node_count;
+			short loop_frame_index;
+			real_fraction weight;
+			short key_frame_index;
+			short second_key_frame_index;
+			short next_animation;
 			struct _flags {
-				TAG_FLAG16(compressed_data);
-				TAG_FLAG16(world_relative);
-				TAG_FLAG16(_25Hz_PAL);
+				unsigned short compressed_data_bit:1;
+				unsigned short world_relative_bit:1;
+				unsigned short _25Hz_PAL_bit:1;
 			} flags;
 			static_assert( sizeof(_flags) == sizeof(unsigned short) );
-			TAG_FIELD(short, sound);
-			TAG_FIELD(short, sound_frame_index);
-			TAG_FIELD(sbyte, left_foot_frame_index);
-			TAG_FIELD(sbyte, right_foot_frame_index);
+			short sound;
+			short sound_frame_index;
+			sbyte left_foot_frame_index;
+			sbyte right_foot_frame_index;
 			//////////////////////////////////////////////////////////////////////////
 			// postprocessed fields (thus, not exposed to the editor)
 			short         first_animation; // if this is a permutated animation, this represents the first animation (first animation will also have this set)
 			real_fraction random_fraction;
 			//////////////////////////////////////////////////////////////////////////
-			TAG_FIELD(tag_data, frame_info);
-			TAG_FIELD(long, node_trans_flag_data1);
-			TAG_FIELD(long, node_trans_flag_data2);
-			TAG_PAD(byte, 8);
-			TAG_FIELD(long, node_rotation_flag_data1);
-			TAG_FIELD(long, node_rotation_flag_data2);
-			TAG_PAD(byte, 8);
-			TAG_FIELD(long, node_scale_flag_data1);
-			TAG_FIELD(long, node_scale_flag_data2);
-			TAG_PAD(byte, 4);
-			TAG_FIELD(long, offset_to_compressed_data);
-			TAG_FIELD(tag_data, default_data);
-			TAG_FIELD(tag_data, frame_data);
+			tag_data frame_info;
+			long node_trans_flag_data1;
+			long node_trans_flag_data2;
+			byte:8 * sizeof(byte) * 8;
+			long node_rotation_flag_data1;
+			long node_rotation_flag_data2;
+			byte:8 * sizeof(byte) * 8;
+			long node_scale_flag_data1;
+			long node_scale_flag_data2;
+			byte:8 * sizeof(byte) * 4;
+			long offset_to_compressed_data;
+			tag_data default_data;
+			tag_data frame_data;
 		};
 		static_assert( sizeof(model_animation) == 0xB4 );
 		struct model_animation_graph {
 			enum { k_group_tag = 'antr' };
 
-			TAG_BLOCK(objects, s_object_overlay);
-			TAG_TBLOCK(units, animation_graph_unit_seat);
-			TAG_BLOCK(weapons, animation_graph_weapon_animation);
-			TAG_BLOCK(vehicles, animation_graph_vehicle_animation);
-			TAG_BLOCK(devices, device_animation);
-			TAG_BLOCK(unit_damage, unit_damage_animation);
-			TAG_BLOCK(first_person_weapons, animation_graph_first_person_weapon_animation);
-			TAG_BLOCK(sound_references, animation_graph_sound_reference);
-			TAG_FIELD(real, limp_body_node_radius);
+			tag_block objects;
+			Yelo::TagBlock<const animation_graph_unit_seat> units;
+			tag_block weapons;
+			tag_block vehicles;
+			tag_block devices;
+			tag_block unit_damage;
+			tag_block first_person_weapons;
+			tag_block sound_references;
+			real limp_body_node_radius;
 			struct _flags {
-				TAG_FLAG16(compress_all_animations);
-				TAG_FLAG16(force_idle_compression);
+				unsigned short compress_all_animations_bit:1;
+				unsigned short force_idle_compression_bit:1;
 			} flags;
 			static_assert( sizeof(_flags) == sizeof(unsigned short) );
 			unsigned short : 16;
-			TAG_BLOCK(nodes, animation_graph_node);
-			TAG_TBLOCK(animations, model_animation);
+			tag_block nodes;
+			Yelo::TagBlock<const model_animation> animations;
 		};
 		static_assert( sizeof(model_animation_graph) == 0x80 );
 	};

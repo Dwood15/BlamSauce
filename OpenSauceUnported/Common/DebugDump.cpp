@@ -123,7 +123,7 @@ namespace Yelo
 
 		struct s_cpu_feature
 		{
-			uint32 value;
+			uint value;
 			cstring string;
 		};
 

@@ -1,12 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -82,9 +76,9 @@ namespace Yelo
 	{
 		struct game_data_input_reference
 		{
-			TAG_ENUM(function, Enums::game_data_input_reference_function);
+			Enums::game_data_input_reference_function function;
 			unsigned short : 16;
-			TAG_PAD(tag_string, 1);
+			tag_string : 8 * sizeof(tag_string) * 1;
 		}; static_assert( sizeof(game_data_input_reference) == 0x24 ); // max count: 64
 	};
 };

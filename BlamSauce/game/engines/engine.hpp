@@ -29,7 +29,7 @@ namespace Yelo {
 	};
 
 	namespace Flags {
-		enum game_engine_flags : long_flags {
+		enum game_engine_flags : unsigned long {
 			_game_engine_player_spawn_in_team_designator_locations_only_bit,
 			// Engine's score is based on the kills a player_update has
 			_game_engine_uses_slayer_scoring_bit,
@@ -70,10 +70,10 @@ namespace Yelo {
 			_game_starting game_starting;                     // 0x20
 
 			// --- DEPRECATED functions (used on xbox)
-			PAD32;                                       // 0x24
-			PAD32;                                       // 0x28
-			PAD32;                                       // 0x2C
-			PAD32;                                       // 0x30
+			unsigned long : 32;                                       // 0x24
+			unsigned long : 32;                                       // 0x28
+			unsigned long : 32;                                       // 0x2C
+			unsigned long : 32;                                       // 0x30
 			// --- DEPRECATED
 
 			typedef void (__cdecl *_post_rasterize)();
@@ -158,7 +158,7 @@ namespace Yelo {
 
 			_goal_matches_player goal_matches_player;            // 0x80
 
-			typedef bool (__cdecl *_test_flag)(uint32 flags);
+			typedef bool (__cdecl *_test_flag)(uint flags);
 
 			_test_flag test_flag;                           // 0x84
 

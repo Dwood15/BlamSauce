@@ -30,7 +30,7 @@ namespace Yelo {
 		/// <param name="access_flags">	the valid hs function and global access flags. </param>
 		bool __cdecl console_process_command(
 #if !PLATFORM_IS_STUBBS // HaloCE parameter only
-			long_flags access_flags,
+			unsigned long access_flags,
 #endif
 			cstring command);
 

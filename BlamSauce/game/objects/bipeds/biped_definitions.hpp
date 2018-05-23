@@ -1,12 +1,8 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/units/unit_definitions.hpp>
+#include <precompile.h>
+#include "../object_definitions.hpp"
+#include "../units/unit_definitions.hpp"
 
 namespace Yelo
 {
@@ -25,89 +21,89 @@ namespace Yelo
 	{
 		struct s_contact_point
 		{
-			TAG_PAD(long, 8);
-			TAG_FIELD(tag_string, marker_name);
+			long:8 * sizeof(long) * 8;
+			tag_string marker_name;
 		}; static_assert( sizeof(s_contact_point) == 0x40 ); // max count: 2
 		struct _biped_definition
 		{
 			struct __flags
 			{
-				TAG_FLAG(turns_without_animating);
-				TAG_FLAG(uses_player_physics);				// Halo2: removed
-				TAG_FLAG(flying);							// Halo2: removed
-				TAG_FLAG(physics_pill_centered_at_origin);	// Halo2: removed
-				TAG_FLAG(spherical);						// Halo2: removed
-				TAG_FLAG(passes_through_other_bipeds);
-				TAG_FLAG(can_climb_any_surface);			// Halo2: removed
-				TAG_FLAG(immune_to_falling_damage);
-				TAG_FLAG(rotate_while_airborne);
-				TAG_FLAG(uses_limp_body_physics);
-				TAG_FLAG(has_no_dying_airborne);			// Halo2: unused
-				TAG_FLAG(random_speed_increase);
-				TAG_FLAG(unit_uses_old_ntsc_player_physics);// Halo2: unused or removed
-			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+				Yelo::long_flags turns_without_animating_bit:1;
+				Yelo::long_flags uses_player_physics_bit:1;				// Halo2: removed
+				Yelo::long_flags flying_bit:1;							// Halo2: removed
+				Yelo::long_flags physics_pill_centered_at_origin_bit:1;	// Halo2: removed
+				Yelo::long_flags spherical_bit:1;						// Halo2: removed
+				Yelo::long_flags passes_through_other_bipeds_bit:1;
+				Yelo::long_flags can_climb_any_surface_bit:1;			// Halo2: removed
+				Yelo::long_flags immune_to_falling_damage_bit:1;
+				Yelo::long_flags rotate_while_airborne_bit:1;
+				Yelo::long_flags uses_limp_body_physics_bit:1;
+				Yelo::long_flags has_no_dying_airborne_bit:1;			// Halo2: unused
+				Yelo::long_flags random_speed_increase_bit:1;
+				Yelo::long_flags unit_uses_old_ntsc_player_physics_bit:1;// Halo2: unused or removed
+			}; static_assert( sizeof(__flags) == sizeof(unsigned long) );
 
 			////////////////////////////////////////////////////////////////
 			// $$$ BIPED $$$
-			TAG_FIELD(angle, moving_turning_speed, "degrees per second");
-			TAG_FIELD(__flags, flags);
-			TAG_FIELD(angle, stationary_turning_threshold);
-			TAG_PAD(long, 4);
+			angle moving_turning_speed;
+			__flags flags;
+			angle stationary_turning_threshold;
+			long:8 * sizeof(long) * 4;
 			short function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::biped_function_mode
-			TAG_FIELD(tag_reference, dont_use, 'jpt!');
+			tag_reference dont_use;
 
 			////////////////////////////////////////////////////////////////
 			// flying
-			TAG_FIELD(angle, bank_angle, "degrees", "angle at which we bank left/right when sidestepping or turning while moving forwards");
-			TAG_FIELD(real, bank_apply_time, "seconds", "time it takes us to apply a bank");
-			TAG_FIELD(real, bank_decay_time, "seconds", "time it takes us to recover from a bank");
-			TAG_FIELD(real, pitch_ratio, "", "amount that we pitch up/down when moving up or down");
-			TAG_FIELD(real, max_velocity, "world units per second", "max velocity when not crouching");
-			TAG_FIELD(real, max_sidestep_velocity, "world units per second", "max sideways or up/down velocity when not crouching");
-			TAG_FIELD(real, acceleration, "world units per second squared");
-			TAG_FIELD(real, deceleration, "world units per second squared");
-			TAG_FIELD(angle, angular_velocity_maximum, "degrees per second", "turn rate");
-			TAG_FIELD(angle, angular_acceleration_maximum, "degrees per second squared", "turn acceleration rate");
-			TAG_FIELD(real, crouch_velocity_modifier, "[0,1]", "how much slower we fly if crouching (zero = same speed)");
-			TAG_PAD(long, 2);
+			angle bank_angle;
+			real bank_apply_time;
+			real bank_decay_time;
+			real pitch_ratio;
+			real max_velocity;
+			real max_sidestep_velocity;
+			real acceleration;
+			real deceleration;
+			angle angular_velocity_maximum;
+			angle angular_acceleration_maximum;
+			real crouch_velocity_modifier;
+			long:8 * sizeof(long) * 2;
 
 			////////////////////////////////////////////////////////////////
 			// movement
-			TAG_FIELD(angle, maximum_slope_angle, "degrees");
-			TAG_FIELD(angle, downhill_falloff_angle, "degrees");
-			TAG_FIELD(angle, downhill_cutoff_angle, "degrees");
-			TAG_FIELD(real, downhill_velocity_scale);
-			TAG_FIELD(angle, uphill_falloff_angle, "degrees");
-			TAG_FIELD(angle, uphill_cutoff_angle, "degrees");
-			TAG_FIELD(real, uphill_velocity_scale);
-			TAG_PAD(long, 6);
-			TAG_FIELD(tag_reference, footsteps, 'foot');
-			TAG_PAD(long, 6);
+			angle maximum_slope_angle;
+			angle downhill_falloff_angle;
+			angle downhill_cutoff_angle;
+			real downhill_velocity_scale;
+			angle uphill_falloff_angle;
+			angle uphill_cutoff_angle;
+			real uphill_velocity_scale;
+			long:8 * sizeof(long) * 6;
+			tag_reference footsteps;
+			long:8 * sizeof(long) * 6;
 
 			////////////////////////////////////////////////////////////////
 			// jumping and landing
-			TAG_FIELD(real, jump_velocity, "world units per second");
-			TAG_PAD(long, 7);
-			TAG_FIELD(real, maximum_soft_landing_time, "seconds", "the longest amount of time the bipeds can take to recover from a soft landing");
-			TAG_FIELD(real, maximum_hard_landing_time, "seconds", "the longest amount of time the bipeds can take to recover from a hard landing");
-			TAG_FIELD(real, minimum_soft_landing_velocity, "world units per second", "below this velocity the bipeds does not react when landing");
-			TAG_FIELD(real, minimum_hard_landing_velocity, "world units per second", "below this velocity the bipeds will not do a soft landing when returning to the ground");
-			TAG_FIELD(real, maximum_hard_landing_velocity, "world units per second", "the velocity corresponding to the maximum landing time");
-			TAG_FIELD(real, death_hard_landing_velocity, "world units per second", "the maximum velocity with which a character can strike the ground and live");
-			TAG_PAD(long, 5);
+			real jump_velocity;
+			long:8 * sizeof(long) * 7;
+			real maximum_soft_landing_time;
+			real maximum_hard_landing_time;
+			real minimum_soft_landing_velocity;
+			real minimum_hard_landing_velocity;
+			real maximum_hard_landing_velocity;
+			real death_hard_landing_velocity;
+			long:8 * sizeof(long) * 5;
 
 			////////////////////////////////////////////////////////////////
 			// camera, collision, and autoaim
-			TAG_FIELD(real, standing_camera_height, "world units");
-			TAG_FIELD(real, crouching_camera_height, "world units");
-			TAG_FIELD(real, crouch_transition_time, "seconds");
-			TAG_PAD(long, 6);
-			TAG_FIELD(real, standing_collision_height, "world units");
-			TAG_FIELD(real, crouching_collision_height, "world units");
-			TAG_FIELD(real, collision_radius, "world units");
-			TAG_PAD(long, 10);
-			TAG_FIELD(real, autoaim_width, "world units");
-			TAG_PAD(long, 35);
+			real standing_camera_height;
+			real crouching_camera_height;
+			real crouch_transition_time;
+			long:8 * sizeof(long) * 6;
+			real standing_collision_height;
+			real crouching_collision_height;
+			real collision_radius;
+			long:8 * sizeof(long) * 10;
+			real autoaim_width;
+			long:8 * sizeof(long) * 35;
 			TAG_TBLOCK(contact_points, s_contact_point);
 		};
 

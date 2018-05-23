@@ -21,7 +21,7 @@ namespace Yelo
 
 		void c_map_download_display::SetMapName(const char* map_name)
 		{
-			uint32 string_length = strlen(map_name);
+			uint string_length = strlen(map_name);
 			m_map_name_string[0] = 0;
 
 			if(string_length >= k_display_map_name_string_length)
@@ -43,7 +43,7 @@ namespace Yelo
 
 		void c_map_download_display::SetProviderTitle(const char* provider_title)
 		{
-			uint32 string_length = strlen(provider_title);
+			uint string_length = strlen(provider_title);
 			m_provider_title_string[0] = 0;
 
 			if(string_length >= k_display_provider_title_string_length)
@@ -63,7 +63,7 @@ namespace Yelo
 
 		void c_map_download_display::SetProviderDescription(const char* provider_description)
 		{
-			uint32 string_length = strlen(provider_description);
+			uint string_length = strlen(provider_description);
 			m_provider_description_string[0] = 0;
 
 			if(string_length >= k_display_provider_description_string_length)

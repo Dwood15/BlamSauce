@@ -189,7 +189,7 @@ namespace Yelo {
 		//////////////////////////////////////////////////////////////////////////
 		// scenario datums
 		template <typename T, bool k_supports_none = true>
-		static void hs_inspect_scenario_datum(Enums::hs_type type, char *buffer, size_t buffer_size, long index, const TAG_TBLOCK(&datums, T)) {
+		static void hs_inspect_scenario_datum(Enums::hs_type type, char *buffer, size_t buffer_size, long index, const Yelo::TagBlock<const T> &datums) {
 			static_assert(std::is_same<tag_string, decltype(T::name)>::value, "expected the scenario datum to have a field called 'name' that is a tag_string");
 
 			if (!k_supports_none) {

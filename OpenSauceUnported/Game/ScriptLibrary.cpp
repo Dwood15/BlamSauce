@@ -232,7 +232,7 @@ namespace Yelo
 
 		// Only 39 functions in CE release are actually 'null'...but now in OS2, we no longer overwrite existing functions!
 		// So ignore this comment :p
-		API_CODEDATA static uint32 hs_eval_func_ptrs[Enums::k_hs_script_functions_count_upgrade - Enums::k_hs_functions_count];
+		API_CODEDATA static uint hs_eval_func_ptrs[Enums::k_hs_script_functions_count_upgrade - Enums::k_hs_functions_count];
 		// next free hs_eval_func_ptrs index
 		static long hs_eval_func = 0;
 		API_CODEDATA static byte hs_func_pool[NUMBEROF(hs_eval_func_ptrs)][sizeof(hs_eval_func_has_param)];
@@ -277,8 +277,8 @@ namespace Yelo
 			if(hs_eval_func >= NUMBEROF(hs_eval_func_ptrs)) return nullptr; // we don't want to go over our set limit
 
 			void* evaluate = nullptr;
-			hs_eval_func_ptrs[hs_eval_func] = CAST_PTR(uint32, func);
-			uint32* temp = nullptr;
+			hs_eval_func_ptrs[hs_eval_func] = CAST_PTR(uint, func);
+			uint* temp = nullptr;
 
 			if(takes_params)
 			{
@@ -286,8 +286,8 @@ namespace Yelo
 					hs_func_pool[hs_eval_func], 
 					hs_eval_func_has_param);
 
-				temp = CAST_PTR(uint32*, &(hs_func_pool[hs_eval_func][HS_EVAL_INDEX_FUNC_WITH_PARAM]) );
-				*temp = CAST_PTR(uint32, &(hs_eval_func_ptrs[hs_eval_func]) );
+				temp = CAST_PTR(uint*, &(hs_func_pool[hs_eval_func][HS_EVAL_INDEX_FUNC_WITH_PARAM]) );
+				*temp = CAST_PTR(uint, &(hs_eval_func_ptrs[hs_eval_func]) );
 			}
 			else
 			{
@@ -295,8 +295,8 @@ namespace Yelo
 					hs_func_pool[hs_eval_func], 
 					hs_eval_func_no_param);
 
-				temp = CAST_PTR(uint32*, &(hs_func_pool[hs_eval_func][HS_EVAL_INDEX_FUNC_NO_PARAM]) );
-				*temp = CAST_PTR(uint32, &(hs_eval_func_ptrs[hs_eval_func]) );
+				temp = CAST_PTR(uint*, &(hs_func_pool[hs_eval_func][HS_EVAL_INDEX_FUNC_NO_PARAM]) );
+				*temp = CAST_PTR(uint, &(hs_eval_func_ptrs[hs_eval_func]) );
 			}
 
 			evaluate = &(*hs_func_pool[hs_eval_func]);

@@ -58,7 +58,7 @@ namespace Yelo
 			short visible_sky_index;
 
 			struct {
-				long_flags cluster_pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];
+				unsigned long cluster_pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];
 				byte clusters[0x1A0][Enums::k_maximum_rendered_clusters];
 				short count;
 				unsigned short : 16;

@@ -22,7 +22,7 @@ namespace Yelo
 				};
 				struct s_preset {
 					char name[Enums::k_vehicle_view_name_length+1];
-					std::array<uint32, BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_vehicle_view_max_seat_presets)> 
+					std::array<uint, BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_vehicle_view_max_seat_presets)>
 						seats_bitvector;
 					std::array<s_seat_preset, Enums::k_vehicle_view_max_seat_presets> 
 						seats;

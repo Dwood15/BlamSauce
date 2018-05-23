@@ -1,16 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/game/game_globals.hpp>
-#include <blamlib/Halo1/models/model_animations.hpp>
-#include <blamlib/Halo1/objects/object_structures.hpp>
-#include <blamlib/Halo1/units/unit_control.hpp>
-#include <blamlib/Halo1/units/unit_definitions.hpp>
-#include <blamlib/Halo1/units/unit_dialogue.hpp>
+#include <precompile.h>
+#include "../object_structures.h"
+#include "unit_definitions.hpp"
+#include "unit_dialogue.hpp"
 
 namespace Yelo {
 	namespace Enums {
@@ -206,7 +199,7 @@ namespace Yelo {
 			sbyte       base_seat_index;                                 // 0x20F
 			struct {
 				long      ticks_remaining;                              // 0x210
-				long_flags flags;                                 // 0x214
+				unsigned long flags;                                 // 0x214
 			}           persistent_control;
 			datum_index controlling_player_index;                     // 0x218
 			short       ai_effect_type;                                 // 0x21C ai_unit_effect
@@ -237,7 +230,7 @@ namespace Yelo {
 			real                        ambient;                                       // 0x2E0
 			real                        illumination;                                    // 0x2E4
 			real                        mouth_aperture;                                 // 0x2E8
-												 PAD32;                                             // 0x2EC unused
+												 unsigned long : 32;                                             // 0x2EC unused
 			short                       vehicle_seat_index;                              // 0x2F0
 			short                       current_weapon_index;                              // 0x2F2
 			short                       next_weapon_index;                              // 0x2F4
@@ -310,7 +303,7 @@ namespace Yelo {
 			}           damage_result;
 			datum_index responsible_flamer_object_index;               // 0x410 object which caused us to start flaming to death
 			UNKNOWN_TYPE(real);                                    // 0x414
-											  PAD32;
+											  unsigned long : 32;
 			long                     death_time;                                    // 0x41C // game time when this unit died
 			short                     feign_death_timer;                              // 0x420
 			Enums::unit_camo_regrowth camo_regrowth;                  // 0x422
@@ -319,7 +312,7 @@ namespace Yelo {
 			short                     killing_spree_count;                              // 0x42A
 			long                     killing_spree_start_time;                           // 0x42C
 			s_recent_damage           recent_damage[4];                        // 0x430
-											  PAD32;                                             // 0x470 unused
+											  unsigned long : 32;                                             // 0x470 unused
 			//////////////////////////////////////////////////////////////////////////
 			// Added in HaloPC
 			UNKNOWN_TYPE(bool);                                    // 0x474 networking related. engine only writes to this, never reads. consider it 'unused'
@@ -340,9 +333,9 @@ namespace Yelo {
 			bool                last_completed_client_update_id_valid;                  // 0x4B8
 									  unsigned char : 8; unsigned short : 16;
 			long               last_completed_client_update_id;                     // 0x4BC
-									  PAD32;                                             // 0x4C0 unused
-									  PAD32;                                             // 0x4C4 unused
-									  PAD32;                                             // 0x4C8 unused
+									  unsigned long : 32;                                             // 0x4C0 unused
+									  unsigned long : 32;                                             // 0x4C4 unused
+									  unsigned long : 32;                                             // 0x4C8 unused
 			//////////////////////////////////////////////////////////////////////////
 
 		public: // see YeloLib/Halo1/units/units_grenade_count_upgrade.inl

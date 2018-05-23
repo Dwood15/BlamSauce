@@ -24,13 +24,13 @@ namespace Yelo
 		{
 			enum { k_group_tag = 'effe' };
 
-			TAG_FIELD(long_flags, flags);
-			TAG_FIELD(short, loop_start_event_index, effect_event_definition);
-			TAG_FIELD(short, loop_stop_event_index, effect_event_definition);
+			unsigned long flags;
+			short loop_start_event_index;
+			short loop_stop_event_index;
 			UNKNOWN_TYPE(real); // runtime field
-			TAG_PAD(long, 7);
-			TAG_BLOCK(locations, effect_location_definition);
-			TAG_BLOCK(events, effect_event_definition);
+			long:8 * sizeof(long) * 7;
+			tag_block locations;
+			tag_block events;
 		}; static_assert( sizeof(effect_definition) == 0x40 );
 	};
 };

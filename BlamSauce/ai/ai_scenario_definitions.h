@@ -1,9 +1,9 @@
 #pragma once
 
 /*	See license\OpenSauce\OpenSauce for specific license information */
+#include <precompile.h>
 
 #include "../math/real_math.h"
-#include "../tag_helpers/tag_groups_markup.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -58,14 +58,14 @@ namespace Yelo {
 			real_point3d position;
 			short        group_index;
 			short        runtime_cluster_index;
-			PAD32;
+			unsigned long : 32;
 			long runtime_surface_index; // not valid if the encounter uses 3d firing positions
 		}; static_assert(sizeof(s_firing_position) == 0x18);
 
 		struct s_encounter_definition {
 			tag_string name;
-			long_flags flags;
-			TAG_ENUM(team_index, Enums::game_team);
+			unsigned long flags;
+			short team_index;
 			UNKNOWN_TYPE(short); // set to 1 once postprocessed. not seeing any other references past that
 			short       search_behavior;
 			short       manual_structure_reference_index;
@@ -73,10 +73,10 @@ namespace Yelo {
 
 			byte tag_padding[74];
 			short runtime_structure_reference_index;
-			TAG_BLOCK(squads, s_squad_definition);
-			TAG_BLOCK(platoons, s_platoon_definition);
-			TAG_BLOCK(firing_positions, s_squad_definition);
-			TAG_BLOCK(starting_locations, scenario_player);
+			tag_block squads;
+			tag_block platoons;
+			tag_block firing_positions;
+			tag_block starting_locations;
 		};
 
 		static_assert(sizeof(s_encounter_definition) == 0xB0);
@@ -94,25 +94,25 @@ namespace Yelo {
 			short command_index;
 			short object_name_index;
 			unsigned short : 16;
-			PAD32;
+			unsigned long : 32;
 		}; static_assert(sizeof(s_ai_command) == 0x20);
 		struct s_ai_command_point {
 			real_point3d position;
 			long        runtime_surface_index;
-			PAD32;
+			unsigned long : 32;
 		}; static_assert(sizeof(s_ai_command_point) == 0x14);
 
 		struct s_ai_command_list {
 			tag_string name;
-			long_flags flags;
-			PAD32;
-			PAD32;
+			unsigned long flags;
+			unsigned long : 32;
+			unsigned long : 32;
 			short manual_structure_reference_index;
 			short runtime_structure_reference_index;
-			TAG_BLOCK(commands, s_ai_command);
-			TAG_BLOCK(points, s_ai_command_point);
+			tag_block commands;
+			tag_block points;
 
-			TAG_PAD(tag_pad00, tag_block, 2);
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 
 		static_assert(sizeof(s_ai_command_list) == 0x60);

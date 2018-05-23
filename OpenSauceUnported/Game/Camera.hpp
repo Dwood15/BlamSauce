@@ -155,7 +155,7 @@ namespace Yelo
 		struct s_cinematic_globals_data
 		{
 			real unknown1;
-			uint32 time;
+			uint time;
 			bool show_letterbox;
 			bool in_progress;
 			bool can_be_skipped;

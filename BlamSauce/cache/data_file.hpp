@@ -1,12 +1,10 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include "../cseries/base.h"
+#include <precompile.h>
 #include "cache_files.hpp"
+#include "../cseries/base.h"
+#include "data_file_structures.hpp"
+#include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo {
 	namespace Enums {
@@ -27,8 +25,6 @@ namespace Yelo {
 	};
 
 	namespace Cache {
-		struct s_data_file;
-
 		constexpr cstring K_DATA_FILE_EXTENSION = ".map";
 
 		static cstring DataFileTypeToString(Enums::data_file_type type) {
@@ -75,7 +71,7 @@ namespace Yelo {
 		}
 
 		// utility for blam::cache_file_data_load
-		bool DataFileReadItemData(Enums::data_file_reference_type data_file, uint32 position, void *buffer, size_t buffer_size) {
+		bool DataFileReadItemData(Enums::data_file_reference_type data_file, uint position, void *buffer, size_t buffer_size) {
 			auto &df = DataFileGet(data_file);
 
 			return df.ReadItemData(position, buffer, buffer_size);

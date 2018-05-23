@@ -13,14 +13,14 @@ namespace Yelo
 {
 	namespace Interface { namespace OpenSauceUI
 	{
-		static std::vector<uint32> g_printed_crcs;
+		static std::vector<uint> g_printed_crcs;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Prints a CRC to the debug output. </summary>
 		///
 		/// <param name="str">	The string. </param>
 		/// <param name="crc">	The CRC of the string. </param>
-		static void DumpCRC(const char* str, uint32 crc)
+		static void DumpCRC(const char* str, uint crc)
 		{
 			if(std::find(g_printed_crcs.begin(), g_printed_crcs.end(), crc) != g_printed_crcs.end())
 			{
@@ -39,14 +39,14 @@ namespace Yelo
 			OutputDebugString("\r\n");
 		}
 
-		const uint32 CRCString(const char* str)
+		const uint CRCString(const char* str)
 		{
 			// CRC the string
 			boost::crc_32_type result;
 			result.process_bytes(str, strlen(str));
 
 			// Print the checksum then return it
-			uint32 crc = result.checksum();
+			uint crc = result.checksum();
 
 			if(IsDebuggerPresent())
 			{
@@ -56,7 +56,7 @@ namespace Yelo
 			return crc;
 		}
 
-		const uint32 VerifyCRC(const char* str, uint32 crc)
+		const uint VerifyCRC(const char* str, uint crc)
 		{
 			// Generate the CRC for the provided string and compare it against the expected crc
 			auto test_crc = CRCString(str);

@@ -1,12 +1,8 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "../../../tags/group/markup.h"
+#include "../../../tags/group/base.h"
 
 namespace Yelo
 {
@@ -276,10 +272,9 @@ namespace Yelo
 
 			short skip;
 			unsigned short : 16;
-			TAG_PAD(tag_block, 1);
-			TAG_FIELD(tag_reference, vocalizations, 'snd!')[Enums::k_number_of_dialogue_vocalizations];
-			TAG_PAD(tag_reference, 
-				Enums::k_maximum_dialogue_vocalizations - Enums::k_number_of_dialogue_vocalizations);
+			tag_block:8 * sizeof(tag_block) * 1;
+			tag_reference vocalizations[Enums::k_number_of_dialogue_vocalizations];
+			tag_reference:8 * sizeof(tag_reference) * Enums::k_maximum_dialogue_vocalizations - Enums::k_number_of_dialogue_vocalizations;
 		}; static_assert( sizeof(s_dialogue_definition) == 0x1010 );
 	};
 };

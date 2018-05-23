@@ -1,8 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
 #include "../math/real_math.h"
@@ -74,7 +69,7 @@ namespace Yelo
 				sbyte idle_time;					// 0x0 used for determining when to fire next projectile (rounds per second)
 				Enums::weapon_trigger_state state;
 				short time;
-				UNKNOWN_TYPE(long_flags);			// 0x4
+				UNKNOWN_TYPE(unsigned long);			// 0x4
 				UNKNOWN_TYPE(short);				// 0x8 firing effect related
 				UNKNOWN_TYPE(short);				// 0xA firing effect related
 				UNKNOWN_TYPE(short);				// 0xC firing effect related
@@ -106,7 +101,7 @@ namespace Yelo
 			}; static_assert( sizeof(s_start_reload_data) == 0x8 );
 
 			// FLAG(3) - _weapon_must_be_readied_bit
-			long_flags flags;						// 0x22C
+			unsigned long flags;						// 0x22C
 			unsigned short owner_unit_flags;			// 0x230
 			unsigned short : 16;
 			real primary_trigger;					// 0x234

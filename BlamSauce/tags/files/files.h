@@ -34,7 +34,7 @@ namespace Yelo {
 			_name_full_path_flags = FLAG(_name_directory_bit) | FLAG(_name_file_bit) | FLAG(_name_extension_bit)
 		};
 
-		enum file_permission_flags : long_flags {
+		enum file_permission_flags : unsigned long {
 			_permission_read_bit,
 			_permission_write_bit,
 			_permission_append_bit,
@@ -56,7 +56,7 @@ namespace Yelo {
 			YELO_ASSERT(location >= NONE && location < Enums::k_number_of_file_reference_locations);
 		}
 
-		static int __cdecl CompareProc(long_flags name_flags, const s_file_reference *lhs, const s_file_reference *rhs) {
+		static int __cdecl CompareProc(unsigned long name_flags, const s_file_reference *lhs, const s_file_reference *rhs) {
 			char lhs_name[Enums::k_maximum_filename_length + 1];
 			char rhs_name[Enums::k_maximum_filename_length + 1];
 
@@ -103,7 +103,7 @@ namespace Yelo {
 			file_write(reference, buffer_length, buffer);
 
 			if (k_set_eof) {
-				uint32 position = file_get_position(reference);
+				uint position = file_get_position(reference);
 				file_set_eof(reference, position);
 			}
 		}
@@ -122,7 +122,7 @@ namespace Yelo {
 
 		s_file_reference &__cdecl file_reference_set_name(s_file_reference &reference, cstring name);
 
-		char *__cdecl file_reference_get_name(const s_file_reference &reference, long_flags flags, __out char name[Enums::k_maximum_filename_length + 1]);
+		char *__cdecl file_reference_get_name(const s_file_reference &reference, unsigned long flags, __out char name[Enums::k_maximum_filename_length + 1]);
 
 		s_file_reference &file_reference_create(s_file_reference &reference, cstring directory, cstring name, cstring ext,
 															 long_enum location = Enums::_file_reference_location_tags);
@@ -138,19 +138,19 @@ namespace Yelo {
 			return reference;
 		}
 
-		short __cdecl find_files(long_flags flags, const s_file_reference &directory, long maximum_count, s_file_reference references[]);
+		short __cdecl find_files(unsigned long flags, const s_file_reference &directory, long maximum_count, s_file_reference references[]);
 
 		template <size_t _SizeOfArray>
-		short find_files(long_flags flags, const s_file_reference &directory, s_file_reference (&references)[_SizeOfArray]) {
+		short find_files(unsigned long flags, const s_file_reference &directory, s_file_reference (&references)[_SizeOfArray]) {
 			return find_files(flags, directory, _SizeOfArray, references);
 		}
 
-		void file_references_sort(long_flags name_flags, size_t count, s_file_reference references[]) {
+		void file_references_sort(unsigned long name_flags, size_t count, s_file_reference references[]) {
 			Qsort(references, count, s_file_reference::CompareProc, name_flags);
 		}
 
 		template <size_t _SizeOfArray>
-		void file_references_sort(long_flags name_flags, s_file_reference (&references)[_SizeOfArray]) {
+		void file_references_sort(unsigned long name_flags, s_file_reference (&references)[_SizeOfArray]) {
 			file_references_sort(name_flags, _SizeOfArray, references);
 		}
 
@@ -162,11 +162,11 @@ namespace Yelo {
 
 		bool __cdecl file_exists(const s_file_reference &reference);
 
-		bool __cdecl file_open(s_file_reference &reference, long_flags flags);
+		bool __cdecl file_open(s_file_reference &reference, unsigned long flags);
 
 		bool __cdecl file_close(s_file_reference &reference);
 
-		uint32 __cdecl file_get_position(const s_file_reference &reference) {
+		uint __cdecl file_get_position(const s_file_reference &reference) {
 			reference.Verify();
 			DWORD position = SetFilePointer(reference.handle, 0, nullptr, FILE_CURRENT);
 			// NOTE: engine doesn't check if not NO_ERROR. see MSDN for more details
@@ -176,11 +176,11 @@ namespace Yelo {
 			return position;
 		}
 
-		bool __cdecl file_set_position(s_file_reference &reference, uint32 position);
+		bool __cdecl file_set_position(s_file_reference &reference, uint position);
 
-		uint32 __cdecl file_get_eof(const s_file_reference &reference);
+		uint __cdecl file_get_eof(const s_file_reference &reference);
 
-		bool __cdecl file_set_eof(s_file_reference &reference, uint32 position) {
+		bool __cdecl file_set_eof(s_file_reference &reference, uint position) {
 			reference.Verify();
 			if (file_set_position(reference, position)) {
 				SetEndOfFile(reference.handle);
@@ -195,10 +195,10 @@ namespace Yelo {
 
 		bool __cdecl file_write(s_file_reference &reference, size_t buffer_size, const void *buffer);
 
-		bool __cdecl file_read_from_position(s_file_reference &reference, uint32 position,
+		bool __cdecl file_read_from_position(s_file_reference &reference, uint position,
 														 size_t buffer_size, void *buffer);
 
-		bool __cdecl file_write_to_position(const s_file_reference &reference, uint32 position,
+		bool __cdecl file_write_to_position(const s_file_reference &reference, uint position,
 														size_t buffer_size, const void *buffer);
 
 		bool __cdecl file_read_only(const s_file_reference &reference);

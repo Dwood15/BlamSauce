@@ -1,17 +1,12 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
-
-#include <blamlib/Halo1/objects/object_structures.hpp>
+#include <precompile.h>
+#include "../game/objects/object_structures.h"
 
 namespace Yelo
 {
 	namespace Flags
 	{
-		enum item_flags : long_flags {
+		enum item_flags : unsigned long {
 			_item_in_unit_inventory_bit,
 			_item_hidden_in_unit_inventory_bit, // I think? this bit is either/or with the above bit. name taken from H2
 			_item_rotating_bit, // no epsilon check on rotation (bug?), thus always set after it starts rotating
@@ -25,7 +20,7 @@ namespace Yelo
 	{
 		struct s_item_data
 		{
-			long_flags flags;					// 0x1F4
+			unsigned long flags;					// 0x1F4
 			game_time_t detonation_countdown;	// 0x1F8
 			struct {
 				short surface_index;			// 0x1FA

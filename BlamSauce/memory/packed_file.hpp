@@ -28,10 +28,10 @@ namespace Yelo
 				k_footer_signature = 'foot',
 			};
 
-			uint32 header;
-			uint32 file_size;
-			uint32 element_count;
-			uint32 footer;
+			uint header;
+			uint file_size;
+			uint element_count;
+			uint footer;
 
 			inline bool IsValid()
 			{
@@ -49,9 +49,9 @@ namespace Yelo
 
 		struct s_element
 		{
-			uint32 element_id_offset;
-			uint32 element_size;
-			uint32 element_offset;
+			uint element_id_offset;
+			uint element_size;
+			uint element_offset;
 		};
 
 		FileIO::s_file_info	file_info;
@@ -60,7 +60,7 @@ namespace Yelo
 			s_header*	m_header;
 
 			// utility member for pointer math
-			uint32		m_base_address;
+			uint		m_base_address;
 		};
 		bool			m_file_mapped;
 		unsigned char : 8; unsigned short : 16;
@@ -118,7 +118,7 @@ namespace Yelo
 		}
 		// Returns a pointer to a block of data reference by index. Returns NULL if invalid.
 		// The data block size is put into data_size if not null.
-		void* GetDataPointer(uint32 index, _Out_opt_ uint32* data_size) {
+		void* GetDataPointer(uint index, _Out_opt_ uint* data_size) {
 			if(!m_file_mapped || index > m_header->element_count)
 				return nullptr;
 
@@ -132,16 +132,16 @@ namespace Yelo
 		}
 		// Returns a pointer to a block of data reference by a string id. Returns NULL if invalid.
 		// The data block size is put into data_size if not null.
-		void* GetDataPointer(cstring data_id, _Out_opt_ uint32* data_size) {
+		void* GetDataPointer(cstring data_id, _Out_opt_ uint* data_size) {
 			if(!m_file_mapped || is_null_or_empty(data_id))
 				return nullptr;
 
-			for(uint32 i = 0; i < m_header->element_count; i++)
+			for(uint i = 0; i < m_header->element_count; i++)
 			{
 				s_element* element = CAST_PTR(s_element*, m_base_address + sizeof(s_header) +
 																		(sizeof(s_element) * i));
 
-				if(strcmp(data_id, CAST_PTR(char*, m_base_address + (uint32)element->element_id_offset)) == 0)
+				if(strcmp(data_id, CAST_PTR(char*, m_base_address + (uint)element->element_id_offset)) == 0)
 				{
 					if(data_size)
 						*data_size = element->element_size;
@@ -174,8 +174,8 @@ namespace Yelo
 		}
 
 		void CalculateOffsets() {
-			uint32 id_base_offset = sizeof(s_header) + (sizeof(s_element) * m_elements.size());
-			uint32 id_offset = 0;
+			uint id_base_offset = sizeof(s_header) + (sizeof(s_element) * m_elements.size());
+			uint id_offset = 0;
 
 			for(auto iter = m_elements.begin(); iter != m_elements.end(); ++iter)
 			{
@@ -183,8 +183,8 @@ namespace Yelo
 				id_offset += strlen(iter->source_id) + 1;
 			}
 
-			uint32 data_base_offset = id_base_offset + id_offset;
-			uint32 data_offset = 0;
+			uint data_base_offset = id_base_offset + id_offset;
+			uint data_offset = 0;
 
 			for(auto iter = m_elements.begin(); iter != m_elements.end(); ++iter)
 			{

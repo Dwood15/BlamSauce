@@ -100,7 +100,7 @@ namespace Yelo {
 				byte_flags valid_crc : 1;
 			}     yelo_flags;
 			unsigned short : 16;
-			uint32 crc;
+			uint crc;
 
 			// Our ctor initializer for this engine struct
 			void Initialize(long system_map_index) {
@@ -333,7 +333,7 @@ namespace Yelo {
 
 		bool map_list_map_valid(long index);
 
-		uint32 map_list_map_get_crc(long index);
+		uint map_list_map_get_crc(long index);
 
 		bool map_list_map_is_original(long index);
 

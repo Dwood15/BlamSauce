@@ -19,7 +19,7 @@ namespace Yelo
 				m_targets[1].IsEnabled();
 		}
 
-		bool		s_render_target_chain::AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height, D3DFORMAT format)
+		bool		s_render_target_chain::AllocateResources(IDirect3DDevice9* device, uint width, uint height, D3DFORMAT format)
 		{
 			HRESULT success = 0;
 			for(int i = 0; i < 2; i++)
@@ -52,7 +52,7 @@ namespace Yelo
 
 		//////////////////////////////////////////////////////////////////////////
 		// s_render_target_chain_scene
-		bool		s_render_target_chain_scene::AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height)
+		bool		s_render_target_chain_scene::AllocateResources(IDirect3DDevice9* device, uint width, uint height)
 		{
 			bool success = s_render_target_chain::AllocateResources(
 				device, 

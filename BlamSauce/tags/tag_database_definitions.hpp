@@ -1,9 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
+
+#include "group/tag_groups_base_yelo.hpp"
 
 namespace Yelo::Flags {
 	enum {
@@ -19,19 +16,19 @@ namespace Yelo::TagGroups {
 	{
 		typedef long block_index_t;
 
-		TagData<char> name;
+		TagData<char>                                             name;
 		union {
 			ULARGE_INTEGER handle_data;
 
 			tag group_tag; // the group_tag is actually the low-word of the handle.
 		};
-		uint32        flags;
+		uint                                                      flags;
 		// Indexes to entries which this entry references
-		TAG_TBLOCK(child_ids, s_tag_database_entry::block_index_t);
+		Yelo::TagBlock<const s_tag_database_entry::block_index_t> child_ids;
 		// Entries which reference this entry
-		TAG_TBLOCK(reference_ids, s_tag_database_entry::block_index_t);
+		Yelo::TagBlock<const s_tag_database_entry::block_index_t> reference_ids;
 
-		TAG_PAD(db_pad0, long, 3); // 12
+		long:8 * sizeof(long) * 3; // 12
 		//void NameToBlockNameBuffer(char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 
 	}; static_assert(sizeof(s_tag_database_entry) == 0x44);
@@ -42,9 +39,9 @@ namespace Yelo::TagGroups {
 			k_group_tag = 'tag+',
 		};
 
-		TAG_TBLOCK(entries, s_tag_database_entry);
+		Yelo::TagBlock<const s_tag_database_entry> entries;
 
-		TAG_PAD(db_pad_01, long, 6); // 24
+		long:8 * sizeof(long) * 6; // 24
 
 
 		// static void Initialize();

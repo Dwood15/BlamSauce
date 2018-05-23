@@ -7,7 +7,7 @@
 
 namespace Yelo::TagGroups {
 	struct structure_collision_material {
-		TAG_FIELD(tag_reference, shader, 'shdr');
+		tag_reference shader;
 		struct {
 					unsigned short : 16;
 			short shader_material_type; // Enums::material_type or NONE if shdr is null
@@ -19,179 +19,179 @@ namespace Yelo::TagGroups {
 	struct structure_leaf {
 		byte             skip[6];
 							  unsigned short : 16;
-		TAG_FIELD(short, cluster);
-		TAG_FIELD(short, reference_count, "surface");
-		TAG_FIELD(long, first_reference, "surface");
+		short cluster;
+		short reference_count;
+		long first_reference;
 	};
 	struct structure_surface_reference {
-		TAG_FIELD(long, surface);
-		TAG_FIELD(long, index);
+		long surface;
+		long index;
 	};
 	struct structure_surface {
-		TAG_FIELD(short, a)[3];
+		short a[3];
 	};
 	struct structure_bsp_material {
-		TAG_FIELD(tag_reference, shader, 'shdr');
-		TAG_FIELD(short, shader_permutation);
-		TAG_FIELD(unsigned short, flags);
-		TAG_FIELD(long, surfaces, structure_surface);
-		TAG_FIELD(long, surface_count);
-		TAG_FIELD(real_point3d, centroid);
+		tag_reference shader;
+		short shader_permutation;
+		unsigned short flags;
+		long surfaces;
+		long surface_count;
+		real_point3d centroid;
 		Objects::s_object_lighting object_lighting;
-		TAG_FIELD(real_plane3d, plane);
-		TAG_FIELD(short, breakable_surface);
+		real_plane3d plane;
+		short breakable_surface;
 		unsigned short : 16;
 
 		Rasterizer::rasterizer_vertex_buffer
 			vertices, lightmap_vertices;
-		TAG_FIELD(tag_data, uncompressed_vertices);
-		TAG_FIELD(tag_data, compressed_vertices);
+		tag_data uncompressed_vertices;
+		tag_data compressed_vertices;
 	}; static_assert(sizeof(structure_bsp_material) == 0x100);
 	struct structure_bsp_lightmap {
-		TAG_FIELD(short, bitmap);
+		short bitmap;
 		unsigned short : 16;
-		TAG_PAD(sbsp_pad0B,long, 4);
-		TAG_TBLOCK(materials, structure_bsp_material);
+		long:8 * sizeof(long) * 4;
+		Yelo::TagBlock<const structure_bsp_material> materials;
 	};
 
 	struct structure_subcluster {
 		struct {
 			real_bounds x, y, z;
 		}                           world_bounds;
-		TAG_TBLOCK(surface_indices, long);
+		Yelo::TagBlock<const long> surface_indices;
 	};
 	struct structure_mirror {
-		TAG_FIELD(real_plane3d, plane);
-		TAG_PAD(sbsp_pad0A,long, 5);
-		TAG_FIELD(tag_reference, shader);
-		TAG_TBLOCK(vertices, real_point3d);
+		real_plane3d plane;
+		long:8 * sizeof(long) * 5;
+		tag_reference shader;
+		Yelo::TagBlock<const real_point3d> vertices;
 	};
 	struct structure_cluster {
-		TAG_FIELD(short, sky);
-		TAG_FIELD(short, fog);
-		TAG_FIELD(short, background_sound); // block index
-		TAG_FIELD(short, sound_environment); // block index
-		TAG_FIELD(short, weather); // block index
-		TAG_FIELD(short, transition_structure_bsp);
-		TAG_PAD(sbsp_pad09,long, 1 + 6);
-		TAG_TBLOCK(predicted_resources, predicted_resource);
-		TAG_TBLOCK(subclusters, structure_subcluster);
-		TAG_FIELD(short, first_lens_flare_marker_index);
-		TAG_FIELD(short, lens_flare_marker_count);
-		TAG_TBLOCK(surface_indices, long);
-		TAG_BLOCK(mirrors, structure_mirror);
-		TAG_BLOCK(portals, short);
+		short sky;
+		short fog;
+		short background_sound; // block index
+		short sound_environment; // block index
+		short weather; // block index
+		short transition_structure_bsp;
+		long:8 * sizeof(long) * 1 + 6;
+		Yelo::TagBlock<const predicted_resource> predicted_resources;
+		Yelo::TagBlock<const structure_subcluster> subclusters;
+		short first_lens_flare_marker_index;
+		short lens_flare_marker_count;
+		Yelo::TagBlock<const long> surface_indices;
+		tag_block mirrors;
+		tag_block portals;
 	}; static_assert(sizeof(structure_cluster) == 0x68);
 
 	struct s_structure_fog_plane {
-		TAG_FIELD(short, front_region, s_structure_fog_region);
+		short front_region;
 		short runtime_material_type; // NONE or _material_type_water
-		TAG_FIELD(real_plane3d, plane);
-		TAG_TBLOCK(vertices, real_vector3d);
+		real_plane3d plane;
+		Yelo::TagBlock<const real_vector3d> vertices;
 	};
 	struct s_structure_fog_region {
-		TAG_PAD(sbsp_pad08,long, 9);
-		TAG_FIELD(short, fog_palette); // block index
-		TAG_FIELD(short, weather_palette); // block index
+		long:8 * sizeof(long) * 9;
+		short fog_palette; // block index
+		short weather_palette; // block index
 	};
 	struct s_structure_fog_palette {
-		TAG_FIELD(tag_string, name);
-		TAG_FIELD(tag_reference, fog, 'fog ');
-		TAG_PAD(sbsp_pad06,long, 1);
-		TAG_FIELD(tag_string, fog_scale_function);
-		TAG_PAD(sbsp_pad07,long, 11 + 2);
+		tag_string name;
+		tag_reference fog;
+		long:8 * sizeof(long) * 1;
+		tag_string fog_scale_function;
+		long:8 * sizeof(long) * 11 + 2;
 	};
 	struct structure_weather_palette_entry {
-		TAG_FIELD(tag_string, name);
-		TAG_FIELD(tag_reference, particle_system, 'rain');
-		TAG_PAD(sbsp_pad02,long, 1);
-		TAG_FIELD(tag_string, particle_system_scale_function);
-		TAG_PAD(sbsp_pad03,long, 11);
-		TAG_FIELD(tag_reference, wind, 'wind');
-		TAG_FIELD(real_vector3d, wind_direction);
-		TAG_FIELD(real, wind_magnitude);
-		TAG_PAD(sbsp_pad04, long, 1);
-		TAG_FIELD(tag_string, wind_scale_function);
-		TAG_PAD(sbsp_pad05,long, 11);
+		tag_string name;
+		tag_reference particle_system;
+		long:8 * sizeof(long) * 1;
+		tag_string particle_system_scale_function;
+		long:8 * sizeof(long) * 11;
+		tag_reference wind;
+		real_vector3d wind_direction;
+		real wind_magnitude;
+		long:8 * sizeof(long) * 1;
+		tag_string wind_scale_function;
+		long:8 * sizeof(long) * 11;
 	};
 
 	struct structure_background_sound_palette_entry {
-		TAG_FIELD(tag_string, name);
-		TAG_FIELD(tag_reference, background_sound, 'lsnd');
-		TAG_PAD(sbsp_pad0, long, 1);
-		TAG_FIELD(tag_string, scale_function);
-		TAG_PAD(sbsp_pad01, tag_string, 1);
+		tag_string name;
+		tag_reference background_sound;
+		long:8 * sizeof(long) * 1;
+		tag_string scale_function;
+		tag_string:8 * sizeof(tag_string) * 1;
 	};
 	struct structure_sound_environment_palette_entry {
-		TAG_FIELD(tag_string, name);
-		TAG_FIELD(tag_reference, sound_environment, 'snde');
-		TAG_PAD(sbsp_pad0,tag_string, 1);
+		tag_string name;
+		tag_reference sound_environment;
+		tag_string:8 * sizeof(tag_string) * 1;
 	};
 
 	// TODO: move to structures\leaf_map.hpp
 	struct s_leaf_map {
 		TagGroups::collision_bsp *collision; // initialized by postprocess proc, only valid in tags builds
-		TAG_BLOCK(leaves, map_leaf);
-		TAG_BLOCK(portals, leaf_connection);
+		tag_block leaves;
+		tag_block portals;
 	}; static_assert(sizeof(s_leaf_map) == 0x1C);
 
 	struct structure_bsp {
 		enum { k_group_tag = 'sbsp' };
 
-		TAG_FIELD(tag_reference, lightmap_bitmaps, 'bitm');
-		TAG_FIELD(real_bounds, vehicle_heights, "floor", "ceiling");
-		TAG_PAD(sbsp_pad0, long, 5); // Useless? Removed in H2
+		tag_reference lightmap_bitmaps;
+		real_bounds vehicle_heights;
+		long:8 * sizeof(long) * 5; // Useless? Removed in H2
 
 		Objects::s_object_lighting default_lighting; // doesn't expose distant_light_count
 											unsigned long : 32; // Useless? Wasn't removed in H2, but can't find any code references in H1
 
-		TAG_TBLOCK(collision_materials, structure_collision_material);
-		TAG_TBLOCK(collision_bsp, collision_bsp);
-		TAG_TBLOCK(nodes, structure_node);
+		Yelo::TagBlock<const structure_collision_material> collision_materials;
+		Yelo::TagBlock<const collision_bsp> collision_bsp;
+		Yelo::TagBlock<const structure_node> nodes;
 
 		struct {
 			real_bounds x, y, z;
 		}                          world_bounds;
 
-		TAG_TBLOCK(leafs, structure_leaf);
-		TAG_TBLOCK(leaf_surfaces, structure_surface_reference);
-		TAG_TBLOCK(surfaces, structure_surface);
+		Yelo::TagBlock<const structure_leaf> leafs;
+		Yelo::TagBlock<const structure_surface_reference> leaf_surfaces;
+		Yelo::TagBlock<const structure_surface> surfaces;
 
-		TAG_TBLOCK(lightmaps, structure_bsp_lightmap);
+		Yelo::TagBlock<const structure_bsp_lightmap> lightmaps;
 		PAD_TYPE(tag_block); // Useless? Removed in H2
 
-		TAG_BLOCK(lens_flares, structure_bsp_lens_flare_block);
-		TAG_BLOCK(lens_flare_markers, structure_bsp_lens_flare_marker_block);
+		tag_block lens_flares;
+		tag_block lens_flare_markers;
 
-		TAG_TBLOCK_(clusters, structure_cluster);
-		TAG_FIELD(tag_data, cluster_data);
-		TAG_BLOCK(cluster_portals, cluster_portal);
+		Yelo::TagBlock<structure_cluster> clusters;
+		tag_data cluster_data;
+		tag_block cluster_portals;
 		PAD_TYPE(tag_block); // Useless? Removed in H2
 
-		TAG_BLOCK(breakable_surfaces, structure_breakable_surface);
-		TAG_BLOCK(fog_planes, s_structure_fog_plane);
-		TAG_TBLOCK(fog_regions, s_structure_fog_region);
-		TAG_TBLOCK(fog_palette, s_structure_fog_palette);
+		tag_block breakable_surfaces;
+		tag_block fog_planes;
+		Yelo::TagBlock<const s_structure_fog_region> fog_regions;
+		Yelo::TagBlock<const s_structure_fog_palette> fog_palette;
 		PAD_TYPE(tag_block); // Useless? Removed in H2
 		PAD_TYPE(tag_block); // Useless? Removed in H2
 
-		TAG_TBLOCK(weather_palette, structure_weather_palette_entry);
-		TAG_BLOCK(weather_polyhedra, structure_weather_polyhedron);
+		Yelo::TagBlock<const structure_weather_palette_entry> weather_palette;
+		tag_block weather_polyhedra;
 		PAD_TYPE(tag_block); // Useless? Removed in H2 (new block was added)
 		PAD_TYPE(tag_block); // Useless? Removed in H2 (new block was added)
 
-		TAG_TBLOCK(pathfinding_surfaces, byte);
-		TAG_TBLOCK(pathfinding_edges, byte);
+		Yelo::TagBlock<const byte> pathfinding_surfaces;
+		Yelo::TagBlock<const byte> pathfinding_edges;
 
-		TAG_TBLOCK(background_sound_palette, structure_background_sound_palette_entry);
-		TAG_TBLOCK(sound_environment_palette, structure_sound_environment_palette_entry);
-		TAG_FIELD(tag_data, sound_pas_data);
+		Yelo::TagBlock<const structure_background_sound_palette_entry> background_sound_palette;
+		Yelo::TagBlock<const structure_sound_environment_palette_entry> sound_environment_palette;
+		tag_data sound_pas_data;
 		PAD_TYPE(tag_block); // Useless? Removed in H2
 		PAD_TYPE(tag_block); // Useless? Removed in H2
 
-		TAG_BLOCK(markers, structure_marker);
-		TAG_BLOCK(detail_objects, structure_detail_object_data);
-		TAG_BLOCK(runtime_decals, structure_runtime_decal);
+		tag_block markers;
+		tag_block detail_objects;
+		tag_block runtime_decals;
 					 unsigned __int64 : 64; // Useless? Removed in H2
 		s_leaf_map leaf_map;
 

@@ -20,7 +20,7 @@ namespace Yelo
 			return m_quad;
 		}
 
-		uint32 c_quad_instance::GetRef()
+		uint c_quad_instance::GetRef()
 		{
 			return m_reference_count;
 		}

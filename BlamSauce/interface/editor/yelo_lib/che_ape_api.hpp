@@ -86,12 +86,12 @@ namespace Yelo
 		struct s_cache_header
 		{
 			tag Head;
-			uint32 Version;
+			uint Version;
 			tag EngineSignature;	// Signature for the engine this is for (eg, Halo1, Halo2, etc)
 			unsigned long : 32;
 
 			void* BaseAddress;
-			uint32 DataOffset;
+			uint DataOffset;
 			struct {
 				long Size;
 				void* Address;
@@ -113,7 +113,7 @@ namespace Yelo
 			unsigned long : 32;
 			unsigned long : 32;
 
-			uint32 Pad[495];
+			uint Pad[495];
 			tag Tail;
 
 			inline bool SignaturesValid() const	{ return Head == Enums::k_cheape_cache_header_signature && Tail == Enums::k_cheape_cache_footer_signature; }
@@ -148,6 +148,6 @@ namespace Yelo
 		 * \remarks
 		 * User code MUST 'delete' the memory pointed to by [buffer].
 		 */
-		bool GetCacheFileResourceBuffer(__out void*& buffer, __out uint32& size, __out uint32& compressed_size);
+		bool GetCacheFileResourceBuffer(__out void*& buffer, __out uint& size, __out uint& compressed_size);
 	};
 };

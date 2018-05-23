@@ -87,7 +87,7 @@ namespace Yelo { namespace TagGroups {
 			"tag" },
 		{ sizeof(short),				"enum",					k_short_integer_byte_swap_codes,
 			"short" },
-		{ sizeof(long_flags),			"long flags",			k_long_integer_byte_swap_codes,
+		{ sizeof(unsigned long),			"long flags",			k_long_integer_byte_swap_codes,
 			"long_flags" },
 		{ sizeof(unsigned short),			"word flags",			k_short_integer_byte_swap_codes,
 			"unsigned short" },

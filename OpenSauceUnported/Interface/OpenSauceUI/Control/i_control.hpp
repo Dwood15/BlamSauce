@@ -34,7 +34,7 @@ namespace Yelo
 			/// <summary>	Gets the resource identifier of the control. </summary>
 			///
 			/// <returns>	The controls resource identifier. </returns>
-			virtual uint32 GetResourceID() const = 0;
+			virtual uint GetResourceID() const = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Gets the controls bounds. </summary>
@@ -46,7 +46,7 @@ namespace Yelo
 			/// <summary>	Sets the resource identifier of the control. </summary>
 			///
 			/// <param name="resource_id">	Identifier for the control resource. </param>
-			virtual void SetResourceID(const uint32 resource_id) = 0;
+			virtual void SetResourceID(const uint resource_id) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Gets a raw pointer to an implementation specific control object. </summary>
@@ -82,7 +82,7 @@ namespace Yelo
 			/// <param name="interface_id">	The interface id. </param>
 			///
 			/// <returns>	null if it fails, else the property interface. </returns>
-			virtual i_property_interface* GetPropertyInterface(const uint32 interface_id) const = 0;
+			virtual i_property_interface* GetPropertyInterface(const uint interface_id) const = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Adds an event callback. </summary>
@@ -91,14 +91,14 @@ namespace Yelo
 			/// <param name="callback_id">	Identifier for the callback. </param>
 			/// <param name="callback">   	The callback function. </param>
 			/// <param name="userdata">   	[in] The userdata for the event. </param>
-			virtual void AddEventCallback(const uint32 event_id, const uint32 callback_id, const event_callback_t& function, void* userdata) = 0;
+			virtual void AddEventCallback(const uint event_id, const uint callback_id, const event_callback_t& function, void* userdata) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Removes an event callback. </summary>
 			///
 			/// <param name="event_id">   	Identifier for the event. </param>
 			/// <param name="callback_id">	The callback identifier. </param>
-			virtual void RemoveEventCallback(const uint32 event_id, const uint32 callback_id) = 0;
+			virtual void RemoveEventCallback(const uint event_id, const uint callback_id) = 0;
 		};
 	};};};
 };

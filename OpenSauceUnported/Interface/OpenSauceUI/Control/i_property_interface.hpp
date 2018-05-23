@@ -39,6 +39,6 @@ namespace Yelo
 		};
 		
 		/// <summary>	Defines an alias representing a property interface map. </summary>
-		typedef std::map<uint32, i_property_interface*> property_interface_map_t;
+		typedef std::map<uint, i_property_interface*> property_interface_map_t;
 	};};}
 };

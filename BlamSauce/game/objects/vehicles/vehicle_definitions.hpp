@@ -7,6 +7,8 @@
 #pragma once
 
 #include <blamlib/Halo1/units/unit_definitions.hpp>
+#include "../../../tags/group/markup.h"
+#include "../object_definitions.hpp"
 
 namespace Yelo
 {
@@ -78,64 +80,64 @@ namespace Yelo
 		{	
 			struct __flags
 			{
-				TAG_FLAG(speed_wakes_physics);
-				TAG_FLAG(turn_wakes_physics);
-				TAG_FLAG(driver_power_wakes_physics);
-				TAG_FLAG(gunner_power_wakes_physics);
-				TAG_FLAG(control_opposite_speed_sets_brake);
-				TAG_FLAG(slide_wakes_physics);
-				TAG_FLAG(kills_riders_at_terminal_velocity);
-				TAG_FLAG(causes_collision_damage);
-				TAG_FLAG(ai_weapon_cannot_rotate);
-				TAG_FLAG(ai_does_not_require_driver);
-				TAG_FLAG(ai_unused);
-				TAG_FLAG(ai_driver_enable);
-				TAG_FLAG(ai_driver_flying);
-				TAG_FLAG(ai_driver_can_sidestep);
-				TAG_FLAG(ai_driver_hovering);
-			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+				Yelo::long_flags speed_wakes_physics_bit:1;
+				Yelo::long_flags turn_wakes_physics_bit:1;
+				Yelo::long_flags driver_power_wakes_physics_bit:1;
+				Yelo::long_flags gunner_power_wakes_physics_bit:1;
+				Yelo::long_flags control_opposite_speed_sets_brake_bit:1;
+				Yelo::long_flags slide_wakes_physics_bit:1;
+				Yelo::long_flags kills_riders_at_terminal_velocity_bit:1;
+				Yelo::long_flags causes_collision_damage_bit:1;
+				Yelo::long_flags ai_weapon_cannot_rotate_bit:1;
+				Yelo::long_flags ai_does_not_require_driver_bit:1;
+				Yelo::long_flags ai_unused_bit:1;
+				Yelo::long_flags ai_driver_enable_bit:1;
+				Yelo::long_flags ai_driver_flying_bit:1;
+				Yelo::long_flags ai_driver_can_sidestep_bit:1;
+				Yelo::long_flags ai_driver_hovering_bit:1;
+			}; static_assert( sizeof(__flags) == sizeof(unsigned long) );
 
 			////////////////////////////////////////////////////////////////
 			// $$$ VEHICLE $$$
-			TAG_FIELD(__flags, flags);
-			TAG_ENUM(type, Enums::vehicle_type);
+			__flags flags;
+			short type;
 			unsigned short : 16;
-			TAG_FIELD(real, maximum_forward_speed);
-			TAG_FIELD(real, maximum_reverse_speed);
-			TAG_FIELD(real, speed_acceleration);
-			TAG_FIELD(real, speed_deceleration);
-			TAG_FIELD(real, maximum_left_turn);
-			TAG_FIELD(real, maximum_right_turn);
-			TAG_FIELD(real, wheel_circumference);
-			TAG_FIELD(real, turn_rate);
-			TAG_FIELD(real, blur_speed);
+			real maximum_forward_speed;
+			real maximum_reverse_speed;
+			real speed_acceleration;
+			real speed_deceleration;
+			real maximum_left_turn;
+			real maximum_right_turn;
+			real wheel_circumference;
+			real turn_rate;
+			real blur_speed;
 			short function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::vehicle_function_mode
-			TAG_PAD(long, 3);
-			TAG_FIELD(real, maximum_left_slide);
-			TAG_FIELD(real, maximum_right_slide);
-			TAG_FIELD(real, slide_acceleration);
-			TAG_FIELD(real, slide_deceleration);
-			TAG_FIELD(real, minimum_flipping_angular_velocity);
-			TAG_FIELD(real, maximum_flipping_angular_velocity);
-			TAG_PAD(long, 6);
-			TAG_FIELD(real, fixed_gun_yaw);
-			TAG_FIELD(real, fixed_gun_pitch);
-			TAG_PAD(long, 6);
-			TAG_FIELD(real, ai_sideslip_distance);
-			TAG_FIELD(real, ai_destination_radius);
-			TAG_FIELD(real, ai_avoidance_distance);
-			TAG_FIELD(real, ai_pathfinding_radius);
-			TAG_FIELD(real, ai_charge_repeat_timeout);
-			TAG_FIELD(real, ai_strafing_abort_range);
-			TAG_FIELD(angle_bounds, ai_oversteering_bounds);
-			TAG_FIELD(angle, ai_steering_maximum);
-			TAG_FIELD(real, ai_throttle_maximum);
-			TAG_FIELD(real, ai_move_position_time);
-			PAD32;
-			TAG_FIELD(tag_reference, suspension_sound, 'snd!');
-			TAG_FIELD(tag_reference, crash_sound, 'snd!');
-			TAG_FIELD(tag_reference, material_effects, 'foot');
-			TAG_FIELD(tag_reference, effect, 'effe');
+			long:8 * sizeof(long) * 3;
+			real maximum_left_slide;
+			real maximum_right_slide;
+			real slide_acceleration;
+			real slide_deceleration;
+			real minimum_flipping_angular_velocity;
+			real maximum_flipping_angular_velocity;
+			long:8 * sizeof(long) * 6;
+			real fixed_gun_yaw;
+			real fixed_gun_pitch;
+			long:8 * sizeof(long) * 6;
+			real ai_sideslip_distance;
+			real ai_destination_radius;
+			real ai_avoidance_distance;
+			real ai_pathfinding_radius;
+			real ai_charge_repeat_timeout;
+			real ai_strafing_abort_range;
+			angle_bounds ai_oversteering_bounds;
+			angle ai_steering_maximum;
+			real ai_throttle_maximum;
+			real ai_move_position_time;
+			unsigned long : 32;
+			tag_reference suspension_sound;
+			tag_reference crash_sound;
+			tag_reference material_effects;
+			tag_reference effect;
 		};
 
 		struct s_vehicle_definition : s_unit_definition

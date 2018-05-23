@@ -1,19 +1,12 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "../../tags/group/markup.h"
+#include "../../cseries/base.h"
 
-namespace Yelo
-{
-	namespace Enums
-	{
-		enum ui_widget_event_handler_function : short
-		{
+namespace Yelo {
+	namespace Enums {
+		enum ui_widget_event_handler_function : short {
 			_ui_widget_event_handler_function_null,
 			_ui_widget_event_handler_function_list_goto_next_item,
 			_ui_widget_event_handler_function_list_goto_previous_item,
@@ -208,8 +201,7 @@ namespace Yelo
 			k_number_of_ui_widget_event_handler_functions,
 		};
 
-		enum ui_widget_event : short
-		{
+		enum ui_widget_event : short {
 			_ui_widget_event_a_button,
 			_ui_widget_event_b_button,
 			_ui_widget_event_x_button,
@@ -249,32 +241,29 @@ namespace Yelo
 		};
 	};
 
-	namespace TagGroups
-	{
-		struct ui_widget_event_handler_reference
-		{
-			struct __flags
-			{
-				TAG_FLAG(close_current_widget);
-				TAG_FLAG(close_other_widget);
-				TAG_FLAG(close_all_widgets);
-				TAG_FLAG(open_widget);
-				TAG_FLAG(reload_self);
-				TAG_FLAG(reload_other_widget);
-				TAG_FLAG(give_focus_to_widget);
-				TAG_FLAG(run_function);
-				TAG_FLAG(replace_self_w_widget);
-				TAG_FLAG(go_back_to_previous_widget);
-				TAG_FLAG(run_scenario_script);
-				TAG_FLAG(try_to_branch_on_failure);
-			}; static_assert( sizeof(__flags) == sizeof(long_flags) );
+	namespace TagGroups {
+		struct ui_widget_event_handler_reference {
+			struct __flags {
+				Yelo::long_flags close_current_widget_bit:1;
+				Yelo::long_flags close_other_widget_bit:1;
+				Yelo::long_flags close_all_widgets_bit:1;
+				Yelo::long_flags open_widget_bit:1;
+				Yelo::long_flags reload_self_bit:1;
+				Yelo::long_flags reload_other_widget_bit:1;
+				Yelo::long_flags give_focus_to_widget_bit:1;
+				Yelo::long_flags run_function_bit:1;
+				Yelo::long_flags replace_self_w_widget_bit:1;
+				Yelo::long_flags go_back_to_previous_widget_bit:1;
+				Yelo::long_flags run_scenario_script_bit:1;
+				Yelo::long_flags try_to_branch_on_failure_bit:1;
+			}; static_assert(sizeof(__flags) == sizeof(unsigned long));
 
-			TAG_FIELD(__flags, flags);
-			TAG_ENUM(event_type, Enums::ui_widget_event);
-			TAG_ENUM(function, Enums::ui_widget_event_handler_function);
-			TAG_FIELD(tag_reference, widget_tag, 'DeLa');
-			TAG_FIELD(tag_reference, sound_effect, 'snd!');
-			TAG_FIELD(tag_string, script);
-		}; static_assert( sizeof(ui_widget_event_handler_reference) == 0x48 ); // max count: 32
+			__flags                                 flags;
+			Enums::ui_widget_event                  event_type;
+			Enums::ui_widget_event_handler_function function;
+			tag_reference                           widget_tag;
+			tag_reference                           sound_effect;
+			tag_string                              script;
+		}; static_assert(sizeof(ui_widget_event_handler_reference) == 0x48); // max count: 32
 	};
 };

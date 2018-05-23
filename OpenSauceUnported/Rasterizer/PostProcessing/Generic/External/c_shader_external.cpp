@@ -18,7 +18,7 @@ namespace Yelo
 			if(!filename_offset)
 				return;
 
-			uint32 index = CAST(uint32, filename_offset - path);
+			uint index = CAST(uint, filename_offset - path);
 			// include the path divider
 			index++;
 			strncpy_s(m_members_external.include_path, sizeof(m_members_external.include_path), path, index);

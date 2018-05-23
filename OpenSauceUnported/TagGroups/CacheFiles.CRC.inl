@@ -19,9 +19,9 @@
  * 
  * Calculates a map cache's crc for data already loaded in to memory.
  */
-uint32 CalculateCRC(void* cache_file)
+uint CalculateCRC(void* cache_file)
 {
-	uint32 CRC = 0xFFFFFFFF;
+	uint CRC = 0xFFFFFFFF;
 
 	// get pointers to the necessary cache data
 	auto* cache = CAST_PTR(s_cache_header*, cache_file);
@@ -34,9 +34,9 @@ uint32 CalculateCRC(void* cache_file)
 
 	// get the scenario tag
 	s_cache_tag_instance& scenario_tag_instance = tag_instances[tag_header->scenario_index.index];
-	auto* scenario_tag = CAST_PTR(TagGroups::scenario*, TAG_ADDRESS(orig, curr, (uint32)scenario_tag_instance.base_address));
+	auto* scenario_tag = CAST_PTR(TagGroups::scenario*, TAG_ADDRESS(orig, curr, (uint)scenario_tag_instance.base_address));
 
-	uint32 bsp_count = scenario_tag->structure_bsps.Count;
+	uint bsp_count = scenario_tag->structure_bsps.Count;
 	if(bsp_count != 0)
 	{
 		// can't access the block normally as its pointer is not correct for the cache's starting point
@@ -44,11 +44,11 @@ uint32 CalculateCRC(void* cache_file)
 			TAG_ADDRESS(orig, curr, (uintptr_t)scenario_tag->structure_bsps.Address));
 
 		// this isn't correct for non-PC maps apparently, but we ARE on a pc...AREN'T we
-		uint32 bsp_data_start = (uint32)cache + sizeof(s_cache_header);
+		uint bsp_data_start = (uint)cache + sizeof(s_cache_header);
 
 		// crc the data for all bsp's
-		uint32 bsp_data_offset = 0;
-		for(uint32 i = 0; i < bsp_count; i++)
+		uint bsp_data_offset = 0;
+		for(uint i = 0; i < bsp_count; i++)
 		{
 			long bsp_data_size = structure_bsps_block[i].bsp_data_size;
 			Memory::CRC(CRC, CAST_PTR(void*, bsp_data_start + bsp_data_offset), bsp_data_size);
@@ -77,11 +77,11 @@ uint32 CalculateCRC(void* cache_file)
  * 
  * Calculates a map cache's crc.
  */
-uint32 CalculateCRC(const char* cache_file_path, bool add_map_dir, bool add_extension)
+uint CalculateCRC(const char* cache_file_path, bool add_map_dir, bool add_extension)
 {
 	char map_path[MAX_PATH];
 
-	uint32 map_crc = 0xFFFFFFFF;
+	uint map_crc = 0xFFFFFFFF;
 
 	if(add_map_dir)
 	{

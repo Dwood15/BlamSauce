@@ -16,15 +16,15 @@ namespace Yelo
 	{
 		struct recorded_animation_definition
 		{
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(byte, version); // a Enums::e_recorded_animation_version, with +1  (to support NONE)
-			TAG_FIELD(sbyte, raw_animation_data);
-			TAG_FIELD(sbyte, unit_control_data_version);
+			tag_string name;
+			byte version; // a Enums::e_recorded_animation_version, with +1  (to support NONE)
+			sbyte raw_animation_data;
+			sbyte unit_control_data_version;
 			unsigned char : 8;
-			TAG_FIELD(short, length_of_animation);
+			short length_of_animation;
 			unsigned short : 16;
-			PAD32;
-			TAG_FIELD(tag_data, event_stream);
+			unsigned long : 32;
+			tag_data event_stream;
 
 			inline byte_enum ToRecordedAnimationVersion() const { return CAST(byte_enum, version) - 1; }
 		}; static_assert( sizeof(recorded_animation_definition) == 0x40 );

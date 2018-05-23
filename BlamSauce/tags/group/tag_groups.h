@@ -197,7 +197,7 @@ namespace blam {
 
 	void __cdecl tag_groups_dump_memory();
 
-	uint32 __cdecl tag_groups_checksum();
+	uint __cdecl tag_groups_checksum();
 
 	datum_index __cdecl find_tag_instance(tag group_tag, cstring name) {
 		for (auto instance : TagGroups::TagInstances()) {
@@ -247,11 +247,11 @@ namespace blam {
 
 	// Get the size in bytes of how much memory the tag definition [tag_index]
 	// consumes with all of its child data too
-	uint32 __cdecl tag_size(datum_index tag_index);
+	uint __cdecl tag_size(datum_index tag_index);
 
 	// Get the size in bytes of how much memory [block] consumes with all
 	// of its child data too
-	uint32 __cdecl tag_block_size(tag_block *block);
+	uint __cdecl tag_block_size(tag_block *block);
 
 	// Insert a new block element at [index] and return the index
 	// of the inserted element
@@ -372,7 +372,7 @@ namespace Yelo {
 		}
 
 		tag string_to_group_tag(cstring name) {
-			const uint32 _group = *((const uint32 *) name);
+			const uint _group = *((const uint *) name);
 			return (tag) ((_group >> 24) | ((_group >> 8) & 0xFF00) | (((_group << 8) & 0xFF0000) | ((_group << 24) & 0xFF000000)));
 		}
 

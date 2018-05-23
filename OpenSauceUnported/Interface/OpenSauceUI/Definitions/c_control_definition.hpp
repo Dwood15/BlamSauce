@@ -15,7 +15,7 @@ namespace Yelo
 		{
 		public:
 
-			Configuration::c_configuration_value<uint32> m_id;
+			Configuration::c_configuration_value<uint> m_id;
 			Configuration::c_configuration_value<std::string> m_type;
 			Configuration::c_configuration_container_list<c_control_property_definition> m_properties;
 			Configuration::c_configuration_container_list<c_control_definition> m_controls;
@@ -28,7 +28,7 @@ namespace Yelo
 			/// <summary>	Gets the resource id for the control. </summary>
 			///
 			/// <returns>	The controls resource id. </returns>
-			const uint32 GetID();
+			const uint GetID();
 
 		protected:
 			////////////////////////////////////////////////////////////////////////////////////////////////////

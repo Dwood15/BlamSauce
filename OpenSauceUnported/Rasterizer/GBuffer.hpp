@@ -79,7 +79,7 @@ namespace Yelo
 			TEXTURE_VERTEX	m_vertices[4];
 
 		public:
-			virtual HRESULT	AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height);
+			virtual HRESULT	AllocateResources(IDirect3DDevice9* device, uint width, uint height);
 			void			ReleaseResources();
 
 			void			OnLostDevice();
@@ -103,7 +103,7 @@ namespace Yelo
 			bool			m_normals_set;
 			bool			m_index_set;
 		public:
-			HRESULT			AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height);
+			HRESULT			AllocateResources(IDirect3DDevice9* device, uint width, uint height);
 			void			ReleaseResources();
 
 			void			Render(IDirect3DDevice9* device, short debug_target);
@@ -118,10 +118,10 @@ namespace Yelo
 			struct {
 				D3DXHANDLE clear_technique;
 				s_render_target_output output[k_maximum_multi_render_target];
-				uint32 count;
+				uint count;
 			}m_multi_rt;
 
-			HRESULT			AllocateResources(IDirect3DDevice9* device, uint32 width, uint32 height);
+			HRESULT			AllocateResources(IDirect3DDevice9* device, uint width, uint height);
 			void			ReleaseResources();
 
 			void			Render(IDirect3DDevice9* device);
@@ -156,7 +156,7 @@ namespace Yelo
 			static void Hook_RenderObjectList_ClearObjectIndex();
 			static void Hook_FirstPersonWeaponDraw_GetObjectIndex();
 			
-			static uint32					g_current_object_lod;
+			static uint					g_current_object_lod;
 			static void Hook_RenderObject_GetCurrentLOD();
 
 			static void Hook_CommandCameraSet();
@@ -174,7 +174,7 @@ namespace Yelo
 
 			struct {
 				s_render_target_output output[k_maximum_multi_render_target];
-				uint32 count;
+				uint count;
 			}m_multi_rt;
 
 			struct {

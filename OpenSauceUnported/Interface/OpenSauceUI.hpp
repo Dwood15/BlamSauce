@@ -23,13 +23,13 @@ namespace Yelo
 		/// <summary>	Shows a specific screen. </summary>
 		///
 		/// <param name="screen_id">	Identifier for the screen. </param>
-		void ShowScreen(const uint32 screen_id);
+		void ShowScreen(const uint screen_id);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Hides a specific screen. </summary>
 		///
 		/// <param name="screen_id">	Identifier for the screen. </param>
-		void HideScreen(const uint32 screen_id);
+		void HideScreen(const uint screen_id);
 
 		void Initialize3D(IDirect3DDevice9 *pDevice, D3DPRESENT_PARAMETERS *pPP);
 		void OnLostDevice();

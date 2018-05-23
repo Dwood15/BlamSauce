@@ -81,7 +81,7 @@ namespace Yelo {
 
 			k_number_of_unit_definition_flags
 		};
-		static_assert(k_number_of_unit_definition_flags <= BIT_COUNT(long_flags));
+		static_assert(k_number_of_unit_definition_flags <= BIT_COUNT(unsigned long));
 
 		enum unit_seat_definition_flags {
 			_unit_seat_invisable_bit,
@@ -112,64 +112,64 @@ namespace Yelo {
 
 			k_number_of_unit_seat_definition_flags_yelo,
 		};
-		static_assert(k_number_of_unit_seat_definition_flags_yelo <= BIT_COUNT(long_flags));
+		static_assert(k_number_of_unit_seat_definition_flags_yelo <= BIT_COUNT(unsigned long));
 	};
 
 	namespace TagGroups {
 		struct unit_seat_acceleration {
-			TAG_FIELD(real_vector3d, seat_acceleration_scale);
+			real_vector3d seat_acceleration_scale;
 			unsigned long : 32;
 			unsigned long : 32;
 			unsigned long : 32;
 		};
 
 		struct unit_hud_reference {
-			TAG_FIELD(tag_reference, unit_hud_interface, 'unhi');
-			TAG_PAD(uhr_pad0, long, 8); // 32
+			tag_reference unit_hud_interface;
+			byte uhr_pad0[sizeof(long) * (8)]; // 32
 		};
 
 		struct dialogue_variant_definition {
-			TAG_FIELD(short, varient_number, "variant number to use this dialogue with (must match the suffix in the permutations on the unit's model)");
+			short varient_number;
 			unsigned short : 16;
 			unsigned long : 32;
-			TAG_FIELD(tag_reference, dialogue, 'udlg');
+			tag_reference dialogue;
 		};
 
 		struct powered_seat_definition {
 			unsigned long : 32;
-			TAG_FIELD(real, driver_powerup_time, "seconds");
-			TAG_FIELD(real, driver_powerdown_time, "seconds");
-			TAG_PAD(psd_pad0, long, 14); // 56
+			real driver_powerup_time;
+			real driver_powerdown_time;
+			byte psd_pad0[sizeof(long) * (14)]; // 56
 		};
 
 		struct unit_initial_weapon {
-			TAG_FIELD(tag_reference, weapon, 'weap');
-			TAG_PAD(uiwpad0, long, 4); // 20
+			tag_reference weapon;
+			byte uiwpad0[sizeof(long) * (4)]; // 20
 		};
 
 		struct unit_seat {
-			TAG_FIELD(long_flags, flags, Flags::unit_seat_definition_flags);
-			TAG_FIELD(tag_string, label);
-			TAG_FIELD(tag_string, marker_name);
+			unsigned long flags;
+			tag_string label;
+			tag_string marker_name;
 			byte uspad0[sizeof(tag_string)]; // 32
-			TAG_FIELD(unit_seat_acceleration, acceleration);
+			unit_seat_acceleration acceleration;
 
-			TAG_FIELD(real, yaw_rate, "degrees per second");
-			TAG_FIELD(real, pitch_rate, "degrees per second");
+			real yaw_rate;
+			real pitch_rate;
 
-			TAG_FIELD(s_unit_camera, unit_camera);
-			TAG_TBLOCK(unit_hud_interface, unit_hud_reference);
+			s_unit_camera unit_camera;
+			Yelo::TagBlock<const unit_hud_reference> unit_hud_interface;
 			byte uspad01[sizeof(long)]; // 4
-			TAG_FIELD(short, hud_text_message_index);
+			short hud_text_message_index;
 			unsigned short : 16;
 
-			TAG_FIELD(real, yaw_min, "degrees");
-			TAG_FIELD(real, yaw_max, "degrees");
+			real yaw_min;
+			real yaw_max;
 
-			TAG_FIELD(tag_reference, built_in_gunner, 'actv');
+			tag_reference built_in_gunner;
 
-			TAG_TBLOCK(seat_extensions, unit_seat_extensions);
-			TAG_PAD(uspad02, long, 2); // 8
+			Yelo::TagBlock<const unit_seat_extensions> seat_extensions;
+			byte uspad02[sizeof(long) * (2)]; // 8
 
 		private:
 			bool Postprocess(Enums::tag_postprocess_mode mode, datum_index tag_index);
@@ -182,78 +182,78 @@ namespace Yelo {
 
 		//////////////////////////////////////////////////////////////////////////
 		struct _unit_definition {
-			TAG_FIELD(long_flags, flags, Flags::unit_definition_flags);
-			TAG_ENUM(default_team, unit_default_team);
-			TAG_ENUM(constant_sound_volume, ai_sound_volume);
+			unsigned long flags;
+			short default_team;
+			short constant_sound_volume;
 
-			TAG_FIELD(real, rider_damage_fraction, "what percent damage applied to us gets applied to our children (i.e., riders)");
+			real rider_damage_fraction;
 
-			TAG_FIELD(tag_reference, integrated_light_toggle, 'effe');
+			tag_reference integrated_light_toggle;
 
 			short function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::unit_function_mode
 
-			TAG_FIELD(real, camera_fov, "degrees");
-			TAG_FIELD(real, camera_stiffness);
-			TAG_FIELD(s_unit_camera, unit_camera);
+			real camera_fov;
+			real camera_stiffness;
+			s_unit_camera unit_camera;
 
-			TAG_FIELD(unit_seat_acceleration, acceleration);
+			unit_seat_acceleration acceleration;
 
-			TAG_FIELD(real, soft_ping_threshold);
-			TAG_FIELD(real, soft_ping_interrupt_time, "seconds");
+			real soft_ping_threshold;
+			real soft_ping_interrupt_time;
 
-			TAG_FIELD(real, hard_ping_threshold);
-			TAG_FIELD(real, hard_ping_interrupt_time, "seconds");
+			real hard_ping_threshold;
+			real hard_ping_interrupt_time;
 
-			TAG_FIELD(real, hard_death_threshold);
-			TAG_FIELD(real, feign_death_threshold);
-			TAG_FIELD(real, feign_death_time, "seconds");
+			real hard_death_threshold;
+			real feign_death_threshold;
+			real feign_death_time;
 
-			TAG_FIELD(real, distance_of_evade_anim, "world units", "this must be set to tell the AI how far it should expect our evade animation to move us");
-			TAG_FIELD(real, distance_of_dive_anim, "world units", "this must be set to tell the AI how far it should expect our dive animation to move us");
+			real distance_of_evade_anim;
+			real distance_of_dive_anim;
 			unsigned long : 32;
 
-			TAG_FIELD(real, stunned_movement_threshold, "if we take this much damage in a short space of time we will play our 'stunned movement' animations");
-			TAG_FIELD(real, feign_death_chance);
-			TAG_FIELD(real, feign_repeat_chance);
+			real stunned_movement_threshold;
+			real feign_death_chance;
+			real feign_repeat_chance;
 
-			TAG_FIELD(tag_reference, spawned_actor, "actv", "actor variant which we spawn when we are destroyed or self-destruct");
-			TAG_FIELD(short_bounds, spawned_actor_count, "", "number of actors which we spawn");
-			TAG_FIELD(real, spawned_velocity, "", "velocity at which we throw spawned actors");
+			tag_reference spawned_actor;
+			short_bounds spawned_actor_count;
+			real spawned_velocity;
 
-			TAG_FIELD(real, aiming_velocity_max, "degrees per second");
-			TAG_FIELD(real, aiming_acceleration_max, "degrees per second");
-			TAG_FIELD(real, casual_aiming_modifier, "[0,1]");
+			real aiming_velocity_max;
+			real aiming_acceleration_max;
+			real casual_aiming_modifier;
 
-			TAG_FIELD(real, looking_velocity_max, "degrees per second");
-			TAG_FIELD(real, looking_acceleration_max, "degrees per second");
+			real looking_velocity_max;
+			real looking_acceleration_max;
 			unsigned long : 32;
 			unsigned long : 32;
 
-			TAG_FIELD(real, ai_vehicle_radius, "radius around this unit that the AI tries to avoid when entering it as a vehicle (zero = use bounding sphere radius)");
-			TAG_FIELD(real, ai_danger_radius, "danger radius around this unit that the AI tries to avoid");
+			real ai_vehicle_radius;
+			real ai_danger_radius;
 
-			TAG_FIELD(tag_reference, melee_damage, 'jpt!');
+			tag_reference melee_damage;
 
-			TAG_ENUM(blip_type);
+			short blip_type;
 			unsigned short : 16;
 
-			TAG_TBLOCK(extensions, unit_extensions);
+			Yelo::TagBlock<const unit_extensions> extensions;
 
-			TAG_TBLOCK(new_hud_interfaces, unit_hud_reference);
-			TAG_TBLOCK(dialogue_variants, dialogue_variant_definition);
+			Yelo::TagBlock<const unit_hud_reference> new_hud_interfaces;
+			Yelo::TagBlock<const dialogue_variant_definition> dialogue_variants;
 
-			TAG_FIELD(real, grenade_velocity, "world units per second");
-			TAG_ENUM(grenade_type);
-			TAG_FIELD(short, grenade_count);
+			real grenade_velocity;
+			short grenade_type;
+			short grenade_count;
 
 			struct { // tag value * 30f
 				short soft;
 				short hard;
 			}     runtime_ping_interrupt_time;
 
-			TAG_TBLOCK(powered_seats, powered_seat_definition);
-			TAG_TBLOCK(weapons, unit_initial_weapon);
-			TAG_TBLOCK(seats, unit_seat);
+			Yelo::TagBlock<const powered_seat_definition> powered_seats;
+			Yelo::TagBlock<const unit_initial_weapon> weapons;
+			Yelo::TagBlock<const unit_seat> seats;
 
 			bool Postprocess(Enums::tag_postprocess_mode mode, datum_index tag_index);
 

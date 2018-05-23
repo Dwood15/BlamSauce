@@ -13,8 +13,8 @@ namespace Model
 	struct s_shader_feature_mix {
 		const _enum		feature_mask;
 		unsigned short : 16;
-		const uint32	shader_index_offset;
-		const uint32	shader_index_half_offset;
+		const uint	shader_index_offset;
+		const uint	shader_index_half_offset;
 		const char		feature_mix_id[64];
 	};
 
@@ -629,7 +629,7 @@ no_extension:
 		{
 			for(int j = 0; j < NUMBEROF(g_base_shader_list); j++)
 			{
-				uint32 id_index = (i * NUMBEROF(g_base_shader_list)) + j;
+				uint id_index = (i * NUMBEROF(g_base_shader_list)) + j;
 				strcat_s(g_shader_usage_id_list[id_index], 128, g_base_shader_list[j]);
 				strcat_s(g_shader_usage_id_list[id_index], 128, g_feature_mix_list[i].feature_mix_id);
 			}

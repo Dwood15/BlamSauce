@@ -17,7 +17,7 @@ namespace Yelo
 	{
 		bool c_screen_definition_registry::GetScreenDefinition(c_packed_file& ui_package, const std::string& screen_id, Definitions::c_screen_definition& output)
 		{
-			uint32 data_size = 0;
+			uint data_size = 0;
 			auto* data_ptr = CAST_PTR(cstring, ui_package.GetDataPointer(screen_id.c_str(), &data_size));
 
 			YELO_ASSERT_DISPLAY(data_ptr, "Failed to find a screen definition called %s", screen_id.c_str());

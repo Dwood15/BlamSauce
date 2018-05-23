@@ -9,7 +9,7 @@
 
 namespace Yelo::blam {
 
-	static bool __cdecl tag_file_open_impl(tag group_tag, cstring filename, _Out_opt_ bool *is_readonly, _Out_opt_ uint32 *crc, bool from_file_system) {
+	static bool __cdecl tag_file_open_impl(tag group_tag, cstring filename, _Out_opt_ bool *is_readonly, _Out_opt_ uint *crc, bool from_file_system) {
 		auto &globals = *TagGroups::TagFileGlobals();
 
 		if (!globals.SingleFileOpen(group_tag, filename, false, from_file_system) ||
@@ -62,11 +62,11 @@ namespace Yelo::TagGroups {
 		tag_string name;   // UNUSED in Halo
 
 		tag    group_tag;
-		uint32 crc;
+		uint crc;
 		long  offset;      // actual offset in the file
 		long  size;         // UNUSED in Halo
 
-		uint32 user_data;   // UNUSED in Halo
+		uint user_data;   // UNUSED in Halo
 		short  version;
 
 		sbyte foundation_tag_file_index;   // UNUSED in Halo
@@ -271,7 +271,7 @@ namespace Yelo::TagGroups {
 				return false;
 			}
 
-			long_flags permissions = for_writing
+			unsigned long permissions = for_writing
 											 ? FLAG(Flags::_permission_write_bit)
 											 : FLAG(Flags::_permission_read_bit);
 			if (!blam::file_open(single_file_reference, permissions)) {

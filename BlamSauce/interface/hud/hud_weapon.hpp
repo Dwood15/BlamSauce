@@ -31,7 +31,7 @@ namespace Yelo
 		struct s_hud_weapon_interface_crosshairs_state
 		{
 			game_ticks_t first_render_times[Enums::k_number_of_weapon_crosshair_types];
-			long_flags render_types_mask[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_weapon_crosshair_types)];
+			unsigned long render_types_mask[BIT_VECTOR_SIZE_IN_DWORDS(Enums::k_number_of_weapon_crosshair_types)];
 		}; static_assert( sizeof(s_hud_weapon_interface_crosshairs_state) == 0x50 );
 
 		struct s_hud_weapon_interface
@@ -43,7 +43,7 @@ namespace Yelo
 			}; static_assert( sizeof(s_local_player) == 0x78 );
 
 			s_local_player local_players[Enums::k_maximum_number_of_local_players];
-			long_flags show_flags;
+			unsigned long show_flags;
 		}; static_assert( sizeof(s_hud_weapon_interface) == 0x7C );
 		s_hud_weapon_interface*		HudWeaponInterface();
 	};

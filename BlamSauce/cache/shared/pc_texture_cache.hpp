@@ -1,19 +1,12 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include "../../cseries/base.h"
+#include <precompile.h>
 #include "../../memory/data_base.h"
 #include "../../tags/bitmap_grp.h"
 #include "../../hs/runtime.hpp"
 #include "../../scenario/scenario.h"
 #include "../../hs/hs.hpp"
 #include "../../hs/structures.hpp"
-
-struct IDirect3DBaseTexture9;
 
 namespace Yelo {
 	namespace Cache {

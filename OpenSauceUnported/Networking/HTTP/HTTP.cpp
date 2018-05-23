@@ -401,7 +401,7 @@ namespace Yelo
 			value_out.assign("");
 
 			// find a query with a matching field and returns its value
-			for(uint32 i = 0; i < m_query_count; i++)
+			for(uint i = 0; i < m_query_count; i++)
 			{
 				if(m_queries[i].m_field.compare(field) == 0)
 				{
@@ -694,7 +694,7 @@ namespace Yelo
 			if(m_query_count)
 			{
 				url_stream << "?";
-				for(uint32 i = 0; i < m_query_count; i++)
+				for(uint i = 0; i < m_query_count; i++)
 				{
 					if(i > 0) url_stream << "&";
 

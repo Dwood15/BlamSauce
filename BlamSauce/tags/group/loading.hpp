@@ -23,7 +23,7 @@ namespace Yelo::Enums {
 namespace Yelo {
 	// tags are terminated by a new line character
 	namespace blam {
-		bool tag_block_read_recursive(const tag_block_definition *definition, tag_block *block, long *position_reference, long_flags read_flags,
+		bool tag_block_read_recursive(const tag_block_definition *definition, tag_block *block, long *position_reference, unsigned long read_flags,
 			// NOTE: nonstandard parameters
 												datum_index tag_index);
 
@@ -110,7 +110,7 @@ namespace Yelo {
 		}
 
 		static bool tag_data_read_recursive(tag_data_definition *data_definition, void *block_element, tag_data *data,
-														long *position_reference, long_flags read_flags) {
+														long *position_reference, unsigned long read_flags) {
 			YELO_ASSERT(data_definition);
 			void *data_address = nullptr;
 			bool success       = false;
@@ -140,7 +140,7 @@ namespace Yelo {
 			return success;
 		}
 
-		static bool tag_references_resolve_recursive(tag_block_definition *definition, tag_block *block, long_flags read_flags) {
+		static bool tag_references_resolve_recursive(tag_block_definition *definition, tag_block *block, unsigned long read_flags) {
 			bool success = true;
 
 			for (auto element : *block) {
@@ -203,7 +203,7 @@ namespace Yelo {
 		}
 
 		static bool tag_reference_read_recursive(tag_reference_definition *definition, tag_reference *reference,
-															  long *position_reference, long_flags read_flags) {
+															  long *position_reference, unsigned long read_flags) {
 			// NOTE: engine doesn't ASSERT anything
 
 			if (reference->group_tag == 0) // handles cases were tag_reference fields were added to old useless padding
@@ -284,7 +284,7 @@ namespace Yelo {
 		}
 
 		bool tag_block_read_children_recursive(const tag_block_definition *definition, void *address, long count,
-															long *position_reference, long_flags read_flags,
+															long *position_reference, unsigned long read_flags,
 			// NOTE: nonstandard parameters
 															datum_index tag_index) {
 			bool success = true;
@@ -437,7 +437,7 @@ namespace Yelo {
 				instance->parent_group_tags[1] = NONE;
 		}
 
-		static bool tag_reference_resolve_recursive(tag_reference_definition *definition, tag_reference *reference, long_flags read_flags) {
+		static bool tag_reference_resolve_recursive(tag_reference_definition *definition, tag_reference *reference, unsigned long read_flags) {
 			datum_index tag_index = datum_index::null();
 			bool        success   = true;
 
@@ -462,7 +462,7 @@ namespace Yelo {
 		}
 
 		static bool tag_block_read_recursive(const tag_block_definition *definition, tag_block *block,
-														 long *position_reference, long_flags read_flags,
+														 long *position_reference, unsigned long read_flags,
 			// NOTE: nonstandard parameters
 														 datum_index tag_index) {
 			int count = block->count;
@@ -584,7 +584,7 @@ namespace Yelo {
 			return datum_index::null();
 		}
 
-		datum_index __cdecl tag_load(tag group_tag, cstring name, long_flags flags) {
+		datum_index __cdecl tag_load(tag group_tag, cstring name, unsigned long flags) {
 			YELO_ASSERT(name);
 
 			tag_group *group = tag_group_get(group_tag);
@@ -604,7 +604,7 @@ namespace Yelo {
 					break;
 
 				bool   is_readonly;
-				uint32 checksum;
+				uint checksum;
 				if (!tag_file_open(group_tag, name, &is_readonly, &checksum, TEST_FLAG(flags, Flags::_tag_load_from_file_system_bit))) {
 					tag_group_loading_add_non_loaded_tag(group_tag, name);
 

@@ -107,7 +107,7 @@ API_FUNC_NAKED void Detach(datum_index object_index)
 	API_FUNC_NAKED_END_CDECL(1)
 }
 
-API_FUNC_NAKED short FindInSphere(Flags::objects_find_flags find_flags, long_flags object_type_flags,
+API_FUNC_NAKED short FindInSphere(Flags::objects_find_flags find_flags, unsigned long object_type_flags,
 					const s_scenario_location& location, const real_point3d& center, real radius, 
 					datum_index object_indices[], short maximum_object_indices)
 {

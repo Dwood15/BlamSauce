@@ -20,7 +20,7 @@ namespace Yelo
 		struct s_player_control
 		{
 			datum_index unit_index;									// 0x0
-			long_flags control_flags;								// 0x4
+			unsigned long control_flags;								// 0x4
 			unsigned short : 16; // unknown field									// 0x8
 			unsigned short : 16; // unknown field									// 0xA
 			real_euler_angles2d	 desired_angles;					// 0xC
@@ -33,17 +33,17 @@ namespace Yelo
 			unsigned char : 8; // unknown field									// 0x27
 			datum_index target_object_index;						// 0x28
 			real autoaim_level;										// 0x2C
-			PAD32; // unknown field									// 0x30
-			PAD32;													// 0x34
-			PAD32; // unknown field									// 0x38
-			PAD32; // unknown field									// 0x3C
+			unsigned long : 32; // unknown field									// 0x30
+			unsigned long : 32;													// 0x34
+			unsigned long : 32; // unknown field									// 0x38
+			unsigned long : 32; // unknown field									// 0x3C
 		}; static_assert( sizeof(s_player_control) == 0x40 );
 
 		struct s_player_control_globals_data
 		{
-			long_flags action_flags[2]; // see "action_test" script functions
-			PAD32; // TODO: document the fields in the first 12 bytes of this struct
-			long_flags flags; // FLAG(0) = camera control
+			unsigned long action_flags[2]; // see "action_test" script functions
+			unsigned long : 32; // TODO: document the fields in the first 12 bytes of this struct
+			unsigned long flags; // FLAG(0) = camera control
 
 			s_player_control local_players[Enums::k_maximum_number_of_local_players];
 		}; static_assert( sizeof(s_player_control_globals_data) == 0x50 );

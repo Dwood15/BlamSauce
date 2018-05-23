@@ -41,7 +41,7 @@ namespace Yelo {
 			_object_header_unk7_bit,
 		};
 
-		enum objects_find_flags : long_flags {
+		enum objects_find_flags : unsigned long {
 			_objects_find_collideable_bit,
 			_objects_find_noncollideable_bit,
 		};
@@ -98,8 +98,8 @@ namespace Yelo::Objects {
 		short object_type_being_placed; // hs type
 		UNKNOWN_TYPE(short);
 		UNKNOWN_TYPE(datum_index);
-		long_flags pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];
-		long_flags pvs2[BIT_VECTOR_SIZE_IN_DWORDS(512)];
+		unsigned long pvs[BIT_VECTOR_SIZE_IN_DWORDS(512)];
+		unsigned long pvs2[BIT_VECTOR_SIZE_IN_DWORDS(512)];
 		long      last_garbage_collection_tick;               // 0x8C
 		// none = 0
 		// object = 1
@@ -274,7 +274,7 @@ namespace Yelo::blam {
 
 	void __cdecl object_start_interpolation(datum_index object_index, long interpolation_frame_count);
 
-	s_object_data *__cdecl object_try_and_get_and_verify_type(datum_index object_index, long_flags expected_types) {
+	s_object_data *__cdecl object_try_and_get_and_verify_type(datum_index object_index, unsigned long expected_types) {
 		s_object_data *object = object_get(object_index);
 
 		return object && object->VerifyType(expected_types) ? object : nullptr;
@@ -285,7 +285,7 @@ namespace Yelo::blam {
 		return CAST_PTR(T*, object_try_and_get_and_verify_type(object_index, T::k_object_types_mask));
 	}
 
-	s_object_iterator &object_iterator_new(s_object_iterator &iter, long_flags type_mask, Flags::object_header_flags ignore_flags) {
+	s_object_iterator &object_iterator_new(s_object_iterator &iter, unsigned long type_mask, Flags::object_header_flags ignore_flags) {
 		iter.signature    = s_object_iterator::k_signature;
 		iter.type_mask    = type_mask;
 		iter.ignore_flags = ignore_flags;
@@ -298,7 +298,7 @@ namespace Yelo::blam {
 	s_object_data *__cdecl object_iterator_next(s_object_iterator &iter);
 
 	short __cdecl objects_in_sphere(Flags::objects_find_flags find_flags,
-											  long_flags object_type_flags,
+											  unsigned long object_type_flags,
 											  const Yelo::Scenario::s_scenario_location &location,
 											  const real_point3d &center,
 											  real radius,
@@ -321,7 +321,7 @@ namespace Yelo::blam {
 
 	void __cdecl object_update(datum_index object_index);
 
-	s_object_data *object_get_and_verify_type(datum_index object_index, long_flags expected_types) {
+	s_object_data *object_get_and_verify_type(datum_index object_index, unsigned long expected_types) {
 		s_object_data *object = object_get(object_index);
 		YELO_ASSERT_DISPLAY(object->VerifyType(expected_types), "got an object type we didn't expect (expected one of 0x%08x but got #%d).", expected_types, (long_enum) object->type);
 
@@ -344,7 +344,7 @@ namespace Yelo::Objects {
 		c_object_iterator(const void *endHackDummy) : m_object(nullptr) { m_state.SetEndHack(); }
 
 	public:
-		c_object_iterator(long_flags type_mask, Flags::object_header_flags ignore_flags = (Flags::object_header_flags) 0) : m_object(nullptr) {
+		c_object_iterator(unsigned long type_mask, Flags::object_header_flags ignore_flags = (Flags::object_header_flags) 0) : m_object(nullptr) {
 			blam::object_iterator_new(m_state, type_mask, ignore_flags);
 		}
 

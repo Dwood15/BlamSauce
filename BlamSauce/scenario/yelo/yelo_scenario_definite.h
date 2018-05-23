@@ -1,14 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
-
-#include "../tags/group/markup.h"
-#include "../cseries/base.h"
-#include "../cseries/yelo_base.h"
-#include "../tags/group/base.h"
+#include <precompile.h>
+#include "yelo_global_definitions.h"
 
 namespace Yelo
 {
@@ -56,16 +48,21 @@ namespace Yelo
 
 	namespace TagGroups
 	{
+		struct _networking_flags {
+			unsigned long unused_bit:1;
+		};
+		static_assert( sizeof(_networking_flags) == sizeof(unsigned long) );
+
 
 		struct s_project_yellow_scenario_build_info
 		{
 			unsigned short : 16;
-			TAG_ENUM(build_stage, Enums::production_build_stage);
-			TAG_FIELD(uint32, revision);
+			Enums::production_build_stage build_stage;
+			uint revision;
 			time_t timestamp;			static_assert(sizeof(time_t) == 0x8);
 			byte uuid_buffer[Enums::k_uuid_buffer_size];
 
-			TAG_PAD(tpy_1299, long, 4); // 16
+			long:8 * sizeof(long) * 4; // 16
 
 			bool HasUuid() const { return false; }
 			void GenerateUuid() { return; }
@@ -85,34 +82,34 @@ namespace Yelo
 			static cstring k_default_name  = "i've got a lovely bunch of corncobs";
 
 			const short version;
-			TAG_FIELD(unsigned short, flags, Flags::project_yellow_flags);
+			unsigned short flags;
 
 
 			/* !-- Misc --! */
-			TAG_FIELD(tag_reference, yelo_globals, "gelo");
-			TAG_FIELD(tag_reference, game_globals, "matg");
-			TAG_FIELD(tag_reference, explicit_references, "tagc");
-			TAG_TBLOCK(build_info, s_project_yellow_scenario_build_info); // 1
+			tag_reference yelo_globals;
+			tag_reference game_globals;
+			tag_reference explicit_references;
+			Yelo::TagBlock<const s_project_yellow_scenario_build_info> build_info; // 1
 
-			TAG_PAD(tpy_0, long, 10); // 40
+			long:8 * sizeof(long) * 10; // 40
 			/* --- Misc --- */
 
 
 			/* !-- UI/GUI --! */
 			struct {
-				TAG_TBLOCK(scripted_widgets, s_project_yellow_scripted_ui_widget); // 128
+				Yelo::TagBlock<const s_project_yellow_scripted_ui_widget> scripted_widgets; // 128
 
-				TAG_PAD(tp_000, long, 4); // 16
+				long:8 * sizeof(long) * 4; // 16
 			}ui;
 			/* --- UI/GUI --- */
 
 
 			/* !-- Physics --! */
 			struct _physics {
-				TAG_FIELD(real, gravity_scale, "[0,2]", "amount to scale gravity ingame");
-				TAG_FIELD(real, player_speed_scale, "[0,6]", "amount to scale the player speeds");
+				real gravity_scale;
+				real player_speed_scale;
 
-				TAG_PAD(tpy_01, long, 5); // 20
+				long:8 * sizeof(long) * 5; // 20
 
 				bool IsGravityScaleValid() const {
 					return gravity_scale >= 0.0f || gravity_scale <= 2.0f;
@@ -135,39 +132,35 @@ namespace Yelo
 
 			/* !-- Netgame --! */
 			struct {
-				struct _networking_flags {
-					TAG_FLAG(unused);
-				}flags;	static_assert( sizeof(_networking_flags) == sizeof(long_flags) );
+				_networking_flags flags;
 
-				TAG_PAD(tpy_0123, long, 5); // 20
-			}networking;
+
+				long:8 * sizeof(long) * 5; // 20
+			} networking;
 			/* --- Netgame --- */
 
 
 			/* !-- Gameplay --! */
 			struct {
-				TAG_FIELD(long_flags, flags, Flags::project_yellow_gameplay_flags);
+				unsigned long flags;
 
-				TAG_PAD(tpy_032, long, 5); // 20
+				long:8 * sizeof(long) * 5; // 20
 			}gameplay;
 			/* !-- Gameplay --! */
 
 
 			/* !-- Scripting --! */
-			TAG_TBLOCK(user_scripting, s_scripting_definitions); // 1
+			Yelo::TagBlock<const s_scripting_definitions> user_scripting; // 1
 			/* !-- Scripting --! */
 
 
-			TAG_PAD(tpy_011, long, 23); // 92
+			long:8 * sizeof(long) * 23; // 92
 
-			project_yellow(const bool invalid = false)
-				: version(project_yellow::k_version)
-			{
+			project_yellow(const bool invalid = false) : version(project_yellow::k_version) {
 				flags = FLAG(Flags::_project_yellow_null_definition_bit);
 
-				if(invalid)
-				{
-					SET_FLAG(flags, Flags::_project_yellow_invalid_version_bit, true);
+				if(invalid) {
+					(flags) |= (1 << (Flags::_project_yellow_invalid_version_bit));
 				}
 
 				yelo_globals.tag_index = datum_index::null();

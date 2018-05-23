@@ -10,7 +10,7 @@ namespace Yelo
 		/// <param name="str">	The string to CRC. </param>
 		///
 		/// <returns>	The CRC for the string. </returns>
-		const uint32 CRCString(const char* str);
+		const uint CRCString(const char* str);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Verifies that the CRC for the provided string is correct. </summary>
@@ -19,7 +19,7 @@ namespace Yelo
 		/// <param name="crc">	The CRC to verify. </param>
 		///
 		/// <returns>	The provided CRC. </returns>
-		const uint32 VerifyCRC(const char* str, uint32 crc);
+		const uint VerifyCRC(const char* str, uint crc);
 
 		#define RESOURCE_ID_DEBUG(str) Yelo::Interface::OpenSauceUI::CRCString( (str) )
 		#define RESOURCE_ID(str, crc) Yelo::Interface::OpenSauceUI::VerifyCRC( (str), (crc) )

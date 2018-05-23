@@ -1,4 +1,6 @@
 #include <precompile.h>
+#include "../cseries/base.h"
+
 #pragma once
 //////////////////////////////////////////////////////////////////////////
 // Engine pointer markup system
@@ -34,7 +36,6 @@
 // Use this value for platforms where this pointer hasn't been located yet
 #define PTR_UNKNOWN         NULL
 // Use this value for platforms where this function does not matter
-#define FUNC_PTR_NULL      0xDEADC0DE
 // Use this value for platforms where this function hasn't been located yet
 #define FUNC_PTR_UNKNOWN   NULL
 // Use this value for platforms where this data does not matter
@@ -50,13 +51,13 @@
 #define GET_DATA_VPTR(name) (CAST_PTR(void*, PTR_##name ))
 
 // Double pointer inline get
-#define GET_DPTR2(name)      BOOST_PP_CAT(pp,name)
+#define GET_DPTR2(name)      pp##name)
 // Pointer inline get
-#define GET_PTR2(name)      BOOST_PP_CAT(p,name)
+#define GET_PTR2(name)      p##name
 // Double pointer inline dereference-get
-#define GET_DPTR(name)      ( *GET_DPTR2(name) )
+#define GET_DPTR(name)      ( * pp##name )
 // Pointer inline dereference-get
-#define GET_PTR(name)      ( *GET_PTR2(name) )
+#define GET_PTR(name)      ( * p##name) )
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// <summary>	Macro glue for getting a pointer to game engine data, with various levels of pointer asserts. </summary>
@@ -91,18 +92,12 @@
 // Bug must only occur when there's only one non-va-arg
 #define PLATFORM_VALUE_HACK_(args_list) PLATFORM_VALUE args_list
 
-#define ENGINE_DPTR(type, name, ...) static auto** const pp##name = CAST_PTR(type**, PLATFORM_VALUE(__VA_ARGS__)); static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
-
-#define ENGINE_PTR(type, name, ...) static auto* const p##name = CAST_PTR(type*, PLATFORM_VALUE(__VA_ARGS__));  static_assert( PLATFORM_VALUE(__VA_ARGS__) != NULL );
-
-#define FUNC_PTR(name, ...)  enum FUNC_PTR_##name  { PTR_##name = PLATFORM_VALUE_HACK_((__VA_ARGS__)) }; static_assert( GET_FUNC_PTR(name) != NULL );
+#define ENGINE_PTR(type, name, ...) static auto* const p##name = reinterpret_cast<type*>(__VA_ARGS__);  static_assert(__VA_ARGS__ != NULL );
 
 #define DATA_PTR(name, ...)                           \
    enum DATA_PTR_##name                           \
    { PTR_##name = PLATFORM_VALUE_HACK_((__VA_ARGS__)) };   \
    static_assert( GET_DATA_PTR(name) != NULL );
-
-#define DUO_PTR(name) (name) , (name)
 
 namespace Yelo {
 	namespace Enums {
@@ -576,7 +571,7 @@ namespace Yelo {
 			crc_reference = std::numeric_limits<unsigned long>::max();
 		}
 
-		inline uint32 crc_checksum_buffer(unsigned long &crc_reference, const void *buffer, long size) {
+		inline unsigned long crc_checksum_buffer(unsigned long &crc_reference, const void *buffer, long size) {
 			return Memory::CRC(crc_reference, buffer, size);
 		}
 	};

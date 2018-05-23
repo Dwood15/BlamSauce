@@ -162,12 +162,12 @@ namespace Yelo
 			return g_ui_package_present;
 		}
 
-		void ShowScreen(const uint32 screen_id)
+		void ShowScreen(const uint screen_id)
 		{
 			g_screen_display_manager->ShowScreen(screen_id);
 		}
 
-		void HideScreen(const uint32 screen_id)
+		void HideScreen(const uint screen_id)
 		{
 			g_screen_display_manager->HideScreen(screen_id);
 		}
@@ -183,7 +183,7 @@ namespace Yelo
 		/// <param name="screen_flags">   	The screen flags. </param>
 		/// <param name="toggle_key">	  	(Optional) The screens toggle key. </param>
 		template<typename ControllerType>
-		static void AddScreenController(const uint32 screen_id
+		static void AddScreenController(const uint screen_id
 			, cstring definition_name
 			, const Flags::osui_game_state loaded_states
 			, const Flags::osui_game_state active_states

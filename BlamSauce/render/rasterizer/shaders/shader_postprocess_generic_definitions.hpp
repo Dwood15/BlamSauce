@@ -45,7 +45,7 @@ namespace Yelo {
 	namespace TagGroups {
 		union s_shader_postprocess_value_union {
 			static const size_t k_sizeof = 36;
-			TAG_PAD(s_s_pp_v_upad0, byte, k_sizeof);
+			byte:8 * sizeof(byte) * k_sizeof;
 
 			struct s_base {
 				t_shader_variable_base handle;
@@ -54,14 +54,14 @@ namespace Yelo {
 			struct s_bitmap {
 				t_shader_variable_texture handle;
 
-				TAG_FIELD(unsigned short, bitmap_index);
+				unsigned short bitmap_index;
 				unsigned short : 16;
 			}                   bitmap;
 
 			struct s_bool {
 				t_shader_variable_bool handle;
 
-				TAG_FIELD(bool, enabled); // byte_flags
+				bool enabled; // byte_flags
 				bool                   inverse; // inverse value of 'enabled
 				unsigned short : 16;
 			}                   boolean;
@@ -69,72 +69,72 @@ namespace Yelo {
 			struct s_integer32 {
 				t_shader_variable_int handle;
 
-				TAG_FIELD(long, lower_bound);
-				TAG_FIELD(long, upper_bound);
+				long lower_bound;
+				long upper_bound;
 			}                   integer32;
 
 			struct s_real32 {
 				t_shader_variable_real handle;
 
-				TAG_FIELD(real, lower_bound);
-				PAD(byte, 12);
-				TAG_FIELD(real, upper_bound);
+				real lower_bound;
+				byte padbyte[12];
+				real upper_bound;
 			}                   real32;
 
 			struct s_real_vector2d {
 				t_shader_variable_real2d handle;
 
-				TAG_FIELD(real_vector2d, lower_bound);
-				PAD(byte, 8);
-				TAG_FIELD(real_vector2d, upper_bound);
+				real_vector2d lower_bound;
+				byte padbyte[8];
+				real_vector2d upper_bound;
 			}                   vector2d;
 
 			struct s_real_vector3d {
 				t_shader_variable_real3d handle;
 
-				TAG_FIELD(real_vector3d, lower_bound);
-				PAD(byte, 4);
-				TAG_FIELD(real_vector3d, upper_bound);
+				real_vector3d lower_bound;
+				byte padbyte[4];
+				real_vector3d upper_bound;
 			}                   vector3d;
 
 			struct s_real_vector4d {
 				t_shader_variable_real4d handle;
 
-				TAG_FIELD(real_quaternion, lower_bound);
-				TAG_FIELD(real_quaternion, upper_bound);
+				real_quaternion lower_bound;
+				real_quaternion upper_bound;
 			}                   vector4d;
 
 			struct s_real_color4d {
 				t_shader_variable_color handle;
 
-				TAG_FIELD(real_argb_color, lower_bound);
-				TAG_FIELD(real_argb_color, upper_bound);
+				real_argb_color lower_bound;
+				real_argb_color upper_bound;
 			}                   color4d;
 
 		}; static_assert(sizeof(s_shader_postprocess_value_union) == s_shader_postprocess_value_union::k_sizeof);
 
 		struct s_shader_postprocess_value_runtime_override {
-			TAG_FIELD(short, value);
+			short value;
 			struct _flags {
-				TAG_FLAG16(invert);
+				unsigned short invert_bit:1;
 			} flags;
 		};
 
 		struct s_shader_postprocess_value_animation_function {
-			TAG_ENUM(function, Enums::periodic_function);
+			short function;
 			struct _flags {
-				TAG_FLAG8(inverted);
-				TAG_FLAG8(multichannel_noise);
-				TAG_FLAG8(ignore_alpha);
+				Yelo::byte_flags inverted_bit:1;
+				Yelo::byte_flags multichannel_noise_bit:1;
+				Yelo::byte_flags ignore_alpha_bit:1;
 			} flags;   static_assert(sizeof(_flags) == sizeof(byte_flags));
 			unsigned char : 8;
 
-			TAG_FIELD(real, animation_duration);
-			TAG_FIELD(real, animation_rate);
+			real animation_duration;
+			real animation_rate;
 		}; static_assert(sizeof(s_shader_postprocess_value_animation_function) == 0xC);
 
 		struct s_shader_postprocess_value_base {
-			TAG_FIELD(tag_string, value_name);
+			tag_string value_name;
 
 			// set by tag post-processing code
 			shader_variable_type value_type;
@@ -145,13 +145,13 @@ namespace Yelo {
 		};
 
 		struct s_shader_postprocess_bitmap : s_shader_postprocess_value_base {
-			TAG_PAD(ss_pp_bmppad0, byte, 12);
-			TAG_FIELD(tag_reference, bitmap, 'bitm');
+			byte:8 * sizeof(byte) * 12;
+			tag_reference bitmap;
 		}; static_assert(sizeof(s_shader_postprocess_bitmap) == 0x1C + sizeof(s_shader_postprocess_value_base));
 
 		struct s_shader_postprocess_parameter : s_shader_postprocess_value_base {
 			struct {
-				TAG_FIELD(tag_reference, bitmap);
+				tag_reference bitmap;
 
 				union {
 					struct {
@@ -166,8 +166,8 @@ namespace Yelo {
 				} runtime;
 
 				struct {
-					TAG_FLAG16(is_loaded);
-					TAG_FLAG16(is_external);
+					unsigned short is_loaded_bit:1;
+					unsigned short is_external_bit:1;
 				} flags;
 				unsigned short : 16;
 			} bitmap_value;
@@ -192,14 +192,14 @@ namespace Yelo {
 		};
 
 		struct s_shader_postprocess_implementation {
-			TAG_TBLOCK_(bitmaps, s_shader_postprocess_bitmap);
-			TAG_TBLOCK_(bools, s_shader_postprocess_value_base);
-			TAG_TBLOCK_(integers, s_shader_postprocess_value_base);
-			TAG_TBLOCK_(floats, s_shader_postprocess_value_base);
-			TAG_TBLOCK_(float2s, s_shader_postprocess_value_base);
-			TAG_TBLOCK_(float3s, s_shader_postprocess_value_base);
-			TAG_TBLOCK_(float4s, s_shader_postprocess_value_base);
-			TAG_TBLOCK_(colors, s_shader_postprocess_value_base);
+			Yelo::TagBlock<s_shader_postprocess_bitmap> bitmaps;
+			Yelo::TagBlock<s_shader_postprocess_value_base> bools;
+			Yelo::TagBlock<s_shader_postprocess_value_base> integers;
+			Yelo::TagBlock<s_shader_postprocess_value_base> floats;
+			Yelo::TagBlock<s_shader_postprocess_value_base> float2s;
+			Yelo::TagBlock<s_shader_postprocess_value_base> float3s;
+			Yelo::TagBlock<s_shader_postprocess_value_base> float4s;
+			Yelo::TagBlock<s_shader_postprocess_value_base> colors;
 		}; static_assert(sizeof(s_shader_postprocess_implementation) == 0x60);
 
 		struct s_shader_postprocess_generic : s_shader_postprocess_definition {
@@ -207,10 +207,10 @@ namespace Yelo {
 			unsigned short : 16;
 			unsigned short : 16;
 
-			TAG_FIELD(tag_reference, base_shader, s_shader_postprocess_generic::k_group_tag);
-			TAG_TBLOCK_(parameters, s_shader_postprocess_parameter);
-			TAG_FIELD(s_shader_postprocess_implementation, implementation);
-			TAG_PAD(ss_pp_gena, byte, 36);
+			tag_reference base_shader;
+			Yelo::TagBlock<s_shader_postprocess_parameter> parameters;
+			s_shader_postprocess_implementation implementation;
+			byte:8 * sizeof(byte) * 36;
 
 			// for externally defined shaders
 			s_shader_postprocess_generic() {}

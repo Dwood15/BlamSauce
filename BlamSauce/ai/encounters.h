@@ -103,7 +103,7 @@ namespace Yelo {
 		constexpr auto maxLocation = Yelo::Enums::k_maximum_actor_starting_locations;
 		long_flags     required_locations[BIT_VECTOR_SIZE_IN_DWORDS(maxLocation)];
 		long_flags     unused_locations[BIT_VECTOR_SIZE_IN_DWORDS(maxLocation)];
-		PAD32;                  // Haven't checked what is here yet
+		unsigned long : 32;                  // Haven't checked what is here yet
 		short respawn_total;      // 0xC
 		unsigned short : 16;                  // I believe this is padding
 		bool automatic_migration;   // 0x10

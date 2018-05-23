@@ -1,9 +1,5 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
+#include <precompile.h>
 
 #include "../cseries/yelo_base.h"
 #include "../primary.h"
@@ -52,7 +48,7 @@ namespace Yelo {
 			byte_flags begin_flags; // NOTE: non-standard member
 			bool       canceled; // NOTE: non-standard member
 			unsigned char : 8;
-			uint32              crc;
+			uint              crc;
 			HANDLE              file_handle;
 			long               cache_stream_size;
 			s_data_file_globals data_files;
@@ -85,7 +81,7 @@ namespace Yelo {
 	namespace blam {
 		long build_cache_file_size();
 
-		uint32 build_cache_file_checksum();
+		uint build_cache_file_checksum();
 
 		bool build_cache_file_begin(cstring scenario_name,
 											 byte_flags flags);

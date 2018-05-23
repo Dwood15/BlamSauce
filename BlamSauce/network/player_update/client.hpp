@@ -51,12 +51,12 @@ namespace Yelo
 		{
 			bool initialized;
 			unsigned char : 8; unsigned short : 16;
-			uint32 current_update_id;
+			uint current_update_id;
 			unsigned long : 32;
 			struct {
 				Players::s_player_action actions[Enums::k_maximum_number_of_local_players];
 			}saved_action_collection;
-			uint32 ticks_to_apply_action_to;
+			uint ticks_to_apply_action_to;
 			unsigned long : 32;
 			long current_local_player;
 

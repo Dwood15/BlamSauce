@@ -23,7 +23,7 @@ namespace Yelo
 			{
 				c_effect_internal* effect;
 
-				uint32 shader_instance_count;
+				uint shader_instance_count;
 				c_shader_instance_generic* shader_instances;
 			};
 

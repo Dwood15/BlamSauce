@@ -25,6 +25,8 @@ set(HS_H
 
 set(ITEMS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions_yelo.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_structures_yelo.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_structures.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/items/garbage_definitions.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/items/item_definitions.hpp
@@ -34,8 +36,6 @@ set(ITEMS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/items/weapon_definitions.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/items/weapon_structures.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/items/weapons.hpp)
-
-
 
 add_subdirectory(ai)
 

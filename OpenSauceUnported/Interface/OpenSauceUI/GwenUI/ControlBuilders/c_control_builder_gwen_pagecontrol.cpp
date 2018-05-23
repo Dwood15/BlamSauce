@@ -840,19 +840,19 @@ namespace Yelo
 			{
 				auto& gwen_control = GWEN_CTRL_REF(PageControl, control.GetControlPtr());
 
-				output.m_uint32 = gwen_control.GetPageCount();
+				output.m_uint = gwen_control.GetPageCount();
 			},
 			[](Control::i_control& control, const Control::s_interface_value& value)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(PageControl, control.GetControlPtr());
 
-				gwen_control.SetPageCount(value.m_uint32);
+				gwen_control.SetPageCount(value.m_uint);
 			},
 			[](Control::i_control& control, cstring value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(PageControl, control.GetControlPtr());
 
-				uint32 value;
+				uint value;
 				ValueConversion::FromString(value_string, value);
 				gwen_control.SetPageCount(value);
 			}
@@ -996,7 +996,7 @@ namespace Yelo
 				{
 					auto& gwen_control = GWEN_CTRL_REF(PageControl, info.ControlCaller);
 
-					output.m_uint32 = gwen_control.GetPageNumber();
+					output.m_uint = gwen_control.GetPageNumber();
 				});
 			event_handlers[K_EVENT_FINISH_ID] = std::make_unique<c_event_handler_gwen>(gwen_control.onFinish);
 		}
@@ -1013,7 +1013,7 @@ namespace Yelo
 			gwen_control.SetPageCount(control_definition.m_pages.Get().size());
 
 			// Build the pages
-			for(uint32 i = 0; i < control_definition.m_pages.Get().size(); i++)
+			for(uint i = 0; i < control_definition.m_pages.Get().size(); i++)
 			{
 				auto& page = control_definition.m_pages.Get()[i];
 

@@ -49,7 +49,7 @@ namespace Yelo
 		class c_map_element : public LinkedListNode<c_map_element>
 		{
 			HANDLE			m_access_mutex;
-			volatile uint32	m_lock_count;
+			volatile uint	m_lock_count;
 
 		public:
 			std::string		m_name;
@@ -80,7 +80,7 @@ namespace Yelo
 				m_parts = nullptr;
 			}
 
-			uint32	LockCount()
+			uint	LockCount()
 			{
 				return m_lock_count;
 			}
@@ -201,7 +201,7 @@ namespace Yelo
 				return true;
 			}
 
-			c_map_element* GetDefinitionByIndex(uint32 index)
+			c_map_element* GetDefinitionByIndex(uint index)
 			{
 				if(!Lock())
 				{
@@ -209,7 +209,7 @@ namespace Yelo
 					return false;
 				}
 
-				uint32 map_count = GetListLength(m_map_part_definitions);
+				uint map_count = GetListLength(m_map_part_definitions);
 
 				c_map_element* map_element = nullptr;
 
@@ -236,7 +236,7 @@ namespace Yelo
 			char					m_map_part_definitions_path[MAX_PATH];
 			char					m_host_address[k_max_host_url_length];
 
-			volatile uint32			m_requests_in_progress; // TODO: why not move this to after m_flags and get rid of the PAD8?
+			volatile uint			m_requests_in_progress; // TODO: why not move this to after m_flags and get rid of the PAD8?
 		};
 		static c_map_download_globals		g_map_download_globals;
 		static std::map<char, c_map_part_definition_list>	g_map_part_definition_lists;

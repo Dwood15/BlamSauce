@@ -45,7 +45,7 @@ namespace Yelo
 
 		struct s_biped_data
 		{
-			long_flags flags;								// 0x4CC
+			unsigned long flags;								// 0x4CC
 			UNKNOWN_TYPE(byte);								// 0x4D0
 			UNKNOWN_TYPE(byte);								// 0x4D1
 			Enums::biped_movement_state movement_state;		// 0x4D2

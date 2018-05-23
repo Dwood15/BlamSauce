@@ -35,7 +35,7 @@ namespace Yelo
 				Enums::http_client_component	m_component;
 				void*							m_component_data;
 				byte*							m_buffer;
-				uint32							m_buffer_size;
+				uint							m_buffer_size;
 				bool							m_delete_buffer;
 				bool							m_blocking;
 				bool							m_manual_think;
@@ -75,8 +75,8 @@ namespace Yelo
 
 				struct
 				{
-					uint32	max_attempts;
-					uint32	current_attempt;
+					uint	max_attempts;
+					uint	current_attempt;
 					real	retry_delay;
 					real	elapsed;
 				}m_attempts;

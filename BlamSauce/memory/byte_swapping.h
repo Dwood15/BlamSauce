@@ -2,8 +2,7 @@
 
 #include "byte_swapping_base.h"
 
-namespace Yelo {
-	namespace blam {
+namespace Yelo::blam {
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Byte swap 1 or more structures at a given address. </summary>
 		/// <remarks>	Initializes the definition if it hasn't been already. </remarks>

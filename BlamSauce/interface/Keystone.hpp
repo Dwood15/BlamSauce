@@ -14,7 +14,7 @@ namespace Yelo::Keystone {
 		cstring chatlog_log;
 		FILE    *log;
 	}                             keystone_globals;
-	uint32 __cdecl HandleMessage(void* arg0, HANDLE window_handle, void* arg2, const MSG* message);
+	uint __cdecl HandleMessage(void* arg0, HANDLE window_handle, void* arg2, const MSG* message);
 	void OnChatAddString(wcstring string); // forward declare
 
 	void SendMessageUpdateEAX()
@@ -210,7 +210,7 @@ namespace Yelo::Keystone {
 
 	API_FUNC_NAKED                LRESULT
 
-	ControlSendMessage(void *control, uint32 msg, WPARAM wParam, LPARAM lParam) {
+	ControlSendMessage(void *control, uint msg, WPARAM wParam, LPARAM lParam) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KC_SENDMESSAGE);
 
 		API_FUNC_NAKED_START()
@@ -223,7 +223,7 @@ namespace Yelo::Keystone {
 		API_FUNC_NAKED_END_CDECL(4)
 	}
 
-	API_FUNC_NAKED                uint32
+	API_FUNC_NAKED                uint
 
 	KsTranslateAccelerator(void *arg0, HANDLE window_handle, void *arg2, const MSG *message) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KS_TRANSLATEACCELERATOR);
@@ -274,8 +274,8 @@ namespace Yelo::Keystone {
 		/// <param name="message">	   	The windows message. </param>
 		///
 		/// <returns>	true if the message was handled, false if not. </returns>
-		static uint32 __cdecl HandleMessage(void *arg0, HANDLE window_handle, void *arg2, const MSG *message) {
-			uint32 value = KsTranslateAccelerator(arg0, window_handle, arg2, message);
+		static uint __cdecl HandleMessage(void *arg0, HANDLE window_handle, void *arg2, const MSG *message) {
+			uint value = KsTranslateAccelerator(arg0, window_handle, arg2, message);
 
 			for (auto entry : g_message_pump_globals.m_message_handlers) {
 				entry->HandleMessage(message);

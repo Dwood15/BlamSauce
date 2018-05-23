@@ -22,17 +22,17 @@ namespace Yelo
 		struct s_message_delta_parameters
 		{
 			struct s_locality_reference_position {
-				uint32 bits_per_component_full;		// 25, beta used 20
-				uint32 bits_per_component_delta;	// 9
+				uint bits_per_component_full;		// 25, beta used 20
+				uint bits_per_component_delta;	// 9
 				real delta_cutoff_distance;			// 8.0
 				real minimum_move_distance;			// 0.0099999998
-				uint32 bits_per_component_lan;		// 31, this wasn't in the beta
+				uint bits_per_component_lan;		// 31, this wasn't in the beta
 			}locality;
 
 			struct s_item_placement {
-				uint32 bits_x; // 20
-				uint32 bits_y; // 20
-				uint32 bits_z; // 30
+				uint bits_x; // 20
+				uint bits_y; // 20
+				uint bits_z; // 30
 			}item_placement;
 		}; static_assert( sizeof(s_message_delta_parameters) == 0x20 );
 

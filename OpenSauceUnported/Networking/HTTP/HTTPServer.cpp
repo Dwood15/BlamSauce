@@ -464,7 +464,7 @@ namespace Yelo
 		 * 
 		 * Sends a response formatted to the HTTP standard with a status code, optional headers and an optional body, to the client.
 		 */
-		void SendResponse(mg_connection* connection, const Enums::http_status_code status, c_http_header* header, const char* body, const uint32 body_length)
+		void SendResponse(mg_connection* connection, const Enums::http_status_code status, c_http_header* header, const char* body, const uint body_length)
 		{
 			mg_request_info* request_info = mg_get_request_info(connection);
 

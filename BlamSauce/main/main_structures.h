@@ -1,21 +1,15 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
-
+#include <precompile.h>
 #include "main.h"
+#include "../cseries/base.h"
 
 #pragma pack(push, 1)
-namespace Yelo {
-	namespace GameState {
+namespace Yelo::GameState {
 		struct s_screenshot {
 			short counter;      //0x0
 			void  *movie;      //0x2 screenshot bitmap
-			PAD32;            //0x6
-			PAD32;            //0xA
+			unsigned long : 32;            //0x6
+			unsigned long : 32;            //0xA
 			long movie_frame_index; //0xC
 			real  unknown; //0x10
 		}; static_assert(sizeof(s_screenshot) == 0x14);
@@ -52,7 +46,7 @@ namespace Yelo {
 
 		struct s_main_globals {
 			UNKNOWN_TYPE(uint); // time related
-			PAD32;
+			unsigned long : 32;
 			LARGE_INTEGER performance_counter;
 			UNKNOWN_TYPE(bool);
 			bool is_taking_screenshot;
@@ -94,7 +88,7 @@ namespace Yelo {
 			UNKNOWN_TYPE(tag_string);
 			PAD(0, 8 + 1); // char[8+1]
 			unsigned char : 8;
-			PAD32;
+			unsigned long : 32;
 
 			void QuitToMainMenu() {
 				map.switch_to_structure_bsp = NONE;
@@ -110,5 +104,4 @@ namespace Yelo {
 
 		static_assert(sizeof(s_main_globals) == 0x3A0);
 	};
-};
 #pragma pack(pop)

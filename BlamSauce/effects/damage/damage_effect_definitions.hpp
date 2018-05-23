@@ -72,67 +72,67 @@ namespace Yelo
 	{
 		struct s_damage_effect
 		{
-			TAG_FIELD(real_bounds, radius);
-			TAG_FIELD(real_fraction, cutoff_scale);
-			TAG_FIELD(long_flags, flags); // not exposed for continuous_damage_effect
-			TAG_PAD(long, 5);
+			real_bounds radius;
+			real_fraction cutoff_scale;
+			unsigned long flags; // not exposed for continuous_damage_effect
+			long:8 * sizeof(long) * 5;
 		}; static_assert( sizeof(s_damage_effect) == 0x24 );
 
 		struct s_damage_camera_effect
 		{
-			PAD32;
-			TAG_PAD(long, 3);
-			TAG_FIELD(real, shake_duration); // not exposed for continuous_damage_effect
-			TAG_ENUM(shake_falloff_function, Enums::transition_function); // not exposed for continuous_damage_effect
+			unsigned long : 32;
+			long:8 * sizeof(long) * 3;
+			real shake_duration; // not exposed for continuous_damage_effect
+			short shake_falloff_function; // not exposed for continuous_damage_effect
 			unsigned short : 16;
 
-			TAG_FIELD(real, random_translation);
-			TAG_FIELD(real, random_rotation);
-			TAG_PAD(long, 3);
+			real random_translation;
+			real random_rotation;
+			long:8 * sizeof(long) * 3;
 
-			TAG_ENUM(wobble_function, Enums::periodic_function);
+			short wobble_function;
 			unsigned short : 16;
-			TAG_FIELD(real, wobble_period);
-			TAG_FIELD(real_fraction, wobble_weight);
-			PAD32;
+			real wobble_period;
+			real_fraction wobble_weight;
+			unsigned long : 32;
 
-			TAG_PAD(long, 5);
-			TAG_PAD(long, 2);
+			long:8 * sizeof(long) * 5;
+			long:8 * sizeof(long) * 2;
 		}; static_assert( sizeof(s_damage_camera_effect) == 0x58 );
 
 		struct s_damage_breaking_effect
 		{
-			TAG_PAD(long, 28);
+			long:8 * sizeof(long) * 28;
 
 			struct {
-				TAG_FIELD(real, velocity);
-				TAG_FIELD(real, radius);
-				TAG_FIELD(real, exponent);
-				TAG_PAD(long, 3);
+				real velocity;
+				real radius;
+				real exponent;
+				long:8 * sizeof(long) * 3;
 			}forward, outward;
 		}; static_assert( sizeof(s_damage_breaking_effect) == 0xA0 );
 
 		struct s_damage_definition
 		{
-			TAG_ENUM(side_effect, Enums::damage_side_effect);
-			TAG_ENUM(category, Enums::damage_category);
-			TAG_FIELD(long_flags, flags);
-			TAG_FIELD(real, area_of_effect_core_radius); // not exposed for continuous_damage_effect
-			TAG_FIELD(real, damage_lower_bound);
-			TAG_FIELD(real_bounds, damage_upper_bound);
-			TAG_FIELD(real, vehicle_pass_through_penalty);
-			TAG_FIELD(real, active_camo_damage); // not exposed for continuous_damage_effect
-			TAG_FIELD(real, stun);
-			TAG_FIELD(real, max_stun);
-			TAG_FIELD(real, stun_time);
-			PAD32;
+			short side_effect;
+			short category;
+			unsigned long flags;
+			real area_of_effect_core_radius; // not exposed for continuous_damage_effect
+			real damage_lower_bound;
+			real_bounds damage_upper_bound;
+			real vehicle_pass_through_penalty;
+			real active_camo_damage; // not exposed for continuous_damage_effect
+			real stun;
+			real max_stun;
+			real stun_time;
+			unsigned long : 32;
 
 			union {
-				TAG_FIELD(real, instantaneous_acceleration);
-				//PAD32; PAD32;
+				real instantaneous_acceleration;
+				//unsigned long : 32; unsigned long : 32;
 
 				// modifies instantaneous_acceleration to support specifying the j & k component acceleration
-				TAG_FIELD(real_vector3d, instantaneous_acceleration3d);
+				real_vector3d instantaneous_acceleration3d;
 			};
 
 			bool UseInstantaneousAcceleration3D() const
@@ -144,7 +144,7 @@ namespace Yelo
 		struct s_damage_modifiers
 		{
 			real modifier[Enums::k_number_of_material_types];
-			TAG_PAD(long, 7);
+			long:8 * sizeof(long) * 7;
 		}; static_assert( sizeof(s_damage_modifiers) == 0xA0 );
 
 		struct s_damage_effect_definition
@@ -152,43 +152,43 @@ namespace Yelo
 			enum { k_group_tag = 'jpt!' };
 
 			struct s_duration_function {
-				TAG_FIELD(real, duration);
-				TAG_ENUM(fade_function, Enums::transition_function);
+				real duration;
+				short fade_function;
 				unsigned short : 16;
 
-				TAG_FIELD(angle, rotation); // these are only exposed for camera impulse freq
-				TAG_FIELD(real, pushback);
+				angle rotation; // these are only exposed for camera impulse freq
+				real pushback;
 			};
 
 			s_damage_effect damage_effect;
 
 			struct s_screen_flash {
-				TAG_ENUM(type, );
-				TAG_ENUM(priority, );
-				TAG_PAD(long, 3);
+				short type;
+				short priority;
+				long:8 * sizeof(long) * 3;
 
 				s_duration_function function;
-				TAG_FIELD(real_fraction, max_intensity);
-				PAD32;
-				TAG_FIELD(real_argb_color, color);
+				real_fraction max_intensity;
+				unsigned long : 32;
+				real_argb_color color;
 			}screen_flash;
 
 			struct s_rumble_frequency {
-				TAG_FIELD(real_fraction, frequency);
+				real_fraction frequency;
 				s_duration_function function;
 			} rumble_low, rumble_high;
-			TAG_PAD(s_rumble_frequency, 1);
+			s_rumble_frequency:8 * sizeof(s_rumble_frequency) * 1;
 
 			struct s_camera_impulse_frequency {
 				s_duration_function function;
-				TAG_FIELD(real_bounds, jitter);
-				PAD32; PAD32;
+				real_bounds jitter;
+				unsigned long : 32; unsigned long : 32;
 			}temp_camera_impulse;
-			TAG_FIELD(angle, perm_camera_impulse_angle);
+			angle perm_camera_impulse_angle;
 
 			s_damage_camera_effect damage_camera_effect;
 
-			TAG_FIELD(tag_reference, sound, 'snd!');
+			tag_reference sound;
 
 			s_damage_breaking_effect breaking_effect;
 			s_damage_definition damage;
@@ -202,7 +202,7 @@ namespace Yelo
 
 			s_damage_effect damage_effect;
 
-			TAG_FIELD(real_fraction_bounds, vibrate_frequency);
+			real_fraction_bounds vibrate_frequency;
 			s_damage_camera_effect damage_camera_effect;
 			s_damage_breaking_effect breaking_effect; // not exposed
 			s_damage_definition damage;

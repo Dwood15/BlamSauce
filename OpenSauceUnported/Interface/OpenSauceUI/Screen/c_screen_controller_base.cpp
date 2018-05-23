@@ -129,7 +129,7 @@ namespace Yelo
 #pragma endregion
 		
 #pragma region Property Setup
-		void c_screen_controller_base::FindControl(const uint32 control_id, Control::control_ptr_t& control_out)
+		void c_screen_controller_base::FindControl(const uint control_id, Control::control_ptr_t& control_out)
 		{
 			// Get the control from the screen by it's resource id
 			auto control = m_target_screen->GetControl(control_id);
@@ -139,8 +139,8 @@ namespace Yelo
 			control_out = control;
 		}
 
-		void c_screen_controller_base::FindControlAndProperty(const uint32 control_id
-			, const uint32 property_id
+		void c_screen_controller_base::FindControlAndProperty(const uint control_id
+			, const uint property_id
 			, Control::control_ptr_t& control_out
 			, Control::i_property_interface*& property_out)
 		{
@@ -155,7 +155,7 @@ namespace Yelo
 		}
 
 		template<typename Type>
-		void c_screen_controller_base::SetControlPropertyImpl(const uint32 control_id, const uint32 property_id, const Type value)
+		void c_screen_controller_base::SetControlPropertyImpl(const uint control_id, const uint property_id, const Type value)
 		{
 			// Get the property and control
 			Control::control_ptr_t control;
@@ -167,7 +167,7 @@ namespace Yelo
 		}
 
 		template<>
-		void c_screen_controller_base::SetControlPropertyImpl<cstring>(const uint32 control_id, const uint32 property_id, cstring value)
+		void c_screen_controller_base::SetControlPropertyImpl<cstring>(const uint control_id, const uint property_id, cstring value)
 		{
 			// Get the property and control
 			Control::control_ptr_t control;
@@ -178,27 +178,27 @@ namespace Yelo
 			property->Set(*control, value);
 		}
 
-		void c_screen_controller_base::SetControlProperty(const uint32 control_id, const uint32 property_id, const bool value)
+		void c_screen_controller_base::SetControlProperty(const uint control_id, const uint property_id, const bool value)
 		{
 			SetControlPropertyImpl<bool>(control_id, property_id, value);
 		}
 
-		void c_screen_controller_base::SetControlProperty(const uint32 control_id, const uint32 property_id, const long value)
+		void c_screen_controller_base::SetControlProperty(const uint control_id, const uint property_id, const long value)
 		{
 			SetControlPropertyImpl<long>(control_id, property_id, value);
 		}
 
-		void c_screen_controller_base::SetControlProperty(const uint32 control_id, const uint32 property_id, const real value)
+		void c_screen_controller_base::SetControlProperty(const uint control_id, const uint property_id, const real value)
 		{
 			SetControlPropertyImpl<real>(control_id, property_id, value);
 		}
 
-		void c_screen_controller_base::SetControlProperty(const uint32 control_id, const uint32 property_id, cstring value)
+		void c_screen_controller_base::SetControlProperty(const uint control_id, const uint property_id, cstring value)
 		{
 			SetControlPropertyImpl<cstring>(control_id, property_id, value);
 		}
 
-		void c_screen_controller_base::AddDynamicProperty(const uint32 control_id, const uint32 property_id, const dynamic_property_update_t& update)
+		void c_screen_controller_base::AddDynamicProperty(const uint control_id, const uint property_id, const dynamic_property_update_t& update)
 		{
 			// Get the property and control
 			Control::control_ptr_t control;
@@ -211,7 +211,7 @@ namespace Yelo
 #pragma endregion
 
 #pragma region Event Setup
-		void c_screen_controller_base::AttachEvent(const uint32 control_id, const uint32 event_id, const uint32 callback_id, void* userdata, Control::event_callback_t function)
+		void c_screen_controller_base::AttachEvent(const uint control_id, const uint event_id, const uint callback_id, void* userdata, Control::event_callback_t function)
 		{
 			// Find the control by it's resource id then attach a callback function to the referenced event
 			auto control = m_target_screen->GetControl(control_id);
@@ -221,7 +221,7 @@ namespace Yelo
 			control->AddEventCallback(event_id, callback_id, function, userdata);
 		}
 
-		void c_screen_controller_base::DetachEvent(const uint32 control_id, const uint32 event_id, const uint32 callback_id)
+		void c_screen_controller_base::DetachEvent(const uint control_id, const uint event_id, const uint callback_id)
 		{
 			// Find the control by it's resource id then remove a callback function referenced by it's id
 			auto control = m_target_screen->GetControl(control_id);

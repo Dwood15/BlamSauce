@@ -32,7 +32,7 @@ namespace Yelo
 			: m_callbacks()
 		{ }
 
-		void c_event_handler::AddCallback(const uint32 callback_id, const event_callback_t& function, void* userdata)
+		void c_event_handler::AddCallback(const uint callback_id, const event_callback_t& function, void* userdata)
 		{
 			// Check that the callback has not already been added
 			auto entry = std::find_if(m_callbacks.begin(), m_callbacks.end(),
@@ -57,7 +57,7 @@ namespace Yelo
 			}
 		}
 
-		void c_event_handler::RemoveCallback(const uint32 callback_id)
+		void c_event_handler::RemoveCallback(const uint callback_id)
 		{
 			// Check that the callback exists
 			auto entry = std::find_if(m_callbacks.begin(), m_callbacks.end(),

@@ -39,11 +39,11 @@ namespace Yelo
 	{
 		struct s_sound_permutation
 		{
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(real, skip_fraction);
-			TAG_FIELD(real, gain);
-			TAG_FIELD(short, compression);
-			TAG_FIELD(short, next_permutation_index);
+			tag_string name;
+			real skip_fraction;
+			real gain;
+			short compression;
+			short next_permutation_index;
 
 			datum_index cache_block_index;		// 0x2C
 			void* cache_base_address;			// 0x30
@@ -55,64 +55,64 @@ namespace Yelo
 
 			// samples' tag_data flags
 			enum { _samples_in_data_file_bit = 0 }; // data is in the sounds data file, not the cache file
-			TAG_FIELD(tag_data, samples);
+			tag_data samples;
 
-			TAG_FIELD(tag_data, mouth_data);
-			TAG_FIELD(tag_data, subtitle_data);
+			tag_data mouth_data;
+			tag_data subtitle_data;
 		}; static_assert( sizeof(s_sound_permutation) == 0x7C );
 
 		struct s_sound_pitch_range
 		{
-			TAG_FIELD(tag_string, name);
-			TAG_FIELD(real, natural_pitch);
-			TAG_FIELD(real_bounds, bend_bounds);
-			TAG_FIELD(short, actual_permutation_count);
+			tag_string name;
+			real natural_pitch;
+			real_bounds bend_bounds;
+			short actual_permutation_count;
 			unsigned short : 16;
-			TAG_PAD(tag_block, 1);
-			TAG_TBLOCK_(permutations, s_sound_permutation);
+			tag_block:8 * sizeof(tag_block) * 1;
+			Yelo::TagBlock<s_sound_permutation> permutations;
 		}; static_assert( sizeof(s_sound_pitch_range) == 0x48 );
 
 		struct s_sound_definition_playback_parameters
 		{
-			TAG_FIELD(real_bounds, audible_distance);
-			TAG_FIELD(real, skip_fraction);
-			TAG_FIELD(real_bounds, random_pitch_bounds);
-			TAG_FIELD(angle_bounds, cone_angles); // inner, outer
-			TAG_FIELD(real, outer_cone_gain);
-			TAG_FIELD(real, gain_modifier);
-			TAG_FIELD(real, max_bend_per_second);
+			real_bounds audible_distance;
+			real skip_fraction;
+			real_bounds random_pitch_bounds;
+			angle_bounds cone_angles; // inner, outer
+			real outer_cone_gain;
+			real gain_modifier;
+			real max_bend_per_second;
 		};
 		struct s_sound_definition_scale_modifiers
 		{
-			TAG_FIELD(real, skip_fraction_modifier);
-			TAG_FIELD(real, gain_modifier);
-			TAG_FIELD(real, pitch_modifier);
+			real skip_fraction_modifier;
+			real gain_modifier;
+			real pitch_modifier;
 		};
 		struct s_sound_promotion_parameters
 		{
-			TAG_FIELD(tag_reference, sound, "snd!");
-			TAG_FIELD(short, count);
+			tag_reference sound;
+			short count;
 			unsigned short : 16;
 		};
 		struct sound_definition
 		{
 			enum { k_group_tag = 'snd!' };
 
-			TAG_FIELD(long_flags, flags, Flags::sound_definition_flags);
-			TAG_FIELD(short, sound_class);
-			TAG_FIELD(short, sample_rate);
+			unsigned long flags;
+			short sound_class;
+			short sample_rate;
 
-			TAG_FIELD(s_sound_definition_playback_parameters, playback_parameters);
+			s_sound_definition_playback_parameters playback_parameters;
 			// unused, when-scale-is-ZERO, unused, when-scale-is-ONE, unused
-			TAG_FIELD(s_sound_definition_scale_modifiers, scale_modifiers)[5];
+			s_sound_definition_scale_modifiers scale_modifiers[5];
 
-			TAG_FIELD(short, encoding);
-			TAG_FIELD(short, compression);
+			short encoding;
+			short compression;
 
-			TAG_FIELD(s_sound_promotion_parameters, promotion_parameters);
+			s_sound_promotion_parameters promotion_parameters;
 
-			TAG_PAD(tag_data, 1);
-			TAG_TBLOCK(pitch_ranges, s_sound_pitch_range);
+			tag_data:8 * sizeof(tag_data) * 1;
+			Yelo::TagBlock<const s_sound_pitch_range> pitch_ranges;
 
 			bool ResourcesAreSharable() const
 			{
@@ -125,10 +125,10 @@ namespace Yelo
 		{
 			enum { k_group_tag = 'lsnd' };
 
-			TAG_FIELD(long_flags, flags);
+			unsigned long flags;
 			struct s_scale_function
 			{
-				TAG_FIELD(real, detail_sound_period);
+				real detail_sound_period;
 				UNKNOWN_TYPE(real); // postprocessed field
 				UNKNOWN_TYPE(real); // postprocessed field
 			}	scale_zero,
@@ -139,9 +139,9 @@ namespace Yelo
 			unsigned long : 32;
 			unsigned long : 32;
 
-			TAG_FIELD(tag_reference, continuous_damage_effect, "cdmg");
-			TAG_BLOCK(tracks, looping_sound_track);
-			TAG_BLOCK(detail_sounds, looping_sound_detail);
+			tag_reference continuous_damage_effect;
+			tag_block tracks;
+			tag_block detail_sounds;
 		}; static_assert( sizeof(looping_sound_definition) == 0x54 );
 	};
 };

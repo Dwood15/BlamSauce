@@ -114,7 +114,7 @@ namespace Yelo::Objects {
 		return dist;
 	}
 
-	static void PerformActionOnChildrenByType(const datum_index parent, const long_flags object_type_mask, const std::function<void(const datum_index)> &action_performer) {
+	static void PerformActionOnChildrenByType(const datum_index parent, const unsigned long object_type_mask, const std::function<void(const datum_index)> &action_performer) {
 		const auto    *object_header_datums = Objects::ObjectHeader().Datums();
 		const auto    *parent_object        = object_header_datums[parent.index]._object;
 		s_object_data *child_object;
@@ -133,7 +133,7 @@ namespace Yelo::Objects {
 	///
 	/// <param name="parent">		   	The parent. </param>
 	/// <param name="object_type_mask">	The object type mask. </param>
-	void DeleteChildrenByType(const datum_index parent, const long_flags object_type_mask) {
+	void DeleteChildrenByType(const datum_index parent, const unsigned long object_type_mask) {
 		PerformActionOnChildrenByType(parent, object_type_mask, [](const datum_index object_index) { blam::object_delete(object_index); });
 	}
 
@@ -142,7 +142,7 @@ namespace Yelo::Objects {
 	///
 	/// <param name="parent">		   	The parent. </param>
 	/// <param name="object_type_mask">	The object type mask. </param>
-	void DetachChildrenByType(const datum_index parent, const long_flags object_type_mask) {
+	void DetachChildrenByType(const datum_index parent, const unsigned long object_type_mask) {
 		PerformActionOnChildrenByType(parent, object_type_mask, [](const datum_index object_index) { blam::object_detach(object_index); });
 	}
 

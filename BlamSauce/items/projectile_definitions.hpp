@@ -1,11 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
-
-#include <blamlib/Halo1/objects/object_definitions.hpp>
+#include <precompile.h>
+#include "../game/objects/object_definitions.hpp"
+#include "../ai/ai.h"
 
 namespace Yelo
 {
@@ -28,87 +24,87 @@ namespace Yelo
 		struct s_projectile_material_response_definition
 		{
 			struct _flags {
-				TAG_FLAG16(cannot_be_overpenetrated);
+				unsigned short cannot_be_overpenetrated_bit:1;
 			}flags;
 
 			struct _default_result {
-				TAG_ENUM(response, material_response);
-				TAG_FIELD(tag_reference, effect, 'effe');
-				TAG_PAD(tag_reference, 1); // 16
+				material_response response;
+				tag_reference effect;
+				tag_reference:8 * sizeof(tag_reference) * 1; // 16
 			}default_result;
 
 			struct _potential_result {
-				TAG_ENUM(response, material_response);
+				material_response response;
 				struct _flags {
-					TAG_FLAG16(only_against_units);
+					unsigned short only_against_units_bit:1;
 				}flags;
-				TAG_FIELD(real, skip_fraction);
-				TAG_FIELD(angle_bounds, between, "degrees");
-				TAG_FIELD(real_bounds, and, "world units per second");
-				TAG_FIELD(tag_reference, effect, 'effe');
-				TAG_PAD(tag_reference, 1); // 16
+				real skip_fraction;
+				angle_bounds between;
+				real_boundsand;
+				tag_reference effect;
+				tag_reference:8 * sizeof(tag_reference) * 1; // 16
 			}potential_result;
 
-			TAG_ENUM(scale_effects_by, effect_scale);
+			effect_scale scale_effects_by;
 			unsigned short : 16;
-			TAG_FIELD(real, angular_noise, "degrees", "the angle of incidence is randomly perturbed by at most this amount to simulate irregularity.");
-			TAG_FIELD(real, velocity_noise, "world units per second", "the velocity is randomly perturbed by at most this amount to simulate irregularity.");
-			TAG_FIELD(tag_reference, detonation_effect, 'effe');
-			TAG_PAD(long, 6); // 24
+			real angular_noise;
+			real velocity_noise;
+			tag_reference detonation_effect;
+			long:8 * sizeof(long) * 6; // 24
 
-			TAG_FIELD(real, initial_friction, "the fraction of the projectile's velocity lost on penetration");
-			TAG_FIELD(real, max_distance, "the maximum distance the projectile can travel through on object of this material");
+			real initial_friction;
+			real max_distance;
 
-			TAG_FIELD(real, parallel_friction,"the fraction of the projectile's velocity parallel to the surface lost on impact");
-			TAG_FIELD(real, perpendicular_friction, "the fraction of the projectile's velocity perpendicular to the surface lost on impact");
+			real parallel_friction;
+			real perpendicular_friction;
 		}; static_assert( sizeof(s_projectile_material_response_definition) == 0xA0 );
 
 		struct _projectile_definition
 		{
 			struct _projectile_definition_flags {
-				TAG_FLAG(oriented_along_velocity);
-				TAG_FLAG(ai_must_use_basllistic_aiming);
-				TAG_FLAG(detonation_max_time_if_attached);
-				TAG_FLAG(has_super_combining_explosion);
+				unsigned long oriented_along_velocity_bit:1;
+				unsigned long ai_must_use_basllistic_aiming_bit:1;
+				unsigned long detonation_max_time_if_attached_bit:1;
+				unsigned long has_super_combining_explosion_bit:1;
 				//combine initial velocity with parent velocity
 				//random attached detonation time
 				//minimum unattached detonation time
-			}flags; static_assert( sizeof(_projectile_definition_flags) == sizeof(long_flags) );
+			}flags; static_assert( sizeof(_projectile_definition_flags) == sizeof(unsigned long) );
 
-			TAG_ENUM(detonation_timer_starts, projectile_detonation_timer_mode);
-			TAG_ENUM(impact_noise, ai_sound_volume);
+			projectile_detonation_timer_mode detonation_timer_starts;
+			ai_sound_volume impact_noise;
 
 			short function_exports[Enums::k_number_of_incoming_object_functions];
 
-			TAG_FIELD(tag_reference, super_detonation, 'effe');
+			tag_reference super_detonation;
 
-			TAG_FIELD(real, ai_perception_radius, "world units");
-			TAG_FIELD(real, collision_radius, "world units");
+			real ai_perception_radius;
+			real collision_radius;
 
-			TAG_FIELD(real, arming_time, "seconds", "won't detonate before this time elapses");
-			TAG_FIELD(real, danger_radius, "world units");
-			TAG_FIELD(tag_reference, effect, 'effe');
-			TAG_FIELD(real_bounds, timer, "seconds", "detonation countdown (zero is untimed)");
-			TAG_FIELD(real, min_velocity, "world units per second", "detonates when slowed below this velocity");
-			TAG_FIELD(real, max_range, "world units per second", "detonates after travelling this distance");
+			real arming_time;
+			real danger_radius;
+			tag_reference effect;
+			real_bounds timer;
+			real min_velocity;
+			real max_range;
 
-			TAG_FIELD(real, air_gravity_scale, "", "the proportion of normal gravity applied to the projectile when in air.");
-			TAG_FIELD(real_bounds, air_damage_range, "world units", "the range over which damage is scaled when the projectile is in air.");
-			TAG_FIELD(real, water_gravity_scale, "", "the proportion of normal gravity applied to the projectile when in water.");
-			TAG_FIELD(real_bounds, water_damage_range, "world units", "the range over which damage is scaled when the projectile is in water.");
-			TAG_FIELD(real, initial_velocity, "world units per second", "bullet's velocity when inflicting maximum damage");
-			TAG_FIELD(real, final_velocity, "world units per second", "bullet's velocity when inflicting minimum damage");
-			TAG_FIELD(real, guided_angular_velocity, "degrees per second");
-			TAG_ENUM(detonation_noise, ai_sound_volume);
+			real air_gravity_scale;
+			real_bounds air_damage_range;
+			real water_gravity_scale;
+			real_bounds water_damage_range;
+			real initial_velocity;
+			real final_velocity;
+			real guided_angular_velocity;
+			ai_sound_volume detonation_noise;
 			unsigned short : 16;
 
-			TAG_FIELD(tag_reference, detonation_started,		'effe');
-			TAG_FIELD(tag_reference, flyby_sound,				'snd!');
-			TAG_FIELD(tag_reference, attached_detonation_damage,'jpt!');
-			TAG_FIELD(tag_reference, impact_damage,				'jpt!');
-			TAG_PAD(tag_block, 1); // 12
+			tag_reference detonation_started;
+			tag_reference flyby_sound;
+			tag_reference attached_detonation_damage;
+			tag_reference impact_damage;
+			tag_block:8 * sizeof(tag_block) * 1; // 12
 
-			TAG_TBLOCK(material_responses, s_projectile_material_response_definition);
+			Yelo::TagBlock<const s_projectile_material_response_definition> material_responses;
 
 		}; static_assert( sizeof(_projectile_definition) == 0xD0 );
 

@@ -31,7 +31,7 @@ namespace Yelo
 		{
 		}
 
-		API_FUNC_NAKED void PLATFORM_API Update(long_flags access_flags)
+		API_FUNC_NAKED void PLATFORM_API Update(unsigned long access_flags)
 		{
 			// our hook is placed where the update function calls console_process_command, so we have to call it
 			API_FUNC_NAKED_START()

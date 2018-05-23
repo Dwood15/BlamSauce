@@ -363,7 +363,7 @@ namespace Yelo {
 
 	struct tag_data {
 		enum {
-			k_debug_data_size = sizeof(long_flags) + sizeof(long) + sizeof(struct tag_block_definition *),
+			k_debug_data_size = sizeof(unsigned long) + sizeof(long) + sizeof(struct tag_block_definition *),
 		};
 
 		// byte count of this data blob
@@ -484,10 +484,10 @@ namespace Yelo {
 
 		// Load a tag definition into memory.
 		// Returns the tag handle of the loaded tag definition
-		datum_index __cdecl tag_load(tag group_tag, cstring name, long_flags file_flags);
+		datum_index __cdecl tag_load(tag group_tag, cstring name, unsigned long file_flags);
 
 		template <typename T>
-		inline datum_index tag_load(cstring name, long_flags file_flags) {
+		inline datum_index tag_load(cstring name, unsigned long file_flags) {
 			return tag_load(T::k_group_tag, name, file_flags);
 		}
 

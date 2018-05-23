@@ -59,7 +59,7 @@ namespace Yelo
 		struct s_hud_unit_interface
 		{
 			s_hud_unit_interface_unit units[Enums::k_maximum_number_of_local_players]; // 0x0
-			long_flags flags; // 0x58, unit_interface_flags
+			unsigned long flags; // 0x58, unit_interface_flags
 		}; static_assert( sizeof(s_hud_unit_interface) == 0x5C );
 		s_hud_unit_interface*		HudUnitInterface();
 	};

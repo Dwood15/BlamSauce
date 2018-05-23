@@ -39,7 +39,7 @@ namespace Yelo
 			short start_index_into_text_blob;
 			short start_index_of_message_block;
 			sbyte panel_count; unsigned char : 8; unsigned short : 16;
-			TAG_PAD(long, 6);
+			long:8 * sizeof(long) * 6;
 		}; static_assert( sizeof(hud_state_message_definition) == 0x40 );
 
 		struct hud_state_messages
@@ -47,9 +47,9 @@ namespace Yelo
 			enum { k_group_tag = 'hmt ' };
 
 			tag_data text_data;
-			TAG_TBLOCK(message_elements, hud_state_message_element);
-			TAG_TBLOCK(messages, hud_state_message_definition);
-			TAG_PAD(long, 21);
+			Yelo::TagBlock<const hud_state_message_element> message_elements;
+			Yelo::TagBlock<const hud_state_message_definition> messages;
+			long:8 * sizeof(long) * 21;
 		}; static_assert( sizeof(hud_state_messages) == 0x80 );
 	};
 };

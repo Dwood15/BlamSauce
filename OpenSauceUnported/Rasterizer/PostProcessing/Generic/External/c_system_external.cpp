@@ -296,7 +296,7 @@ namespace Yelo
 				return;
 
 			// do device lost logic on the shaders
-			for(uint32 i = 0; i < m_members_external.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_external.m_shaders.count; i++)
 			{
 				m_members_external.m_shaders.shader_sets[i].shader->OnDeviceLost();
 				m_members_external.m_shaders.shader_sets[i].shader->Validate();
@@ -319,7 +319,7 @@ namespace Yelo
 
 			HRESULT hr = S_OK;
 			// do device reset logic on the shaders
-			for(uint32 i = 0; i < m_members_external.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_external.m_shaders.count; i++)
 			{
 				hr |= m_members_external.m_shaders.shader_sets[i].shader->OnDeviceReset();
 				m_members_external.m_shaders.shader_sets[i].shader->Validate();
@@ -440,7 +440,7 @@ namespace Yelo
 		 */
 		void c_system_external::Update(real delta_time)
 		{
-			uint32 i = 0;
+			uint i = 0;
 			// update the standard variables in each shader that can change each frame
 			for(i = 0; i < m_members_external.m_shaders.count; i++)
 				m_members_external.m_shaders.shader_sets[i].shader->UpdateVariables();
@@ -538,7 +538,7 @@ namespace Yelo
 			c_post_processing_main::s_post_processing_globals& globals = c_post_processing_main::Instance().Globals();
 
 			// allocate direct3d resources for all shaders
-			for(uint32 i = 0; i < m_members_external.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_external.m_shaders.count; i++)
 			{
 				success |= m_members_external.m_shaders.shader_sets[i].shader->LoadShader(globals.render_device);
 				success |= m_members_external.m_shaders.shader_sets[i].shader->LoadBitmaps(globals.render_device);
@@ -549,7 +549,7 @@ namespace Yelo
 		void c_system_external::UnloadShaders()
 		{
 			// release all shader direct3d resources
-			for(uint32 i = 0; i < m_members_external.m_shaders.count; i++)
+			for(uint i = 0; i < m_members_external.m_shaders.count; i++)
 			{
 				m_members_external.m_shaders.shader_sets[i].shader->UnloadBitmaps();
 				m_members_external.m_shaders.shader_sets[i].shader->UnloadShader();
@@ -560,7 +560,7 @@ namespace Yelo
 		{
 			HRESULT success = S_OK;
 
-			uint32 i = 0;
+			uint i = 0;
 			// set up data in the effects that require d3d resources to be allocated first
 			for(i = 0; i < m_members_external.m_effects.count; i++)
 				m_members_external.m_effects.effect_sets[i].effect->SetupEffectPostCreation();
@@ -574,7 +574,7 @@ namespace Yelo
 		void c_system_external::UnloadEffects()
 		{
 			// release all effect instance quad instances
-			for(uint32 i = 0; i < m_members_external.m_effect_instances.count; i++)
+			for(uint i = 0; i < m_members_external.m_effect_instances.count; i++)
 				m_members_external.m_effect_instances.effect_instance_sets[i].instance->UnloadEffectInstance();
 		}
 
@@ -626,7 +626,7 @@ namespace Yelo
 			m_members_external.m_shaders.shader_sets = new s_shader_set[shaders.size()];
 
 			// Read the shaders
-			uint32 index = 0;
+			uint index = 0;
 			for(auto& shader : shaders)
 			{
 				s_shader_set& set = m_members_external.m_shaders.shader_sets[index];
@@ -679,7 +679,7 @@ namespace Yelo
 
 		void c_system_external::DeleteShaders()
 		{
-			for(uint32 i =0; i < m_members_external.m_shaders.count; i++)
+			for(uint i =0; i < m_members_external.m_shaders.count; i++)
 			{
 				s_shader_set& set = m_members_external.m_shaders.shader_sets[i];
 
@@ -714,7 +714,7 @@ namespace Yelo
 			m_members_external.m_effects.effect_sets = new s_effect_set[m_members_external.m_effects.count];
 
 			// Read the effects
-			uint32 index = 0;
+			uint index = 0;
 			for(auto& effect : effects)
 			{
 				s_effect_set& set = m_members_external.m_effects.effect_sets[index];
@@ -767,7 +767,7 @@ namespace Yelo
 
 					// find a shader set with a matching id
 					s_shader_set* shader_set = nullptr;
-					for(uint32 j = 0; (j < m_members_external.m_shaders.count) && !shader_set; j++)
+					for(uint j = 0; (j < m_members_external.m_shaders.count) && !shader_set; j++)
 						if(strcmp(m_members_external.m_shaders.shader_sets[j].shader->GetShaderID(), id) == 0)
 							shader_set = &m_members_external.m_shaders.shader_sets[j];
 					// if any shader is missing the effect is invalid
@@ -791,12 +791,12 @@ namespace Yelo
 
 		void c_system_external::DeleteEffects()
 		{
-			for(uint32 i = 0; i < m_members_external.m_effects.count; i++)
+			for(uint i = 0; i < m_members_external.m_effects.count; i++)
 			{
 				s_effect_set& set = m_members_external.m_effects.effect_sets[i];
 
 				// destroy the shader instances
-				for(uint32 j = 0; j < set.shader_instance_count; j++)
+				for(uint j = 0; j < set.shader_instance_count; j++)
 					set.shader_instances[j].Dtor();
 
 				// delete the shader instances
@@ -832,7 +832,7 @@ namespace Yelo
 			m_members_external.m_effect_instances.effect_instance_sets = new s_effect_instance_set[effect_instances.size()];
 
 			// Read the effect instances
-			uint32 index = 0;
+			uint index = 0;
 			for(auto& effect_instance : effect_instances)
 			{
 				s_effect_instance_set& set = m_members_external.m_effect_instances.effect_instance_sets[index];
@@ -846,7 +846,7 @@ namespace Yelo
 
 				bool effect_found = false;
 				auto& effect_ref = effect_instance.m_effect.GetConst();
-				for(uint32 i = 0; (i < m_members_external.m_effects.count) && !effect_ref.empty(); i++)
+				for(uint i = 0; (i < m_members_external.m_effects.count) && !effect_ref.empty(); i++)
 				{
 					s_effect_set& effect_set = m_members_external.m_effects.effect_sets[i];
 
@@ -876,7 +876,7 @@ namespace Yelo
 
 		void c_system_external::DeleteEffectInstances()
 		{
-			for(uint32 i = 0; i < m_members_external.m_effect_instances.count; i++)
+			for(uint i = 0; i < m_members_external.m_effect_instances.count; i++)
 			{
 				s_effect_instance_set& set = m_members_external.m_effect_instances.effect_instance_sets[i];
 
@@ -918,7 +918,7 @@ namespace Yelo
 			do
 			{
 				// read the shader into memory
-				uint32 data_size = 0;
+				uint data_size = 0;
 				const void* data_pointer = shader_data.GetData(data_size);
 
 				if(!data_pointer || (data_size == 0))
@@ -948,7 +948,7 @@ namespace Yelo
 				if(FAILED(success)) break;
 
 				// set up techniques
-				uint32 technique_count = (effect_desc.Techniques > 3 ? 3 : effect_desc.Techniques);
+				uint technique_count = (effect_desc.Techniques > 3 ? 3 : effect_desc.Techniques);
 				definition->techniques.Address = new TagGroups::s_technique_definition[technique_count];
 				definition->techniques.Count = technique_count;
 
@@ -1046,7 +1046,7 @@ namespace Yelo
 
 		void c_system_external::BuildParameters(LPD3DXEFFECTCOMPILER compiler, TagGroups::s_shader_postprocess_generic* definition)
 		{
-			uint32 parameter_count = 0;
+			uint parameter_count = 0;
 			s_parameter_handle* parameter_list = nullptr;
 			//textures
 			parameter_count += GetParameterHandles(compiler, parameter_list, "VARTEXTURE_%i", 4, Enums::_shader_variable_base_type_texture, 1);
@@ -1134,7 +1134,7 @@ namespace Yelo
 			definition->shader_ids.Address = new tag_string[shader_ids.size()];
 			definition->shader_ids.Count = shader_ids.size();
 
-			uint32 index = 0;
+			uint index = 0;
 			for(auto& id : shader_ids)
 			{
 				tag_string& shader_id = definition->shader_ids[index];
@@ -1227,18 +1227,18 @@ namespace Yelo
 
 		/////////////////////////////////////////////////
 		// parameters
-		uint32 c_system_external::GetParameterHandles(LPD3DXEFFECTCOMPILER compiler,
+		uint c_system_external::GetParameterHandles(LPD3DXEFFECTCOMPILER compiler,
 			s_parameter_handle*& list,
 			const char* semantic_format,
-			const uint32 count,
+			const uint count,
 			const short parameter_type,
 			const short parameter_type_count)
 		{
 			tag_string semantic;
 			semantic[0] = '\0';
 
-			uint32 parameter_count = 0;
-			for(uint32 i = 0; i < count; i++)
+			uint parameter_count = 0;
+			for(uint i = 0; i < count; i++)
 			{
 				sprintf_s(semantic, sizeof(semantic), semantic_format, i + 1);
 				D3DXHANDLE handle = compiler->GetParameterBySemantic(nullptr, semantic);
@@ -1322,7 +1322,7 @@ namespace Yelo
 			case Enums::_shader_variable_base_type_float:
 				{
 					// if the type is a color, read 4 floats
-					uint32 count = (handle.type.type == Enums::_shader_variable_base_type_argb_color ? 4 : handle.type.count);
+					uint count = (handle.type.type == Enums::_shader_variable_base_type_argb_color ? 4 : handle.type.count);
 
 					// having to memcpy from the quaternion as the upper and lower bounds to not match up
 					success = compiler->GetFloatArray(value_upper_bound, CAST_PTR(FLOAT*, &quaternion), count);
@@ -1528,8 +1528,8 @@ namespace Yelo
 		void c_system_external::SetRenderSet(c_effect_render_set& set, Enums::postprocess_render_stage render_stage)
 		{
 			// get the number of effects for this render stage
-			uint32 count = 0;
-			for(uint32 i = 0; i < m_members_external.m_effect_instances.count; i++)
+			uint count = 0;
+			for(uint i = 0; i < m_members_external.m_effect_instances.count; i++)
 				if(m_members_external.m_effect_instances.effect_instance_sets[i].instance->GetRenderStage() == render_stage)
 					count++;
 
@@ -1541,7 +1541,7 @@ namespace Yelo
 
 			// add each effect instance for this render stage to the render set
 			count = 0;
-			for(uint32 i = 0; i < m_members_external.m_effect_instances.count; i++)
+			for(uint i = 0; i < m_members_external.m_effect_instances.count; i++)
 				if(m_members_external.m_effect_instances.effect_instance_sets[i].instance->GetRenderStage() == render_stage)
 				{
 					set.SetEffectInstance(count, m_members_external.m_effect_instances.effect_instance_sets[i].instance);
@@ -1551,7 +1551,7 @@ namespace Yelo
 
 		void c_system_external::ValidateSystem()
 		{
-			uint32 i = 0;
+			uint i = 0;
 			for(i = 0; i < m_members_external.m_shaders.count; i++)
 				m_members_external.m_shaders.shader_sets[i].shader->Validate();
 			for(i = 0; i < m_members_external.m_effects.count; i++)

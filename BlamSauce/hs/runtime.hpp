@@ -107,7 +107,7 @@ namespace Yelo {
 			auto* formal_parameters_values =
 					 thread->StackAllocate<s_hs_value_union>(formal_parameters_count);
 			auto* argument_index =
-					 thread->StackAllocate<uint32>();
+					 thread->StackAllocate<uint>();
 			auto* expression_index =
 					 thread->StackAllocate<datum_index>();
 

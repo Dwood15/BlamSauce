@@ -16,7 +16,7 @@ namespace Yelo
 			{
 				c_shader_generic* shader;
 
-				uint32 parameter_count;
+				uint parameter_count;
 				c_parameter_instance* parameters;
 			}m_members_generic;
 

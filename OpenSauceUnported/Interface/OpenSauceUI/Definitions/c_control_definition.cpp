@@ -28,7 +28,7 @@ namespace Yelo
 			return std::vector<Configuration::i_configuration_value* const> { &m_id, &m_type, &m_properties, &m_controls, &m_pages };
 		}
 
-		const uint32 c_control_definition::GetID()
+		const uint c_control_definition::GetID()
 		{
 
 			return m_id;

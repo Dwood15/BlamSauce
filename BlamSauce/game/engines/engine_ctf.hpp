@@ -21,9 +21,9 @@ namespace Yelo
 			long score_limit;
 			bool team_flag_is_taken[Enums::k_number_of_multiplayer_teams];
 			unsigned short : 16;
-			uint32 team_flag_is_taken_sound_timer[Enums::k_number_of_multiplayer_teams];
-			uint32 flag_swap_timer;
-			uint32 flag_failure_sound_timer;
+			uint team_flag_is_taken_sound_timer[Enums::k_number_of_multiplayer_teams];
+			uint flag_swap_timer;
+			uint flag_failure_sound_timer;
 			byte team_with_flag;
 			unsigned char : 8; unsigned short : 16;
 		}; static_assert( sizeof(s_ctf_globals) == 0x34 );

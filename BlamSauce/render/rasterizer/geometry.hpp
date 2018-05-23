@@ -105,8 +105,8 @@ namespace Yelo
 		struct environment_vertex_compressed
 		{
 			real_point3d position;
-			uint32 normal, binormal;
-			uint32 tangent;
+			uint normal, binormal;
+			uint tangent;
 			real_point2d texcoord;
 		};
 
@@ -117,7 +117,7 @@ namespace Yelo
 		};
 		struct environment_lightmap_vertex_compressed
 		{
-			uint32 normal;
+			uint normal;
 			point2d texcoord;
 		};
 
@@ -134,8 +134,8 @@ namespace Yelo
 		struct model_vertex_compressed
 		{
 			real_point3d position;
-			uint32 normal, binormal;
-			uint32 tangent;
+			uint normal, binormal;
+			uint tangent;
 			point2d texcoord;
 
 			byte node_indices[2];

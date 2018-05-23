@@ -1,10 +1,5 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -26,10 +21,10 @@ namespace Yelo
 		{
 			unsigned short : 16; // unknown field						0x0
 			unsigned short : 16;									//	0x2
-			PAD32; // unknown field						0x4
+			unsigned long : 32; // unknown field						0x4
 			void* camera_update_proc;				//	0x8
 			PAD(1, 64);								//	0xC
-			PAD32; // unknown field						0x4C
+			unsigned long : 32; // unknown field						0x4C
 			unsigned char : 8; // unknown field						0x50
 			bool inhibit_facing;					//	0x51
 			bool inhibit_input;						//	0x52
@@ -39,7 +34,7 @@ namespace Yelo
 			s_camera_command command;				//	0x58
 			unsigned char : 8; // unknown field						0xC0
 			unsigned char : 8; unsigned short : 16; 									//	0xC1
-			PAD32; // unknown field						0xC4
+			unsigned long : 32; // unknown field						0xC4
 			PAD(2, sizeof(real_vector3d) * 4);		//	0xC8
 		}; static_assert(sizeof(s_director_data) == 0xF8);
 

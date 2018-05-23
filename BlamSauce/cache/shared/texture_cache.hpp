@@ -1,20 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
+#include <precompile.h>
 
-struct IDirect3DBaseTexture9; // a pc_texture_cache implementation detail, but that's all we support anyway
-
-namespace Yelo
-{
-	namespace TagGroups
-	{
-		struct s_bitmap_data;
-	};
-
-	namespace blam
+namespace Yelo::blam
 	{
 		void __cdecl texture_cache_open();
 		void __cdecl texture_cache_close();
@@ -24,4 +11,3 @@ namespace Yelo
 			// block
 			bool block_thread = false, bool load = true);
 	};
-};

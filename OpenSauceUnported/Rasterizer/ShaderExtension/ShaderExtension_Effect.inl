@@ -17,13 +17,13 @@ namespace Effect
 		real m_camera_fade_distance;
 	};
 	
-	const uint32 g_feature_mix_list[] = {
+	const uint g_feature_mix_list[] = {
 		sizeof(DX9::s_rasterizer_dx9_pixel_shader) * 0,
 		sizeof(DX9::s_rasterizer_dx9_pixel_shader) * 1
 	};
 	
 	bool					g_rasterizer_effect_depth_fade = true;
-	static uint32			g_current_shader_offset = 0;
+	static uint			g_current_shader_offset = 0;
 	static _enum			g_extension_usage_mask;
 
 	void SetShaderEffectVariables(const TagGroups::s_shader_effect* shader);
@@ -107,7 +107,7 @@ namespace Effect
 		};
 	}
 
-	static const uint32 SetupShaderEffect(const TagGroups::s_shader_effect& shader, s_pixel_shader_variables& variables)
+	static const uint SetupShaderEffect(const TagGroups::s_shader_effect& shader, s_pixel_shader_variables& variables)
 	{
 		_enum feature_usage = shader.shader.extension_usage & g_extension_usage_mask;
 

@@ -18,7 +18,7 @@ namespace Yelo
 			virtual void Dtor() = 0;
 
 			virtual const char* DataSourceID() = 0;
-			virtual const void* GetData(uint32& data_size) = 0;
+			virtual const void* GetData(uint& data_size) = 0;
 			virtual void Dispose() = 0;
 			virtual const bool IsBinary() = 0;
 			virtual const char* GetIncludePath() = 0;

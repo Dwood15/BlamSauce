@@ -1,9 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include <precompile.h>
@@ -135,7 +129,7 @@ struct s_ai_communication_packet {
 
 	UNKNOWN_TYPE(short); // C
 	unsigned short : 16; // E ?
-	PAD32; // 10 ?
+	unsigned long : 32; // 10 ?
 	UNKNOWN_TYPE(short); // 14
 	unsigned short : 16; // 16 ?
 										  UNKNOWN_TYPE(short); // 18

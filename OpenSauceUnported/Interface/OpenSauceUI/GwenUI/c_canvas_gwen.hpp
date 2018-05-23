@@ -82,7 +82,7 @@ namespace Yelo
 			/// <summary>	Gets the resource identifier of the control. </summary>
 			///
 			/// <returns>	The controls resource identifier. </returns>
-			uint32 GetResourceID() const override;
+			uint GetResourceID() const override;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Gets the controls bounds. </summary>
@@ -92,7 +92,7 @@ namespace Yelo
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Not applicable for a canvas. </summary>
-			void SetResourceID(const uint32 resource_id) override { }
+			void SetResourceID(const uint resource_id) override { }
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Gets the Gwen base control pointer. </summary>
@@ -124,15 +124,15 @@ namespace Yelo
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Not applicable for a canvas. </summary>
-			Control::i_property_interface* GetPropertyInterface(const uint32 interface_id) const override { return nullptr; };
+			Control::i_property_interface* GetPropertyInterface(const uint interface_id) const override { return nullptr; };
 			
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Not applicable for a canvas. </summary>
-			void AddEventCallback(const uint32 event_id, const uint32 callback_id, const Control::event_callback_t& function, void* userdata) override { }
+			void AddEventCallback(const uint event_id, const uint callback_id, const Control::event_callback_t& function, void* userdata) override { }
 			
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Not applicable for a canvas. </summary>
-			void RemoveEventCallback(const uint32 event_id, const uint32 callback_id) override { }
+			void RemoveEventCallback(const uint event_id, const uint callback_id) override { }
 #pragma endregion
 
 #pragma region i_visibility_toggle

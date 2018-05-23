@@ -1,22 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
 
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/ai/action_fight.hpp>
-#include <blamlib/Halo1/ai/action_flee.hpp>
-#include <blamlib/Halo1/ai/actions.hpp>
-#include <blamlib/Halo1/ai/actor_combat.hpp>
-#include <blamlib/Halo1/ai/actor_looking.hpp>
-#include <blamlib/Halo1/ai/actor_moving.hpp>
-#include <blamlib/Halo1/ai/actor_perception.hpp>
-#include <blamlib/Halo1/ai/actor_stimulus.hpp>
-#include <blamlib/Halo1/ai/actors.hpp>
-#include <blamlib/Halo1/memory/data.hpp>
-#include <blamlib/Halo1/game/game_allegiance.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -31,7 +16,7 @@ namespace Yelo
 			bool encounterless;
 			unsigned char : 8; // unknown field
 			unsigned char : 8;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned short : 16; // unknown field
 			unsigned char : 8; // unknown field
 			bool dormant;
@@ -46,7 +31,7 @@ namespace Yelo
 			datum_index swarm_unit_index;
 			datum_index swarm_cache_index;
 			datum_index encounter_next_actor_index;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			datum_index encounter_index;
 			unsigned short : 16; // unknown field
 			short squad_index;
@@ -54,13 +39,13 @@ namespace Yelo
 			Enums::game_team team;
 			unsigned char : 8; // unknown field
 			unsigned char : 8; unsigned short : 16;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned short : 16; // unknown field
 			unsigned short : 16; // unknown field
 			bool timeslice;
 			unsigned char : 8; unsigned short : 16;
 			datum_index first_prop_index;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			datum_index actor_definition_index;
 			datum_index actor_variant_definition_index;
 		}; static_assert( sizeof(s_actor_meta_data) == 0x5C );
@@ -74,15 +59,15 @@ namespace Yelo
 			unsigned short : 16; // unknown field
 			unsigned short : 16; // unknown field
 			PAD(1, 14);
-			PAD32; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8;
 			unsigned short : 16; // unknown field
 			unsigned short : 16;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned short : 16;
@@ -107,7 +92,7 @@ namespace Yelo
 			real_vector3d aiming_vector;
 			real_vector3d looking_vector;
 			PAD(2, 24);
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			bool burning_to_death;
 			unsigned short : 16;
@@ -121,7 +106,7 @@ namespace Yelo
 		{
 			unsigned short : 16; // unknown field
 			unsigned short : 16;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			datum_index target_prop_index;
 			unsigned char : 8; // unknown field
 			unsigned char : 8; unsigned short : 16;
@@ -146,37 +131,37 @@ namespace Yelo
 			unsigned char : 8; // unknown field
 			unsigned char : 8;
 			unsigned short : 16; // unknown field
-			PAD32;
-			PAD32; // unknown field
+			unsigned long : 32;
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8; unsigned short : 16;
 			PAD_TYPE(real_vector3d); // unknown field
 			unsigned short : 16; // unknown field
 			unsigned short : 16;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned short : 16; // unknown field
 			short combat_transition;
 			unsigned char : 8; // unknown field
 			unsigned char : 8; unsigned short : 16;
 			PAD_TYPE(real_vector3d); // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8; unsigned short : 16;
 			PAD_TYPE(real_vector3d); // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			datum_index combat_transition_prop_index;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8;
 			unsigned short : 16; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 		}; static_assert( sizeof(s_actor_stimulus_data) == 0x64 );
 
 		struct s_actor_emotion_data
 		{
-			PAD32; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned short : 16; // unknown field
 			unsigned short : 16; // unknown field
 			unsigned char : 8; // unknown field
@@ -190,8 +175,8 @@ namespace Yelo
 			unsigned short : 16; // unknown field
 			unsigned short : 16; // unknown field
 			unsigned short : 16;
-			PAD32; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8; // unknown field
 			bool ignorant;
@@ -199,30 +184,30 @@ namespace Yelo
 			bool berserking;
 			unsigned char : 8; // unknown field
 			unsigned short : 16;
-			PAD32; // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned char : 8; // unknown field
 			unsigned char : 8; unsigned short : 16;
-			PAD32; // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned short : 16; // unknown field
 			unsigned short : 16;
-			PAD32; // unknown field
-			PAD32; // unknown field
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
+			unsigned long : 32; // unknown field
 		}; static_assert( sizeof(s_actor_emotion_data) == 0x68 );
 
 		struct s_actor_firing_position_data
 		{
 			unsigned short : 16; // unknown field
 			PAD(1, 6);
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			PAD(2, 32); // unknown field
 			unsigned short : 16; // unknown field
 			unsigned char : 8; // unknown field
@@ -266,7 +251,7 @@ namespace Yelo
 		{
 			unsigned short : 16; // unknown field												//	0x0
 			unsigned short : 16;
-			PAD32; // unknown field												//	0x4
+			unsigned long : 32; // unknown field												//	0x4
 			PAD(1, 12);
 
 			struct
@@ -279,10 +264,10 @@ namespace Yelo
 				} destination_orders;
 
 				PAD_TYPE(real_vector3d); // unknown field						//	0x1C
-				PAD32; // unknown field											//	0x28
-				PAD32; // unknown field											//	0x2C
-				PAD32;
-				PAD32; // unknown field											//	0x34
+				unsigned long : 32; // unknown field											//	0x28
+				unsigned long : 32; // unknown field											//	0x2C
+				unsigned long : 32;
+				unsigned long : 32; // unknown field											//	0x34
 				unsigned char : 8; // unknown field											//	0x38
 				unsigned char : 8; unsigned short : 16;
 				s_path path;													//	0x3C
@@ -300,10 +285,10 @@ namespace Yelo
 			PAD(2, 12);
 			unsigned char : 8; // unknown field												//	0xC4
 			unsigned char : 8; unsigned short : 16;
-			PAD32; // unknown field												//	0xC8
-			PAD32; // unknown field												//	0xCC
-			PAD32; // unknown field												//	0xD0
-			PAD32; // unknown field												//	0xD4
+			unsigned long : 32; // unknown field												//	0xC8
+			unsigned long : 32; // unknown field												//	0xCC
+			unsigned long : 32; // unknown field												//	0xD0
+			unsigned long : 32; // unknown field												//	0xD4
 			short secondary_look_type;											//	0xD8
 			unsigned short : 16;
 			unsigned short : 16; // unknown field												//	0xDC
@@ -313,7 +298,7 @@ namespace Yelo
 			unsigned char : 8; // unknown field												//	0xF1
 			unsigned char : 8; // unknown field												//	0xF2
 			bool idle_minor_active;												//	0xF3
-			PAD32; // unknown field												//	0xF4
+			unsigned long : 32; // unknown field												//	0xF4
 			long idle_major_timer;												//	0xF8
 			long idle_minor_timer;												//	0xFC
 			s_actor_control_direction_specification idle_major_direction;		//	0x100
@@ -348,12 +333,12 @@ namespace Yelo
 			unsigned char : 8; // unknown field												//	0x197
 			unsigned char : 8; // unknown field												//	0x198
 			unsigned char : 8; unsigned short : 16;
-			PAD32; // unknown field												//	0x19C
+			unsigned long : 32; // unknown field												//	0x19C
 			short current_fire_target_type;										//	0x1A0
 			unsigned short : 16;
 			datum_index	current_fire_target_prop_index;							//	0x1A4
 			PAD(6, 8);
-			PAD32; // unknown field												//	0x1B0
+			unsigned long : 32; // unknown field												//	0x1B0
 			unsigned char : 8; // unknown field												//	0x1B4
 			unsigned char : 8; // unknown field												//	0x1B5
 			unsigned char : 8; // unknown field												//	0x1B6
@@ -364,9 +349,9 @@ namespace Yelo
 			unsigned char : 8; // unknown field												//	0x1BC
 			unsigned char : 8; unsigned short : 16;
 			PAD_TYPE(real_vector3d); // unknown field							//	0x1C0
-			PAD32; // unknown field												//	0x1CC
+			unsigned long : 32; // unknown field												//	0x1CC
 			real_vector3d  fire_target_aim_vector;								//	0x1D0
-			PAD32; // unknown field												//	0x1DC
+			unsigned long : 32; // unknown field												//	0x1DC
 			PAD_TYPE(real_vector3d); // unknown field							//	0x1E0
 			PAD_TYPE(real_point3d); // unknown field							//	0x1EC
 			PAD(7, 12);
@@ -378,9 +363,9 @@ namespace Yelo
 			PAD(8, 8);
 			unsigned char : 8; // unknown field												//	0x234
 			unsigned char : 8; unsigned short : 16;
-			PAD32; // unknown field												//	0x238
+			unsigned long : 32; // unknown field												//	0x238
 			PAD_TYPE(real_vector3d); // unknown field							//	0x23C
-			PAD32; // unknown field												//	0x248
+			unsigned long : 32; // unknown field												//	0x248
 			PAD(9, 20);
 			unsigned char : 8; // unknown field												//	0x260
 			unsigned char : 8;
@@ -414,7 +399,7 @@ namespace Yelo
 			s_actor_meta_data meta;
 			Enums::actor_default_state initial_state;
 			Enums::actor_default_state return_state;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned short : 16;
 			Enums::actor_default_state current_state;
 			s_actor_state_data state;
@@ -425,14 +410,14 @@ namespace Yelo
 			unsigned char : 8;
 			unsigned char : 8; // unknown field
 			unsigned char : 8; unsigned short : 16;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			unsigned short : 16; // unknown field
-			PAD32;unsigned short : 16;
-			PAD32; // unknown field
+			unsigned long : 32;unsigned short : 16;
+			unsigned long : 32; // unknown field
 			PAD_TYPE(datum_index); // unknown field
 			short postcombat_state;
 			unsigned short : 16;
-			PAD32; // unknown field
+			unsigned long : 32; // unknown field
 			byte situation[123];
 			unsigned char : 8; // unknown field
 			s_actor_target_data target;

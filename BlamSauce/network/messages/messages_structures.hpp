@@ -1,21 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-//#include <blamlib/Halo1/bungie_net/common/message_header.hpp>
-#include <blamlib/Halo1/game/game_configuration.hpp>
-#include <blamlib/Halo1/game/player_action.hpp>
-#include <blamlib/Halo1/game/players.hpp>
-#include <blamlib/Halo1/networking/network_game_globals.hpp>
-#include <blamlib/Halo1/networking/network_game_manager.hpp>
-
-namespace Yelo
-{
-	namespace Networking
+namespace Yelo::Networking
 	{
 		struct message_server_new_client_challenge
 		{
@@ -36,7 +21,7 @@ namespace Yelo
 			unsigned short : 16;
 			s_network_game_player player;									// 0x6E
 			unsigned short : 16;
-			uint32 map_crc_xor_challenge;									// 0x90
+			uint map_crc_xor_challenge;									// 0x90
 		}; static_assert( sizeof(message_client_join_game_request) == 0x94 );
 
 		struct message_server_game_update
@@ -58,4 +43,3 @@ namespace Yelo
 			Players::s_player_action actions[Enums::k_maximum_number_of_local_players];
 		}; static_assert( sizeof(message_client_game_update) == 0x28 );
 	};
-};

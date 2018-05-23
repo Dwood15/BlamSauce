@@ -40,7 +40,7 @@ namespace Yelo
 			}
 
 			const char* DataSourceID();
-			const void* GetData(uint32& data_size);
+			const void* GetData(uint& data_size);
 			void Dispose();
 			const bool IsBinary() { return false; }
 			const char* GetIncludePath();

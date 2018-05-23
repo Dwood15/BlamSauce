@@ -40,7 +40,7 @@ namespace Yelo
 			}unit;
 
 			struct {
-				long_flags flags;
+				unsigned long flags;
 				sbyte biped_503;
 				sbyte airborne_ticks; // bipeds 0x501
 				sbyte slipping_ticks; // bipeds 0x502

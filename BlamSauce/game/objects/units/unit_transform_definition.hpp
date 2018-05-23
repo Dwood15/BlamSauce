@@ -1,6 +1,10 @@
 /* LICENSE.md */
 #pragma once
 
+#include "../../game.hpp"
+#include "../../../tags/group/markup.h"
+#include "../../../tags/group/tag_groups_base_yelo.hpp"
+
 namespace Yelo {
 	namespace Enums {
 		enum game_team : short;
@@ -123,128 +127,128 @@ namespace Yelo {
 
 	namespace TagGroups {
 		struct actor_variant_transform_keyframe_action {
-			TAG_FIELD(Enums::unit_animation_keyframe, keyframe);
-			TAG_FIELD(Enums::actor_variant_transform_keyframe_rider_handling, rider_handling);
-			TAG_FIELD(Enums::actor_variant_transform_keyframe_effect_target, target);
+			Enums::unit_animation_keyframe keyframe;
+			Enums::actor_variant_transform_keyframe_rider_handling rider_handling;
+			Enums::actor_variant_transform_keyframe_effect_target target;
 			unsigned short : 16;
-			TAG_FIELD(tag_reference, damage_effect);
-			TAG_FIELD(tag_reference, effect);
-			TAG_FIELD(tag_string, effect_marker);
+			tag_reference damage_effect;
+			tag_reference effect;
+			tag_string effect_marker;
 		};
 
 		struct actor_variant_transform_in_target {
-			TAG_FIELD(tag_string, target_name);
-			TAG_FIELD(unsigned short, flags);
+			tag_string target_name;
+			unsigned short flags;
 			unsigned short : 16;
-			TAG_FIELD(real_fraction, selection_chance)[Enums::k_number_of_game_difficulty_levels];
+			real_fraction selection_chance[Enums::k_number_of_game_difficulty_levels];
 
-			TAG_FIELD(tag_reference, actor_variant);
-			TAG_FIELD(Enums::actor_variant_transform_in_encounter_squad_handling, encounter_squad_handling);
+			tag_reference actor_variant;
+			Enums::actor_variant_transform_in_encounter_squad_handling encounter_squad_handling;
 			unsigned short : 16;
-			TAG_FIELD(Enums::actor_variant_transform_team_handling, team_handling);
-			TAG_FIELD(Enums::game_team, team_override);
-			TAG_FIELD(Enums::actor_variant_transform_in_actor_state_handling, initial_state_handling);
-			TAG_FIELD(Enums::actor_default_state, initial_state_override);
-			TAG_FIELD(Enums::actor_variant_transform_in_actor_state_handling, return_state_handling);
-			TAG_FIELD(Enums::actor_default_state, return_state_override);
+			Enums::actor_variant_transform_team_handling team_handling;
+			Enums::game_team team_override;
+			Enums::actor_variant_transform_in_actor_state_handling initial_state_handling;
+			Enums::actor_default_state initial_state_override;
+			Enums::actor_variant_transform_in_actor_state_handling return_state_handling;
+			Enums::actor_default_state return_state_override;
 			unsigned short : 16; // TAG_FIELD(Enums::actor_variant_transform_in_actor_action_handling, actor_action_handling);
 			unsigned short : 16; // TAG_FIELD(Enums::actor_action, actor_action_override);
 
-			TAG_FIELD(tag_string, transform_in_anim);
-			TAG_TBLOCK(keyframe_actions, actor_variant_transform_keyframe_action);
+			tag_string transform_in_anim;
+			Yelo::TagBlock<const actor_variant_transform_keyframe_action> keyframe_actions;
 
 			unsigned long : 32;
-			TAG_FIELD(Enums::actor_variant_transform_in_vitality_handling, vitality_inheritance);
-			TAG_FIELD(Enums::actor_variant_transform_in_vitality_handling, vitality_override);
-			TAG_FIELD(real, shield_override);
-			TAG_FIELD(real, health_override);
-			TAG_PAD(tag_block, 2);
+			Enums::actor_variant_transform_in_vitality_handling vitality_inheritance;
+			Enums::actor_variant_transform_in_vitality_handling vitality_override;
+			real shield_override;
+			real health_override;
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 		static_assert(sizeof(actor_variant_transform_in_target) == 0xAC);
 
 		struct actor_variant_transform_in_definition {
 			enum { k_group_tag = 'avti' };
 
-			TAG_TBLOCK(targets, actor_variant_transform_in_target);
-			TAG_PAD(tag_block, 2);
+			Yelo::TagBlock<const actor_variant_transform_in_target> targets;
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 		static_assert(sizeof(actor_variant_transform_in_definition) == 0x24);
 
 		struct actor_variant_transform_out_instigator {
-			TAG_FIELD(tag_reference, unit);
-			TAG_FIELD(Enums::actor_variant_transform_out_damage_type, damage_type);
+			tag_reference unit;
+			Enums::actor_variant_transform_out_damage_type damage_type;
 			unsigned short : 16;
-			TAG_PAD(tag_block, 1);
+			tag_block:8 * sizeof(tag_block) * 1;
 		};
 		static_assert(sizeof(actor_variant_transform_out_instigator) == 0x20);
 
 		struct actor_variant_transform_out_attachment {
-			TAG_FIELD(tag_reference, object_type);
-			TAG_FIELD(tag_string, object_marker);
-			TAG_FIELD(tag_string, destination_marker);
-			TAG_FIELD(short, destination_marker_count);
+			tag_reference object_type;
+			tag_string object_marker;
+			tag_string destination_marker;
+			short destination_marker_count;
 			unsigned short : 16;
-			TAG_FIELD(Enums::actor_variant_transform_team_handling, team_handling);
-			TAG_FIELD(Enums::game_team, team_override);
-			TAG_FIELD(real_bounds, attachment_scale);
-			TAG_PAD(tag_block, 2);
+			Enums::actor_variant_transform_team_handling team_handling;
+			Enums::game_team team_override;
+			real_bounds attachment_scale;
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 		static_assert(sizeof(actor_variant_transform_out_attachment) == 0x78);
 
 		struct actor_variant_transform_out_definition {
 			enum { k_group_tag = 'avto' };
 
-			TAG_FIELD(unsigned short, flags);
+			unsigned short flags;
 			unsigned short : 16;
 
-			TAG_FIELD(unsigned short, criteria_flags);
+			unsigned short criteria_flags;
 			unsigned short : 16;
-			TAG_FIELD(unsigned short, actor_action);
-			TAG_FIELD(unsigned short, actor_state);
-			TAG_FIELD(real_bounds, shield_range);
-			TAG_FIELD(real_bounds, health_range);
-			TAG_PAD(tag_block, 2);
+			unsigned short actor_action;
+			unsigned short actor_state;
+			real_bounds shield_range;
+			real_bounds health_range;
+			tag_block:8 * sizeof(tag_block) * 2;
 
-			TAG_TBLOCK(instigators, actor_variant_transform_out_instigator);
+			Yelo::TagBlock<const actor_variant_transform_out_instigator> instigators;
 
-			TAG_FIELD(tag_string, transform_out_anim);
-			TAG_TBLOCK(keyframe_actions, actor_variant_transform_keyframe_action);
+			tag_string transform_out_anim;
+			Yelo::TagBlock<const actor_variant_transform_keyframe_action> keyframe_actions;
 
-			TAG_FIELD(unsigned short, attachment_flags);
+			unsigned short attachment_flags;
 			unsigned short : 16;
-			TAG_TBLOCK(attachments, actor_variant_transform_out_attachment);
+			Yelo::TagBlock<const actor_variant_transform_out_attachment> attachments;
 
-			TAG_PAD(tag_block, 2);
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 		static_assert(sizeof(actor_variant_transform_out_definition) == 0x94);
 
 
 		struct actor_variant_transform_collection_transform {
-			TAG_FIELD(unsigned short, flags);
+			unsigned short flags;
 			unsigned short : 16;
-			TAG_FIELD(tag_string, transform_name);
-			TAG_FIELD(real_fraction, selection_chance)[Enums::k_number_of_game_difficulty_levels];
+			tag_string transform_name;
+			real_fraction selection_chance[Enums::k_number_of_game_difficulty_levels];
 
-			TAG_FIELD(tag_reference, transform_out);
+			tag_reference transform_out;
 			actor_variant_transform_out_definition *transform_out_ptr;
-			TAG_FIELD(tag_reference, transform_in);
+			tag_reference transform_in;
 			actor_variant_transform_in_definition *transform_in_ptr;
-			TAG_PAD(tag_block, 2);
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 		static_assert(sizeof(actor_variant_transform_collection_transform) == 0x74);
 
 		struct actor_variant_transform_collection_entry {
-			TAG_FIELD(tag_reference, actor_variant);
-			TAG_TBLOCK_(transforms, actor_variant_transform_collection_transform);
-			TAG_PAD(tag_block, 2);
+			tag_reference actor_variant;
+			Yelo::TagBlock<actor_variant_transform_collection_transform> transforms;
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 		static_assert(sizeof(actor_variant_transform_collection_entry) == 0x34);
 
 		struct actor_variant_transform_collection_definition {
 			enum { k_group_tag = 'avtc' };
 
-			TAG_TBLOCK_(actor_variant_transforms, actor_variant_transform_collection_entry);
-			TAG_PAD(tag_block, 2);
+			Yelo::TagBlock<actor_variant_transform_collection_entry> actor_variant_transforms;
+			tag_block:8 * sizeof(tag_block) * 2;
 		};
 		static_assert(sizeof(actor_variant_transform_collection_definition) == 0x24);
 	};

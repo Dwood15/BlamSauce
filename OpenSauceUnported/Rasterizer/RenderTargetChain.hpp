@@ -29,8 +29,8 @@ namespace Yelo
 			bool				IsAvailable() const;
 			// create the render targets
 			virtual bool		AllocateResources(IDirect3DDevice9* device,
-				uint32 width, 
-				uint32 height,
+				uint width,
+				uint height,
 				D3DFORMAT format);
 			// resets the target setup
 			virtual void		ResetTargets();
@@ -55,8 +55,8 @@ namespace Yelo
 
 			// create the render targets
 			bool				AllocateResources(IDirect3DDevice9* device,
-				uint32 width, 
-				uint32 height);
+				uint width,
+				uint height);
 			// resets the target setup to the default of halos primary buffer as the scene texture
 			void				ResetTargets();
 			// swaps the pointers for scene and next

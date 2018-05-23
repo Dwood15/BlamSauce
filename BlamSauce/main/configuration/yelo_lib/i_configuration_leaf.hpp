@@ -1,11 +1,5 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <YeloLib/configuration/i_configuration_leaf_iterator.hpp>
 
 namespace Yelo
 {
@@ -73,7 +67,7 @@ namespace Yelo
 			/// <param name="default_value">	The default value to use if not present. </param>
 			///
 			/// <returns>	The leaf's value. </returns>
-			virtual uint32		GetValue(const uint32 default_value) = 0;
+			virtual uint		GetValue(const uint default_value) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Gets the leaf's value as a float. </summary>
@@ -139,7 +133,7 @@ namespace Yelo
 			/// <summary>	Sets the nodes value as an unsigned int. </summary>
 			///
 			/// <param name="value">	The value to use. </param>
-			virtual void		SetValue(const uint32 value) = 0;
+			virtual void		SetValue(const uint value) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Sets the nodes value as a float. </summary>

@@ -1,11 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -31,11 +26,6 @@ namespace Yelo
 
 	namespace blam
 	{
-#if PLATFORM_TYPE == PLATFORM_TOOL
-		void predicted_resources_add_resource(TagBlock<TagGroups::predicted_resource>& predicted_resources,
-			long_enum resource_type, datum_index tag_index, long resource_index = NONE);
-#endif
-
 		// NOTE: function is actually defined in the engine's physical_memory_map.c
 		// May be 'physical_memory_map_precache_resources' or something
 		void predicted_resources_precache(TagBlock<TagGroups::predicted_resource>& resources);

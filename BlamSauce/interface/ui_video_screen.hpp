@@ -10,6 +10,6 @@ namespace Yelo
 {
 	namespace blam
 	{
-		void __cdecl ui_video_screen_add_resolution(uint32 width, uint32 height, uint32 refresh_rate);
+		void __cdecl ui_video_screen_add_resolution(uint width, uint height, uint refresh_rate);
 	};
 };

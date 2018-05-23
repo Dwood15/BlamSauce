@@ -11,13 +11,13 @@ static void InitializeGrenadeCounts_UnitZoomLevelRefs(bool enabled)
 {
 	static bool verified;
 
-	uint32 offset = enabled 
+	uint offset = enabled
 		? s_unit_data::k_offset_zoom_level_yelo 
 		: s_unit_data::k_offset_zoom_level;
 
 	for(int x = 0; x < NUMBEROF(K_UNIT_ZOOM_LEVEL_OFFSET_REFS); x++)
 	{
-		uint32* offset_ref = CAST_PTR(uint32*, K_UNIT_ZOOM_LEVEL_OFFSET_REFS[x]);
+		uint* offset_ref = CAST_PTR(uint*, K_UNIT_ZOOM_LEVEL_OFFSET_REFS[x]);
 
 		DebugOnly( 
 			if(!verified)
@@ -31,13 +31,13 @@ static void InitializeGrenadeCounts_UnitDesiredZoomLevelRefs(bool enabled)
 {
 	static bool verified;
 
-	uint32 offset = enabled 
+	uint offset = enabled
 		? s_unit_data::k_offset_desired_zoom_level_yelo 
 		: s_unit_data::k_offset_desired_zoom_level;
 
 	for(int x = 0; x < NUMBEROF(K_UNIT_DESIRED_ZOOM_LEVEL_OFFSET_REFS); x++)
 	{
-		uint32* offset_ref = CAST_PTR(uint32*, K_UNIT_DESIRED_ZOOM_LEVEL_OFFSET_REFS[x]);
+		uint* offset_ref = CAST_PTR(uint*, K_UNIT_DESIRED_ZOOM_LEVEL_OFFSET_REFS[x]);
 
 		DebugOnly( 
 			if(!verified)
@@ -47,7 +47,7 @@ static void InitializeGrenadeCounts_UnitDesiredZoomLevelRefs(bool enabled)
 	}
 	DebugOnly( verified = true );
 }
-static void InitializeGrenadeCounts_NumberOfUnitGrenadeTypes(uint32 count)
+static void InitializeGrenadeCounts_NumberOfUnitGrenadeTypes(uint count)
 {
 	static bool verified;
 

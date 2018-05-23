@@ -211,8 +211,8 @@ namespace Yelo {
 
 		struct field_reference {
 			field_properties_definition *properties;
-			uint32 offset; ///< in bytes
-			uint32 baseline_offset; ///< in bytes
+			uint offset; ///< in bytes
+			uint baseline_offset; ///< in bytes
 			bool   initialized;
 					 unsigned char : 8; unsigned short : 16;
 		};

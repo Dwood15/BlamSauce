@@ -106,7 +106,7 @@ namespace Yelo
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
 
-				result.uint32 = Generic::Internal::c_system_internal::Instance().GetEffectInstanceIndexByName(args->test_string);
+				result.uint = Generic::Internal::c_system_internal::Instance().GetEffectInstanceIndexByName(args->test_string);
 
 				return result.pointer;
 			}
@@ -173,7 +173,7 @@ namespace Yelo
 				}* args = CAST_PTR(s_arguments*, arguments);
 				TypeHolder result;
 
-				result.uint32 = Generic::Internal::c_system_internal::Instance().GetEffectIndexByName(args->test_string);
+				result.uint = Generic::Internal::c_system_internal::Instance().GetEffectIndexByName(args->test_string);
 
 				return result.pointer;
 			}
@@ -232,7 +232,7 @@ namespace Yelo
 					unsigned short : 16;
 					unsigned short script_variable_index;
 					unsigned short : 16;
-					uint32 value;
+					uint value;
 					real interp_time;
 				}* args = CAST_PTR(s_arguments*, arguments);
 

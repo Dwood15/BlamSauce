@@ -1,16 +1,8 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/memory/data.hpp>
+#include <precompile.h>
 
-namespace Yelo
-{
-	namespace Objects
+namespace Yelo::Objects
 	{
 		struct s_device_groups_datum : Memory::s_datum_base
 		{
@@ -18,4 +10,4 @@ namespace Yelo
 			real value;
 		};
 	};
-};
+

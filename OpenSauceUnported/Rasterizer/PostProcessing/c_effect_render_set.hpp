@@ -28,8 +28,8 @@ namespace Yelo
 				m_effect_list = NULL;
 			}
 
-			void SetCount(uint32 effect_count);
-			void SetEffectInstance(uint32 index, c_effect_instance* effect);
+			void SetCount(uint effect_count);
+			void SetEffectInstance(uint index, c_effect_instance* effect);
 			bool RenderSet(IDirect3DDevice9* render_device);
 		};
 	};};

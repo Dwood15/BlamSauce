@@ -1,12 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
-#include <YeloLib/Halo1/tag_files/string_id_yelo.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -41,9 +35,9 @@ namespace Yelo
 			{
 				typedef short block_index_t;
 
-				TAG_FIELD(size_t, element_runtime_size);
-				TAG_FIELD(unsigned short, flags);
-				TAG_FIELD(short, alignment_bit);
+				size_t element_runtime_size;
+				unsigned short flags;
+				short alignment_bit;
 			};
 			struct s_tag_allocation
 			{
@@ -51,8 +45,8 @@ namespace Yelo
 
 				TAG_BLOCK_INDEX(s_tag_allocation_definition, allocation_index);
 				unsigned short : 16;
-				TAG_FIELD(size_t, size);
-				TAG_FIELD(uintptr_t, rva);
+				size_t size;
+				uintptr_t rva;
 			};
 
 			struct s_tag_block_allocation
@@ -60,7 +54,7 @@ namespace Yelo
 				typedef long block_index_t;
 
 				TAG_BLOCK_INDEX(s_tag_allocation, allocation_index);
-				TAG_TBLOCK(child_allocations, s_tag_allocation::block_index_t);
+				Yelo::TagBlock<const s_tag_allocation::block_index_t> child_allocations;
 			};
 
 			struct s_tag_data_allocation
@@ -75,8 +69,8 @@ namespace Yelo
 				typedef short block_index_t;
 
 				TAG_BLOCK_INDEX(s_tag_allocation_definition, parent_definition_index);
-				TAG_FIELD(unsigned short, parent_offset);
-				TAG_ENUM(type, Enums::tag_block_child_type);
+				unsigned short parent_offset;
+				short type;
 				unsigned short : 16;
 			}; static_assert( sizeof(s_tag_block_child_definition) == 8 );
 
@@ -93,36 +87,37 @@ namespace Yelo
 				string_id_set_entry_location_t;
 			struct s_string_id_set
 			{
-				TAG_FIELD(long, set_index);
-				TAG_TBLOCK(ids_bitvector, byte);
-				TAG_TBLOCK(id_locations, string_id_set_entry_location_t);
+				long set_index;
+
+				Yelo::TagBlock<const byte> ids_bitvector;
+				Yelo::TagBlock<const string_id_set_entry_location_t> id_locations;
 			};
 
 			struct s_tag_instance
 			{
 				TAG_BLOCK_INDEX(s_tag_block_allocation, header_block_index);
-				TAG_TBLOCK(references, s_tag_block_child_instance::block_index_t); // indices to [tag_reference_locations]
-				TAG_FIELD(uintptr_t, name_offset); // offset of the tag name from the start of the tag name buffer
+				Yelo::TagBlock<const s_tag_block_child_instance::block_index_t> references; // indices to [tag_reference_locations]
+				uintptr_t name_offset; // offset of the tag name from the start of the tag name buffer
 			};
 
-			TAG_FIELD(uint32, tags_checksum);
-			TAG_FIELD(uintptr_t, virtual_base_address);
+			uint tags_checksum;
+			uintptr_t virtual_base_address;
 			PAD64;
 
-			TAG_TBLOCK(allocation_definitions, s_tag_allocation_definition);
-			TAG_TBLOCK(allocations, s_tag_allocation);
-			TAG_TBLOCK(block_allocations, s_tag_block_allocation);
-			TAG_TBLOCK(data_allocations, s_tag_data_allocation);
+			Yelo::TagBlock<const s_tag_allocation_definition> allocation_definitions;
+			Yelo::TagBlock<const s_tag_allocation> allocations;
+			Yelo::TagBlock<const s_tag_block_allocation> block_allocations;
+			Yelo::TagBlock<const s_tag_data_allocation> data_allocations;
 
 			PAD_TYPE(tag_block);
 
-			TAG_TBLOCK(children_definitions, s_tag_block_child_definition);
-			TAG_TBLOCK(tag_reference_locations, s_tag_block_child_instance);
-			TAG_TBLOCK(string_id_locations, s_tag_block_child_instance);
+			Yelo::TagBlock<const s_tag_block_child_definition> children_definitions;
+			Yelo::TagBlock<const s_tag_block_child_instance> tag_reference_locations;
+			Yelo::TagBlock<const s_tag_block_child_instance> string_id_locations;
 
-			TAG_TBLOCK(string_id_sets, s_string_id_set);
+			Yelo::TagBlock<const s_string_id_set> string_id_sets;
 
-			TAG_TBLOCK(tag_instances, s_tag_instance);
+			Yelo::TagBlock<const s_tag_instance> tag_instances;
 		};
 	};
 };

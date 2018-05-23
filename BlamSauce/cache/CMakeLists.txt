@@ -23,4 +23,6 @@ set(CACHE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/shared/pc_texture_cache.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/cache_files_structures_yelo.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cache_file_memory_layout_table_definitions.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/cache_file_memory_gestalt_definitions.hpp
 	PARENT_SCOPE)

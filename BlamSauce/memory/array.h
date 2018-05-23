@@ -1,15 +1,8 @@
 #pragma once
-/*
-	Yelo: Open Sauce SDK
 
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-#pragma once
-
-#include "../cseries/base.h"
+#include <precompile.h>
 #include "datum_index.h"
 #include "data.h"
-#include "../cseries/MacrosCpp.h"
 
 namespace Yelo {
 	namespace Memory {

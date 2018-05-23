@@ -1,8 +1,11 @@
 #pragma once
 
-#include "../tags/group/markup.h"
-#include "../tags/group/base.h"
-#include "project_yellow_scenario_definitions.hpp"
+#include <precompile.h>
+#include <enginelayout/Objects.inl>
+#include "../../tags/group/markup.h"
+#include "../../memory/upgrades/blam_memory_upgrades.hpp"
+#include "../../tags/group/tag_groups_base_yelo.hpp"
+#include "yelo_scenario_definite.h"
 
 namespace Yelo::Flags {
 	enum project_yellow_globals_flags {
@@ -20,43 +23,41 @@ namespace Yelo::Flags {
 namespace Yelo::TagGroups {
 	/* !-- UI --! */
 	struct s_project_yellow_scripted_ui_widget {
-		TAG_FIELD(tag_string, name);
-		TAG_FIELD(tag_reference, definition, 'DeLa');
+		tag_string name;
+		tag_reference definition;
 
-		PAD32; // future flags
-		TAG_PAD(spy_suiw_p0, tag_block, 2);
+		unsigned long : 32; // future flags
+		tag_block:8 * sizeof(tag_block) * 2;
 	};
 	/* !-- UI --! */
 
 
 	/* !-- Netgame --! */
 	struct s_network_game_player_unit {
-		TAG_FIELD(tag_string, name, "", "name of this block definition");
-		TAG_FIELD(tag_reference, definition, "unit", "unit definition for this player's biped");
-		TAG_PAD(s_ngpu_p0, long, 8); // 32
+		tag_string name;
+		tag_reference definition;
+		long:8 * sizeof(long) * 8; // 32
 	};
 	/* !-- Netgame --! */
 
 
 	/* !-- Scripting --! */
 	struct s_script_construct_definition {
-		TAG_FIELD(tag_string, name[2]
-		); // So we can have at most 62 characters for the name
-		TAG_FIELD(short, index
-		);
+		tag_string name[2]; // So we can have at most 62 characters for the name
+		short index;
 
 	};
 
 	struct s_script_function_definition : public s_script_construct_definition {
-		TAG_ENUM(return_type, Enums::hs_type);
-		TAG_TBLOCK(parameters, short); // 32
+		Enums::hs_type return_type;
+		Yelo::TagBlock<const short> parameters; // 32
 	};
 	struct s_script_global_definition : public s_script_construct_definition {
-		TAG_ENUM(type, Enums::hs_type);
+		Enums::hs_type type;
 	};
 	struct s_scripting_definitions {
-		TAG_TBLOCK(new_functions, s_script_function_definition);
-		TAG_TBLOCK(new_globals, s_script_global_definition);
+		Yelo::TagBlock<const s_script_function_definition> new_functions;
+		Yelo::TagBlock<const s_script_global_definition> new_globals;
 	};
 	/* !-- Scripting --! */
 
@@ -72,40 +73,40 @@ namespace Yelo::TagGroups {
 		static cstring k_default_name = "there they are all standing in a row";
 
 		const short version;
-		TAG_FIELD(unsigned short, flags, Flags::project_yellow_globals_flags);
-		TAG_FIELD(uint32, base_address);
+		unsigned short flags;
+		uint base_address;
 
-		TAG_FIELD(tag_string, mod_name, "", "name of the engine 'mod' these globals and, inheriting scenario, are for");
+		tag_string mod_name;
 
-		TAG_FIELD(tag_reference, explicit_references, 'tagc');
-		TAG_PAD(pyg_p0, long, 8);
+		tag_reference explicit_references;
+		long:8 * sizeof(long) * 8;
 
-		TAG_PAD(pyg_p1, tag_block, 1);
+		tag_block:8 * sizeof(tag_block) * 1;
 
 		/* !-- UI --! */
 		struct {
-			TAG_PAD(pyg_p2, tag_reference, 3); // 48
-			PAD32;
-			TAG_TBLOCK(scripted_widgets, s_project_yellow_scripted_ui_widget); // 128
+			tag_reference:8 * sizeof(tag_reference) * 3; // 48
+			unsigned long : 32;
+			Yelo::TagBlock<const s_project_yellow_scripted_ui_widget> scripted_widgets; // 128
 		}           ui;
 		/* !-- UI --! */
 
 
 		/* !-- Netgame --! */
 		struct {
-			TAG_TBLOCK(player_units, s_network_game_player_unit); // 32
+			Yelo::TagBlock<const s_network_game_player_unit> player_units; // 32
 
-			TAG_PAD(pyg_p2, long, 5); // 20
+			long:8 * sizeof(long) * 5; // 20
 		}           networking;
 		/* !-- Netgame --! */
 
 
 		/* !-- Scripting --! */
-		TAG_TBLOCK(yelo_scripting, s_scripting_definitions); // 1
+		Yelo::TagBlock<const s_scripting_definitions> yelo_scripting; // 1
 		/* !-- Scripting --! */
 
 
-		TAG_PAD(pyg_p3, long, 20); // 80
+		long:8 * sizeof(long) * 20; // 80
 
 		project_yellow_globals() : version(project_yellow::k_version) {
 			flags = FLAG(Flags::_project_yellow_null_definition_bit) | FLAG(Flags::_project_yellow_invalid_version_bit);
@@ -119,9 +120,9 @@ namespace Yelo::TagGroups {
 				bool remove_element = true;
 
 				if (player_unit.name[0] == '\0')
-					YELO_WARN("CheApe: Culling unnamed network_game_player_unit element #%n\n", x);
+					Yelo::blam::error(Yelo::Enums::_error_message_priority_warning, "CheApe: Culling unnamed network_game_player_unit element #%n\n", x);
 				else if (player_unit.definition.tag_index.IsNull())
-					YELO_WARN("CheApe: Culling invalid network_game_player_unit element #%n (%s)\n", x, player_unit.name);
+					Yelo::blam::error(Yelo::Enums::_error_message_priority_warning, "CheApe: Culling invalid network_game_player_unit element #%n (%s)\n", x, player_unit.name);
 				else
 					remove_element = false;
 

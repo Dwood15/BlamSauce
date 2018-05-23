@@ -13,7 +13,7 @@
 // 50%
 
 static constexpr float K_MEMORY_UPGRADE_INCREASE_AMOUNT = 1.5f;
-#define uint32 unsigned int
+#define uint unsigned int
 namespace Yelo::Enums {
 	constexpr int k_game_state_allocation_size = 0x00440000;
 
@@ -55,81 +55,81 @@ namespace Yelo::Enums {
 	// Max amount of memory addressable by the game state. After this comes tag memory
 	constexpr auto k_game_state_cpu_size = k_game_state_allocation_size;
 
-	constexpr uint32 k_maximum_hs_dynamic_source_data_bytes = 1024; // HS_MAXIMUM_DYNAMIC_SOURCE_DATA_BYTES
+	constexpr uint k_maximum_hs_dynamic_source_data_bytes = 1024; // HS_MAXIMUM_DYNAMIC_SOURCE_DATA_BYTES
 
-	constexpr uint32 k_maximum_hs_syntax_nodes_per_scenario = 19001;
-	constexpr uint32 k_maximum_hs_string_data_per_scenario  = 256 * 1024;
+	constexpr uint k_maximum_hs_syntax_nodes_per_scenario = 19001;
+	constexpr uint k_maximum_hs_string_data_per_scenario  = 256 * 1024;
 
-	constexpr uint32 k_maximum_hs_scripts_per_scenario    = 512;
-	constexpr uint32 k_maximum_hs_globals_per_scenario    = 128;
-	constexpr uint32 k_maximum_hs_references_per_scenario = 256;
+	constexpr uint k_maximum_hs_scripts_per_scenario    = 512;
+	constexpr uint k_maximum_hs_globals_per_scenario    = 128;
+	constexpr uint k_maximum_hs_references_per_scenario = 256;
 
-	constexpr uint32 k_maximum_hs_source_files_per_scenario     = 8;
-	constexpr uint32 k_maximum_number_of_hs_function_parameters = 32;
-	constexpr uint32 k_maximum_number_of_hs_globals             = 1024;
+	constexpr uint k_maximum_hs_source_files_per_scenario     = 8;
+	constexpr uint k_maximum_number_of_hs_function_parameters = 32;
+	constexpr uint k_maximum_number_of_hs_globals             = 1024;
 
-	constexpr uint32 k_hs_inspect_buffer_size          = 1024;
-	constexpr uint32 k_maximum_hs_source_data_per_file = 0x40000;
+	constexpr uint k_hs_inspect_buffer_size          = 1024;
+	constexpr uint k_maximum_hs_source_data_per_file = 0x40000;
 
 	// Our upgraded memory allocation size.
-	constexpr uint32 k_physical_memory_map_allocation_size_upgrade = static_cast<uint32>(k_physical_memory_map_allocation_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_physical_memory_map_allocation_size_upgrade = static_cast<uint>(k_physical_memory_map_allocation_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
 	static_assert(k_physical_memory_map_allocation_size_upgrade >= k_physical_memory_map_allocation_size);
 
-	constexpr uint32 k_maximum_simultaneous_tag_instances         = 0x00001400; // 5120
-	constexpr uint32 k_maximum_simultaneous_tag_instances_upgrade = static_cast<uint32>(Yelo::Enums::k_maximum_simultaneous_tag_instances * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_maximum_simultaneous_tag_instances         = 0x00001400; // 5120
+	constexpr uint k_maximum_simultaneous_tag_instances_upgrade = static_cast<uint>(Yelo::Enums::k_maximum_simultaneous_tag_instances * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
 	// 0x40440000
-	constexpr uint32 k_tag_base_address = k_physical_memory_base_address + k_game_state_allocation_size;
+	constexpr uint k_tag_base_address = k_physical_memory_base_address + k_game_state_allocation_size;
 
-	constexpr uint32 k_tag_allocation_size         = 0x01700000;
-	constexpr uint32 k_tag_allocation_size_upgrade = static_cast<uint32>(Enums::k_tag_allocation_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_tag_allocation_size         = 0x01700000;
+	constexpr uint k_tag_allocation_size_upgrade = static_cast<uint>(Enums::k_tag_allocation_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
 	// Highest Tag Memory Address
 	// 0x41B40000
-	constexpr uint32 k_tag_max_address         = k_tag_base_address + k_tag_allocation_size;
-	constexpr uint32 k_tag_max_address_upgrade = k_tag_base_address + k_tag_allocation_size_upgrade;
+	constexpr uint k_tag_max_address         = k_tag_base_address + k_tag_allocation_size;
+	constexpr uint k_tag_max_address_upgrade = k_tag_base_address + k_tag_allocation_size_upgrade;
 
-	constexpr uint32 k_multiplayer_maximum_additional_players = 0;
+	constexpr uint k_multiplayer_maximum_additional_players = 0;
 
-	constexpr uint32 k_multiplayer_maximum_players_upgrade = k_multiplayer_maximum_players + k_multiplayer_maximum_additional_players;
+	constexpr uint k_multiplayer_maximum_players_upgrade = k_multiplayer_maximum_players + k_multiplayer_maximum_additional_players;
 
-	constexpr uint32 k_maximum_network_machine_count_upgrade = k_maximum_network_machine_count + k_multiplayer_maximum_additional_players;
+	constexpr uint k_maximum_network_machine_count_upgrade = k_maximum_network_machine_count + k_multiplayer_maximum_additional_players;
 
 	//////////////////////////////////////////////////////////////////////////
 	// effects upgrades
-	constexpr uint32 k_maximum_number_of_particles_per_map_upgrade = k_maximum_number_of_particles_per_map + k_maximum_number_of_particles_per_map_upgrade_amount;
+	constexpr uint k_maximum_number_of_particles_per_map_upgrade = k_maximum_number_of_particles_per_map + k_maximum_number_of_particles_per_map_upgrade_amount;
 
-	constexpr uint32 k_maximum_number_of_effects_per_map_upgrade          = k_maximum_number_of_effects_per_map + k_maximum_number_of_effects_per_map_upgrade_amount;
-	constexpr uint32 k_maximum_number_of_effect_locations_per_map_upgrade = k_maximum_number_of_effect_locations_per_map + k_maximum_number_of_effect_locations_per_map_upgrade_amount;
+	constexpr uint k_maximum_number_of_effects_per_map_upgrade          = k_maximum_number_of_effects_per_map + k_maximum_number_of_effects_per_map_upgrade_amount;
+	constexpr uint k_maximum_number_of_effect_locations_per_map_upgrade = k_maximum_number_of_effect_locations_per_map + k_maximum_number_of_effect_locations_per_map_upgrade_amount;
 
-	constexpr uint32 k_maximum_number_of_particle_system_particles_per_map_upgrade =
+	constexpr uint k_maximum_number_of_particle_system_particles_per_map_upgrade =
 							  k_maximum_number_of_particle_system_particles_per_map + k_maximum_number_of_particle_system_particles_per_map_upgrade_amount;
 	//////////////////////////////////////////////////////////////////////////
 
-	constexpr uint32 k_hs_functions_count        = 543; // the normal hs_function count in the engine under an editor build
-	constexpr uint32 k_hs_external_globals_count = 495; // the normal hs external globals count in the engine under an editor build
+	constexpr uint k_hs_functions_count        = 543; // the normal hs_function count in the engine under an editor build
+	constexpr uint k_hs_external_globals_count = 495; // the normal hs external globals count in the engine under an editor build
 
-	constexpr uint32 k_maximum_hs_syntax_nodes_per_scenario_upgrade = static_cast<uint32>(k_maximum_hs_syntax_nodes_per_scenario * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
-	constexpr uint32 k_maximum_hs_string_data_per_scenario_upgrade  = static_cast<uint32>(k_maximum_hs_string_data_per_scenario * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_maximum_hs_syntax_nodes_per_scenario_upgrade = static_cast<uint>(k_maximum_hs_syntax_nodes_per_scenario * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_maximum_hs_string_data_per_scenario_upgrade  = static_cast<uint>(k_maximum_hs_string_data_per_scenario * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
-	constexpr uint32 k_hs_script_functions_count_upgrade = 1024;
-	constexpr uint32 k_hs_external_globals_count_upgrade = 1024 - k_maximum_hs_globals_per_scenario;
+	constexpr uint k_hs_script_functions_count_upgrade = 1024;
+	constexpr uint k_hs_external_globals_count_upgrade = 1024 - k_maximum_hs_globals_per_scenario;
 
 	static_assert(k_maximum_hs_syntax_nodes_per_scenario_upgrade >= k_maximum_hs_syntax_nodes_per_scenario);
 	static_assert(k_maximum_hs_string_data_per_scenario_upgrade >= k_maximum_hs_string_data_per_scenario);
 
-	constexpr uint32 k_rasterizer_maximum_dynamic_triangles_upgrade = static_cast<uint32>(k_rasterizer_maximum_dynamic_triangles * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_rasterizer_maximum_dynamic_triangles_upgrade = static_cast<uint>(k_rasterizer_maximum_dynamic_triangles * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
 	static_assert(k_rasterizer_maximum_dynamic_triangles_upgrade >= k_rasterizer_maximum_dynamic_triangles);
 
-	constexpr uint32 k_maximum_rendered_objects_upgrade   = k_maximum_rendered_objects + k_maximum_rendered_objects_upgrade_amount;
-	constexpr uint32 k_maximum_rendered_triangles_upgrade = static_cast<uint32>(k_maximum_rendered_triangles * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_maximum_rendered_objects_upgrade   = k_maximum_rendered_objects + k_maximum_rendered_objects_upgrade_amount;
+	constexpr uint k_maximum_rendered_triangles_upgrade = static_cast<uint>(k_maximum_rendered_triangles * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
 	// Our upgraded max cache size.
-	constexpr uint32 k_max_cache_size_upgrade = static_cast<uint32>(k_max_cache_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_max_cache_size_upgrade = static_cast<uint>(k_max_cache_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
-	constexpr uint32 k_max_cache_vertex_y_index_buffer_size_upgrade = static_cast<uint32>(k_max_cache_vertex_y_index_buffer_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
+	constexpr uint k_max_cache_vertex_y_index_buffer_size_upgrade = static_cast<uint>(k_max_cache_vertex_y_index_buffer_size * K_MEMORY_UPGRADE_INCREASE_AMOUNT);
 
 	static_assert(k_max_cache_size_upgrade >= k_max_cache_size);
 	static_assert(k_max_cache_vertex_y_index_buffer_size_upgrade >= k_max_cache_vertex_y_index_buffer_size);
@@ -266,4 +266,4 @@ namespace Yelo::Flags {
 		_alignment_128_bit,
 	};
 };
-#undef uint32
+#undef uint

@@ -27,7 +27,7 @@ bool Teleport(datum_index player_index, const real_point3d& position, datum_inde
 }
 
 
-static void player_screen_effect(datum_index player_index, uint32 func)
+static void player_screen_effect(datum_index player_index, uint func)
 {
 	__asm {
 		mov		edx, player_index
@@ -56,7 +56,7 @@ void ScreenEffectHealth(datum_index player_index)
 
 datum_index FindClosestPlayerIndex(datum_index player_index)
 {
-	static uint32 TEMP_CALL_ADDR = GET_FUNC_PTR(FIND_CLOSEST_PLAYER_INDEX);
+	static uint TEMP_CALL_ADDR = GET_FUNC_PTR(FIND_CLOSEST_PLAYER_INDEX);
 
 	if(player_index.IsNull()) return datum_index::null;
 

@@ -33,7 +33,7 @@ namespace Yelo
 		{
 			c_parameter_instance* instance = nullptr;
 
-			uint32 index = 0;
+			uint index = 0;
 			while((index < m_members_generic.parameter_count) && !instance)
 			{
 				TagGroups::s_shader_postprocess_parameter* parameter = m_members_generic.parameters[index].GetParameter();
@@ -67,7 +67,7 @@ namespace Yelo
 			m_members_generic.parameter_count = definition->parameters.Count;
 			m_members_generic.parameters = new c_parameter_instance[m_members_generic.parameter_count];
 
-			for(uint32 i = 0; i < m_members_generic.parameter_count; i++)
+			for(uint i = 0; i < m_members_generic.parameter_count; i++)
 			{
 				// initialise each parameter instance and run its set up logic
 				m_members_generic.parameters[i].Ctor();
@@ -89,7 +89,7 @@ namespace Yelo
 				return;
 
 			// run the destruction logic on each instance to delete memory and reset to defaults
-			for(uint32 i = 0; i < m_members_generic.parameter_count; i++)
+			for(uint i = 0; i < m_members_generic.parameter_count; i++)
 				m_members_generic.parameters[i].Dtor();
 
 			// delete the parameter instance array
@@ -112,7 +112,7 @@ namespace Yelo
 		 */
 		void c_shader_instance_generic::UpdateShaderInstance(real delta_time)
 		{
-			for(uint32 i = 0; i < m_members_generic.parameter_count; i++)
+			for(uint i = 0; i < m_members_generic.parameter_count; i++)
 				m_members_generic.parameters[i].Update(delta_time);
 		}
 
@@ -124,7 +124,7 @@ namespace Yelo
 		 */
 		void c_shader_instance_generic::SetShaderInstanceVariables()
 		{
-			for(uint32 i = 0; i < m_members_generic.parameter_count; i++)
+			for(uint i = 0; i < m_members_generic.parameter_count; i++)
 				m_members_generic.parameters[i].SetParameterVariable(m_members_generic.shader->GetEffect());
 		}
 	};};};

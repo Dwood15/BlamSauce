@@ -21,13 +21,13 @@ namespace Yelo
 			/// <param name="callback_id">	Identifier for the callback. </param>
 			/// <param name="function">   	The function. </param>
 			/// <param name="userdata">   	[in] If non-null, the userdata. </param>
-			virtual void AddCallback(const uint32 callback_id, const event_callback_t& function, void* userdata) = 0;
+			virtual void AddCallback(const uint callback_id, const event_callback_t& function, void* userdata) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Removes the callback described by callback_id. </summary>
 			///
 			/// <param name="callback_id">	Identifier for the callback. </param>
-			virtual void RemoveCallback(const uint32 callback_id) = 0;
+			virtual void RemoveCallback(const uint callback_id) = 0;
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Triggers the event. </summary>
@@ -40,6 +40,6 @@ namespace Yelo
 		typedef std::shared_ptr<i_event_handler> event_handler_ptr_t;
 
 		/// <summary>	Defines an alias representing an event_handler map. </summary>
-		typedef std::map<uint32, event_handler_ptr_t> event_handler_map_t;
+		typedef std::map<uint, event_handler_ptr_t> event_handler_map_t;
 	};};};
 };

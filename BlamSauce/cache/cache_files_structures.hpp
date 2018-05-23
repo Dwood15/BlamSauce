@@ -1,15 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/cache/cache_files_base.hpp>
-#include <blamlib/Halo1/cache/cache_constants.hpp>
-#include <blamlib/Halo1/cache/cache_files.hpp>
-#include <YeloLib/Halo1/cache/cache_files_structures_yelo.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -37,9 +28,9 @@ namespace Yelo
 			Enums::cache_file_type cache_type;
 			unsigned short : 16;
 			uint crc;
-			PAD32; // ?
+			unsigned long : 32; // ?
 
-			PAD32; // Align so the yelo header starts on a 16B boundary
+			unsigned long : 32; // Align so the yelo header starts on a 16B boundary
 			s_cache_header_yelo yelo;
 			byte padding[k_pad_size - (sizeof(uint) + sizeof(s_cache_header_yelo))];
 

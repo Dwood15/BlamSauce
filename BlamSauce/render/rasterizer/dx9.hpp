@@ -60,7 +60,7 @@ namespace Yelo {
 namespace Yelo::Render {
 	// (Korn): yeah, I fucked up, this should have stayed in the Rasterizer namespace!
 	struct s_render_target {
-		uint32    width, height;
+		uint    width, height;
 		D3DFORMAT format;
 
 		IDirect3DSurface9 *surface;
@@ -70,7 +70,7 @@ namespace Yelo::Render {
 		bool IsEnabled() const { return surface && texture; }
 
 		// Create the render target texture and surface. If either of those fails [enabled] will be false
-		HRESULT CreateTarget(IDirect3DDevice9 *device, uint32 rt_width, uint32 rt_height, D3DFORMAT rt_format) {
+		HRESULT CreateTarget(IDirect3DDevice9 *device, uint rt_width, uint rt_height, D3DFORMAT rt_format) {
 			width      = rt_width;
 			height     = rt_height;
 			format     = rt_format;

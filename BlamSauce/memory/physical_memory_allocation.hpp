@@ -9,7 +9,7 @@ namespace Yelo {
 				unsigned valid : 1;
 				unsigned allocated : 1;
 			}      m_flags;
-			uint32 m_error_code;
+			uint m_error_code;
 		public:
 			// Check whether this allocation is both valid and the memory is allocated
 			bool IsValid() const { return m_flags.valid; }
@@ -21,7 +21,7 @@ namespace Yelo {
 			size_t GetSize() const { return m_size; }
 
 			// Get the platform-specific error code gathered from a bad allocation
-			uint32 GetErrorCode() const { return m_error_code; }
+			uint GetErrorCode() const { return m_error_code; }
 
 			// Initializes an instance with the given values
 			// If the values are invalid, operations will safely fail and IsValid() will return false

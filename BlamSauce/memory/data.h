@@ -1,12 +1,9 @@
 #pragma once
 
-#include <cstring>
-#include <exception>
-#include <string>
+#include <precompile.h>
 #include "datum_index.h"
 #include "data_base.h"
 #include <engine_functions.h>
-#include <rpc.h>
 
 static constexpr Yelo::datum_index::salt_t k_datum_index_salt_msb = 1U << (BIT_COUNT(Yelo::datum_index::salt_t) - 1);
 

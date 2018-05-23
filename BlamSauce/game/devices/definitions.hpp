@@ -1,13 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
-
-#include <blamlib/Halo1/objects/object_definitions.hpp>
-
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
+#include <precompile.h>
+#include "../objects/object_definitions.hpp"
 
 namespace Yelo
 {
@@ -16,32 +9,32 @@ namespace Yelo
 		struct _device_definition
 		{
 			struct _flags {
-				TAG_FLAG(position_loops);
-				TAG_FLAG(position_not_interpolated);
+				unsigned long position_loops_bit:1;
+				unsigned long position_not_interpolated_bit:1;
 			}flags;
 
 			struct _timing {
-				TAG_FIELD(real, transition_time, "seconds");
-				TAG_FIELD(real, acceleration_time, "seconds");
+				real transition_time;
+				real acceleration_time;
 			}power_time, position_time, depower_time;
 
 			short function_exports[Enums::k_number_of_incoming_object_functions]; // Enums::device_function_mode
 
-			TAG_FIELD(tag_reference, open, 'snd!', 'effe');
-			TAG_FIELD(tag_reference, close, 'snd!', 'effe');
+			tag_reference open; // 'snd!', 'effe');
+			tag_reference close; //'snd!', 'effe');
 
-			TAG_FIELD(tag_reference, opened, 'snd!', 'effe');
-			TAG_FIELD(tag_reference, closed, 'snd!', 'effe');
+			tag_reference opened;
+			tag_reference closed;
 
-			TAG_FIELD(tag_reference, depowered, 'snd!', 'effe');
-			TAG_FIELD(tag_reference, repowered, 'snd!', 'effe');
+			tag_reference depowered;
+			tag_reference repowered;
 
-			TAG_FIELD(real, delay_time, "seconds");
-			TAG_PAD(real, 2); // 8
+			real delay_time;
+			real:8 * sizeof(real) * 2; // 8
 
-			TAG_FIELD(tag_reference, delay_effect, 'snd!', 'effe');
-			TAG_FIELD(real, automatic_activation_radius, "world units");
-			TAG_PAD(long, 21);
+			tag_reference delay_effect;
+			real automatic_activation_radius;
+			long:8 * sizeof(long) * 21;
 
 			struct { // if([tag values] != 0) then * 30.0f, then 1.0f / result
 				struct {
@@ -57,32 +50,32 @@ namespace Yelo
 
 		struct _control_definition
 		{
-			TAG_ENUM(type, control_type);
-			TAG_ENUM(triggers_when, control_trigger);
-			TAG_FIELD(real, call_value);
-			TAG_PAD(long, 20); // 80
+			control_type type;
+			control_trigger triggers_when;
+			real call_value;
+			long:8 * sizeof(long) * 20; // 80
 
-			TAG_FIELD(tag_reference, on, 'snd!', 'effe');
-			TAG_FIELD(tag_reference, off, 'snd!', 'effe');
-			TAG_FIELD(tag_reference, deny, 'snd!', 'effe');
+			tag_reference on;
+			tag_reference off;
+			tag_reference deny;
 		}; static_assert( sizeof(_control_definition) == 0x88 );
 
 		//////////////////////////////////////////////////////////////////////////
 
 		struct _machine_definition
 		{
-			TAG_ENUM(type, machine_type);
+			machine_type type;
 			struct _Flags {
-				TAG_FLAG16(pathfinding_obstacle);
-				TAG_FLAG16(but_not_when_open);
-				TAG_FLAG16(elevator, "lighting based on what's around, rather than what's below");
+				unsigned short pathfinding_obstacle_bit:1;
+				unsigned short but_not_when_open_bit:1;
+				unsigned short elevator_bit:1;
 			}flags;
-			TAG_FIELD(real, door_open_time, "seconds");
-			TAG_PAD(long, 20); // 80
+			real door_open_time;
+			long:8 * sizeof(long) * 20; // 80
 
-			TAG_ENUM(collision_response, machine_collision_response);
-			TAG_FIELD(short, elevator_node);
-			TAG_PAD(long, 13); // 52
+			machine_collision_response collision_response;
+			short elevator_node;
+			long:8 * sizeof(long) * 13; // 52
 
 			long runtime_door_open_time; // door_open_time * 30.0f
 		}; static_assert( sizeof(_machine_definition) == 0x94 );

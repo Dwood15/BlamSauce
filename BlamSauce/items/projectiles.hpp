@@ -1,12 +1,5 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
-
-#include <blamlib/Halo1/objects/object_structures.hpp>
-#include <blamlib/Halo1/items/item_structures.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -30,7 +23,7 @@ namespace Yelo
 		struct s_projectile_data
 		{
 			// FLAG(1) - tracer
-			long_flags flags;									// 0x22C
+			unsigned long flags;									// 0x22C
 			short action;										// 0x230
 			UNKNOWN_TYPE(short);								// 0x232, material index
 			datum_index source_unit_index;						// 0x234

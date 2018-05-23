@@ -200,7 +200,7 @@ namespace Yelo
 			if (!yelo_header.flags.update_unit_grenade_types_count)
 				return;
 
-			uint32 count = yelo_header.unit_grenade_types_count;
+			uint count = yelo_header.unit_grenade_types_count;
 
 			bool enabled = count > Enums::k_unit_grenade_types_count;
 			// HACK: if the grenade count changes are already in place, don't repeat or undo them
