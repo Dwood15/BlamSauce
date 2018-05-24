@@ -8,7 +8,7 @@
 
 #include "../../cseries/base.h"
 #include "../../memory/datum_index.h"
-#include "../allegiance.hpp"
+#include "../allegiance.h"
 #include "../../math/real_math.h"
 #include "../../effects/material/material_effect_definitions.hpp"
 #include "../../scenario/structures.h"

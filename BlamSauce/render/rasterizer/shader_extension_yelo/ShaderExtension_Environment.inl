@@ -264,9 +264,9 @@ namespace Environment
 		DX9::Direct3DDevice()->SetPixelShaderConstantF(6, (float*)&pixel_shader_variables, 4);
 	}
 
-	typedef void (PLATFORM_API *structure_render_pass_begin_proc)(void* argument0);
-	typedef void (PLATFORM_API *structure_render_pass_draw_proc)(const TagGroups::s_shader_definition* argument0, void* argument1, void* argument2, void* argument3, void* argument4, void* argument5);
-	typedef void (PLATFORM_API *structure_render_pass_end_proc)(void);
+	typedef void (__cdecl *structure_render_pass_begin_proc)(void* argument0);
+	typedef void (__cdecl *structure_render_pass_draw_proc)(const TagGroups::s_shader_definition* argument0, void* argument1, void* argument2, void* argument3, void* argument4, void* argument5);
+	typedef void (__cdecl *structure_render_pass_end_proc)(void);
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Renders a structure bsp pass. </summary>
@@ -275,7 +275,7 @@ namespace Environment
 	/// <param name="draw">  	The draw process. </param>
 	/// <param name="end">   	The post-draw process. </param>
 	/// <param name="submit">	Flag for whether to submit or not. </param>
-	API_FUNC_NAKED void PLATFORM_API StructureRenderPass(const structure_render_pass_begin_proc begin,
+	API_FUNC_NAKED void __cdecl StructureRenderPass(const structure_render_pass_begin_proc begin,
 		const structure_render_pass_draw_proc draw,
 		const structure_render_pass_end_proc end,
 		const bool submit)
@@ -316,9 +316,9 @@ namespace Environment
 	/// <param name="arg4">  	[in,out] If non-null, the fourth argument. </param>
 	/// <param name="arg5">  	[in,out] If non-null, the fifth argument. </param>
 	/// <param name="arg6">  	[in,out] If non-null, the argument 6. </param>
-	static void PLATFORM_API RasterizerEnvironmentLightmapSpecularDraw(const TagGroups::s_shader_definition* shader, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6)
+	static void __cdecl RasterizerEnvironmentLightmapSpecularDraw(const TagGroups::s_shader_definition* shader, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6)
 	{
-		typedef void (PLATFORM_API *shader_draw_func_t)(const TagGroups::s_shader_definition*, void*, void*, void*, void*, void*);
+		typedef void (__cdecl *shader_draw_func_t)(const TagGroups::s_shader_definition*, void*, void*, void*, void*, void*);
 
 		// Skip drawing if the shader doesn't have specular enabled
 		if(!(TEST_FLAG(shader->shader.extension_usage, Flags::_shader_extension_usage_bit_directional_lightmaps_diff) &&
@@ -374,7 +374,7 @@ namespace Environment
 	}
 
 	/// <summary>	Render specular directional lightmaps pass. </summary>
-	static void PLATFORM_API StructureRenderSpecularDirectionalLightmaps()
+	static void __cdecl StructureRenderSpecularDirectionalLightmaps()
 	{
 		// Call the lights render specular function
 		CAST_PTR(void (*)(void), GET_FUNC_VPTR(LIGHTS_RENDER_SPECULAR_FUNC))();

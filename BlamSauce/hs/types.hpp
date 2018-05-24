@@ -10,7 +10,7 @@
 #include "../effects/effect_definitions.hpp"
 #include "../effects/sound/sound_definitions.hpp"
 #include "../game/game.hpp"
-#include "../game/allegiance.hpp"
+#include "../game/allegiance.h"
 #include "../ai/actors/actors.hpp"
 #include "../ai/actors/actor_types.hpp"
 #include "../interface/hud/hud_definitions.hpp"

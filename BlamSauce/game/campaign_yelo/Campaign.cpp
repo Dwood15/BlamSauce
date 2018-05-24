@@ -91,7 +91,7 @@ namespace Yelo
 		return nullptr;
 	}
 
-	API_FUNC_NAKED static void PLATFORM_API DisplayScenarioHelpHack()
+	API_FUNC_NAKED static void __cdecl DisplayScenarioHelpHack()
 	{
 		static const uintptr_t SUCCESS_CALL_ADDR = GET_FUNC_PTR(DISPLAY_SCENARIO_HELP_SUCCESS);
 

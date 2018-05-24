@@ -6,7 +6,7 @@
 */
 static cstring g_forced_mp_version = nullptr;
 
-static BOOL PLATFORM_API ServerVersionIsValid(cstring server_version)
+static BOOL __cdecl ServerVersionIsValid(cstring server_version)
 {
 	if(g_forced_mp_version)
 	{
@@ -46,7 +46,7 @@ static void SetVersionToCurrent()
 
 static void* CreateNetworkServerHook()
 {
-	typedef void* (PLATFORM_API* create_network_game_t)();
+	typedef void* (__cdecl* create_network_game_t)();
 	static const create_network_game_t network_game_server_create =
 		CAST_PTR(create_network_game_t, GET_FUNC_VPTR(GAME_CREATE_NETWORK_SERVER));
 
@@ -57,7 +57,7 @@ static void* CreateNetworkServerHook()
 
 static void* CreateNetworkClientHook()
 {
-	typedef void* (PLATFORM_API* create_network_game_t)();
+	typedef void* (__cdecl* create_network_game_t)();
 	static const create_network_game_t network_game_client_create = 
 		CAST_PTR(create_network_game_t, GET_FUNC_VPTR(GAME_CREATE_NETWORK_CLIENT));
 

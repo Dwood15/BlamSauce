@@ -9,7 +9,7 @@
 #include <cstring>
 #include "../../cseries/base.h"
 #include "../../memory/datum_index.h"
-#include "../../game/configuration.hpp"
+#include "../../game/configuration.h"
 #include "../../models/animations/model.hpp"
 
 namespace Yelo {

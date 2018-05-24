@@ -53,6 +53,6 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// bink_playback.c
-		void PLATFORM_API bink_playback_start(cstring bik_path);
+		void __cdecl bink_playback_start(cstring bik_path);
 	};
 };

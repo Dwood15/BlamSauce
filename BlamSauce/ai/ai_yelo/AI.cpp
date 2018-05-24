@@ -126,7 +126,7 @@ namespace Yelo {
 			Transform::DisposeFromOldMap();
 		}
 
-		void PLATFORM_API Update()
+		void __cdecl Update()
 		{
 
 		}

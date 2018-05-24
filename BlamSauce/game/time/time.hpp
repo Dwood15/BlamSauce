@@ -6,7 +6,7 @@
 */
 #pragma once
 
-#include "../configuration.hpp"
+#include "../configuration.h"
 #include "../../cseries/base.h"
 
 namespace Yelo {

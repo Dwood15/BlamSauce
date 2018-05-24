@@ -101,7 +101,7 @@ namespace Yelo::Main {
 
 	void InsertHooks();
 
-	static void PLATFORM_API InitializeOnStartup() {
+	static void __cdecl InitializeOnStartup() {
 		s_project_component* components;
 		const long component_count = GetProjectComponents(components);
 
@@ -113,7 +113,7 @@ namespace Yelo::Main {
 		Settings::Load();
 	}
 
-	static void PLATFORM_API DisposeOnExit()
+	static void __cdecl DisposeOnExit()
 	{
 		s_project_component* components;
 		const long component_count = GetProjectComponents(components);
@@ -127,7 +127,7 @@ namespace Yelo::Main {
 	}
 
 	// hooks the call that starts the main game loop to init OS beforehand
-	static void PLATFORM_API InitializeOnStartupHook()
+	static void __cdecl InitializeOnStartupHook()
 	{
 		static uintptr_t TEMP_ADDRESS = GET_FUNC_PTR(QUERY_EXITFLAG_REG);
 
@@ -142,7 +142,7 @@ namespace Yelo::Main {
 	}
 
 	// hooks the call that release resources to dispose of OS systems afterwards
-	static void PLATFORM_API DisposeOnExitHook()
+	static void __cdecl DisposeOnExitHook()
 	{
 		static uintptr_t TEMP_ADDRESS = GET_FUNC_PTR(RELEASE_RESOURCES_ON_EXIT);
 

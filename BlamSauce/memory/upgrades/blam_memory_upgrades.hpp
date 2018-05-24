@@ -4,7 +4,7 @@
 
 #include "../../render/constants.hpp"
 #include "../../effects/effects_constants.hpp"
-#include "../../game/configuration.hpp"
+#include "../../game/configuration.h"
 #include "../../network/connections.hpp"
 #include "../../game/state.h"
 #include "../../render/rasterizer/geometry.hpp"

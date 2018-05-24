@@ -5,7 +5,7 @@
 #include "players.hpp"
 #include "../../math/color_math.h"
 #include "player_action.hpp"
-#include "../configuration.hpp"
+#include "../configuration.h"
 #include "../objects/units/c_unit_seat_boarding_manager.hpp"
 #include "../objects/units/unit_structures.hpp"
 #include "../../network/game/manager.hpp"

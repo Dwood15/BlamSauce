@@ -42,7 +42,7 @@ namespace Yelo
 		void InitializeForNewMap();
 		void DisposeFromOldMap();
 
-		void PLATFORM_API Update();
+		void __cdecl Update();
 
 		void HandleGameStateLifeCycle(_enum life_state);
 

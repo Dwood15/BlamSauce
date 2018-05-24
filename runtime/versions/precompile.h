@@ -110,7 +110,7 @@
 				 location += 11;							// YELO: UPDATE THIS LINE
 
 */
-//	static_assert(false); // comment this out once the fix is applied
+static_assert(false); // comment this out once the fix is applied
 
 // Just to make sure we're always using ASCII
 #undef GSI_UNICODE

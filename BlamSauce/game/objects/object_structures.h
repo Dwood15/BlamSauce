@@ -9,7 +9,7 @@
 #include <cstring>
 #include "../../cseries/base.h"
 #include "../../memory/datum_index.h"
-#include "../allegiance.hpp"
+#include "../allegiance.h"
 #include "../../math/real_math.h"
 #include "../../math/color_math.h"
 #include "object_definitions.hpp"

@@ -30,9 +30,9 @@ namespace Yelo { namespace Rasterizer { namespace ShaderDraw
 	/// <param name="arg4">			 	[in,out] The fourth stock argument. </param>
 	/// <param name="arg5">			 	[in,out] The fifth stock argument. </param>
 	/// <param name="arg6">			 	[in,out] The sixth stock argument. </param>
-	static void PLATFORM_API Environment_ShaderLightmapDiffuseDraw(const TagGroups::s_shader_definition* shader, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6)
+	static void __cdecl Environment_ShaderLightmapDiffuseDraw(const TagGroups::s_shader_definition* shader, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6)
 	{
-		typedef void (PLATFORM_API *shader_draw_func_t)(const TagGroups::s_shader_definition*, void*, void*, void*, void*, void*);
+		typedef void (__cdecl *shader_draw_func_t)(const TagGroups::s_shader_definition*, void*, void*, void*, void*, void*);
 
 		DX9::c_gbuffer_system::RenderGBuffer() = true;
 
@@ -54,9 +54,9 @@ namespace Yelo { namespace Rasterizer { namespace ShaderDraw
 	/// <param name="arg5">			 	[in,out] The fifth stock argument. </param>
 	/// <param name="arg6">			 	[in,out] The sixth stock argument. </param>
 	/// <param name="arg7">			 	[in,out] The seventh stock argument. </param>
-	static void PLATFORM_API Model_ShaderEnvironmentDraw(void* shader_pointer, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6, void* arg7)
+	static void __cdecl Model_ShaderEnvironmentDraw(void* shader_pointer, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6, void* arg7)
 	{
-		typedef void (PLATFORM_API *shader_draw_func_t)(void*, void*, void*, void*, void*, void*, void*);
+		typedef void (__cdecl *shader_draw_func_t)(void*, void*, void*, void*, void*, void*, void*);
 
 		DX9::c_gbuffer_system::RenderGBuffer() = true;
 
@@ -78,9 +78,9 @@ namespace Yelo { namespace Rasterizer { namespace ShaderDraw
 	/// <param name="arg5">			 	[in,out] The fifth stock argument. </param>
 	/// <param name="arg6">			 	[in,out] The sixth stock argument. </param>
 	/// <param name="arg7">			 	[in,out] The seventh stock argument. </param>
-	static void PLATFORM_API Model_ShaderModelDraw(void* shader_pointer, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6, void* arg7)
+	static void __cdecl Model_ShaderModelDraw(void* shader_pointer, void* arg2, void* arg3, void* arg4, void* arg5, void* arg6, void* arg7)
 	{
-		typedef void (PLATFORM_API *shader_draw_func_t)(void*, void*, void*, void*, void*, void*, void*);
+		typedef void (__cdecl *shader_draw_func_t)(void*, void*, void*, void*, void*, void*, void*);
 
 		DX9::c_gbuffer_system::RenderGBuffer() = true;
 

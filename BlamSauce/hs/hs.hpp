@@ -6,7 +6,7 @@
 #include "runtime.hpp"
 #include "../cseries/handle_abi.hpp"
 #include "../game/game.hpp"
-#include "../game/allegiance.hpp"
+#include "../game/allegiance.h"
 #include "../ai/actors/actors.hpp"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
 

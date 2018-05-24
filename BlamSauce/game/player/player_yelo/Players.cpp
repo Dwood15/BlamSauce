@@ -47,7 +47,7 @@ namespace Yelo
 #include "Game/Players.ActionResults.inl"
 #include "Game/Players.NearbyObjects.inl"
 
-		void PLATFORM_API FollowingCameraGetUnitCameraInfoImpl(const short player_index, Players::s_unit_camera_info& camera_info) {
+		void __cdecl FollowingCameraGetUnitCameraInfoImpl(const short player_index, Players::s_unit_camera_info& camera_info) {
 			auto& local_player = PlayerControlGlobals()->local_players[player_index];
 			auto& player_unit_datum = *blam::object_get_and_verify_type<Objects::s_unit_datum>(local_player.unit_index);
 
@@ -122,11 +122,11 @@ namespace Yelo
 
 		void Dispose() { }
 
-		void PLATFORM_API UpdateForServer() { }
+		void __cdecl UpdateForServer() { }
 
-		void PLATFORM_API UpdateForClient() { }
+		void __cdecl UpdateForClient() { }
 
-		void PLATFORM_API Update() { }
+		void __cdecl Update() { }
 
 		Objects::s_unit_datum* s_player_datum::GetPlayerUnit() {
 			datum_index object_index = this->slave_unit_index;

@@ -45,7 +45,7 @@ namespace Yelo
 		}
 #pragma endregion
 
-		static void PLATFORM_API observer_update_command_hook()
+		static void __cdecl observer_update_command_hook()
 		{
 			if (Players::PlayerControlGlobals()->local_players[0].zoom_level > -1)
 			{

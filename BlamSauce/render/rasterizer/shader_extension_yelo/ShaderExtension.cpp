@@ -48,7 +48,7 @@ namespace Yelo
 			};
 
 			typedef char shader_usage_id_t[128];
-			typedef void (PLATFORM_API *shadersetup_func)(void*, void*, void*, void*, void*, void*, void*);
+			typedef void (__cdecl *shadersetup_func)(void*, void*, void*, void*, void*, void*, void*);
 
 			static const char* g_ps_collection_format_a =	"shaders\\EffectCollection_ps_%d_a.enc";
 			static const char* g_ps_collection_format_b =	"shaders\\EffectCollection_ps_%d_b.enc";
@@ -107,7 +107,7 @@ namespace Yelo
 				pDevice->SetSamplerState(sampler, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 			}
 
-			int PLATFORM_API BuildEffectCollectionPath(char* string_out, const char* format_string, const int major, const int minor)
+			int __cdecl BuildEffectCollectionPath(char* string_out, const char* format_string, const int major, const int minor)
 			{
 				const char* format = format_string;
 

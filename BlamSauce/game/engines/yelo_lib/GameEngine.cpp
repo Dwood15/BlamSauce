@@ -141,7 +141,7 @@ namespace Yelo
 		{
 		}
 
-		void PLATFORM_API InitializeForNewMap()
+		void __cdecl InitializeForNewMap()
 		{
 			if( GameEngine::Current() )
 			{
@@ -150,7 +150,7 @@ namespace Yelo
 			}
 		}
 
-		void PLATFORM_API Update()
+		void __cdecl Update()
 		{
 			const real k_update_normal = 1.6666668e-2f; // 0.016666668
 			const real k_update_double_speed = 3.3333335e-2f; // 0.033333335

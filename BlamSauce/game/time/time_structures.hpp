@@ -1,7 +1,7 @@
 #pragma once
 
 #include <precompile.h>
-#include "../configuration.hpp"
+#include "../configuration.h"
 
 namespace Yelo {
 	namespace GameState {

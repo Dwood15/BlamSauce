@@ -11,7 +11,7 @@
 #include "../cseries/yelo_base.h"
 #include "hs.hpp"
 #include "../memory/data_base.h"
-#include "../game/configuration.hpp"
+#include "../game/configuration.h"
 #include "../cseries/errors.h"
 #include "library_internal.hpp"
 

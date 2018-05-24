@@ -1,11 +1,11 @@
 #pragma once
 
 #include <precompile.h>
-#include "../../game/configuration.hpp"
+#include "../../game/configuration.h"
 #include "../../cseries/base.h"
 #include "update.hpp"
 #include "../../game/player/player_action.hpp"
-#include "../../game/action_queue.hpp"
+#include "../../game/action_queue.h"
 #include "../../memory/position_queue.h"
 #include "../../game/objects/vehicles/vehicle_update_queue.hpp"
 

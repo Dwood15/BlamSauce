@@ -71,7 +71,7 @@ namespace Yelo
 
 		void Initialize();
 		void Dispose();
-		void PLATFORM_API InitializeForNewMap();
+		void __cdecl InitializeForNewMap();
 		// Game components updated before the game_enigne:
 		//	* game allegiance
 		//	* ai
@@ -80,6 +80,6 @@ namespace Yelo
 		//	* FP weapons
 		// Everything else is updated after the game_engine (scripting, objects, etc).
 		// Our update is performed AFTER the engine's update is done.
-		void PLATFORM_API Update();
+		void __cdecl Update();
 	};
 };

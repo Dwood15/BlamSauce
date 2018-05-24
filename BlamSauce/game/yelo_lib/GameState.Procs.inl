@@ -5,7 +5,7 @@
 	See license\OpenSauce\Halo1_CE for specific license information
 */
 
-typedef void (PLATFORM_API* game_state_proc)();
+typedef void (__cdecl* game_state_proc)();
 
 // stock engine numbers
 enum {
@@ -37,12 +37,12 @@ static game_state_proc game_state_after_load_procs_new[k_number_of_game_state_af
 
 //////////////////////////////////////////////////////////////////////////
 // impl
-static void PLATFORM_API game_state_call_before_save_procs_new()
+static void __cdecl game_state_call_before_save_procs_new()
 {
 	for(auto proc : game_state_before_save_procs_new)
 		proc();
 }
-static void PLATFORM_API game_state_call_before_load_procs_new()
+static void __cdecl game_state_call_before_load_procs_new()
 {
 	for(auto proc : game_state_before_load_procs_new)
 		proc();

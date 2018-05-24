@@ -320,7 +320,7 @@ void DoubleChargeShield(datum_index object_index)
 
 void ObjectCauseDamage(Yelo::Objects::s_damage_data& damage_data, datum_index object_index, long node_index, long region_index, long damage_materials_index, real_vector3d* normal)
 {
-	typedef void (PLATFORM_API *object_cause_damage_t)(Yelo::Objects::s_damage_data&, datum_index, long, long, long, real_vector3d*);
+	typedef void (__cdecl *object_cause_damage_t)(Yelo::Objects::s_damage_data&, datum_index, long, long, long, real_vector3d*);
 	static const object_cause_damage_t FUNCTION = CAST_PTR(object_cause_damage_t, GET_FUNC_PTR(OBJECT_CAUSE_DAMAGE));
 
 	FUNCTION(damage_data, object_index, node_index, region_index, damage_materials_index, normal);

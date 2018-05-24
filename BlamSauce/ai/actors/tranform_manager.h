@@ -8,7 +8,7 @@
 
 #include <precompile.h>
 
-#include "../../game/allegiance.hpp"
+#include "../../game/allegiance.h"
 #include "../../memory/datum_index.h"
 
 namespace Yelo::Enums {
