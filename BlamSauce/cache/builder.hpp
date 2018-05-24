@@ -173,37 +173,37 @@ namespace Yelo::blam {
 
 	using namespace Cache;
 
-	static API_FUNC_NAKED bool __cdecl build_cache_file_cull_tags() {
+	static __declspec(naked) bool __cdecl build_cache_file_cull_tags() {
 		static const uintptr_t FUNCTION = 0x453260;
 
 		__asm jmp   FUNCTION
 	}
 
-	static API_FUNC_NAKED bool __cdecl build_cache_file_last_minute_changes() {
+	static __declspec(naked) bool __cdecl build_cache_file_last_minute_changes() {
 		static const uintptr_t FUNCTION = 0x454280;
 
 		__asm jmp   FUNCTION
 	}
 
-	static API_FUNC_NAKED bool __cdecl build_object_predicted_resources() {
+	static __declspec(naked) bool __cdecl build_object_predicted_resources() {
 		static const uintptr_t FUNCTION = 0x453680;
 
 		__asm jmp   FUNCTION
 	}
 
-	static API_FUNC_NAKED bool __cdecl build_first_person_weapon_predicted_resources() {
+	static __declspec(naked) bool __cdecl build_first_person_weapon_predicted_resources() {
 		static const uintptr_t FUNCTION = 0x453700;
 
 		__asm jmp   FUNCTION
 	}
 
-	static API_FUNC_NAKED bool __cdecl build_scenario_predicted_resources() {
+	static __declspec(naked) bool __cdecl build_scenario_predicted_resources() {
 		static const uintptr_t FUNCTION = 0x4537A0;
 
 		__asm jmp   FUNCTION
 	}
 
-	static API_FUNC_NAKED bool __cdecl build_structure_bsp_predicted_resources() {
+	static __declspec(naked) bool __cdecl build_structure_bsp_predicted_resources() {
 		static const uintptr_t FUNCTION = 0x453860;
 
 		__asm jmp   FUNCTION
@@ -217,7 +217,7 @@ namespace Yelo::blam {
 			build_structure_bsp_predicted_resources();
 	}
 
-	static API_FUNC_NAKED void *__cdecl build_cache_file_add_model_vertices_and_triangles(
+	static __declspec(naked) void *__cdecl build_cache_file_add_model_vertices_and_triangles(
 		s_cache_tag_header *cache_tag_header, void *scratch) {
 		static const uintptr_t FUNCTION = 0x454360;
 
@@ -292,14 +292,14 @@ namespace Yelo::blam {
 	}
 	
 
-	static API_FUNC_NAKED bool __cdecl build_cache_file_add_tags(
+	static __declspec(naked) bool __cdecl build_cache_file_add_tags(
 		s_cache_header &cache_header, void *scratch, build_cache_file_tag_names_t &tag_names, long largest_structure_bsp_size) {
 		static const uintptr_t FUNCTION = 0x454D40;
 
 		__asm jmp   FUNCTION
 	}
 
-	static API_FUNC_NAKED bool build_cache_file_add_structure_bsps(
+	static __declspec(naked) bool build_cache_file_add_structure_bsps(
 		void *scratch, build_cache_file_tag_names_t &tag_names, long &largest_structure_bsp_size) {
 		static const uintptr_t FUNCTION = 0x454B70;
 

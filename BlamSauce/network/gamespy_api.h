@@ -127,28 +127,7 @@ namespace Yelo
 	namespace Networking
 	{
 
-		static bool* GsPatchCheckForUpdates()								PTR_IMP_GET2(g_gamespy_patch_check_for_updates);
-
-		API_FUNC_NAKED s_gamespy_client* GsGetClient(long client_id)
-		{
-			static const uintptr_t FUNCTION = GET_FUNC_PTR(GAMESPY_GET_CLIENT_KEY_HASH);
-
-			API_FUNC_NAKED_START()
-			push	ecx
-
-			mov		eax, client_id
-			call	FUNCTION
-			cmp		eax, GET_DATA_PTR(compiler_null_string)
-			jnz		_return
-			mov		eax, 4 // will cause us to return NULL. Yes, I r a hacka
-
-			_return:
-			sub		eax, 4
-
-			pop		ecx
-			API_FUNC_NAKED_END(1)
-		}
-
+		static bool* GsPatchCheckForUpdates();		//						PTR_IMP_GET2(g_gamespy_patch_check_for_updates);
 
 		struct s_gamespy_buffer // GTI2Buffer, gt\gt2Main.h
 		{
@@ -277,6 +256,28 @@ namespace Yelo
 			char* req_str;				// 0x48, malloc'd char*
 			uint req_str_length;		// 0x4C
 		}; static_assert( sizeof(s_gamespy_client) == 0x50 );
+
+		__declspec(naked) s_gamespy_client* GsGetClient(long client_id)
+		{
+			static const uintptr_t FUNCTION = PTR_GAMESPY_GET_CLIENT_KEY_HASH;
+
+			__asm{
+			__asm push ebp __asm mov ebp, esp
+			push	ecx
+
+			mov		eax, client_id
+			call	FUNCTION
+			cmp		eax, PTR_compiler_null_string
+			jnz		_return
+			mov		eax, 4 // will cause us to return NULL. Yes, I r a hacka
+
+			_return:
+			sub		eax, 4
+
+			pop		ecx
+			__asm pop ebp __asm retn(1*4) }
+		}
+
 
 		struct s_gamespy_product // gsproduct_s, gcdkey\gcdkeys.c
 		{

@@ -178,7 +178,6 @@
 #define DOC_TODO_DEBUG(msg) DOC_TODO(msg)
 
 // Declare a function naked of all things
-#define API_FUNC_NAKED __declspec(naked)
 
 // Start the code to a naked function which takes arguments
 #define API_FUNC_NAKED_START() __asm { \

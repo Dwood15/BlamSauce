@@ -77,7 +77,7 @@ namespace Yelo {
 
 		real Magnitude() const { return MATH_FLOAT_FUNC(sqrt)(this->i * this->i + this->j * this->j); }
 
-		API_FUNC_NAKED void DotProduct2D() const {
+		__declspec(naked) void DotProduct2D() const {
 			API_FUNC_NAKED_START()
 			push   ecx
 			push   esi
