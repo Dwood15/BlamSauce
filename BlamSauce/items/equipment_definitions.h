@@ -1,7 +1,7 @@
 #pragma once
 
 #include <precompile.h>
-#include "item_definitions.hpp"
+#include "item_definitions.h"
 
 namespace Yelo
 {

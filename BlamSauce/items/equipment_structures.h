@@ -1,7 +1,7 @@
 #pragma once
 #include <precompile.h>
 #include "../game/objects/object_structures.h"
-#include "item_structures.hpp"
+#include "item_structures.h"
 
 namespace Yelo::Objects
 	{

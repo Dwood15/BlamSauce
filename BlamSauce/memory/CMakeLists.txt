@@ -5,11 +5,12 @@ set(M_UPGRADES_H
 	)
 
 set(M_F_INTERFACE_H
-	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/fi_client.inl
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface.h
 	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface.inl
 	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface_macros.inl
 	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/function_interface_test.inl
-	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/naked_func_writer.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/function_interface/naked_func_writer.h
 	)
 
 set(MEMORY_H

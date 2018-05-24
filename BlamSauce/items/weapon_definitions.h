@@ -1,7 +1,7 @@
 #pragma once
 #include <precompile.h>
 #include "../cache/predicted_resources.hpp"
-#include "item_definitions.hpp"
+#include "item_definitions.h"
 
 namespace Yelo
 {

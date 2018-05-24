@@ -24,18 +24,18 @@ set(HS_H
 	)
 
 set(ITEMS_H
-	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions_yelo.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_structures_yelo.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/garbage_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/item_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/item_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/projectile_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/projectiles.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/weapon_definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/weapon_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/items/weapons.hpp)
+	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions_yelo.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_structures_yelo.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_structures.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/garbage_definitions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/item_definitions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/item_structures.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/projectile_definitions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/projectiles.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/weapon_definitions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/weapon_structures.h
+	${CMAKE_CURRENT_SOURCE_DIR}/items/weapons.h)
 
 add_subdirectory(ai)
 

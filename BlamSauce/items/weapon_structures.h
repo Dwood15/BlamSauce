@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../math/real_math.h"
-#include "weapon_definitions.hpp"
+#include "weapon_definitions.h"
 #include "../memory/datum_index.h"
-#include "item_structures.hpp"
+#include "item_structures.h"
 
 namespace Yelo
 {

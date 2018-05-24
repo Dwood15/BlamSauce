@@ -1,25 +1,12 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-#include "Common/Precompile.hpp"
 
 #include <psapi.h>
 #pragma comment (lib, "psapi.lib")
 
 #include "Memory/MemoryInterface.hpp"
-#include "Common/GameSystems.hpp"
+#include "Common/systems.hpp"
 
-
-
-#if PLATFORM_IS_USER && defined(DX_WRAPPER)
 	#include "Game/EngineFunctions.hpp"
 	#include "Rasterizer/DX9/DxWrapper.hpp"
-#endif
-
-
 
 namespace Yelo
 {
@@ -91,7 +78,6 @@ bool WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID pvReserved) {
 	{
 		Yelo::Main::YeloModuleHandle() = hModule;
 
-#if PLATFORM_IS_USER && defined(DX_WRAPPER)
 		if(!LoadDXProxy(&hModule))
 		{
 			char error[128];
@@ -102,7 +88,6 @@ bool WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID pvReserved) {
 			Yelo::PrepareToDropError(error);
 			return false;
 		}
-#endif
 
 		if(Yelo::Main::IsYeloEnabled()) {
 			Yelo::Main::InsertHooks();
@@ -112,15 +97,7 @@ bool WINAPI DllMain(HMODULE hModule, DWORD dwReason, PVOID pvReserved) {
 	else if(dwReason == DLL_PROCESS_DETACH && g_initialized)
 	{
 		// component disposal occurs in GameSystems.cpp
-
-#ifdef API_DEBUG_MEMORY
-		DumpAllocatedMemory("Halo1_CE");
-#endif
-
-#if PLATFORM_IS_USER && defined(DX_WRAPPER)
 		FreeDXProxy(hModule);
-#endif
-
 		Yelo::Main::YeloModuleHandle() = nullptr;
 		g_initialized = false;
 	}

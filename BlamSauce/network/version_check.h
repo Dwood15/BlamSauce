@@ -1,17 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#ifdef YELO_VERSION_CHECK_ENABLE
-#include <YeloLib/memory/linked_list.hpp>
-
-#include "Networking/HTTP/HTTP.hpp"
-#include "Networking/HTTP/HTTPClient.hpp"
-#include "Networking/HTTP/c_xml_downloader.hpp"
+#include "../cseries/base.h"
+#include "../memory/linked_list.hpp"
 
 namespace Yelo
 {
@@ -307,25 +297,23 @@ namespace Yelo
 	}; };
 };
 
-#else
 
-namespace Yelo
-{
-	namespace Networking { namespace VersionCheck
-	{
-		void		Initialize();
-		void		Dispose();
+namespace Yelo {
+	namespace Networking {
+		namespace VersionCheck {
+			void Initialize() {}
 
-#ifdef PLATFORM_IS_USER
-		void		Initialize3D(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pParameters);
-		void		OnLostDevice();
-		void		OnResetDevice(D3DPRESENT_PARAMETERS* pParameters);
-		void		Render();
-		void		Release();
-#endif
+			void Dispose() {}
 
-		void		InitializeForNewMap();
-		void		Update(real delta_time);
-	}; };
+			void		Initialize3D(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pParameters) {}
+			void		OnLostDevice();
+			void		OnResetDevice(D3DPRESENT_PARAMETERS* pParameters) {}
+			void		Render() {}
+			void		Release() {}
+
+			void InitializeForNewMap() {}
+
+			void Update(real delta_time) {}
+		};
+	};
 };
-#endif

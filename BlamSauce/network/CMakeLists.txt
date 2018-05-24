@@ -42,4 +42,6 @@ set(NETWORK_H
 	${CMAKE_CURRENT_SOURCE_DIR}/connections.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/gamespy_api.h
 	${CMAKE_CURRENT_SOURCE_DIR}/message_header.h
+	${CMAKE_CURRENT_SOURCE_DIR}/networking.h
+	${CMAKE_CURRENT_SOURCE_DIR}/version_check.h
 	PARENT_SCOPE)

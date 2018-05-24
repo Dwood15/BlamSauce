@@ -1,3 +1,7 @@
+#pragma once
+#include <precompile.h>
+#include "function_interface_macros.inl"
+#include "function_interface.h"
 
 DEFINE_HOOK_PROCESS(func_gbuffer_render_sky_preprocess, DX9::c_gbuffer_system::render_progress::SkyPreProcess);
 DEFINE_HOOK_PROCESS(func_gbuffer_render_sky_postprocess, DX9::c_gbuffer_system::render_progress::SkyPostProcess);
