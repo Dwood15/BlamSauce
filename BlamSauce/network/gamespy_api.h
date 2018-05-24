@@ -1,16 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <YeloLib/configuration/c_configuration_container.hpp>
-#include <YeloLib/configuration/c_configuration_value.hpp>
-#include <YeloLib/open_sauce/settings/c_settings_singleton.hpp>
-
-#include "Game/GameBuildNumber.hpp"
+#include <precompile.h>
+#include "../main/configuration/c_settings_singleton.hpp"
 
 namespace Yelo
 {
@@ -84,7 +75,7 @@ namespace Yelo
 
 			_gamespy_qr_field,
 			k_max_gamespy_qr_registered_keys = 254,
-		}; BOOST_STATIC_ASSERT( _gamespy_qr_field <= k_max_gamespy_qr_registered_keys );
+		}; static_assert( _gamespy_qr_field <= k_max_gamespy_qr_registered_keys );
 
 		enum gamespy_qr_key_type : long_enum {
 			_gamespy_qr_key_type_server,
@@ -135,6 +126,30 @@ namespace Yelo
 
 	namespace Networking
 	{
+
+		static bool* GsPatchCheckForUpdates()								PTR_IMP_GET2(g_gamespy_patch_check_for_updates);
+
+		API_FUNC_NAKED s_gamespy_client* GsGetClient(long client_id)
+		{
+			static const uintptr_t FUNCTION = GET_FUNC_PTR(GAMESPY_GET_CLIENT_KEY_HASH);
+
+			API_FUNC_NAKED_START()
+			push	ecx
+
+			mov		eax, client_id
+			call	FUNCTION
+			cmp		eax, GET_DATA_PTR(compiler_null_string)
+			jnz		_return
+			mov		eax, 4 // will cause us to return NULL. Yes, I r a hacka
+
+			_return:
+			sub		eax, 4
+
+			pop		ecx
+			API_FUNC_NAKED_END(1)
+		}
+
+
 		struct s_gamespy_buffer // GTI2Buffer, gt\gt2Main.h
 		{
 			byte* buffer;
@@ -162,7 +177,7 @@ namespace Yelo
 			long protocolOffset;
 			UNKNOWN_TYPE(long); // 0x40, I believe I saw some code treat this as a s_transport_endpoint* ...
 			BOOL broadcastEnabled;
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_socket) == 0x48 );
+		}; static_assert( sizeof(s_gamespy_socket) == 0x48 );
 		struct s_gamespy_connection // GTI2Connection, gt\gt2Main.h
 		{
 			in_addr address;
@@ -209,7 +224,7 @@ namespace Yelo
 			PAD(7, sizeof(char)*20);
 			PAD(8, sizeof(char)*16);
 			UNKNOWN_TYPE(long);
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_connection) == 0x150 );
+		}; static_assert( sizeof(s_gamespy_connection) == 0x150 );
 
 		struct s_gamespy_qr_data // (query/response) qr2_implementation_s, qr2\qr2.h
 		{
@@ -237,7 +252,7 @@ namespace Yelo
 			long client_msg_keys[10];
 			long client_msg_key_index;
 			void* user_data;
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr_data) == 0x108 );
+		}; static_assert( sizeof(s_gamespy_qr_data) == 0x108 );
 
 
 		struct s_gamespy_client_node // gsnode_s, gcdkey\gcdkeys.c
@@ -261,17 +276,15 @@ namespace Yelo
 			// \auth\\pid\%d\ch\%s\resp\%s\ip\%d\skey\%dd
 			char* req_str;				// 0x48, malloc'd char*
 			uint req_str_length;		// 0x4C
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_client) == 0x50 );
+		}; static_assert( sizeof(s_gamespy_client) == 0x50 );
 
 		struct s_gamespy_product // gsproduct_s, gcdkey\gcdkeys.c
 		{
 			long game_pid;
 			s_gamespy_client_node clients;
 		};
+		s_gamespy_product* GsProducts(); // TODO: PTR_IMP_GET2 implementation										PTR_IMP_GET2(gamespy_products_list);
 
-		// see "serverbrowsing\sb_internal.h" for these
-		struct s_gamespy_server;
-		struct s_gamespy_server_browser;
 
 		struct s_gamespy_qr2_keybuffer // qr2_keybuffer_s, qr2\qr2.c
 		{
@@ -279,8 +292,18 @@ namespace Yelo
 			unsigned short : 16;
 			long numkeys;
 
-			bool add(Enums::gamespy_qr_field keyid);
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr2_keybuffer) == 0x104 );
+			bool add(Enums::gamespy_qr_field keyid) {
+				if(numkeys >= Enums::k_max_gamespy_qr_registered_keys)
+					return false;
+				if(	keyid <= Enums::_gamespy_qr_field_reserved ||
+						keyid > Enums::k_max_gamespy_qr_registered_keys)
+					return false;
+
+				keys[numkeys++] = keyid;
+				return true;
+			}
+
+		}; static_assert( sizeof(s_gamespy_qr2_keybuffer) == 0x104 );
 		struct s_gamespy_qr2_buffer // qr2_buffer_s, qr2\qr2.c
 		{
 			enum { k_max_data_size = 2048 };
@@ -288,9 +311,33 @@ namespace Yelo
 			byte buffer[k_max_data_size];
 			long len;
 
-			bool add(cstring value);
-			bool add(long value);
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr2_buffer) == 0x804 );
+			bool add(cstring value) {
+				long copylen = (long)strlen(value)+1;
+				if(copylen > std::size(buffer))
+					copylen = std::size(buffer);
+				if(copylen <= 0)
+					return false;
+
+				bool result = true;
+
+				if (k_errnone == memcpy_s(buffer + len, std::size(buffer) - len, value, (size_t)copylen))
+				{
+					len += copylen;
+					buffer[len - 1] = '\0';
+				}
+				else
+					result = false;
+
+				return result;
+			}
+
+			bool add(long value) {
+				char buffer[20];
+				bool result = sprintf_s(buffer, "%d", value) != -1;
+				return result && add(buffer);
+			}
+
+		}; static_assert( sizeof(s_gamespy_qr2_buffer) == 0x804 );
 		struct s_gamespy_qr2 // qr2_implementation_s, qr2\qr2.h
 		{
 			enum {
@@ -333,7 +380,7 @@ namespace Yelo
 			long client_message_keys[k_recent_client_messages_to_track];
 			long cur_message_key;
 			void* udata;
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_qr2) == 0x108 );
+		}; static_assert( sizeof(s_gamespy_qr2) == 0x108 );
 
 
 		struct s_gamespy_config
@@ -375,7 +422,7 @@ namespace Yelo
 				uint last_state_change_heartbeat_time;
 				char temp_key_buffer[256];
 			}qr2;
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_globals) == 0x390 );
+		}; static_assert( sizeof(s_gamespy_globals) == 0x390 );
 		struct s_gamespy_server_browser_globals
 		{
 			struct {
@@ -428,17 +475,15 @@ namespace Yelo
 
 			// NOTE: this structure seems to have one less DWORD in it in dedi builds. 
 			// However, this structure shouldn't even be accessed in dedi builds so I'm not researching further!
-		}; BOOST_STATIC_ASSERT( sizeof(s_gamespy_server_browser_globals) == 0x27C );
+		}; static_assert( sizeof(s_gamespy_server_browser_globals) == 0x27C );
 
 
-		s_gamespy_socket* GsSocket();
-		s_gamespy_socket* GsLoopbackSocket();
-		s_gamespy_config* GsConfig();
-		s_gamespy_globals* GsGlobals();
-#if PLATFORM_IS_USER
-		s_gamespy_server_browser_globals* GsServerBrowserGlobals();
-#endif
-		s_gamespy_qr2* GsQr2();
+		s_gamespy_socket* GsSocket() 	DPTR_IMP_GET(gs_Socket);
+		s_gamespy_socket* GsLoopbackSocket() 		DPTR_IMP_GET(gs_LoopbackSocket);
+		s_gamespy_config* GsConfig() 	PTR_IMP_GET2(gamespy_config);
+		s_gamespy_globals* GsGlobals() 		PTR_IMP_GET2(gamespy_globals);
+		s_gamespy_server_browser_globals* GsServerBrowserGlobals() PTR_IMP_GET2(gamespy_server_browser_globals);
+		s_gamespy_qr2* GsQr2() DPTR_IMP_GET(gamespy_qr2);
 
 		// If this is a server, returns all the machines connected to this machine on a specific pid
 		s_gamespy_product* GsProducts(); // [4]
@@ -449,41 +494,157 @@ namespace Yelo
 		namespace GameSpy
 		{
 #pragma region Settings
-			class c_settings_container
-				: public Configuration::c_configuration_container
+			class c_settings_container : public Configuration::c_configuration_container
 			{
 			public:
 				Configuration::c_configuration_value<bool> m_no_update_check;
+				c_settings_container() : Configuration::c_configuration_container("Networking.GameSpy") , m_no_update_check("NoUpdateCheck", true)
+				{ }
 
-				c_settings_container();
-				
 			protected:
-				const std::vector<i_configuration_value* const> GetMembers() final override;
+				const std::vector<i_configuration_value* const> GetMembers() final override {
+					return std::vector<i_configuration_value* const> { &m_no_update_check };
+				}
+
 			};
 
 			class c_settings_gamespy
 				: public Settings::c_settings_singleton<c_settings_container, c_settings_gamespy>
 			{
 			public:
-				void PostLoad() final override;
+				void PostLoad() final override {
+					if(Get().m_no_update_check)
+					{
+						TurnOffUpdateCheck();
+					}
+				}
 			};
 #pragma endregion
+			static void InitializeForNewQr2()
+			{
+				// TODO: override key callbacks
+			}
 
-			game_build_string_t& GetGameVer();
+#if 0 // PLATFORM_VERSION <= 0x1090
+			// Change the old GameSpy URLs to whichever is best for the community these days (should be Bungie's hosthpc.com)
+			static void InitializeGameSpyEmulatorUrls()
+			{
+				GET_PTR(Matchup1Hostname) =
+				// natneg1.gamespy.com
+				R"(natneg1.hosthpc.com)";
+				GET_PTR(Matchup2Hostname) =
+				// natneg2.gamespy.com
+				R"(natneg2.hosthpc.com)";
 
-			void Initialize();
-			void Dispose();
+				GET_PTR(MASTER_ADDR_REFERENCE) =
+				// %s.master.gamespy.com
+				R"(s1.master.hosthpc.com)";
+				GET_PTR(MASTER_ADDR_SB_REFERENCE) =
+				// %s.ms%d.gamespy.com
+				R"(s1.ms01.hosthpc.com)";
+
+				GET_PTR(PTA_DEFAULT_VERCHECK_URL_REFERENCE) =
+				// http://motd.gamespy.com/motd/vercheck.asp?productid=%d&versionuniqueid=%s&distid=%d
+				R"(http://hpcup.bungie.net/motd/vercheck.asp?productid=%d&versionuniqueid=%s&distid=%d)";
+			}
+#endif
+
+			game_build_string_t& GetGameVer()
+			{
+				static game_build_string_t g_game_ver;
+
+				return g_game_ver;
+			}
+
+			static bool Qr2GetGameVer(char* buffer)
+			{
+				return k_errnone == strcpy_s(buffer, 0x100, GetGameVer());
+			}
+
+			static int __cdecl Qr2StringMatchesGameVer(const char* buffer)
+			{
+				return strcmp(buffer, GetGameVer())==0;
+			}
+
+			static long gamespy_patch_check_for_updates_sans_check()
+			{
+				return GsConfig()->check_for_updates_status = Enums::_gamespy_update_status_no_update;
+			}
+			void TurnOffUpdateCheck()
+			{
+				*GsPatchCheckForUpdates() = false; // pretend we've checked for updates already
+
+				Memory::WriteRelativeCall(&gamespy_patch_check_for_updates_sans_check, GET_DATA_VPTR(GAMESPY_PATCH_SPAWN_CHECK_FOR_UPDATES_THREAD_CALL));
+			}
+
+			void Initialize() {
+				// TODO: populate GetGameVer()
+
+				c_settings_gamespy::Register(Yelo::Settings::Manager());
+
+#if 0 //PLATFORM_VERSION <= 0x1090
+				InitializeGameSpyEmulatorUrls();
+#endif
+				//Commented out be dwood b/c get_func_vptr needs a comparable implementation rn.
+				//Memory::CreateHookRelativeCall(&InitializeForNewQr2, GET_FUNC_VPTR(CREATE_GAMESPY_QR2_HOOK), Enums::_x86_opcode_ret);
+
+#if FALSE // TODO
+				qr2_register_key(Enums::_gamespy_qr_field_open_sauce_version, "os_ver");
+				qr2_register_key(Enums::_gamespy_qr_field_open_sauce_map, "os_map");
+#endif
+			}
+
+			void Dispose() {
+				c_settings_gamespy::Unregister(Yelo::Settings::Manager());
+			}
 
 			// Register a key with the engine's gamespy qr2 API. This tells the SDK that the application will report values for this key
 			// [keyid] - Id of the key
 			// [key] - Name of the key. Player keys should end in "_" (such as "score_") and team keys should end in "_t"
 			// Remarks: GameSpy SDK says all custom keys should be registered prior to (the engine) calling (its gamespy) qr2_init
 			// However, I don't see anything in its code that would suggest later registration could bork things up
-			void qr2_register_key(Enums::gamespy_qr_field keyid, cstring key);
+			void qr2_register_key(Enums::gamespy_qr_field keyid, cstring key) {
+				static const uintptr_t FUNCTION = GET_FUNC_PTR(QR2_REGISTER_KEY);
 
-			bool	SBServerGetBoolValue(s_gamespy_server* server, const char* key, bool def);
-			int		SBServerGetIntValue(s_gamespy_server* server, const char* key, int def);
-			cstring	SBServerGetStringValue(s_gamespy_server* server, const char* key, cstring def);
+				API_FUNC_NAKED_START()
+				push	key
+				push	keyid
+				call	FUNCTION
+				API_FUNC_NAKED_END_CDECL(2)
+			}
+
+			bool	SBServerGetBoolValue(s_gamespy_server* server, const char* key, bool def) {
+				static const uintptr_t FUNCTION = GET_FUNC_PTR(SBSERVER_GET_BOOL_VALUE);
+
+				API_FUNC_NAKED_START()
+				push	def
+				push	key
+				push	server
+				call	FUNCTION
+				API_FUNC_NAKED_END_CDECL(3)
+			}
+
+			int		SBServerGetIntValue(s_gamespy_server* server, const char* key, int def) {
+				static const uintptr_t FUNCTION = GET_FUNC_PTR(SBSERVER_GET_INT_VALUE);
+
+				API_FUNC_NAKED_START()
+				push	def
+				push	key
+				push	server
+				call	FUNCTION
+				API_FUNC_NAKED_END_CDECL(3)
+			}
+
+			cstring	SBServerGetStringValue(s_gamespy_server* server, const char* key, cstring def) {
+				static const uintptr_t FUNCTION = GET_FUNC_PTR(SBSERVER_GET_STRING_VALUE);
+
+				API_FUNC_NAKED_START()
+				push	def
+				push	key
+				push	server
+				call	FUNCTION
+				API_FUNC_NAKED_END_CDECL(3)
+			}
 		};
 	};
 };

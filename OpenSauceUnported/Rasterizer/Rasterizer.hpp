@@ -55,7 +55,7 @@ namespace Yelo
 			wchar_t			resolution_string[16];
 			DWORD			refresh_rate_count;
 			DWORD			refresh_rates[8];
-		}; BOOST_STATIC_ASSERT(sizeof(s_rasterizer_resolution) == 0x4C);
+		}; static_assert(sizeof(s_rasterizer_resolution) == 0x4C);
 
 		void Initialize();
 		void Dispose();

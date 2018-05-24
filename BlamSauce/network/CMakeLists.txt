@@ -40,5 +40,6 @@ set(NETWORK_H
 	${N_SERVER_H}
 	${N_TRANSPORT_H}
 	${CMAKE_CURRENT_SOURCE_DIR}/connections.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/gamespy_api.h
 	${CMAKE_CURRENT_SOURCE_DIR}/message_header.h
 	PARENT_SCOPE)

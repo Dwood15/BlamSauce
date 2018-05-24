@@ -171,7 +171,7 @@ static void InitializeGrenadeCounts_MessageDeltaGrenadeCounts(bool enabled)
 		{
 			long bits_written = 0;
 
-			BOOST_STATIC_ASSERT( sizeof(grenade_counts) == sizeof(byte)*2 );
+			static_assert( sizeof(grenade_counts) == sizeof(byte)*2 );
 
 			const auto* baseline_data_gc = CAST_PTR(const grenade_counts*, baseline_data); // should always be NULL...
 			const auto* source_data_gc = CAST_PTR(const grenade_counts*, source_data);
