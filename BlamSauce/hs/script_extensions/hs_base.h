@@ -96,26 +96,26 @@ namespace Yelo {
 		static void InitializeCreateScriptFunction() {
 			static uintptr_t hs_return_address             = GET_FUNC_PTR(HS_RETURN);
 			static uintptr_t hs_arguments_evaluate_address = GET_FUNC_PTR(HS_ARGUMENTS_EVALUATE);
-			static uintptr_t hs_function_table_address     = CAST_PTR(uintptr_t, &_upgrade_globals.functions.table[0]);
+			static uintptr_t hs_function_table_address     = reinterpret_cast<uintptr_t>(&_upgrade_globals.functions.table[0]);
 
 			uintptr_t *temp = nullptr;
 
 			// with params functions
 			{
-				temp = CAST_PTR(uintptr_t*, &(hs_eval_func_has_param[HS_EVAL_INDEX_HS_FUNC_TABLE_WITH_PARAM]));
+				temp = reinterpret_cast<uintptr_t *>(&(hs_eval_func_has_param[(5 + 3)]));
 				*temp = hs_function_table_address;
 
-				temp = CAST_PTR(uintptr_t*, &(hs_eval_func_has_param[HS_EVAL_INDEX_HS_ARGUMENTS_EVALUTE_WITH_PARAM]));
-				*temp = CAST_PTR(uintptr_t, &hs_arguments_evaluate_address);
+				temp = reinterpret_cast<uintptr_t *>(&(hs_eval_func_has_param[(32 + 2)]));
+				*temp = reinterpret_cast<uintptr_t>(&hs_arguments_evaluate_address);
 
-				temp = CAST_PTR(uintptr_t*, &(hs_eval_func_has_param[HS_EVAL_INDEX_HS_RETURN_WITH_PARAM]));
-				*temp = CAST_PTR(uintptr_t, &hs_return_address);
+				temp = reinterpret_cast<uintptr_t *>(&(hs_eval_func_has_param[(55 + 2)]));
+				*temp = reinterpret_cast<uintptr_t>(&hs_return_address);
 			}
 
 			// no params functions
 			{
-				temp = CAST_PTR(uintptr_t*, &(hs_eval_func_no_param[HS_EVAL_INDEX_HS_RETURN_NO_PARAM]));
-				*temp = CAST_PTR(uintptr_t, &hs_return_address);
+				temp = reinterpret_cast<uintptr_t *>(&(hs_eval_func_no_param[(10 + 2)]));
+				*temp = reinterpret_cast<uintptr_t>(&hs_return_address);
 			}
 		}
 
@@ -138,7 +138,7 @@ namespace Yelo {
 		void InitializeScriptFunction(Enums::hs_function_enumeration function, proc_hs_yelo_function proc) {
 			if (function > NONE && function < Enums::k_hs_function_enumeration_count) {
 				ScriptFunctionSetEvaluteProc(*hs_yelo_functions[function],
-													  CAST_PTR(proc_hs_evaluate, CreateScriptFunction(proc, false)));
+													  reinterpret_cast<proc_hs_evaluate>(CreateScriptFunction(proc, false)));
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace Yelo {
 		void InitializeScriptFunctionWithParams(Enums::hs_function_enumeration function, proc_hs_yelo_function_with_params proc) {
 			if (function > NONE && function < Enums::k_hs_function_enumeration_count) {
 				ScriptFunctionWithParamsSetEvaluteProc(*hs_yelo_functions[function],
-																	CAST_PTR(proc_hs_evaluate, CreateScriptFunction(proc, true)));
+																	reinterpret_cast<proc_hs_evaluate>(CreateScriptFunction(proc, true)));
 			}
 		}
 
@@ -196,7 +196,7 @@ namespace Yelo {
 		}
 
 		void NullifyScriptFunction(hs_function_definition &function) {
-			ScriptFunctionSetEvaluteProc(function, CAST_PTR(proc_hs_evaluate, GET_FUNC_VPTR(HS_NULL_EVALUATE)));
+			ScriptFunctionSetEvaluteProc(function, reinterpret_cast<proc_hs_evaluate>((reinterpret_cast<void *>(PTR_HS_NULL_EVALUATE))));
 		}
 
 		void NullifyScriptFunction(Enums::hs_function_enumeration function) {
@@ -205,7 +205,7 @@ namespace Yelo {
 		}
 
 		void NullifyScriptFunctionWithParams(hs_function_definition &function) {
-			ScriptFunctionWithParamsSetEvaluteProc(function, CAST_PTR(proc_hs_evaluate, GET_FUNC_VPTR(HS_NULL_WITH_PARAMS_EVALUATE)));
+			ScriptFunctionWithParamsSetEvaluteProc(function, reinterpret_cast<proc_hs_evaluate>((reinterpret_cast<void *>(PTR_HS_NULL_WITH_PARAMS_EVALUATE))));
 		}
 
 		void NullifyScriptFunctionWithParams(Enums::hs_function_enumeration function) {
@@ -233,7 +233,7 @@ namespace Yelo {
 			if (hs_eval_func >= NUMBEROF(hs_eval_func_ptrs)) return nullptr; // we don't want to go over our set limit
 
 			void *evaluate = nullptr;
-			hs_eval_func_ptrs[hs_eval_func] = CAST_PTR(uint, func);
+			hs_eval_func_ptrs[hs_eval_func] = reinterpret_cast<uint>(func);
 			uint *temp = nullptr;
 
 			if (takes_params) {
@@ -241,15 +241,15 @@ namespace Yelo {
 					hs_func_pool[hs_eval_func],
 					hs_eval_func_has_param);
 
-				temp = CAST_PTR(uint*, &(hs_func_pool[hs_eval_func][HS_EVAL_INDEX_FUNC_WITH_PARAM]));
-				*temp = CAST_PTR(uint, &(hs_eval_func_ptrs[hs_eval_func]));
+				temp = reinterpret_cast<uint *>(&(hs_func_pool[hs_eval_func][(46 + 2)]));
+				*temp = reinterpret_cast<uint>(&(hs_eval_func_ptrs[hs_eval_func]));
 			} else {
 				Memory::WriteMemory(
 					hs_func_pool[hs_eval_func],
 					hs_eval_func_no_param);
 
-				temp = CAST_PTR(uint*, &(hs_func_pool[hs_eval_func][HS_EVAL_INDEX_FUNC_NO_PARAM]));
-				*temp = CAST_PTR(uint, &(hs_eval_func_ptrs[hs_eval_func]));
+				temp = reinterpret_cast<uint *>(&(hs_func_pool[hs_eval_func][(0 + 2)]));
+				*temp = reinterpret_cast<uint>(&(hs_eval_func_ptrs[hs_eval_func]));
 			}
 
 			evaluate = &(*hs_func_pool[hs_eval_func]);

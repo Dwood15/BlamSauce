@@ -62,12 +62,12 @@ namespace Yelo::blam {
 
 	template <typename T>
 	inline T *debug_new(const bool fill_with_garbage, cstring file, const uint line) {
-		return CAST_PTR(T*, debug_malloc(sizeof(T) * 1, fill_with_garbage, file, line));
+		return reinterpret_cast<T *>(debug_malloc(sizeof(T) * 1, fill_with_garbage, file, line));
 	}
 
 	template <typename T>
 	inline T *debug_new_array(const size_t count, const bool fill_with_garbage, cstring file, const uint line) {
-		return CAST_PTR(T*, debug_malloc(sizeof(T) * count, fill_with_garbage, file, line));
+		return reinterpret_cast<T *>(debug_malloc(sizeof(T) * count, fill_with_garbage, file, line));
 	}
 
 	void __cdecl debug_free(void *pointer, cstring file, const uint line);
@@ -103,11 +103,11 @@ namespace Yelo::blam {
 
 	template <typename T>
 	T *debug_renew(T *pointer, cstring file, const uint line) {
-		return CAST_PTR(T*, debug_realloc(pointer, sizeof(T) * 1, file, line));
+		return reinterpret_cast<T *>(debug_realloc(pointer, sizeof(T) * 1, file, line));
 	}
 
 	template <typename T>
 	T *debug_renew_array(T *pointer, const size_t count, cstring file, const uint line) {
-		return CAST_PTR(T*, debug_realloc(pointer, sizeof(T) * count, file, line));
+		return reinterpret_cast<T *>(debug_realloc(pointer, sizeof(T) * count, file, line));
 	}
 };

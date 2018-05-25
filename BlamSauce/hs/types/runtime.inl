@@ -202,9 +202,9 @@ namespace Yelo {
 
 			const auto &datum        = datums[index];
 			// T's name should be a tag_string
-			const byte *name_address = CAST_PTR(const byte*, &datum) + offsetof(T, name);
+			const byte *name_address = reinterpret_cast<const byte *>(&datum) + offsetof(T, name);
 
-			cstring name = CAST_PTR(cstring, name_address);
+			cstring name = reinterpret_cast<cstring>(name_address);
 
 			sprintf_s(buffer, buffer_size, "%s",
 						 name);
@@ -370,7 +370,7 @@ namespace Yelo {
 			}
 
 			datum_index list_index   = object_list_new();
-			const auto  ai_reference = *CAST_PTR(AI::s_ai_index *, &value.pointer);
+			const auto  ai_reference = *reinterpret_cast<AI::s_ai_index *>(&value.pointer);
 
 			AI::s_ai_index_actor_iterator iterator;
 			ai_index_actor_iterator_new(ai_reference, iterator);

@@ -48,7 +48,7 @@ namespace Yelo::Cryptography::TEA {
 	}
 
 	void Encode(char *data, DWORD data_size) {
-		DWORD *data_pointer = CAST_PTR(DWORD * , data);
+		DWORD *data_pointer = reinterpret_cast<DWORD *>(data);
 		// get how many bytes are at the end of the file, that wouldn't fill a cipher block
 		DWORD block_overlap = data_size % 8;
 		// get the block count
@@ -61,20 +61,20 @@ namespace Yelo::Cryptography::TEA {
 		}
 		// if there is overlap, encode the last 8 bytes of data
 		if (block_overlap) {
-			block_pointer = CAST_PTR(DWORD * , (data + data_size) - 8);
+			block_pointer = reinterpret_cast<DWORD *>((data + data_size) - 8);
 			Encipher(block_pointer, block_pointer, &g_encryption_key[0]);
 		}
 	}
 
 	void Decode(char *data, DWORD data_size) {
-		DWORD* data_pointer = CAST_PTR(DWORD*, data);
+		DWORD* data_pointer = reinterpret_cast<DWORD *>(data);
 		// get how many bytes are at the end of the file, that wouldn't fill a cipher block
 		DWORD block_overlap = data_size % 8;
 		// if there is overlap, decode the last 8 bytes of data
 		DWORD* block_pointer = NULL;
 		if(block_overlap)
 		{
-			block_pointer = CAST_PTR(DWORD*, (data + data_size) - 8);
+			block_pointer = reinterpret_cast<DWORD *>((data + data_size) - 8);
 			Decipher(block_pointer, block_pointer, &g_encryption_key[0]);
 		}
 

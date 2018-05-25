@@ -40,11 +40,11 @@ namespace Yelo {
 			short NumberOfInvalidDatums() const {
 				assert(base_address);
 
-				auto  *datum_address = CAST_PTR(const byte*, base_address);
+				auto  *datum_address = reinterpret_cast<const byte *>(base_address);
 				short invalid_count  = 0;
 
 				for (int x = 0, max_count = max_datum; x < max_count; x++, datum_address += datum_size)
-					if (CAST_PTR(const s_datum_base*, datum_address)->IsNull())
+					if (reinterpret_cast<const s_datum_base *>(datum_address)->IsNull())
 						invalid_count++;
 
 				return invalid_count;
@@ -141,7 +141,7 @@ namespace Yelo {
 		void __cdecl data_dispose(Memory::s_data_array *data) {
 			if (data != nullptr) {
 				data_verify(data);
-				CAST_PTR(Yelo::Memory::s_data_array*, GlobalFree(data));
+				reinterpret_cast<Yelo::Memory::s_data_array *>(GlobalFree(data));
 			}
 		}
 
@@ -197,11 +197,11 @@ namespace Yelo {
 			iterator.next_index    = 0;
 			iterator.finished_flag = false;
 			iterator.index         = {static_cast<uint>(-1)};
-			iterator.signature     = CAST_PTR(uintptr_t, data) ^ Enums::k_data_iterator_signature;
+			iterator.signature     = reinterpret_cast<uintptr_t>(data) ^ Enums::k_data_iterator_signature;
 		}
 
 		void *__cdecl data_iterator_next(s_data_iterator &iterator) {
-			if (!(iterator.signature == (CAST_PTR(uintptr_t, iterator.data) ^ Enums::k_data_iterator_signature))) {
+			if (!(iterator.signature == (reinterpret_cast<uintptr_t>(iterator.data) ^ Enums::k_data_iterator_signature))) {
 				throw std::exception("uninitialized iterator passed to " __FUNCTION__);
 			}
 
@@ -213,10 +213,10 @@ namespace Yelo {
 			}
 			datum_index::index_t absolute_index = iterator.next_index;
 			long                datum_size     = data->datum_size;
-			byte                 *pointer       = CAST_PTR(byte *, data->base_address) + (datum_size * absolute_index);
+			byte                 *pointer       = reinterpret_cast<byte *>(data->base_address) + (datum_size * absolute_index);
 
 			for (short last_datum  = data->last_datum; absolute_index < last_datum; pointer += datum_size, absolute_index++) {
-				auto datum = CAST_PTR(const s_datum_base*, pointer);
+				auto datum = reinterpret_cast<const s_datum_base *>(pointer);
 
 				if (!datum->IsNull()) {
 					iterator.next_index = absolute_index + 1;

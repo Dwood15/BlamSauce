@@ -24,20 +24,20 @@ public: // Has to be public to retain POD-traits
 protected:
 	TBase* GetPointer()
 	{
-		return CAST_PTR(TBase*,m_instance_data);
+		return reinterpret_cast<TBase *>(m_instance_data);
 	}
 	const TBase* GetPointer() const
 	{
-		return CAST_PTR(TBase*,m_instance_data);
+		return reinterpret_cast<TBase *>(m_instance_data);
 	}
 
 	TBase& GetReference()
 	{
-		return  CAST_PTR(TBase&,m_instance_data);
+		return reinterpret_cast<TBase &>(m_instance_data);
 	}
 	const TBase& GetReference() const
 	{
-		return  CAST_PTR(TBase&,m_instance_data);
+		return reinterpret_cast<TBase &>(m_instance_data);
 	}
 
 public:
@@ -56,7 +56,7 @@ public:
 	// Use this for your non-default inplace new operations
 	void* AllocationAddress()
 	{
-		return CAST_PTR(void*,m_instance_data);
+		return reinterpret_cast<void *>(m_instance_data);
 	}
 
 	// We may want to provide a Construct() which does 'new TImpl;'

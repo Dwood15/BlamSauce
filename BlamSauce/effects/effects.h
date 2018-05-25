@@ -156,12 +156,12 @@ namespace Yelo::Effects
 			render_particles_mods::Initialize();
 
 			// For now, we're leaving these upgrades off
-			*CAST_PTR(size_t*, GET_FUNC_VPTR(GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_EFFECTS)) =
+			*(reinterpret_cast<size_t *>(((reinterpret_cast<void *>(PTR_GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_EFFECTS))))) =
 				Enums::k_maximum_number_of_effects_per_map_upgrade;
-			*CAST_PTR(size_t*, GET_FUNC_VPTR(GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_EFFECT_LOCATIONS)) =
+			*(reinterpret_cast<size_t *>(((reinterpret_cast<void *>(PTR_GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_EFFECT_LOCATIONS))))) =
 				Enums::k_maximum_number_of_effect_locations_per_map_upgrade;
 
-			*CAST_PTR(size_t*, GET_FUNC_VPTR(GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_PARTICLE_SYSTEM_PARTICLES)) =
+			*(reinterpret_cast<size_t *>(((reinterpret_cast<void *>(PTR_GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_PARTICLE_SYSTEM_PARTICLES))))) =
 				Enums::k_maximum_number_of_particle_system_particles_per_map_upgrade;
 		}
 		static void Initialize()

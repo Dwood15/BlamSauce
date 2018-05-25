@@ -46,7 +46,7 @@ namespace Yelo {
 				}
 
 				DatumT *Next() {
-					return m_current_instance = 								 CAST_PTR(DatumT*, blam::data_iterator_next(m_iterator));
+					return m_current_instance = reinterpret_cast<DatumT *>(blam::data_iterator_next(m_iterator));
 				}
 
 				datum_index Current() const { return this->m_iterator.index; }
@@ -87,7 +87,7 @@ namespace Yelo {
 			}
 
 			DatumT *Datums() {
-				return CAST_PTR(DatumT*, this->Header.base_address);
+				return reinterpret_cast<DatumT *>(this->Header.base_address);
 			}
 
 			operator s_data_array *() {
@@ -95,7 +95,7 @@ namespace Yelo {
 			}
 
 			DatumT *operator [](datum_index handle) {
-				return &CAST_PTR(DatumT*, this->Header.base_address)[handle.index];
+				return &reinterpret_cast<DatumT *>(this->Header.base_address)[handle.index];
 			}
 
 			Iterator begin() /*const*/

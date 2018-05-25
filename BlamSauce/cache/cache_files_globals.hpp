@@ -123,7 +123,7 @@ namespace Yelo
 
 			s_cache_file_request* Requests()
 			{
-				return CAST_PTR(s_cache_file_request*, requests);
+				return reinterpret_cast<s_cache_file_request *>(requests);
 			}
 
 			// blocks the thread until all read requests have finished

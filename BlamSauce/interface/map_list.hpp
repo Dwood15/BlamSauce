@@ -121,7 +121,7 @@ namespace Yelo {
 
 				// allocate and set this entry's name
 				size_t map_name_length = strlen(local_map_name);
-				char   *map_name       = CAST_PTR(char*, BLAM_MALLOC(map_name_length + 1));
+				char   *map_name       = reinterpret_cast<char *>(Yelo::blam::system_malloc((map_name_length + 1)));
 				this->name = map_name;
 
 				strcpy(map_name, local_map_name);
@@ -189,7 +189,7 @@ namespace Yelo {
 				multiplayer_maps.capacity += std::size(Yelo::blam::k_map_list_mp_maps);
 
 				size_t new_size = sizeof(s_map_list_map) * multiplayer_maps.capacity;
-				multiplayer_maps.elements = CAST_PTR(s_map_list_map*, BLAM_REALLOC(multiplayer_maps.elements, new_size));
+				multiplayer_maps.elements = reinterpret_cast<s_map_list_map *>(Yelo::blam::system_realloc((multiplayer_maps.elements), (new_size)));
 			}
 			int  mp_map_index      = multiplayer_maps.count++;
 

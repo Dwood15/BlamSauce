@@ -71,7 +71,7 @@ namespace Yelo
 	size_t GetListLength(TNode*& list_head)
 	{
 		size_t count = 0;
-		for(const TNode* cur = CAST_PTR(TNode*, list_head); cur != nullptr; cur = CAST_PTR(TNode*, cur->GetNext()), count++)
+		for(const TNode* cur = reinterpret_cast<TNode *>(list_head); cur != nullptr; cur = reinterpret_cast<TNode *>(cur->GetNext()), count++)
 			;
 
 		return count;
@@ -82,9 +82,9 @@ namespace Yelo
 	{
 		YELO_ASSERT_DISPLAY(list_head != nullptr, "attepting to delete a linked list with a NULL list head");
 
-		for(TNode* cur = CAST_PTR(TNode*, list_head->GetNext()); cur != nullptr; )
+		for(TNode* cur = reinterpret_cast<TNode *>(list_head->GetNext()); cur != nullptr; )
 		{
-			TNode* next = CAST_PTR(TNode*, cur->GetNext());
+			TNode* next = reinterpret_cast<TNode *>(cur->GetNext());
 			delete cur;
 			cur = next;
 		}
@@ -103,7 +103,7 @@ namespace Yelo
 		}
 
 		TNode* cur, * next;
-		for(cur = list_head, next = CAST_PTR(TNode*, cur->GetNext()); next != nullptr; cur = next, next = CAST_PTR(TNode*, cur->GetNext()))
+		for(cur = list_head, next = reinterpret_cast<TNode *>(cur->GetNext()); next != nullptr; cur = next, next = reinterpret_cast<TNode *>(cur->GetNext()))
 			;
 
 		cur->SetNext(object);
@@ -115,8 +115,8 @@ namespace Yelo
 	{
 		YELO_ASSERT_DISPLAY(list_head != nullptr, "attepting to remove from a linked list with a NULL list head");
 
-		TNode* next = CAST_PTR(TNode*, object->GetNext());
-		TNode* prev = CAST_PTR(TNode*, object->GetPrevious());
+		TNode* next = reinterpret_cast<TNode *>(object->GetNext());
+		TNode* prev = reinterpret_cast<TNode *>(object->GetPrevious());
 
 		if(list_head == object)
 		{
@@ -149,7 +149,7 @@ namespace Yelo
 		long i = 0;
 
 		TNode* cur, * next;
-		for(cur = list_head; cur != nullptr && (next = CAST_PTR(TNode*, cur->GetNext())) != nullptr && i < index; cur = next, i++)
+		for(cur = list_head; cur != nullptr && (next = reinterpret_cast<TNode *>(cur->GetNext())) != nullptr && i < index; cur = next, i++)
 			;
 
 		if(i != index)

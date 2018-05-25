@@ -144,11 +144,11 @@ namespace Yelo {
 
 		// cast the [definition] pointer to a T*
 		template <typename T>
-		T *Definition() const { return CAST_PTR(T*, definition); }
+		T *Definition() const { return reinterpret_cast<T *>(definition); }
 
 		// cast the data of [definition] to T
 		template <typename T>
-		T DefinitionCast() const { return CAST_PTR(T, definition); }
+		T DefinitionCast() const { return reinterpret_cast<T>(definition); }
 
 		size_t GetSize(_Out_opt_ size_t *runtime_size) const {
 			size_t field_size;

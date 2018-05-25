@@ -156,7 +156,7 @@ namespace Yelo::Main {
 		//////////////////////////////////////////////////////////////////////////
 		// Unprotect the exe's code so we can freely modify it
 		DWORD old;
-		VirtualProtect(CAST_PTR(void*, 0x400000),GET_DATA_PTR(PE_DATA_SIZE),PAGE_EXECUTE_READWRITE,&old);
+		VirtualProtect(reinterpret_cast<void *>(0x400000),GET_DATA_PTR(PE_DATA_SIZE),PAGE_EXECUTE_READWRITE,&old);
 		//////////////////////////////////////////////////////////////////////////
 
 		Memory::WriteRelativeCall(&InitializeOnStartupHook, GET_FUNC_VPTR(QUERY_EXITFLAG_REG_CALL), true);

@@ -72,9 +72,9 @@ namespace Yelo {
 		// size, in bytes, the elements assume in memory
 		size_t SizeOf() const { return sizeof(T) * Count; }
 
-		tag_block *to_tag_block() { return CAST_PTR(tag_block*, &this->Count); }
+		tag_block *to_tag_block() { return reinterpret_cast<tag_block *>(&this->Count); }
 
-		const tag_block *to_tag_block() const { return CAST_PTR(const tag_block*, &this->Count); }
+		const tag_block *to_tag_block() const { return reinterpret_cast<const tag_block *>(&this->Count); }
 
 		// Sets this object to equal that of a anonymous tag block object. 
 		TagBlock<T> * Copy(const tag_block &block) {
@@ -141,12 +141,12 @@ namespace Yelo {
 		template<typename T>
 		T* tag_block_get_element(TagBlock<T>& block, long element)
 		{
-			return CAST_PTR(T*, tag_block_get_element(block.to_tag_block(), element));
+			return reinterpret_cast<T *>(tag_block_get_element(block.to_tag_block(), element));
 		}
 		template<typename T>
 		const T* tag_block_get_element(const TagBlock<T>& block, long element)
 		{
-			return CAST_PTR(const T*, tag_block_get_element(block.to_tag_block(), element));
+			return reinterpret_cast<const T *>(tag_block_get_element(block.to_tag_block(), element));
 		}
 		template<typename T>
 		long tag_block_add_element(TagBlock<T>& block)
@@ -167,7 +167,7 @@ namespace Yelo {
 		template<typename T>
 		T* tag_block_add_and_get_element(TagBlock<T>& block)
 		{
-			return CAST_PTR(T*, tag_block_add_and_get_element(block.to_tag_block()));
+			return reinterpret_cast<T *>(tag_block_add_and_get_element(block.to_tag_block()));
 		}
 	};
 
@@ -204,9 +204,9 @@ namespace Yelo {
 		// Sizeof(T)
 		size_t SizeOf() const { return sizeof(T); }
 
-		tag_data *to_tag_data() { return CAST_PTR(tag_data*, &this->Size); }
+		tag_data *to_tag_data() { return reinterpret_cast<tag_data *>(&this->Size); }
 
-		const tag_data *to_tag_data() const { return CAST_PTR(const tag_data*, &this->Size); }
+		const tag_data *to_tag_data() const { return reinterpret_cast<const tag_data *>(&this->Size); }
 
 		T *operator [](long index) { return &this->Definitions[index]; }
 

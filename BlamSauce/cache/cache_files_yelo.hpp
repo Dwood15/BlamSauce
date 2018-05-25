@@ -156,7 +156,7 @@ namespace Yelo::Cache {
 		byte   *base_address;
 		size_t memory_available;
 
-		s_cache_file_data_load_state(s_cache_header *cache_header, s_cache_tag_header *tag_header) : base_address(CAST_PTR(byte *, tag_header) + cache_header->tag_memory_size),
+		s_cache_file_data_load_state(s_cache_header *cache_header, s_cache_tag_header *tag_header) : base_address(reinterpret_cast<byte *>(tag_header) + cache_header->tag_memory_size),
 																																	memory_available(Enums::k_tag_allocation_size_upgrade - cache_header->tag_memory_size) {
 		}
 
@@ -294,15 +294,11 @@ namespace Yelo::Cache {
 
 		// get pointers to the necessary cache data
 		auto *header        =
-				  CAST_PTR(
-					  const s_cache_header*, cache_file);
+				  reinterpret_cast<const s_cache_header *>(cache_file);
 		auto *tag_header    =
-				  CAST_PTR(
-					  const s_cache_tag_header*, cache_file + header->offset_to_index);
+				  reinterpret_cast<const s_cache_tag_header *>(cache_file + header->offset_to_index);
 		auto *tag_instances =
-				  CAST_PTR(
-					  const s_cache_tag_instance*, CAST_PTR(
-					  const byte*, tag_header) +sizeof(s_cache_tag_header));
+				  reinterpret_cast<const s_cache_tag_instance *>(reinterpret_cast<const byte *>(tag_header) + sizeof(s_cache_tag_header));
 
 		// the tag address needs correcting to match the data's starting point
 		// we need to remove the actual runtime base address and instead apply the address we're using in our memory map (the virtual address)
@@ -353,8 +349,7 @@ namespace Yelo::Cache {
 			if (Enums::_file_io_read_error_none != FileIO::MemoryMapFile(map_file))
 				break;
 
-			map_crc = CalculateChecksumFromMemoryMap(CAST_PTR(
-																	  const byte*, map_file.data_pointer));
+			map_crc = CalculateChecksumFromMemoryMap(reinterpret_cast<const byte *>(map_file.data_pointer));
 		} while (false);
 
 		FileIO::CloseFile(map_file);

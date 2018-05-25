@@ -4,6 +4,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/globals)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/objects)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/player)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/time)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/yelo_extra)
 
 
 set(G_SYSTEMS_H
@@ -23,6 +24,7 @@ set(GAME_H
 	${G_ENGINE_H}
 	${G_SCRIPTING_H}
 	${G_SYSTEMS_H}
+	${G_YELO_EXTRA_H}
 	${CMAKE_CURRENT_SOURCE_DIR}/action_queue.h
 	${CMAKE_CURRENT_SOURCE_DIR}/allegiance.h
 	${CMAKE_CURRENT_SOURCE_DIR}/cheats.h

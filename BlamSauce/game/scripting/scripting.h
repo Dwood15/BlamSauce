@@ -42,7 +42,7 @@ namespace Yelo::Scripting {
 		InitializeLibrary();
 
 		// Currently, no code is ran in Update
-		Memory::CreateHookRelativeCall(&Update, CAST_PTR(void *, HS_UPDATE_HOOK), Enums::_x86_opcode_retn);
+		Memory::CreateHookRelativeCall(&Update, reinterpret_cast<void *>(HS_UPDATE_HOOK), Enums::_x86_opcode_retn);
 	}
 
 	recorded_animations_data_t &RecordedAnimations() { DPTR_IMP_GET_BYREF(recorded_animations); }

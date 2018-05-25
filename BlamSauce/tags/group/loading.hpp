@@ -211,7 +211,7 @@ namespace Yelo {
 
 			reference->tag_index = datum_index::null();
 
-			if (!(reference->name = CAST_PTR(char *, YELO_MALLOC(Enums::k_max_tag_name_length + 1, false)))) {
+			if (!(reference->name = reinterpret_cast<char *>(YELO_MALLOC(Enums::k_max_tag_name_length + 1, false)))) {
 				YELO_WARN("couldn't allocate name memory for tag_reference @%p", definition); // NOTE: added this warning
 
 				return false;
@@ -292,7 +292,7 @@ namespace Yelo {
 				return success;
 
 			for (int x = 0; x < count; x++) {
-				void      *block_element = CAST_PTR(byte *, address) + (definition->element_size * x);
+				void      *block_element = reinterpret_cast<byte *>(address) + (definition->element_size * x);
 				for (auto field : TagGroups::c_tag_field_scanner(definition->fields, block_element)
 					.AddFieldType(Enums::_field_block)
 					.AddFieldType(Enums::_field_data)
@@ -360,7 +360,7 @@ namespace Yelo {
 			bool valid = true;
 
 			for (int x = 0; x < block->count; x++) {
-				void *element = CAST_PTR(byte *, block->address) +
+				void *element = reinterpret_cast<byte *>(block->address) +
 									 (definition->element_size * x); // NOTE: engine doesn't use tag_block_get_element here
 
 				for (auto field : TagGroups::c_tag_field_scanner(definition->fields, element)

@@ -67,7 +67,7 @@ namespace Yelo
 		{
 			extern void* GameStateMalloc(const bool k_update_allocation_crc, const size_t size_of);
 
-			return CAST_PTR(T*, GameStateMalloc(k_update_allocation_crc, sizeof(T) * count));
+			return reinterpret_cast<T *>(GameStateMalloc(k_update_allocation_crc, sizeof(T) * count));
 		}
 	};
 };

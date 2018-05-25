@@ -122,7 +122,7 @@ namespace Yelo::blam {
 	static T *stream_blob_to_buffer(T *&stream, const void *blob, size_t blob_size,
 											  unsigned alignment_bit = k_cache_file_tag_memory_alignment_bit) {
 		std::memcpy(stream, blob, blob_size);
-		stream = CAST_PTR(byte *, stream) + blob_size;
+		stream = reinterpret_cast<byte *>(stream) + blob_size;
 		stream = Yelo::Memory::AlignPointer(stream, alignment_bit);
 		return stream;
 	}
@@ -139,10 +139,10 @@ namespace Yelo::blam {
 		tag_block *block = tag_get_root_block(tag_index);
 
 		void *return_stream = stream_tag_block_to_buffer(block,
-																		 stream, CAST_PTR(uintptr_t, stream), virtual_base_address,
+																		 stream, reinterpret_cast<uintptr_t>(stream), virtual_base_address,
 																		 tag_names);
 
-		return_tag_size = CAST_PTR(uintptr_t, return_stream) - CAST_PTR(uintptr_t, stream);
+		return_tag_size = reinterpret_cast<uintptr_t>(return_stream) - reinterpret_cast<uintptr_t>(stream);
 		return return_stream;
 	}
 
@@ -152,20 +152,20 @@ namespace Yelo::blam {
 
 		assert(!reference.structure_bsp.tag_index.IsNull());
 
-		auto *bsp_header = CAST_PTR(structure_bsp_header *, stream);
-		auto *bsp_stream = CAST_PTR(structure_bsp *, AlignPointer(bsp_header + 1, k_cache_file_tag_memory_alignment_bit));
+		auto *bsp_header = reinterpret_cast<structure_bsp_header *>(stream);
+		auto *bsp_stream = reinterpret_cast<structure_bsp *>(AlignPointer(bsp_header + 1, k_cache_file_tag_memory_alignment_bit));
 
 		memset(bsp_header, 0, sizeof(*bsp_header));
 		bsp_header->signature = structure_bsp::k_group_tag;
-		bsp_header->bsp       = RebasePointer(bsp_stream, CAST_PTR(uintptr_t, bsp_header), virtual_base_address);
+		bsp_header->bsp       = RebasePointer(bsp_stream, reinterpret_cast<uintptr_t>(bsp_header), virtual_base_address);
 
 		size_t bsp_tag_size;
 		stream_tag_to_buffer(reference.structure_bsp.tag_index,
 									bsp_stream, bsp_tag_size, virtual_base_address, tag_names);
 
 		size_t bsp_stream_size;
-		bsp_stream_size = AlignValue(CAST_PTR(uintptr_t, bsp_stream) + bsp_tag_size, k_cache_file_tag_memory_alignment_bit);
-		bsp_stream_size -= CAST_PTR(uintptr_t, bsp_header);
+		bsp_stream_size = AlignValue(reinterpret_cast<uintptr_t>(bsp_stream) + bsp_tag_size, k_cache_file_tag_memory_alignment_bit);
+		bsp_stream_size -= reinterpret_cast<uintptr_t>(bsp_header);
 		bsp_stream_size = AlignValue(bsp_stream_size, Enums::k_cache_file_page_alignment_bit);
 
 		return bsp_stream_size;
@@ -230,7 +230,7 @@ namespace Yelo::blam {
 		void *vertex_y_index_buffer_end =
 				  build_cache_file_add_model_vertices_and_triangles(cache_tag_header, vertex_y_index_buffer);
 		cache_tag_header->model_data_size =
-			CAST_PTR(byte *, vertex_y_index_buffer_end) - CAST_PTR(byte *, vertex_y_index_buffer);
+			reinterpret_cast<byte *>(vertex_y_index_buffer_end) - reinterpret_cast<byte *>(vertex_y_index_buffer);
 		printf_s("done\n");
 
 		printf_s("writing vertex and index buffers...");

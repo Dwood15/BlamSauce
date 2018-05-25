@@ -60,7 +60,7 @@ namespace Yelo
 			uint _unused;			// 0x1C
 
 			template<typename T>
-			T* Definition() const { return CAST_PTR(T*, base_address); }
+			T* Definition() const { return reinterpret_cast<T *>(base_address); }
 
 			long GetAbsoluteIndex() const { return handle.index; }
 

@@ -36,13 +36,13 @@ namespace Yelo
 	{
 		typedef handle_abi_type_traits<T, sizeof(T)> type_traits;
 
-		return *CAST_PTR(const type_traits::bits_type*, &handle) == NULL;
+		return *reinterpret_cast<const type_traits::bits_type *>(&handle) == NULL;
 	}
 	template<typename T> inline
 	bool HandleIsNone(const T& handle)
 	{
 		typedef handle_abi_type_traits<T, sizeof(T)> type_traits;
 
-		return *CAST_PTR(const type_traits::bits_type*, &handle) == NONE;
+		return *reinterpret_cast<const type_traits::bits_type *>(&handle) == NONE;
 	}
 };

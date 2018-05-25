@@ -371,7 +371,7 @@ namespace Yelo {
 				return datum_index::null();
 			}
 
-			auto *tag_header = CAST_PTR(Cache::s_cache_tag_header*, physical_memory_map_get_tag_cache_address());
+			auto *tag_header = reinterpret_cast<Cache::s_cache_tag_header *>(physical_memory_map_get_tag_cache_address());
 
 			bool                        read_finished = false;
 			s_cache_file_request_params read_params   = {&read_finished};
@@ -386,12 +386,12 @@ namespace Yelo {
 									  TagGroups::group_tag_to_string{Cache::s_cache_tag_header::k_signature}.ToString());
 			cache_file_globals.tag_index = tag_header;
 
-			blam_global_tag_instances = CAST_PTR(s_cache_tag_instance *, tag_header->tags_address);
+			blam_global_tag_instances = reinterpret_cast<s_cache_tag_instance *>(tag_header->tags_address);
 			cache_file_globals.tags_loaded = true;
 
 			if (!Cache::DontLoadExternalData()) {
 				auto *scenario       = tag_get<TagGroups::scenario>(tag_header->scenario_index);
-				auto *hs_syntax_data = CAST_PTR(Memory::s_data_array*, scenario->hs_syntax_data.address);
+				auto *hs_syntax_data = reinterpret_cast<Memory::s_data_array *>(scenario->hs_syntax_data.address);
 				// the data array's base address pointer isn't updated when a cache is built, so it's updated here
 				if (hs_syntax_data != nullptr) // technically, this should never be NULL (engine doesn't perform check)
 				{

@@ -159,7 +159,7 @@ namespace Yelo::GameState
 	{
 		s_game_state_globals* gsg = GameStateGlobals();
 
-		byte* base_addr = CAST_PTR(byte*, gsg->base_address) + gsg->cpu_allocation_size;
+		byte* base_addr = reinterpret_cast<byte *>(gsg->base_address) + gsg->cpu_allocation_size;
 
 		// Debug check that we don't allocate more memory than the game state has available
 		YELO_ASSERT_DISPLAY((base_addr + size_of) <= blam::physical_memory_map_get_tag_cache_address(),

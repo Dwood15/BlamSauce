@@ -160,7 +160,7 @@ namespace Yelo::Objects {
 	template <typename TObjectDefinition>
 	inline
 	TObjectDefinition const *GetObjectDefinition(datum_index object_index) {
-		return CAST_PTR(TObjectDefinition const*, GetObjectDefinition(object_index));
+		return reinterpret_cast<TObjectDefinition const *>(GetObjectDefinition(object_index));
 	}
 
 	TagGroups::model_animation_graph const *GetObjectAnimations(datum_index object_index) {
@@ -282,7 +282,7 @@ namespace Yelo::blam {
 
 	template <typename T>
 	T *object_try_and_get_and_verify_type(datum_index object_index) {
-		return CAST_PTR(T*, object_try_and_get_and_verify_type(object_index, T::k_object_types_mask));
+		return reinterpret_cast<T *>(object_try_and_get_and_verify_type(object_index, T::k_object_types_mask));
 	}
 
 	s_object_iterator &object_iterator_new(s_object_iterator &iter, unsigned long type_mask, Flags::object_header_flags ignore_flags) {
@@ -330,7 +330,7 @@ namespace Yelo::blam {
 
 	template <typename T>
 	inline T *object_get_and_verify_type(datum_index object_index) {
-		return CAST_PTR(T*, object_get_and_verify_type(object_index, T::k_object_types_mask));
+		return reinterpret_cast<T *>(object_get_and_verify_type(object_index, T::k_object_types_mask));
 	}
 
 	void __cdecl object_destroy(const datum_index object_index);

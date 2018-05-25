@@ -225,8 +225,8 @@ namespace Yelo {
 			asm_bytes.Op = Enums::_x86_opcode_call_near;
 
 			// relative call to [hook]
-			asm_bytes.Address = CAST_PTR(intptr_t, hook) -
-									  (CAST_PTR(intptr_t, hook_address) +
+			asm_bytes.Address = (reinterpret_cast<intptr_t>(hook)) -
+									  ((reinterpret_cast<intptr_t>(hook_address)) +
 										sizeof(Opcode::s_call));
 
 			asm_bytes.End = end;
@@ -242,10 +242,10 @@ namespace Yelo {
 			if (write_opcode)
 				WriteMemory(jmp_address, &real_opcode, sizeof(real_opcode));
 
-			uintptr_t original = CAST_PTR(intptr_t, jmp_address) + *reinterpret_cast<intptr_t *>( reinterpret_cast<unsigned __int32>(jmp_address) + 1) + sizeof(Opcode::s_call);
+			uintptr_t original = (reinterpret_cast<intptr_t>(jmp_address)) + *reinterpret_cast<intptr_t *>( reinterpret_cast<unsigned __int32>(jmp_address) + 1) + sizeof(Opcode::s_call);
 
-			uintptr_t relative = CAST_PTR(intptr_t, to_address) - (CAST_PTR(intptr_t, jmp_address) + sizeof(Opcode::s_call));
-			WriteMemory(CAST_PTR(void * , CAST_PTR(uintptr_t, jmp_address) + 1), CAST_PTR(void * , relative));
+			uintptr_t relative = (reinterpret_cast<intptr_t>(to_address)) - ((reinterpret_cast<intptr_t>(jmp_address)) + sizeof(Opcode::s_call));
+			WriteMemory((reinterpret_cast<void *>((reinterpret_cast<uintptr_t>(jmp_address)) + 1)), (reinterpret_cast<void *>(relative)));
 
 			return original;
 		}
@@ -276,8 +276,8 @@ namespace Yelo {
 		// [address] address to put\overwrite a call
 		// [target] address to make the call goto
 		void WriteCall(void *call_buffer, void *address, const void *target) {
-			Opcode::s_call *call         = CAST_PTR(Opcode::s_call * , call_buffer);
-			Opcode::s_call *call_address = CAST_PTR(Opcode::s_call * , address);
+			Opcode::s_call *call         = (reinterpret_cast<Opcode::s_call *>(call_buffer));
+			Opcode::s_call *call_address = (reinterpret_cast<Opcode::s_call *>(address));
 
 			call->Op         = call_address->Op;               // copy the old
 			call_address->Op = Enums::_x86_opcode_call_near;// set the new
@@ -291,10 +291,10 @@ namespace Yelo {
 		// [address] address to put\overwrite a call and ret
 		// [target] address to make the call goto
 		void WriteCallRet(void *call_ret_buffer, void *address, const void *target) {
-			CAST_PTR(Opcode::s_call_ret * , call_ret_buffer)->Ret =
-				CAST_PTR(Opcode::s_call_ret * , address)->Ret;                  // copy the old
+			(reinterpret_cast<Opcode::s_call_ret *>(call_ret_buffer))->Ret =
+				(reinterpret_cast<Opcode::s_call_ret *>(address))->Ret;                  // copy the old
 			WriteCall(call_ret_buffer, address, target);
-			CAST_PTR(Opcode::s_call_ret * , address)->Ret = Enums::_x86_opcode_ret;   // set the new
+			(reinterpret_cast<Opcode::s_call_ret *>(address))->Ret = Enums::_x86_opcode_ret;   // set the new
 		}
 
 		// [call_ret_buffer] is a buffer to receive the old bytes
@@ -303,13 +303,13 @@ namespace Yelo {
 		// [count] number of 32-bit args in the function we're modding. If there are any 
 		// 64-bit arguments, count them twice!
 		void WriteCallRet(void *call_ret_buffer, void *address, const void *target, const unsigned __int16 count) {
-			CAST_PTR(Opcode::s_call_ret * , call_ret_buffer)->Ret =
-				CAST_PTR(Opcode::s_call_ret * , address)->Ret;                  // copy the old
+			(reinterpret_cast<Opcode::s_call_ret *>(call_ret_buffer))->Ret =
+				(reinterpret_cast<Opcode::s_call_ret *>(address))->Ret;                  // copy the old
 			WriteCall(call_ret_buffer, address, target);
-			CAST_PTR(Opcode::s_call_ret * , address)->Ret = Enums::_x86_opcode_retn;   // set the new
-			CAST_PTR(Opcode::s_call_ret * , call_ret_buffer)->Count =
-				CAST_PTR(Opcode::s_call_ret * , address)->Count;                  // copy the old
-			CAST_PTR(Opcode::s_call_ret * , address)->Count = (count * 4);         // set the new
+			(reinterpret_cast<Opcode::s_call_ret *>(address))->Ret = Enums::_x86_opcode_retn;   // set the new
+			(reinterpret_cast<Opcode::s_call_ret *>(call_ret_buffer))->Count =
+				(reinterpret_cast<Opcode::s_call_ret *>(address))->Count;                  // copy the old
+			(reinterpret_cast<Opcode::s_call_ret *>(address))->Count = (count * 4);         // set the new
 		}
 
 		// [call] buffer containing the data we wish to write
@@ -551,8 +551,7 @@ namespace Yelo {
 		}
 
 		unsigned long CRC(unsigned long&crc_reference, const void *buffer, long size) {
-			auto p = CAST_PTR(
-			const byte*, buffer);
+			auto p = (reinterpret_cast<const byte *>(buffer));
 
 			while (size--) {
 				unsigned long a = (crc_reference >> 8) & 0x00FFFFFFL;

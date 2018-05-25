@@ -253,8 +253,8 @@ namespace Yelo {
 	typedef TTypeHolder<void> TypeHolder;
 	static_assert(sizeof(TypeHolder) == 0x4);
 
-	static const TypeHolder k_null_as_type_holder = {CAST_PTR(void*, nullptr)};  ///< nullptr represented as a TypeHolder value
-	static const TypeHolder k_none_as_type_holder = {CAST_PTR(void*, NONE)}; ///< NONE represented as TypeHolder val
+	static const TypeHolder k_null_as_type_holder = {reinterpret_cast<void *>(nullptr)};  ///< nullptr represented as a TypeHolder value
+	static const TypeHolder k_none_as_type_holder = {reinterpret_cast<void *>(-1)}; ///< NONE represented as TypeHolder val
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	If the COM interface reference isn't NULL, releases it and NULL it. </summary>
@@ -424,15 +424,15 @@ namespace Yelo {
 	inline void Qsort(T (&_Base)[k_array_size], int (__cdecl *_PtFuncCompare)(TContext, const T *, const T *), TContext _Context = nullptr) {
 		static_assert(sizeof(TContext) <= sizeof(void *), "Context type is incompatible with C runtime API");
 
-		::qsort_s(_Base, k_array_size, sizeof(T), CAST_PTR(proc_stdlib_compare, _PtFuncCompare),
-					 CAST_PTR(void*, _Context));
+		::qsort_s(_Base, k_array_size, sizeof(T), reinterpret_cast<proc_stdlib_compare>(_PtFuncCompare),
+					 reinterpret_cast<void *>(_Context));
 	}
 
 	template <typename T, typename TContext = void *, typename TCompareParam = const T *>
 	inline void Qsort(T *_Base, rsize_t _NumOfElements, int (__cdecl *_PtFuncCompare)(TContext, TCompareParam, TCompareParam), TContext _Context = nullptr) {
 		static_assert(sizeof(TContext) <= sizeof(void *), "Context type is incompatible with C runtime API");
 
-		::qsort_s(_Base, _NumOfElements, sizeof(T), CAST_PTR(proc_stdlib_compare, _PtFuncCompare), CAST_PTR(void*, _Context));
+		::qsort_s(_Base, _NumOfElements, sizeof(T), reinterpret_cast<proc_stdlib_compare>(_PtFuncCompare), reinterpret_cast<void *>(_Context));
 	}
 
 	template <typename TKey, typename T, size_t k_array_size, typename TContext = void *>
@@ -441,18 +441,14 @@ namespace Yelo {
 				  int (__cdecl *_PtFuncCompare)(TContext, const TKey *, const T *), TContext _Context = nullptr) {
 		static_assert(sizeof(TContext) <= sizeof(void *), "Context type is incompatible with C runtime API");
 
-		return CAST_PTR(T*,
-							 ::bsearch_s(_Key, _Base, k_array_size, sizeof(T), CAST_PTR(proc_stdlib_compare, _PtFuncCompare),
-											 CAST_PTR(void * , _Context)));
+		return reinterpret_cast<T *>(::bsearch_s(_Key, _Base, k_array_size, sizeof(T), reinterpret_cast<proc_stdlib_compare>(_PtFuncCompare), reinterpret_cast<void *>(_Context)));
 	}
 
 	template <typename TKey, typename T, typename TContext = void *, typename TCompareParam = const T *>
 	inline T *Bsearch(const TKey *_Key, T *_Base, rsize_t _NumOfElements, int (__cdecl *_PtFuncCompare)(TContext, const TKey *, TCompareParam), TContext _Context = nullptr) {
 		static_assert(sizeof(TContext) <= sizeof(void *), "Context type is incompatible with C runtime API");
 
-		return CAST_PTR(T*,
-							 ::bsearch_s(_Key, _Base, _NumOfElements, sizeof(T), CAST_PTR(proc_stdlib_compare, _PtFuncCompare),
-											 CAST_PTR(void * , _Context)));
+		return reinterpret_cast<T *>(::bsearch_s(_Key, _Base, _NumOfElements, sizeof(T), reinterpret_cast<proc_stdlib_compare>(_PtFuncCompare), reinterpret_cast<void *>(_Context)));
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////

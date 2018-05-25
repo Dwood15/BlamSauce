@@ -221,7 +221,7 @@ namespace blam {
 		tag group_tag_filter = iter.group_tag_filter;
 
 		while (const void *datum = data_iterator_next(iter.instances_iterator)) {
-			auto instance = CAST_PTR(const s_tag_instance*, datum);
+			auto instance = reinterpret_cast<const s_tag_instance *>(datum);
 
 			if (group_tag_filter == NONE ||
 				 instance->group_tag == group_tag_filter ||
@@ -260,7 +260,7 @@ namespace blam {
 	template <typename T>
 	inline
 	T *tag_block_insert_element(TagBlock<T> &block, long index) {
-		return CAST_PTR(T *, tag_block_insert_element(block.to_tag_block(), index));
+		return reinterpret_cast<T *>(tag_block_insert_element(block.to_tag_block(), index));
 	}
 
 	// Duplicate the block element at [element_index] and return the index which
@@ -323,7 +323,7 @@ namespace TagGroups {
 
 		for (int x = 0; x < block->count; x++) {
 			// TODO: need to account for alignment, if we ever fully implement it
-			void *element = CAST_PTR(byte *, block->address) +
+			void *element = reinterpret_cast<byte *>(block->address) +
 								 (definition->element_size * x);
 
 			result &= action(block, x, element);

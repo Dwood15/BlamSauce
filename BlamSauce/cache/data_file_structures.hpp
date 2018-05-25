@@ -255,7 +255,7 @@ namespace Yelo {
 
 				for (int x = 0; x < header.tag_count; x++) {
 					long   name_offset = file_index_table.address[x].name_offset;
-					cstring name        = CAST_PTR(cstring, file_names.AsByteBuffer() + name_offset);
+					cstring name        = reinterpret_cast<cstring>(file_names.AsByteBuffer() + name_offset);
 
 					if (!_stricmp(name, item_name))
 						return x;

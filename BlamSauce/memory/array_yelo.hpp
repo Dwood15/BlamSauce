@@ -52,14 +52,14 @@ namespace Yelo::Memory {
 			if (index < 0 || index >= count)
 				return nullptr;
 
-			return &CAST_PTR(DatumT*, elements)[index];
+			return &reinterpret_cast<DatumT *>(elements)[index];
 		}
 
 		DatumT *operator [](long index) {
 			if (index < 0 || index >= count)
 				return nullptr;
 
-			return &CAST_PTR(DatumT*, elements)[index];
+			return &reinterpret_cast<DatumT *>(elements)[index];
 		}
 
 	};

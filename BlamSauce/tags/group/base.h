@@ -177,7 +177,7 @@ namespace Yelo {
 		// Returns a [T] pointer that is the same as [address].
 		// Just makes coding a little more cleaner
 		template <typename T>
-		T *Elements() { return CAST_PTR(T*, address); }
+		T *Elements() { return reinterpret_cast<T *>(address); }
 
 		void *get_element(long element_index);
 
@@ -207,7 +207,7 @@ namespace Yelo {
 			size_t m_element_size;
 		public:
 			s_iterator(tag_block &block, size_t element_size, size_t element_index = 0)
-				: m_address(CAST_PTR(byte*, block.address) + (element_size * element_index)), m_element_index(element_index), m_element_size(element_size) {
+				: m_address(reinterpret_cast<byte *>(block.address) + (element_size * element_index)), m_element_index(element_index), m_element_size(element_size) {
 			}
 
 			bool operator !=(const s_iterator &other) const {
@@ -348,7 +348,7 @@ namespace Yelo {
 				size_t following_elements_size   = element_size * ((block->count - element_index) - 1);
 
 				memmove(blam::tag_block_get_element(block, element_index), // elements will start consuming the memory at the deleted element
-						  CAST_PTR(byte*, block->address) + following_elements_offset,
+						  reinterpret_cast<byte *>(block->address) + following_elements_offset,
 						  following_elements_size);
 			}
 
@@ -380,11 +380,11 @@ namespace Yelo {
 		// Returns a [T] pointer that is the same as [address].
 		// Just makes coding a little more cleaner
 		template <typename T>
-		T *Elements() { return CAST_PTR(T*, address); }
+		T *Elements() { return reinterpret_cast<T *>(address); }
 
 		// Returns byte pointer that is the same as [address]
 		// Just makes coding a little more cleaner
-		byte *Bytes() { return CAST_PTR(byte*, address); }
+		byte *Bytes() { return reinterpret_cast<byte *>(address); }
 
 		bool resize(long new_size = 0);
 	};
@@ -425,7 +425,7 @@ namespace Yelo {
 		template <typename T>
 		inline
 		T *tag_data_get_pointer(tag_data &data, long offset, long index = 0) {
-			return CAST_PTR(T*, tag_data_get_pointer(data, offset + (sizeof(T) * index), sizeof(T)));
+			return reinterpret_cast<T *>(tag_data_get_pointer(data, offset + (sizeof(T) * index), sizeof(T)));
 		}
 	};
 
@@ -472,7 +472,7 @@ namespace Yelo {
 
 		template <typename T>
 		inline T *tag_get(datum_index tag_index) {
-			return CAST_PTR(T*, tag_get(T::k_group_tag, tag_index));
+			return reinterpret_cast<T *>(tag_get(T::k_group_tag, tag_index));
 		}
 
 		datum_index __cdecl tag_new(tag group_name, cstring name);
@@ -534,7 +534,7 @@ namespace Yelo {
 		inline T *TagGetUnsafe(datum_index tag_index) {
 			extern void *TagGetUnsafeImpl(datum_index tag_index);
 
-			return CAST_PTR(T*, TagGetUnsafeImpl(tag_index));
+			return reinterpret_cast<T *>(TagGetUnsafeImpl(tag_index));
 		}
 
 		// Union hack to use a group tag as a string
@@ -590,7 +590,7 @@ namespace Yelo {
 			size_t following_elements_size       = element_size * ((block->count - index) - 1);
 			size_t following_elements_new_offset = element_size * (index + 1);
 
-			auto *address = CAST_PTR(byte*, block->address);
+			auto *address = reinterpret_cast<byte *>(block->address);
 			std::memmove(address + following_elements_new_offset,
 							 address + following_elements_offset,
 							 following_elements_size);

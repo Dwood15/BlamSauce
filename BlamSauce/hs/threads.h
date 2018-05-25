@@ -99,7 +99,7 @@ namespace Yelo::Scripting {
 			this->script_index = NONE;
 			this->sleep_until  = this->prev_sleep_state = 0;
 
-			this->stack_frame = CAST_PTR(s_stack_frame*, this->stack_data);
+			this->stack_frame = reinterpret_cast<s_stack_frame *>(this->stack_data);
 			this->stack_frame->Initialize();
 
 			result = k_none_value_union;
@@ -148,7 +148,7 @@ namespace Yelo::Scripting {
 			return false;
 		}
 
-		bool StackIsEmpty() const { return CAST_PTR(const void*, stack_frame) == stack_data; }
+		bool StackIsEmpty() const { return reinterpret_cast<const void *>(stack_frame) == stack_data; }
 
 		bool NotKilledOrDormant() const { return sleep_until > Enums::_hs_thread_datum_sleep_forever; }
 
@@ -188,7 +188,7 @@ namespace Yelo::Scripting {
 		bool ValidThread() const {
 			const Memory::s_data_array &threads = HsThreads().Header;
 
-			const byte *base_address = CAST_PTR(const byte*, threads.base_address);
+			const byte *base_address = reinterpret_cast<const byte *>(threads.base_address);
 
 			// validate the thread is within the bounds of the data array
 			if (CAST(const void*, this) < base_address)
@@ -228,7 +228,8 @@ namespace Yelo::Scripting {
 		void StackPush() {
 			auto *new_frame = stack_frame + 1;
 			//YELO_HS_RUNTIME_ASSERT(CAST_PTR(byte*, new_frame + 1) < stack_data + Enums::k_hs_thread_stack_size, this, "stack overflow.");
-			assert(CAST_PTR(byte * , new_frame + 1) < stack_data + Enums::k_hs_thread_stack_size);
+			(void) ((!!(reinterpret_cast<byte *>(new_frame + 1) < stack_data + Enums::k_hs_thread_stack_size)) ||
+					  (_wassert(L"CAST_PTR(byte * , new_frame + 1) < stack_data + Enums::k_hs_thread_stack_size", L"_file_name_", (unsigned) (231)), 0));
 
 			new_frame->previous = stack_frame;
 			new_frame->size     = 0;
@@ -267,7 +268,7 @@ namespace Yelo::Scripting {
 
 		template <typename T>
 		T *StackAllocate(size_t count = 1, unsigned long alignment_bit = Flags::k_alignment_32bit, _Out_opt_ short *stack_offset = nullptr) {
-			return CAST_PTR(T*, StackAllocate(sizeof(T) * count, alignment_bit, stack_offset));
+			return reinterpret_cast<T *>(StackAllocate(sizeof(T) * count, alignment_bit, stack_offset));
 		}
 
 		struct s_main_state {

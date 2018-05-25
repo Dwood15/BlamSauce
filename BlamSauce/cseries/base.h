@@ -133,16 +133,16 @@ namespace Yelo {
 		byte m_data[K_SIZE];
 
 		template <typename T, const size_t k_offset>
-		T GetData() { return *(CAST_PTR(T*, &m_data[k_offset])); }
+		T GetData() { return *(reinterpret_cast<T *>(&m_data[k_offset])); }
 
 		template <typename T, const size_t k_offset>
-		T GetData() const { return *(CAST_PTR(const T*, &m_data[k_offset])); }
+		T GetData() const { return *(reinterpret_cast<const T *>(&m_data[k_offset])); }
 
 		template <typename T, const size_t k_offset>
-		T *GetDataPtr() { return CAST_PTR(T*, &m_data[k_offset]); }
+		T *GetDataPtr() { return reinterpret_cast<T *>(&m_data[k_offset]); }
 
 		template <typename T, const size_t k_offset>
-		const T *GetDataPtr() const { return CAST_PTR(const T*, &m_data[k_offset]); }
+		const T *GetDataPtr() const { return reinterpret_cast<const T *>(&m_data[k_offset]); }
 
 		// Usage - "struct s_some_object : TStructImpl(0x40) {};"
 #define TStructImpl(size) public TStruct< size >

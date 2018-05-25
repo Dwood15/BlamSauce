@@ -254,7 +254,7 @@ namespace Yelo::Rasterizer {
 			}
 
 			for (auto ptr : K_VSH_CONSTANTS__NODEMATRICES_REFERENCES_PLUS_8) {
-				*ptr = CAST_PTR(byte * , &vsh_constants__nodematrices[0]) + 8;
+				*ptr = reinterpret_cast<byte *>(&vsh_constants__nodematrices[0]) + 8;
 			}
 
 			for (auto ptr : K_RASTERIZER_GLOBALS_MAXIMUM_NODES_PER_MODEL_WRITE_VALUES) {

@@ -450,7 +450,7 @@ static auto const HS_NULL_WITH_PARAMS_EVALUATE = 0x483430;
 
 //////////////////////////////////////////////////////////////////////////
 // script functions related
-static auto* const hs_function_table_count = CAST_PTR(long*, 0x5F9C10);
+static auto* const hs_function_table_count = reinterpret_cast<long *>(0x5F9C10);
 static auto** const hs_function_table = reinterpret_cast<Yelo::Scripting::hs_function_definition**>(0x624118);
 
 #pragma region hs function table references

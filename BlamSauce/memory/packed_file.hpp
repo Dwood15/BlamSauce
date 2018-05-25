@@ -122,13 +122,12 @@ namespace Yelo
 			if(!m_file_mapped || index > m_header->element_count)
 				return nullptr;
 
-			s_element* element = CAST_PTR(s_element*, m_base_address + sizeof(s_header) +
-																	(sizeof(s_element) * index));
+			s_element* element = reinterpret_cast<s_element *>(m_base_address + sizeof(s_header) + (sizeof(s_element) * index));
 
 			if(data_size)
 				*data_size = element->element_size;
 
-			return CAST_PTR(void*, m_base_address + element->element_offset);
+			return reinterpret_cast<void *>(m_base_address + element->element_offset);
 		}
 		// Returns a pointer to a block of data reference by a string id. Returns NULL if invalid.
 		// The data block size is put into data_size if not null.
@@ -138,15 +137,14 @@ namespace Yelo
 
 			for(uint i = 0; i < m_header->element_count; i++)
 			{
-				s_element* element = CAST_PTR(s_element*, m_base_address + sizeof(s_header) +
-																		(sizeof(s_element) * i));
+				s_element* element = reinterpret_cast<s_element *>(m_base_address + sizeof(s_header) + (sizeof(s_element) * i));
 
-				if(strcmp(data_id, CAST_PTR(char*, m_base_address + (uint)element->element_id_offset)) == 0)
+				if(strcmp(data_id, reinterpret_cast<char *>(m_base_address + (uint) element->element_id_offset)) == 0)
 				{
 					if(data_size)
 						*data_size = element->element_size;
 
-					return CAST_PTR(void*, m_base_address + element->element_offset);
+					return reinterpret_cast<void *>(m_base_address + element->element_offset);
 				}
 			}
 
@@ -215,10 +213,10 @@ namespace Yelo
 				return E_FAIL;
 			}
 
-			file.write(CAST_PTR(char*, &m_header), sizeof(m_header));
+			file.write(reinterpret_cast<char *>(&m_header), sizeof(m_header));
 
 			for(auto iter = m_elements.cbegin(); iter != m_elements.cend(); ++iter)
-				file.write(CAST_PTR(const char*, &(*iter)), sizeof(s_element));
+				file.write(reinterpret_cast<const char *>(&(*iter)), sizeof(s_element));
 
 			char null_char = 0;
 			for(auto iter = m_elements.cbegin(); iter != m_elements.cend(); ++iter)
@@ -228,7 +226,7 @@ namespace Yelo
 			}
 
 			for(auto iter = m_elements.cbegin(); iter != m_elements.cend(); ++iter)
-				file.write(CAST_PTR(char*, iter->source_data), iter->element_size);
+				file.write(reinterpret_cast<char *>(iter->source_data), iter->element_size);
 
 			file.flush();
 			file.close();

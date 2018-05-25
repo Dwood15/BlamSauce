@@ -748,8 +748,8 @@ namespace Yelo::AI::Transform {
 		}
 
 #if PLATFORM_TYPE == PLATFORM_SAPIEN
-		m_transform_states = CAST_PTR(s_actor_variant_transform_state *,
-												blam::game_state_malloc("actor variant transform states", nullptr, sizeof(s_actor_variant_transform_state) * k_max_concurrent_transforms));
+		m_transform_states = reinterpret_cast<s_actor_variant_transform_state *>(blam::game_state_malloc("actor variant transform states", nullptr,
+																																		 sizeof(s_actor_variant_transform_state) * k_max_concurrent_transforms));
 #else
 		m_transform_states = GameState::GameStateMalloc<s_actor_variant_transform_state>(true, k_max_concurrent_transforms);
 #endif

@@ -18,7 +18,7 @@ namespace Yelo::Objects {
 	ObjectType *IteratorNext(const s_object_iterator &iter) {
 		YELO_ASSERT_DISPLAY(TEST_FLAG(iter.type_mask, ObjectType::k_object_type), "Wrong object_type given to IteratorNext<T>");
 
-		return CAST_PTR(ObjectType*, blam::object_iterator_next(iter));
+		return reinterpret_cast<ObjectType *>(blam::object_iterator_next(iter));
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////

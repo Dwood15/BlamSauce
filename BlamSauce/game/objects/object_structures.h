@@ -287,16 +287,16 @@ namespace Yelo {
 
 			template <typename TBlockData>
 			TBlockData *GetBlock(s_object_header_block_reference ref) {
-				byte *obj = CAST_PTR(byte*, this);
+				byte *obj = reinterpret_cast<byte *>(this);
 
-				return ref.offset == 0 ? nullptr : CAST_PTR(TBlockData*, &obj[ref.offset]);
+				return ref.offset == 0 ? nullptr : reinterpret_cast<TBlockData *>(&obj[ref.offset]);
 			}
 
 			template <typename TBlockData, size_t kBlockReferenceOffset>
 			TBlockData *GetBlock() {
-				byte *obj = CAST_PTR(byte*, this);
+				byte *obj = reinterpret_cast<byte *>(this);
 
-				auto *ref = CAST_PTR(s_object_header_block_reference*, obj + kBlockReferenceOffset);
+				auto *ref = reinterpret_cast<s_object_header_block_reference *>(obj + kBlockReferenceOffset);
 
 				return GetBlock<TBlockData>(*ref);
 			}

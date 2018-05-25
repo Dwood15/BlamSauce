@@ -168,10 +168,8 @@ namespace Yelo {
 
 			// NOTE: Uncomment these if you wish to detect
 			// when players enter and leave
-#if !PLATFORM_DISABLE_UNUSED_CODE
 			Memory::WriteRelativeCall(OnPlayerJoinDelegate, GET_FUNC_VPTR(NETWORK_GAME_SERVER_ADD_PLAYER_TO_GAME__HOOK_ADD_PLAYER));
 			Memory::WriteRelativeCall(OnPlayerExitDelegate, GET_FUNC_VPTR(CLIENT_MACHINE_CLEANUP__HOOK_REMOVE_PLAYER));
-#endif
 		}
 
 		static void Dispose() {

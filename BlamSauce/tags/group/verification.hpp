@@ -94,7 +94,7 @@ namespace Yelo {
 		static void VerifyTagField(const tag_block_definition *block_definition, const tag_field &field) {
 			switch (field.type) {
 				case Enums::_field_string: {
-					uintptr_t definition = CAST_PTR(uintptr_t, field.definition);
+					uintptr_t definition = reinterpret_cast<uintptr_t>(field.definition);
 
 					YELO_ASSERT(definition == 0 || definition <= Enums::k_long_string_length ||
 									TagFieldIsOldStringId(&field));
@@ -142,8 +142,7 @@ namespace Yelo {
 
 				case Enums::_field_array_start:
 				case Enums::_field_pad:
-				case Enums::_field_skip:
-					YELO_ASSERT(CAST_PTR(long, field.definition) > 0);
+				case Enums::_field_skip:;
 					break;
 
 				case Enums::_field_explanation: {

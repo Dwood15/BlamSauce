@@ -74,7 +74,7 @@ namespace Yelo {
 			// engine uses 255, but the key is a string, which means the length includes any terminating null char
 			DWORD local_path_size = sizeof(local_path);
 
-			success = RegQueryValueExA(hkey, "EXE Path", nullptr, nullptr, CAST_PTR(byte *, local_path), &local_path_size);
+			success = RegQueryValueExA(hkey, "EXE Path", nullptr, nullptr, reinterpret_cast<byte *>(local_path), &local_path_size);
 			RegCloseKey(hkey);
 
 			if (success != 0) {

@@ -32,7 +32,7 @@ namespace Yelo {
 
 			// assert(false);//, "this isn't implemented yet");
 
-			return CAST_PTR(IDirect3DBaseTexture9**, bitmap->hardware_format);
+			return reinterpret_cast<IDirect3DBaseTexture9 **>(bitmap->hardware_format);
 		}
 	};
 };

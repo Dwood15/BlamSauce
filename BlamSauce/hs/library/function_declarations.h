@@ -764,7 +764,7 @@ namespace Yelo::Scripting {
 		//////////////////////////////////////////////////////////////////////////
 		// Update the game code to use OUR function/global definition tables
 		{
-			hs_function_definition ****definitions = CAST_PTR(hs_function_definition****, K_HS_FUNCTION_TABLE_REFERENCES);
+			hs_function_definition ****definitions = reinterpret_cast<hs_function_definition ****>(K_HS_FUNCTION_TABLE_REFERENCES);
 			const size_t k_count = NUMBEROF(K_HS_FUNCTION_TABLE_REFERENCES);
 
 			for (size_t x = 0; x < k_count; x++)
@@ -772,7 +772,7 @@ namespace Yelo::Scripting {
 		}
 
 		{
-			hs_global_definition ****definitions = CAST_PTR(hs_global_definition****, K_HS_EXTERNAL_GLOBALS_REFERENCES);
+			hs_global_definition ****definitions = reinterpret_cast<hs_global_definition ****>(K_HS_EXTERNAL_GLOBALS_REFERENCES);
 			const size_t k_count = NUMBEROF(K_HS_EXTERNAL_GLOBALS_REFERENCES);
 
 			for (size_t x = 0; x < k_count; x++)
@@ -804,7 +804,7 @@ namespace Yelo::Scripting {
 			bool and_game_build;
 			unsigned char : 8; unsigned short : 16;
 			cstring version_str;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.boolean = BuildNumber::ChangeAdvertisedVersion(args->version_str, args->and_game_build);
@@ -817,7 +817,7 @@ namespace Yelo::Scripting {
 	{
 		struct s_arguments {
 			cstring data_name;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		if( !strcmp(args->data_name,"type") )			result.long = GameEngine::Current() != nullptr ? Yelo::GameEngine::GlobalVariant()->game_engine_index : Yelo::Enums::_game_engine_none;
@@ -863,7 +863,7 @@ namespace Yelo::Scripting {
 	{
 		struct s_arguments {
 			long value;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.long = abs(args->value);
@@ -874,7 +874,7 @@ namespace Yelo::Scripting {
 	{
 		struct s_arguments {
 			real value;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.real = abs(args->value);
@@ -887,7 +887,7 @@ namespace Yelo::Scripting {
 		struct s_arguments {
 			long value;
 			long flags;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.uint = CAST(uint,args->value) & CAST(uint,args->flags);
@@ -899,7 +899,7 @@ namespace Yelo::Scripting {
 		struct s_arguments {
 			long value;
 			long flags;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.uint = CAST(uint,args->value) | CAST(uint,args->flags);
@@ -911,7 +911,7 @@ namespace Yelo::Scripting {
 		struct s_arguments {
 			long value;
 			long flags;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.uint = CAST(uint,args->value) ^ CAST(uint,args->flags);
@@ -923,7 +923,7 @@ namespace Yelo::Scripting {
 		struct s_arguments {
 			long value;
 			long bit_count;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(long))
@@ -936,7 +936,7 @@ namespace Yelo::Scripting {
 		struct s_arguments {
 			long value;
 			long bit_count;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		if(args->bit_count >= 0 && args->bit_count < BIT_COUNT(long))
@@ -950,7 +950,7 @@ namespace Yelo::Scripting {
 			long value;
 			short bit_index;
 			unsigned short : 16;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(long))
@@ -966,7 +966,7 @@ namespace Yelo::Scripting {
 			unsigned short : 16;
 			bool add_or_remove;
 			unsigned char : 8; unsigned short : 16;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		if(args->bit_index >= 0 && args->bit_index < BIT_COUNT(long))
@@ -983,7 +983,7 @@ namespace Yelo::Scripting {
 		struct s_arguments {
 			long value;
 			long flags;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.boolean = (CAST(uint,args->value) & CAST(uint,args->flags)) != 0;
@@ -997,7 +997,7 @@ namespace Yelo::Scripting {
 			long flags;
 			bool add_or_remove;
 			unsigned char : 8; unsigned short : 16;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		{
@@ -1012,7 +1012,7 @@ namespace Yelo::Scripting {
 	{
 		struct s_arguments {
 			cstring str;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		sscanf_s(args->str, "%x", &result.uint);
@@ -1025,7 +1025,7 @@ namespace Yelo::Scripting {
 	{
 		struct s_arguments {
 			cstring name;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
 		result.boolean = UIWidgets::DisplayScriptedWidget(args->name);
@@ -1037,7 +1037,7 @@ namespace Yelo::Scripting {
 	{
 		struct s_arguments {
 			cstring name;
-		}* args = CAST_PTR(s_arguments*, arguments);
+		}* args = reinterpret_cast<s_arguments *>(arguments);
 
 		if(GameState::IsLocal())
 			blam::bink_playback_start(args->name);

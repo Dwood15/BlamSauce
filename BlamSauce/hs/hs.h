@@ -17,7 +17,7 @@
 
 namespace Yelo::Scripting {
 	auto item = Yelo::Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade;
-	using hs_syntax_data_t = Memory::DataArray<hs_syntax_node, Enums::k_maximum_hs_syntax_nodes_per_scenario, Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade>;
+	using hs_syntax_data_t = Memory::DataArray<hs_syntax_node, Yelo::Enums::k_maximum_hs_syntax_nodes_per_scenario, Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade>;
 
 	union script_idx {
 		short script_index;
@@ -260,7 +260,7 @@ namespace Yelo::blam {
 
 	bool hs_type_is_object(short type) { return type >= Enums::_hs_type_object__first && type < Enums::_hs_type_object__last; }
 
-	bool hs_type_is_object_name(short type) { return type >= Enums::_hs_type_object_name__first && type < Enums::_hs_type_object_name__last; }
+	bool hs_type_is_object_name(short type) { return type >= Yelo::Enums::_hs_type_object_name__first && type < Enums::_hs_type_object_name__last; }
 };
 
 
@@ -460,7 +460,7 @@ namespace Yelo::Scripting {
 			switch (type) {
 				//case HS_TYPE(byte):
 				case Enums::_hs_type_bool:
-					*data.ptr.byte = *CAST_PTR(byte * , ptr);
+					*data.ptr.byte = *reinterpret_cast<byte *>(ptr);
 					break;
 					//////////////////////////////////////////////////////////////////////////
 					// block index based types
@@ -477,7 +477,7 @@ namespace Yelo::Scripting {
 					//////////////////////////////////////////////////////////////////////////
 				case Enums::_hs_type_object_name:
 				case Enums::_hs_type_short:
-					*data.ptr.unsigned short = *CAST_PTR(unsigned short * , ptr);
+					*data.ptr.unsigned short = *reinterpret_cast<unsigned short *>(ptr);
 					break;
 				case Enums::_hs_type_real:
 				case Enums::_hs_type_ai:
@@ -500,7 +500,7 @@ namespace Yelo::Scripting {
 				case Enums::_hs_type_scenery:
 					//////////////////////////////////////////////////////////////////////////
 				case Enums::_hs_type_long:
-					*data.ptr.uint = *CAST_PTR(uint * , ptr);
+					*data.ptr.uint = *reinterpret_cast<uint *>(ptr);
 					break;
 
 					//////////////////////////////////////////////////////////////////////////
