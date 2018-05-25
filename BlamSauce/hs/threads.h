@@ -1,19 +1,14 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
 #include <precompile.h>
 #include "../memory/datum_index.h"
 #include "scenario.hpp"
 #include "../cseries/yelo_base.h"
-#include "hs.hpp"
+#include "hs.h"
 #include "../memory/data_base.h"
 #include "../game/configuration.h"
 #include "../cseries/errors.h"
-#include "library_internal.hpp"
+#include "library.h"
 
 #define YELO_HS_RUNTIME_ASSERT(expression, thread, explanation)   YELO_ASSERT_DISPLAY(expression, "a problem occurred while executing the script %s: %s (%s)",   thread->GetDescriptionString(), explanation, #expression)
 

@@ -1,11 +1,11 @@
 #include <precompile.h>
 #include "../memory/array.h"
-#include "hs.hpp"
+#include "hs.h"
 #include "structures.hpp"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
-#include "threads.hpp"
+#include "threads.h"
 #include "../game/time/time.hpp"
-#include "hs_library_definitions_yelo.hpp"
+#include "library_definitions_yelo.h"
 #include "runtime_structures.hpp"
 
 #pragma once

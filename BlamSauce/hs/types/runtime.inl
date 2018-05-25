@@ -7,7 +7,7 @@
 
 #include <precompile.h>
 
-#include "hs.hpp"
+#include "hs.h"
 #include "../models/animations/recorded_animation_definitions.hpp"
 
 namespace Yelo::Scripting {

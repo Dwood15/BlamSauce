@@ -2,27 +2,6 @@
 set(CRYPTOGRAPHY_H
 	${CMAKE_CURRENT_SOURCE_DIR}/cryptography/cryptography.h)
 
-set(HS_H
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/compile.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/hs.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/hs_yelo.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_external.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_internal.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_internal_compile.inl
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/library_internal_runtime.inl
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/object_lists.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/object_lists_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/runtime.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/runtime_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/scenario.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/threads.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/types.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/types_compile.inl
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/types_traits.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/hs/types_runtime.inl
-	)
-
 set(ITEMS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions.h
 	${CMAKE_CURRENT_SOURCE_DIR}/items/equipment_definitions_yelo.h
@@ -43,9 +22,11 @@ add_subdirectory(cache)
 
 add_subdirectory(cseries)
 
+add_subdirectory(effects)
+
 add_subdirectory(game)
 
-add_subdirectory(effects)
+add_subdirectory(hs)
 
 add_subdirectory(interface)
 
@@ -74,7 +55,6 @@ set(HEADERS
 	${CSERIES_H}
 	${EFFECTS_H}
 	${GAME_H}
-	${HS_H}
 	${INTERFACE_H}
 	${ITEMS_H}
 	${MAIN_H}
@@ -85,8 +65,10 @@ set(HEADERS
 	${OBJECTS_H}
 	${RENDER_H}
 	${RUNTIME_H}
+	${SCRIPTING_H}
 	${SCENARIO_H}
 	${TAGS_H}
+	${CMAKE_CURRENT_SOURCE_DIR}/file_io.h
 	${CMAKE_CURRENT_SOURCE_DIR}/primary.h
 	PARENT_SCOPE)
 

@@ -115,7 +115,7 @@ static_assert(false); // comment this out once the fix is applied
 // Just to make sure we're always using ASCII
 #undef GSI_UNICODE
 
-#include <GameSpyOpen/ghttp/ghttp.h>
+//#include <GameSpyOpen/ghttp/ghttp.h>
 
 #define YELO_VERSION_CHECK_ENABLE
 

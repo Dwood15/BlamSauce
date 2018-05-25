@@ -5,7 +5,7 @@
 #include "../../tags/bitmap_grp.h"
 #include "../../hs/runtime.hpp"
 #include "../../scenario/scenario.h"
-#include "../../hs/hs.hpp"
+#include "../../hs/hs.h"
 #include "../../hs/structures.hpp"
 
 namespace Yelo {

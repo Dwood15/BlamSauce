@@ -1,7 +1,7 @@
 #pragma once
 #include <precompile.h>
 #include "../cseries/base.h"
-#include "hs.hpp"
+#include "hs.h"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo

@@ -2,8 +2,8 @@
 #pragma once
 
 #include <d3dx9math.inl>
-#include "hs.hpp"
-#include "types_runtime.inl"
+#include "hs.h"
+#include "runtime.inl"
 #include "../effects/damage/damage_effect_definitions.hpp"
 #include "../models/animations/definitions.hpp"
 #include "../ai/actors/actor_definitions.hpp"

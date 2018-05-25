@@ -3,7 +3,7 @@
 #include <precompile.h>
 #include "../tags/group/markup.h"
 #include "../tags/group/base.h"
-#include "hs.hpp"
+#include "hs.h"
 #include "../cseries/base.h"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
 
