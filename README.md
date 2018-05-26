@@ -1,8 +1,8 @@
-#BlamSauce
+# BlamSauce
 
 Make using Kornman's Yelo library accessible to the mere mortal. 
 
-## WARNING: This Project is temporary. 
+## WARNING: This project is temporary. 
  - Once I'm done copy and pasting from Open Sauce / BlamLib, this project will be getting ported, piece by piece, into the current, working Tempera repository, after a refactor.
  - This repository will then be frozen / made private, and development for it will cease.
 
