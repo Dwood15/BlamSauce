@@ -2,12 +2,13 @@
 
 Make using Kornman's Yelo library accessible to the mere mortal. 
 
-## WARNING: This Project isn't even in alpha yet. 
- - Alpha begins either once I'm done copy and pasting from BlamLib, or Tempera relies on this project for the majority of its interfacing with halo ce.
+## WARNING: This Project is temporary. 
+ - Once I'm done copy and pasting from Open Sauce / BlamLib, this project will be getting ported, piece by piece, into the current, working Tempera repository, after a refactor.
+ - This repository will then be frozen / made private, and development for it will cease.
 
 ## Attribution
 
-This code was in part taken from: 
+This code is all in part from: 
  - Kornman00 (Sean Cooper)'s BlamLib c++ project, (2015)
  - My Tempera project (2018)
  - (SilentK and Abyll)'s haloforge project (ca ~2008). 
