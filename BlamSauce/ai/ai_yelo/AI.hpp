@@ -44,7 +44,7 @@ namespace Yelo
 
 		void __cdecl Update();
 
-		void HandleGameStateLifeCycle(_enum life_state);
+		void HandleGameStateLifeCycle(shortlife_state);
 
 		void ObjectsUpdate();
 		void UnitDamageAftermath(const datum_index object_index, const Objects::s_damage_data* damage_data);

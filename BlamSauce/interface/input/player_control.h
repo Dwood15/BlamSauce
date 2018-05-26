@@ -27,7 +27,7 @@ namespace Yelo::Input {
 		PAD(0, sizeof(byte) * 383);
 
 		long MouseAxis[Enums::_MouseAxis];
-		byte  MouseButton[Enums::_MouseButton];
+		byte MouseButton[Enums::_MouseButton];
 
 		PAD(1, sizeof(byte) * 4680);
 
@@ -40,11 +40,12 @@ namespace Yelo::Input {
 	};
 
 	struct PositionState {
-		//unsigned short : 16;
-		//bool Moving; // true during mouse movement
-		//unsigned char : 8;
+		//unsigned short : 16;  //0x6B4008
+		//bool Moving; // true during mouse movement  //0x6B400A
+		//unsigned char : 8;   								//0x6B400B
 		unsigned long : 32;
-		long Position[2]; // menu space coordinates (0,0) to (640,480)
+		long PositionX; // menu space coordinates (0,0) to (640,480) 0x6B4010
+		long PositionY; //0x6B4014
 	};
 
 	// #include "Memory/_EngineLayout.inl"
@@ -142,13 +143,27 @@ namespace Yelo::Input {
 	void SetMouseAxisState(Enums::MouseAxis axis, long state) { ControlState->MouseAxis[axis] = state; }
 
 	long GetMousePositionState(Enums::MouseAxis axis) {
-		if (axis > Enums::_MouseAxisY) return 0;
-		return MousePositionState->Position[axis];
+		if (axis == Enums::_MouseAxisX) {
+			return MousePositionState->PositionX;
+		}
+
+		if (axis == Enums::_MouseAxisY) {
+			return MousePositionState->PositionY;
+		}
+
+		return 0;
 	}
 
 	void SetMousePositionState(Enums::MouseAxis axis, long position) {
-		if (axis > Enums::_MouseAxisY) return;
-		MousePositionState->Position[axis] = position;
+		if (axis == Enums::_MouseAxisX) {
+			MousePositionState->PositionX = position;
+		}
+
+		if (axis == Enums::_MouseAxisY) {
+			MousePositionState->PositionY = position;
+		}
+
+		return;
 	}
 
 	// Gets the current state of gamepad [button]
@@ -259,26 +274,50 @@ namespace Yelo::Input {
 		}
 
 		// Check if direction matches setting
-		if (type == Enums::_ControlTypeAxis &&
-			 direction &&
-			 state != (direction > 0 ? 1 : 2))
+		if (type == Enums::_ControlTypeAxis && direction && state != (direction > 0 ? 1 : 2)) {
 			state = 0;
-		else if (type == Enums::_ControlTypeDpad &&
-					state != direction)
+		} else if (type == Enums::_ControlTypeDpad && state != direction) {
 			state = 0;
+		}
 
 		return state;
 	}
 
 	void SetControlState(short device, short type, short index, long state) {
-		if (device == Enums::_ControlDeviceKeyboard) SetKeyState((Enums::key_code) index, (byte) state);
-		else if (device == Enums::_ControlDeviceMouse) {
-			if (type == Enums::_ControlTypeButton) SetMouseButtonState((Enums::MouseButton) index, (byte) state);
-			else if (type == Enums::_ControlTypeAxis) SetMouseAxisState((Enums::MouseAxis) index, state);
-		} else if (device == Enums::_ControlDeviceGamepad) {
-			if (type == Enums::_ControlTypeButton) SetGamepadButtonState((Enums::GamepadButton) index, (byte) state);
-			else if (type == Enums::_ControlTypeAxis) SetGamepadAxisState((Enums::GamepadAxis) index, (sbyte) state);
-			else if (type == Enums::_ControlTypeDpad) SetGamepadDpadState((Enums::GamepadDpad) index, state);
+		if (device == Enums::_ControlDeviceKeyboard) {
+			SetKeyState((Enums::key_code) index, (byte) state);
+			return;
+		}
+
+		if (device == Enums::_ControlDeviceMouse) {
+			switch(type) {
+				case Enums::_ControlTypeButton:
+					SetMouseButtonState((Enums::MouseButton) index, (byte) state);
+					return;
+
+				case Enums::_ControlTypeAxis:
+					SetMouseAxisState((Enums::MouseAxis) index, state);
+					return;
+
+				default:
+					return;
+			}
+		}
+
+		if (device == Enums::_ControlDeviceGamepad) {
+			switch(type) {
+				case Enums::_ControlTypeButton:
+					SetGamepadButtonState((Enums::GamepadButton) index, (byte) state);
+					return;
+
+				case Enums::_ControlTypeAxis:
+					SetGamepadAxisState((Enums::GamepadAxis) index, (sbyte) state);
+					return;
+
+				case 	Enums::_ControlTypeDpad:
+					SetGamepadDpadState((Enums::GamepadDpad) index, state);
+					return;
+			}
 		}
 	}
 
@@ -288,5 +327,7 @@ namespace Yelo::Input {
 	}
 
 	// Sets the state of [control] on all currently active input devices
-	inline void SetControlState(Enums::PlayerControl control, long state) { SetControlState(SettingsGetDevice(control), SettingsGetType(control), SettingsGetIndex(control), state); }
+	inline void SetControlState(Enums::PlayerControl control, long state) {
+		SetControlState(SettingsGetDevice(control), SettingsGetType(control), SettingsGetIndex(control), state);
+	}
 };

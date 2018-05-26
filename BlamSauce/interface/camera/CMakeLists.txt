@@ -1,0 +1,10 @@
+set(I_CAMERA_H
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/camera.h
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/dead.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/definitions.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/director.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/director_structures.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/first_person.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/following.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/observer.hpp
+	PARENT_SCOPE)

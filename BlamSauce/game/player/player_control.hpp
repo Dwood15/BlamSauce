@@ -1,20 +1,11 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/game/game_configuration.hpp>
+#include <precompile.h>
+#include "../../math/real_math.h"
+#include "../objects/units/unit_camera.hpp"
 
 namespace Yelo
 {
-	namespace TagGroups
-	{
-		struct s_unit_camera;
-	};
-
 	namespace Players
 	{
 		struct s_player_control

@@ -131,7 +131,7 @@ namespace Yelo {
 
 		}
 
-		void HandleGameStateLifeCycle(_enum life_state)
+		void HandleGameStateLifeCycle(shortlife_state)
 		{
 			Transform::HandleGameStateLifeCycle(life_state);
 		}

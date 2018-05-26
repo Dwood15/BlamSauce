@@ -71,7 +71,7 @@ namespace Yelo
 
 	namespace MessageDeltas
 	{
-		typedef void (API_FUNC* proc_message_delta_from_network)(Networking::s_network_game_client* client, message_dependant_header* header);
+		typedef void (__stdcall* proc_message_delta_from_network)(Networking::s_network_game_client* client, message_dependant_header* header);
 
 		struct packet_decoder
 		{

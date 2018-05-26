@@ -9,7 +9,7 @@
 #include "scenario.h"
 #include "../tags/group/markup.h"
 #include "../tags/group/base.h"
-#include "../game/objects/scenario_object_definitions_structures.hpp"
+#include "../game/objects/scenario_definitions_structures.hpp"
 #include "../models/animations/recorded_animation_definitions.hpp"
 
 namespace Yelo {

@@ -1,24 +1,11 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include <precompile.h>
-#include "object_types.h"
 #include "../../cseries/base.h"
-#include "../../memory/datum_index.h"
-#include "../../math/matrix_math.h"
-#include "../../memory/data.h"
-#include "../../scenario/structures.h"
-#include "../../memory/array.h"
+#include "object_structures.h"
 #include "../../memory/memory_pool.h"
 #include "../../scenario/scenario.h"
-#include "object_definitions.hpp"
-#include "../../models/animations/definitions.hpp"
-#include "object_structures.h"
+#include "field/field_objects.h"
 
 namespace Yelo {
 	namespace Enums {

@@ -97,7 +97,7 @@ namespace Yelo
 
 			return anim_graph_index;
 		}
-		static void FirstPersonWeaponSetStatePermutateAnimation(s_first_person_weapon* fp_weapon, _enum animation_state, short animation_current_index)
+		static void FirstPersonWeaponSetStatePermutateAnimation(s_first_person_weapon* fp_weapon, shortanimation_state, short animation_current_index)
 		{
 			datum_index animation_graph_index = FirstPersonWeaponGetAnimationGraphIndex(fp_weapon);
 

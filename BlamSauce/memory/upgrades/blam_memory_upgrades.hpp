@@ -13,7 +13,6 @@
 // 50%
 
 static constexpr float K_MEMORY_UPGRADE_INCREASE_AMOUNT = 1.5f;
-#define uint unsigned int
 namespace Yelo::Enums {
 	constexpr int k_game_state_allocation_size = 0x00440000;
 
@@ -266,4 +265,3 @@ namespace Yelo::Flags {
 		_alignment_128_bit,
 	};
 };
-#undef uint

@@ -47,7 +47,7 @@ namespace Yelo
 			g_actor_variant_transform_manager.ClearInProgressTransforms();
 		}
 
-		void HandleGameStateLifeCycle(_enum life_state)
+		void HandleGameStateLifeCycle(shortlife_state)
 		{
 			if(life_state == Enums::_game_state_life_cycle_before_load)
 			{

@@ -1,14 +1,9 @@
 #pragma once
 
 #include <precompile.h>
-#include <enginelayout/Game.inl>
-#include "../hs/types_runtime.inl"
-#include "../memory/upgrades/game_state_yelo.hpp"
 #include "../cseries/base.h"
-#include "systems.h"
-#include "system_definitions.h"
-#include "../effects/effects.h"
-#include "objects/objects.h"
+#include "../memory/upgrades/game_state_yelo.hpp"
+#include "../main/main_structures.h"
 
 namespace Yelo
 {
@@ -29,9 +24,6 @@ namespace Yelo
 
 		namespace GameState
 		{
-			struct s_header_data;
-			struct s_game_state_globals;
-
 			s_game_state_globals* GameStateGlobals();
 		};
 

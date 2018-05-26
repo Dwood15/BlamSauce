@@ -133,7 +133,7 @@ namespace Yelo
 			bool is_loading =			GameState::GameGlobals()->map_loading_in_progress;
 			bool is_main_menu_cache =	Yelo::Cache::CacheFileGlobals()->cache_header.cache_type == Enums::_shared_cache_type_main_menu;
 
-			_enum game_state = Flags::_osui_game_state_in_game;
+			shortgame_state = Flags::_osui_game_state_in_game;
 			if(is_loading)
 			{
 				game_state = Flags::_osui_game_state_loading;

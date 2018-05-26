@@ -5,6 +5,7 @@
 #include "../library/enums.h"
 #include "../library/globals_declarations.h"
 #include "../../game/scripting/scripting.h"
+#include "../../game/yelo_extra/runtime_data.h"
 
 namespace Yelo {
 	namespace Scripting {
@@ -121,22 +122,23 @@ namespace Yelo {
 
 #pragma warning( pop )
 
+
 		// Set the function's (with no parameters) evaluator to one which
 		// does nothing and returns zero
 		void NullifyScriptFunction(hs_function_definition &function);
 
-		void NullifyScriptFunction(Enums::hs_function_enumeration function);
+		void NullifyScriptFunction(Yelo::Enums::hs_function_enumeration function);
 
 		// Set the function's (which expects parameters) evaluator to one
 		// which does nothing and returns zero
 		void NullifyScriptFunctionWithParams(hs_function_definition &function);
 
-		void NullifyScriptFunctionWithParams(Enums::hs_function_enumeration function);
+		void NullifyScriptFunctionWithParams(Yelo::Enums::hs_function_enumeration function);
 
 		// Initialize the function's evaluator to one which we've defined 
 		// in our code. Evaluator takes no parameters but may return a value.
-		void InitializeScriptFunction(Enums::hs_function_enumeration function, proc_hs_yelo_function proc) {
-			if (function > NONE && function < Enums::k_hs_function_enumeration_count) {
+		void InitializeScriptFunction(Yelo::Enums::hs_function_enumeration function, proc_hs_yelo_function proc) {
+			if (function > NONE && function < Yelo::Enums::k_hs_function_enumeration_count) {
 				ScriptFunctionSetEvaluteProc(*hs_yelo_functions[function],
 													  reinterpret_cast<proc_hs_evaluate>(CreateScriptFunction(proc, false)));
 			}
@@ -144,8 +146,8 @@ namespace Yelo {
 
 		// Initialize the function's evaluator to one which we've defined
 		// in our code. Evaluator expects parameters and may return a value.
-		void InitializeScriptFunctionWithParams(Enums::hs_function_enumeration function, proc_hs_yelo_function_with_params proc) {
-			if (function > NONE && function < Enums::k_hs_function_enumeration_count) {
+		void InitializeScriptFunctionWithParams(Yelo::Enums::hs_function_enumeration function, proc_hs_yelo_function_with_params proc) {
+			if (function > NONE && function < Yelo::Enums::k_hs_function_enumeration_count) {
 				ScriptFunctionWithParamsSetEvaluteProc(*hs_yelo_functions[function],
 																	reinterpret_cast<proc_hs_evaluate>(CreateScriptFunction(proc, true)));
 			}
@@ -199,7 +201,7 @@ namespace Yelo {
 			ScriptFunctionSetEvaluteProc(function, reinterpret_cast<proc_hs_evaluate>((reinterpret_cast<void *>(PTR_HS_NULL_EVALUATE))));
 		}
 
-		void NullifyScriptFunction(Enums::hs_function_enumeration function) {
+		void NullifyScriptFunction(Yelo::Enums::hs_function_enumeration function) {
 			if (function > NONE && function < Enums::k_hs_function_enumeration_count)
 				NullifyScriptFunction(*hs_yelo_functions[function]);
 		}
@@ -208,8 +210,8 @@ namespace Yelo {
 			ScriptFunctionWithParamsSetEvaluteProc(function, reinterpret_cast<proc_hs_evaluate>((reinterpret_cast<void *>(PTR_HS_NULL_WITH_PARAMS_EVALUATE))));
 		}
 
-		void NullifyScriptFunctionWithParams(Enums::hs_function_enumeration function) {
-			if (function > NONE && function < Enums::k_hs_function_enumeration_count)
+		void NullifyScriptFunctionWithParams(Yelo::Enums::hs_function_enumeration function) {
+			if (function > NONE && function < Yelo::Enums::k_hs_function_enumeration_count)
 				NullifyScriptFunctionWithParams(*hs_yelo_functions[function]);
 		}
 
@@ -230,7 +232,7 @@ namespace Yelo {
 		// [func] - pointer to a __stdcalltype function
 		// Returns: evaluate function address
 		static void *CreateScriptFunction(void *func, bool takes_params) {
-			if (hs_eval_func >= NUMBEROF(hs_eval_func_ptrs)) return nullptr; // we don't want to go over our set limit
+			if (hs_eval_func >= std::size(hs_eval_func_ptrs)) return nullptr; // we don't want to go over our set limit
 
 			void *evaluate = nullptr;
 			hs_eval_func_ptrs[hs_eval_func] = reinterpret_cast<uint>(func);
@@ -270,9 +272,9 @@ namespace Yelo {
 
 			InitializeCreateScriptFunction();
 
-			InitializeScriptFunctionWithParams(Enums::_hs_function_dump_view_state, Camera::DumpViewStateEvaluate);
+			InitializeScriptFunctionWithParams(Enums::_hs_function_dump_view_state, Yelo::Camera::DumpViewStateEvaluate);
 
-			InitializeScriptFunction(Enums::_hs_function_test_networking, MessageDeltas::TestToNetwork);
+			InitializeScriptFunction(Yelo::Enums::_hs_function_test_networking, Yelo::MessageDeltas::TestToNetwork);
 
 			InitializeMiscFunctions();
 			GameState::InitializeScripting();

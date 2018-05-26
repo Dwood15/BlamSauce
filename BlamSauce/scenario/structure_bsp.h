@@ -222,7 +222,7 @@ namespace Yelo::StructureBSP {
 		return false;
 	}
 
-	static void *API_FUNC
+	static void *__stdcall
 
 	scripting_structure_bsp_set_sky_set_evaluate(void **arguments) {
 		struct s_arguments {
@@ -350,7 +350,7 @@ namespace Yelo::StructureBSP {
 	/// <summary>	Handles the game state life cycle described by life_state. </summary>
 	///
 	/// <param name="life_state">	State of the gamestate. </param>
-	void HandleGameStateLifeCycle(_enum life_state) {
+	void HandleGameStateLifeCycle(shortlife_state) {
 		switch (life_state) {
 			case Enums::_game_state_life_cycle_before_save:
 				break;

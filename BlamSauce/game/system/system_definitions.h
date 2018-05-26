@@ -11,9 +11,9 @@
 namespace Yelo
 {
 	// [enabled] - true when OS is initializing for OS-modified game states, false if we're shutting down said modifications
-	typedef void (API_FUNC* proc_initialize_for_yelo_game_state)(bool enabled);
+	typedef void (__stdcall* proc_initialize_for_yelo_game_state)(bool enabled);
 	// [game_state_life_cycle] - See: Enums::project_game_state_component_life_cycle
-	typedef void (API_FUNC* proc_handle_game_state_life_cycle)(_enum game_state_life_cycle);
+	typedef void (__stdcall* proc_handle_game_state_life_cycle)(shortgame_state_life_cycle);
 	namespace Main
 	{
 		struct s_project_component
@@ -56,15 +56,15 @@ namespace Yelo
 		struct s_dx_component
 		{
 			// Called from [Yelo_]IDirect3D9::CreateDevice
-			void (API_FUNC* Initialize)(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* params);
+			void (__stdcall* Initialize)(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* params);
 			// Called from [Yelo_]IDirect3DDevice9::Reset
-			void (API_FUNC* OnLostDevice)();
+			void (__stdcall* OnLostDevice)();
 			// Called from [Yelo_]IDirect3DDevice9::Reset
-			void (API_FUNC* OnResetDevice)(D3DPRESENT_PARAMETERS* params);
+			void (__stdcall* OnResetDevice)(D3DPRESENT_PARAMETERS* params);
 			// Called from [Yelo_]IDirect3DDevice9::EndScene
-			void (API_FUNC* Render)();
+			void (__stdcall* Render)();
 			// Called from Rasterizer::Hook_RasterizerDispose
-			void (API_FUNC* Release)();
+			void (__stdcall* Release)();
 		};
 	};
 };

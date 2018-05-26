@@ -1,5 +1,6 @@
+#pragma once
+
 #include <precompile.h>
-#include "../cseries/base.h"
 #include "../memory/datum_index.h"
 #include "../scenario/scenario.h"
 #include "structures.hpp"
@@ -12,8 +13,6 @@
 #include "../ai/actors/actor_types.hpp"
 #include "../interface/hud/hud_definitions.hpp"
 #include "../scenario/yelo/yelo_global_definitions.h"
-
-#pragma once
 
 namespace Yelo::Scripting {
 	auto item = Yelo::Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade;

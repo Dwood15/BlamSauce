@@ -73,7 +73,7 @@ namespace Yelo
 				extern bool g_rasterizer_environment_dlm_specular;
 
 				void SetLightmapSampler(const TagGroups::s_shader_definition* shader);
-				void SetupLightmapShader(const TagGroups::s_shader_definition* shader, const _enum extension_type);
+				void SetupLightmapShader(const TagGroups::s_shader_definition* shader, const shortextension_type);
 
 				void SetDiffuseDLMsEnabled(bool value);
 				bool GetDiffuseDLMsEnabled();

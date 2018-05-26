@@ -54,7 +54,7 @@ class c_cache_format_path_hacks
 	};
 
 	// Get the format override based on the current file search phase
-	static cstring GetFormat(cstring format, _enum phase)
+	static cstring GetFormat(cstring format, shortphase)
 	{
 		static cstring k_yelo_map_format = "%s%s%s.yelo";
 		static cstring k_yelo_map_format_subdir = "%s\\%s%s.yelo";
@@ -109,7 +109,7 @@ private:
 	// returns [access]
 	static errno_t PathHackNImpl(char* buffer, cstring format,
 		cstring root_directory, cstring maps_folder, cstring map_name, 
-		__out int& sprintf_result, __out errno_t& access, const size_t buffer_size, _enum phase)
+		__out int& sprintf_result, __out errno_t& access, const size_t buffer_size, shortphase)
 	{
 		sprintf_result = _snprintf_s(buffer, buffer_size, _TRUNCATE, GetFormat(format, phase), root_directory, maps_folder, map_name);
 		access = _access_s(buffer, 0);

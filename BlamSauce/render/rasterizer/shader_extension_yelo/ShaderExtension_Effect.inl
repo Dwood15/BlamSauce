@@ -109,7 +109,7 @@ namespace Effect
 
 	static const uint SetupShaderEffect(const TagGroups::s_shader_effect& shader, s_pixel_shader_variables& variables)
 	{
-		_enum feature_usage = shader.shader.extension_usage & g_extension_usage_mask;
+		shortfeature_usage = shader.shader.extension_usage & g_extension_usage_mask;
 
 		if(TEST_FLAG(feature_usage, Flags::_shader_extension_usage_bit_depth_fade))
 		{

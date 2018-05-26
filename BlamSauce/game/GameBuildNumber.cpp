@@ -94,7 +94,7 @@ namespace Yelo
 		}
 		static API_FUNC_NAKED void GameStateHeaderIsValidHook()
 		{
-			static const uintptr_t RET_ADDRESS = GET_FUNC_PTR(GAME_STATE_HEADER_IS_VALID_HOOK_RET);
+			static const uintptr_t RET_ADDRESS = (uintptr_t)(0x53B83B);
 
 			__asm {
 				push	ebp

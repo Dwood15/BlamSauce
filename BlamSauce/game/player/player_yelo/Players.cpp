@@ -1,37 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-#include "Common/Precompile.hpp"
-#include "Game/Players.hpp"
-
-#include <blamlib/Halo1/game/player_structures.hpp>
-#include <blamlib/Halo1/scenario/scenario.hpp>
-#include <blamlib/Halo1/scenario/scenario_definitions.hpp>
-#include <blamlib/Halo1/units/unit_structures.hpp>
-#include <YeloLib/Halo1/open_sauce/project_yellow_global_definitions.hpp>
-#include <YeloLib/Halo1/open_sauce/project_yellow_scenario.hpp>
-#include <YeloLib/Halo1/open_sauce/project_yellow_scenario_definitions.hpp>
-
-#include "Game/EngineFunctions.hpp"
-#include "Game/GameEngine.hpp"
-#include "Game/GameState.hpp"
-#include "Game/Scripting.hpp"
-#include "Game/ScriptLibrary.hpp"
-#include "Memory/MemoryInterface.hpp"
-#include "Networking/Networking.hpp"
-#include "Objects/Objects.hpp"
-#include "Objects/Units.hpp"
-#include "Scenario/Scenario.hpp"
-
+#include <precompile.h>
 namespace Yelo
 {
 	namespace Players
 	{
-#define __EL_INCLUDE_ID			__EL_INCLUDE_GAME
-#define __EL_INCLUDE_FILE_ID	__EL_GAME_PLAYERS
+
 #include "Memory/_EngineLayout.inl"
 
 		players_data_t& Players()										DPTR_IMP_GET_BYREF(players);

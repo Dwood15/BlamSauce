@@ -482,7 +482,7 @@ no_extension:
 		DX9::c_gbuffer_system::OutputObjectTBN() = false;
 
 		// disable feature as per the users settings
-		_enum feature_usage = shader_base->shader.extension_usage & g_extension_usage_mask;
+		shortfeature_usage = shader_base->shader.extension_usage & g_extension_usage_mask;
 		
 		if(!g_rasterizer_model_normal_mapping)
 		{

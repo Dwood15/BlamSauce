@@ -1,0 +1,4 @@
+set(G_SYSTEMS_H
+	${CMAKE_CURRENT_SOURCE_DIR}/system_definitions.h
+	${CMAKE_CURRENT_SOURCE_DIR}/systems.h
+	PARENT_SCOPE)

@@ -85,7 +85,7 @@ namespace Environment
 	/// <param name="lightmap_type">	The type of lightmap. </param>
 	static void SetupShaderEnvironment(const TagGroups::s_shader_environment_definition& shader,
 		s_pixel_shader_variables& variables,
-		const _enum lightmap_type)
+		const shortlightmap_type)
 	{
 		if(TEST_FLAG(shader.shader.extension_usage, Flags::_shader_extension_usage_bit_directional_lightmaps_spec) &&
 			(lightmap_type == Flags::_shader_extension_usage_bit_directional_lightmaps_spec))
@@ -133,7 +133,7 @@ namespace Environment
 	/// <param name="lightmap_type">	The type of lightmap. </param>
 	static void SetupShaderModel(const TagGroups::s_shader_model_definition& shader,
 		s_pixel_shader_variables& variables,
-		const _enum lightmap_type)
+		const shortlightmap_type)
 	{
 		if(TEST_FLAG(shader.shader.extension_usage, Flags::_shader_extension_usage_bit_directional_lightmaps_spec) &&
 			(lightmap_type == Flags::_shader_extension_usage_bit_directional_lightmaps_spec))
@@ -177,7 +177,7 @@ namespace Environment
 	///
 	/// <param name="shader">		 	The shader. </param>
 	/// <param name="extension_type">	The type of shader extension. </param>
-	void SetupLightmapShader(const TagGroups::s_shader_definition* shader, const _enum lightmap_type)
+	void SetupLightmapShader(const TagGroups::s_shader_definition* shader, const shortlightmap_type)
 	{
 		g_current_shader_offset = 0;
 

@@ -1,22 +1,5 @@
 #pragma once
 
-#ifndef WIN32
-#define WIN32
-#endif
-
-#define NOMINMAX
-
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
-#endif
-
-#ifndef _X86_
-#define _X86_
-#endif
-
-
-
-
 #define _USE_MATH_DEFINES // hurrrrrrrrrr, i like math!
 
 #include <algorithm>
@@ -27,9 +10,10 @@
 #include <cstdint>
 #include <cstdlib>
 #include <Dinput.h>
-
 #include <d3dx9.h>
 #include <d3dx9math.h>
+#include <iterator>
+#include <math.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 
@@ -45,8 +29,7 @@
 
 //////////////////////////////////////////////////////////////////////////
 // STL includes
-#include <array>
-#include <iterator>
+#include <functional>
 #include <memory> // std::unique_ptr
 #include <set>
 #include <unordered_set>
@@ -54,86 +37,44 @@
 #include <map>
 #include <utility>
 #include <vector>
+#include <stdio.h>
+#include <string>
 #include <thread>
+#include <type_traits>
 #include <random>
+#include <vector>
 //////////////////////////////////////////////////////////////////////////
 
-#include <functional>
+#ifndef WIN32
+#define WIN32
+#endif
 
-#include <handleapi.h>
-#include <math.h>
+#define NOMINMAX
 
-#include <minwindef.h>
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+
+#ifndef _X86_
+#define _X86_
+#endif
+
 #include <minwinbase.h>
-
+#include <minwindef.h>
 #include <rpc.h>
-
 #include <sal.h>
-#include <shlobj.h>
-#include <shlwapi.h>
-#include <string>
-#include <stdio.h>
-
 #include <time.h>
-#include <type_traits>
-#include <vector>
-
 #include <winnt.h>
 #include <WinSock2.h>
 
-//////////////////////////////////////////////////////////////////////////
 // GameSpy includes & definitions
-
-// Comment out this if you don't have access to the Open SDK
-// You'll also need to remove the code file references from the project
-// TODO: use msbuild to define this since we can now detect the presence of required libraries?
-#define YELO_USE_GAMESPY_OPEN
-
-#if defined(YELO_USE_GAMESPY_OPEN)
-
-/*
-	GameSpy SDK bug fix:
-	There is a bug in GHTTP that causes HTTP redirects to fail if both
-	the 'Content-Location' and 'Location' headers are returned by the server.
-
-	Use the following on line 1695 in ghttpProcess.c to fix this:
-
-		// Find the new location.
-			/////////////////////////
-			location = strstr(headers, "\r\nLocation:");// YELO: UPDATE THIS LINE
-			if(location)
-			{
-				 char * end;
-
-				 // Find the start of the URL.
-				 /////////////////////////////
-				 location += 11;							// YELO: UPDATE THIS LINE
-
-*/
-static_assert(false); // comment this out once the fix is applied
+/* TODO: GameSpy SDK bug fix. see official OS repository */
 
 // Just to make sure we're always using ASCII
 #undef GSI_UNICODE
 
-//#include <GameSpyOpen/ghttp/ghttp.h>
-
-#define YELO_VERSION_CHECK_ENABLE
-
-#endif
 //////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-//Our defined includes below:
-#include <versions.h>
-#include <stdexcept>
+//Our includes below:
 
 #include "../../BlamSauce/cseries/MacrosCpp.h"
 #include "../../BlamSauce/cseries/base.h"

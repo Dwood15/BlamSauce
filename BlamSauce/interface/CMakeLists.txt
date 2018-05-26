@@ -1,12 +1,4 @@
-set(I_CAMERA_H
-	${CMAKE_CURRENT_SOURCE_DIR}/camera/dead.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera/definitions.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera/director.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera/director_structures.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera/first_person.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera/following.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/camera/observer.hpp
-	)
+include_directories(camera)
 
 set(I_EDITOR_H
 	${CMAKE_CURRENT_SOURCE_DIR}/editor/field_dialog_structures.hpp
@@ -61,6 +53,7 @@ set(INTERFACE_H
 	${I_INPUT_H}
 	${I_STRINGS_H}
 	${I_WIDGETS_H}
+	${CMAKE_CURRENT_SOURCE_DIR}/console.h
 	${CMAKE_CURRENT_SOURCE_DIR}/interface.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/Keystone.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/map_list.hpp

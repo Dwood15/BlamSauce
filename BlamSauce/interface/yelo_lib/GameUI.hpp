@@ -63,7 +63,7 @@ namespace Yelo
 
 
 		// Predicate to use for determining when to send a message to players
-		typedef bool (API_FUNC* proc_send_hud_chat_predicate)(Players::s_player_datum* player, 
+		typedef bool (__stdcall* proc_send_hud_chat_predicate)(Players::s_player_datum* player,
 			Players::s_player_datum* src_player, datum_index src_player_vehicle_index);
 		// Predicate for always sending a message to 
 		bool SendHudChatToEveryonePredicate(Players::s_player_datum* player, 

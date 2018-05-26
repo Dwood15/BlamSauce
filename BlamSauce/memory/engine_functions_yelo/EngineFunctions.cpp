@@ -1,34 +1,4 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-#include "Common/Precompile.hpp"
-#include "Game/EngineFunctions.hpp"
-
-#include <blamlib/Halo1/cache/cache_files.hpp>
-#include <blamlib/Halo1/camera/director.hpp>
-#include <blamlib/Halo1/interface/hud_draw.hpp>
-#include <blamlib/Halo1/main/console.hpp>
-#include <blamlib/Halo1/main/main_structures.hpp>
-#include <blamlib/Halo1/math/periodic_functions.hpp>
-#include <blamlib/Halo1/memory/data.hpp>
-#include <blamlib/Halo1/models/model_animation_definitions.hpp>
-#include <blamlib/Halo1/objects/damage.hpp>
-#include <blamlib/Halo1/objects/objects.hpp>
-#include <blamlib/Halo1/tag_files/tag_groups.hpp>
-#include <blamlib/Halo1/ai/actor_structures.hpp>
-#include <blamlib/Halo1/units/unit_structures.hpp>
-#include <blamlib/Halo1/units/unit_script.hpp>
-
-#include "Game/Console.hpp"
-#include "Game/GameState.hpp"
-#include "Game/ScriptLibrary.hpp"
-#include "Networking/MDP.hpp"
-#include "Objects/Objects.hpp"
-
-// comment the following to just use the parameters as-is 
+// comment the following to just use the parameters as-is
 // instead of copying to the stack. I believe there was some 
 // concurrency issues originally which caused me to use local 
 // buffers instead...
@@ -42,33 +12,9 @@ enum { k_engine_function_string_buffer_size = 512, };
 
 namespace Yelo
 {
-	namespace Physics
-	{
-		struct s_collision_result;
-	};
-
-	namespace Players
-	{
-		struct s_unit_camera_info;
-	};
-
-	namespace TagGroups
-	{
-		struct s_bitmap_data;
-
-		struct s_sound_permutation;
-
-		struct predicted_resource;
-	};
 
 	namespace Engine
 	{
-#define __EL_INCLUDE_ID			__EL_INCLUDE_GAME
-#define __EL_INCLUDE_FILE_ID	__EL_GAME_ENGINE_FUNCTIONS
-#include "Memory/_EngineLayout.inl"
-
-		#include "Game/EngineFunctions._Misc.inl"
-
 		namespace Cache
 		{
 			API_FUNC_NAKED bool FileReadRequest(/*datum_index tag_index,*/
@@ -616,7 +562,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// game_engine_multiplayer_sounds.c
-		API_FUNC_NAKED void __cdecl game_engine_play_multiplayer_sound(datum_index player_index, _enum multiplayer_sound_index, bool should_replicate)
+		API_FUNC_NAKED void __cdecl game_engine_play_multiplayer_sound(datum_index player_index, shortmultiplayer_sound_index, bool should_replicate)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(GAME_ENGINE_PLAY_MULTIPLAYER_SOUND);
 
@@ -760,7 +706,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// input_windows.c
-		API_FUNC_NAKED bool __cdecl input_key_is_down(_enum key_code)
+		API_FUNC_NAKED bool __cdecl input_key_is_down(shortkey_code)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(INPUT_KEY_IS_DOWN);
 
@@ -1424,7 +1370,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// dx9/rasterizer_dx9.c
-		bool __cdecl rasterizer_set_texture_bitmap_data(_enum stage, TagGroups::s_bitmap_data* bitmap)
+		bool __cdecl rasterizer_set_texture_bitmap_data(shortstage, TagGroups::s_bitmap_data* bitmap)
 		{
 			return Engine::SetTextureSamplerStage(bitmap, stage);
 		}
@@ -1795,7 +1741,7 @@ namespace Yelo
 
 		API_FUNC_NAKED void __cdecl unit_damage_aftermath(const datum_index unit_index
 			, const Objects::s_damage_data* damage_data
-			, const _enum damage_flags
+			, const shortdamage_flags
 			, const real shield_amount
 			, const real body_amount
 			, void* arg6

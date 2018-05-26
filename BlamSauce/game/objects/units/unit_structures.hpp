@@ -152,22 +152,22 @@ namespace Yelo {
 	namespace Objects {
 		struct s_unit_datum_animation_data {
 			unsigned short flags;                     // 0x298
-			UNKNOWN_TYPE(short);                  // 0x29A animation index, weapon type
-			UNKNOWN_TYPE(short);                  // 0x29C animation index
-			UNKNOWN_TYPE(short);                  // 0x29E, appears unused except for getting initialized in unit_new
+			short:8 * sizeof(short);                  // 0x29A animation index, weapon type
+			short:8 * sizeof(short);                  // 0x29C animation index
+			short:8 * sizeof(short);                  // 0x29E, appears unused except for getting initialized in unit_new
 			//////////////////////////////////////////////////////////////////////////
 			// animation graph unit indexes
-			sbyte             seat_index;                     // 0x2A0
-			sbyte             seat_weapon_index;               // 0x2A1
-			sbyte             weapon_type_index;               // 0x2A2
+			sbyte     seat_index;                     // 0x2A0
+			sbyte     seat_weapon_index;               // 0x2A1
+			sbyte     weapon_type_index;               // 0x2A2
 			//////////////////////////////////////////////////////////////////////////
-			byte_enum         state;                     // 0x2A3 [Enums::unit_animation_state]
-			byte_enum         replacement_animation_state;      // 0x2A4 [Enums::unit_replacement_animation_state]
-			byte_enum         overlay_animation_state;         // 0x2A5 [Enums::unit_overlay_animation_state]
-			byte_enum         desired_animation_state;         // 0x2A6, set from s_unit_control_data's animation_state
-			byte_enum         base_seat;                  // 0x2A7 [Enums::unit_base_seat]
-			sbyte             emotion;                        // 0x2A8
-									unsigned char : 8;
+			byte_enum state;                     // 0x2A3 [Enums::unit_animation_state]
+			byte_enum replacement_animation_state;      // 0x2A4 [Enums::unit_replacement_animation_state]
+			byte_enum overlay_animation_state;         // 0x2A5 [Enums::unit_overlay_animation_state]
+			byte_enum desired_animation_state;         // 0x2A6, set from s_unit_control_data's animation_state
+			byte_enum base_seat;                  // 0x2A7 [Enums::unit_base_seat]
+			sbyte     emotion;                        // 0x2A8
+			unsigned char : 8;
 			s_animation_state replacement_animation;   // 0x2AA
 			s_animation_state overlay_animation;      // 0x2AE
 			s_animation_state weapon_ik;            // 0x2B2
@@ -175,14 +175,14 @@ namespace Yelo {
 			bool              update_aim_euler;                  // 0x2B7
 			real_rectangle2d  looking_bounds;         // 0x2B8
 			real_rectangle2d  aiming_bounds;            // 0x2C8
-									PAD64;                              // 0x2D8
+			PAD64;                              // 0x2D8
 		}; static_assert(sizeof(s_unit_datum_animation_data) == 0x48);
 
 		struct s_unit_data {
 			// These values are also used in determining assists
 			// These values would be checked in the killed unit's data.
 			struct s_recent_damage {
-				long       game_tick;            // the last game tick damage was dealt
+				long        game_tick;            // the last game tick damage was dealt
 				real        damage;               // total (read: additive) damage the responsible object has done
 				datum_index responsible_unit;
 				datum_index responsible_player;   // would be NONE if killed by AI
@@ -194,17 +194,17 @@ namespace Yelo {
 			datum_index swarm_prev_unit_index;                        // 0x200
 			long_flags  flags;                                    // 0x204
 			long_flags  control_flags;                              // 0x208
-			UNKNOWN_TYPE(short);                                 // 0x20C related to the first two short's in s_unit_globals_data
+			short:8 * sizeof(short);                                 // 0x20C related to the first two short's in s_unit_globals_data
 			sbyte       shield_sapping;                                 // 0x20E
 			sbyte       base_seat_index;                                 // 0x20F
 			struct {
-				long      ticks_remaining;                              // 0x210
+				long          ticks_remaining;                              // 0x210
 				unsigned long flags;                                 // 0x214
 			}           persistent_control;
 			datum_index controlling_player_index;                     // 0x218
 			short       ai_effect_type;                                 // 0x21C ai_unit_effect
 			short       emotion_animation_index;                           // 0x21E
-			UNKNOWN_TYPE(long);                                 // 0x220 time (game ticks) of next update for ai_effect_type related code
+			long:8 * sizeof(long);                                 // 0x220 time (game ticks) of next update for ai_effect_type related code
 			real_vector3d       desired_facing_vector;                     // 0x224
 			real_vector3d       desired_aiming_vector;                     // 0x230
 			real_vector3d       aiming_vector;                           // 0x23C
@@ -215,32 +215,32 @@ namespace Yelo {
 			real_vector3d       throttle;                                 // 0x278
 			real                primary_trigger;                                 // 0x284
 			byte_enum           aiming_speed;                                 // 0x288
-			UNKNOWN_TYPE(byte);                                    // 0x289 melee related (state enum?)
-			UNKNOWN_TYPE(byte);                                    // 0x28A melee related (some kind of counter)
+			byte:8 * sizeof(byte);                                    // 0x289 melee related (state enum?)
+			byte:8 * sizeof(byte);                                    // 0x28A melee related (some kind of counter)
 			sbyte ticks_until_flame_to_death;                        // 0x28B
 			// looks like the amount of frames left for the ping animation
 			// also set to the same PersistentControlTicks value when an actor dies and they fire-wildely
-			UNKNOWN_TYPE(byte);                                    // 0x28C sbyte
+			byte:8 * sizeof(byte);                                    // 0x28C sbyte
 			byte_enum throwing_grenade_state;                        // 0x28D
-			UNKNOWN_TYPE(short);                                 // 0x28E
-			UNKNOWN_TYPE(short);                                 // 0x290
-												 unsigned short : 16;                                             // 0x292
+			short:8 * sizeof(short);                                 // 0x28E
+			short:8 * sizeof(short);                                 // 0x290
+			unsigned short : 16;                                             // 0x292
 			datum_index                 throwing_grenade_projectile_index;               // 0x294
 			s_unit_datum_animation_data animation;                        // 0x298
 			real                        ambient;                                       // 0x2E0
 			real                        illumination;                                    // 0x2E4
 			real                        mouth_aperture;                                 // 0x2E8
-												 unsigned long : 32;                                             // 0x2EC unused
-			short                       vehicle_seat_index;                              // 0x2F0
-			short                       current_weapon_index;                              // 0x2F2
-			short                       next_weapon_index;                              // 0x2F4
-												 unsigned short : 16;                                             // 0x2F6 need to verify this is padding
-			datum_index                 weapon_object_indices[Enums::k_maximum_weapons_per_unit];   // 0x2F8
-			long                       weapon_ready_times[Enums::k_maximum_weapons_per_unit];   // 0x308
-			datum_index                 equipment_index;                           // 0x218
-			sbyte                       current_grenade_index;                           // 0x31C
-			sbyte                       next_grenade_index;                              // 0x31D
-			byte                        grenade_counts[Enums::k_unit_grenade_types_count];         // 0x31E
+			unsigned long : 32;                                             // 0x2EC unused
+			short vehicle_seat_index;                              // 0x2F0
+			short current_weapon_index;                              // 0x2F2
+			short next_weapon_index;                              // 0x2F4
+			unsigned short : 16;                                             // 0x2F6 need to verify this is padding
+			datum_index weapon_object_indices[Enums::k_maximum_weapons_per_unit];   // 0x2F8
+			long        weapon_ready_times[Enums::k_maximum_weapons_per_unit];   // 0x308
+			datum_index equipment_index;                           // 0x218
+			sbyte       current_grenade_index;                           // 0x31C
+			sbyte       next_grenade_index;                              // 0x31D
+			byte        grenade_counts[Enums::k_unit_grenade_types_count];         // 0x31E
 		private:
 			union {
 				struct {
@@ -257,8 +257,8 @@ namespace Yelo {
 			datum_index powered_seats_riders[Enums::k_number_of_powered_seats];   // 0x324
 			//////////////////////////////////////////////////////////////////////////
 			// these fields are all related
-			UNKNOWN_TYPE(datum_index);                              // 0x32C object index
-			UNKNOWN_TYPE(long);                                 // 0x330 game time
+			datum_index:8 * sizeof(datum_index);                              // 0x32C object index
+			long:8 * sizeof(long);                                 // 0x330 game time
 			//////////////////////////////////////////////////////////////////////////
 			short encounter_index;                                 // 0x334
 			short squad_index;                                    // 0x336
@@ -268,10 +268,10 @@ namespace Yelo {
 			real  integrated_night_vision_toggle_power;                  // 0x348
 			//////////////////////////////////////////////////////////////////////////
 			// seat related
-			UNKNOWN_TYPE(real_vector3d);                           // 0x34C
-			UNKNOWN_TYPE(real_vector3d);                           // 0x358
-			UNKNOWN_TYPE(real_vector3d);                           // 0x364
-			UNKNOWN_TYPE(real_vector3d);                           // 0x370
+			real_vector3d:8 * sizeof(real_vector3d);                           // 0x34C
+			real_vector3d:8 * sizeof(real_vector3d);                           // 0x358
+			real_vector3d:8 * sizeof(real_vector3d);                           // 0x364
+			real_vector3d:8 * sizeof(real_vector3d);                           // 0x370
 			//////////////////////////////////////////////////////////////////////////
 			real        camo_power;                                    // 0x37C
 			real        full_spectrum_vision_power;                        // 0x380 gets updated in unit_update, but nothing actually seems to *use* it...full spectrum vision power?
@@ -279,20 +279,20 @@ namespace Yelo {
 			struct {
 				s_unit_speech current;                              // 0x388
 				s_unit_speech next;                                 // 0x3B8 not *positive* of this field
-				UNKNOWN_TYPE(short);                              // 0x3E8
-				UNKNOWN_TYPE(short);                              // 0x3EA
-				UNKNOWN_TYPE(short);                              // 0x3EC
-				UNKNOWN_TYPE(short);                              // 0x3EE
-				UNKNOWN_TYPE(long);                              // 0x3F0 time related
-				UNKNOWN_TYPE(bool);                                 // 0x3F4
-				UNKNOWN_TYPE(bool);                                 // 0x3F5
-				UNKNOWN_TYPE(bool);                                 // 0x3F6
-								unsigned char : 8;                                          // 0x3F7
-				UNKNOWN_TYPE(short);                              // 0x3F8
-				UNKNOWN_TYPE(short);                              // 0x3FA
-				UNKNOWN_TYPE(short);                              // 0x3FC
-				UNKNOWN_TYPE(short);                              // 0x3FE
-				UNKNOWN_TYPE(long);                              // 0x400
+				short:8 * sizeof(short);                              // 0x3E8
+				short:8 * sizeof(short);                              // 0x3EA
+				short:8 * sizeof(short);                              // 0x3EC
+				short:8 * sizeof(short);                              // 0x3EE
+				long:8 * sizeof(long);                              // 0x3F0 time related
+				bool:8 * sizeof(bool);                                 // 0x3F4
+				bool:8 * sizeof(bool);                                 // 0x3F5
+				bool:8 * sizeof(bool);                                 // 0x3F6
+				unsigned char : 8;                                          // 0x3F7
+				short:8 * sizeof(short);                              // 0x3F8
+				short:8 * sizeof(short);                              // 0x3FA
+				short:8 * sizeof(short);                              // 0x3FC
+				short:8 * sizeof(short);                              // 0x3FE
+				long:8 * sizeof(long);                              // 0x400
 			}           speech;
 
 			struct {
@@ -302,21 +302,21 @@ namespace Yelo {
 				datum_index responsible_unit_index;                     // 0x40C
 			}           damage_result;
 			datum_index responsible_flamer_object_index;               // 0x410 object which caused us to start flaming to death
-			UNKNOWN_TYPE(real);                                    // 0x414
-											  unsigned long : 32;
-			long                     death_time;                                    // 0x41C // game time when this unit died
+			real:8 * sizeof(real);                                    // 0x414
+			unsigned long : 32;
+			long                      death_time;                                    // 0x41C // game time when this unit died
 			short                     feign_death_timer;                              // 0x420
 			Enums::unit_camo_regrowth camo_regrowth;                  // 0x422
 			real                      stun;                                          // 0x424
 			short                     stun_timer;                                    // 0x428
 			short                     killing_spree_count;                              // 0x42A
-			long                     killing_spree_start_time;                           // 0x42C
+			long                      killing_spree_start_time;                           // 0x42C
 			s_recent_damage           recent_damage[4];                        // 0x430
-											  unsigned long : 32;                                             // 0x470 unused
+			unsigned long : 32;                                             // 0x470 unused
 			//////////////////////////////////////////////////////////////////////////
 			// Added in HaloPC
-			UNKNOWN_TYPE(bool);                                    // 0x474 networking related. engine only writes to this, never reads. consider it 'unused'
-			UNKNOWN_TYPE(bool);                                    // 0x475 networking related. engine only writes to this, never reads. consider it 'unused'
+			bool:8 * sizeof(bool);                                    // 0x474 networking related. engine only writes to this, never reads. consider it 'unused'
+			bool:8 * sizeof(bool);                                    // 0x475 networking related. engine only writes to this, never reads. consider it 'unused'
 		private:
 			union {                                             // 0x476
 				unsigned short : 16;
@@ -331,11 +331,12 @@ namespace Yelo {
 		public:
 			s_unit_control_data control_data;                        // 0x478
 			bool                last_completed_client_update_id_valid;                  // 0x4B8
-									  unsigned char : 8; unsigned short : 16;
-			long               last_completed_client_update_id;                     // 0x4BC
-									  unsigned long : 32;                                             // 0x4C0 unused
-									  unsigned long : 32;                                             // 0x4C4 unused
-									  unsigned long : 32;                                             // 0x4C8 unused
+			unsigned char : 8;
+			unsigned short : 16;
+			long           last_completed_client_update_id;                     // 0x4BC
+			unsigned long : 32;                                             // 0x4C0 unused
+			unsigned long : 32;                                             // 0x4C4 unused
+			unsigned long : 32;                                             // 0x4C8 unused
 			//////////////////////////////////////////////////////////////////////////
 
 		public: // see YeloLib/Halo1/units/units_grenade_count_upgrade.inl
@@ -369,7 +370,7 @@ namespace Yelo {
 			}
 
 			byte *GetDesiredZoomLevel() {
-				const GameState::s_yelo_header_data& yelo_header = GameState::GameStateGlobals()->header->yelo;
+				const GameState::s_yelo_header_data &yelo_header = GameState::GameStateGlobals()->header->yelo;
 
 				bool result = GameState::YeloGameStateEnabled() && yelo_header.unit_grenade_types_count > Enums::k_unit_grenade_types_count;
 				return result ? &this->desired_zoom_level_yelo : &this->desired_zoom_level;

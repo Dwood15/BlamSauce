@@ -8,7 +8,9 @@ namespace Yelo::Scripting {
 
 	//////////////////////////////////////////////////////////////////////////
 	// Globals
-	HS_GLOBAL2(rasterizer_rt_display, short, &DX9::c_gbuffer_system::g_debug_index, nullptr);
+	Yelo::Scripting::hs_global_definition global_rasterizer_rt_display_definition = {
+		"rasterizer_rt_display", Enums::_hs_type_short, 0, reinterpret_cast<void *>(&Yelo::DX9::c_gbuffer_system::g_debug_index), (1 << (Yelo::Flags::_hs_access_enabled_bit))
+	};
 	HS_GLOBAL2(rasterizer_gbuffer_enabled, bool, &DX9::c_gbuffer_system::g_system_enabled, nullptr);
 
 	HS_GLOBAL2(pp_external_post_processes_enabled, bool, &Rasterizer::PostProcessing::Scripting::Globals::Enabled_External(), nullptr);

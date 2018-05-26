@@ -57,7 +57,6 @@ namespace Yelo::GameUI {
 	static auto **const hud_nav_points       = (reinterpret_cast<s_hud_nav_points **>(0x64E974));
 	static auto **const motion_sensor        = (reinterpret_cast<s_motion_sensor **>(0x6B44C8));
 	static auto **const first_person_weapons = (reinterpret_cast<s_first_person_weapons **>(0x64DCC8));
-
 }
 
 namespace Yelo::Hud {

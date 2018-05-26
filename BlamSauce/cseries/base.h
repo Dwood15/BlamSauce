@@ -1,8 +1,6 @@
 #pragma once
 
-#include <cstddef>
-#include <precompile.h>>
-#include "MacrosCpp.h"
+#include <precompile.h>
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo {
@@ -189,5 +187,4 @@ namespace Yelo {
 		/// <param name="offset">	Field offset within the fake sub-class to treat as the get result. </param>
 #define TStructSubGetPtrImpl(type, name, offset)   TStructGetPtrImpl(type, name, offset - DATA_OFFSET)
 	};
-
 };
