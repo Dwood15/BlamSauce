@@ -4,12 +4,10 @@
 
 	See license\OpenSauce\Halo1_CE for specific license information
 */
-#include "Common/Precompile.hpp"
-#include "Rasterizer/DX9/DxWrapper.hpp"
+#pragma once
+
 
 static void* orig_DirectInput8Create;
-
-API_FUNC_NAKED void WINAPI Yelo_DirectInput8Create() { _asm { jmp orig_DirectInput8Create }; }
 
 bool LoadDXProxy(HMODULE* mod)
 {
@@ -33,3 +31,8 @@ void FreeDXProxy(HMODULE mod)
 {
 	FreeLibrary(mod);
 }
+
+
+
+__declspec(naked) void WINAPI Yelo_DirectInput8Create() { _asm { jmp orig_DirectInput8Create }; }
+

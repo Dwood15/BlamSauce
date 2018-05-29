@@ -1,9 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 namespace Yelo
@@ -102,7 +96,8 @@ namespace Yelo
 			long count;
 			s_rasterizer_dx9_effect_shaders* effect_shaders;
 		};
-		s_rasterizer_dx9_effect_collection* EffectCollections();
+
+		s_rasterizer_dx9_effect_collection*	EffectCollections()	PTR_IMP_GET2(rasterizer_dx9_effect_collection);
 
 		struct s_effect_shader_entry
 		{
@@ -111,13 +106,15 @@ namespace Yelo
 			Enums::rasterizer_vertex_shader vertex_shader;
 			cstring name;
 		};
-		s_effect_shader_entry* EffectShaders(); // i.e., Pixel shaders
+
+		s_effect_shader_entry*	EffectShaders()					PTR_IMP_GET2(rasterizer_effect_shaders);
 
 		struct s_vsf_entry
 		{
 			IDirect3DVertexShader9* shader;
 			cstring name;
 		};
-		s_vsf_entry* VertexShaders();
+
+		s_vsf_entry*	VertexShaders()							PTR_IMP_GET2(vsf_table);
 	};
 };

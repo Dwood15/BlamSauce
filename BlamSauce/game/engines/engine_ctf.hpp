@@ -1,18 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include <precompile.h>
 #include "../player/players.hpp"
 
-namespace Yelo
-{
-	namespace GameEngine
-	{
+namespace Yelo::GameEngine {
 		struct s_ctf_globals
 		{
 			real_point3d* team_flag_positions[Enums::k_number_of_multiplayer_teams];
@@ -28,4 +19,3 @@ namespace Yelo
 			unsigned char : 8; unsigned short : 16;
 		}; static_assert( sizeof(s_ctf_globals) == 0x34 );
 	};
-};

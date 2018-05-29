@@ -26,8 +26,6 @@ namespace Yelo {
 	};
 
 	namespace GameState {
-		struct s_main_globals;
-
 		s_main_globals * MainGlobals();
 
 		// Is the game *only* running the simulation locally? (ie, campaign or splitscreen)
@@ -98,16 +96,16 @@ namespace Yelo {
 
 		// Gets the name of the current map. Actually the scenario path usually.
 		// If map_name was specified via the console, it of course won't be the scenario path.
-		inline cstring main_get_map_name() { return GameState::MainGlobals()->scenario_tag_path; }
+		inline const char *  main_get_map_name() { return GameState::MainGlobals()->scenario_tag_path; }
 
 		// Connect to a multiplayer server using it's ip:port and password
-		inline bool __cdecl main_connect(cstring address, cstring password);
+		inline bool __cdecl main_connect(const char *  address, const char *  password);
 
-		inline short __cdecl main_get_campaign_level_from_name(cstring level_name) {
+		inline short __cdecl main_get_campaign_level_from_name(const char *  level_name) {
 			char name[128] = {};
 
 			// NOTE: engine doesn't do this, but level_name is usually a scenario path
-			if (cstring last_slash = strrchr(level_name, '\\')) {
+			if (const char *  last_slash = strrchr(level_name, '\\')) {
 				level_name = last_slash + 1;
 			}
 

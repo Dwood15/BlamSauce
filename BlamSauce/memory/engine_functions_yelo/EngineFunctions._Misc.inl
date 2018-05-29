@@ -100,7 +100,7 @@ void RasterizerAddResolution(uint width, uint height, uint refresh_rate)
 	}
 }
 
-short API_FUNC_NAKED AnimationPickRandomPermutation(long_enum render_or_affects_game_state, datum_index animation_graph_index, long animation_index)
+short __declspec(naked) AnimationPickRandomPermutation(long_enum render_or_affects_game_state, datum_index animation_graph_index, long animation_index)
 {
 	static const uintptr_t TEMP_CALL_ADDR = GET_FUNC_PTR(ANIMATION_CHOOSE_RANDOM_PERMUTATION_INTERNAL);
 
@@ -113,7 +113,7 @@ short API_FUNC_NAKED AnimationPickRandomPermutation(long_enum render_or_affects_
 	API_FUNC_NAKED_END(3)
 }
 
-void API_FUNC_NAKED GSMD5Digest(byte* input, unsigned int input_length, char output[33])
+void __declspec(naked) GSMD5Digest(byte* input, unsigned int input_length, char output[33])
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(GSMD5DIGEST);
 

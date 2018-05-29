@@ -77,7 +77,7 @@ namespace Yelo
 		// Called by the game (via our hook) whenever it loads a scenario's 
 		// cache and verifies its header. Ran before the tag index and such 
 		// is loaded into memory.
-		API_FUNC_NAKED static void __cdecl ScenarioTagsLoadHook()
+		__declspec(naked) static void __cdecl ScenarioTagsLoadHook()
 		{
 			using namespace Yelo::Cache;
 

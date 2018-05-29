@@ -45,7 +45,7 @@ namespace Environment
 	static _enum			g_extension_usage_mask;
 
 	/// <summary>	Hook to change the used pixel shader to a custom one. </summary>
-	API_FUNC_NAKED void Hook_ShaderEnvironmentLightmapPS()
+	__declspec(naked) void Hook_ShaderEnvironmentLightmapPS()
 	{
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_ENVIRONMENT_PS_INDEX_ENVIRONMENT_LIGHTMAP_RETN);
 
@@ -275,7 +275,7 @@ namespace Environment
 	/// <param name="draw">  	The draw process. </param>
 	/// <param name="end">   	The post-draw process. </param>
 	/// <param name="submit">	Flag for whether to submit or not. </param>
-	API_FUNC_NAKED void __cdecl StructureRenderPass(const structure_render_pass_begin_proc begin,
+	__declspec(naked) void __cdecl StructureRenderPass(const structure_render_pass_begin_proc begin,
 		const structure_render_pass_draw_proc draw,
 		const structure_render_pass_end_proc end,
 		const bool submit)

@@ -13,6 +13,7 @@
 #include "../ai/actors/actor_types.hpp"
 #include "../interface/hud/hud_definitions.hpp"
 #include "../scenario/yelo/yelo_global_definitions.h"
+#include "../cseries/base.h"
 
 namespace Yelo::Scripting {
 	auto item = Yelo::Enums::k_maximum_hs_syntax_nodes_per_scenario_upgrade;
@@ -56,7 +57,7 @@ namespace Yelo::Scripting {
 		real    real;
 		short   short;
 		long   long;
-		cstring string;
+		const char *  string;
 
 		hs_script_index_t script;
 		//			hs_global_index_t global;
@@ -118,7 +119,7 @@ namespace Yelo::blam {
 		return hs_global_external_get(global_index)->type;
 	}
 
-	cstring hs_global_get_name(short global_index) {
+	const char *  hs_global_get_name(short global_index) {
 		assert(global_index != NONE); // engine doesn't do this
 
 		bool is_internal = (global_index & Enums::_hs_global_index_is_external_mask) == 0;
@@ -131,7 +132,7 @@ namespace Yelo::blam {
 		return hs_global_external_get(global_index)->name;
 	}
 
-	short hs_find_global_by_name(cstring name) {
+	short hs_find_global_by_name(const char *  name) {
 		// TODO: update code when containers come online
 
 		// search the globals external from the scenario first
@@ -166,7 +167,7 @@ namespace Yelo::blam {
 		return NONE;
 	}
 
-	short hs_find_function_by_name(cstring name) {
+	short hs_find_function_by_name(const char *  name) {
 		long     function_index = 0;
 		for (auto *function : c_hs_library::GetFunctionsTable()) {
 			if (!_stricmp(name, function->name)) {
@@ -204,7 +205,7 @@ namespace Yelo::blam {
 		return -1;
 	}
 
-	Scripting::hs_script_index_t hs_find_script_by_name(cstring name) {
+	Scripting::hs_script_index_t hs_find_script_by_name(const char *  name) {
 		// TODO: update code when containers come online
 
 		auto *scenario = global_scenario_try_and_get();
@@ -226,7 +227,7 @@ namespace Yelo::blam {
 		return hs_script_index_t::k_null;
 	}
 
-	bool hs_evaluate_by_script_name(cstring name) {
+	bool hs_evaluate_by_script_name(const char *  name) {
 		// TODO: update code when containers come online
 
 		auto script = hs_find_script_by_name(name);
@@ -247,8 +248,8 @@ namespace Yelo::blam {
 	extern const std::array<unsigned short, Yelo::Enums::k_number_of_hs_object_types> k_hs_object_type_masks;
 	extern const std::array<tag, Enums::_hs_type_tag_reference__count>      k_hs_tag_reference_type_group_tags;
 
-	extern std::array<cstring, Enums::k_number_of_hs_types>           hs_type_names;
-	extern std::array<cstring, Enums::k_number_of_hs_script_types>    hs_script_type_names;
+	extern std::array<const char * , Enums::k_number_of_hs_types>           hs_type_names;
+	extern std::array<const char * , Enums::k_number_of_hs_script_types>    hs_script_type_names;
 	extern std::array<const string_list, Enums::_hs_type_enum__count> hs_enum_table;
 
 	bool hs_type_valid(short type) { return type >= Enums::_hs_type_void && type < Enums::k_number_of_hs_types; }
@@ -325,7 +326,7 @@ namespace Yelo
 		// We use this global to expose the build version to scripts without causing harm when not using OS.
 		// It was chosen due to the hs_type being a 'real', which allows us to specify the version number as "MAJ.MIN"
 		// See: K_OPENSAUCE_VERSION
-		static const cstring k_external_global_opensauce_override_name = "ai_debug_path_maximum_radius";
+		static const const char *  k_external_global_opensauce_override_name = "ai_debug_path_maximum_radius";
 
 		size_t GetTotalScenarioHsSyntaxData()  { return Enums::k_total_scenario_hs_syntax_data; }
 		size_t GetTotalScenarioHsSyntaxDataUpgrade() { return Enums::k_total_scenario_hs_syntax_data_upgrade; }

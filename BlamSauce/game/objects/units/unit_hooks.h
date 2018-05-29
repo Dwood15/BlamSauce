@@ -91,7 +91,7 @@ namespace Yelo::Objects::Units {
 	return result;
 }
 
-API_FUNC_NAKED static void __cdecl UnitCanEnterSeatHook()
+__declspec(naked) static void __cdecl UnitCanEnterSeatHook()
 {
 	API_FUNC_NAKED_START_()
 	push	ebx
@@ -118,7 +118,7 @@ void UnitCausePlayerSeatedMelee(const datum_index unit_index)
 	SeatDamage::UnitCauseSeatedPlayerMelee(unit_index);
 }
 
-API_FUNC_NAKED static void BipedSeatedMeleeHook()
+__declspec(naked) static void BipedSeatedMeleeHook()
 {
 	static uintptr_t RETN_ADDRESS = PTR_BIPED_SEATED_MELEE_RETN;
 
@@ -167,7 +167,7 @@ bool __cdecl WeaponPreventsGrenadeThrowing(const datum_index unit_index, const d
 	}
 }
 
-API_FUNC_NAKED bool WeaponPreventsGrenadeThrowingHook()
+__declspec(naked) bool WeaponPreventsGrenadeThrowingHook()
 {
 	static uintptr_t RETN_ADDRESS = PTR_WEAPON_PREVENTS_GRENADE_THROWING_RETN;
 

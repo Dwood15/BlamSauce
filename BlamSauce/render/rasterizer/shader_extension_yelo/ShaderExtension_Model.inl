@@ -211,7 +211,7 @@ namespace Model
 
 #pragma region Hooks
 	// hooks to correctly skip past inverse shaders in the usage id list
-	API_FUNC_NAKED static void Hook_EnvironmentNoPixelShaderIDOffset()
+	__declspec(naked) static void Hook_EnvironmentNoPixelShaderIDOffset()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_ENVIRONMENT_NO_USAGE_ID_OFFSET_RETN);
 
@@ -237,7 +237,7 @@ namespace Model
 			jmp		RETN_ADDRESS
 		};
 	}
-	API_FUNC_NAKED static void Hook_NoPixelShaderIDOffset()
+	__declspec(naked) static void Hook_NoPixelShaderIDOffset()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_NO_USAGE_ID_OFFSET_RETN);
 
@@ -264,7 +264,7 @@ namespace Model
 		};
 	}
 	// hooks to return the new pixel shaders when applicable by offseting the shader index
-	API_FUNC_NAKED static void Hook_EnvironmentNoPixelShader()
+	__declspec(naked) static void Hook_EnvironmentNoPixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_ENVIRONMENT_NO_RETN);
 
@@ -280,7 +280,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}
-	API_FUNC_NAKED static void Hook_EnvironmentNoInversePixelShader()
+	__declspec(naked) static void Hook_EnvironmentNoInversePixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_ENVIRONMENT_NO_INV_RETN);
 
@@ -296,7 +296,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}
-	API_FUNC_NAKED static void Hook_ChangeColorPixelShader()
+	__declspec(naked) static void Hook_ChangeColorPixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_CHANGE_COLOR_RETN);
 
@@ -312,7 +312,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}	
-	API_FUNC_NAKED static void Hook_ChangeColorInversePixelShader()
+	__declspec(naked) static void Hook_ChangeColorInversePixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_CHANGE_COLOR_INV_RETN);
 
@@ -328,7 +328,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}	
-	API_FUNC_NAKED static void Hook_MultipurposePixelShader()
+	__declspec(naked) static void Hook_MultipurposePixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_MULTIPURPOSE_RETN);
 
@@ -344,7 +344,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}	
-	API_FUNC_NAKED static void Hook_MultipurposeInversePixelShader()
+	__declspec(naked) static void Hook_MultipurposeInversePixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_MULTIPURPOSE_INV_RETN);
 
@@ -360,7 +360,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}
-	API_FUNC_NAKED static void Hook_NoPixelShader()
+	__declspec(naked) static void Hook_NoPixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_NO_RETN);
 
@@ -376,7 +376,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}	
-	API_FUNC_NAKED static void Hook_ReflectionPixelShader()
+	__declspec(naked) static void Hook_ReflectionPixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_REFLECTION_RETN);
 
@@ -392,7 +392,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}
-	API_FUNC_NAKED static void Hook_ReflectionInversePixelShader()
+	__declspec(naked) static void Hook_ReflectionInversePixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_REFLECTION_INV_RETN);
 
@@ -408,7 +408,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}
-	API_FUNC_NAKED static void Hook_SelfIlluminationPixelShader()
+	__declspec(naked) static void Hook_SelfIlluminationPixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_SELF_ILLUMINATION_RETN);
 
@@ -424,7 +424,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}	
-	API_FUNC_NAKED static void Hook_SelfIlluminationInversePixelShader()
+	__declspec(naked) static void Hook_SelfIlluminationInversePixelShader()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_PS_INDEX_SELF_ILLUMINATION_INV_RETN);
 
@@ -440,7 +440,7 @@ no_extension:
 			jmp		RETN_ADDRESS
 		};
 	}	
-	API_FUNC_NAKED static void Hook_RenderObject_ForceInvertBackfaceNormals()
+	__declspec(naked) static void Hook_RenderObject_ForceInvertBackfaceNormals()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_DRAW_INVERT_BACKFACE_NORMALS_CHECK_RETN);
 

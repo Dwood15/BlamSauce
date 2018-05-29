@@ -1,17 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
 #include <corecrt.h>
 #include "../cseries/base.h"
 
-namespace Yelo
-{
-	namespace Scripting
-	{
+namespace Yelo::Scripting {
 		struct s_hs_compile_globals
 		{
 			bool initialized;
@@ -43,4 +35,3 @@ namespace Yelo
 
 		s_hs_compile_globals* HsCompileGlobals();
 	};
-};

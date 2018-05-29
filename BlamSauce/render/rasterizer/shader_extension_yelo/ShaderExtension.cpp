@@ -1,33 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-#include "Common/Precompile.hpp"
-#include "Rasterizer/ShaderExtension/ShaderExtension.hpp"
-
-#include <sys/stat.h>
-
-#include <blamlib/Halo1/bitmaps/bitmap_group.hpp>
-#include <blamlib/Halo1/rasterizer/dx9/rasterizer_dx9.hpp>
-#include <blamlib/Halo1/shaders/shader_definitions.hpp>
-#include <blamlib/Halo1/render/render.hpp>
-#include <YeloLib/Halo1/shell/shell_windows_command_line.hpp>
-#include <YeloLib/configuration/c_configuration_container.hpp>
-#include <YeloLib/configuration/c_configuration_value.hpp>
-#include <YeloLib/open_sauce/settings/c_settings_singleton.hpp>
-
-#include "Settings/Settings.hpp"
-#include "Common/FileIO.hpp"
-#include "Game/EngineFunctions.hpp"
-#include "Game/GameState.hpp"
-#include "Memory/MemoryInterface.hpp"
-#include "Rasterizer/GBuffer.hpp"
-#include "Rasterizer/Lightmaps.hpp"
-#include "Rasterizer/DX9/DX9.hpp"
-#include "Scenario/Scenario.hpp"
-
 using namespace Yelo::Configuration;
 
 namespace Yelo
@@ -74,11 +44,11 @@ namespace Yelo
 
 			void		SetTexture(IDirect3DDevice9* pDevice, unsigned short sampler, datum_index bitmap_tag_index);
 
-#include "Rasterizer/ShaderExtension/ShaderExtension_Model.inl"
-#include "Rasterizer/ShaderExtension/ShaderExtension_Environment.inl"
-#include "Rasterizer/ShaderExtension/ShaderExtension_Effect.inl"
+// #include "Rasterizer/ShaderExtension/ShaderExtension_Model.inl"
+// #include "Rasterizer/ShaderExtension/ShaderExtension_Environment.inl"
+// #include "Rasterizer/ShaderExtension/ShaderExtension_Effect.inl"
 
-			API_FUNC_NAKED static void Hook_RenderObject_ForceInvertBackfaceNormals()
+			__declspec(naked) static void Hook_RenderObject_ForceInvertBackfaceNormals()
 			{
 				static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_MODEL_DRAW_INVERT_BACKFACE_NORMALS_CHECK_RETN);
 

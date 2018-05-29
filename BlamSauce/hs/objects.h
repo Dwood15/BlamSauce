@@ -267,7 +267,7 @@ static void* scripting_unit_data_get_object_evaluate(void** arguments)
 		cstring data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
-	result.datum = datum_index::null;
+	result.datum = datum_index::null();
 
 	if(!args->unit_index.IsNull())
 	{

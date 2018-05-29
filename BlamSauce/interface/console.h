@@ -19,7 +19,7 @@ namespace Yelo::Console {
 
 	PTR_IMP_GET2(console_globals);
 
-	API_FUNC_NAKED void __cdecl Update(unsigned long access_flags) {
+	__declspec(naked) void __cdecl Update(unsigned long access_flags) {
 		// our hook is placed where the update function calls console_process_command, so we have to call it
 		API_FUNC_NAKED_START()
 		push edi // the command string buffer is given to us in edi

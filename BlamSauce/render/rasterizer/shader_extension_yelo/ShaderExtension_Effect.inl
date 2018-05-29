@@ -28,7 +28,7 @@ namespace Effect
 
 	void SetShaderEffectVariables(const TagGroups::s_shader_effect* shader);
 
-	API_FUNC_NAKED void Hook_ShaderEffect_ParticleSystem()
+	__declspec(naked) void Hook_ShaderEffect_ParticleSystem()
 	{
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_EFFECT_PARTICLE_SYSTEM_RETN);
 
@@ -51,7 +51,7 @@ namespace Effect
 		};
 	}
 
-	API_FUNC_NAKED void Hook_ShaderEffect_Particle()
+	__declspec(naked) void Hook_ShaderEffect_Particle()
 	{
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_EFFECT_PARTICLE_RETN);
 
@@ -71,7 +71,7 @@ namespace Effect
 		};
 	}
 
-	API_FUNC_NAKED void Hook_ShaderEffect_Contrail()
+	__declspec(naked) void Hook_ShaderEffect_Contrail()
 	{
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_EFFECT_CONTRAIL_RETN);
 
@@ -93,7 +93,7 @@ namespace Effect
 		};
 	}
 
-	API_FUNC_NAKED void Hook_ShaderEffectPixelShaderOffset()
+	__declspec(naked) void Hook_ShaderEffectPixelShaderOffset()
 	{
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RASTERIZER_EFFECT_PS_INDEX_NO_RETN);
 

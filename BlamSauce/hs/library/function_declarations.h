@@ -803,7 +803,7 @@ namespace Yelo::Scripting {
 		struct s_arguments {
 			bool and_game_build;
 			unsigned char : 8; unsigned short : 16;
-			cstring version_str;
+			const char *  version_str;
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
@@ -816,7 +816,7 @@ namespace Yelo::Scripting {
 	static void* scripting_game_engine_data_get_integer_evaluate(void** arguments)
 	{
 		struct s_arguments {
-			cstring data_name;
+			const char *  data_name;
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
@@ -1028,7 +1028,7 @@ namespace Yelo::Scripting {
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
-		result.boolean = UIWidgets::DisplayScriptedWidget(args->name);
+		result.boolean = Yelo::UIWidgets::DisplayScriptedWidget(args->name);
 
 		return result.pointer;
 	}
@@ -1040,7 +1040,7 @@ namespace Yelo::Scripting {
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 
 		if(GameState::IsLocal())
-			blam::bink_playback_start(args->name);
+			Yelo::blam::bink_playback_start(args->name);
 
 		return nullptr;
 	}

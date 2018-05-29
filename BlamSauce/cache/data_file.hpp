@@ -25,9 +25,9 @@ namespace Yelo {
 	};
 
 	namespace Cache {
-		constexpr cstring K_DATA_FILE_EXTENSION = ".map";
+		constexpr const char *  K_DATA_FILE_EXTENSION = ".map";
 
-		static cstring DataFileTypeToString(Enums::data_file_type type) {
+		static const char *  DataFileTypeToString(Enums::data_file_type type) {
 			switch (type) {
 				case Enums::_data_file_type_bitmaps:
 					return "bitmaps";
@@ -40,7 +40,7 @@ namespace Yelo {
 			return nullptr;
 		}
 
-		static cstring DataFileTypeToString(Enums::data_file_reference_type type) {
+		static const char *  DataFileTypeToString(Enums::data_file_reference_type type) {
 			return DataFileTypeToString(CAST(Enums::data_file_type, type - Enums::_data_file_reference_bitmaps));
 		}
 
@@ -77,7 +77,7 @@ namespace Yelo {
 			return df.ReadItemData(position, buffer, buffer_size);
 		}
 
-		bool DataFilesOpen(cstring bitmaps_path, cstring sounds_path, cstring locale_path, bool store_resources = false) {
+		bool DataFilesOpen(const char *  bitmaps_path, const char *  sounds_path, const char *  locale_path, bool store_resources = false) {
 			using namespace Enums;
 
 			auto bitm_succ = DataFileGet(_data_file_reference_bitmaps).Open(_data_file_reference_bitmaps, store_resources, bitmaps_path);

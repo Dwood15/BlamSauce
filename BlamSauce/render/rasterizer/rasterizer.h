@@ -1,40 +1,21 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
+#pragma once
 
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-#include "Common/Precompile.hpp"
-#include "Rasterizer/Rasterizer.hpp"
-
-#include <blamlib/Halo1/hs/hs_structures.hpp>
-#include <blamlib/Halo1/interface/ui_video_screen.hpp>
-#include <blamlib/Halo1/models/model_definitions.hpp>
-
-#include "Memory/MemoryInterface.hpp"
-#include "Game/ScriptLibrary.hpp"
-#include "Game/EngineFunctions.hpp"
-#include "Common/GameSystems.hpp"
-#include "Rasterizer/GBuffer.hpp"
-#include "Rasterizer/DX9/DX9.hpp"
-#include "Rasterizer/PostProcessing/PostProcessing.hpp"
-#include "Rasterizer/ShaderExtension/ShaderExtension.hpp"
+#include <YeloLib/Halo1/rasterizer/rasterizer.hpp>
+#include <YeloLib/configuration/c_configuration_container.hpp>
+#include <YeloLib/configuration/c_configuration_value.hpp>
+#include <YeloLib/open_sauce/settings/c_settings_singleton.hpp>
 
 namespace Yelo
 {
 	namespace Rasterizer
 	{
-
-		s_rasterizer_config* RasterizerConfig()			PTR_IMP_GET2(rasterizer_config);
-		s_rasterizer_globals* RasterizerGlobals()		PTR_IMP_GET2(rasterizer_globals);
 #pragma region DebugOptions
-		s_rasterizer_debug_options* DebugOptions()		PTR_IMP_GET2(rasterizer_debug_data);
-
 		struct rasterizer_debug_table
 		{
 			size_t field;
 			uint index;
 		};
+
 		static const rasterizer_debug_table k_rasterizer_debug_table[] = {
 			{offsetof(s_rasterizer_debug_options, stats),									0xC},
 			{offsetof(s_rasterizer_debug_options, mode),									0xD},
@@ -114,55 +95,72 @@ namespace Yelo
 		};
 #pragma endregion
 
-		s_rasterizer_frame_parameters* FrameParameters()	PTR_IMP_GET2(rasterizer_frame_params);
-
-		static char g_screenshot_folder[MAX_PATH] = "screenshots\\";
-		static s_rasterizer_resolution g_resolution_list[64];
-
 #pragma region Settings
-		c_settings_container::c_upgrades_container::c_upgrades_container()
-			: Configuration::c_configuration_container("Upgrades")
-			, m_maximum_rendered_triangles("MaximumRenderedTriangles", true)
-		{ }
-
-		const std::vector<Configuration::i_configuration_value* const> c_settings_container::c_upgrades_container::GetMembers()
+		class c_settings_container : public Configuration::c_configuration_container
 		{
-			return std::vector<Configuration::i_configuration_value* const>
+			class c_upgrades_container : public Configuration::c_configuration_container
 			{
-				&m_maximum_rendered_triangles,
+			public:
+				Configuration::c_configuration_value<bool> m_maximum_rendered_triangles;
+				c_upgrades_container() : Configuration::c_configuration_container("Upgrades")
+					, m_maximum_rendered_triangles("MaximumRenderedTriangles", true) {
+
+				}
+
+			protected:
+				const std::vector<Configuration::i_configuration_value* const> GetMembers() {
+					return std::vector<Configuration::i_configuration_value* const>
+					{
+						&m_maximum_rendered_triangles,
+					};
+				}
 			};
-		}
 
-		c_settings_container::c_settings_container()
-			: Configuration::c_configuration_container("Rasterizer")
-			, m_upgrades()
-		{ }
+		public:
+#if PLATFORM_VERSION <= 0x1090
+			Configuration::c_configuration_value<bool> m_use_nvidia_camo;
+#endif
+			c_upgrades_container m_upgrades;
 
-		const std::vector<Configuration::i_configuration_value* const> c_settings_container::GetMembers()
-		{
-			return std::vector<i_configuration_value* const>
-			{
-				&m_upgrades
-			};
-		}
-		
-		void c_settings_rasterizer::PostLoad()
-		{
-			auto& settings_instance = Get();
-				
-			if(settings_instance.m_upgrades.m_maximum_rendered_triangles)
-			{
-				g_render_upgrades.InitializeRenderedTrianglesUpgrade();
+			c_settings_container() : Configuration::c_configuration_container("Rasterizer"), m_upgrades() { }
+			
+		protected:
+			const std::vector<Configuration::i_configuration_value* const> GetMembers() {
+				return std::vector<i_configuration_value* const>
+				{
+					&m_upgrades
+				};
 			}
-		}
+		};
+
+		class c_settings_rasterizer : public Settings::c_settings_singleton<c_settings_container, c_settings_rasterizer>
+		{
+		public:
+			void PostLoad() {
+				auto& settings_instance = Get();
+
+				if(settings_instance.m_upgrades.m_maximum_rendered_triangles)
+				{
+					g_render_upgrades.InitializeRenderedTrianglesUpgrade();
+				}
+			}
+		};
 #pragma endregion
+
+		struct s_rasterizer_resolution
+		{
+			DWORD			width;
+			DWORD			height;
+			wchar_t			resolution_string[16];
+			DWORD			refresh_rate_count;
+			DWORD			refresh_rates[8];
+		}; static_assert(sizeof(s_rasterizer_resolution) == 0x4C);
 
 		static void InitializeRasterizerGeometryUpgrades()
 		{
 			return; // TODO: WIP code
 
-			GET_PTR(RASTERIZER_DYNAMIC_GEOMETRY_INITIALIZE__CreateIndexBuffer_Length_ARG) =
-				sizeof(struct rasterizer_triangle)*Enums::k_rasterizer_maximum_dynamic_triangles;
+			GET_PTR(RASTERIZER_DYNAMIC_GEOMETRY_INITIALIZE__CreateIndexBuffer_Length_ARG) = sizeof(struct rasterizer_triangle)*Enums::k_rasterizer_maximum_dynamic_triangles;
 		}
 
 		static void SetupResolutions()
@@ -186,7 +184,7 @@ namespace Yelo
 				adapter_mode_index--;
 				D3DDISPLAYMODE display_mode;
 				HRESULT success = DX9::Direct3D9()->EnumAdapterModes(GET_PTR(RASTERIZER_DEVICE_ADAPTER_INDEX), D3DFMT_X8R8G8B8, adapter_mode_index, &display_mode);
-				
+
 				if(!SUCCEEDED(success))
 					continue;
 
@@ -203,7 +201,7 @@ namespace Yelo
 
 		// release direct3D resources before the device is destroyed
 		static void RasterizerDisposeHook()
-		{			
+		{
 			Yelo::Main::s_dx_component* components;
 			const Yelo::long component_count = Yelo::Main::GetDXComponents(components);
 
@@ -218,12 +216,11 @@ namespace Yelo
 #pragma warning( push )
 #pragma warning( disable : 4311 ) // pointer truncation
 #pragma warning( disable : 4312 ) // conversion from 'unsigned long' to 'void *' of greater size
-		void Initialize()
-		{
+		void Initialize() {
 			c_settings_rasterizer::Register(Settings::Manager());
 
 			Render::Initialize();
-		
+
 			// hook the calls to rasterizer_dispose
 			Memory::WriteRelativeCall(&RasterizerDisposeHook, GET_FUNC_VPTR(RASTERIZER_DISPOSE_CALL_FROM_RASTERIZER));
 			Memory::WriteRelativeCall(&RasterizerDisposeHook, GET_FUNC_VPTR(RASTERIZER_DISPOSE_CALL_FROM_SHELL));
@@ -233,12 +230,12 @@ namespace Yelo
 			{
 				// this is the only time we should be modifying the hs definitions
 				// outside of the ScriptLibrary code, so do some cast magic
-				Scripting::hs_global_definition* global_def = CAST_QUAL(Scripting::hs_global_definition*, 
-					&(Scripting::HSExternalGlobals()[rdt.index]) );	// get the hs global definition we're about to fix up
+				Scripting::hs_global_definition* global_def = CAST_QUAL(Scripting::hs_global_definition*,
+																						  &(Scripting::HSExternalGlobals()[rdt.index]) );	// get the hs global definition we're about to fix up
 
 				global_def->address = CAST_PTR(void*, address + rdt.field);// fix the global definition's address to point to the correct memory
 			}
-			
+
 			// update the resolution definition array length
 			// definition count has been increased to 64 so that ridiculous amounts of resolutions in the future are accommodated
 			GET_PTR(RESOLUTION_LIST_COUNT) = NUMBEROF(g_resolution_list);
@@ -270,15 +267,13 @@ namespace Yelo
 		}
 #pragma warning( pop )
 
-		void Dispose()
-		{
+		void Dispose() {
 			Render::Dispose();
-			
+
 			c_settings_rasterizer::Unregister(Settings::Manager());
 		}
 
-		void Update()
-		{
+		void Update() {
 			// only thing that changes is the vertex type (texture or color)
 			// so I just made a global render states function
 			// and put the setFVF (vertex change function) in each class
@@ -317,11 +312,11 @@ namespace Yelo
 
 		void Initialize()
 		{
-			// TODO: If using DX_WRAPPER, refer to the DxWrapper.cpp file 
+			// TODO: If using DX_WRAPPER, refer to the DxWrapper.cpp file
 			// instead of hooking the game render loop
-//#if !defined(DX_WRAPPER)
+			//#if !defined(DX_WRAPPER)
 			Memory::WriteRelativeCall(&Rasterizer::Update, GET_FUNC_VPTR(RENDER_WINDOW_END_HOOK));
-//#endif
+			//#endif
 
 			Memory::WriteRelativeCall(&RenderWindowHook, GET_FUNC_VPTR(RENDER_WINDOW_REFLECTION_CALL), true);
 		}

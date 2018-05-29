@@ -54,8 +54,8 @@ namespace Yelo {
 			proc_finished finished_proc;// optional
 		}; static_assert(sizeof(s_cache_file_request_params) == 0xC);
 
-		extern cstring K_MAP_FILE_EXTENSION; // ".maps"
-		extern cstring K_MAP_FILES_DIRECTORY;// "maps\"
+		const char *  K_MAP_FILE_EXTENSION; // ".maps"
+		const char *  K_MAP_FILES_DIRECTORY;// "maps\"
 
 
 		s_cache_file_globals *CacheFileGlobals();
@@ -68,7 +68,7 @@ namespace Yelo {
 		/// </remarks>
 		///
 		/// <returns>	. </returns>
-		cstring MapsDirectory();
+		const char *  MapsDirectory();
 
 		// if true, data which is in a data file won't be loaded during the cache_file's tags load process
 		bool DontLoadExternalData();
@@ -97,9 +97,9 @@ namespace Yelo {
 
 		void __cdecl cache_file_geometry_cache_for_bsp_close(TagGroups::structure_bsp_header *bsp_header);
 
-		bool __cdecl cache_file_header_verify(Cache::s_cache_header *header, cstring scenario_name, bool critical);
+		bool __cdecl cache_file_header_verify(Cache::s_cache_header *header, const char *  scenario_name, bool critical);
 
-		datum_index cache_file_tags_load(cstring scenario_name);
+		datum_index cache_file_tags_load(const char *  scenario_name);
 
 		void cache_file_tags_unload();
 
@@ -111,13 +111,13 @@ namespace Yelo {
 
 namespace Yelo {
 	namespace Cache {
-		cstring K_MAP_FILE_EXTENSION  = ".map";
-		cstring K_MAP_FILES_DIRECTORY = R"(maps\)";
+		const char *  K_MAP_FILE_EXTENSION  = ".map";
+		const char *  K_MAP_FILES_DIRECTORY = R"(maps\)";
 
 		// this bool is actually defined in the engine, but the only reference is in the cache_file's tags load process
 		static bool g_dont_load_external_data;
 
-		constexpr cstring MapsDirectory() { return K_MAP_FILES_DIRECTORY; }
+		constexpr const char *  MapsDirectory() { return K_MAP_FILES_DIRECTORY; }
 
 		inline bool DontLoadExternalData() { return g_dont_load_external_data; }
 
@@ -165,7 +165,7 @@ namespace Yelo {
 			return true;
 		}
 
-		short s_cache_file_globals::FindMapFileIndexByName(cstring scenario_name) {
+		short s_cache_file_globals::FindMapFileIndexByName(const char *  scenario_name) {
 			for (short map_file_index = 0; map_file_index < std::size(map_files); map_file_index++) {
 				if (!_stricmp(scenario_name, map_files[map_file_index].header.name))
 					return map_file_index;
@@ -174,7 +174,7 @@ namespace Yelo {
 			return NONE;
 		}
 
-		bool s_cache_file_globals::OpenMapFileOpen(cstring scenario_name, s_cache_header *header) {
+		bool s_cache_file_globals::OpenMapFileOpen(const char *  scenario_name, s_cache_header *header) {
 			assert(scenario_name);
 			assert(header);
 			assert(open_map_file_index == NONE);
@@ -284,7 +284,7 @@ namespace Yelo {
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 		}
 
-		bool __cdecl cache_file_header_verify(Cache::s_cache_header *header, cstring scenario_name, bool critical) {
+		bool __cdecl cache_file_header_verify(Cache::s_cache_header *header, const char *  scenario_name, bool critical) {
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 
 			return false;
@@ -360,7 +360,7 @@ namespace Yelo {
 			}
 		}
 
-		datum_index cache_file_tags_load(cstring scenario_name) {
+		datum_index cache_file_tags_load(const char *  scenario_name) {
 			auto &cache_file_globals  = *CacheFileGlobals();
 			YELO_ASSERT_DISPLAY(false, "this isn't implemented yet");
 

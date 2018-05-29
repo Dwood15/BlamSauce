@@ -16,7 +16,7 @@ namespace Yelo
 {
 	namespace Objects { namespace Units { namespace Animations
 	{
-		API_FUNC_NAKED bool __cdecl UnitAnimationStateInterruptable()
+		__declspec(naked) bool __cdecl UnitAnimationStateInterruptable()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -33,7 +33,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool __cdecl UnitAnimationBusy()
+		__declspec(naked) bool __cdecl UnitAnimationBusy()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -49,7 +49,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool __cdecl UnitAnimationStateLoops()
+		__declspec(naked) bool __cdecl UnitAnimationStateLoops()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -65,7 +65,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool __cdecl UnitAnimationWeaponIK()
+		__declspec(naked) bool __cdecl UnitAnimationWeaponIK()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -81,7 +81,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool __cdecl UnitAnimationVehicleIK()
+		__declspec(naked) bool __cdecl UnitAnimationVehicleIK()
 		{
 			API_FUNC_NAKED_START()
 				push	edx
@@ -97,7 +97,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void AnimationStateDefinedKeyframeHook()
+		__declspec(naked) void AnimationStateDefinedKeyframeHook()
 		{
 			static uintptr_t STOCK_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_DEFINED_KEYFRAME_STOCK_RETN);
 			static uintptr_t SKIP_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_DEFINED_KEYFRAME_SKIP_RETN);
@@ -128,7 +128,7 @@ namespace Yelo
 			};
 		}
 	
-		API_FUNC_NAKED void AnimationStateFinalKeyframeHook()
+		__declspec(naked) void AnimationStateFinalKeyframeHook()
 		{
 			static uintptr_t STOCK_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_FINAL_KEYFRAME_STOCK_RETN);
 			static uintptr_t SKIP_ANIMATION_RETN = GET_FUNC_PTR(ANIMATION_STATE_FINAL_KEYFRAME_SKIP_RETN);

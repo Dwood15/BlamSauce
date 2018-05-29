@@ -27,7 +27,7 @@ static bool CacheFileReadHeaderHookImpl(cstring relative_map_name, s_cache_heade
 	return ReadHeaderThunk(relative_map_name, out_header, yelo_is_ok, exception_on_fail);
 }
 
-static API_FUNC_NAKED bool __cdecl CacheFileReadHeadeHook()
+static __declspec(naked) bool __cdecl CacheFileReadHeadeHook()
 {
 	__asm {
 		// eax (client), ecx (dedi) = relative_map_name

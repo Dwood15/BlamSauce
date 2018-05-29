@@ -28,7 +28,7 @@ namespace Yelo {
 		ai_communication_reply_events_t& AICommunicationReplies()	DPTR_IMP_GET_BYREF(ai_communication_replies);
 		ai_conversation_data_t& AIConversations()					DPTR_IMP_GET_BYREF(ai_conversations);
 
-		API_FUNC_NAKED void ActorActionHandleVehicleExitHook()
+		__declspec(naked) void ActorActionHandleVehicleExitHook()
 		{
 			static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(ACTOR_ACTION_HANDLE_VEHICLE_EXIT_RETN);
 
@@ -55,7 +55,7 @@ namespace Yelo {
 			};
 		}
 
-		API_FUNC_NAKED void PropStatusRefreshHook()
+		__declspec(naked) void PropStatusRefreshHook()
 		{
 			static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(PROP_STATUS_REFRESH_RETN);
 
@@ -78,7 +78,7 @@ namespace Yelo {
 			}
 		}
 
-		API_FUNC_NAKED void ActorInputUpdateHook()
+		__declspec(naked) void ActorInputUpdateHook()
 		{
 			static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(ACTOR_INPUT_UPDATE_RETN);
 

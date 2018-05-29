@@ -35,7 +35,7 @@ namespace render_objects_mods
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Hook for object_new that sets the shadow casting flag. </summary>
-	static API_FUNC_NAKED void ObjectNewSetShadowFlag_Hook()
+	static __declspec(naked) void ObjectNewSetShadowFlag_Hook()
 	{
 		static uintptr_t RETN_ADDRESS = GET_FUNC_PTR(OBJECT_NEW_SET_SHADOW_FLAG_RETN);
 

@@ -29,6 +29,6 @@ namespace Yelo
 
 	namespace blam
 	{
-		extern cstring g_actor_type_names[Enums::k_number_of_actor_types];
+		extern const char *  g_actor_type_names[Enums::k_number_of_actor_types];
 	};
 };

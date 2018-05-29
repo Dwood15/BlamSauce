@@ -88,7 +88,7 @@ namespace Yelo
 		{
 			return true;
 		}
-		static API_FUNC_NAKED bool __cdecl NetworkGameClientGameSettingsUpdatedCallHook(const Networking::s_network_game* settings)
+		static __declspec(naked) bool __cdecl NetworkGameClientGameSettingsUpdatedCallHook(const Networking::s_network_game* settings)
 		{
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_CLIENT_GAME_SETTINGS_UPDATED);
 
@@ -188,7 +188,7 @@ skip_hook:
 		}
 
 		// Hooks the network_game_client_handle_message_delta_message_body function to allow us to intercept our own packets
-		API_FUNC_NAKED static void __cdecl NetworkGameClientHandleMessageDeltaMessageBodyEx()
+		__declspec(naked) static void __cdecl NetworkGameClientHandleMessageDeltaMessageBodyEx()
 		{
 			static const uintptr_t TEMP_ASM_ADDR = GET_DATA_PTR(DONT_SEND_OBJECT_NEW_MSG);
 
@@ -234,7 +234,7 @@ the_end:
 
 
 #pragma region MdpiEncode
-		API_FUNC_NAKED long MdpiEncode(long_enum mode, long_enum definition_type,
+		__declspec(naked) long MdpiEncode(long_enum mode, long_enum definition_type,
 			const void* buffer, size_t buffer_size_in_bits, 
 			const void** headers, const void** datas, const void** baselines, 
 			long iterations, long unk)
@@ -274,7 +274,7 @@ the_end:
 		}
 
 #pragma region DecodeStatelessIterated
-		API_FUNC_NAKED bool DecodeStatelessIterated(message_dependant_header* header, void* destination_data)
+		__declspec(naked) bool DecodeStatelessIterated(message_dependant_header* header, void* destination_data)
 		{
 			static const uintptr_t FUNCTION = GET_FUNC_PTR(MDP_DECODE_STATELESS_ITERATED);
 
@@ -286,7 +286,7 @@ the_end:
 		}
 #pragma endregion
 
-		API_FUNC_NAKED bool DecodeIncrementalIterated(message_dependant_header* header, void* destination_data, 
+		__declspec(naked) bool DecodeIncrementalIterated(message_dependant_header* header, void* destination_data,
 			void* baseline_data, bool has_no_iteration_body)
 		{
 			static const uintptr_t FUNCTION = GET_FUNC_PTR(MDP_DECODE_INCREMENTAL_ITERATED);
@@ -303,7 +303,7 @@ the_end:
 		}
 
 #pragma region DiscardIterationBody
-		API_FUNC_NAKED void DiscardIterationBody(message_dependant_header* header)
+		__declspec(naked) void DiscardIterationBody(message_dependant_header* header)
 		{
 			static const uintptr_t FUNCTION = GET_FUNC_PTR(MDP_DISCARD_ITERATION_BODY);
 

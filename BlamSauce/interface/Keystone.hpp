@@ -173,7 +173,7 @@ namespace Yelo::Keystone {
 	// Keystone - Get Window
 	// [keystone] - Parent Window ptr (can be NULL?)
 	// [child] - name of the child window
-	API_FUNC_NAKED void *GetWindow(void *keystone, wcstring child) {
+	__declspec(naked) void *GetWindow(void *keystone, wcstring child) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KS_GETWINDOW);
 
 		API_FUNC_NAKED_START()
@@ -184,7 +184,7 @@ namespace Yelo::Keystone {
 		API_FUNC_NAKED_END_CDECL(2)
 	}
 
-	API_FUNC_NAKED void WindowRelease(void *handle) {
+	__declspec(naked) void WindowRelease(void *handle) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KW_RELEASE);
 
 		API_FUNC_NAKED_START()
@@ -197,7 +197,7 @@ namespace Yelo::Keystone {
 	// Keystone Window - Get Control By ID
 	// [window] - parent of the control
 	// [id] - name of the control
-	API_FUNC_NAKED void *WindowGetControlByID(void *window, wcstring id) {
+	__declspec(naked) void *WindowGetControlByID(void *window, wcstring id) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KW_GETCONTROLBYID);
 
 		API_FUNC_NAKED_START()
@@ -208,7 +208,7 @@ namespace Yelo::Keystone {
 		API_FUNC_NAKED_END_CDECL(2)
 	}
 
-	API_FUNC_NAKED                LRESULT
+	__declspec(naked)                LRESULT
 
 	ControlSendMessage(void *control, uint msg, WPARAM wParam, LPARAM lParam) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KC_SENDMESSAGE);
@@ -223,7 +223,7 @@ namespace Yelo::Keystone {
 		API_FUNC_NAKED_END_CDECL(4)
 	}
 
-	API_FUNC_NAKED                uint
+	__declspec(naked)                uint
 
 	KsTranslateAccelerator(void *arg0, HANDLE window_handle, void *arg2, const MSG *message) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KS_TRANSLATEACCELERATOR);

@@ -8,6 +8,7 @@
 #include "../../network/connections.hpp"
 #include "../../game/state.h"
 #include "../../render/rasterizer/geometry.hpp"
+#include "../../cseries/base.h"
 
 // How much more memory we're adding.
 // 50%

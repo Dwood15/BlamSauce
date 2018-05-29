@@ -12,7 +12,7 @@
 	__asm _emit NAKED_FUNC_WRITER_EMIT_EOF_CHAR
 
 #define NAKED_FUNC_WRITER_ASM_BEGIN(func_name)	\
-	API_FUNC_NAKED void __cdecl func_name ()	\
+	__declspec(naked) void __cdecl func_name ()	\
 	{											\
 		__asm {
 #define NAKED_FUNC_WRITER_ASM_END()				\

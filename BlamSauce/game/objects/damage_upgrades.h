@@ -20,7 +20,7 @@ namespace Yelo::Objects {
 		vector.k *= distance_from_object.k;
 	}
 
-	API_FUNC_NAKED static void __cdecl ObjectDamageAftermath_CalculateAccelerationHook() {
+	__declspec(naked) static void __cdecl ObjectDamageAftermath_CalculateAccelerationHook() {
 		using namespace Enums;
 
 		__asm {
@@ -53,7 +53,7 @@ namespace Yelo::Objects {
 		return (lte_eps && gte_eps_neg);
 	}
 
-	API_FUNC_NAKED static void __cdecl ObjectDamageAftermath_UnitValidateInstantaneousAccelerationHook() {
+	__declspec(naked) static void __cdecl ObjectDamageAftermath_UnitValidateInstantaneousAccelerationHook() {
 		__asm {
 		push   ecx // object type
 

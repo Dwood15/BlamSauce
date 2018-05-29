@@ -1,11 +1,4 @@
 /*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-
-/*
 	User Add-on
 		Component: ShaderExtension
 		Original Author: FireScythe
@@ -18,7 +11,6 @@
 	also have per pixel lighting applied when used on a model.
 */
 #pragma once
-#include <blamlib/Halo1/shaders/shader_definitions.hpp>
 
 namespace Yelo
 {

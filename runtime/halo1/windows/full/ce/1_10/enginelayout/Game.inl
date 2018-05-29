@@ -11,6 +11,13 @@
 #include "../../../../../../../BlamSauce/ai/ai_structures.h"
 #include "../../../../../../../BlamSauce/ai/prop_structures.h"
 #include "../../../../../../../BlamSauce/ai/encounters.h"
+#include "../../../../../../../BlamSauce/game/engines/engine_ctf.hpp"
+#include "../../../../../../../BlamSauce/game/engines/engine_race.hpp"
+#include "../../../../../../../BlamSauce/game/engines/engine_king.hpp"
+#include "../../../../../../../BlamSauce/game/engines/engine_oddball.hpp"
+#include "../../../../../../../BlamSauce/game/engines/engine_slayer.hpp"
+#include "../../../../../../../BlamSauce/game/engines/variants.h"
+#include "../../../../../../../BlamSauce/game/engines/engine.hpp"
 
 #ifdef ENGINE_DPTR
 #undef ENGINE_DPTR
@@ -180,16 +187,16 @@ static auto const CONSOLE_UPDATE_HOOK = 0x4C9A63;
 static auto **const contrails = reinterpret_cast<contrail_data_t **>(0x81610C);;
 static auto **const contrail_points = reinterpret_cast<contrail_point_data_t **>(0x816108);;
 static auto **const particles = reinterpret_cast<particle_data_t **>(0x8160F0);;
-static auto **const effects = reinterpret_cast<effect_data_t **>(0x8160FC);;
-static auto **const effect_locations = reinterpret_cast<effect_location_data_t **>(0x816100);;
+static auto **const effects = reinterpret_cast<Yelo::Effects::effect_data_t **>(0x8160FC);;
+static auto **const effect_locations = reinterpret_cast<Yelo::Effects::effect_location_data_t **>(0x816100);;
 static auto **const particle_systems = reinterpret_cast<particle_systems_data_t **>(0x8160F8);;
 static auto **const particle_system_particles = reinterpret_cast<particle_system_particles_data_t **>(0x8160F4);;
-static auto **const structure_detail_objects = reinterpret_cast<s_structure_detail_objects_data **>(0x6BDA4C);;
-static auto **const structure_decals = reinterpret_cast<s_structure_decals_data **>(0x6BDA5C);;
-static auto **const breakable_surface_globals = reinterpret_cast<s_breakable_surface_globals_data **>(0x653CA8);;
-static auto **const decals = reinterpret_cast<decals_data_t **>(0x816104);;
-static auto **const decal_globals = reinterpret_cast<s_decal_globals_data **>(0x64BA08);;
-static auto **const decal_vertex_cache = reinterpret_cast<s_decal_vertex_cache_data **>(0x6B8458);;
+static auto **const structure_detail_objects = reinterpret_cast<Yelo::Effects::s_structure_detail_objects_data **>(0x6BDA4C);;
+static auto **const structure_decals = reinterpret_cast<Yelo::Effects::s_structure_decals_data **>(0x6BDA5C);;
+static auto **const breakable_surface_globals = reinterpret_cast<Yelo::Effects::s_breakable_surface_globals_data **>(0x653CA8);;
+static auto **const decals = reinterpret_cast<Yelo::Effects::decals_data_t **>(0x816104);;
+static auto **const decal_globals = reinterpret_cast<Yelo::Effects::s_decal_globals_data **>(0x64BA08);;
+static auto **const decal_vertex_cache = reinterpret_cast<Yelo::Effects::s_decal_vertex_cache_data **>(0x6B8458);;
 
 static auto const EFFECTS_UPDATE_HOOK = 0x451487;
 
@@ -216,7 +223,7 @@ static auto const GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_PARTICLE_SYSTEM_PARTICLES 
 static auto *const game_build_version = reinterpret_cast<char *>(0x60A370);;
 static auto *const game_build_version_gamespy = reinterpret_cast<char *>(K_GAME_BUILD_VERSION_GAMESPY);;
 
-static auto *const network_version_id1 = reinterpret_cast<Enums::network_game_protocol_id *>(0x4DC196);;
+static auto *const network_version_id1 = reinterpret_cast<Yelo::Enums::network_game_protocol_id *>(0x4DC196);;
 static auto *const network_version_id2 = reinterpret_cast<Enums::network_game_protocol_id *>(0x4DC373);;
 static auto *const network_version_id3 = reinterpret_cast<Enums::network_game_protocol_id *>(0x4E3CF3);;
 
@@ -229,16 +236,16 @@ static auto const GAME_STATE_HEADER_TRY_AND_LOAD_HOOK_RET_FALSE = 0x53B6B9;
 
 //////////////////////////////////////////////////////////////////////////
 // GameEngine.cpp
-static auto *const ctf_globals = reinterpret_cast<s_ctf_globals *>(0x64BDB8);;
-static auto *const slayer_globals = reinterpret_cast<s_slayer_globals *>(0x64C308);;
-static auto *const oddball_globals = reinterpret_cast<s_oddball_globals *>(0x64C078);;
-static auto *const king_globals = reinterpret_cast<s_king_globals *>(0x64BDF0);;
-static auto *const race_globals = reinterpret_cast<s_race_globals *>(0x64C1C0);;
+static auto *const ctf_globals = reinterpret_cast<Yelo::GameEngine::s_ctf_globals *>(0x64BDB8);;
+static auto *const slayer_globals = reinterpret_cast<Yelo::GameEngine::s_slayer_globals *>(0x64C308);;
+static auto *const oddball_globals = reinterpret_cast<Yelo::GameEngine::s_oddball_globals *>(0x64C078);;
+static auto *const king_globals = reinterpret_cast<Yelo::GameEngine::s_king_globals *>(0x64BDF0);;
+static auto *const race_globals = reinterpret_cast<Yelo::GameEngine::s_race_globals *>(0x64C1C0);;
 
-static auto *const global_variant = reinterpret_cast<s_game_variant *>(0x68CC48);;
+static auto *const global_variant = reinterpret_cast<Yelo::GameEngine::s_game_variant *>(0x68CC48);;
 
-static auto **const game_engines = reinterpret_cast<game_engine_definition **>(0x6238C8);;
-static auto **const game_engine = reinterpret_cast<game_engine_definition **>(0x68CD24);;
+static auto **const game_engines = reinterpret_cast<Yelo::GameEngine::game_engine_definition **>(0x6238C8);;
+static auto **const game_engine = reinterpret_cast<Yelo::GameEngine::game_engine_definition **>(0x68CD24);;
 
 	#pragma region New Engines functions
 	//////////////////////////////////////////////////////////////////////////
@@ -258,7 +265,7 @@ static auto *const Func4F7580JmpPtr = reinterpret_cast<void ***>(0x4F7343);;
 
 	//////////////////////////////////////////////////////////////////////////
 	// Initialize()
-	static auto *const game_engine_init_mod = reinterpret_cast<game_engine_definition ***>(0x45CC94);
+	static auto *const game_engine_init_mod = reinterpret_cast<Yelo::GameEngine::game_engine_definition ***>(0x45CC94);
 	#pragma endregion
 
 static auto const GAME_ENGINE_INITIALIZE_FOR_NEW_MAP_HOOK = 0x45CDC8;
@@ -287,7 +294,7 @@ static auto const GAME_ENGINE_UPDATE_HOOK = 0x460D51;
 		0x53B7A4,
 	};
 
-static auto *const main_globals = reinterpret_cast<s_main_globals *>(0x6B4798);
+static auto *const main_globals = reinterpret_cast<Yelo::GameEngine::s_main_globals *>(0x6B4798);
 
 static auto *const physical_memory_globals = reinterpret_cast<s_physical_memory_map_globals *>(0x647458);
 static auto const PHYSICAL_MEMORY_INITIALIZE = 0x445230;

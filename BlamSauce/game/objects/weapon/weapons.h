@@ -91,7 +91,7 @@ namespace Yelo::Objects::Weapon {
 
 	public:
 		c_settings_container::c_weapon_position *GetCurrentPreset(datum_index &return_weapon_index, cstring &return_name) {
-			return_weapon_index = datum_index::null;
+			return_weapon_index = datum_index::null();
 			return_name         = GetCurrentWeaponName(return_weapon_index);
 
 			auto &settings_instance = c_settings_weapons::Instance().Get();

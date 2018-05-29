@@ -147,7 +147,11 @@ namespace Yelo {
 
 			datum_index GetVehicleIndex();
 
-			s_player_yelo_server_data &GetYeloServerData();
+			s_player_yelo_server_data &GetYeloServerData() {
+				assert(GameState::IsServer());
+
+				return server.yelo_data;
+			}
 		};
 
 		static_assert(sizeof(s_player_datum) == 0x200); // 0x160 in Stubbs

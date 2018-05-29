@@ -14,6 +14,7 @@
 #include "../../math/integer_math.h"
 #include "../../models/model_definitions.hpp"
 #include "../constants.hpp"
+#include "../../math/matrix_math.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -56,7 +57,7 @@ namespace Yelo {
 			const FLOAT transparent_decal_slope_z_bias_value;
 		};
 
-		s_rasterizer_config *RasterizerConfig(); // defined in the project implementation
+		s_rasterizer_config* RasterizerConfig()			PTR_IMP_GET2(rasterizer_config);
 
 
 		struct s_rasterizer_globals {
@@ -94,7 +95,7 @@ namespace Yelo {
 
 		static_assert(sizeof(s_rasterizer_globals) == 0x60);
 
-		s_rasterizer_globals *RasterizerGlobals(); // defined in the project implementation
+		s_rasterizer_globals* RasterizerGlobals()		PTR_IMP_GET2(rasterizer_globals);
 
 
 		struct s_rasterizer_window_parameters {
@@ -206,7 +207,7 @@ namespace Yelo {
 			real  f5;
 		}; static_assert(sizeof(s_rasterizer_debug_options) == 0x90);
 
-		s_rasterizer_debug_options *DebugOptions(); // defined in the project implementation
+		s_rasterizer_debug_options* DebugOptions()		PTR_IMP_GET2(rasterizer_debug_data);
 
 		struct s_rasterizer_frame_parameters {
 			double elapsed_time;
@@ -220,7 +221,9 @@ namespace Yelo {
 			1);
 		};
 
-		s_rasterizer_frame_parameters *FrameParameters(); // defined in the project implementation
+		s_rasterizer_frame_parameters* FrameParameters()	PTR_IMP_GET2(rasterizer_frame_params);
+		static char g_screenshot_folder[MAX_PATH] = "screenshots\\";
+		static s_rasterizer_resolution g_resolution_list[64];
 	};
 };
 namespace Yelo::Rasterizer {

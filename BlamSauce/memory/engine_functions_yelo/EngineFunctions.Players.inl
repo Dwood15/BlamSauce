@@ -2,7 +2,7 @@ datum_index IndexFromUnitIndex(datum_index unit_index)
 {
 	static const uintptr_t TEMP_CALL_ADDR = GET_FUNC_PTR(PLAYER_INDEX_FROM_UNIT_INDEX);
 
-	if(unit_index.IsNull()) return datum_index::null;
+	if(unit_index.IsNull()) return datum_index::null();
 
 	__asm {
 		push	unit_index
@@ -58,7 +58,7 @@ datum_index FindClosestPlayerIndex(datum_index player_index)
 {
 	static uint TEMP_CALL_ADDR = GET_FUNC_PTR(FIND_CLOSEST_PLAYER_INDEX);
 
-	if(player_index.IsNull()) return datum_index::null;
+	if(player_index.IsNull()) return datum_index::null();
 
 	__asm {
 		push	player_index

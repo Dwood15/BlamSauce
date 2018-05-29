@@ -40,8 +40,8 @@ namespace Yelo {
 
 	namespace Cache {
 		struct s_build_cache_file_globals {
-			static cstring k_temp_cache_file_name;
-			static cstring k_cache_file_extension;
+			static const char *  k_temp_cache_file_name;
+			static const char *  k_cache_file_extension;
 
 			bool       building;
 			char       scenario_name[Enums::k_max_tag_name_length + 1];
@@ -57,11 +57,11 @@ namespace Yelo {
 
 			bool WriteToFile(const void *buffer, long buffer_size);
 
-			bool TemporaryFileOpen(cstring filename = k_temp_cache_file_name);
+			bool TemporaryFileOpen(const char *  filename = k_temp_cache_file_name);
 
-			void TemporaryFileClose(cstring filename = k_temp_cache_file_name);
+			void TemporaryFileClose(const char *  filename = k_temp_cache_file_name);
 
-			bool TemporaryFileCopy(cstring new_filename, cstring filename = k_temp_cache_file_name);
+			bool TemporaryFileCopy(const char *  new_filename, cstring filename = k_temp_cache_file_name);
 
 			void ScenarioNameToCacheFilePath(_Out_ std::string &cache_file_path);
 		};
@@ -360,8 +360,7 @@ namespace Yelo::blam {
 		return true;
 	}
 
-	void build_cache_file_for_scenario(cstring scenario_path,
-												  byte_flags begin_flags) {
+	void build_cache_file_for_scenario(cstring scenario_path, byte_flags begin_flags) {
 		cstring scenario_name = tag_name_strip_path(scenario_path);
 
 		void *scratch = YELO_MALLOC(k_build_cache_file_scratch_buffer_size, false);
@@ -493,8 +492,9 @@ namespace Yelo::Cache {
 		datum_index globals_index = blam::tag_load<TagGroups::s_game_globals>(Scenario::K_GAME_GLOBALS_TAG_NAME,
 																									 FLAG(Flags::_tag_load_from_file_system_bit) | FLAG(Flags::_tag_load_non_resolving_references_bit));
 		// the engine code returns true even if the tags fail to load
-		if (globals_index.IsNull())
+		if (globals_index.IsNull()){
 			return true;
+		}
 
 		FixGameGlobals(globals_index, scenario->type);
 		// the child of the globals tags can now be loaded, as all unnecessary references have been cleared

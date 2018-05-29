@@ -29,7 +29,7 @@ static void MapListInitialize()
 	MapListInitializeYelo();
 }
 
-API_FUNC_NAKED void MapListReIntialize()
+__declspec(naked) void MapListReIntialize()
 {
 	static const uintptr_t DISPOSE = GET_FUNC_PTR(MULTIPLAYER_MAP_LIST_DISPOSE);
 

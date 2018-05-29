@@ -51,7 +51,7 @@ namespace Yelo {
 			unsigned char : 8; unsigned short : 16;
 			count_w_size item_hits;
 			count_w_size item_adds_or_misses;
-			cstring      name;
+			const char *       name;
 			HANDLE       file_handle;
 
 		private:
@@ -130,7 +130,7 @@ namespace Yelo {
 
 			// full_path should NOT be allocated on the stack, as it will become the value of 'name'
 			// TODO: OpenForEdit and OpenForRead
-			bool Open(Enums::data_file_reference_type data_file, bool store_resources, cstring full_path) {
+			bool Open(Yelo::Enums::data_file_reference_type data_file, bool store_resources, const char *  full_path) {
 				memset(this, 0, sizeof(*this));
 				this->name     = full_path;
 				this->writable = store_resources;
@@ -211,7 +211,7 @@ namespace Yelo {
 
 			// #if PLATFORM_IS_EDITOR && PLATFORM_TYPE == PLATFORM_TOOL
 		private:
-			long AddItemName(cstring item_name) {
+			long AddItemName(const char *  item_name) {
 				assert(item_name);
 				assert(writable);
 
@@ -233,7 +233,7 @@ namespace Yelo {
 				return name_offset;
 			}
 
-			long AddNewItem(cstring item_name) {
+			long AddNewItem(const char *  item_name) {
 				assert(item_name);
 				assert(writable);
 
@@ -250,12 +250,12 @@ namespace Yelo {
 				return item_index;
 			}
 
-			long GetItemIndex(cstring item_name) const {
+			long GetItemIndex(const char *  item_name) const {
 				assert(item_name);
 
 				for (int x = 0; x < header.tag_count; x++) {
 					long   name_offset = file_index_table.address[x].name_offset;
-					cstring name        = reinterpret_cast<cstring>(file_names.AsByteBuffer() + name_offset);
+					const char *  name        = reinterpret_cast<const char * >(file_names.AsByteBuffer() + name_offset);
 
 					if (!_stricmp(name, item_name))
 						return x;
@@ -265,7 +265,7 @@ namespace Yelo {
 			}
 
 		public:
-			long AddItem(cstring item_name, void *item_buffer, long item_buffer_size) {
+			long AddItem(const char *  item_name, void *item_buffer, long item_buffer_size) {
 				assert(item_name && item_buffer); // NOTE: engine doesn't verify buffer pointer
 
 				long item_index = GetItemIndex(item_name);
@@ -302,7 +302,7 @@ namespace Yelo {
 				return file_index_table.address[item_index].data_offset;
 			}
 
-			static void DeleteForCopy(cstring file) {
+			static void DeleteForCopy(const char *  file) {
 				BOOL delete_result = DeleteFileA((LPCSTR) file);
 				if (delete_result == ERROR_ACCESS_DENIED)
 					printf_s("Could not delete %s for copy\n", file);

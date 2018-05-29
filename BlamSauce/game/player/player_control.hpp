@@ -3,10 +3,45 @@
 #include <precompile.h>
 #include "../../math/real_math.h"
 #include "../objects/units/unit_camera.hpp"
+#include "player_structures.hpp"
 
-namespace Yelo
-{
-	namespace Players
+namespace Yelo::Enums {
+	enum {
+		k_player_name_length = 11,
+	};
+
+	enum player_powerup {
+		_player_powerup_active_camo,
+		_player_powerup_full_spectrum_vision,
+
+		k_number_of_player_powerups,
+	};
+
+	enum multiplayer_team {
+		_multiplayer_team_red,
+		_multiplayer_team_blue,
+
+		k_number_of_multiplayer_teams,
+	};
+};
+
+namespace Yelo::Players {
+
+	typedef Memory::DataArray <s_player_datum, Enums::k_multiplayer_maximum_players_upgrade> players_data_t;
+	typedef Memory::DataArray <s_team_datum, Enums::k_multiplayer_maximum_teams>             teams_data_t;
+
+	players_data_t& Players()										DPTR_IMP_GET_BYREF(players);
+
+	teams_data_t& Teams()											DPTR_IMP_GET_BYREF(teams);
+
+
+	s_players_globals_data* PlayersGlobals()						DPTR_IMP_GET(players_globals);
+
+	// [k_multiplayer_maximum_players][k_maximum_number_of_local_players]
+	datum_index* MachineToPlayerTable()								PTR_IMP_GET2(machine_to_player_table);
+};
+
+namespace Yelo::Players
 	{
 		struct s_player_control
 		{
@@ -48,11 +83,10 @@ namespace Yelo
 			real_point3d position;
 		}; static_assert( sizeof(s_unit_camera_info) == 0x18 );
 
-		s_player_control_globals_data*	PlayerControlGlobals();
+		s_player_control_globals_data* PlayerControlGlobals()			DPTR_IMP_GET(player_control_globals);
 	};
 
-	namespace blam
+	namespace Yelo::blam
 	{
 		void __cdecl player_control_get_unit_camera_info(const short player_index, Players::s_unit_camera_info& camera_info);
 	};
-};

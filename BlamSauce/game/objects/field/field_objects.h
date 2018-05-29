@@ -199,7 +199,7 @@ namespace Yelo::Objects {
 		return true;
 	}
 
-	API_FUNC_NAKED static void ObjectDepleteBodyKillChildHook() {
+	__declspec(naked) static void ObjectDepleteBodyKillChildHook() {
 		static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(OBJECT_DEPLETE_BODY_KILL_CHILD_RETN);
 
 		_asm

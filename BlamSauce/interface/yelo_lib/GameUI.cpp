@@ -88,7 +88,7 @@ namespace Yelo
 		}
 		static datum_index FirstPersonWeaponGetAnimationGraphIndex(s_first_person_weapon* fp_weapon)
 		{
-			datum_index anim_graph_index = datum_index::null;
+			datum_index anim_graph_index = datum_index::null();
 
 			TagGroups::s_weapon_definition const* weapon = FirstPersonWeaponGetWeaponDefinition(fp_weapon);
 
@@ -110,7 +110,7 @@ namespace Yelo
 			*fp_weapon->GetAnimationState() = animation_state;
 			fp_weapon->GetCurrentAnimation()->animation_index = animation_current_index;
 		}
-		API_FUNC_NAKED static void __cdecl FirstPersonWeaponSetStateHook()
+		__declspec(naked) static void __cdecl FirstPersonWeaponSetStateHook()
 		{
 			API_FUNC_NAKED_START_()
 				push	edi
@@ -146,7 +146,7 @@ namespace Yelo
 			Hud::Dispose();
 		}
 
-		API_FUNC_NAKED void __cdecl Update()
+		__declspec(naked) void __cdecl Update()
 		{
 			static const uintptr_t HUD_UPDATE = GET_FUNC_PTR(HUD_UPDATE);
 
@@ -158,7 +158,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl FirstPersonWeaponsUpdate()
+		__declspec(naked) void __cdecl FirstPersonWeaponsUpdate()
 		{
 			static const uintptr_t FIRST_PERSON_WEAPONS_UPDATE = GET_FUNC_PTR(FIRST_PERSON_WEAPONS_UPDATE);
 
@@ -198,7 +198,7 @@ namespace Yelo
 			else
 			{
 				Players::s_player_datum* src_player = Players::GetPlayerFromNumber(src_player_number);
-				datum_index src_player_vehicle_index = datum_index::null;
+				datum_index src_player_vehicle_index = datum_index::null();
 				if(src_player != nullptr) src_player_vehicle_index = src_player->GetVehicleIndex();
 
 				for(auto player : Players::Players())

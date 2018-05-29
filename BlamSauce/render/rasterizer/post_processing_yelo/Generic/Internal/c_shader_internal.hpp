@@ -35,7 +35,7 @@ namespace Yelo
 
 				m_members_internal.shader_name = NULL;
 				m_members_internal.shader_source_data = NULL;
-				m_members_internal.shader_tag_index = datum_index::null;
+				m_members_internal.shader_tag_index = datum_index::null();
 			}
 
 			void Dtor()
@@ -46,7 +46,7 @@ namespace Yelo
 				m_members_internal.shader_source_data->Dtor();
 				delete m_members_internal.shader_source_data;
 				m_members_internal.shader_source_data = NULL;
-				m_members_internal.shader_tag_index = datum_index::null;
+				m_members_internal.shader_tag_index = datum_index::null();
 			}
 
 			/////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 #pragma once
 
+#include "base.h"
 #include <precompile.h>
-
 #include "../memory/datum_index.h"
 
 extern const errno_t k_errnone;
@@ -89,7 +89,7 @@ namespace Yelo {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Tests whether an ASCII string is NULL or begins with a null terminator </summary>
-	inline bool is_null_or_empty(cstring const str) { return str == nullptr || str[0] == '\0'; }
+	inline bool is_null_or_empty(const char* const str) { return str == nullptr || str[0] == '\0'; }
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Tests whether an ASCII string buffer begins with a null terminator </summary>
@@ -414,7 +414,7 @@ namespace Yelo {
 		}
 	};
 
-	cstring BooleanToString(bool value) {
+	const char * BooleanToString(bool value) {
 		return value ? "true" : "false";
 	}
 
@@ -586,7 +586,7 @@ namespace Yelo {
 
 	// Displays a message to the user using the WinAPI
 	// Use this when are probably about to get really messy...
-	void PrepareToDropError(cstring text) {
+	void PrepareToDropError(const char * text) {
 		if (text == nullptr) text = "(null)";
 
 		MessageBoxA(nullptr, text, "Prepare to Drop!", MB_OK | MB_ICONEXCLAMATION);

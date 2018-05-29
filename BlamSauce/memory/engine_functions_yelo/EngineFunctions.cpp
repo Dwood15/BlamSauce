@@ -17,7 +17,7 @@ namespace Yelo
 	{
 		namespace Cache
 		{
-			API_FUNC_NAKED bool FileReadRequest(/*datum_index tag_index,*/
+			__declspec(naked) bool FileReadRequest(/*datum_index tag_index,*/
 				uint offset_, uint size_, void* buffer, const Yelo::Cache::s_cache_file_request_params& params,
 				bool block, Enums::cache_file_request_source source)
 			{
@@ -45,7 +45,7 @@ namespace Yelo
 
 		namespace Effects
 		{
-			void API_FUNC_NAKED NewOnObjectMarker(datum_index effect_definition_index, datum_index object_index, cstring marker_name)
+			void __declspec(naked) NewOnObjectMarker(datum_index effect_definition_index, datum_index object_index, cstring marker_name)
 			{
 				static const uintptr_t FUNCTION = GET_FUNC_PTR(EFFECT_NEW_ON_OBJECT_MARKER);
 
@@ -188,7 +188,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// actors.c
-		API_FUNC_NAKED void __cdecl actor_delete(datum_index actor_index, bool is_dead)
+		__declspec(naked) void __cdecl actor_delete(datum_index actor_index, bool is_dead)
 		{
 				static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(ACTOR_DELETE);
 
@@ -206,7 +206,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl actor_update(const datum_index actor_index)
+		__declspec(naked) void __cdecl actor_update(const datum_index actor_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(ACTOR_UPDATE);
 
@@ -227,7 +227,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl actor_customize_unit(const datum_index actor_variant, const datum_index unit_index)
+		__declspec(naked) void __cdecl actor_customize_unit(const datum_index actor_variant, const datum_index unit_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(ACTOR_CUSTOMIZE_UNIT);
 
@@ -248,7 +248,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl actor_set_active(const datum_index actor_index, const bool active)
+		__declspec(naked) void __cdecl actor_set_active(const datum_index actor_index, const bool active)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(ACTOR_SET_ACTIVE);
 
@@ -267,7 +267,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl actor_set_dormant(const datum_index actor_index, const bool dormant)
+		__declspec(naked) void __cdecl actor_set_dormant(const datum_index actor_index, const bool dormant)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(ACTOR_SET_DORMANT);
 
@@ -284,14 +284,14 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl actor_delete_props(const datum_index actor_index)
+		__declspec(naked) void __cdecl actor_delete_props(const datum_index actor_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(ACTOR_DELETE_PROPS);
 
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl actor_freeze(const datum_index actor_index)
+		__declspec(naked) void __cdecl actor_freeze(const datum_index actor_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(ACTOR_FREEZE);
 
@@ -332,7 +332,7 @@ namespace Yelo
 			}
 		}
 
-		API_FUNC_NAKED datum_index __cdecl actor_create_for_unit(const bool is_swarm
+		__declspec(naked) datum_index __cdecl actor_create_for_unit(const bool is_swarm
 			, const datum_index unit_index
 			, const datum_index actor_variant
 			, const datum_index encounter_index
@@ -350,7 +350,7 @@ namespace Yelo
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl actor_action_change(const datum_index actor_index
+		__declspec(naked) void __cdecl actor_action_change(const datum_index actor_index
 			, const Enums::actor_action new_action_type
 			, const byte* new_action_data)
 		{
@@ -361,7 +361,7 @@ namespace Yelo
 
 		//////////////////////////////////////////////////////////////////////////
 		// ai_script.c
-		API_FUNC_NAKED void __cdecl ai_scripting_attach_free(datum_index unit_index, datum_index actor_variant_definition_index)
+		__declspec(naked) void __cdecl ai_scripting_attach_free(datum_index unit_index, datum_index actor_variant_definition_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(AI_SCRIPTING_ATTACH_FREE);
 
@@ -384,7 +384,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// bink_playback.c
-		API_FUNC_NAKED void __cdecl bink_playback_start(cstring bik_path)
+		__declspec(naked) void __cdecl bink_playback_start(cstring bik_path)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(BINK_PLAYBACK_START);
 
@@ -435,7 +435,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// director.c
-		API_FUNC_NAKED void __cdecl director_save_camera()
+		__declspec(naked) void __cdecl director_save_camera()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(DIRECTOR_SAVE_CAMERA);
 
@@ -445,7 +445,7 @@ namespace Yelo
 			}
 		}
 
-		API_FUNC_NAKED void __cdecl director_load_camera()
+		__declspec(naked) void __cdecl director_load_camera()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(DIRECTOR_LOAD_CAMERA);
 
@@ -455,7 +455,7 @@ namespace Yelo
 			}
 		}
 
-		API_FUNC_NAKED short __cdecl director_desired_perspective(const datum_index unit_index, Enums::game_perspective& desired_perspective)
+		__declspec(naked) short __cdecl director_desired_perspective(const datum_index unit_index, Enums::game_perspective& desired_perspective)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(DIRECTOR_DESIRED_PERSPECTIVE);
 
@@ -475,7 +475,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// cheats.c
-		API_FUNC_NAKED void __cdecl cheat_all_weapons()
+		__declspec(naked) void __cdecl cheat_all_weapons()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CHEAT_ALL_WEAPONS);
 
@@ -484,7 +484,7 @@ namespace Yelo
 				retn
 			}
 		}
-		API_FUNC_NAKED void __cdecl cheat_spawn_warthog()
+		__declspec(naked) void __cdecl cheat_spawn_warthog()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CHEAT_SPAWN_WARTHOG);
 
@@ -493,7 +493,7 @@ namespace Yelo
 				retn
 			}
 		}
-		API_FUNC_NAKED void __cdecl cheat_teleport_to_camera()
+		__declspec(naked) void __cdecl cheat_teleport_to_camera()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CHEAT_TELEPORT_TO_CAMERA);
 
@@ -502,7 +502,7 @@ namespace Yelo
 				retn
 			}
 		}
-		API_FUNC_NAKED void __cdecl cheat_active_camouflage()
+		__declspec(naked) void __cdecl cheat_active_camouflage()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CHEAT_ACTIVE_CAMOFLAGE);
 
@@ -511,7 +511,7 @@ namespace Yelo
 				retn
 			}
 		}
-		API_FUNC_NAKED void __cdecl cheat_active_camouflage_local_player()
+		__declspec(naked) void __cdecl cheat_active_camouflage_local_player()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CHEAT_ACTIVE_CAMOFLAGE_LOCAL_PLAYER);
 
@@ -520,7 +520,7 @@ namespace Yelo
 				retn
 			}
 		}
-		API_FUNC_NAKED datum_index __cdecl cheat_local_player()
+		__declspec(naked) datum_index __cdecl cheat_local_player()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CHEAT_PLAYER_INDEX);
 
@@ -549,7 +549,7 @@ namespace Yelo
 		}
 
 
-		API_FUNC_NAKED void __cdecl game_engine_rasterize_message(wcstring message, real alpha)
+		__declspec(naked) void __cdecl game_engine_rasterize_message(wcstring message, real alpha)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(GAME_ENGINE_RASTERIZE_MESSAGE);
 
@@ -562,7 +562,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// game_engine_multiplayer_sounds.c
-		API_FUNC_NAKED void __cdecl game_engine_play_multiplayer_sound(datum_index player_index, shortmultiplayer_sound_index, bool should_replicate)
+		__declspec(naked) void __cdecl game_engine_play_multiplayer_sound(datum_index player_index, shortmultiplayer_sound_index, bool should_replicate)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(GAME_ENGINE_PLAY_MULTIPLAYER_SOUND);
 
@@ -583,79 +583,15 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// players.c
-		API_FUNC_NAKED void __cdecl player_examine_nearby_vehicle(datum_index player_index, datum_index vehicle_index)
-		{
-			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(PLAYER_EXAMINE_NEARBY_VEHICLE);
-
-			API_FUNC_NAKED_START()
-				push	vehicle_index
-				push	player_index
-				call	FUNCTION
-				add		esp, 4 * 2
-			API_FUNC_NAKED_END_NO_STACK_POP()
-		}
-		API_FUNC_NAKED void __cdecl player_set_action_result(datum_index player_index, datum_index action_object_index, long action_result, long action_seat_index)
-		{
-			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(PLAYER_SET_ACTION_RESULT);
-
-			API_FUNC_NAKED_START()
-				push	ebx
-
-				push	action_seat_index
-				push	action_result
-				mov		ebx, action_object_index
-				mov		eax, player_index
-				call	FUNCTION
-				add		esp, 4 * 2
-
-				pop		ebx
-			API_FUNC_NAKED_END_NO_STACK_POP()
-		}
-		API_FUNC_NAKED void __cdecl player_set_action_result_to_network(datum_index player_index, datum_index action_object_index, long action_result_type, long action_result, long action_seat_index, datum_index next_weapon_index)
-		{
-			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(PLAYER_SET_ACTION_RESULT_TO_NETWORK);
-
-			API_FUNC_NAKED_START()
-				push	edi
-
-				push	next_weapon_index
-				push	action_seat_index
-				push	action_result
-				push	action_result_type
-				mov		edi, action_object_index
-				mov		ecx, player_index
-				call	FUNCTION
-				add		esp, 4 * 4
-
-				pop		edi
-			API_FUNC_NAKED_END_NO_STACK_POP()
-		}
 
 
-		datum_index __cdecl player_index_from_unit_index(datum_index unit_index)
-		{
-			return Engine::Players::IndexFromUnitIndex(unit_index);
-		}
-		bool __cdecl player_teleport(datum_index player_index, datum_index source_unit_index, const real_point3d& position)
-		{
-			return Engine::Players::Teleport(player_index, position, source_unit_index);
-		}
-		void __cdecl player_over_shield_screen_effect(datum_index player_index)
-		{
-			Engine::Players::ScreenEffectOvershield(player_index);
-		}
-		void __cdecl player_active_camo_screen_effect(datum_index player_index)
-		{
-			Engine::Players::ScreenEffectCamo(player_index);
-		}
-		void __cdecl player_health_pack_screen_effect(datum_index player_index)
-		{
-			Engine::Players::ScreenEffectHealth(player_index);
-		}
+
+
+
 
 		//////////////////////////////////////////////////////////////////////////
 		// player_control.c
-		API_FUNC_NAKED void __cdecl player_control_get_unit_camera_info(const short player_index, Players::s_unit_camera_info& camera_info)
+		__declspec(naked) void __cdecl player_control_get_unit_camera_info(const short player_index, Players::s_unit_camera_info& camera_info)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(PLAYER_CONTROL_GET_UNIT_CAMERA_INFO);
 
@@ -706,7 +642,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// input_windows.c
-		API_FUNC_NAKED bool __cdecl input_key_is_down(shortkey_code)
+		__declspec(naked) bool __cdecl input_key_is_down(shortkey_code)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(INPUT_KEY_IS_DOWN);
 
@@ -726,7 +662,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// hud.c
-		API_FUNC_NAKED wcstring __cdecl hud_get_item_string(short reference_index)
+		__declspec(naked) wcstring __cdecl hud_get_item_string(short reference_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_GET_ITEM_MESSAGE);
 
@@ -741,7 +677,7 @@ namespace Yelo
 		{
 			Engine::Networking::EncodeHudChatNetworkData(player_number, chat_type, text);
 		}
-		API_FUNC_NAKED void __cdecl hud_chat_display_message(wcstring message)
+		__declspec(naked) void __cdecl hud_chat_display_message(wcstring message)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(KEYSTONE_CHAT_LOG_ADD_STRING);
 
@@ -753,7 +689,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// hud_draw.c
-		API_FUNC_NAKED void __cdecl hud_draw_meter(short /*local_player_index*/, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_meter* element,
+		__declspec(naked) void __cdecl hud_draw_meter(short /*local_player_index*/, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_meter* element,
 			byte arg_C, byte arg_10, unsigned long flags, real arg_18, real arg_1C)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_DRAW_METER);
@@ -776,7 +712,7 @@ namespace Yelo
 				pop		esi
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		API_FUNC_NAKED void __cdecl hud_draw_numbers(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_number* element,
+		__declspec(naked) void __cdecl hud_draw_numbers(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_number* element,
 			long number, short arg_10, unsigned long flags, game_ticks_t first_render_time, real arg_1C)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_DRAW_NUMBERS);
@@ -800,7 +736,7 @@ namespace Yelo
 				pop		esi
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		API_FUNC_NAKED void __cdecl hud_draw_static_element(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_static* element,
+		__declspec(naked) void __cdecl hud_draw_static_element(short local_player_index, TagGroups::s_hud_absolute_placement* placement, TagGroups::s_hud_element_static* element,
 			unsigned long flags, game_ticks_t first_render_time)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_DRAW_STATIC_ELEMENT);
@@ -822,7 +758,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// hud_messaging.c
-		API_FUNC_NAKED void __cdecl hud_print_message(short local_player_index, wcstring message)
+		__declspec(naked) void __cdecl hud_print_message(short local_player_index, wcstring message)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_PRINT_MESSAGE);
 
@@ -846,7 +782,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// weapons.c
-		API_FUNC_NAKED bool __cdecl weapon_prevents_melee_attack(const datum_index weapon_index)
+		__declspec(naked) bool __cdecl weapon_prevents_melee_attack(const datum_index weapon_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(WEAPON_PREVENTS_MELEE_ATTACK);
 
@@ -861,7 +797,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED bool __cdecl weapon_prevents_grenade_throwing(const datum_index weapon_index)
+		__declspec(naked) bool __cdecl weapon_prevents_grenade_throwing(const datum_index weapon_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(WEAPON_PREVENTS_GRENADE_THROWING);
 
@@ -876,14 +812,14 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl weapon_stop_reload(const datum_index weapon_index)
+		__declspec(naked) void __cdecl weapon_stop_reload(const datum_index weapon_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(WEAPON_STOP_RELOAD);
 
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl first_person_weapon_message_from_unit(const datum_index unit_index, const long weapon_message_type)
+		__declspec(naked) void __cdecl first_person_weapon_message_from_unit(const datum_index unit_index, const long weapon_message_type)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(FIRST_PERSON_WEAPON_MESSAGE_FROM_UNIT);
 
@@ -904,7 +840,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED short __cdecl weapon_get_first_person_animation_time(const datum_index weapon_index
+		__declspec(naked) short __cdecl weapon_get_first_person_animation_time(const datum_index weapon_index
 			, const short frame_type
 			, Enums::first_person_weapon_animation animation
 			, const long arg3)
@@ -934,7 +870,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// console.c
-		API_FUNC_NAKED bool __cdecl console_process_command(unsigned long access_flags, cstring command)
+		__declspec(naked) bool __cdecl console_process_command(unsigned long access_flags, cstring command)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_PROCESS_COMMAND);
 
@@ -949,7 +885,7 @@ namespace Yelo
 				pop		edi
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		static API_FUNC_NAKED void __cdecl console_printf_impl(bool clear_screen, cstring format)
+		static __declspec(naked) void __cdecl console_printf_impl(bool clear_screen, cstring format)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_PRINTF);
 
@@ -972,7 +908,7 @@ namespace Yelo
 
 			console_printf_impl(clear_screen, local);
 		}
-		static API_FUNC_NAKED void __cdecl console_response_printf_impl(BOOL clear_screen, cstring format)
+		static __declspec(naked) void __cdecl console_response_printf_impl(BOOL clear_screen, cstring format)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_RESPONSE_PRINTF);
 
@@ -995,7 +931,7 @@ namespace Yelo
 
 			console_response_printf_impl(clear_screen, local);
 		}
-		static API_FUNC_NAKED void __cdecl console_warning_impl(cstring format)
+		static __declspec(naked) void __cdecl console_warning_impl(cstring format)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_WARNING);
 
@@ -1027,7 +963,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// main.c
-		API_FUNC_NAKED bool __cdecl main_connect(cstring address, cstring password)
+		__declspec(naked) bool __cdecl main_connect(cstring address, cstring password)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(MAIN_CONNECT);
 
@@ -1053,7 +989,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// periodic_functions.c
-		API_FUNC_NAKED real __cdecl periodic_function_evaluate(Enums::periodic_function function_type, real input)
+		__declspec(naked) real __cdecl periodic_function_evaluate(Enums::periodic_function function_type, real input)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(PERIODIC_FUNCTION_EVALUATE);
 			
@@ -1066,7 +1002,7 @@ namespace Yelo
 				add		esp, 4 * 2			// deallocate. double type consumes two DWORDs of stack
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		API_FUNC_NAKED real __cdecl transition_function_evaluate(Enums::transition_function function_type, real input)
+		__declspec(naked) real __cdecl transition_function_evaluate(Enums::transition_function function_type, real input)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(TRANSITION_FUNCTION_EVALUATE);
 
@@ -1086,11 +1022,11 @@ namespace Yelo
 
 		//////////////////////////////////////////////////////////////////////////
 		// data.c
-		API_FUNC_NAKED s_data_array* __cdecl data_new(cstring name, long maximum_count, size_t datum_size)
+		__declspec(naked) s_data_array* __cdecl data_new(cstring name, long maximum_count, size_t datum_size)
 		
 		
 
-		API_FUNC_NAKED void __cdecl data_delete_all(s_data_array* data)
+		__declspec(naked) void __cdecl data_delete_all(s_data_array* data)
 		
 		
 /*		void* __cdecl data_iterator_next(s_data_iterator& iterator)
@@ -1114,7 +1050,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// models.c
-		API_FUNC_NAKED short __cdecl model_find_marker(const datum_index render_model_definition_index, cstring marker_name)
+		__declspec(naked) short __cdecl model_find_marker(const datum_index render_model_definition_index, cstring marker_name)
 		{
 			static const uintptr_t CALL_ADDRESS = Engine::GET_FUNC_PTR(MODEL_FIND_MARKER);
 
@@ -1244,7 +1180,7 @@ namespace Yelo
 			Engine::Objects::DisconnectFromMap(object_index);
 		}
 
-		API_FUNC_NAKED short __cdecl object_get_marker_by_name(const datum_index object_index
+		__declspec(naked) short __cdecl object_get_marker_by_name(const datum_index object_index
 			, cstring marker_name
 			, s_object_marker* markers
 			, const short maximum_marker_count)
@@ -1315,21 +1251,21 @@ namespace Yelo
 			Engine::Objects::ObjectRenderStateRefresh(object_render_state_index, object_index, level_of_detail_pixels, arg4);
 		}
 
-		API_FUNC_NAKED void __cdecl objects_update()
+		__declspec(naked) void __cdecl objects_update()
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(OBJECTS_UPDATE);
 
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl object_update(datum_index object_index)
+		__declspec(naked) void __cdecl object_update(datum_index object_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(OBJECT_UPDATE);
 
 			_asm jmp	FUNCTION;
 		}
 		
-		API_FUNC_NAKED void __cdecl object_destroy(const datum_index object_index)
+		__declspec(naked) void __cdecl object_destroy(const datum_index object_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(OBJECT_DESTROY);
 
@@ -1356,7 +1292,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// collisions.c
-		API_FUNC_NAKED bool __cdecl collision_test_vector(unsigned long flags, real_point3d& location, real_vector3d& vector,
+		__declspec(naked) bool __cdecl collision_test_vector(unsigned long flags, real_point3d& location, real_vector3d& vector,
 			datum_index object_index, Physics::s_collision_result& collision)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(COLLISION_TEST_VECTOR);
@@ -1398,7 +1334,7 @@ namespace Yelo
 		//////////////////////////////////////////////////////////////////////////
 		// scenario.c
 		// After calling this function you should call Yelo::GameState::InitializeForNewBSP
-		API_FUNC_NAKED bool __cdecl scenario_switch_structure_bsp(short bsp_index)
+		__declspec(naked) bool __cdecl scenario_switch_structure_bsp(short bsp_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(SCENARIO_SWITCH_STRUCTURE_BSP);
 
@@ -1426,7 +1362,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// shell_windows.c
-		API_FUNC_NAKED bool __cdecl shell_get_command_line_argument(cstring param, _Out_opt_ cstring* value)
+		__declspec(naked) bool __cdecl shell_get_command_line_argument(cstring param, _Out_opt_ cstring* value)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(SHELL_GET_COMMAND_LINE_ARGUMENT);
 
@@ -1512,7 +1448,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// units.c
-		API_FUNC_NAKED void __cdecl unit_update(const datum_index unit_index)
+		__declspec(naked) void __cdecl unit_update(const datum_index unit_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_UPDATE);
 
@@ -1526,7 +1462,7 @@ namespace Yelo
 			Engine::Objects::UnitSetAnimation(unit_index, animation_graph_index, animation_index);
 		}
 		
-		API_FUNC_NAKED void __cdecl unit_animation_start_action(const datum_index unit_index, const Enums::unit_replacement_animation_state action_type)
+		__declspec(naked) void __cdecl unit_animation_start_action(const datum_index unit_index, const Enums::unit_replacement_animation_state action_type)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_ANIMATION_START_ACTION);
 
@@ -1584,7 +1520,7 @@ namespace Yelo
 			Engine::Objects::UnitExitVehicle(unit_index);
 		}
 
-		API_FUNC_NAKED bool __cdecl unit_try_and_exit_seat(const datum_index unit_index)
+		__declspec(naked) bool __cdecl unit_try_and_exit_seat(const datum_index unit_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_TRY_AND_EXIT_SEAT);
 
@@ -1603,7 +1539,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl unit_detach_from_parent(const datum_index unit_index)
+		__declspec(naked) void __cdecl unit_detach_from_parent(const datum_index unit_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_DETACH_FROM_PARENT);
 
@@ -1626,7 +1562,7 @@ namespace Yelo
 			Engine::Objects::UnitExitSeatEnd(unit_index, no_network_message, can_run_on_client_side, unknown);
 		}
 		
-		API_FUNC_NAKED bool __cdecl unit_can_see_point(const datum_index unit_index
+		__declspec(naked) bool __cdecl unit_can_see_point(const datum_index unit_index
 			, const real_point3d* point
 			, const real view_radians)
 		{
@@ -1655,7 +1591,7 @@ namespace Yelo
 			return Engine::Objects::UnitGetCustomAnimationTime(unit_index);
 		}
 		
-		API_FUNC_NAKED bool __cdecl unit_start_user_animation(const datum_index unit_index
+		__declspec(naked) bool __cdecl unit_start_user_animation(const datum_index unit_index
 			, const datum_index animation_definition_index
 			, cstring animation_name
 			, const bool interpolate)
@@ -1685,21 +1621,21 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl unit_animation_set_state(const datum_index unit_index, const Enums::unit_animation_state state)
+		__declspec(naked) void __cdecl unit_animation_set_state(const datum_index unit_index, const Enums::unit_animation_state state)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_ANIMATION_SET_STATE);
 
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl unit_drop_current_weapon(const datum_index unit_index, const bool force)
+		__declspec(naked) void __cdecl unit_drop_current_weapon(const datum_index unit_index, const bool force)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_DROP_CURRENT_WEAPON);
 
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED datum_index __cdecl unit_inventory_get_weapon(const datum_index unit_index, const short index)
+		__declspec(naked) datum_index __cdecl unit_inventory_get_weapon(const datum_index unit_index, const short index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_INVENTORY_GET_WEAPON);
 			
@@ -1718,28 +1654,28 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl unit_ready_desired_weapon(const datum_index unit_index, const bool force)
+		__declspec(naked) void __cdecl unit_ready_desired_weapon(const datum_index unit_index, const bool force)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_READY_DESIRED_WEAPON);
 
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl unit_throw_grenade_release(const datum_index unit_index, const sbyte keyframe)
+		__declspec(naked) void __cdecl unit_throw_grenade_release(const datum_index unit_index, const sbyte keyframe)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_THROW_GRENADE_RELEASE);
 
 			_asm jmp	FUNCTION;
 		}
 		
-		API_FUNC_NAKED void __cdecl unit_cause_player_melee_damage(const datum_index unit_index)
+		__declspec(naked) void __cdecl unit_cause_player_melee_damage(const datum_index unit_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_CAUSE_PLAYER_MELEE_DAMAGE);
 
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl unit_damage_aftermath(const datum_index unit_index
+		__declspec(naked) void __cdecl unit_damage_aftermath(const datum_index unit_index
 			, const Objects::s_damage_data* damage_data
 			, const shortdamage_flags
 			, const real shield_amount
@@ -1752,7 +1688,7 @@ namespace Yelo
 			_asm jmp	FUNCTION;
 		}
 
-		API_FUNC_NAKED void __cdecl unit_scripting_set_current_vitality(const datum_index unit_index
+		__declspec(naked) void __cdecl unit_scripting_set_current_vitality(const datum_index unit_index
 			, const real health
 			, const real shield)
 		{
@@ -1772,7 +1708,7 @@ namespace Yelo
 			API_FUNC_NAKED_END_()
 		}
 
-		API_FUNC_NAKED void __cdecl unit_set_actively_controlled(const datum_index unit_index, const bool controlled)
+		__declspec(naked) void __cdecl unit_set_actively_controlled(const datum_index unit_index, const bool controlled)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_SET_ACTIVELY_CONTROLLED);
 

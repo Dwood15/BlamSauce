@@ -1,12 +1,8 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/hs/hs.hpp>
-#include <blamlib/Halo1/ai/ai_script.hpp>
+#include <precompile.h>
+#include "../../memory/upgrades/blam_memory_upgrades.hpp"
+#include "../../ai/ai_script.h"
 
 namespace Yelo
 {

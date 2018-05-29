@@ -6,6 +6,7 @@
 #include "definitions.h"
 #include "../game/globals/globals_definitions.hpp"
 #include "../models/collision/bsp_definitions.hpp"
+#include "../models/structure/bsp_definitions.hpp"
 
 namespace Yelo {
 	namespace Enums {
@@ -55,7 +56,7 @@ namespace Yelo {
 
 		struct s_scenario_globals;
 
-		extern cstring K_GAME_GLOBALS_TAG_NAME = "globals\\globals";
+		const char *  K_GAME_GLOBALS_TAG_NAME = "globals\\globals";
 
 		s_scenario_globals *ScenarioGlobals();
 
@@ -117,13 +118,13 @@ namespace Yelo {
 		// Tests to see if [object_index] is inside [trigger_volume_index] (index to a definition in the current scenario)
 		bool __cdecl scenario_trigger_volume_test_object(long trigger_volume_index, datum_index object_index);
 
-		bool __cdecl scenario_load(cstring scenario_name);
+		bool __cdecl scenario_load(const char *  scenario_name);
 
 		void __cdecl scenario_unload();
 
-		datum_index __cdecl scenario_tags_load(cstring scenario_name);
+		datum_index __cdecl scenario_tags_load(const char *  scenario_name);
 
-		datum_index __cdecl scenario_tags_load_impl(cstring scenario_name) {
+		datum_index __cdecl scenario_tags_load_impl(const char *  scenario_name) {
 			datum_index scenario_index = datum_index::null();
 
 			// texture_cache_open();
@@ -169,7 +170,7 @@ namespace Yelo {
 			blam_global_game_globals  = nullptr;
 		}
 
-		bool __cdecl scenario_load_impl(cstring scenario_name) {
+		bool __cdecl scenario_load_impl(const char *  scenario_name) {
 			// tag_load_error_string_clear();
 			//
 			// datum_index scenario_index = scenario_tags_load_impl(scenario_name);

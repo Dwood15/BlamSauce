@@ -6,7 +6,7 @@
 
 #include "../../cseries/base.h"
 #include "../player/players.hpp"
-#include "../../objects/vehicle_remapper.hpp"
+#include "../objects/vehicles/vehicle_remapper.hpp"
 
 namespace Yelo {
 	namespace Enums {

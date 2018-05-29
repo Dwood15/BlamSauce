@@ -1,19 +1,9 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/networking/network_game_manager.hpp>
-#include <blamlib/Halo1/saved_games/game_variant.hpp>
+#include <precompile.h>
+#include "../../game/engines/variants.h"
 
-#include <YeloLib/Halo1/open_sauce/blam_memory_upgrades.hpp>
-
-namespace Yelo
-{
-	namespace Networking
+namespace Yelo::Networking
 	{
 		struct s_network_game_map
 		{

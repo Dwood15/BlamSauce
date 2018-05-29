@@ -63,7 +63,7 @@ namespace Yelo {
 			reference.tag_index   = datum_index::null();
 		}
 
-		void set(tag group_tag, cstring name) {
+		void set(tag group_tag, const char *  name) {
 			// auto reference = (*this);
 			// assert(group_tag == NONE || tag_group_get(group_tag));
 			// reference.group_tag = group_tag;
@@ -79,7 +79,7 @@ namespace Yelo {
 		}
 
 		template <typename T>
-		void set(cstring name) {
+		void set(const char *  name) {
 			this->set(T::k_group_tag, name);
 		}
 	};
@@ -100,7 +100,7 @@ namespace Yelo {
 			reference.tag_index   = datum_index::null();
 		}
 
-		void __cdecl tag_reference_set(tag_reference &reference, tag group_tag, cstring name) {
+		void __cdecl tag_reference_set(tag_reference &reference, tag group_tag, const char *  name) {
 			assert(group_tag == NONE || tag_group_get(group_tag));
 			reference.group_tag = group_tag;
 
@@ -115,7 +115,7 @@ namespace Yelo {
 		}
 
 		template <typename T>
-		void tag_reference_set(tag_reference &reference, cstring name) {
+		void tag_reference_set(tag_reference &reference, const char *  name) {
 			return tag_reference_set(reference, T::k_group_tag, name);
 		}
 
@@ -436,21 +436,21 @@ namespace Yelo {
 
 		void __cdecl tag_orphan(datum_index tag_index);
 
-		datum_index __cdecl tag_loaded(tag group_tag, cstring name);
+		datum_index __cdecl tag_loaded(tag group_tag, const char *  name);
 
 		template <typename T>
-		inline datum_index tag_loaded(cstring name) {
+		inline datum_index tag_loaded(const char *  name) {
 			return tag_loaded(T::k_group_tag, name);
 		}
 
-		cstring __cdecl tag_get_name(datum_index tag_index) {
-			cstring name = cache_file_tag_get_instance(tag_index)->name;
+		const char *  __cdecl tag_get_name(datum_index tag_index) {
+			const char *  name = cache_file_tag_get_instance(tag_index)->name;
 
 			// non-standard behavior, but I believe some cache protectors NULL the tag name
 			return name != nullptr ? name : "<unnamed tag>";
 		}
 
-		inline cstring tag_try_get_name(datum_index tag_index) {
+		inline const char *  tag_try_get_name(datum_index tag_index) {
 			return tag_index.IsNull() ? "<unspecified tag>" : tag_get_name(tag_index);
 		}
 
@@ -475,7 +475,7 @@ namespace Yelo {
 			return reinterpret_cast<T *>(tag_get(T::k_group_tag, tag_index));
 		}
 
-		datum_index __cdecl tag_new(tag group_name, cstring name);
+		datum_index __cdecl tag_new(tag group_name, const char *  name);
 
 		template <typename T>
 		inline datum_index tag_new(cstring name) {

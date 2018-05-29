@@ -121,7 +121,7 @@ namespace Yelo {
 
 #pragma region OnPlayerJoinDelegate
 
-		API_FUNC_NAKED static void __cdecl OnPlayerJoinDelegate(s_network_game *network_game_data) {
+		__declspec(naked) static void __cdecl OnPlayerJoinDelegate(s_network_game *network_game_data) {
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_ADD_PLAYER);
 
 			API_FUNC_NAKED_START()
@@ -144,7 +144,7 @@ namespace Yelo {
 #pragma endregion
 
 		//#pragma region OnPlayerExitDelegate
-		API_FUNC_NAKED static void __cdecl OnPlayerExitDelegate() {
+		__declspec(naked) static void __cdecl OnPlayerExitDelegate() {
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_REMOVE_PLAYER);
 
 			API_FUNC_NAKED_START_()
@@ -179,7 +179,7 @@ namespace Yelo {
 
 		//////////////////////////////////////////////////////////////////////////
 
-		static API_FUNC_NAKED bool NetworkConnectionWrite(const s_network_connection &connection,
+		static __declspec(naked) bool NetworkConnectionWrite(const s_network_connection &connection,
 																		  const void *data, size_t data_size_in_bits,
 																		  const void *header, size_t header_size_in_bits,
 																		  BOOL unbuffered, BOOL flush_queue, long buffer_priority) {
@@ -233,7 +233,7 @@ namespace Yelo {
 			return false;
 		}
 
-		API_FUNC_NAKED bool ServerSendRejectionMessage(s_network_game_player &rejected_player, Enums::transport_rejection_code code) {
+		__declspec(naked) bool ServerSendRejectionMessage(s_network_game_player &rejected_player, Enums::transport_rejection_code code) {
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_REJECTION_MESSAGE);
 
 			API_FUNC_NAKED_START()
@@ -256,7 +256,7 @@ namespace Yelo {
 			API_FUNC_NAKED_END(2)
 		}
 
-		API_FUNC_NAKED bool ServerHoldupNewClient(s_network_client_machine &client_machine) {
+		__declspec(naked) bool ServerHoldupNewClient(s_network_client_machine &client_machine) {
 			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_REJECTION_MESSAGE);
 
 			API_FUNC_NAKED_START()

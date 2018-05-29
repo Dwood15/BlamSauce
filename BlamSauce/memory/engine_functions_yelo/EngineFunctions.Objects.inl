@@ -5,7 +5,7 @@
 	See license\OpenSauce\Halo1_CE for specific license information
 */
 
-API_FUNC_NAKED bool HeaderBlockAllocate(datum_index object_index, size_t block_reference_offset, size_t _size)
+__declspec(naked) bool HeaderBlockAllocate(datum_index object_index, size_t block_reference_offset, size_t _size)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_HEADER_BLOCK_ALLOCATE);
 
@@ -18,7 +18,7 @@ API_FUNC_NAKED bool HeaderBlockAllocate(datum_index object_index, size_t block_r
 	API_FUNC_NAKED_END(3)
 }
 
-API_FUNC_NAKED Yelo::Objects::s_object_data* IteratorNext(Yelo::Objects::s_object_iterator& iter)
+__declspec(naked) Yelo::Objects::s_object_data* IteratorNext(Yelo::Objects::s_object_iterator& iter)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_ITERATOR_NEXT);
 
@@ -65,7 +65,7 @@ datum_index NewWithRole(Yelo::Objects::s_object_placement_data& data, long_enum 
 	}
 }
 
-API_FUNC_NAKED void Delete(datum_index object_index)
+__declspec(naked) void Delete(datum_index object_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_DELETE);
 
@@ -75,7 +75,7 @@ API_FUNC_NAKED void Delete(datum_index object_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED void Attach(datum_index target_object_index, cstring target_marker_name, datum_index object_index, cstring marker_name)
+__declspec(naked) void Attach(datum_index target_object_index, cstring target_marker_name, datum_index object_index, cstring marker_name)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_ATTACH_TO_MARKER);
 
@@ -97,7 +97,7 @@ API_FUNC_NAKED void Attach(datum_index target_object_index, cstring target_marke
 	API_FUNC_NAKED_END(4)
 }
 
-API_FUNC_NAKED void Detach(datum_index object_index)
+__declspec(naked) void Detach(datum_index object_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_DETACH);
 
@@ -107,7 +107,7 @@ API_FUNC_NAKED void Detach(datum_index object_index)
 	API_FUNC_NAKED_END_CDECL(1)
 }
 
-API_FUNC_NAKED short FindInSphere(Flags::objects_find_flags find_flags, unsigned long object_type_flags,
+__declspec(naked) short FindInSphere(Flags::objects_find_flags find_flags, unsigned long object_type_flags,
 					const s_scenario_location& location, const real_point3d& center, real radius, 
 					datum_index object_indices[], short maximum_object_indices)
 {
@@ -338,7 +338,7 @@ void DefinitionPredict(datum_index object_index)
 	}
 }
 
-API_FUNC_NAKED void SetScale(datum_index object_index, real scale, long ticks)
+__declspec(naked) void SetScale(datum_index object_index, real scale, long ticks)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_SET_SCALE);
 
@@ -403,7 +403,7 @@ void UnitSetAnimation(datum_index unit_index, datum_index animation_graph_index,
 	}
 }
 
-API_FUNC_NAKED short UnitGetCustomAnimationTime(datum_index unit_index)
+__declspec(naked) short UnitGetCustomAnimationTime(datum_index unit_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_GET_CUSTOM_ANIMATION_TIME);
 
@@ -413,7 +413,7 @@ API_FUNC_NAKED short UnitGetCustomAnimationTime(datum_index unit_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED bool UnitCanEnterSeat(datum_index unit_index, datum_index vehicle_index, long vehicle_seat_index, datum_index* unit_in_seat)
+__declspec(naked) bool UnitCanEnterSeat(datum_index unit_index, datum_index vehicle_index, long vehicle_seat_index, datum_index* unit_in_seat)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_CAN_ENTER_SEAT);
 
@@ -427,7 +427,7 @@ API_FUNC_NAKED bool UnitCanEnterSeat(datum_index unit_index, datum_index vehicle
 	API_FUNC_NAKED_END(4)
 }
 
-API_FUNC_NAKED bool UnitEnterSeat(datum_index unit_index, datum_index vehicle_index, long vehicle_seat_index)
+__declspec(naked) bool UnitEnterSeat(datum_index unit_index, datum_index vehicle_index, long vehicle_seat_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_ENTER_SEAT);
 
@@ -440,7 +440,7 @@ API_FUNC_NAKED bool UnitEnterSeat(datum_index unit_index, datum_index vehicle_in
 	API_FUNC_NAKED_END(3)
 }
 
-API_FUNC_NAKED void UnitExitVehicle(datum_index unit_index)
+__declspec(naked) void UnitExitVehicle(datum_index unit_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_EXIT_VEHICLE);
 
@@ -450,7 +450,7 @@ API_FUNC_NAKED void UnitExitVehicle(datum_index unit_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED void UnitOpen(datum_index unit_index)
+__declspec(naked) void UnitOpen(datum_index unit_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_OPEN);
 
@@ -460,7 +460,7 @@ API_FUNC_NAKED void UnitOpen(datum_index unit_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED void UnitClose(datum_index unit_index)
+__declspec(naked) void UnitClose(datum_index unit_index)
 {
     static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_CLOSE);
 
@@ -470,7 +470,7 @@ API_FUNC_NAKED void UnitClose(datum_index unit_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED short UnitFindNearbySeat(datum_index unit_index, datum_index vehicle_index, short &seat_index)
+__declspec(naked) short UnitFindNearbySeat(datum_index unit_index, datum_index vehicle_index, short &seat_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_FIND_NEARBY_SEAT);
 
@@ -483,7 +483,7 @@ API_FUNC_NAKED short UnitFindNearbySeat(datum_index unit_index, datum_index vehi
 	API_FUNC_NAKED_END(3)
 }
 
-API_FUNC_NAKED void UnitExitSeatEnd(datum_index unit_index, bool unk2, bool unk3, bool unk4)
+__declspec(naked) void UnitExitSeatEnd(datum_index unit_index, bool unk2, bool unk3, bool unk4)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(UNIT_EXIT_SEAT_END);
 
@@ -500,7 +500,7 @@ API_FUNC_NAKED void UnitExitSeatEnd(datum_index unit_index, bool unk2, bool unk3
 	API_FUNC_NAKED_END(4)
 }
 
-API_FUNC_NAKED real GetLevelOfDetailPixels(datum_index object_index)
+__declspec(naked) real GetLevelOfDetailPixels(datum_index object_index)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_GET_LEVEL_OF_DETAIL_PIXELS);
 
@@ -510,7 +510,7 @@ API_FUNC_NAKED real GetLevelOfDetailPixels(datum_index object_index)
 	API_FUNC_NAKED_END(1)
 }
 
-API_FUNC_NAKED void ObjectRenderStateRefresh(datum_index object_render_state_index, datum_index object_index, real level_of_detail_pixels, int arg4)
+__declspec(naked) void ObjectRenderStateRefresh(datum_index object_render_state_index, datum_index object_index, real level_of_detail_pixels, int arg4)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_RENDER_STATE_REFRESH);
 

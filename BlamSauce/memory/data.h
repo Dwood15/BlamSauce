@@ -91,7 +91,7 @@ namespace Yelo {
 
 		static_assert(sizeof(s_data_iterator) == 0x10);
 
-		s_data_array *DataNewAndMakeValid(cstring name, long maximum_count, size_t datum_size) {
+		s_data_array *DataNewAndMakeValid(const char *  name, long maximum_count, size_t datum_size) {
 			//
 			// Memory::s_data_array *data = blam::data_new(name, maximum_count, datum_size);
 			//
@@ -115,14 +115,14 @@ namespace Yelo {
 
 		//A little hacky until I figure out a better way of doing the maximum_count thing.
 		//Perhaps make the function into a templated constexpr function?
-		Memory::s_data_array *__cdecl data_new(cstring name, long maximum_count, size_t datum_size);
+		Memory::s_data_array *__cdecl data_new(const char *  name, long maximum_count, size_t datum_size);
 
 		template <typename T, const int maximum_count>
-		Memory::s_data_array *data_new(cstring name) {
+		Memory::s_data_array *data_new(const char *  name) {
 			return data_new(name, maximum_count, sizeof(T));
 		}
 
-		Memory::s_data_array *__cdecl data_new(cstring name, long maximum_count, size_t datum_size) {
+		Memory::s_data_array *__cdecl data_new(const char *  name, long maximum_count, size_t datum_size) {
 			static const uintptr_t FUNCTION = K_DATA_NEW;
 
 			API_FUNC_NAKED_START()

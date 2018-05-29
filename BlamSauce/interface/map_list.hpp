@@ -1,9 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include <cstring>
@@ -369,7 +363,7 @@ namespace Yelo {
 		}
 
 		void map_list_initialize() {
-			auto &multiplayer_maps = *Interface::MultiplayerMaps();
+			auto &multiplayer_maps = *Yelo::Interface::MultiplayerMaps();
 
 			//assert(multiplayer_maps != nullptr);
 			assert(multiplayer_maps.count == 0);

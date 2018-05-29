@@ -6,6 +6,7 @@ set(G_ENGINE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_race.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_slayer.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/engine_stub.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/game_engine.h
 	${CMAKE_CURRENT_SOURCE_DIR}/game_engine_yelo.h
 	${CMAKE_CURRENT_SOURCE_DIR}/variants.h
 	PARENT_SCOPE)

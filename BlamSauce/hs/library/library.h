@@ -56,5 +56,5 @@ namespace Yelo::blam {
 	void __cdecl hs_object_orient(datum_index object_index, long cutscene_flag_index, bool teleport, bool set_facing);
 
 	// Spawn an effect tag on the specified object's marker
-	void __cdecl hs_effect_new_from_object_marker(datum_index effect_definition_index, datum_index object_index, cstring marker_name = "");
+	void __cdecl hs_effect_new_from_object_marker(datum_index effect_definition_index, datum_index object_index, const char *  marker_name = "");
 };

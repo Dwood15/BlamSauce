@@ -385,7 +385,7 @@ namespace Yelo
 
 		//////////////////////////////////////////////////////////////////////
 		// c_gbuffer_system interface
-		API_FUNC_NAKED void c_gbuffer_system::Hook_RenderObjectList_GetObjectIndex()
+		__declspec(naked) void c_gbuffer_system::Hook_RenderObjectList_GetObjectIndex()
 		{
 			static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RENDER_OBJECT_LIST_HOOK_RETN);
 
@@ -397,7 +397,7 @@ namespace Yelo
 			}
 		}
 
-		API_FUNC_NAKED void c_gbuffer_system::Hook_RenderObjectList_ClearObjectIndex()
+		__declspec(naked) void c_gbuffer_system::Hook_RenderObjectList_ClearObjectIndex()
 		{
 			__asm {
 				mov		c_gbuffer_system::g_object_index, NONE//datum_index::null
@@ -405,7 +405,7 @@ namespace Yelo
 			}
 		}
 
-		API_FUNC_NAKED void c_gbuffer_system::Hook_FirstPersonWeaponDraw_GetObjectIndex()
+		__declspec(naked) void c_gbuffer_system::Hook_FirstPersonWeaponDraw_GetObjectIndex()
 		{
 			static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(FIRST_PERSON_WEAPON_DRAW_HOOK_RETN);
 
@@ -417,7 +417,7 @@ namespace Yelo
 			}
 		}
 
-		API_FUNC_NAKED void c_gbuffer_system::Hook_RenderObject_GetCurrentLOD()
+		__declspec(naked) void c_gbuffer_system::Hook_RenderObject_GetCurrentLOD()
 		{
 			static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RENDER_OBJECT_OBJECT_LOD_HOOK_RETN);
 
@@ -435,7 +435,7 @@ namespace Yelo
 		}
 
 		// hooks for controlling when to disable velocity
-		API_FUNC_NAKED void c_gbuffer_system::Hook_CommandCameraSet()
+		__declspec(naked) void c_gbuffer_system::Hook_CommandCameraSet()
 		{
 			static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(COMMAND_CAMERA_SET_HOOK_RETN);
 
@@ -454,7 +454,7 @@ skip_disable_velocity:
 			};
 		}
 
-		API_FUNC_NAKED void c_gbuffer_system::Hook_CommandSwitchBSP()
+		__declspec(naked) void c_gbuffer_system::Hook_CommandSwitchBSP()
 		{
 			static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(COMMAND_SWITCH_BSP_HOOK_RETN);
 
@@ -468,7 +468,7 @@ skip_disable_velocity:
 			};
 		}
 
-		API_FUNC_NAKED void c_gbuffer_system::Hook_CommandGameSave()
+		__declspec(naked) void c_gbuffer_system::Hook_CommandGameSave()
 		{
 			static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(COMMAND_GAME_SAVE_HOOK_RETN);
 
@@ -482,7 +482,7 @@ skip_disable_velocity:
 		}
 
 		// the hooked function takes arguments, for which FunctionInterface is unsuited
-		API_FUNC_NAKED void c_gbuffer_system::Hook_RenderObjectsTransparent()
+		__declspec(naked) void c_gbuffer_system::Hook_RenderObjectsTransparent()
 		{
 			static const uintptr_t CALL_ADDRESS = GET_FUNC_PTR(RENDER_OBJECTS_TRANSPARENT);
 			static const uintptr_t RETN_ADDRESS = GET_FUNC_PTR(RENDER_WINDOW_CALL_RENDER_OBJECTS_TRANSPARENT_RETN);

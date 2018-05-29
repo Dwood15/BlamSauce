@@ -51,7 +51,7 @@ namespace Yelo
 			tag group_tag;			// 0x0
 			tag parent_groups[2];	// 0x4
 			datum_index handle;		// 0xC
-			cstring name;			// 0x10
+			const char *  name;			// 0x10
 			union {
 				void* base_address;	// 0x14
 				long index_in_data_file;

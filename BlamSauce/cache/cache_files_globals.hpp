@@ -1,6 +1,7 @@
 #pragma once
 
 #include <precompile.h>
+#include "../cseries/base.h"
 
 namespace Yelo
 {
@@ -108,7 +109,7 @@ namespace Yelo
 
 			s_data_file_globals data_files;
 
-			short FindMapFileIndexByName(cstring scenario_name);
+			short FindMapFileIndexByName(const char *  scenario_name);
 
 			s_cached_map_file* OpenMapFile()
 			{
@@ -117,7 +118,7 @@ namespace Yelo
 					: nullptr;
 			}
 
-			bool OpenMapFileOpen(cstring scenario_name, s_cache_header* header);
+			bool OpenMapFileOpen(const char *  scenario_name, s_cache_header* header);
 
 			void OpenMapFileClose();
 

@@ -1,29 +1,32 @@
 #pragma once
 
 #include <precompile.h>
+#include <enginelayout/Game.inl>
 #include "../cseries/base.h"
 #include "../memory/upgrades/game_state_yelo.hpp"
 #include "../main/main_structures.h"
+#include "../cache/physical_memory_map_structures.hpp"
+#include "physics.h"
+#include "point_physics.h"
+#include "objects/units/unit_hooks.h"
+#include "system/system_definitions.h"
+#include "system/systems.h"
+#include "yelo_extra/gamestate_procs.inl"
+#include "../hs/script_extensions/hs_base.h"
 
-namespace Yelo
-{
-	namespace GameState
+namespace Yelo::GameState
 	{
 		namespace Enums
 		{
 			enum {
 				// How many values we allow in the runtime data game state for each type (ie, integers, real, etc)
 					k_runtime_data_max_values_count = 64,
-			};
-
-			enum {
 				// This is a partially made up constant, though when dev-mode is >= this, it outputs messages to the console
 					k_developer_mode_level_debug_output = 4,
 			};
 		};
 
-		namespace GameState
-		{
+		namespace GameState {
 			s_game_state_globals* GameStateGlobals();
 		};
 
@@ -74,35 +77,34 @@ namespace Yelo
 			bool creating_autosave;
 					 unsigned short : 16;
 		}; static_assert( sizeof(s_game_state_globals) == 0x23C );
-	};
 };
 
-namespace Yelo::GameState
-{
+
+namespace Yelo::GameState {
 	void DataArrayInfoDumpToConsole(cstring);
 
-	void WriteEvent(cstring str = "", bool write_time_stamp = true);
+	void WriteEvent(const char * str = "", bool write_time_stamp = true);
 
-	s_main_globals* MainGlobals()								PTR_IMP_GET2(main_globals);
-	s_physical_memory_map_globals* PhysicalMemoryMapGlobals()	PTR_IMP_GET2(physical_memory_globals);
-
-
-	s_game_state_globals* GameStateGlobals()						PTR_IMP_GET2(game_state_globals);
-	s_game_globals* GameGlobals()									DPTR_IMP_GET(game_globals);
-	s_game_time_globals* GameTimeGlobals()							DPTR_IMP_GET(game_time_globals);
-	s_game_allegiance_globals* GameAllegianceGlobals()				DPTR_IMP_GET(game_allegiance_globals);
+	s_main_globals* MainGlobals()								{ return main_globals; }
+	s_physical_memory_map_globals* PhysicalMemoryMapGlobals()	{ return physical_memory_globals; }
 
 
-	TagGroups::s_game_globals* GlobalGameGlobals()					PTR_IMP_GET(global_game_globals);
-	TagGroups::s_game_globals** GlobalGameGlobalsReference()		PTR_IMP_GET2(global_game_globals);
-	s_physics_globals* Physics()									PTR_IMP_GET2(global_physics);
-	s_point_physics_globals* PointPhysics()							PTR_IMP_GET2(global_point_physics);
+	s_game_state_globals* GameStateGlobals()						{ return game_state_globals; }
+	s_game_globals* GameGlobals()									{ return game_globals; }
+	s_game_time_globals* GameTimeGlobals()							 { return game_time_globals; }
+	s_game_allegiance_globals* GameAllegianceGlobals()				{ return game_allegiance_globals; }
 
 
-	byte* DeveloperMode()											PTR_IMP_GET2(developer_mode);
+	TagGroups::s_game_globals* GlobalGameGlobals()					{ return global_game_globals; }
+	TagGroups::s_game_globals** GlobalGameGlobalsReference()		{ return global_game_globals; }
+	s_physics_globals* Physics()									{ return global_physics; }
+	s_point_physics_globals* PointPhysics()							{ return global_point_physics; }
 
-	static bool* TransportDumping()									PTR_IMP_GET2(transport_dumping);
-	bool DevmodeEnabled()											PTR_IMP_GET(devmode_enabled);
+
+	byte* DeveloperMode()											{ return developer_mode; }
+
+	static bool* TransportDumping()									{ return transport_dumping; }
+	bool DevmodeEnabled()											{ return devmode_enabled; }
 
 	static bool g_yelo_game_state_enabled;
 
@@ -115,7 +117,7 @@ namespace Yelo::GameState
 		// TODO: change game save code to use our build-number checks
 	}
 
-	API_FUNC_NAKED static void __cdecl InitializeForNewGameStateHook()
+	__declspec(naked) static void __cdecl InitializeForNewGameStateHook()
 	{
 		__asm {
 		pop		esi
@@ -124,7 +126,7 @@ namespace Yelo::GameState
 		jmp		GameState::InitializeForNewGameState
 		}
 	}
-	API_FUNC_NAKED static void __cdecl InitializeForNewMapHook()
+	__declspec(naked) static void __cdecl InitializeForNewMapHook()
 	{
 		__asm {
 		pop		ecx
@@ -135,12 +137,12 @@ namespace Yelo::GameState
 	{
 		static short bsp_index = 0;
 
-		_asm
+		__asm
 			{
 				mov		bsp_index, si
 			};
 
-		bool return_value = blam::scenario_switch_structure_bsp((short)bsp_index);
+		bool return_value = Yelo::blam::scenario_switch_structure_bsp((short)bsp_index);
 
 		InitializeForNewBSP();
 
@@ -168,11 +170,11 @@ namespace Yelo::GameState
 
 	static void InitializeForDebug()
 	{
-		*GameState::DeveloperMode() = Enums::k_developer_mode_level_debug_output; // make console messages appear
+		*Yelo::GameState::DeveloperMode() = Enums::k_developer_mode_level_debug_output; // make console messages appear
 
 		// increment the game build by one so all games (hosted or browsed) aren't
 		// from the normal, non-Yelo, game pool.
-		BuildNumber::GameBuildString()[Enums::k_game_build_string_build_offset+1] += 7;
+		Yelo::BuildNumber::GameBuildString()[Yelo::Enums::k_game_build_string_build_offset+1] += 7;
 	}
 	static void InitializeInitTextFix()
 	{
@@ -187,16 +189,16 @@ namespace Yelo::GameState
 		Physics()->Reset(); // Reset the physics constants on each new map load since these are engine globals, not game state globals.
 
 		s_yelo_header_data& yelo_header = GameStateGlobals()->header->yelo;
-		const TagGroups::s_game_globals* game_globals = GameState::GlobalGameGlobals();
+		const TagGroups::s_game_globals* game_globals = Yelo::GameState::GlobalGameGlobals();
 		if(!yelo_header.flags.initialized)
 		{
 			yelo_header.flags.initialized = true;
-			yelo_header.unit_grenade_types_count = Enums::k_unit_grenade_types_count;
+			yelo_header.unit_grenade_types_count = Yelo::Enums::k_unit_grenade_types_count;
 		}
 
 		yelo_header.flags.game_state_upgrades_on = YeloGameStateEnabled();
 
-		Random::InitializeSeed(GameGlobals()->options.game_random_seed);
+		Yelo::Random::InitializeSeed(GameGlobals()->options.game_random_seed);
 
 		Objects::Units::InitializeForNewMapPrologue();
 	}
@@ -281,7 +283,7 @@ namespace Yelo::GameState
 				components[x].InitializeForYeloGameState(enabled);
 	}
 
-	static void HandleGameStateLifeCycle(Enums::game_state_life_cycle life_cycle)
+	static void HandleGameStateLifeCycle(Yelo::Enums::game_state_life_cycle life_cycle)
 	{
 		YELO_ASSERT_DISPLAY( IN_RANGE_ENUM(life_cycle, Enums::k_number_of_game_state_life_cycles), "What fucking life cycle is this shit?");
 
@@ -295,17 +297,17 @@ namespace Yelo::GameState
 
 	void __cdecl HandleBeforeSaveLifeCycle()
 	{
-		HandleGameStateLifeCycle(Enums::_game_state_life_cycle_before_save);
+		HandleGameStateLifeCycle(Yelo::Enums::_game_state_life_cycle_before_save);
 	}
 
 	void __cdecl HandleBeforeLoadLifeCycle()
 	{
-		HandleGameStateLifeCycle(Enums::_game_state_life_cycle_before_load);
+		HandleGameStateLifeCycle(Yelo::Enums::_game_state_life_cycle_before_load);
 	}
 
 	void __cdecl HandleAfterLoadLifeCycle()
 	{
-		HandleGameStateLifeCycle(Enums::_game_state_life_cycle_after_load);
+		HandleGameStateLifeCycle(Yelo::Enums::_game_state_life_cycle_after_load);
 	}
 
 
@@ -329,12 +331,12 @@ namespace Yelo::GameState
 
 		Memory::WriteRelativeJmp(&InitializeForNewGameStateHook, GET_FUNC_VPTR(GAME_INITIALIZE_HOOK), true);
 		Memory::WriteRelativeJmp(&InitializeForNewMapHook, GET_FUNC_VPTR(GAME_INITIALIZE_FOR_NEW_MAP_HOOK), true);
-		Memory::CreateHookRelativeCall(&DisposeFromOldMap, GET_FUNC_VPTR(GAME_DISPOSE_FROM_OLD_MAP_HOOK), Enums::_x86_opcode_ret);
+		Memory::CreateHookRelativeCall(&DisposeFromOldMap, GET_FUNC_VPTR(GAME_DISPOSE_FROM_OLD_MAP_HOOK), Yelo::Enums::_x86_opcode_ret);
 
 		for(auto& call : K_GAME_SCENARIO_SWITCH_BSP_CALLS)
 			Memory::WriteRelativeCall(InitializeForNewBSPHook, call, true);
 
-		Memory::CreateHookRelativeCall(&DisposeFromOldBSP, GET_FUNC_VPTR(GAME_DISPOSE_FROM_OLD_BSP_HOOK), Enums::_x86_opcode_ret);
+		Memory::CreateHookRelativeCall(&DisposeFromOldBSP, GET_FUNC_VPTR(GAME_DISPOSE_FROM_OLD_BSP_HOOK), Yelo::Enums::_x86_opcode_ret);
 
 		ServerListInitialize();
 	}

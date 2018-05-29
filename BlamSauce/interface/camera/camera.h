@@ -247,7 +247,7 @@ namespace Yelo::Camera
 			return blam::director_desired_perspective(unit_index, perspective);
 		}
 
-		API_FUNC_NAKED short __cdecl DirectorChooseGamePerspectiveHook(Enums::game_perspective& perspective)
+		__declspec(naked) short __cdecl DirectorChooseGamePerspectiveHook(Enums::game_perspective& perspective)
 		{
 			API_FUNC_NAKED_START()
 				push	perspective

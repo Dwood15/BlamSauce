@@ -46,7 +46,7 @@ void EncodeHudChatNetworkData(long player_number, long_enum chat_type, wcstring 
 	}
 }
 
-API_FUNC_NAKED long TranslateIndex(MessageDeltas::s_index_resolution_table& table, datum_index local_index)
+__declspec(naked) long TranslateIndex(MessageDeltas::s_index_resolution_table& table, datum_index local_index)
 {
 	// Function is actually part of the index_resolution module in objects/
 	static const uintptr_t CALL_ADDR = GET_FUNC_PTR(INDEX_RESOLUTION_TABLE_TRANSLATE);
