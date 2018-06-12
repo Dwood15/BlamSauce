@@ -88,12 +88,12 @@ namespace Yelo
 		}
 		bool		c_gbuffer::SetEffectVar(LPD3DXEFFECT& effect,
 			bool& variable_used,
-			cstring texture_semantic,
+			const char * texture_semantic,
 			Render::s_render_target& target,
-			cstring x_handle_semantic, const int x_index,
-			cstring y_handle_semantic, const int y_index,
-			cstring z_handle_semantic, const int z_index,
-			cstring w_handle_semantic, const int w_index)
+			const char * x_handle_semantic, const int x_index,
+			const char * y_handle_semantic, const int y_index,
+			const char * z_handle_semantic, const int z_index,
+			const char * w_handle_semantic, const int w_index)
 		{
 			variable_used = false;
 			if(!effect) return false;

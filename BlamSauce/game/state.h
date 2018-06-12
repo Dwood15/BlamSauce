@@ -32,7 +32,7 @@ namespace Yelo::GameState
 
 		namespace blam
 		{
-			void* __cdecl game_state_malloc(cstring name, cstring type, size_t size);
+			void* __cdecl game_state_malloc(const char * name, const char * type, size_t size);
 		};
 
 		struct s_header_data
@@ -81,7 +81,7 @@ namespace Yelo::GameState
 
 
 namespace Yelo::GameState {
-	void DataArrayInfoDumpToConsole(cstring);
+	void DataArrayInfoDumpToConsole(const char *);
 
 	void WriteEvent(const char * str = "", bool write_time_stamp = true);
 
@@ -370,7 +370,7 @@ namespace Yelo::GameState {
 	void __cdecl HandleBeforeLoadLifeCycle();
 	void __cdecl HandleAfterLoadLifeCycle();
 
-	static void DataArrayInfoDumpToConsole(cstring data_array_name) {
+	static void DataArrayInfoDumpToConsole(const char * data_array_name) {
 		std::string name(data_array_name);
 		const Memory::s_data_array* array = nullptr;
 

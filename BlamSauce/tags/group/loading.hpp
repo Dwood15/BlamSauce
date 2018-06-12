@@ -27,7 +27,7 @@ namespace Yelo {
 			// NOTE: nonstandard parameters
 												datum_index tag_index);
 
-		static void tag_group_loading_add_non_loaded_tag(tag group_tag, cstring name) {
+		static void tag_group_loading_add_non_loaded_tag(tag group_tag, const char * name) {
 			char *cursor = *tag_group_loading_error_string_cursor;
 
 			if ((cursor - tag_group_loading_error_string) >= Enums::k_tag_group_loading_error_string_length)
@@ -40,7 +40,7 @@ namespace Yelo {
 			*tag_group_loading_error_string_cursor += chars;
 		}
 
-		cstring tag_load_error_string_get() {
+		const char * tag_load_error_string_get() {
 			return tag_group_loading_error_string;
 		}
 
@@ -426,7 +426,7 @@ namespace Yelo {
 			}
 		}
 
-		static void tag_instance_setup_groups_and_name(s_tag_instance *instance, const tag_group *group, cstring name) {
+		static void tag_instance_setup_groups_and_name(s_tag_instance *instance, const tag_group *group, const char * name) {
 			strncpy_s(instance->filename, name, Enums::k_max_tag_name_length);
 			instance->filename[Enums::k_max_tag_name_length] = '\0';
 			instance->group_tag = group->group_tag;
@@ -513,7 +513,7 @@ namespace Yelo {
 			return true;
 		}
 
-		datum_index __cdecl tag_new(tag group_tag, cstring name) {
+		datum_index __cdecl tag_new(tag group_tag, const char * name) {
 			YELO_ASSERT(name);
 
 			tag_group *group = tag_group_get(group_tag);
@@ -584,7 +584,7 @@ namespace Yelo {
 			return datum_index::null();
 		}
 
-		datum_index __cdecl tag_load(tag group_tag, cstring name, unsigned long flags) {
+		datum_index __cdecl tag_load(tag group_tag, const char * name, unsigned long flags) {
 			YELO_ASSERT(name);
 
 			tag_group *group = tag_group_get(group_tag);
@@ -634,7 +634,7 @@ namespace Yelo {
 				instance->root_block.address    = nullptr;
 				instance->root_block.definition = group->header_block_definition;
 
-				cstring failed_to_load_reason = nullptr;
+				const char * failed_to_load_reason = nullptr;
 				long   position              = 0;
 				if (!tag_block_read_recursive(group->header_block_definition, &instance->root_block, &position, flags, tag_index))
 					failed_to_load_reason = "read error";
@@ -673,7 +673,7 @@ namespace Yelo {
 			TagGroups::TagInstances().Delete(tag_index);
 		}
 
-		datum_index __cdecl tag_reload(tag group_tag, cstring name) {
+		datum_index __cdecl tag_reload(tag group_tag, const char * name) {
 			tag_group   *group    = tag_group_get(group_tag);
 			datum_index tag_index = datum_index::null();
 

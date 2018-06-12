@@ -79,10 +79,11 @@ namespace Yelo
 				real illumination_recovery_time;	// 0x18
 				UNKNOWN_TYPE(real);					// 0x1C used in the calculation of projectile error angle
 				datum_index charging_effect_index;	// 0x20
-				sbyte network_delay_time;			// 0x24 hardedcoded to delay fire/reload by 10 frames in networked game
+				sbyte network_delay_time;			// 0x24 hardcoded to delay fire/reload by 10 frames in networked game
 				unsigned char : 8;
 				unsigned short : 16;
 			}; static_assert( sizeof(s_trigger_state) == 0x28 );
+
 			struct s_magazine_state // '?' means IDK if its actually padding or there are values there. If there are, IDK their types (could be a boolean!)
 			{
 				Enums::weapon_magazine_state state;
@@ -94,6 +95,7 @@ namespace Yelo
 				UNKNOWN_TYPE(short);				// 0xC I just know a WORD is here, may be an short
 				unsigned short : 16; // ?
 			}; static_assert( sizeof(s_magazine_state) == 0x10 );
+
 			struct s_start_reload_data
 			{
 				short starting_total_rounds[Enums::k_maximum_number_of_magazines_per_weapon];

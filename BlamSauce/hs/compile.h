@@ -20,7 +20,7 @@ namespace Yelo::Scripting {
 			bool has_compiled_source; // a source file has been compiled
 			unsigned char : 8; unsigned short : 16;
 
-			cstring error; // is either null, points to error_buffer, or constant (non-DMA) string
+			const char * error; // is either null, points to error_buffer, or constant (non-DMA) string
 			size_t error_offset;
 			string256 error_buffer;
 

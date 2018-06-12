@@ -4,7 +4,7 @@
 static void* scripting_data_array_info_evaluate(void** arguments)
 {
 	struct s_arguments {
-		cstring data_array_name;
+		const char * data_array_name;
 	}* args = reinterpret_cast<s_arguments *>(arguments);
 
 	DataArrayInfoDumpToConsole(args->data_array_name);
@@ -110,7 +110,7 @@ static void* scripting_runtime_integer_operation_evaluate(void** arguments)
 	struct s_arguments {
 		short value_index;
 		unsigned short : 16;
-		cstring op_name;
+		const char * op_name;
 		long op_value;
 	}* args = reinterpret_cast<s_arguments *>(arguments);
 	TypeHolder result; result.pointer = nullptr;
@@ -149,7 +149,7 @@ static void* scripting_runtime_vector_set_element_evaluate(void** arguments)
 		unsigned short : 16;
 		short element_index;
 		unsigned short : 16;
-		cstring op_name;
+		const char * op_name;
 		real op_value;
 	}* args = reinterpret_cast<s_arguments *>(arguments);
 	TypeHolder result; result.pointer = nullptr;
@@ -164,7 +164,7 @@ static void* scripting_runtime_vector_set_evaluate(void** arguments)
 	struct s_arguments {
 		short value_index;
 		unsigned short : 16;
-		cstring op_name;
+		const char * op_name;
 		real op_x; real op_y; real op_z;
 	}* args = reinterpret_cast<s_arguments *>(arguments);
 	TypeHolder result; result.pointer = nullptr;
@@ -178,7 +178,7 @@ static void* scripting_runtime_vector_operation_evaluate(void** arguments)
 	struct s_arguments {
 		short value_index;
 		unsigned short : 16;
-		cstring op_name;
+		const char * op_name;
 		short op_arg_vector_index;
 		unsigned short : 16;
 	}* args = reinterpret_cast<s_arguments *>(arguments);

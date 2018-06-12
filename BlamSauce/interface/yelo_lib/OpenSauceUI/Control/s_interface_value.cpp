@@ -9,10 +9,10 @@ namespace Yelo
 		void s_interface_value::DeleteString()
 		{
 			// If the value is a string pointer and we own it, delete the string
-			if(is_cstring && m_cstring && is_string_owner)
+			if(is_const char * && m_const char * && is_string_owner)
 			{
-				delete [] m_cstring;
-				m_cstring = nullptr;
+				delete [] m_const char *;
+				m_const char * = nullptr;
 			}
 			else if(is_wstring && m_wstring && is_string_owner)
 			{
@@ -20,7 +20,7 @@ namespace Yelo
 				m_wstring = nullptr;
 			}
 
-			is_cstring = false;
+			is_const char * = false;
 			is_wstring = false;
 			is_string_owner = false;
 		}
@@ -32,11 +32,11 @@ namespace Yelo
 
 			// Store a copy of the input string
 			auto length = strlen(value.c_str()) + 1;
-			m_cstring = new char[length];
-			m_cstring[0] = '\0';
+			m_const char * = new char[length];
+			m_const char *[0] = '\0';
 
-			strcpy_s(m_cstring, length, value.c_str());
-			is_cstring = true;
+			strcpy_s(m_const char *, length, value.c_str());
+			is_const char * = true;
 			is_string_owner = true;
 		}
 
@@ -57,7 +57,7 @@ namespace Yelo
 #pragma endregion
 
 		s_interface_value::s_interface_value()
-			: is_cstring(false)
+			: is_const char *(false)
 			, is_wstring(false)
 			, is_string_owner(false)
 		{
@@ -95,8 +95,8 @@ namespace Yelo
 			: s_interface_value(&value, sizeof(__int64)) { }
 		s_interface_value::s_interface_value(real value)
 			: s_interface_value(&value, sizeof(real)) { }
-		s_interface_value::s_interface_value(cstring value)
-			: s_interface_value(&value, sizeof(cstring)) { }
+		s_interface_value::s_interface_value(const char * value)
+			: s_interface_value(&value, sizeof(const char *)) { }
 		s_interface_value::s_interface_value(wstring value)
 			: s_interface_value(&value, sizeof(wstring)) { }
 		s_interface_value::s_interface_value(point2d value)

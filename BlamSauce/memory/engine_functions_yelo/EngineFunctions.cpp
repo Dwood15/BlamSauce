@@ -45,7 +45,7 @@ namespace Yelo
 
 		namespace Effects
 		{
-			void __declspec(naked) NewOnObjectMarker(datum_index effect_definition_index, datum_index object_index, cstring marker_name)
+			void __declspec(naked) NewOnObjectMarker(datum_index effect_definition_index, datum_index object_index, const char * marker_name)
 			{
 				static const uintptr_t FUNCTION = GET_FUNC_PTR(EFFECT_NEW_ON_OBJECT_MARKER);
 
@@ -140,7 +140,7 @@ namespace Yelo
 				}
 			}
 
-			datum_index TagLoaded(tag group_tag, cstring name)
+			datum_index TagLoaded(tag group_tag, const char * name)
 			{
 				static const uintptr_t FUNCTION = GET_FUNC_PTR(TAG_LOADED);
 
@@ -149,7 +149,7 @@ namespace Yelo
 				memset(local, 0, sizeof(local));
 				strcpy_s(local, name);
 #else
-				cstring local = name;
+				const char * local = name;
 #endif
 
 				__asm {
@@ -169,7 +169,7 @@ namespace Yelo
 				}
 			}
 
-			wcstring UnicodeStringListGetString(datum_index ustr, long index)
+			wconst char * UnicodeStringListGetString(datum_index ustr, long index)
 			{
 				static const uintptr_t FUNCTION = GET_FUNC_PTR(UNICODE_STRING_LIST_GET_STRING);
 
@@ -384,7 +384,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// bink_playback.c
-		__declspec(naked) void __cdecl bink_playback_start(cstring bik_path)
+		__declspec(naked) void __cdecl bink_playback_start(const char * bik_path)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(BINK_PLAYBACK_START);
 
@@ -531,7 +531,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// game_allegiance.c
-		bool __cdecl game_team_is_enemy(long_enum team, long_enum team_to_test)
+		bool __cdecl game_team_is_enemy(signed long team, signed long team_to_test)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(GAME_TEAM_IS_ENEMY);
 
@@ -549,7 +549,7 @@ namespace Yelo
 		}
 
 
-		__declspec(naked) void __cdecl game_engine_rasterize_message(wcstring message, real alpha)
+		__declspec(naked) void __cdecl game_engine_rasterize_message(wconst char * message, real alpha)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(GAME_ENGINE_RASTERIZE_MESSAGE);
 
@@ -625,7 +625,7 @@ namespace Yelo
 		}
 
 
-		void __cdecl hs_effect_new_from_object_marker(datum_index effect_definition_index, datum_index object_index, cstring marker_name)
+		void __cdecl hs_effect_new_from_object_marker(datum_index effect_definition_index, datum_index object_index, const char * marker_name)
 		{
 			Engine::Effects::NewOnObjectMarker(effect_definition_index, object_index, marker_name);
 		}
@@ -642,7 +642,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// input_windows.c
-		__declspec(naked) bool __cdecl input_key_is_down(shortkey_code)
+		__declspec(naked) bool __cdecl input_key_is_down(short key_code)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(INPUT_KEY_IS_DOWN);
 
@@ -662,7 +662,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// hud.c
-		__declspec(naked) wcstring __cdecl hud_get_item_string(short reference_index)
+		__declspec(naked) wconst char * __cdecl hud_get_item_string(short reference_index)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_GET_ITEM_MESSAGE);
 
@@ -673,11 +673,11 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// hud_chat.c
-		void __cdecl hud_chat_to_network(long player_number, long_enum chat_type, wcstring text)
+		void __cdecl hud_chat_to_network(long player_number, signed long chat_type, wconst char * text)
 		{
 			Engine::Networking::EncodeHudChatNetworkData(player_number, chat_type, text);
 		}
-		__declspec(naked) void __cdecl hud_chat_display_message(wcstring message)
+		__declspec(naked) void __cdecl hud_chat_display_message(wconst char * message)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(KEYSTONE_CHAT_LOG_ADD_STRING);
 
@@ -758,7 +758,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// hud_messaging.c
-		__declspec(naked) void __cdecl hud_print_message(short local_player_index, wcstring message)
+		__declspec(naked) void __cdecl hud_print_message(short local_player_index, wconst char * message)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(HUD_PRINT_MESSAGE);
 
@@ -870,7 +870,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// console.c
-		__declspec(naked) bool __cdecl console_process_command(unsigned long access_flags, cstring command)
+		__declspec(naked) bool __cdecl console_process_command(unsigned long access_flags, const char * command)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_PROCESS_COMMAND);
 
@@ -885,7 +885,7 @@ namespace Yelo
 				pop		edi
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		static __declspec(naked) void __cdecl console_printf_impl(bool clear_screen, cstring format)
+		static __declspec(naked) void __cdecl console_printf_impl(bool clear_screen, const char * format)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_PRINTF);
 
@@ -896,7 +896,7 @@ namespace Yelo
 				add		esp, 4 * 1
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		void __cdecl console_printf(bool clear_screen, cstring format, ...)
+		void __cdecl console_printf(bool clear_screen, const char * format, ...)
 		{
 			char local[k_engine_function_string_buffer_size];
 			memset(local, 0, k_engine_function_string_buffer_size);
@@ -908,7 +908,7 @@ namespace Yelo
 
 			console_printf_impl(clear_screen, local);
 		}
-		static __declspec(naked) void __cdecl console_response_printf_impl(BOOL clear_screen, cstring format)
+		static __declspec(naked) void __cdecl console_response_printf_impl(BOOL clear_screen, const char * format)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_RESPONSE_PRINTF);
 
@@ -919,7 +919,7 @@ namespace Yelo
 				add		esp, 4 * 2
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		void __cdecl console_response_printf(bool clear_screen, cstring format, ...)
+		void __cdecl console_response_printf(bool clear_screen, const char * format, ...)
 		{
 			char local[k_engine_function_string_buffer_size];
 			memset(local, 0, k_engine_function_string_buffer_size);
@@ -931,7 +931,7 @@ namespace Yelo
 
 			console_response_printf_impl(clear_screen, local);
 		}
-		static __declspec(naked) void __cdecl console_warning_impl(cstring format)
+		static __declspec(naked) void __cdecl console_warning_impl(const char * format)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(CONSOLE_WARNING);
 
@@ -941,7 +941,7 @@ namespace Yelo
 				add		esp, 4 * 1
 			API_FUNC_NAKED_END_NO_STACK_POP()
 		}
-		void __cdecl console_warning(cstring format, ...)
+		void __cdecl console_warning(const char * format, ...)
 		{
 			char local[k_engine_function_string_buffer_size];
 			memset(local, 0, k_engine_function_string_buffer_size);
@@ -953,7 +953,7 @@ namespace Yelo
 
 			console_warning_impl(local);
 		}
-		bool __cdecl console_process_remote_command(cstring command, long machine_index)
+		bool __cdecl console_process_remote_command(const char * command, long machine_index)
 		{
 			Console::TerminalGlobals()->rcon_machine_index = machine_index;
 			bool result = console_process_command(0, command);
@@ -963,7 +963,7 @@ namespace Yelo
 		}
 		//////////////////////////////////////////////////////////////////////////
 		// main.c
-		__declspec(naked) bool __cdecl main_connect(cstring address, cstring password)
+		__declspec(naked) bool __cdecl main_connect(const char * address, const char * password)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(MAIN_CONNECT);
 
@@ -1022,7 +1022,7 @@ namespace Yelo
 
 		//////////////////////////////////////////////////////////////////////////
 		// data.c
-		__declspec(naked) s_data_array* __cdecl data_new(cstring name, long maximum_count, size_t datum_size)
+		__declspec(naked) s_data_array* __cdecl data_new(const char * name, long maximum_count, size_t datum_size)
 		
 		
 
@@ -1050,7 +1050,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// models.c
-		__declspec(naked) short __cdecl model_find_marker(const datum_index render_model_definition_index, cstring marker_name)
+		__declspec(naked) short __cdecl model_find_marker(const datum_index render_model_definition_index, const char * marker_name)
 		{
 			static const uintptr_t CALL_ADDRESS = Engine::GET_FUNC_PTR(MODEL_FIND_MARKER);
 
@@ -1067,7 +1067,7 @@ namespace Yelo
 
 		//////////////////////////////////////////////////////////////////////////
 		// model_animations.c
-		short __cdecl animation_choose_random_permutation_internal(long_enum render_or_affects_game_state, datum_index animation_graph_index, long animation_index)
+		short __cdecl animation_choose_random_permutation_internal(signed long render_or_affects_game_state, datum_index animation_graph_index, long animation_index)
 		{
 			return Engine::AnimationPickRandomPermutation(render_or_affects_game_state, animation_graph_index, animation_index);
 		}
@@ -1181,7 +1181,7 @@ namespace Yelo
 		}
 
 		__declspec(naked) short __cdecl object_get_marker_by_name(const datum_index object_index
-			, cstring marker_name
+			, const char * marker_name
 			, s_object_marker* markers
 			, const short maximum_marker_count)
 		{
@@ -1190,7 +1190,7 @@ namespace Yelo
 			_asm jmp	FUNCTION;
 		}
 
-		void __cdecl object_attach_to_marker(datum_index target_object_index, cstring target_marker_name, datum_index object_index, cstring marker_name)
+		void __cdecl object_attach_to_marker(datum_index target_object_index, const char * target_marker_name, datum_index object_index, const char * marker_name)
 		{
 			Engine::Objects::Attach(target_object_index, target_marker_name, object_index, marker_name);
 		}
@@ -1362,7 +1362,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// shell_windows.c
-		__declspec(naked) bool __cdecl shell_get_command_line_argument(cstring param, _Out_opt_ cstring* value)
+		__declspec(naked) bool __cdecl shell_get_command_line_argument(const char * param, _Out_opt_ const char ** value)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(SHELL_GET_COMMAND_LINE_ARGUMENT);
 
@@ -1384,7 +1384,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// tag_groups.c
-		datum_index __cdecl tag_loaded(tag group_tag, cstring name)
+		datum_index __cdecl tag_loaded(tag group_tag, const char * name)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(TAG_LOADED);
 
@@ -1393,7 +1393,7 @@ namespace Yelo
 			memset(local, 0, sizeof(local));
 			strcpy_s(local, name);
 #else
-			cstring local = name;
+			const char * local = name;
 #endif
 
 			__asm {
@@ -1437,7 +1437,7 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// text_group.c
-		wcstring unicode_string_list_get_string(datum_index unicode_string_list_definition_index, long reference_index)
+		wconst char * unicode_string_list_get_string(datum_index unicode_string_list_definition_index, long reference_index)
 		{
 			return Engine::TagGroups::UnicodeStringListGetString(unicode_string_list_definition_index, reference_index);
 		}
@@ -1593,7 +1593,7 @@ namespace Yelo
 		
 		__declspec(naked) bool __cdecl unit_start_user_animation(const datum_index unit_index
 			, const datum_index animation_definition_index
-			, cstring animation_name
+			, const char * animation_name
 			, const bool interpolate)
 		{
 			static const uintptr_t FUNCTION = Engine::GET_FUNC_PTR(UNIT_START_USER_ANIMATION);

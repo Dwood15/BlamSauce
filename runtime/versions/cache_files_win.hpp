@@ -6,8 +6,8 @@
 #include "../../BlamSauce/memory/memory_interface_base.hpp"
 
 namespace Yelo::Cache {
-	cstring s_build_cache_file_globals::k_temp_cache_file_name = "temporary uncompressed cache file.bin";
-	cstring s_build_cache_file_globals::k_cache_file_extension = K_MAP_FILE_EXTENSION;
+	const char * s_build_cache_file_globals::k_temp_cache_file_name = "temporary uncompressed cache file.bin";
+	const char * s_build_cache_file_globals::k_cache_file_extension = K_MAP_FILE_EXTENSION;
 
 	DWORD s_build_cache_file_globals::GetFileSize() const {
 		return ::GetFileSize(file_handle, nullptr);
@@ -20,13 +20,13 @@ namespace Yelo::Cache {
 		return result != FALSE && bytes_written == CAST(DWORD, buffer_size);
 	}
 
-	bool s_build_cache_file_globals::TemporaryFileOpen(cstring filename) {
+	bool s_build_cache_file_globals::TemporaryFileOpen(const char * filename) {
 		file_handle = CreateFileA(filename, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
 		return file_handle != INVALID_HANDLE_VALUE;
 	}
 
-	void s_build_cache_file_globals::TemporaryFileClose(cstring filename) {
+	void s_build_cache_file_globals::TemporaryFileClose(const char * filename) {
 		if (file_handle != INVALID_HANDLE_VALUE) {
 			CloseHandle(file_handle);
 			file_handle = INVALID_HANDLE_VALUE;
@@ -35,7 +35,7 @@ namespace Yelo::Cache {
 		}
 	}
 
-	bool s_build_cache_file_globals::TemporaryFileCopy(cstring new_filename, cstring filename) {
+	bool s_build_cache_file_globals::TemporaryFileCopy(const char * new_filename, const char * filename) {
 		return CopyFileA(filename, new_filename, FALSE) != FALSE;
 	}
 
@@ -63,11 +63,11 @@ namespace Yelo::blam {
 		return Cache::BuildCacheFileGlobals()->crc;
 	}
 
-	static bool compress_cache_file_data(cstring filename, cstring cache_file_path) {
+	static bool compress_cache_file_data(const char * filename, const char * cache_file_path) {
 		return true;
 	}
 
-	static void build_cache_file_error(cstring message) {
+	static void build_cache_file_error(const char * message) {
 		YELO_ERROR_FAILURE("%s (#%d)", message, GetLastError());
 		SetLastError(0);
 	}
@@ -96,12 +96,12 @@ namespace Yelo::blam {
 		return true;
 	}
 
-	bool build_cache_file_begin(cstring scenario_name, byte_flags flags) {
+	bool build_cache_file_begin(const char * scenario_name, byte_flags flags) {
 		auto &build_cache_file_globals = *Cache::BuildCacheFileGlobals();
 		assert(!build_cache_file_globals.building);
 
 		bool    invalid_parameters         = false;
-		cstring invalid_parameters_message = "specified parameters are invalid";
+		const char * invalid_parameters_message = "specified parameters are invalid";
 
 		bool building_yelo = TEST_FLAG(flags, Flags::_build_cache_file_begin_building_yelo_bit);
 

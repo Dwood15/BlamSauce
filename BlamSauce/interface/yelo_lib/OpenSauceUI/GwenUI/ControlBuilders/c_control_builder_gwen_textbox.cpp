@@ -29,7 +29,7 @@ namespace Yelo
 
 				gwen_control.SetEditable(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(TextBox, control.GetControlPtr());
 

@@ -17,7 +17,7 @@ namespace Yelo
 	{
 		void PlayAudioFeedbackSound(Enums::ui_audio_feedback_sound type);
 
-		s_ui_widget_instance* LoadByNameOrTag(datum_index ui_widget_definition_index, cstring name = nullptr,
+		s_ui_widget_instance* LoadByNameOrTag(datum_index ui_widget_definition_index, const char * name = nullptr,
 			s_ui_widget_instance* parent = nullptr, 
 			// don't set ctrl'er index unless you specify the last three params as well
 			short controller_index = NONE,
@@ -25,6 +25,6 @@ namespace Yelo
 			datum_index parent_widget_definition_index = datum_index::null,
 			short child_index_from_parent = NONE);
 
-		bool DisplayScriptedWidget(cstring name);
+		bool DisplayScriptedWidget(const char * name);
 	};
 };

@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum version_result_code : long_enum
+		enum version_result_code : signed long
 		{
 			_version_result_code_invalid,	// An unsupported program is trying to run us. Go to hell.
 			_version_result_code_valid,		// A supported version of Halo is trying to run it
@@ -48,10 +48,10 @@ namespace Yelo
 			Enums::version_result_code result_code = Enums::_version_result_code_invalid;
 
 			char dir[MAX_PATH];
-			GetCurrentDirectory(NUMBEROF(dir), dir);
+			GetCurrentDirectory(std::size(dir), dir);
 
 			char name[64];
-			GetModuleBaseName(GetCurrentProcess(), GetModuleHandle(nullptr), name, NUMBEROF(name));
+			GetModuleBaseName(GetCurrentProcess(), GetModuleHandle(nullptr), name, std::size(name));
 			_strlwr_s(name);
 
 			// Ok, the warning message will get annoying after a while for sapien (and tool) users

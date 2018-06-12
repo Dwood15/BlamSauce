@@ -204,7 +204,7 @@ namespace Yelo {
 			// T's name should be a tag_string
 			const byte *name_address = reinterpret_cast<const byte *>(&datum) + offsetof(T, name);
 
-			cstring name = reinterpret_cast<cstring>(name_address);
+			const char * name = reinterpret_cast<const char *>(name_address);
 
 			sprintf_s(buffer, buffer_size, "%s",
 						 name);
@@ -256,7 +256,6 @@ namespace Yelo {
 				value.short, global_scenario_get()->device_groups);
 		}
 
-#if 0
 		static void hs_inspect_ai_command_list(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
 			assert(type == Enums::_hs_type_ai_command_list);
@@ -265,7 +264,6 @@ namespace Yelo {
 				type, buffer, buffer_size,
 				value.short, global_scenario_get()->ai_command_lists);
 		}
-#endif
 
 		static void hs_inspect_starting_profile(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
 			assert(type == Enums::_hs_type_starting_profile);
@@ -275,7 +273,6 @@ namespace Yelo {
 				value.short, global_scenario_get()->player_starting_profiles);
 		}
 
-#if 0
 		static void hs_inspect_conversation(Enums::hs_type type, s_hs_value_union value, char* buffer, size_t buffer_size)
 		{
 			assert(type == Enums::_hs_type_conversation);
@@ -284,7 +281,6 @@ namespace Yelo {
 				type, buffer, buffer_size,
 				value.short, global_scenario_get()->ai_conversations);
 		}
-#endif
 
 		static void hs_inspect_navpoint(Enums::hs_type type, s_hs_value_union value, char *buffer, size_t buffer_size) {
 			assert(type == Enums::_hs_type_navpoint);
@@ -329,7 +325,7 @@ namespace Yelo {
 			if (tag_index.IsNull())
 				hs_inspection_on_none(buffer, buffer_size);
 
-			cstring name = "NOT-YET-IMPLEMENTED"; // TODO
+			const char * name = "NOT-YET-IMPLEMENTED"; // TODO
 
 			sprintf_s(buffer, buffer_size, "%s",
 						 name);
@@ -415,7 +411,7 @@ namespace Yelo {
 			if (object_index.IsNull())
 				hs_inspection_on_none(buffer, buffer_size);
 
-			cstring name = "NOT-YET-IMPLEMENTED"; // TODO
+			const char * name = "NOT-YET-IMPLEMENTED"; // TODO
 
 			sprintf_s(buffer, buffer_size, "%s",
 						 name);
@@ -440,7 +436,7 @@ namespace Yelo {
 
 			const auto &object_name = global_scenario_get()->object_names[name_index];
 
-			Yelo::cstring name = object_name.name;
+			Yelo::const char * name = object_name.name;
 
 			sprintf_s(buffer, buffer_size, "%s",
 						 name);

@@ -29,7 +29,7 @@
 #define RENDER_STATE(state) "##state##", state
 //#define RENDER_STATE(state) state
 
-// TODO: Finish replacing all for( NUMBEROF() ) loops with range for (auto& subsystem : g_postprocess_subsystems)
+// TODO: Finish replacing all for( std::size() ) loops with range for (auto& subsystem : g_postprocess_subsystems)
 
 namespace Yelo
 {
@@ -264,7 +264,7 @@ namespace Yelo
 			c_post_processing_main::Instance().Initialize_Cache();
 
 			// initialize cache based components
-			for(int i = 0; i < NUMBEROF(g_postprocess_cache_subsystems); i++)
+			for(int i = 0; i < std::size(g_postprocess_cache_subsystems); i++)
 				g_postprocess_cache_subsystems[i].m_component->Initialize_Cache();
 
 			YELO_ASSERT_DISPLAY(c_post_processing_main::Instance().IsReady(), "The main post processing component failed to be initialised for a new map");
@@ -272,7 +272,7 @@ namespace Yelo
 				return;
 
 			// runs resource initialization for the cache components
-			for(int i = 0; i < NUMBEROF(g_postprocess_cache_subsystems); i++)
+			for(int i = 0; i < std::size(g_postprocess_cache_subsystems); i++)
 			{
 				g_postprocess_cache_subsystems[i].m_component->InitializeResources_Cache();
 				g_postprocess_subsystems[g_postprocess_cache_subsystems[i].component_index].is_ready = g_postprocess_cache_subsystems[i].m_component->IsReady();
@@ -297,14 +297,14 @@ namespace Yelo
 		void		DisposeFromOldMap()
 		{
 			// release all cache component resources
-			for(int i = 0; i < NUMBEROF(g_postprocess_cache_subsystems); i++)
+			for(int i = 0; i < std::size(g_postprocess_cache_subsystems); i++)
 				g_postprocess_cache_subsystems[i].m_component->ReleaseResources_Cache();
 
 			// release cache dependent resources of the main system
 			c_post_processing_main::Instance().ReleaseResources_Cache();
 
 			// dispose of cache components
-			for(int i = 0; i < NUMBEROF(g_postprocess_cache_subsystems); i++)
+			for(int i = 0; i < std::size(g_postprocess_cache_subsystems); i++)
 				g_postprocess_cache_subsystems[i].m_component->Dispose_Cache();
 
 			c_post_processing_main::Instance().Dispose_Cache();
@@ -328,7 +328,7 @@ namespace Yelo
 			c_post_processing_main::Instance().Update(delta_time);
 
 			// update subsystems
-			for(int i = 0; i < NUMBEROF(g_postprocess_updatable_subsystems); i++)
+			for(int i = 0; i < std::size(g_postprocess_updatable_subsystems); i++)
 				g_postprocess_updatable_subsystems[i].m_component->Update(delta_time);
 		}
 
@@ -380,7 +380,7 @@ namespace Yelo
 				return;
 
 			// load all of the subsystems
-			for(int i = 0; i < NUMBEROF(g_postprocess_subsystems); i++)
+			for(int i = 0; i < std::size(g_postprocess_subsystems); i++)
 				if(g_postprocess_subsystems[i].m_component->IsUnloaded())
 				{
 					g_postprocess_subsystems[i].m_component->Load();
@@ -408,7 +408,7 @@ namespace Yelo
 				return;
 
 			// unload all of the subsystems
-			for(int i = 0; i < NUMBEROF(g_postprocess_subsystems); i++)
+			for(int i = 0; i < std::size(g_postprocess_subsystems); i++)
 				if(!g_postprocess_subsystems[i].m_component->IsUnloaded())
 				{
 					g_postprocess_subsystems[i].m_component->Unload();
@@ -452,7 +452,7 @@ namespace Yelo
 				{
 					// render the subsystems that are ready
 					bool effects_applied = false;
-					for(int i = 0; i < NUMBEROF(g_postprocess_renderable_subsystems); i++)
+					for(int i = 0; i < std::size(g_postprocess_renderable_subsystems); i++)
 						if(g_postprocess_subsystems[g_postprocess_renderable_subsystems[i].component_index].is_ready)
 							effects_applied |= g_postprocess_renderable_subsystems[i].m_component->Render(render_stage);
 

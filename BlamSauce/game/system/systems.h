@@ -26,7 +26,7 @@ namespace Yelo::Main {
 		};
 
 		out_components   = k_components;
-		components_count = NUMBEROF(k_components) - 1 - 1;
+		components_count = std::size(k_components) - 1 - 1;
 
 		return components_count;
 	}
@@ -43,7 +43,7 @@ namespace Yelo::Main {
 		};
 
 		out_components   = k_components;
-		components_count = NUMBEROF(k_components) - 1 - 1;
+		components_count = std::size(k_components) - 1 - 1;
 
 		return components_count;
 	}
@@ -60,7 +60,7 @@ namespace Yelo::Main {
 		};
 
 		out_components   = k_components;
-		components_count = NUMBEROF(k_components) - 1;
+		components_count = std::size(k_components) - 1;
 
 		return components_count;
 	}
@@ -77,7 +77,7 @@ namespace Yelo::Main {
 		};
 
 		out_components = k_components;
-		components_count = NUMBEROF(k_components)-1 - 1;
+		components_count = std::size(k_components)-1 - 1;
 
 		return components_count;
 	}
@@ -94,7 +94,7 @@ namespace Yelo::Main {
 		};
 
 		out_components = k_components;
-		components_count = NUMBEROF(k_components)-1 - 1;
+		components_count = std::size(k_components)-1 - 1;
 
 		return components_count;
 	}

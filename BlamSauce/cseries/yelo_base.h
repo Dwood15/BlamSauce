@@ -100,7 +100,7 @@ namespace Yelo {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Tests whether a wide string is NULL or begins with a null terminator </summary>
-	inline bool is_null_or_empty(wcstring const str) { return str == nullptr || str[0] == L'\0'; }
+	inline bool is_null_or_empty(wconst char * const str) { return str == nullptr || str[0] == L'\0'; }
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	/// <summary>	Tests whether a wide string buffer begins with a null terminator </summary>
@@ -113,7 +113,7 @@ namespace Yelo {
 	// is assumed to be null terminated
 	// Returns [string] if successful
 	// If NULL is returned, you can use GetLastError() for error information
-	char *wstring_to_string(char *string, long string_length, wcstring wide, long wide_length = -1) {
+	char *wstring_to_string(char *string, long string_length, wconst char * wide, long wide_length = -1) {
 		if (!WIN32_FUNC(WideCharToMultiByte)(CP_ACP, 0, wide, wide_length, string, string_length, nullptr, nullptr))
 			return nullptr;
 		else
@@ -121,7 +121,7 @@ namespace Yelo {
 	}
 
 	// [string_length] includes the null terminator
-	char *wstring_to_string_lazy(char *string, long string_length, wcstring wide) {
+	char *wstring_to_string_lazy(char *string, long string_length, wconst char * wide) {
 		assert(string_length > 0);
 
 		string[--string_length] = '\0';
@@ -137,7 +137,7 @@ namespace Yelo {
 	// is assumed to be null terminated
 	// Returns [wide] if successful
 	// If NULL is returned, you can use GetLastError() for error information
-	wstring string_to_wstring(wstring wide, long wide_length, cstring string, long string_length = -1) {
+	wstring string_to_wstring(wstring wide, long wide_length, const char * string, long string_length = -1) {
 		if (!WIN32_FUNC(MultiByteToWideChar)(CP_ACP, 0, string, string_length, wide, wide_length))
 			return nullptr;
 		else
@@ -145,7 +145,7 @@ namespace Yelo {
 	}
 
 	// [string_length] includes the null terminator
-	wstring string_to_wstring_lazy(wstring string, long string_length, cstring ascii) {
+	wstring string_to_wstring_lazy(wstring string, long string_length, const char * ascii) {
 		assert(string_length > 0);
 
 		string[--string_length] = L'\0';
@@ -206,7 +206,7 @@ namespace Yelo {
 
 				datum_index *datum;
 
-				Yelo::cstring ascii;
+				Yelo::const char * ascii;
 				Yelo::wstring unicode;
 			} ptr;
 
@@ -223,7 +223,7 @@ namespace Yelo {
 
 				datum_index datum[1];
 
-				Yelo::cstring ascii[1];
+				Yelo::const char * ascii[1];
 				Yelo::wstring unicode[1];
 			} array;
 

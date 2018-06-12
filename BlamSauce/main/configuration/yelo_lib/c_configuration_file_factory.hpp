@@ -30,7 +30,7 @@ namespace Yelo
 			/// <param name="format">	Describes the format to use. </param>
 			///
 			/// <returns>	The new configuration file. </returns>
-			static configuration_file_ptr_t CreateConfigurationFile(cstring data, cstring format);
+			static configuration_file_ptr_t CreateConfigurationFile(const char * data, const char * format);
 		};
 	};
 };

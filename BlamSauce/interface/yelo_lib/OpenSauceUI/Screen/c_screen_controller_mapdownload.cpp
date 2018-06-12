@@ -126,7 +126,7 @@ namespace Yelo
 				{
 					auto& map_download_display = Networking::HTTP::Client::MapDownload::g_map_download_display;
 
-					cstring text = "";
+					const char * text = "";
 					switch(map_download_display.GetMapDownloadState())
 					{
 					case Networking::HTTP::Client::MapDownload::_map_download_state_searching:
@@ -150,7 +150,7 @@ namespace Yelo
 				{
 					auto& map_download_display = Networking::HTTP::Client::MapDownload::g_map_download_display;
 
-					cstring text = "";
+					const char * text = "";
 					switch(map_download_display.GetMapDownloadState())
 					{
 					case Networking::HTTP::Client::MapDownload::_map_download_state_searching:

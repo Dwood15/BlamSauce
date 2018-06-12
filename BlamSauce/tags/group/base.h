@@ -1,3 +1,4 @@
+#pragma once
 
 #include <precompile.h>
 #include "../../cseries/base.h"
@@ -11,7 +12,6 @@
 #include "loading.hpp"
 #include "../../memory/memory_yelo.hpp"
 #include "../../cache/cache_files.hpp"
-#pragma once
 
 namespace Yelo::TagGroups {
 	/// <summary>	when true, all 'model' references are loaded or get as gbxmodels </summary>
@@ -19,9 +19,6 @@ namespace Yelo::TagGroups {
 }
 
 namespace Yelo {
-	struct tag_reference;
-
-	void __cdecl tag_reference_clear(tag_reference &reference);
 
 	namespace Enums {
 		enum {
@@ -83,8 +80,12 @@ namespace Yelo {
 			this->set(T::k_group_tag, name);
 		}
 	};
-
 	static_assert(sizeof(tag_reference) == 0x10);
+
+
+	void __cdecl tag_reference_clear(tag_reference &reference);
+
+
 #define pad_tag_reference PAD32 PAD32 PAD32 PAD32
 
 	namespace blam {
@@ -478,23 +479,23 @@ namespace Yelo {
 		datum_index __cdecl tag_new(tag group_name, const char *  name);
 
 		template <typename T>
-		inline datum_index tag_new(cstring name) {
+		inline datum_index tag_new(const char * name) {
 			return tag_new(T::k_group_tag, name);
 		}
 
 		// Load a tag definition into memory.
 		// Returns the tag handle of the loaded tag definition
-		datum_index __cdecl tag_load(tag group_tag, cstring name, unsigned long file_flags);
+		datum_index __cdecl tag_load(tag group_tag, const char * name, unsigned long file_flags);
 
 		template <typename T>
-		inline datum_index tag_load(cstring name, unsigned long file_flags) {
+		inline datum_index tag_load(const char * name, unsigned long file_flags) {
 			return tag_load(T::k_group_tag, name, file_flags);
 		}
 
-		datum_index __cdecl tag_reload(tag group_tag, cstring name);
+		datum_index __cdecl tag_reload(tag group_tag, const char * name);
 
 		template <typename T>
-		inline datum_index tag_reload(cstring name) {
+		inline datum_index tag_reload(const char * name) {
 			return tag_reload(T::k_group_tag, name);
 		}
 
@@ -511,7 +512,7 @@ namespace Yelo {
 		// just an endian swap
 		void TagSwap(tag &x);
 
-		tag string_to_group_tag(cstring name);
+		tag string_to_group_tag(const char * name);
 
 		// Returns true if the tag is an instance of the group_tag or is a child group of it.
 		// Returns false if not, or tag_index is invalid.
@@ -549,7 +550,7 @@ namespace Yelo {
 
 			group_tag_to_string &TagSwap();
 
-			cstring ToString() {
+			const char * ToString() {
 				return Terminate().TagSwap().str;
 			}
 		};

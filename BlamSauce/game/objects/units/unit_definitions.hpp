@@ -1,9 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include <precompile.h>
@@ -13,7 +7,6 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum tag_postprocess_mode : byte_enum;
 
 		enum {
 			k_maximum_weapons_per_unit = 4,

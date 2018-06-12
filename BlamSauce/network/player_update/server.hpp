@@ -1,14 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/game/game_configuration.hpp>
-#include <blamlib/Halo1/game/simple_circular_queue.hpp>
-#include <blamlib/Halo1/networking/player_update.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -53,8 +45,7 @@ namespace Yelo
 
 			TStructGetPtrImpl(Memory::s_simple_circular_queue, ActionQueue, 0x28);
 		};
-		typedef Memory::DataArray<update_server_queues_datum, Enums::k_multiplayer_maximum_players>
-			update_server_queues_data_t;
+		typedef Memory::DataArray<update_server_queues_datum, Enums::k_multiplayer_maximum_players> update_server_queues_data_t;
 
 		struct s_update_server_globals
 		{

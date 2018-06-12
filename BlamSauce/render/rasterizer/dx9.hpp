@@ -1,8 +1,3 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
 #include <d3d9.h>
@@ -51,8 +46,8 @@ namespace Yelo {
 	namespace DX9 {
 		struct s_vertex_shader_declaration {
 			IDirect3DVertexDeclaration9 *decl;
-			long_enum format; // D3DFVF
-			long_enum processing_method; // D3DUSAGE
+			signed long                   format; // D3DFVF
+			signed long                   processing_method; // D3DUSAGE
 		}; static_assert(sizeof(s_vertex_shader_declaration) == 0xC);
 	};
 };
@@ -60,7 +55,8 @@ namespace Yelo {
 namespace Yelo::Render {
 	// (Korn): yeah, I fucked up, this should have stayed in the Rasterizer namespace!
 	struct s_render_target {
-		uint    width, height;
+		uint      width;
+		uint height;
 		D3DFORMAT format;
 
 		IDirect3DSurface9 *surface;

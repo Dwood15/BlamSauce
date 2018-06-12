@@ -6,7 +6,7 @@
 
 namespace Yelo::Objects {
 	static bool WeaponTagDataFieldTriggerSetReal(const s_object_field_definition &field, TagGroups::weapon_trigger_definition &trigger,
-																TypeHolder &result, cstring subdata_name) {
+																TypeHolder &result, const char * subdata_name) {
 		using namespace Yelo::Enums;
 
 		switch (field.definition_index) {
@@ -50,7 +50,7 @@ namespace Yelo::Objects {
 	}
 
 	static void *WeaponDataFieldMagazineGetIntegerImpl(const s_object_field_definition &field, Objects::s_weapon_data::s_magazine_state &magazine,
-																		TypeHolder &result, cstring subdata_name) {
+																		TypeHolder &result, const char * subdata_name) {
 		using namespace Enums;
 
 		switch (field.definition_index) {
@@ -72,7 +72,7 @@ namespace Yelo::Objects {
 	}
 
 	static bool WeaponDataFieldMagazineGetInteger(const s_object_field_definition &field, Objects::s_weapon_data::s_magazine_state &magazine,
-																 TypeHolder &result, cstring subdata_name) {
+																 TypeHolder &result, const char * subdata_name) {
 		result.pointer = WeaponDataFieldMagazineGetIntegerImpl(field, magazine,
 																				 result, subdata_name);
 

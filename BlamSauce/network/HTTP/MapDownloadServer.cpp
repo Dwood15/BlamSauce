@@ -858,7 +858,7 @@ namespace Yelo
 
 			// get the final length of the xml document as a string
 			// max int size is 2147483647, so 10 chars plus the NULL
-			char length_string[NUMBEROF("2147483647")];
+			char length_string[std::size("2147483647")];
 			if(-1 == sprintf_s(length_string, "%i", xml_printer.Size()))
 			{
 				SendResponse(connection, Enums::_http_status_code_server_error_internal_server_error);

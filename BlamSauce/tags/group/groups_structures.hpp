@@ -6,6 +6,9 @@
 #pragma once
 
 #include <precompile.h>
+#include "base.h"
+#include "../../memory/byte_swapping_base.h"
+#include "tag_groups.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -139,7 +142,7 @@ namespace Yelo {
 	struct tag_field {
 		Enums::field_type type;
 		unsigned short : 16;
-		cstring name;
+		const char * name;
 		void    *definition;
 
 		// cast the [definition] pointer to a T*
@@ -204,13 +207,13 @@ namespace Yelo {
 	typedef bool    (__cdecl *proc_tag_block_postprocess_element)(void *element, Enums::tag_postprocess_mode mode, datum_index tag_index);
 
 	// if [formatted_buffer] returns empty, the default block formatting is done
-	typedef cstring (__cdecl *proc_tag_block_format)(datum_index tag_index, tag_block *block, long element_index, char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
+	typedef const char * (__cdecl *proc_tag_block_format)(datum_index tag_index, tag_block *block, long element_index, char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 
 	// Procedure called during tag_block_delete_element, but before all the child data is freed
 	typedef void    (__cdecl *proc_tag_block_delete_element)(tag_block *block, long element_index);
 
 	struct tag_block_definition {
-		cstring                            name;
+		const char *                            name;
 		long_flags                         flags;
 		long                              maximum_element_count;
 		size_t                             element_size;
@@ -225,7 +228,7 @@ namespace Yelo {
 		// Searches the definition for a field of type [field_type] with a name which starts
 		// with [name] characters. Optionally starts at a specific field index.
 		// Returns NONE if this fails.
-		long FindFieldIndex(short field_type, cstring name, long start_index = NONE) const {
+		long FindFieldIndex(short field_type, const char * name, long start_index = NONE) const {
 			YELO_ASSERT(this);
 			YELO_ASSERT(this->fields);
 			YELO_ASSERT(IN_RANGE_ENUM(field_type, Enums::k_number_of_tag_field_types));
@@ -243,7 +246,7 @@ namespace Yelo {
 			return NONE;
 		}
 
-		tag_field *FindField(short field_type, cstring name, long start_index = NONE) {
+		tag_field *FindField(short field_type, const char * name, long start_index = NONE) {
 			long index = FindFieldIndex(field_type, name, start_index);
 
 			YELO_ASSERT_DISPLAY(index != NONE, "failed to find a %s field named %s in %s",
@@ -252,7 +255,7 @@ namespace Yelo {
 			return &this->fields[index];
 		}
 
-		tag_block_definition *FindBlockField(cstring name, long start_index = NONE) {
+		tag_block_definition *FindBlockField(const char * name, long start_index = NONE) {
 			tag_field *block_field = FindField(Enums::_field_block, name, start_index);
 
 			return block_field->Definition<tag_block_definition>();
@@ -348,7 +351,7 @@ namespace Yelo {
 	typedef void (__cdecl *proc_tag_data_byte_swap)(void *block_element, void *address, long size);
 
 	struct tag_data_definition {
-		cstring                 name;
+		const char *                 name;
 		long_flags              flags;
 		long                   maximum_size;
 		proc_tag_data_byte_swap byte_swap_proc;
@@ -419,7 +422,7 @@ namespace Yelo {
 	typedef bool (__cdecl *proc_tag_group_postprocess)(datum_index tag_index, Enums::tag_postprocess_mode mode);
 
 	struct tag_group {
-		cstring    name;
+		const char *    name;
 		unsigned long flags;
 		tag        group_tag;
 		tag        parent_group_tag;
@@ -444,7 +447,7 @@ namespace Yelo {
 			return (*lhs)->group_tag - (*rhs)->group_tag;
 		}
 
-		static int __cdecl SearchByNameProc(void *, cstring key, const tag_group *const *group) {
+		static int __cdecl SearchByNameProc(void *, const char * key, const tag_group *const *group) {
 			return strcmp(key, (*group)->name);
 		}
 
@@ -469,11 +472,11 @@ namespace Yelo {
 	namespace TagGroups {
 		struct s_tag_field_definition {
 			size_t           size;                  /// <summary>	The size of a single instance of this field. </summary>
-			cstring          name;                  /// <summary>	The user-friendly name of this field. </summary>
+			const char *          name;                  /// <summary>	The user-friendly name of this field. </summary>
 			byte_swap_code_t *byte_swap_codes;   /// <summary>	The needed for byte swapping an instance of this field. </summary>
 
 			/// <summary>	The C name of this field. Null if it can't be defined in code (eg, _field_custom) </summary>
-			cstring code_name;
+			const char * code_name;
 		};
 	};
 };

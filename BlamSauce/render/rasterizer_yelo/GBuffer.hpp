@@ -52,12 +52,12 @@ namespace Yelo
 			
 			bool SetEffectVar(LPD3DXEFFECT& effect,
 				bool& variable_used,
-				cstring texture_semantic,
+				const char * texture_semantic,
 				Render::s_render_target& target,
-				cstring x_handle_semantic = NULL, const int x_index = 0,
-				cstring y_handle_semantic = NULL, const int y_index = 0,
-				cstring z_handle_semantic = NULL, const int z_index = 0,
-				cstring w_handle_semantic = NULL, const int w_index = 0);
+				const char * x_handle_semantic = NULL, const int x_index = 0,
+				const char * y_handle_semantic = NULL, const int y_index = 0,
+				const char * z_handle_semantic = NULL, const int z_index = 0,
+				const char * w_handle_semantic = NULL, const int w_index = 0);
 		};
 
 		struct s_render_target_output

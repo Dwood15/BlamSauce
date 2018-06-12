@@ -3,7 +3,7 @@
 */
 #pragma once
 
-#include <cstring>
+#include <const char *>
 #include "../cseries/base.h"
 #include "../cseries/yelo_base.h"
 #include "../memory/upgrades/blam_memory_upgrades.hpp"
@@ -129,7 +129,7 @@ namespace Yelo {
 				this->version   = k_version;
 			}
 
-			void InitializeForCacheBuild(bool using_mod_sets, cstring mod_name, bool use_memory_upgrades) {
+			void InitializeForCacheBuild(bool using_mod_sets, const char * mod_name, bool use_memory_upgrades) {
 				//////////////////////////////////////////////////////////////////////////
 				// Setup the core tag versions
 				this->tag_versioning.project_yellow         = TagGroups::project_yellow::k_version;
@@ -151,7 +151,7 @@ namespace Yelo {
 				build_info.revision = revision;
 				time(&build_info.timestamp);
 
-				cstring stage_string = "";
+				const char * stage_string = "";
 				switch (stage) {
 					case Enums::_production_build_stage_ship:
 						stage_string = "ship";

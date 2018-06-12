@@ -26,7 +26,7 @@ namespace Yelo {
 
 	namespace Memory {
 		struct s_byte_swap_definition {
-			cstring name;
+			const char * name;
 			size_t  size;
 			// _bs_code_array_start,
 			// <count>,

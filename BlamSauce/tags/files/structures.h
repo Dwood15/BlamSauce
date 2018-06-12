@@ -9,7 +9,7 @@
 
 namespace Yelo::blam {
 
-	static bool __cdecl tag_file_open_impl(tag group_tag, cstring filename, _Out_opt_ bool *is_readonly, _Out_opt_ uint *crc, bool from_file_system) {
+	static bool __cdecl tag_file_open_impl(tag group_tag, const char * filename, _Out_opt_ bool *is_readonly, _Out_opt_ uint *crc, bool from_file_system) {
 		auto &globals = *TagGroups::TagFileGlobals();
 
 		if (!globals.SingleFileOpen(group_tag, filename, false, from_file_system) ||
@@ -26,11 +26,11 @@ namespace Yelo::blam {
 		return true;
 	}
 
-	cstring tag_name_strip_path(cstring name)
+	const char * tag_name_strip_path(const char * name)
 	{
 		YELO_ASSERT(name);
 
-		cstring sans_path = strrchr(name, '\\');
+		const char * sans_path = strrchr(name, '\\');
 
 		return sans_path != nullptr
 				 ? sans_path + 1
@@ -40,8 +40,8 @@ namespace Yelo::blam {
 };
 
 namespace Yelo::TagGroups {
-	static constexpr cstring K_TAG_FILES_DIRECTORY  = "tags\\";
-	static constexpr cstring K_DATA_FILES_DIRECTORY = "data\\";
+	static constexpr const char * K_TAG_FILES_DIRECTORY  = "tags\\";
+	static constexpr const char * K_DATA_FILES_DIRECTORY = "data\\";
 
 	bool TagFileRequiresByteSwap() {
 		return true; // TODO: reference tag_file_globals
@@ -118,7 +118,7 @@ namespace Yelo::TagGroups {
 															 Flags::_name_full_path_flags, buffer);
 		}
 
-		bool SingleFileCreate(tag group_tag, cstring name) {
+		bool SingleFileCreate(tag group_tag, const char * name) {
 			char debug_filename[Enums::k_maximum_filename_length + 1];
 
 			SingleFileClose();
@@ -158,19 +158,19 @@ namespace Yelo::TagGroups {
 			YELO_ERROR_FAILURE("couldn't read header from the %s tag '%s' (%s)", expected_group->name, single_file_name, GetSingleFilePath(debug_filename));
 		}
 
-		void ReadHeaderInvalidFormat(const tag_group *expected_group, cstring format_type) const {
+		void ReadHeaderInvalidFormat(const tag_group *expected_group, const char * format_type) const {
 			char debug_filename[Enums::k_maximum_filename_length + 1];
 
 			YELO_ERROR_FAILURE("the %s tag '%s' (%s) had an invalid header (%s)", expected_group->name, single_file_name, GetSingleFilePath(debug_filename), format_type);
 		}
 
 		void ReadHeaderGroupMismatch(const tag_group *expected_group, const tag_group *found_group) const {
-			cstring found_name = found_group == nullptr ? "UNKNOWN GROUP" : found_group->name;
+			const char * found_name = found_group == nullptr ? "UNKNOWN GROUP" : found_group->name;
 
 			YELO_ERROR_FAILURE("the %s tag '%s' was the wrong group type (%s)", expected_group->name, single_file_name, found_name);
 		}
 
-		void ReadHeaderVersionMistmatch(const tag_group *expected_group, cstring reason) const {
+		void ReadHeaderVersionMistmatch(const tag_group *expected_group, const char * reason) const {
 			char debug_filename[Enums::k_maximum_filename_length + 1];
 
 			YELO_ERROR_FAILURE("the %s tag '%s' has an invalid (%s) version", expected_group->name, GetSingleFilePath(debug_filename), reason);
@@ -235,7 +235,7 @@ namespace Yelo::TagGroups {
 			return true;
 		}
 
-		bool SingleFileOpen(tag group_tag, cstring name, bool for_writing, bool from_file_system) {
+		bool SingleFileOpen(tag group_tag, const char * name, bool for_writing, bool from_file_system) {
 			char debug_filename[Enums::k_maximum_filename_length + 1];
 
 			bool            result = false;
@@ -259,8 +259,8 @@ namespace Yelo::TagGroups {
 				return false;
 			}
 
-			strncpy_s(single_file_name, name, NUMBEROF(single_file_name) - 1);
-			single_file_name[NUMBEROF(single_file_name) - 1] = '\0';
+			strncpy_s(single_file_name, name, std::size(single_file_name) - 1);
+			single_file_name[std::size(single_file_name) - 1] = '\0';
 
 			if (from_file_system && !blam::file_exists(single_file_reference))
 				return false;
@@ -287,7 +287,7 @@ namespace Yelo::TagGroups {
 			return result;
 		}
 
-		bool New(tag group_tag, cstring name) {
+		bool New(tag group_tag, const char * name) {
 			const tag_group *group = blam::tag_group_get(group_tag);
 
 			YELO_ASSERT(open);

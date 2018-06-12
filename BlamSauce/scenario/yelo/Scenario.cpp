@@ -1,15 +1,4 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
-#include "Common/Precompile.hpp"
-#include "Scenario/Scenario.hpp"
-
-#include <blamlib/Halo1/scenario/scenario.hpp>
-#include <blamlib/Halo1/scenario/scenario_definitions.hpp>
-#include <blamlib/Halo1/scenario/scenario_structures.hpp>
+#include <precompile.h>
 // There are places which use a bit-vector for the structure-bsps
 // In the stock code, the bit-vector is a 16-bit word
 // We can only, reasonably, upgrade the code to a 32-bit word
@@ -25,22 +14,22 @@ namespace Yelo
 #define __EL_INCLUDE_FILE_ID	__EL_SCENARIO_SCENARIO
 #include "Memory/_EngineLayout.inl"
 
-		s_scenario_globals* ScenarioGlobals()						DPTR_IMP_GET(scenario_globals);
+		s_scenario_globals* ScenarioGlobals()						{ return *reinterpret_cast<Yelo::Scenario::s_scenario_globals**>(0x6E2254)};
 
-		TagGroups::scenario* Scenario()								PTR_IMP_GET(global_scenario);
-		TagGroups::collision_bsp* Bsp3d()							PTR_IMP_GET(global_bsp3d);
-		TagGroups::collision_bsp* CollisionBsp()					PTR_IMP_GET(global_collision_bsp);
-		TagGroups::structure_bsp* StructureBsp()					PTR_IMP_GET(global_structure_bsp);
+		TagGroups::scenario* Scenario()								{ return(global_scenario); }
+		TagGroups::collision_bsp* Bsp3d()							{ return(global_bsp3d); }
+		TagGroups::collision_bsp* CollisionBsp()					{ return(global_collision_bsp); }
+		TagGroups::structure_bsp* StructureBsp()					{ return(global_structure_bsp); }
 
-		datum_index ScenarioIndex()									PTR_IMP_GET(global_scenario_index);
-		short StructureBspIndex()									PTR_IMP_GET(structure_bsp_index);
+		datum_index ScenarioIndex()									{ return(global_scenario_index); }
+		short StructureBspIndex()									{ return(structure_bsp_index); }
 
-		datum_index* GlobalScenarioIndexReference()					PTR_IMP_GET2(global_scenario_index);
-		TagGroups::scenario** GlobalScenarioReference()				PTR_IMP_GET2(global_scenario);
-		short* GlobalStructureBspIndexReference()					PTR_IMP_GET2(structure_bsp_index);
-		TagGroups::structure_bsp** GlobalStructureBspReference()	PTR_IMP_GET2(global_structure_bsp);
-		TagGroups::collision_bsp** GlobalBspReference()				PTR_IMP_GET2(global_bsp3d);
-		TagGroups::collision_bsp** GlobalCollisionBspReference()	PTR_IMP_GET2(global_collision_bsp);
+		datum_index* GlobalScenarioIndexReference()					{ return global_scenario_index; }
+		TagGroups::scenario** GlobalScenarioReference()				{ return global_scenario; }
+		short* GlobalStructureBspIndexReference()					{ return structure_bsp_index; }
+		TagGroups::structure_bsp** GlobalStructureBspReference()	{ return global_structure_bsp; }
+		TagGroups::collision_bsp** GlobalBspReference()				{ return global_bsp3d; }
+		TagGroups::collision_bsp** GlobalCollisionBspReference()	{ return global_collision_bsp; }
 
 		static void InitializeMaximumStructureBspsPerScenarioUpgrade()
 		{

@@ -59,11 +59,11 @@
 #define PAD128 unsigned __int64 : 64; unsigned __int64 : 64;
 
 // Add a field to a structure that pads as if it were of type [type]
-#define PAD_TYPE(type) pad_## type
+#define PAD_TYPE(type) type : 8 * sizeof(type);
 // Add a field to a structure that markups what is thought to be a field of type [type]
 #define UNKNOWN_TYPE(type) type : 8 * sizeof(type);
 // Add a field to a structure that markups a unused field of type [type]
-#define UNUSED_TYPE(type) pad_##type
+#define UNUSED_TYPE(type) type : 8 * sizeof(type);
 
 //Yes, this is incredibly lazy, stfu.
 #define YELO_ASSERT(asdf, ...) // asdf

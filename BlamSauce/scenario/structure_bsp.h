@@ -1,5 +1,8 @@
 #pragma once
 
+#include <const char *>
+#include <precompile.h>
+
 namespace Yelo::StructureBSP {
 	using namespace TagGroups;
 
@@ -145,7 +148,7 @@ namespace Yelo::StructureBSP {
 	/// <param name="set_name"> 	Name of the lightmap set. </param>
 	///
 	/// <returns>	true if it succeeds, false if it fails. </returns>
-	static bool SetLightmapSetByName(const sbyte bsp_index, cstring set_name) {
+	static bool SetLightmapSetByName(const sbyte bsp_index, const char * set_name) {
 		if (!GameState::YeloGameStateEnabled()) {
 			return false;
 		}
@@ -175,7 +178,7 @@ namespace Yelo::StructureBSP {
 		struct s_arguments {
 			short   bsp_index;
 					  unsigned short : 16;
-			cstring set_name;
+			const char * set_name;
 		} *args = CAST_PTR(s_arguments * , arguments);
 		TypeHolder result;
 		result.pointer = nullptr;
@@ -196,7 +199,7 @@ namespace Yelo::StructureBSP {
 	/// <param name="set_name"> 	Name of the sky set. </param>
 	///
 	/// <returns>	true if it succeeds, false if it fails. </returns>
-	static bool SetSkySetByName(const sbyte bsp_index, cstring set_name) {
+	static bool SetSkySetByName(const sbyte bsp_index, const char * set_name) {
 		if (!GameState::YeloGameStateEnabled()) {
 			return false;
 		}
@@ -222,13 +225,11 @@ namespace Yelo::StructureBSP {
 		return false;
 	}
 
-	static void *__stdcall
-
-	scripting_structure_bsp_set_sky_set_evaluate(void **arguments) {
+	static void *__stdcall scripting_structure_bsp_set_sky_set_evaluate(void **arguments) {
 		struct s_arguments {
 			short   bsp_index;
 					  unsigned short : 16;
-			cstring set_name;
+			const char * set_name;
 		} *args = CAST_PTR(s_arguments * , arguments);
 		TypeHolder result;
 		result.pointer = nullptr;

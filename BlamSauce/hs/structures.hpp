@@ -54,11 +54,11 @@ namespace Yelo
 		{
 			Yelo::Enums::hs_type return_type;
 			unsigned short yelo_flags; // padding in halo, special flags in project yellow
-			cstring name;
+			const char * name;
 			proc_hs_parse parse;
 			proc_hs_evaluate evaluate;
-			cstring info;
-			cstring param_info;
+			const char * info;
+			const char * param_info;
 			unsigned short access;
 			short paramc;
 #pragma warning( push )
@@ -93,7 +93,7 @@ namespace Yelo
 		// halo script accessible value
 		struct hs_global_definition
 		{
-			cstring name;
+			const char * name;
 			Enums::hs_type type;
 			unsigned short flags; // padding in halo, special flags in project yellow
 			union {

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <precompile.h>
-#include "../memory/upgrades/blam_memory_upgrades.hpp"
 
 namespace Yelo {
 #define pad_bool  unsigned char : 8;
@@ -43,13 +42,13 @@ namespace Yelo {
 	// Constant '\0\0' terminated unicode string
 	typedef const wchar_t *wcstring;
 
-	// null value for a [string] or [cstring]
+	// null value for a [string] or [const char *]
 #define CSTRING_NULL   "\0"
-	// null value for a [wstring] or [wcstring]
+	// null value for a [wstring] or [wconst char *]
 #define WSTRING_NULL   L"\0"
 
 	// 32 character ASCII string, with null terminator
-	typedef char tag_string[Yelo::Enums::k_tag_string_length + 1];
+	typedef char tag_string[31 + 1];
 #define pad_tag_string unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32; unsigned long : 32
 	// 256 character ASCII string, with null terminator
 	typedef char long_string[Yelo::Enums::k_long_string_length + 1];
@@ -71,17 +70,17 @@ namespace Yelo {
 
 	struct string_list {
 		long   count;
-		cstring *strings;
+		const char * *strings;
 
-		const cstring * begin() const { return strings; }
+		const const char * * begin() const { return strings; }
 
-		cstring       * begin() { return strings; }
+		const char *       * begin() { return strings; }
 
-		const cstring * end() const { return strings + count; }
+		const const char * * end() const { return strings + count; }
 
-		cstring       * end() { return strings + count; }
+		const char *       * end() { return strings + count; }
 
-		cstring operator [](long index) const {
+		const char * operator [](long index) const {
 			assert(index >= 0 && index < count);
 
 			return strings[index];

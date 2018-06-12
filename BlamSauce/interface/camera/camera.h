@@ -1,26 +1,22 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#if PLATFORM_IS_USER
-#include <blamlib/Halo1/camera/director.hpp>
-#include <YeloLib/configuration/c_configuration_value.hpp>
-#include <YeloLib/configuration/c_configuration_container.hpp>
-#include <YeloLib/open_sauce/settings/c_settings_singleton.hpp>
+#include <precompile.h>
+#include "director.hpp"
+#include "director_structures.hpp"
+#include "../../game/objects/units/units_yelo.hpp"
+#include "../../render/cameras.hpp"
+#include "../../render/render.hpp"
+#include "../../cache/shared/shared_cache_files.hpp"
 
 namespace Yelo
 {
 	namespace Enums
 	{
-		enum settings_adjustment_result : long_enum;
+		enum settings_adjustment_result : signed long;
 
-		enum camera_script_mode : _enum
+		enum camera_script_mode : short
 		{
-			_camera_script_mode_none = _enum(NONE),
+			_camera_script_mode_none = NONE,
 			_camera_script_mode_unk = 0,
 			_camera_script_mode_controlled,
 			_camera_script_mode_first_person,
@@ -63,7 +59,7 @@ namespace Yelo
 		}; static_assert( sizeof(s_camera_command) == 0x68 );
 
 		struct s_observer
-		{ 
+		{
 			tag header_signature;				// 0x0
 			s_camera_command* command_update;	// 0x4
 			s_camera_command command;			// 0x8
@@ -75,7 +71,7 @@ namespace Yelo
 			struct s_calculated_result
 			{
 				real_point3d position;			// 0x74
-				s_scenario_location location;	// 0x80
+				Yelo::Scenario::s_scenario_location location;	// 0x80
 				real_vector3d velocity;			// 0x88
 				real_vector3d forward;			// 0x94
 				real_euler_angles3d up;			// 0xA0
@@ -173,7 +169,7 @@ namespace Yelo
 		void Update();
 
 		// Dump the current view state for use in screen-shot point plotting
-		void DumpViewState(cstring name = NULL);
+		void DumpViewState(const char * name = NULL);
 		void* DumpViewStateEvaluate(void** arguments);
 	};
 
@@ -182,28 +178,26 @@ namespace Yelo
 
 	namespace Fov
 	{
-		class c_settings_container
-			: public Configuration::c_configuration_container
-		{
-		public:
-			Configuration::c_configuration_value<real> m_field_of_view;
-			Configuration::c_configuration_value<bool> m_ignore_fov_change_in_cinematics;
-			Configuration::c_configuration_value<bool> m_ignore_fov_change_in_main_menu;
-
-			c_settings_container();
-			
-		protected:
-			const std::vector<i_configuration_value* const> GetMembers() final override;
-		};
-
-		class c_settings_fov
-			: public Settings::c_settings_singleton<c_settings_container, c_settings_fov>
-		{
-		public:
-			void PostLoad() final override;
-
-			void PreSave() final override;
-		};
+		// class c_settings_container : public Configuration::c_configuration_container {
+		// public:
+		// 	Configuration::c_configuration_value<real> m_field_of_view;
+		// 	Configuration::c_configuration_value<bool> m_ignore_fov_change_in_cinematics;
+		// 	Configuration::c_configuration_value<bool> m_ignore_fov_change_in_main_menu;
+		//
+		// 	c_settings_container();
+		//
+		// protected:
+		// 	const std::vector<i_configuration_value* const> GetMembers() final override;
+		// };
+		//
+		// class c_settings_fov
+		// 	: public Settings::c_settings_singleton<c_settings_container, c_settings_fov>
+		// {
+		// public:
+		// 	void PostLoad() final override;
+		//
+		// 	void PreSave() final override;
+		// };
 
 		void Initialize();
 		void Dispose();
@@ -214,13 +208,12 @@ namespace Yelo
 	};
 };
 //Lazy merge :)
-namespace Yelo::Camera
-	{
-		s_observer* Observer()									PTR_IMP_GET2(observers);
-		s_camera_script_globals_data* CameraScriptGlobals()		PTR_IMP_GET2(camera_script_globals);
-		s_director_scripting_data* DirectorScripting()			DPTR_IMP_GET(director_scripting);
-		s_cinematic_globals_data* CinematicGlobals()			DPTR_IMP_GET(cinematic_globals);
-		s_director_data* GlobalDirector()						PTR_IMP_GET2(global_director);
+namespace Yelo::Camera {
+		s_observer* Observer()									{ return static_cast<s_observer *>(0x64758C); }
+		s_camera_script_globals_data* CameraScriptGlobals()		{ return static_cast<s_camera_script_globals_data *>(0x621F90); }
+		s_director_scripting_data* DirectorScripting()			{ reinterpret_cast<Yelo::Camera::s_director_scripting_data **>(0x81713C); }
+		s_cinematic_globals_data* CinematicGlobals()			{ reinterpret_cast<Yelo::Camera::s_cinematic_globals_data **>(0x68C83C); }
+		s_director_data* GlobalDirector()						{ return static_cast<s_director_data*>(0x647490); }
 
 		short __cdecl DirectorDesiredPerspective(const datum_index unit_index, Enums::game_perspective& perspective)
 		{
@@ -249,13 +242,13 @@ namespace Yelo::Camera
 
 		__declspec(naked) short __cdecl DirectorChooseGamePerspectiveHook(Enums::game_perspective& perspective)
 		{
-			API_FUNC_NAKED_START()
+			__asm {
 				push	perspective
 				push	ecx
 				call	DirectorDesiredPerspective
 				add		esp, 8
 				pop		ebp
-			API_FUNC_NAKED_END_()
+			__asm retn    }
 		}
 
 		void Initialize()
@@ -265,13 +258,13 @@ namespace Yelo::Camera
 			static byte asm_change_short0[] = {0x00, 0x00};
 			static byte asm_change_long0[] = {0x00, 0x00, 0x00, 0x00};
 
-			Memory::CreateHookRelativeCall(&Camera::UpdateFor3rd, GET_FUNC_VPTR(OBSERVER_UPDATE_COMMAND_HOOK), Enums::_x86_opcode_retn);
-			Memory::WriteMemory(GET_FUNC_VPTR(DIRECTOR_GET_PERSPECTIVE_DEFAULT_SET), asm_change_short1, 2);
-			Memory::WriteMemory(GET_FUNC_VPTR(HUD_INITIALIZE_FOR_NEW_MAP_DEFAULT_SET_SHOW_HUD), asm_change_short0, 2);
-			Memory::WriteMemory(GET_FUNC_VPTR(HUD_ADD_ITEM_MESSAGE_DEFAULT_SET_SHOW_MSG), asm_change_long0, 4);
+			// Memory::CreateHookRelativeCall(&Camera::UpdateFor3rd, GET_FUNC_VPTR(OBSERVER_UPDATE_COMMAND_HOOK), Enums::_x86_opcode_retn);
+			Memory::WriteMemory((void *)0x44644F, asm_change_short1, 2);
+			Memory::WriteMemory((void *)0x4AC8EC, asm_change_short0, 2);
+			Memory::WriteMemory((void *)(0x4B184F), asm_change_long0, 4);
 			#pragma endregion
 
-			Memory::WriteRelativeCall(&DirectorChooseGamePerspectiveHook, GET_FUNC_VPTR(DIRECTOR_CHOOSE_GAME_PERSPECTIVE_HOOK), true);
+			Memory::WriteRelativeCall(&DirectorChooseGamePerspectiveHook, static_cast<void*>(0x446585), true);
 
 			Fov::Initialize();
 		}
@@ -293,14 +286,14 @@ namespace Yelo::Camera
 			//	Camera::Observer()->timer._unknown4 == 0 &&
 			//	Camera::Observer()->timer._unknown4_pad[1] == 1)
 			{
-				Camera::ObserverGlobals()->command.offset.y = 0.4f;
-				Camera::ObserverGlobals()->command.offset.z = 0.2f;
-				Camera::ObserverGlobals()->command.depth = 2.0f;
+				// Camera::ObserverGlobals()->command.offset.y = 0.4f;
+				// Camera::ObserverGlobals()->command.offset.z = 0.2f;
+				// Camera::ObserverGlobals()->command.depth = 2.0f;
 			}
 		}
 		#pragma endregion
 
-		void DumpViewState(cstring name)
+		void DumpViewState(const char * name)
 		{
 			if(!name) name = "view_state.bin";
 
@@ -308,7 +301,7 @@ namespace Yelo::Camera
 
 			if(f != nullptr)
 			{
-				fwrite(&Render::RenderGlobals()->camera, sizeof(Render::s_render_camera), 1, f);
+				fwrite(&Render::RenderGlobals()->camera, sizeof(Yelo::Render::s_render_camera), 1, f);
 				fwrite(&Render::RenderGlobals()->frustum, sizeof(Render::s_render_frustum), 1, f);
 				fclose(f);
 			}
@@ -326,33 +319,6 @@ namespace Yelo::Fov
 	{
 		static real g_fov_scale = 1.0f;
 
-#pragma region Settings
-		c_settings_container::c_settings_container()
-			: Configuration::c_configuration_container("Camera")
-			, m_field_of_view("FieldOfView", 70.0f)
-			, m_ignore_fov_change_in_cinematics("IgnoreFOVChangeInCinematics", true)
-			, m_ignore_fov_change_in_main_menu("IgnoreFOVChangeInMainMenu", true)
-		{ }
-
-		const std::vector<Configuration::i_configuration_value* const> c_settings_container::GetMembers()
-		{
-			return std::vector<i_configuration_value* const> { &m_field_of_view, &m_ignore_fov_change_in_cinematics, &m_ignore_fov_change_in_main_menu };
-		}
-
-		void c_settings_fov::PostLoad()
-		{
-			real base_fov = __min(Get().m_field_of_view, 160.0f);
-			base_fov =		__max(base_fov, 40.0f);
-
-			g_fov_scale = base_fov / 70.0f;
-		}
-
-		void c_settings_fov::PreSave()
-		{
-			Get().m_field_of_view = 70.0f * g_fov_scale;
-		}
-#pragma endregion
-
 		static void __cdecl observer_update_command_hook()
 		{
 			if (Players::PlayerControlGlobals()->local_players[0].zoom_level > -1)
@@ -361,14 +327,12 @@ namespace Yelo::Fov
 			}
 
 			bool in_main_menu = Yelo::Cache::CacheFileGlobals()->cache_header.cache_type == Enums::_shared_cache_type_main_menu;
-			if(in_main_menu && c_settings_fov::Instance()->m_ignore_fov_change_in_main_menu)
+			if(in_main_menu)
 			{
 				return;
 			}
 
-			if(!in_main_menu
-				&& Camera::DirectorScripting()->initialized
-				&& c_settings_fov::Instance()->m_ignore_fov_change_in_cinematics)
+			if(!in_main_menu && Camera::DirectorScripting()->initialized)
 			{
 				return;
 			}
@@ -383,17 +347,17 @@ namespace Yelo::Fov
 		void Initialize()
 		{
 			// Overwrite the 'retn' at the observer_update_command with a jmp to our hook code
-			Memory::WriteRelativeJmp(observer_update_command_hook, GET_FUNC_VPTR(OBSERVER_UPDATE_COMMAND_HOOK), true);
+			Memory::WriteRelativeJmp(&observer_update_command_hook, (void*)0x4484BA, true);
 
 			// Disabled the max fov check
-			GET_PTR(MAX_FOV_CHECK_JMP) = Enums::_x86_opcode_jmp_short;
+			*(static_cast<int*>(0x44930D)) = Enums::_x86_opcode_jmp_short;
 
-			c_settings_fov::Register(Settings::Manager());
+			//c_settings_fov::Register(Settings::Manager());
 		}
 
 		void Dispose()
 		{
-			c_settings_fov::Unregister(Settings::Manager());
+			//c_settings_fov::Unregister(Settings::Manager());
 		}
 
 		real GetFieldOfView()
@@ -411,4 +375,3 @@ namespace Yelo::Fov
 			g_fov_scale = 1.0f;
 		}
 	};
-#endif

@@ -163,7 +163,7 @@ namespace Yelo
 			/// <param name="control_id"> 	Identifier for the control. </param>
 			/// <param name="property_id">	Identifier for the property. </param>
 			/// <param name="value">	  	The value. </param>
-			void SetControlProperty(const uint control_id, const uint property_id, cstring value);
+			void SetControlProperty(const uint control_id, const uint property_id, const char * value);
 
 			////////////////////////////////////////////////////////////////////////////////////////////////////
 			/// <summary>	Adds a dynamic property. </summary>

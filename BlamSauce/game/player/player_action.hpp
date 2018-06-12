@@ -1,5 +1,7 @@
 #pragma once
 #include <precompile.h>
+#include "../../cseries/base.h"
+
 namespace Yelo
 {
 	namespace Enums
@@ -41,7 +43,7 @@ namespace Yelo
 			unsigned long control_flags;
 			real_euler_angles2d desired_facing;
 			real_vector2d throttle;
-			real primary_trigger;
+			float primary_trigger;
 			short desired_weapon_index, desired_grenade_index;
 			short desired_zoom_index;
 			unsigned short : 16;
@@ -50,7 +52,7 @@ namespace Yelo
 		struct s_player_set_action_result_network_data
 		{
 			datum_index player_index;
-			long_enum action_result_type;
+			unsigned long action_result_type;
 			s_player_action_result action;
 			datum_index weapon_to_drop_as_result_of_swap;
 		}; static_assert( sizeof(s_player_set_action_result_network_data) == 0x14 );

@@ -64,9 +64,9 @@
 			reinterpret_cast<void *>(K_CACHE_FILE_READ_HEADER_CALL_2),
 		};
 
-		static cstring* K_UI_SCENARIO_NAME_REFERENCES[] = {
-			reinterpret_cast<cstring *>(K_UI_SCENARIO_NAME_REFERENCE_0),
-			reinterpret_cast<cstring *>(K_UI_SCENARIO_NAME_REFERENCE_1),
+		static const char ** K_UI_SCENARIO_NAME_REFERENCES[] = {
+			reinterpret_cast<const char * *>(K_UI_SCENARIO_NAME_REFERENCE_0),
+			reinterpret_cast<const char * *>(K_UI_SCENARIO_NAME_REFERENCE_1),
 		};
 
 		static auto *const cache_file_globals = reinterpret_cast<s_cache_file_globals *>(K_CACHE_FILE_GLOBALS);;

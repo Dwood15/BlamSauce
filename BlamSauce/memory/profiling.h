@@ -22,7 +22,7 @@ namespace Yelo {
 
 	namespace Debug {
 		struct s_profile_section {
-			cstring name;
+			const char * name;
 			long   index;
 			bool    active;
 			unsigned char : 8; // alignment

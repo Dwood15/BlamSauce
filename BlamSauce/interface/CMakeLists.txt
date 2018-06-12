@@ -1,4 +1,3 @@
-include_directories(camera)
 
 set(I_EDITOR_H
 	${CMAKE_CURRENT_SOURCE_DIR}/editor/field_dialog_structures.hpp
@@ -46,8 +45,16 @@ set(I_WIDGETS_H
 	${CMAKE_CURRENT_SOURCE_DIR}/widgets/widgets.hpp
 	)
 
+set(I_CAMERA_H
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/camera.h
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/dead.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/definitions.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/director.hpp
+	${CMAKE_CURRENT_SOURCE_DIR}/camera/director_structures.hpp
+	)
+
+
 set(INTERFACE_H
-	${I_CAMERA_H}
 	${I_EDITOR_H}
 	${I_HUD_H}
 	${I_INPUT_H}
@@ -59,4 +66,5 @@ set(INTERFACE_H
 	${CMAKE_CURRENT_SOURCE_DIR}/map_list.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/terminal.hpp
 	${CMAKE_CURRENT_SOURCE_DIR}/ui_video_screen.hpp
+	${I_CAMERA_H}
 	PARENT_SCOPE)

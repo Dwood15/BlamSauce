@@ -34,7 +34,7 @@ namespace Yelo
 					gwen_control.SetHorizontal();
 				}
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(ProgressBar, control.GetControlPtr());
 
@@ -67,7 +67,7 @@ namespace Yelo
 					gwen_control.SetVertical();
 				}
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(ProgressBar, control.GetControlPtr());
 
@@ -98,7 +98,7 @@ namespace Yelo
 
 				gwen_control.SetValue(value.m_real);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(ProgressBar, control.GetControlPtr());
 
@@ -121,7 +121,7 @@ namespace Yelo
 
 				gwen_control.SetCycleSpeed(value.m_real);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(ProgressBar, control.GetControlPtr());
 
@@ -139,7 +139,7 @@ namespace Yelo
 
 				gwen_control.SetAutoLabel(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(ProgressBar, control.GetControlPtr());
 

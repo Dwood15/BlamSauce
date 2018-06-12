@@ -438,6 +438,6 @@ namespace Yelo
 
 	namespace blam
 	{
-		extern cstring g_hud_anchor_names[Enums::k_number_of_hud_anchors];
+		extern const char * g_hud_anchor_names[Enums::k_number_of_hud_anchors];
 	};
 };

@@ -63,7 +63,7 @@ namespace Yelo {
 #pragma region Scenario Paths
 
 #define DEFINE_CAMPAIGN_LEVEL(name, path) path,
-		static cstring ScenarioPaths[]        = { // this is needed for displaying the title\bitmap in the campaign selection in the UI
+		static const char * ScenarioPaths[]        = { // this is needed for displaying the title\bitmap in the campaign selection in the UI
 			DEFINE_CAMPAIGN_LEVEL(a10, "levels\\a10\\a10")
 			DEFINE_CAMPAIGN_LEVEL(a30, "levels\\a30\\a30")
 			DEFINE_CAMPAIGN_LEVEL(a50, "levels\\a50\\a50")
@@ -92,8 +92,8 @@ namespace Yelo {
 #pragma region Scenario Help
 #define DEFINE_CAMPAIGN_LEVEL(name, path) {#name, "ui\\shell\\solo_game\\player_help\\player_help_screen_" #name},
 		static struct s_scenario_help_mapping {
-			cstring name;
-			cstring widget_definition;
+			const char * name;
+			const char * widget_definition;
 		}              ScenarioHelpMappings[] = { // this is needed for displaying the title\bitmap in the campaign selection in the UI
 
 			DEFINE_CAMPAIGN_LEVEL(a10, "levels\\a10\\a10")
@@ -112,7 +112,7 @@ namespace Yelo {
 		};
 #undef DEFINE_CAMPAIGN_LEVEL
 
-		static cstring ScenarioHelpMappingGetWidgetName(char *scenario_name) {
+		static const char * ScenarioHelpMappingGetWidgetName(char *scenario_name) {
 			for (auto &mapping : ScenarioHelpMappings)
 				if (strstr(scenario_name, mapping.name))
 					return mapping.widget_definition;
@@ -149,7 +149,7 @@ namespace Yelo {
 #pragma endregion
 
 		struct {
-			cstring ScenarioPath;
+			const char * ScenarioPath;
 			unsigned char : 8; // bools
 			unsigned char : 8;
 			unsigned char : 8;

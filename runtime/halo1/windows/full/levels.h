@@ -43,13 +43,13 @@ namespace Yelo::Enums {
 
 namespace Yelo::Main {
 	// actually scenario paths
-	extern cstring k_halo1_campaign_level_names[Enums::k_number_of_halo1_campaign_levels];
+	extern const char * k_halo1_campaign_level_names[Enums::k_number_of_halo1_campaign_levels];
 };
 
 namespace Yelo::blam {
-	short __cdecl  main_get_campaign_level_from_name(cstring level_name);
+	short __cdecl  main_get_campaign_level_from_name(const char * level_name);
 
-	inline cstring __cdecl main_get_campaign_level_name(short level_index)(short level_index) {
+	inline const char * __cdecl main_get_campaign_level_name(short level_index)(short level_index) {
 		if (level_index >= 0 && level_index < std::size(Main::k_halo1_campaign_level_names))
 			return Main::k_halo1_campaign_level_names[level_index];
 
@@ -57,7 +57,7 @@ namespace Yelo::blam {
 	}
 };
 
-static Yelo::cstring k_campaign_level_names[Yelo::Enums::k_number_of_halo1_campaign_levels] = {
+static Yelo::const char * k_campaign_level_names[Yelo::Enums::k_number_of_halo1_campaign_levels] = {
 	R"(levels\a10\a10)",
 	R"(levels\a30\a30)",
 	R"(levels\a50\a50)",

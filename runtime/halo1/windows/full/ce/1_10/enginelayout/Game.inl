@@ -18,6 +18,8 @@
 #include "../../../../../../../BlamSauce/game/engines/engine_slayer.hpp"
 #include "../../../../../../../BlamSauce/game/engines/variants.h"
 #include "../../../../../../../BlamSauce/game/engines/engine.hpp"
+#include "../../../../../../../BlamSauce/cseries/base.h"
+#include "../../../../../../../BlamSauce/interface/camera/camera.h"
 
 #ifdef ENGINE_DPTR
 #undef ENGINE_DPTR
@@ -69,8 +71,8 @@ namespace Camera
 {
 	static auto *const observers = 0x64758C;
 	static auto *const camera_script_globals = 0x621F90;
-	static auto **const director_scripting = reinterpret_cast<s_director_scripting_data **>(0x81713C);
-	static auto **const cinematic_globals = reinterpret_cast<s_cinematic_globals_data **>(0x68C83C);
+	static auto **const director_scripting = reinterpret_cast<Yelo::Camera::s_director_scripting_data **>(0x81713C);
+	static auto **const cinematic_globals = reinterpret_cast<Yelo::Camera::s_cinematic_globals_data **>(0x68C83C);
 	static auto *const global_director = 0x647490;
 
 	static auto const DIRECTOR_CHOOSE_GAME_PERSPECTIVE_HOOK = 0x446585;
@@ -98,20 +100,20 @@ namespace Fov
 //////////////////////////////////////////////////////////////////////////
 // Campaign.cpp. CLIENT BUILDS ONLY
 	#pragma region Scenario Paths
-	static cstring** ScenarioPathsReferences[] = {
-		reinterpret_cast<cstring **>(0x49F9E3),
-		reinterpret_cast<cstring **>(0x49FB43),
-		reinterpret_cast<cstring **>(0x49FEEB),
-		reinterpret_cast<cstring **>(0x49FFC0),
-		reinterpret_cast<cstring **>(0x4A4A3B),
-		//CAST_PTR(cstring**, K_SCENARIO_PATHS_REFERENCE_5),
+	static const char *** ScenarioPathsReferences[] = {
+		reinterpret_cast<const char * **>(0x49F9E3),
+		reinterpret_cast<const char * **>(0x49FB43),
+		reinterpret_cast<const char * **>(0x49FEEB),
+		reinterpret_cast<const char * **>(0x49FFC0),
+		reinterpret_cast<const char * **>(0x4A4A3B),
+		//CAST_PTR(const char ***, K_SCENARIO_PATHS_REFERENCE_5),
 	};
 
-	static cstring** ScenarioPathsReferences2[] = {
-		reinterpret_cast<cstring **>(0x4A7205),
-		reinterpret_cast<cstring **>(0x4CCFCC),
-		reinterpret_cast<cstring **>(0x53C4CB),
-		reinterpret_cast<cstring **>(0x53C594),
+	static const char *** ScenarioPathsReferences2[] = {
+		reinterpret_cast<const char * **>(0x4A7205),
+		reinterpret_cast<const char * **>(0x4CCFCC),
+		reinterpret_cast<const char * **>(0x53C4CB),
+		reinterpret_cast<const char * **>(0x53C594),
 	};
 	#pragma endregion
 
@@ -205,7 +207,7 @@ static auto const EFFECTS_UPDATE_HOOK = 0x451487;
 			reinterpret_cast<void *>(0x51374B),
 			reinterpret_cast<void *>(0x513752),
 			reinterpret_cast<void *>(0x513779),
-			reinterpret_cast<void *>(0x5137CB),
+			reinterpret_cast<void *>(0x5137CB)
 		};
 
 static auto const GAME_INITIALIZE_MOD_PER_MAP_UPGRADE_PARTICLES = 0x45B4B7;

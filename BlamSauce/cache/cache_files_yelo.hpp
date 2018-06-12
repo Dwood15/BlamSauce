@@ -15,7 +15,7 @@ namespace Yelo::Cache {
 	struct s_cache_tag_instance;
 
 	// The type of cache file which a map_path refers to
-	enum class e_map_path_file_type : long_enum {
+	enum class e_map_path_file_type : signed long {
 		invalid = NONE,
 
 		map = 0,
@@ -24,7 +24,7 @@ namespace Yelo::Cache {
 		k_number_of
 	};
 
-	enum class e_cache_read_header_result : long_enum {
+	enum class e_cache_read_header_result : signed long {
 		success,
 
 		file_not_found,
@@ -36,28 +36,28 @@ namespace Yelo::Cache {
 		k_number_of
 	};
 
-	constexpr cstring K_MAP_FILE_EXTENSION_YELO = ".yelo";
+	constexpr const char * K_MAP_FILE_EXTENSION_YELO = ".yelo";
 
 	class c_map_file_finder {
 		struct {
-			cstring environment;   // The 'normal' path, usually a folder relative to the EXE or CWD
-			cstring user_profile;   // The path defined by or in the user's profile
-			cstring game_exe;      // The "EXE Path" value from the registry. DEDI ONLY!
+			const char * environment;   // The 'normal' path, usually a folder relative to the EXE or CWD
+			const char * user_profile;   // The path defined by or in the user's profile
+			const char * game_exe;      // The "EXE Path" value from the registry. DEDI ONLY!
 
-			cstring final; // The path which the finder first found all the data files in, or NULL if it couldn't
+			const char * final; // The path which the finder first found all the data files in, or NULL if it couldn't
 		} m_maps_path;
 
-		cstring m_map_name;
-		cstring m_map_extension;
+		const char * m_map_name;
+		const char * m_map_extension;
 
-		bool SearchPath(cstring maps_path) {
+		bool SearchPath(const char * maps_path) {
 			char map_path[MAX_PATH] = "";
 			strcpy_s(map_path, maps_path);
 			// pointer into map_file_path that starts after the maps_path string
 			char *map_file_name = map_path + strlen(maps_path);
 
-			cstring first_map_extension  = g_search_for_yelo_first ? K_MAP_FILE_EXTENSION_YELO : K_MAP_FILE_EXTENSION;
-			cstring second_map_extension = g_search_for_yelo_first ? K_MAP_FILE_EXTENSION : K_MAP_FILE_EXTENSION_YELO;
+			const char * first_map_extension  = g_search_for_yelo_first ? K_MAP_FILE_EXTENSION_YELO : K_MAP_FILE_EXTENSION;
+			const char * second_map_extension = g_search_for_yelo_first ? K_MAP_FILE_EXTENSION : K_MAP_FILE_EXTENSION_YELO;
 
 			*map_file_name = '\0';
 			strcat(map_file_name, m_map_name);
@@ -100,7 +100,7 @@ namespace Yelo::Cache {
 		}
 
 	public:
-		c_map_file_finder(cstring map_name) : m_map_name(map_name), m_map_extension(nullptr) {
+		c_map_file_finder(const char * map_name) : m_map_name(map_name), m_map_extension(nullptr) {
 			m_maps_path.environment  = Cache::MapsDirectory();
 			m_maps_path.user_profile = Settings::PlatformUserMapsPath();
 			m_maps_path.game_exe     = nullptr;
@@ -198,7 +198,7 @@ namespace Yelo::Cache {
 	/// <param name="map_path"> Full pathname of the map file. </param>
 	///
 	/// <returns>	The type of cache file the path refers to, or invalid if it isn't a valid map path. </returns>
-	e_map_path_file_type GetMapNameFromPath(_Out_ char (&map_name)[_MAX_FNAME], cstring map_path) {
+	e_map_path_file_type GetMapNameFromPath(_Out_ char (&map_name)[_MAX_FNAME], const char * map_path) {
 		auto map_file_type = e_map_path_file_type::invalid;
 
 		char map_extension[_MAX_EXT];
@@ -224,7 +224,7 @@ namespace Yelo::Cache {
 	/// <param name="header">  	[out] The file's header. </param>
 	///
 	/// <returns>	success if it reads the header, and the header is valid; else non-success. </returns>
-	e_cache_read_header_result ReadHeader(cstring map_path, _Out_ s_cache_header &header) {
+	e_cache_read_header_result ReadHeader(const char * map_path, _Out_ s_cache_header &header) {
 		FileIO::s_file_info map_file_info;
 
 		auto open_error = FileIO::OpenFile(map_file_info, map_path, Yelo::Enums::_file_io_open_access_type_read, file_io_open_create_option::_file_io_open_create_option_open_existing);
@@ -270,7 +270,7 @@ namespace Yelo::Cache {
 	/// <param name="header">  	[out] The file's header. </param>
 	///
 	/// <returns>	true if it finds the map, reads the header, and the header is valid; else non-success. </returns>
-	e_cache_read_header_result FindMapFileAndReadHeader(cstring map_name, _Out_ s_cache_header &header) {
+	e_cache_read_header_result FindMapFileAndReadHeader(const char * map_name, _Out_ s_cache_header &header) {
 		// first, try to find the map file
 		std::string map_path;
 		{
@@ -337,7 +337,7 @@ namespace Yelo::Cache {
 		return crc;
 	}
 
-	uint CalculateChecksum(cstring map_path) {
+	uint CalculateChecksum(const char * map_path) {
 		uint map_crc = NONE;
 
 		FileIO::s_file_info map_file;
@@ -357,7 +357,7 @@ namespace Yelo::Cache {
 		return map_crc;
 	}
 
-	uint FindMapFileAndCalculateChecksum(cstring map_name) {
+	uint FindMapFileAndCalculateChecksum(const char * map_name) {
 		uint map_crc = NONE;
 
 		// first, try to find the map file

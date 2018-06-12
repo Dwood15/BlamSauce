@@ -108,7 +108,7 @@ namespace Yelo
 			_download_completion_state
 		};
 
-		enum map_download_stage : long_enum
+		enum map_download_stage : signed long
 		{
 			_map_download_stage_build_server_list,
 			_map_download_stage_map_part_definition, // download the part definition
@@ -1395,7 +1395,7 @@ namespace Yelo
 					char map_file_path[MAX_PATH] = "";
 
 					// If the user's maps directory does not exist, try to create and use it, otherwise default to the stock maps directory
-					cstring maps_directory = Settings::UserProfileMapsPath();
+					const char * maps_directory = Settings::UserProfileMapsPath();
 					g_map_download_globals.m_archive_extraction.using_stock_maps_path = false;
 
 					if(!Settings::UserProfileMapsPathExists())
@@ -1452,7 +1452,7 @@ namespace Yelo
 
 			int map_list_index = NONE;
 
-			cstring maps_directory = Settings::UserProfileMapsPath();
+			const char * maps_directory = Settings::UserProfileMapsPath();
 			if(g_map_download_globals.m_archive_extraction.using_stock_maps_path)
 			{
 				maps_directory = Settings::PlatformUserMapsPath();

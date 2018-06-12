@@ -100,7 +100,7 @@ void RasterizerAddResolution(uint width, uint height, uint refresh_rate)
 	}
 }
 
-short __declspec(naked) AnimationPickRandomPermutation(long_enum render_or_affects_game_state, datum_index animation_graph_index, long animation_index)
+short __declspec(naked) AnimationPickRandomPermutation(signed long render_or_affects_game_state, datum_index animation_graph_index, long animation_index)
 {
 	static const uintptr_t TEMP_CALL_ADDR = GET_FUNC_PTR(ANIMATION_CHOOSE_RANDOM_PERMUTATION_INTERNAL);
 
@@ -132,5 +132,5 @@ bool CompareMD5(byte* input, unsigned int input_length, const char comparison_md
 	input_md5[0] = '\0';
 	GSMD5Digest(input, input_length, input_md5);
 
-	return _strnicmp(input_md5, comparison_md5, NUMBEROF(input_md5)) == 0;
+	return _strnicmp(input_md5, comparison_md5, std::size(input_md5)) == 0;
 }

@@ -418,7 +418,7 @@ namespace Yelo
 
 			// set the multiplayer hud icon positions
 			point2d position_out;
-			for(int i = 0; i < NUMBEROF(g_multiplayer_icons); i++)
+			for(int i = 0; i < std::size(g_multiplayer_icons); i++)
 			{
 				CalculateAnchor(Enums::_hud_anchor_top_right, anchor_scale_result, g_multiplayer_icons[i].m_stock_position, position_out);
 
@@ -442,7 +442,7 @@ namespace Yelo
 		{
 			// TODO: ranged for loop
 			// hook the screen projection matrix for widgets, text and the motion tracker
-			for(int i = 0; i < NUMBEROF(K_RASTERIZER_RENDER_UI_SET_SCREENPROJ_CALLS); i++)
+			for(int i = 0; i < std::size(K_RASTERIZER_RENDER_UI_SET_SCREENPROJ_CALLS); i++)
 			{
 				void*& call_address = K_RASTERIZER_RENDER_UI_SET_SCREENPROJ_CALLS[i];
 
@@ -459,14 +459,14 @@ namespace Yelo
 			Memory::WriteRelativeCall(HudRenderScoreboardInGameHook, GET_FUNC_VPTR(HUD_RENDER_SCOREBOARD_INGAME_CALL), true);
 
 			// TODO: ranged for loop
-			for (int i = 0; i < NUMBEROF(K_RENDER_WIDGET_RECURSIVE_CALLS); i++)
+			for (int i = 0; i < std::size(K_RENDER_WIDGET_RECURSIVE_CALLS); i++)
 			{
 				Memory::WriteRelativeCall(RenderWidgetRecursiveHook, K_RENDER_WIDGET_RECURSIVE_CALLS[i], true);
 			}
 
 			// TODO: ranged for loop
 			// point the half width values for damage indicators to a float we modify
-			for (int i = 0; i < NUMBEROF(K_HUD_POINT_DAMAGE_ANCHOR_HALF_WIDTH_PTRS); i++)
+			for (int i = 0; i < std::size(K_HUD_POINT_DAMAGE_ANCHOR_HALF_WIDTH_PTRS); i++)
 			{
 				*K_HUD_POINT_DAMAGE_ANCHOR_HALF_WIDTH_PTRS[i] = &g_hud_globals.m_damage_anchor.half_width;
 			}

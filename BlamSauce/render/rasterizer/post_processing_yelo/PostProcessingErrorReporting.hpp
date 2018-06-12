@@ -10,8 +10,8 @@ namespace Yelo
 			k_max_error_line_count = 3,
 		};
 
-		void Write(cstring string);
-		void WriteLine(cstring format, ...);
+		void Write(const char * string);
+		void WriteLine(const char * format, ...);
 		void WriteD3DXErrors(LPD3DXBUFFER buffer);
 	};};};
 };

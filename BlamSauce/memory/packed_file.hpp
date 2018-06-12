@@ -16,7 +16,7 @@ namespace Yelo
 {
 	namespace FileIO
 	{
-		Enums::file_io_open_error OpenFileByID(s_file_info& info_out, cstring file_id);
+		Enums::file_io_open_error OpenFileByID(s_file_info& info_out, const char * file_id);
 	};
 
 	class c_packed_file
@@ -84,7 +84,7 @@ namespace Yelo
 
 	public:
 		// Opens a packed file and memory maps it, read for accessing by pointer
-		void OpenFile(cstring packed_file, bool is_file_id = false) {
+		void OpenFile(const char * packed_file, bool is_file_id = false) {
 			Enums::file_io_open_error open_success;
 			if(is_file_id) {
 				open_success = FileIO::OpenFileByID(file_info, packed_file);
@@ -131,7 +131,7 @@ namespace Yelo
 		}
 		// Returns a pointer to a block of data reference by a string id. Returns NULL if invalid.
 		// The data block size is put into data_size if not null.
-		void* GetDataPointer(cstring data_id, _Out_opt_ uint* data_size) {
+		void* GetDataPointer(const char * data_id, _Out_opt_ uint* data_size) {
 			if(!m_file_mapped || is_null_or_empty(data_id))
 				return nullptr;
 
@@ -193,7 +193,7 @@ namespace Yelo
 			m_header.file_size = data_base_offset + data_offset;
 		}
 
-		HRESULT Save(cstring save_location) {
+		HRESULT Save(const char * save_location) {
 			CalculateOffsets();
 
 			m_header.element_count = m_elements.size();

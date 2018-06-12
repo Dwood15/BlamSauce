@@ -104,7 +104,7 @@ namespace Yelo
 			long:8 * sizeof(long) * 10;
 			real autoaim_width;
 			long:8 * sizeof(long) * 35;
-			TAG_TBLOCK(contact_points, s_contact_point);
+			TagBlock<s_contact_point> contact_points;
 		};
 
 		struct s_biped_definition : s_unit_definition

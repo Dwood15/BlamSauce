@@ -39,7 +39,7 @@ namespace Yelo {
 	static_assert(sizeof(TagReference<NONE>) == 0x10);
 
 	template <>
-	inline bool TagReference<NONE>::IsValid() const { return true; }
+	inline bool TagReference<static_cast<tag>(NONE)>::IsValid() const { return true; }
 
 	// Template'd tag block for allowing more robust code.
 	template <typename T>

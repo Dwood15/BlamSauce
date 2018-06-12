@@ -48,7 +48,7 @@ namespace Yelo
 
 	namespace blam
 	{
-		cstring __cdecl tag_get_name(datum_index tag_index)
+		const char * __cdecl tag_get_name(datum_index tag_index)
 		{
 			if (Scenario::GetYelo()->IsCacheProtected())
 				return "PROTECTED";
@@ -58,7 +58,7 @@ namespace Yelo
 			else if (tag_index.index >= TagGroups::Index()->count)
 				return "INVALID";
 			
-			cstring name = TagGroups::Instances()[tag_index.index].name;
+			const char * name = TagGroups::Instances()[tag_index.index].name;
 
 			return name != nullptr
 				? name

@@ -90,7 +90,7 @@ namespace Yelo::FileIO {
 		/// <param name="file_id"> 	Identifier for the file. </param>
 		///
 		/// <returns>	An Enums::file_io_open_error. </returns>
-		Enums::file_io_open_error OpenFileByID(s_file_info& info_out, cstring file_id);
+		Enums::file_io_open_error OpenFileByID(s_file_info& info_out, const char * file_id);
 
 
 

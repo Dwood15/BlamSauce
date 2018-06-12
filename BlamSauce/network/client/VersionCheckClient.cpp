@@ -47,7 +47,7 @@ namespace Yelo
 				CheckForUpdates();
 			else if(m_states.is_request_in_progress)
 			{
-				for(int i = 0; i < NUMBEROF(m_xml_sources); i++)
+				for(int i = 0; i < std::size(m_xml_sources); i++)
 					m_xml_sources[i].Stop();
 				m_states.is_request_in_progress = false;
 			}

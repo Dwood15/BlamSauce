@@ -4,6 +4,9 @@
 #include "../../math/real_math.h"
 #include "../objects/units/unit_camera.hpp"
 #include "player_structures.hpp"
+#include "../../memory/upgrades/blam_memory_upgrades.hpp"
+#include "../../cseries/base.h"
+#include "players.hpp"
 
 namespace Yelo::Enums {
 	enum {
@@ -30,7 +33,7 @@ namespace Yelo::Players {
 	typedef Memory::DataArray <s_player_datum, Enums::k_multiplayer_maximum_players_upgrade> players_data_t;
 	typedef Memory::DataArray <s_team_datum, Enums::k_multiplayer_maximum_teams>             teams_data_t;
 
-	players_data_t& Players()										DPTR_IMP_GET_BYREF(players);
+	players_data_t& Players()									{ return players; }
 
 	teams_data_t& Teams()											DPTR_IMP_GET_BYREF(teams);
 

@@ -70,7 +70,7 @@ namespace Yelo {
 	static_assert(sizeof(s_file_reference) == 0x10C);
 
 	namespace blam {
-		void __cdecl file_reference_create(s_file_reference &reference, long_enum location = Enums::_file_reference_location_tags) {
+		void __cdecl file_reference_create(s_file_reference &reference, signed long location = Enums::_file_reference_location_tags) {
 			char buffer[Enums::k_maximum_filename_length + 1];
 			int  result = _snprintf_s(buffer, Enums::k_maximum_filename_length, "%s%s%s.%s", directory,
 											  !is_null_or_empty(directory) ? "\\" : "",
@@ -89,7 +89,7 @@ namespace Yelo {
 
 		template <size_t k_buffer_size = 1024, bool k_set_eof = true>
 		// defaults are based on engine code
-		static void file_printf_internal(s_file_reference &reference, cstring format, va_list argptr) {
+		static void file_printf_internal(s_file_reference &reference, const char * format, va_list argptr) {
 			char buffer[k_buffer_size];
 			int  result = vsprintf_s(buffer, format, argptr);
 
@@ -108,7 +108,7 @@ namespace Yelo {
 			}
 		}
 
-		void file_printf(s_file_reference &reference, cstring format, ...) {
+		void file_printf(s_file_reference &reference, const char * format, ...) {
 			if (format == nullptr)
 				return;
 
@@ -118,16 +118,16 @@ namespace Yelo {
 			va_end(argptr);
 		}
 
-		s_file_reference &__cdecl file_reference_add_directory(s_file_reference &reference, cstring directory);
+		s_file_reference &__cdecl file_reference_add_directory(s_file_reference &reference, const char * directory);
 
-		s_file_reference &__cdecl file_reference_set_name(s_file_reference &reference, cstring name);
+		s_file_reference &__cdecl file_reference_set_name(s_file_reference &reference, const char * name);
 
 		char *__cdecl file_reference_get_name(const s_file_reference &reference, unsigned long flags, __out char name[Enums::k_maximum_filename_length + 1]);
 
-		s_file_reference &file_reference_create(s_file_reference &reference, cstring directory, cstring name, cstring ext,
-															 long_enum location = Enums::_file_reference_location_tags);
+		s_file_reference &file_reference_create(s_file_reference &reference, const char * directory, const char * name, const char * ext,
+															 signed long location = Enums::_file_reference_location_tags);
 
-		s_file_reference &file_reference_create_from_path(s_file_reference &reference, cstring path, bool is_directory = false) {
+		s_file_reference &file_reference_create_from_path(s_file_reference &reference, const char * path, bool is_directory = false) {
 			file_reference_create(reference, Enums::_file_reference_location_none);
 
 			if (is_directory)
@@ -154,7 +154,7 @@ namespace Yelo {
 			file_references_sort(name_flags, _SizeOfArray, references);
 		}
 
-		void __cdecl file_error(cstring operation, const s_file_reference &reference);
+		void __cdecl file_error(const char * operation, const s_file_reference &reference);
 
 		bool __cdecl file_create(const s_file_reference &reference);
 

@@ -81,7 +81,7 @@ namespace Yelo
 		typedef bool (__cdecl* proc_object_type_unknown78)(datum_index object_index, void*); // IDK what the 2nd parameter's type is
 		struct s_object_type_definition
 		{
-			cstring name;													// 0x0
+			const char * name;													// 0x0
 			tag group_tag;													// 0x4
 			short datum_size;												// 0x8
 			short placement_tag_block_offset;								// 0xA

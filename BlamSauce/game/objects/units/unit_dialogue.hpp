@@ -1,12 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/ai/ai_communication.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -49,10 +43,10 @@ namespace Yelo
 			Enums::unit_speech_priority priority;
 			Enums::unit_scream_type scream;
 			datum_index sound_definition_index;
-			UNKNOWN_TYPE(short); // time related
-			unsigned short : 16;
-			UNKNOWN_TYPE(long); // haven't verified what is here yet
-			AI::s_ai_communication_packet ai_information;
+			short time_rel_pad0; // time related
+			unsigned short pad_unknown;
+			long pad_unverified; // haven't verified what is here yet
+			byte ai_information[0x20];
 		}; static_assert( sizeof(s_unit_speech) == 0x30 );
 	};
 };

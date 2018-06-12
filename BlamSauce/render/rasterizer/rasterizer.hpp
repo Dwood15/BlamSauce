@@ -7,6 +7,7 @@
 #pragma once
 
 #include <d3d9.h>
+#include <enginelayout/Rasterizer.inl>
 #include "../../effects/player/player_effects.hpp"
 #include "../render.hpp"
 #include "../cameras.hpp"
@@ -15,6 +16,7 @@
 #include "../../models/model_definitions.hpp"
 #include "../constants.hpp"
 #include "../../math/matrix_math.h"
+#include "rasterizer.h"
 
 namespace Yelo {
 	namespace Enums {
@@ -57,7 +59,7 @@ namespace Yelo {
 			const FLOAT transparent_decal_slope_z_bias_value;
 		};
 
-		s_rasterizer_config* RasterizerConfig()			PTR_IMP_GET2(rasterizer_config);
+		s_rasterizer_config* RasterizerConfig()			{ return  reinterpret_cast<s_rasterizer_config *>(K_RASTERIZER_CONFIG); };
 
 
 		struct s_rasterizer_globals {
@@ -95,7 +97,7 @@ namespace Yelo {
 
 		static_assert(sizeof(s_rasterizer_globals) == 0x60);
 
-		s_rasterizer_globals* RasterizerGlobals()		PTR_IMP_GET2(rasterizer_globals);
+		s_rasterizer_globals* RasterizerGlobals()		{ return reinterpret_cast<s_rasterizer_globals *>(K_RASTERIZER_GLOBALS); };
 
 
 		struct s_rasterizer_window_parameters {
@@ -207,21 +209,17 @@ namespace Yelo {
 			real  f5;
 		}; static_assert(sizeof(s_rasterizer_debug_options) == 0x90);
 
-		s_rasterizer_debug_options* DebugOptions()		PTR_IMP_GET2(rasterizer_debug_data);
+		s_rasterizer_debug_options* DebugOptions()		{ return reinterpret_cast<s_rasterizer_debug_options *>(K_RASTERIZER_DEBUG_DATA);  };
 
 		struct s_rasterizer_frame_parameters {
 			double elapsed_time;
 
-			real UNKNOWN(
+			real UNKNOWN(0);
 
-			0);
-
-			real UNKNOWN(
-
-			1);
+			real UNKNOWN(1);
 		};
 
-		s_rasterizer_frame_parameters* FrameParameters()	PTR_IMP_GET2(rasterizer_frame_params);
+		s_rasterizer_frame_parameters* FrameParameters() { return reinterpret_cast<s_rasterizer_frame_parameters *>(K_RASTERIZER_FRAME_PARAMS); };
 		static char g_screenshot_folder[MAX_PATH] = "screenshots\\";
 		static s_rasterizer_resolution g_resolution_list[64];
 	};
@@ -240,32 +238,14 @@ namespace Yelo::Rasterizer {
 				static uint rendered_triangles[Enums::k_maximum_rendered_triangles_upgrade];
 
 				// redirect all rendered triangle pointers to the new array
-				for (auto ptr : K_RENDERED_TRIANGLE_ARRAY_UPGRADE_ADDRESS_LIST)
+				for (auto ptr : ::Rasterizer::K_RENDERED_TRIANGLE_ARRAY_UPGRADE_ADDRESS_LIST)
 					*ptr = rendered_triangles;
 				// change all references to the rendered triangle array to our new size
-				for (auto ptr : K_MAXIMUM_RENDERED_TRIANGLES_UPGRADE_ADDRESS_LIST)
+				for (auto ptr : ::Rasterizer::K_MAXIMUM_RENDERED_TRIANGLES_UPGRADE_ADDRESS_LIST)
 					*ptr = Enums::k_maximum_rendered_triangles_upgrade;
 			}
 		}
-
-		// Not actually an upgrade, but a fix (nodes at index >43 would get stretched). However, we fix it in both sapien and ingame so I put the code here
-		static void InitializeMaximumNodesPerModelFixes() {
-			static real_matrix3x4 vsh_constants__nodematrices[Enums::k_maximum_nodes_per_model + 1];
-
-			for (auto ptr : K_VSH_CONSTANTS__NODEMATRICES_REFERENCES) {
-				*ptr = &vsh_constants__nodematrices[0];
-			}
-
-			for (auto ptr : K_VSH_CONSTANTS__NODEMATRICES_REFERENCES_PLUS_8) {
-				*ptr = reinterpret_cast<byte *>(&vsh_constants__nodematrices[0]) + 8;
-			}
-
-			for (auto ptr : K_RASTERIZER_GLOBALS_MAXIMUM_NODES_PER_MODEL_WRITE_VALUES) {
-				*ptr = Enums::k_maximum_nodes_per_model;
-			}
-			RasterizerGlobals()->maximum_nodes_per_model = Enums::k_maximum_nodes_per_model;
-		}
-	}              g_render_upgrades;
+	}  g_render_upgrades;
 
 }
 

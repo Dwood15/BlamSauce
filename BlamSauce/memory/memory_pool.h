@@ -1,5 +1,6 @@
 #pragma once
 
+#include <precompile.h>
 #include "../cseries/base.h"
 
 namespace Yelo
@@ -28,7 +29,7 @@ namespace Yelo
 			s_memory_pool_block*	first;		// pointer to the first pool item
 			s_memory_pool_block*	last;		// pointer to the last pool item
 
-			inline void Initialize(cstring name, long pool_size);
+			inline void Initialize(const char * name, long pool_size);
 
 			inline void Defragment();
 
@@ -43,9 +44,9 @@ namespace Yelo
 		// private, don't use unless you are memory_pool code
 		void __cdecl memory_pool_verify(const Memory::s_memory_pool* pool);
 
-		void __cdecl memory_pool_initialize(Memory::s_memory_pool* pool, cstring name, long pool_size);
+		void __cdecl memory_pool_initialize(Memory::s_memory_pool* pool, const char * name, long pool_size);
 
-		Memory::s_memory_pool* __cdecl memory_pool_new(cstring name, long pool_size);
+		Memory::s_memory_pool* __cdecl memory_pool_new(const char * name, long pool_size);
 
 		void __cdecl memory_pool_delete(Memory::s_memory_pool* pool);
 
@@ -60,7 +61,7 @@ namespace Yelo
 
 	namespace Memory
 	{
-		inline void s_memory_pool::Initialize(cstring name, long pool_size)
+		inline void s_memory_pool::Initialize(const char * name, long pool_size)
 		{
 			blam::memory_pool_initialize(this, name, pool_size);
 		}

@@ -503,8 +503,8 @@ namespace Yelo
 
 				// get the ip type and ip in separate strings
 				int count = sscanf_s(&file_offset[line_offset], "%s %s\r\n", 
-					ip_type, NUMBEROF(ip_type), 
-					ip, NUMBEROF(ip));
+					ip_type, std::size(ip_type),
+					ip, std::size(ip));
 
 				if(count != 2)
 				{

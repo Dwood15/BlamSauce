@@ -1,10 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
+
+#include <d3d9.h>
+#include <precompile.h>
 
 namespace Yelo {
 	namespace DX9 {

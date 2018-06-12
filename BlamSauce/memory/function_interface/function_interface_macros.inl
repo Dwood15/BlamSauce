@@ -26,12 +26,12 @@
 #define DEFINE_HOOK_BLOCK_PROCESS_IMPL(name, address, preprocess, pre_count, postprcess, post_count, ...)  Yelo::Memory::t_function_process_block<address, preprocess,   pre_count, postprcess, post_count, __VA_ARGS__> GET_HOOK_BLOCK_PROCESS(##name##)
 
 #define DEFINE_HOOK_BLOCK_PROCESS_NONE(name, address, ...) DEFINE_HOOK_BLOCK_PROCESS_IMPL(name, address, nullptr, 0, nullptr, 0, __VA_ARGS__)
-#define DEFINE_HOOK_BLOCK_PROCESS_PRE(name, address, preprocess_name, ...)  DEFINE_HOOK_BLOCK_PROCESS_IMPL(name, address, GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##),   NUMBEROF( GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##) ), nullptr, 0, __VA_ARGS__)
-#define DEFINE_HOOK_BLOCK_PROCESS_POST(name, address, postprcess_name, ...) DEFINE_HOOK_BLOCK_PROCESS_IMPL(name, address, nullptr, 0, GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##), NUMBEROF( GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##) ), __VA_ARGS__)
+#define DEFINE_HOOK_BLOCK_PROCESS_PRE(name, address, preprocess_name, ...)  DEFINE_HOOK_BLOCK_PROCESS_IMPL(name, address, GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##),   std::size( GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##) ), nullptr, 0, __VA_ARGS__)
+#define DEFINE_HOOK_BLOCK_PROCESS_POST(name, address, postprcess_name, ...) DEFINE_HOOK_BLOCK_PROCESS_IMPL(name, address, nullptr, 0, GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##), std::size( GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##) ), __VA_ARGS__)
 #define DEFINE_HOOK_BLOCK_PROCESS(name, address, preprocess_name, postprcess_name, ...)                           \
    DEFINE_HOOK_BLOCK_PROCESS_IMPL(name, address,                                                      \
-      GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##), NUMBEROF( GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##) ),      \
-      GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##), NUMBEROF( GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##) ), __VA_ARGS__)
+      GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##), std::size( GET_HOOK_BLOCK_PREPROCESS(##preprocess_name##) ),      \
+      GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##), std::size( GET_HOOK_BLOCK_POSTPROCESS(##postprcess_name##) ), __VA_ARGS__)
 //////////////////////////////////////////////////////////////////////////
 
 

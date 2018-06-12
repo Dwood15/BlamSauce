@@ -24,11 +24,11 @@
 	TAG_FIELD_ENTRY(_field_terminator, nullptr)
 
 #define TAG_GROUP_STRING_TABLE_DEFINE(name, count, ...)			\
-	static Yelo::cstring name##_strings[] = { __VA_ARGS__ };	\
-	static_assert(NUMBEROF(name##_strings)==count,				\
+	static Yelo::const char * name##_strings[] = { __VA_ARGS__ };	\
+	static_assert(std::size(name##_strings)==count,				\
 		"too few strings defined for " #name);					\
 	static Yelo::string_list name = {							\
-		NUMBEROF(name##_strings),								\
+		std::size(name##_strings),								\
 		name##_strings											\
 	}
 
@@ -41,11 +41,11 @@
 		nullptr																\
 	}
 #define TAG_GROUP_REFERENCES_DEFINE(name, flags, ...)						\
-	static Yelo::cstring TAG_GROUP_REFERENCE_GET(name)##_tags[] = {			\
+	static Yelo::const char * TAG_GROUP_REFERENCE_GET(name)##_tags[] = {			\
 		__VA_ARGS__,														\
 		NONE,																\
 	};																		\
-	static_assert(NUMBEROF(TAG_GROUP_REFERENCE_GET(name)) > 1,				\
+	static_assert(std::size(TAG_GROUP_REFERENCE_GET(name)) > 1,				\
 		"no tags defined for reference " #name);							\
 	static Yelo::tag_reference_definition TAG_GROUP_REFERENCE_GET(name) = {	\
 		flags,																\

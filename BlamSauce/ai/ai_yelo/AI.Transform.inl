@@ -64,8 +64,8 @@ namespace Yelo
 		{
 			struct s_arguments {
 				const datum_index unit_index;
-				cstring transform_name;
-				cstring target_name;
+				const char * transform_name;
+				const char * target_name;
 			}* args = CAST_PTR(s_arguments*, arguments);
 			
 			TypeHolder result;
@@ -79,8 +79,8 @@ namespace Yelo
 		{
 			struct s_arguments {
 				const datum_index unit_list_index;
-				cstring transform_name;
-				cstring target_name;
+				const char * transform_name;
+				const char * target_name;
 			}* args = CAST_PTR(s_arguments*, arguments);
 			
 			TypeHolder result;
@@ -95,8 +95,8 @@ namespace Yelo
 			struct s_arguments {
 				const datum_index unit_list_index;
 				const datum_index tag_index;
-				cstring transform_name;
-				cstring target_name;
+				const char * transform_name;
+				const char * target_name;
 			}* args = CAST_PTR(s_arguments*, arguments);
 			
 			TypeHolder result;

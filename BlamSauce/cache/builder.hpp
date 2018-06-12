@@ -61,7 +61,7 @@ namespace Yelo {
 
 			void TemporaryFileClose(const char *  filename = k_temp_cache_file_name);
 
-			bool TemporaryFileCopy(const char *  new_filename, cstring filename = k_temp_cache_file_name);
+			bool TemporaryFileCopy(const char *  new_filename, const char * filename = k_temp_cache_file_name);
 
 			void ScenarioNameToCacheFilePath(_Out_ std::string &cache_file_path);
 		};
@@ -75,7 +75,7 @@ namespace Yelo {
 		// Is the cache file that is being built in the .yelo format?
 		bool BuildCacheFileForYelo();
 
-		bool ScenarioLoadForCacheBuild(cstring scenario_name);
+		bool ScenarioLoadForCacheBuild(const char * scenario_name);
 	};
 
 	namespace blam {
@@ -83,7 +83,7 @@ namespace Yelo {
 
 		uint build_cache_file_checksum();
 
-		bool build_cache_file_begin(cstring scenario_name,
+		bool build_cache_file_begin(const char * scenario_name,
 											 byte_flags flags);
 
 		bool build_cache_file_add_resource(const void *buffer, long buffer_size,
@@ -97,7 +97,7 @@ namespace Yelo {
 
 		bool __cdecl scenario_load_all_structure_bsps();
 
-		void build_cache_file_for_scenario(cstring scenario_path,
+		void build_cache_file_for_scenario(const char * scenario_path,
 													  byte_flags begin_flags);
 	};
 };
@@ -360,8 +360,8 @@ namespace Yelo::blam {
 		return true;
 	}
 
-	void build_cache_file_for_scenario(cstring scenario_path, byte_flags begin_flags) {
-		cstring scenario_name = tag_name_strip_path(scenario_path);
+	void build_cache_file_for_scenario(const char * scenario_path, byte_flags begin_flags) {
+		const char * scenario_name = tag_name_strip_path(scenario_path);
 
 		void *scratch = YELO_MALLOC(k_build_cache_file_scratch_buffer_size, false);
 		assert(scratch);
@@ -468,7 +468,7 @@ namespace Yelo::Cache {
 		}
 	}
 
-	bool ScenarioLoadForCacheBuild(cstring scenario_name) {
+	bool ScenarioLoadForCacheBuild(const char * scenario_name) {
 		// NOTE: the Scenario::GetYelo(), etc APIs won't be valid until the call to scenario_load
 
 		datum_index scenario_index = blam::tag_load<TagGroups::scenario>(scenario_name,

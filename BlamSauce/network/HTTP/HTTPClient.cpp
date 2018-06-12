@@ -116,7 +116,7 @@ namespace Yelo
 		{
 			HTTP_COMPONENT_CLIENT("MapDownloadClient", MapDownload::Initialize, MapDownload::Dispose, MapDownload::Update, MapDownload::RequestCompleted_Callback, MapDownload::RequestCancelled_Callback),
 			HTTP_COMPONENT_CLIENT("VersionChecker", nullptr, nullptr, nullptr, Networking::VersionCheck::RequestCompleted_Callback, Networking::VersionCheck::RequestCancelled_Callback),
-		};static_assert(NUMBEROF(g_http_components) == Enums::_http_client_component);
+		};static_assert(std::size(g_http_components) == Enums::_http_client_component);
 
 #define K_HTTP_CLIENT_HEADER K_HTTP_CLIENT_ID "/" BOOST_STRINGIZE(K_OPENSAUCE_VERSION_BUILD_MAJ) "." BOOST_STRINGIZE(K_OPENSAUCE_VERSION_BUILD_MIN) "." BOOST_STRINGIZE(K_OPENSAUCE_VERSION_BUILD)
 
@@ -199,7 +199,7 @@ namespace Yelo
 		 */
 		void		Dispose()
 		{
-			for(int i = 0; i < NUMBEROF(g_http_components); i++)
+			for(int i = 0; i < std::size(g_http_components); i++)
 				if(g_http_components[i].Dispose)
 					g_http_components[i].Dispose();
 
@@ -219,7 +219,7 @@ namespace Yelo
 		 */
 		void		Update(real delta)
 		{
-			for(int i = 0; i < NUMBEROF(g_http_components); i++)
+			for(int i = 0; i < std::size(g_http_components); i++)
 				if(g_http_components[i].Update)
 					g_http_components[i].Update(delta);
 

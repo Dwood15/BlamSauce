@@ -7,7 +7,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum gamespy_qr_field : long_enum
+		enum gamespy_qr_field : signed long
 		{
 			_gamespy_qr_field_reserved,
 			_gamespy_qr_field_hostname,
@@ -77,7 +77,7 @@ namespace Yelo
 			k_max_gamespy_qr_registered_keys = 254,
 		}; static_assert( _gamespy_qr_field <= k_max_gamespy_qr_registered_keys );
 
-		enum gamespy_qr_key_type : long_enum {
+		enum gamespy_qr_key_type : signed long {
 			_gamespy_qr_key_type_server,
 			_gamespy_qr_key_type_player,
 			_gamespy_qr_key_type_team,
@@ -85,7 +85,7 @@ namespace Yelo
 			k_number_of_gamespy_qr_key_types,
 		};
 
-		enum gamespy_connection_state : long_enum
+		enum gamespy_connection_state : signed long
 		{
 			GTI2AwaitingServerChallenge,
 			GTI2AwaitingAcceptance,
@@ -97,7 +97,7 @@ namespace Yelo
 			GTI2Closed,
 		};
 
-		enum gamespy_connection_result : long_enum
+		enum gamespy_connection_result : signed long
 		{
 			GT2Success,
 			GT2OutOfMemory,
@@ -221,7 +221,7 @@ namespace Yelo
 			void* cm_callback;
 			uint last_heartbeat_time;
 			uint last_keepalive_time;
-			long_enum listed_state;
+			signed long listed_state;
 			BOOL is_public;
 			long query_port;
 			long read_socket;
@@ -248,7 +248,7 @@ namespace Yelo
 			long ip;
 			uint sent_req_time;		// 0x30, GetTickCount
 			long number_of_retries;	// 0x34
-			long_enum state;			// 0x38, 0 = sent request, 1 = ok, 2 = not ok, 3 = done;
+			signed long state;			// 0x38, 0 = sent request, 1 = ok, 2 = not ok, 3 = done;
 			unsigned long : 32;						// 0x3C, void* proc_unk
 			void* authenticate_proc;	// 0x40
 			char* errmsg;				// 0x44
@@ -312,7 +312,7 @@ namespace Yelo
 			byte buffer[k_max_data_size];
 			long len;
 
-			bool add(cstring value) {
+			bool add(const char * value) {
 				long copylen = (long)strlen(value)+1;
 				if(copylen > std::size(buffer))
 					copylen = std::size(buffer);
@@ -351,7 +351,7 @@ namespace Yelo
 			typedef void (__cdecl* keylistcallback_t)(Enums::gamespy_qr_key_type keytype, s_gamespy_qr2_keybuffer* keybuffer, void *userdata);
 			typedef void (__cdecl* keylistcallback_t)(Enums::gamespy_qr_key_type keytype, s_gamespy_qr2_keybuffer* keybuffer, void *userdata);	
 			typedef long(__cdecl* countcallback_t)(Enums::gamespy_qr_key_type keytype, void *userdata);
-			typedef void (__cdecl* adderrorcallback_t)(long_enum error, char *errmsg, void *userdata);
+			typedef void (__cdecl* adderrorcallback_t)(signed long error, char *errmsg, void *userdata);
 			typedef void (__cdecl* natnegcallback_t)(int cookie, void *userdata);	
 			typedef void (__cdecl* clientmessagecallback_t)(char *data, int len, void *userdata);
 
@@ -416,7 +416,7 @@ namespace Yelo
 			}game_patch;
 
 			struct {
-				long_enum state;
+				signed long state;
 				bool server_is_exiting;
 				unsigned char : 8; unsigned short : 16;
 				s_gamespy_qr_data* obj;
@@ -604,7 +604,7 @@ namespace Yelo
 			// [key] - Name of the key. Player keys should end in "_" (such as "score_") and team keys should end in "_t"
 			// Remarks: GameSpy SDK says all custom keys should be registered prior to (the engine) calling (its gamespy) qr2_init
 			// However, I don't see anything in its code that would suggest later registration could bork things up
-			void qr2_register_key(Enums::gamespy_qr_field keyid, cstring key) {
+			void qr2_register_key(Enums::gamespy_qr_field keyid, const char * key) {
 				static const uintptr_t FUNCTION = GET_FUNC_PTR(QR2_REGISTER_KEY);
 
 				API_FUNC_NAKED_START()
@@ -636,7 +636,7 @@ namespace Yelo
 				API_FUNC_NAKED_END_CDECL(3)
 			}
 
-			cstring	SBServerGetStringValue(s_gamespy_server* server, const char* key, cstring def) {
+			const char *	SBServerGetStringValue(s_gamespy_server* server, const char* key, const char * def) {
 				static const uintptr_t FUNCTION = GET_FUNC_PTR(SBSERVER_GET_STRING_VALUE);
 
 				API_FUNC_NAKED_START()

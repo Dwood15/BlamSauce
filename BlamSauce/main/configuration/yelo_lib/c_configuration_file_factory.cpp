@@ -32,7 +32,7 @@ namespace Yelo
 			return configuration_file;
 		}
 
-		configuration_file_ptr_t c_configuration_file_factory::CreateConfigurationFile(cstring data, cstring format)
+		configuration_file_ptr_t c_configuration_file_factory::CreateConfigurationFile(const char * data, const char * format)
 		{
 			configuration_file_ptr_t configuration_file(nullptr);
 

@@ -289,7 +289,7 @@ namespace Yelo {
 																			//_unit_animation_state_yelo_unit_transforming
 																			{nullptr},
 																		};
-			static_assert(NUMBEROF(g_animation_state_handlers) == (Enums::_unit_animation_state_yelo - Enums::_unit_animation_state));
+			static_assert(std::size(g_animation_state_handlers) == (Enums::_unit_animation_state_yelo - Enums::_unit_animation_state));
 
 			void __cdecl AnimationStateDefinedKeyframe(const datum_index unit_index, const Enums::unit_animation_state state) {
 				auto &handler = g_animation_state_handlers[state - Enums::_unit_animation_state];

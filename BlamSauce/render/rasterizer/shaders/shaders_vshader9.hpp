@@ -4,7 +4,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum rasterizer_vertex_shader : long_enum
+		enum rasterizer_vertex_shader : signed long
 		{
 			_rasterizer_vs_convolution,
 			_rasterizer_vs_debug,
@@ -73,7 +73,7 @@ namespace Yelo
 
 			_rasterizer_vertex_shader,
 
-			_rasterizer_vs_invalid = CAST(long_enum, NONE),
+			_rasterizer_vs_invalid = CAST(signed long, NONE),
 		};
 	};
 
@@ -104,7 +104,7 @@ namespace Yelo
 			s_rasterizer_dx9_effect_shaders* effect_shaders;
 			UNUSED_TYPE(long);
 			Enums::rasterizer_vertex_shader vertex_shader;
-			cstring name;
+			const char * name;
 		};
 
 		s_effect_shader_entry*	EffectShaders()					PTR_IMP_GET2(rasterizer_effect_shaders);
@@ -112,7 +112,7 @@ namespace Yelo
 		struct s_vsf_entry
 		{
 			IDirect3DVertexShader9* shader;
-			cstring name;
+			const char * name;
 		};
 
 		s_vsf_entry*	VertexShaders()							PTR_IMP_GET2(vsf_table);

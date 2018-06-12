@@ -26,7 +26,7 @@ namespace Yelo {
 		// and due to the fact that we call them from elsewhere besides the tag_groups_system code
 
 		static void VerifyStringListDefinition(const string_list *definition,
-															const tag_block_definition *block_definition, cstring field_type_name) {
+															const tag_block_definition *block_definition, const char * field_type_name) {
 			YELO_ASSERT_DISPLAY(definition, "no definition specified for %s field in block %s.",
 									  field_type_name, block_definition->name); // NOTE: added owner block name to info
 			YELO_ASSERT(definition->count >= 0);
@@ -146,7 +146,7 @@ namespace Yelo {
 					break;
 
 				case Enums::_field_explanation: {
-					cstring definition = field.Definition<const char>();
+					const char * definition = field.Definition<const char>();
 					// NOTE: added owner block name to info
 					YELO_ASSERT_DISPLAY(definition, "no definition specified for explanation field in block %s.", block_definition->name);
 				}

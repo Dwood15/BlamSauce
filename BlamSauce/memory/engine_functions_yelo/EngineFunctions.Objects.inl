@@ -53,7 +53,7 @@ datum_index New(Yelo::Objects::s_object_placement_data& data)
 	}
 }
 
-datum_index NewWithRole(Yelo::Objects::s_object_placement_data& data, long_enum /*Enums::networked_datum*/ role)
+datum_index NewWithRole(Yelo::Objects::s_object_placement_data& data, signed long /*Enums::networked_datum*/ role)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_NEW_WITH_ROLE);
 
@@ -75,7 +75,7 @@ __declspec(naked) void Delete(datum_index object_index)
 	API_FUNC_NAKED_END(1)
 }
 
-__declspec(naked) void Attach(datum_index target_object_index, cstring target_marker_name, datum_index object_index, cstring marker_name)
+__declspec(naked) void Attach(datum_index target_object_index, const char * target_marker_name, datum_index object_index, const char * marker_name)
 {
 	static const uintptr_t FUNCTION = GET_FUNC_PTR(OBJECT_ATTACH_TO_MARKER);
 

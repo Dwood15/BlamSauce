@@ -39,7 +39,7 @@ namespace Yelo::Objects::Weapon {
 	struct s_weapon_globals {
 		datum_index weapon_index_from_last_update;
 
-		c_settings_container::c_weapon_position *AddPreset(cstring name) {
+		c_settings_container::c_weapon_position *AddPreset(const char * name) {
 			auto &settings_instance = c_settings_weapons::Instance().Get();
 			if (Enums::k_weapon_view_max_weapon_presets == settings_instance.m_weapon_positions.Get().size())
 				return nullptr;
@@ -61,7 +61,7 @@ namespace Yelo::Objects::Weapon {
 			return nullptr;
 		}
 
-		static cstring GetWeaponName(s_item_datum *weapon) {
+		static const char * GetWeaponName(s_item_datum *weapon) {
 			static char weapon_name[Enums::k_weapon_view_name_length + 1];
 
 			datum_index definition_index = weapon->object.definition_index;
@@ -71,7 +71,7 @@ namespace Yelo::Objects::Weapon {
 				{
 					short msg_index = definition->item.message_index;
 
-					wcstring msg = blam::hud_get_item_string(msg_index);
+					wconst char * msg = blam::hud_get_item_string(msg_index);
 
 					wstring_to_string_lazy(weapon_name, Enums::k_weapon_view_name_length + 1, msg);
 				} else return nullptr;
@@ -80,7 +80,7 @@ namespace Yelo::Objects::Weapon {
 			return weapon_name;
 		}
 
-		cstring GetCurrentWeaponName(datum_index &return_weapon_index) {
+		const char * GetCurrentWeaponName(datum_index &return_weapon_index) {
 			s_item_datum *weapon = GetCurrentWeapon(return_weapon_index);
 
 			if (weapon != nullptr)
@@ -90,7 +90,7 @@ namespace Yelo::Objects::Weapon {
 		}
 
 	public:
-		c_settings_container::c_weapon_position *GetCurrentPreset(datum_index &return_weapon_index, cstring &return_name) {
+		c_settings_container::c_weapon_position *GetCurrentPreset(datum_index &return_weapon_index, const char * &return_name) {
 			return_weapon_index = datum_index::null();
 			return_name         = GetCurrentWeaponName(return_weapon_index);
 
@@ -119,7 +119,7 @@ namespace Yelo::Objects::Weapon {
 		static const uintptr_t FIRST_PERSON_WEAPON_RENDER_UPDATE = GET_FUNC_PTR(FIRST_PERSON_WEAPON_RENDER_UPDATE);
 
 		datum_index weapon_index;
-		cstring     name;
+		const char *     name;
 		c_settings_container::c_weapon_position *preset = g_weapon_globals.GetCurrentPreset(weapon_index, name);
 
 		if (preset != nullptr) {
@@ -154,7 +154,7 @@ namespace Yelo::Objects::Weapon {
 
 	real_vector3d GetWeaponPosition() {
 		datum_index weapon_index;
-		cstring     weapon_name;
+		const char *     weapon_name;
 
 		auto *preset = g_weapon_globals.GetCurrentPreset(weapon_index, weapon_name);
 		if (preset) {
@@ -166,7 +166,7 @@ namespace Yelo::Objects::Weapon {
 
 	void SetWeaponPosition(const real_vector3d &position) {
 		datum_index weapon_index;
-		cstring     weapon_name;
+		const char *     weapon_name;
 
 		auto *preset = g_weapon_globals.GetCurrentPreset(weapon_index, weapon_name);
 		if (preset) {

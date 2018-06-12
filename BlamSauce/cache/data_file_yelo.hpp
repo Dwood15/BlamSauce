@@ -7,7 +7,7 @@
 #include <direct.h> // _mkdir
 
 namespace Yelo::DataFiles {
-	static const cstring K_DATA_FILE_SUBDIRECTORY = "data_files\\";
+	static const const char * K_DATA_FILE_SUBDIRECTORY = "data_files\\";
 };
 
 namespace Yelo::Cache {
@@ -18,7 +18,7 @@ namespace Yelo::Cache {
 
 			// maximum length of the filename suffix on mod-set files
 			// minus one, as null terminator is counted by NUMBEROF
-				k_max_mod_set_name_suffix_length = NUMBEROF("-bitmaps") - 1,
+				k_max_mod_set_name_suffix_length = std::size("-bitmaps") - 1,
 			// maximum length of the actual mod-set name
 				k_max_mod_set_name_length        = Enums::k_tag_string_length - k_max_mod_set_name_suffix_length,
 		};
@@ -35,7 +35,7 @@ namespace Yelo::Cache {
 		}
 
 	protected:
-		static void BuildName(cstring mod_name, Enums::data_file_type type, char name[k_name_length + 1]) {
+		static void BuildName(const char * mod_name, Enums::data_file_type type, char name[k_name_length + 1]) {
 			if (!is_null_or_empty(mod_name)) {
 				strcpy_s(name, k_name_length + 1, DataFiles::K_DATA_FILE_SUBDIRECTORY);
 				strcat_s(name, k_name_length + 1, "-");
@@ -44,14 +44,14 @@ namespace Yelo::Cache {
 			strcat_s(name, k_name_length + 1, Cache::DataFileTypeToString(type));
 		}
 
-		void BuildNames(cstring mod_name) {
+		void BuildNames(const char * mod_name) {
 			memset(m_names, 0, sizeof(m_names));
 			BuildName(mod_name, Enums::_data_file_type_bitmaps, m_names[Enums::_data_file_type_bitmaps]);
 			BuildName(mod_name, Enums::_data_file_type_sounds, m_names[Enums::_data_file_type_sounds]);
 			BuildName(mod_name, Enums::_data_file_type_locale, m_names[Enums::_data_file_type_locale]);
 		}
 
-		bool c_data_files_finder::SearchPath(cstring maps_path) {
+		bool c_data_files_finder::SearchPath(const char * maps_path) {
 			char data_file_path[MAX_PATH] = "";
 			strcpy_s(data_file_path, maps_path);
 			// pointer into data_file_path that starts after the maps_path string
@@ -82,13 +82,13 @@ namespace Yelo::Cache {
 
 	class c_data_files_finder : protected c_data_files_name_utils {
 		struct {
-			cstring environment; // The 'normal' path, usually a folder relative to the EXE or CWD
-			cstring user_profile;// The path defined by or in the user's profile
+			const char * environment; // The 'normal' path, usually a folder relative to the EXE or CWD
+			const char * user_profile;// The path defined by or in the user's profile
 
-			cstring final; // The path which the finder first found all the data files in, or NULL if it couldn't
+			const char * final; // The path which the finder first found all the data files in, or NULL if it couldn't
 		} m_maps_path;
 
-		bool SearchPath(cstring maps_path);
+		bool SearchPath(const char * maps_path);
 
 		bool SearchEnvironment(){
 			if (SearchPath(m_maps_path.environment))
@@ -106,7 +106,7 @@ namespace Yelo::Cache {
 
 
 	public:
-		c_data_files_finder(cstring mod_name = "") {
+		c_data_files_finder(const char * mod_name = "") {
 			BuildNames(mod_name);
 
 			m_maps_path.environment  = Cache::MapsDirectory();
@@ -152,7 +152,7 @@ namespace Yelo::Cache {
 		// Initialize the data file system to either use a mod-set or the stock
 		// data files.
 		// NOTE: [maps_path] will be modified if [using_mod_sets] is true!
-		void InitializeForCache(bool using_mod_sets, cstring mod_name, char maps_path[MAX_PATH]) {
+		void InitializeForCache(bool using_mod_sets, const char * mod_name, char maps_path[MAX_PATH]) {
 			memset(m_names, 0, sizeof(m_names));
 
 			BuildNames(using_mod_sets ? mod_name : nullptr);
@@ -200,14 +200,14 @@ namespace Yelo::Cache {
 
 
 
-		void CopyStockDataFile(cstring maps_path, Enums::data_file_type df_type)
+		void CopyStockDataFile(const char * maps_path, Enums::data_file_type df_type)
 			{
 
 
 				s_progress_report report;
 				memset(&report, 0, sizeof(report));
 
-				cstring data_file_name = Cache::DataFileTypeToString(df_type);
+				const char * data_file_name = Cache::DataFileTypeToString(df_type);
 
 				char source_file[MAX_PATH];	sprintf_s(source_file, "%s%s%s", maps_path, data_file_name, K_DATA_FILE_EXTENSION);
 				char target_file[MAX_PATH];	sprintf_s(target_file, "%s%s%s", maps_path, m_names[df_type], K_DATA_FILE_EXTENSION);

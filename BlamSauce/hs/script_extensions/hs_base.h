@@ -153,7 +153,7 @@ namespace Yelo {
 			}
 		}
 
-		static bool DefinitionsNameMatch(cstring name, const tag_string definition_name[2]) {
+		static bool DefinitionsNameMatch(const char * name, const tag_string definition_name[2]) {
 			size_t length = strlen(name);
 			bool   result = !strncmp(name, definition_name[0], Enums::k_tag_string_length);
 
@@ -223,13 +223,13 @@ namespace Yelo {
 		static long hs_eval_func = 0;
 		API_CODEDATA static byte
 		hs_func_pool[
-		NUMBEROF(hs_eval_func_ptrs)
+		std::size(hs_eval_func_ptrs)
 		][sizeof(hs_eval_func_has_param)];
 
 		// Creates a evaluate function that calls [func] and passes
 		// an array of parameters to it if it [takes_params]
 		//
-		// [func] - pointer to a __stdcalltype function
+		// [func] - pointer to a __stdcall type function
 		// Returns: evaluate function address
 		static void *CreateScriptFunction(void *func, bool takes_params) {
 			if (hs_eval_func >= std::size(hs_eval_func_ptrs)) return nullptr; // we don't want to go over our set limit

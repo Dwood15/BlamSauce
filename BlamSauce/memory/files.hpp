@@ -249,7 +249,7 @@ namespace Yelo {
 		/// <param name="path">		  	Full pathname of the file. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool GetDirectoryPath(char *destination, uint size, cstring path) {
+		bool GetDirectoryPath(char *destination, uint size, const char * path) {
 			if (!destination || (size <= 1))
 				return false;
 
@@ -276,7 +276,7 @@ namespace Yelo {
 		/// <param name="path">		  	Full pathname of the file. </param>
 		/// <returns>	true if it succeeds, false if it fails. </returns>
 		///-------------------------------------------------------------------------------------------------
-		bool GetFileExtension(char *destination, uint size, cstring path) {
+		bool GetFileExtension(char *destination, uint size, const char * path) {
 			const char *extension_start = strrchr(path, '.');
 			if (!extension_start)
 				return false;
@@ -326,7 +326,7 @@ namespace Yelo {
 		/// </param>
 		/// <returns>	An Enums::file_io_delete_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
-		Enums::file_io_delete_error DirectoryDelete(cstring path, const bool delete_contents, const bool recursive) {
+		Enums::file_io_delete_error DirectoryDelete(const char * path, const bool delete_contents, const bool recursive) {
 			if (!PathExists(path))
 				return Enums::_file_io_delete_error_does_not_exist;
 
@@ -419,7 +419,7 @@ namespace Yelo {
 		/// <returns>	An Enums::file_io_open_error describing the result. </returns>
 		///-------------------------------------------------------------------------------------------------
 		Enums::file_io_open_error OpenFile(s_file_info &info_out,
-													  cstring file_path,
+													  const char * file_path,
 													  const Enums::file_io_open_access_type access_type,
 													  const Enums::file_io_open_create_option creation_type) {
 			if (!PathExists(file_path) && (creation_type == Enums::_file_io_open_create_option_open_existing))

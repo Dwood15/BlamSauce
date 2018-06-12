@@ -79,7 +79,7 @@ namespace Yelo
 			};
 
 			// internal name of the cache's Yelo tag when the user doesn't supply a definition
-			static cstring k_default_name  = "i've got a lovely bunch of corncobs";
+			static const char * k_default_name  = "i've got a lovely bunch of corncobs";
 
 			const short version;
 			unsigned short flags;

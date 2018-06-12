@@ -6,15 +6,15 @@
 */
 #pragma once
 
-#include <blamlib/Halo1/interface/terminal.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
 	namespace Enums
 	{
-		enum hud_chat_type : long_enum
+		enum hud_chat_type : signed long
 		{
-			_hud_chat_type_none = CAST(long_enum,NONE),
+			_hud_chat_type_none = CAST(signed long,NONE),
 
 			_hud_chat_type_all = 0,
 			_hud_chat_type_team,
@@ -42,8 +42,8 @@ namespace Yelo
 
 	namespace blam
 	{
-		void __cdecl hud_chat_to_network(long player_number, long_enum chat_type, wcstring text);
+		void __cdecl hud_chat_to_network(long player_number, signed long chat_type, wconst char * text);
 
-		void __cdecl hud_chat_display_message(wcstring message);
+		void __cdecl hud_chat_display_message(wconst char * message);
 	};
 };

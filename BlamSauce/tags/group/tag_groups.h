@@ -88,7 +88,7 @@ namespace Yelo::TagGroups {
 		return StringFieldGetLength(field) + 1;
 	}
 
-	tag_group *FindTagGroupByName(cstring name);
+	tag_group *FindTagGroupByName(const char * name);
 
 	char *TryAndGetGroupName(tag group_tag, _Out_ long_string name) {
 		const tag_group *group = Yelo::blam::tag_group_get(group_tag);
@@ -199,7 +199,7 @@ namespace blam {
 
 	uint __cdecl tag_groups_checksum();
 
-	datum_index __cdecl find_tag_instance(tag group_tag, cstring name) {
+	datum_index __cdecl find_tag_instance(tag group_tag, const char * name) {
 		for (auto instance : TagGroups::TagInstances()) {
 			if (instance->is_orphan || instance->is_reload || instance->group_tag != group_tag)
 				continue;
@@ -241,7 +241,7 @@ namespace blam {
 	}
 
 	// Rename the tag definition [tag_index] to [new_name]
-	void __cdecl tag_rename(datum_index tag_index, cstring new_name);
+	void __cdecl tag_rename(datum_index tag_index, const char * new_name);
 
 	tag_block *__cdecl tag_block_index_resolve(datum_index tag_index, tag_field *block_index_field, long index);
 
@@ -334,7 +334,7 @@ namespace TagGroups {
 };
 };
 namespace Yelo {
-	void tag_reference::set(tag group_tag, cstring name) {
+	void tag_reference::set(tag group_tag, const char * name) {
 		blam::tag_reference_set(*this, group_tag, name);
 	}
 
@@ -371,7 +371,7 @@ namespace Yelo {
 				 (x << 24);
 		}
 
-		tag string_to_group_tag(cstring name) {
+		tag string_to_group_tag(const char * name) {
 			const uint _group = *((const uint *) name);
 			return (tag) ((_group >> 24) | ((_group >> 8) & 0xFF00) | (((_group << 8) & 0xFF0000) | ((_group << 24) & 0xFF000000)));
 		}

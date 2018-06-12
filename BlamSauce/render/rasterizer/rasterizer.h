@@ -1,9 +1,13 @@
 #pragma once
 
-#include <YeloLib/Halo1/rasterizer/rasterizer.hpp>
-#include <YeloLib/configuration/c_configuration_container.hpp>
-#include <YeloLib/configuration/c_configuration_value.hpp>
-#include <YeloLib/open_sauce/settings/c_settings_singleton.hpp>
+#include <precompile.h>
+
+#include <d3d9types.h>
+#include "dx9.h"
+#include "../render.hpp"
+#include "rasterizer.hpp"
+#include "../../interface/ui_video_screen.hpp"
+#include "../../main/configuration/c_settings_singleton.hpp"
 
 namespace Yelo
 {
@@ -117,9 +121,6 @@ namespace Yelo
 			};
 
 		public:
-#if PLATFORM_VERSION <= 0x1090
-			Configuration::c_configuration_value<bool> m_use_nvidia_camo;
-#endif
 			c_upgrades_container m_upgrades;
 
 			c_settings_container() : Configuration::c_configuration_container("Rasterizer"), m_upgrades() { }
@@ -158,9 +159,10 @@ namespace Yelo
 
 		static void InitializeRasterizerGeometryUpgrades()
 		{
-			return; // TODO: WIP code
 
-			GET_PTR(RASTERIZER_DYNAMIC_GEOMETRY_INITIALIZE__CreateIndexBuffer_Length_ARG) = sizeof(struct rasterizer_triangle)*Enums::k_rasterizer_maximum_dynamic_triangles;
+			*(RASTERIZER_DYNAMIC_GEOMETRY_INITIALIZE__CreateIndexBuffer_Length_ARG = sizeof(struct rasterizer_triangle)*Enums::k_rasterizer_maximum_dynamic_triangles;
+
+			return; // TODO: WIP code
 		}
 
 		static void SetupResolutions()
@@ -174,7 +176,7 @@ namespace Yelo
 			GetWindowRect(desktop_handle, &desktop_dimensions);
 
 			// get the number of adapter modes
-			UINT adapter_mode_index = DX9::Direct3D9()->GetAdapterModeCount(GET_PTR(RASTERIZER_DEVICE_ADAPTER_INDEX), D3DFMT_X8R8G8B8);
+			UINT adapter_mode_index = DX9::Direct3D9()->GetAdapterModeCount(RASTERIZER_DEVICE_ADAPTER_INDEX, D3DFMT_X8R8G8B8);
 			if(!adapter_mode_index)
 				return;
 
@@ -183,7 +185,7 @@ namespace Yelo
 			{
 				adapter_mode_index--;
 				D3DDISPLAYMODE display_mode;
-				HRESULT success = DX9::Direct3D9()->EnumAdapterModes(GET_PTR(RASTERIZER_DEVICE_ADAPTER_INDEX), D3DFMT_X8R8G8B8, adapter_mode_index, &display_mode);
+				HRESULT success = DX9::Direct3D9()->EnumAdapterModes(RASTERIZER_DEVICE_ADAPTER_INDEX, D3DFMT_X8R8G8B8, adapter_mode_index, &display_mode);
 
 				if(!SUCCEEDED(success))
 					continue;
@@ -222,8 +224,8 @@ namespace Yelo
 			Render::Initialize();
 
 			// hook the calls to rasterizer_dispose
-			Memory::WriteRelativeCall(&RasterizerDisposeHook, GET_FUNC_VPTR(RASTERIZER_DISPOSE_CALL_FROM_RASTERIZER));
-			Memory::WriteRelativeCall(&RasterizerDisposeHook, GET_FUNC_VPTR(RASTERIZER_DISPOSE_CALL_FROM_SHELL));
+			Memory::WriteRelativeCall(&RasterizerDisposeHook, RASTERIZER_DISPOSE_CALL_FROM_RASTERIZER);
+			Memory::WriteRelativeCall(&RasterizerDisposeHook, RASTERIZER_DISPOSE_CALL_FROM_SHELL);
 
 			size_t address = CAST_PTR(size_t, Rasterizer::DebugOptions());
 			for(const auto& rdt : k_rasterizer_debug_table)
@@ -238,7 +240,7 @@ namespace Yelo
 
 			// update the resolution definition array length
 			// definition count has been increased to 64 so that ridiculous amounts of resolutions in the future are accommodated
-			GET_PTR(RESOLUTION_LIST_COUNT) = NUMBEROF(g_resolution_list);
+			GET_PTR(RESOLUTION_LIST_COUNT) = std::size(g_resolution_list);
 
 			// redirect all resolution definition pointers to the new array
 			for(auto ptr : K_RESOLUTION_LIST_X_REFERENCES)

@@ -29,7 +29,7 @@ namespace Yelo
 	};
 	namespace Rasterizer { namespace PostProcessing { namespace Generic { namespace External
 	{
-		extern cstring K_EXTERNAL_PP_SETTINGS_FILE;
+		extern const char * K_EXTERNAL_PP_SETTINGS_FILE;
 
 		class c_external_pp_settings_container;
 		class c_shader_container;

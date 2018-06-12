@@ -240,7 +240,7 @@ namespace Yelo
 		{
 			return MessageDeltas::ClientSendMessageToServer(message_size, true);
 		}
-		void SendHudChat(Enums::hud_chat_type msg_type, wcstring message, byte src_player_number,
+		void SendHudChat(Enums::hud_chat_type msg_type, wconst char * message, byte src_player_number,
 			proc_send_hud_chat_predicate send_predicate)
 		{
 			if(msg_type > Enums::_hud_chat_type_none && msg_type <= Enums::_hud_chat_type_info_msg)

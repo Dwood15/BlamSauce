@@ -32,9 +32,9 @@ namespace Yelo
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
-				Label_SetText(gwen_control, value.m_cstring);
+				Label_SetText(gwen_control, value.m_const char *);
 			},
-			[](Control::i_control& control, cstring value)
+			[](Control::i_control& control, const char * value)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -54,9 +54,9 @@ namespace Yelo
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
-				Label_SetTextTypeface(gwen_control, value.m_cstring);
+				Label_SetTextTypeface(gwen_control, value.m_const char *);
 			},
-			[](Control::i_control& control, cstring value)
+			[](Control::i_control& control, const char * value)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -77,7 +77,7 @@ namespace Yelo
 
 				Label_SetTextSize(gwen_control, value.m_real);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -100,7 +100,7 @@ namespace Yelo
 
 				return Label_SetTextBold(gwen_control, value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -123,7 +123,7 @@ namespace Yelo
 
 				Label_SetTextColor(gwen_control, value.m_argb_color);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -146,7 +146,7 @@ namespace Yelo
 
 				Label_SetVerticalAlignment(gwen_control, value.m_int32);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -167,7 +167,7 @@ namespace Yelo
 
 				Label_SetHorizontalAlignment(gwen_control, value.m_int32);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -188,7 +188,7 @@ namespace Yelo
 
 				return Label_SetWrap(gwen_control, value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 
@@ -211,7 +211,7 @@ namespace Yelo
 
 				Label_SetTextPadding(gwen_control, value.m_rectangle2d);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Label, control.GetControlPtr());
 

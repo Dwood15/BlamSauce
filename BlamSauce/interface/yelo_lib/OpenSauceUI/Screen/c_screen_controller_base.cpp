@@ -167,7 +167,7 @@ namespace Yelo
 		}
 
 		template<>
-		void c_screen_controller_base::SetControlPropertyImpl<cstring>(const uint control_id, const uint property_id, cstring value)
+		void c_screen_controller_base::SetControlPropertyImpl<const char *>(const uint control_id, const uint property_id, const char * value)
 		{
 			// Get the property and control
 			Control::control_ptr_t control;
@@ -193,9 +193,9 @@ namespace Yelo
 			SetControlPropertyImpl<real>(control_id, property_id, value);
 		}
 
-		void c_screen_controller_base::SetControlProperty(const uint control_id, const uint property_id, cstring value)
+		void c_screen_controller_base::SetControlProperty(const uint control_id, const uint property_id, const char * value)
 		{
-			SetControlPropertyImpl<cstring>(control_id, property_id, value);
+			SetControlPropertyImpl<const char *>(control_id, property_id, value);
 		}
 
 		void c_screen_controller_base::AddDynamicProperty(const uint control_id, const uint property_id, const dynamic_property_update_t& update)

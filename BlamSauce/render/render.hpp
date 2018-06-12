@@ -1,12 +1,8 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/render/render_cameras.hpp>
+#include <precompile.h>
+#include <enginelayout/Rasterizer.inl>
+#include "cameras.hpp"
 
 namespace Yelo
 {
@@ -19,7 +15,8 @@ namespace Yelo
 			unsigned char : 8;
 			s_render_camera render_camera, rasterizer_camera;
 		}; static_assert( sizeof(s_render_window) == 0xAC );
-		s_render_window* RenderWindow(); // defined in the implementing extension's code
+
+		static constexpr s_render_window* RenderWindow() { return reinterpret_cast<Yelo::Render::s_render_window *>(K_RENDER_WINDOW); }
 
 		struct s_render_fog
 		{
@@ -70,18 +67,18 @@ namespace Yelo
 				uint triangles[Enums::k_maximum_rendered_triangles];
 			}rendered_triangles;
 		}; static_assert( sizeof(s_render_globals) == 0x9D298 );
-		s_render_globals* RenderGlobals(); // defined in the implementing extension's code
+		s_render_globals* RenderGlobals() {return reinterpret_cast<Yelo::Render::s_render_globals *>(K_RENDER_GLOBALS); }
 
 		struct s_structure_render_globals
 		{
 			bool render_bsp;
 			unsigned char : 8; unsigned short : 16;
 			long dynamic_triangle_buffer_index;
-			UNKNOWN_TYPE(bool);
+			bool unk;
 			unsigned char : 8; unsigned short : 16;
-			UNKNOWN_TYPE(real_vector3d);
+			float x, y, z;
 		}; static_assert( sizeof(s_structure_render_globals) == 0x18 );
-		s_structure_render_globals* StructureRenderGlobals(); // defined in the implementing extension's code
+		s_structure_render_globals* StructureRenderGlobals() { reinterpret_cast<Yelo::Render::s_structure_render_globals *>(K_STRUCTURE_RENDER_GLOBALS);}
 	};
 
 	namespace blam

@@ -53,6 +53,6 @@ namespace Yelo
 	{
 		//////////////////////////////////////////////////////////////////////////
 		// bink_playback.c
-		void __cdecl bink_playback_start(cstring bik_path);
+		void __cdecl bink_playback_start(const char * bik_path);
 	};
 };

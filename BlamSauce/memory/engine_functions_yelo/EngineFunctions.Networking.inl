@@ -21,7 +21,7 @@ void EncodeObjectDeletionMessage(datum_index object_index)
 	}
 }
 
-void EncodeHudChatNetworkData(long player_number, long_enum chat_type, wcstring msg)
+void EncodeHudChatNetworkData(long player_number, signed long chat_type, wconst char * msg)
 {
 	static const uintptr_t CALL_ADDR = GET_FUNC_PTR(HUD_CHAT_TO_NETWORK);
 
@@ -30,7 +30,7 @@ void EncodeHudChatNetworkData(long player_number, long_enum chat_type, wcstring 
 	memset(local, 0, sizeof(local));
 	wcscpy_s(local, msg);
 #else
-	cstring local = msg;
+	const char * local = msg;
 #endif
 
 	__asm {

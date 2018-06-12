@@ -234,7 +234,7 @@ the_end:
 
 
 #pragma region MdpiEncode
-		__declspec(naked) long MdpiEncode(long_enum mode, long_enum definition_type,
+		__declspec(naked) long MdpiEncode(signed long mode, signed long definition_type,
 			const void* buffer, size_t buffer_size_in_bits, 
 			const void** headers, const void** datas, const void** baselines, 
 			long iterations, long unk)
@@ -257,7 +257,7 @@ the_end:
 		}
 #pragma endregion
 
-		long EncodeStateless(long_enum definition_type,
+		long EncodeStateless(signed long definition_type,
 			const void* source_header, const void* source_data, 
 			void* buffer, size_t buffer_size_in_bits)
 		{
@@ -265,7 +265,7 @@ the_end:
 				buffer, buffer_size_in_bits, 
 				&source_header, &source_data);
 		}
-		long EncodeStateless(long_enum definition_type,
+		long EncodeStateless(signed long definition_type,
 			const void* source_header, const void* source_data)
 		{
 			return EncodeStateless(definition_type,

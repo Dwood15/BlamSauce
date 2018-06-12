@@ -43,7 +43,7 @@ namespace Tempera::FunctionInterface {
 		static const ufunc_t func_to_call = reinterpret_cast<ufunc_t>( addr );
 		return func_to_call(args...);
 	};
-}
+};
 
 namespace Yelo::Memory {
 	typedef void (__stdcall *function_process_proc)();

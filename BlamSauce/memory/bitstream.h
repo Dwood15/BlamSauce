@@ -5,7 +5,7 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum bitstream_mode : long_enum {
+		enum bitstream_mode : signed long {
 			_bitstream_mode_write,
 			_bitstream_mode_read,
 		};

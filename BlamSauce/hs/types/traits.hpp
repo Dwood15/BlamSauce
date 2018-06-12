@@ -58,7 +58,7 @@ namespace Yelo
 		template<>
 		struct hs_type_traits<Enums::_hs_type_string>
 		{
-			typedef cstring ctype;
+			typedef const char * ctype;
 		};
 
 		template<>
@@ -158,7 +158,6 @@ namespace Yelo
 		template<>
 		struct hs_type_traits<Enums::_hs_type_scenery> : hs_type_default_traits_for_game_state_datum {};
 
-#if 0
 		struct hs_type_default_traits_for_object_name
 		{
 			typedef short ctype;
@@ -175,6 +174,5 @@ namespace Yelo
 		struct hs_type_traits<Enums::_hs_type_device_name> : hs_type_default_traits_for_object_name {};
 		template<>
 		struct hs_type_traits<Enums::_hs_type_scenery_name> : hs_type_default_traits_for_object_name {};
-#endif
 	};
 };

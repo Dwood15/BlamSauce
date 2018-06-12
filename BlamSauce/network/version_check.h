@@ -42,7 +42,7 @@ namespace Yelo
 
 			void SetBuildDate(const char* build_date)
 			{
-				if(strlen(build_date) >= NUMBEROF(m_build_date))
+				if(strlen(build_date) >= std::size(m_build_date))
 				{
 					m_build_date[0] = 0;
 				}

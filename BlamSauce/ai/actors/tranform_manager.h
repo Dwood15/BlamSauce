@@ -10,6 +10,9 @@
 
 #include "../../game/allegiance.h"
 #include "../../memory/datum_index.h"
+#include "../../game/objects/units/unit_transform_definition.hpp"
+#include "../../models/models.hpp"
+#include "../../hs/library/library.h"
 
 namespace Yelo::Enums {
 	enum game_team : short;
@@ -41,7 +44,8 @@ namespace Yelo::AI::Transform {
 		};
 
 		bool m_transforms_enabled;
-		unsigned char : 8; unsigned short : 16;
+		unsigned char : 8;
+		unsigned short                                           : 16;
 		s_actor_variant_transform_state                          *m_transform_states;
 		TagGroups::actor_variant_transform_collection_definition *m_transform_collection;
 
@@ -88,7 +92,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="select_func">	  	The select function. </param>
 		///
 		/// <returns>	The found transform. </returns>
-		sbyte FindTransform(const TagBlock <TagGroups::actor_variant_transform_collection_transform> &transformations,
+		sbyte FindTransform(const TagBlock<TagGroups::actor_variant_transform_collection_transform> &transformations,
 								  std::function<bool(const TagGroups::actor_variant_transform_collection_transform &)> select_func) const;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,7 +106,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="damage_is_melee">			Whether the damage is melee damage. </param>
 		///
 		/// <returns>	Index of the found transform. Returns NONE if no transform was found. </returns>
-		sbyte FindDamageTransform(const TagBlock <TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index, const datum_index instigator_unit_index,
+		sbyte FindDamageTransform(const TagBlock<TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index, const datum_index instigator_unit_index,
 										  const bool damage_is_melee) const;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +116,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="unit_index">	  	Datum index of the unit. </param>
 		///
 		/// <returns>	The found update transform. </returns>
-		sbyte FindUpdateTransform(const TagBlock <TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index) const;
+		sbyte FindUpdateTransform(const TagBlock<TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index) const;
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Searches for the first transforms entry for an actor variant tag. </summary>
@@ -147,7 +151,8 @@ namespace Yelo::AI::Transform {
 		///
 		/// <returns>	The chosen team. </returns>
 		Enums::game_team
-		HandleTeam(const Yelo::Enums::actor_variant_transform_team_handling option, const Enums::game_team attacked_team, const Enums::game_team attacker_team, const Enums::game_team override_team) const;
+		HandleTeam(const Yelo::Enums::actor_variant_transform_team_handling option, const Enums::game_team attacked_team, const Enums::game_team attacker_team,
+					  const Enums::game_team override_team) const;
 
 #pragma endregion
 
@@ -390,7 +395,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="target">	  	The target name. </param>
 		///
 		/// <returns>	true if it succeeds, false if it fails. </returns>
-		bool TransformActor(const datum_index unit_index, cstring transform_name, cstring target_name);
+		bool TransformActor(const datum_index unit_index, const char * transform_name, const char * target_name);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Transforms a list of actors to the specified transform. </summary>
@@ -400,7 +405,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="target_name">	  	The target name. </param>
 		///
 		/// <returns>	true if it succeeds, false if it fails. </returns>
-		bool TransformActors(const datum_index unit_index_list, cstring transform_name, cstring target_name);
+		bool TransformActors(const datum_index unit_index_list, const char * transform_name, const char * target_name);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>
@@ -413,7 +418,7 @@ namespace Yelo::AI::Transform {
 		/// <param name="target_name">	  	The target name. </param>
 		///
 		/// <returns>	true if it succeeds, false if it fails. </returns>
-		bool TransformActorsByType(const datum_index unit_index_list, const datum_index tag_index, cstring transform_name, cstring target_name);
+		bool TransformActorsByType(const datum_index unit_index_list, const datum_index tag_index, const char * transform_name, const char * target_name);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Returns whether an actor is transforming. </summary>
@@ -426,7 +431,6 @@ namespace Yelo::AI::Transform {
 #pragma endregion
 	};
 };
-
 
 namespace Yelo::AI::Transform {
 	c_actor_variant_transform_manager::c_actor_variant_transform_manager() : m_transforms_enabled(true), m_transform_states(nullptr) {}
@@ -527,7 +531,7 @@ namespace Yelo::AI::Transform {
 		return do_transform;
 	}
 
-	sbyte c_actor_variant_transform_manager::FindTransform(const TagBlock <TagGroups::actor_variant_transform_collection_transform> &transformations,
+	sbyte c_actor_variant_transform_manager::FindTransform(const TagBlock<TagGroups::actor_variant_transform_collection_transform> &transformations,
 																			 std::function<bool(const TagGroups::actor_variant_transform_collection_transform &)> select_func) const {
 		// Populate the transform index list
 		std::vector<sbyte> transform_indices;
@@ -560,7 +564,7 @@ namespace Yelo::AI::Transform {
 		return NONE;
 	}
 
-	sbyte c_actor_variant_transform_manager::FindDamageTransform(const TagBlock <TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index,
+	sbyte c_actor_variant_transform_manager::FindDamageTransform(const TagBlock<TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index,
 																					 const datum_index instigator_unit_index, const bool damage_is_melee) const {
 		auto &unit_datum            = *blam::object_get_and_verify_type<Objects::s_unit_datum>(unit_index);
 		auto *instigator_unit_datum = (instigator_unit_index.IsNull() ? nullptr : blam::object_try_and_get_and_verify_type<Objects::s_unit_datum>(instigator_unit_index));
@@ -621,7 +625,7 @@ namespace Yelo::AI::Transform {
 		return FindTransform(transformations, select_func);
 	}
 
-	sbyte c_actor_variant_transform_manager::FindUpdateTransform(const TagBlock <TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index) const {
+	sbyte c_actor_variant_transform_manager::FindUpdateTransform(const TagBlock<TagGroups::actor_variant_transform_collection_transform> &transformations, const datum_index unit_index) const {
 		return FindTransform(transformations,
 									[&](const TagGroups::actor_variant_transform_collection_transform &transform) -> bool {
 										auto &transform_out_definition = *transform.transform_out_ptr;
@@ -652,10 +656,10 @@ namespace Yelo::AI::Transform {
 	sbyte c_actor_variant_transform_manager::FindTransformsEntry(const datum_index tag_index) const {
 		// Find an entry with a matching actor variant tag index
 		auto &actor_variant_transforms = m_transform_collection->actor_variant_transforms;
-		auto found_entry = std::find_if(actor_variant_transforms.begin(), actor_variant_transforms.end(),
-												  [&](const TagGroups::actor_variant_transform_collection_entry &entry) {
-													  return entry.actor_variant.tag_index == tag_index;
-												  }
+		auto found_entry               = std::find_if(actor_variant_transforms.begin(), actor_variant_transforms.end(),
+																	 [&](const TagGroups::actor_variant_transform_collection_entry &entry) {
+																		 return entry.actor_variant.tag_index == tag_index;
+																	 }
 		);
 
 		if (found_entry == actor_variant_transforms.end()) {
@@ -747,12 +751,7 @@ namespace Yelo::AI::Transform {
 			return;
 		}
 
-#if PLATFORM_TYPE == PLATFORM_SAPIEN
-		m_transform_states = reinterpret_cast<s_actor_variant_transform_state *>(blam::game_state_malloc("actor variant transform states", nullptr,
-																																		 sizeof(s_actor_variant_transform_state) * k_max_concurrent_transforms));
-#else
 		m_transform_states = GameState::GameStateMalloc<s_actor_variant_transform_state>(true, k_max_concurrent_transforms);
-#endif
 
 		YELO_ASSERT_DISPLAY(m_transform_states, "Failed to allocate actor transform gamestate memory");
 
@@ -772,7 +771,7 @@ namespace Yelo::AI::Transform {
 	void c_actor_variant_transform_manager::DestroyAttachments(const datum_index unit_index, const TagGroups::actor_variant_transform_out_definition &transform_definition) const {
 		// Delete all of the units children that match the types in the attachments list
 		for (auto &attachment : transform_definition.attachments) {
-			Objects::DestroyChildrenByDefinition(unit_index, attachment.object_type.tag_index);
+			Yelo::Objects::DestroyChildrenByDefinition(unit_index, attachment.object_type.tag_index);
 		}
 	}
 
@@ -780,7 +779,7 @@ namespace Yelo::AI::Transform {
 																		  const tag_string &destination_marker_name, const long destination_marker_index, const Enums::game_team attachment_team,
 																		  const real attachment_scale) const {
 		// If there is only 1 marker do not append a marker index to the name
-		cstring destination_marker = destination_marker_name;
+		const char * destination_marker = destination_marker_name;
 
 		tag_string destination_marker_buffer;
 		if (destination_marker_index != NONE) {
@@ -824,7 +823,7 @@ namespace Yelo::AI::Transform {
 			// Get the attachments team and random scale
 			Enums::game_team attachment_team = HandleTeam(attachment.team_handling, unit_datum->object.owner_team, instigator_team, attachment.team_override);
 
-			real attachment_scale = Random::GetReal(attachment.attachment_scale);
+			real attachment_scale = Yelo::Random::GetReal(attachment.attachment_scale);
 
 			// Create attachment instances for all markers
 			if (attachment.destination_marker_count == 1) {
@@ -850,7 +849,7 @@ namespace Yelo::AI::Transform {
 		datum_index encounter_index = datum_index::null();
 		short       squad_index     = NONE;
 
-		const auto actor_data = AI::Actors()[source_actor_index];
+		const auto actor_data = Yelo::AI::Actors()[source_actor_index];
 
 		switch (target.encounter_squad_handling) {
 			case Enums::_actor_variant_transform_in_encounter_squad_handling_inherit_from_old_actor:
@@ -991,8 +990,8 @@ namespace Yelo::AI::Transform {
 													 transform_target.team_override);
 
 			if (TEST_FLAG(transform_target.flags, Flags::_actor_variant_transform_in_target_flags_inherit_seated_units)) {
-				auto &unit_definition = *blam::tag_get<TagGroups::s_unit_definition>(unit_datum->object.definition_index);
-				for (short index = 0; index < unit_definition.unit.seats.Count; index++) {
+				auto       &unit_definition = *blam::tag_get<TagGroups::s_unit_definition>(unit_datum->object.definition_index);
+				for (short index            = 0; index < unit_definition.unit.seats.Count; index++) {
 					auto seated_unit_index = Objects::GetUnitInSeat(unit_index, index);
 					if (!seated_unit_index.IsNull()) {
 						blam::unit_exit_seat_end(seated_unit_index, false, true, false);
@@ -1131,7 +1130,7 @@ namespace Yelo::AI::Transform {
 
 		// Get the instigators team
 		auto *instigator_unit_datum = blam::object_try_and_get_and_verify_type<Objects::s_unit_datum>(damage_data->responsible_unit_index);
-		auto instigator_team = (instigator_unit_datum ? instigator_unit_datum->object.owner_team : Enums::_game_team_none);
+		auto instigator_team        = (instigator_unit_datum ? instigator_unit_datum->object.owner_team : Enums::_game_team_none);
 
 		// Get a free transform state entry, if an entry is unavailable skip the transform
 		auto *transform_state = AllocateTransformState(unit_index);
@@ -1391,7 +1390,7 @@ namespace Yelo::AI::Transform {
 
 #pragma region Scripting
 
-	bool c_actor_variant_transform_manager::TransformActor(const datum_index unit_index, cstring transform_name, cstring target_name) {
+	bool c_actor_variant_transform_manager::TransformActor(const datum_index unit_index, const char * transform_name, const char * target_name) {
 		if (!m_transform_states) {
 			return false;
 		}
@@ -1461,10 +1460,10 @@ namespace Yelo::AI::Transform {
 		sbyte target_index = NONE;
 		if (!is_null_or_empty(target_name)) {
 			auto &transform_in = *transform.transform_in_ptr;
-			auto found_target = std::find_if(transform_in.targets.begin(), transform_in.targets.end(),
-														[&](const TagGroups::actor_variant_transform_in_target &entry) {
-															return strcmp(entry.target_name, target_name) == 0;
-														}
+			auto found_target  = std::find_if(transform_in.targets.begin(), transform_in.targets.end(),
+														 [&](const TagGroups::actor_variant_transform_in_target &entry) {
+															 return strcmp(entry.target_name, target_name) == 0;
+														 }
 			);
 
 			if (found_target == transform_in.targets.end()) {
@@ -1493,7 +1492,7 @@ namespace Yelo::AI::Transform {
 		return true;
 	}
 
-	bool c_actor_variant_transform_manager::TransformActors(const datum_index unit_index_list, cstring transform_name, cstring target_name) {
+	bool c_actor_variant_transform_manager::TransformActors(const datum_index unit_index_list, const char * transform_name, const char * target_name) {
 		bool success                                  = false;
 
 		// Try to transform all objects in the list, return true if any objects are transformed
@@ -1506,7 +1505,7 @@ namespace Yelo::AI::Transform {
 		return success;
 	}
 
-	bool c_actor_variant_transform_manager::TransformActorsByType(const datum_index unit_index_list, const datum_index tag_index, cstring transform_name, cstring target_name) {
+	bool c_actor_variant_transform_manager::TransformActorsByType(const datum_index unit_index_list, const datum_index tag_index, const char * transform_name, const char * target_name) {
 		if (tag_index.IsNull()) {
 			return false;
 		}

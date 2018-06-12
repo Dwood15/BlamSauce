@@ -294,7 +294,7 @@ namespace Yelo
 			{
 				long i = 0;
 				// replace the vertex shader collection paths
-				for(i = 0; i < NUMBEROF(K_VSH_COLLECTION_PATH_REFERENCES); i++)
+				for(i = 0; i < std::size(K_VSH_COLLECTION_PATH_REFERENCES); i++)
 					*K_VSH_COLLECTION_PATH_REFERENCES[i] = g_vs_collection_path;
 
 				// replace the sprintf call to intercept the collection path creation and edit it as necessary
@@ -302,7 +302,7 @@ namespace Yelo
 				// Forces the backface normals of a two sided face to be inverted to fix lighting issues on trees
 				Memory::WriteRelativeJmp(&Hook_RenderObject_ForceInvertBackfaceNormals, GET_FUNC_VPTR(RASTERIZER_MODEL_DRAW_INVERT_BACKFACE_NORMALS_CHECK_HOOK), true);
 
-				for(i = 0; i < NUMBEROF(K_PS_VERSION_ITERATOR_START); i++)
+				for(i = 0; i < std::size(K_PS_VERSION_ITERATOR_START); i++)
 					*K_PS_VERSION_ITERATOR_START[i] = &g_ps_version_iterator_start;
 			}
 
@@ -313,7 +313,7 @@ namespace Yelo
 				g_shader_files_present = true;
 
 				// determine if the custom shader collections are present
-				for (int i = 0; (i < NUMBEROF(g_shader_collection_ids)) && g_shader_files_present; i++)
+				for (int i = 0; (i < std::size(g_shader_collection_ids)) && g_shader_files_present; i++)
 				{
 					FileIO::s_file_info file_info;
 					Enums::file_io_open_error file_open_success = FileIO::OpenFileByID(file_info, g_shader_collection_ids[i]);

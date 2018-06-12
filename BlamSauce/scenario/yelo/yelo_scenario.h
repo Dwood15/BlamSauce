@@ -131,5 +131,5 @@ namespace Yelo::Scenario {
 	/// <returns>
 	/// 	Returns the blam scenario's [project_yellow] index or datum_index::null() if there isn't one or it fails to load.
 	/// </returns>
-	datum_index YeloPrepareDefinitions(cstring scenario_name, const bool for_build_cache);
+	datum_index YeloPrepareDefinitions(const char * scenario_name, const bool for_build_cache);
 };

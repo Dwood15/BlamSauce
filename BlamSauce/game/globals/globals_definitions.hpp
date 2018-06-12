@@ -135,7 +135,7 @@ namespace Yelo::TagGroups {
 	struct s_game_globals {
 		enum { k_group_tag = 'matg' };
 
-		long_enum language;
+		signed long language;
 
 		byte:8 * sizeof(byte) * 244;
 

@@ -143,7 +143,7 @@ namespace Yelo::Scripting {
 			return GetSyntax(expression_index);
 		}
 
-		bool ScriptError(cstring reason, cstring expression) const {
+		bool ScriptError(const char * reason, const char * expression) const {
 			YELO_ERROR_FAILURE("script %s needs to be recompiled. (%s: %s)", GetDescriptionString(), reason != nullptr ? reason : "no reason given", expression);
 			return false;
 		}
@@ -209,7 +209,7 @@ namespace Yelo::Scripting {
 			return true;
 		}
 
-		cstring GetDescriptionString() const {
+		const char * GetDescriptionString() const {
 			switch (type) {
 				case Enums::_hs_thread_type_script:
 					return Scenario::Scenario()->scripts[script_index].name;

@@ -15,7 +15,7 @@ namespace Yelo
 			: public c_property_tree_memory
 		{
 		public:
-			c_property_tree_memory_json(cstring data);
+			c_property_tree_memory_json(const char * data);
 
 		private:
 			void ReadPropertyTree(std::istringstream& data, boost::property_tree::ptree& property_tree) override;

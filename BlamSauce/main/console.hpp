@@ -29,10 +29,8 @@ namespace Yelo {
 		///
 		/// <param name="access_flags">	the valid hs function and global access flags. </param>
 		bool __cdecl console_process_command(
-#if !PLATFORM_IS_STUBBS // HaloCE parameter only
 			unsigned long access_flags,
-#endif
-			cstring command);
+			const char * command);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Print information to the console. </summary>
@@ -41,7 +39,7 @@ namespace Yelo {
 		///
 		/// <param name="clear_screen">	true to clear the console screen before printing. </param>
 		/// <param name="format">	   	Describes the buffer format to use. </param>
-		void __cdecl console_printf(bool clear_screen, cstring format, ...);
+		void __cdecl console_printf(bool clear_screen, const char * format, ...);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Print a response for the user to the console. </summary>
@@ -50,7 +48,7 @@ namespace Yelo {
 		///
 		/// <param name="clear_screen">	true to clear the console screen before printing. </param>
 		/// <param name="format">	   	Describes the buffer format to use. </param>
-		void __cdecl console_response_printf(bool clear_screen, cstring format, ...);
+		void __cdecl console_response_printf(bool clear_screen, const char * format, ...);
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Print a warning (red) message to the console. </summary>
@@ -58,13 +56,11 @@ namespace Yelo {
 		/// <remarks>	Prints only when developer_mode >= 4. </remarks>
 		///
 		/// <param name="format">	Describes the buffer format to use. </param>
-		void __cdecl console_warning(cstring format, ...);
+		void __cdecl console_warning(const char * format, ...);
 
-#if !PLATFORM_IS_STUBBS
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <remarks>	access_flags = 0. </remarks>
-		bool __cdecl console_process_remote_command(cstring command, long machine_index);
+		bool __cdecl console_process_remote_command(const char * command, long machine_index);
 
-#endif
 	};
 };

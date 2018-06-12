@@ -34,6 +34,6 @@ namespace Yelo {
 	};
 
 	namespace blam {
-		extern cstring g_game_difficulty_level_names[Enums::k_number_of_game_difficulty_levels];
+		extern const char * g_game_difficulty_level_names[Enums::k_number_of_game_difficulty_levels];
 	};
 };

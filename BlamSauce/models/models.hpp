@@ -10,6 +10,6 @@ namespace Yelo
 {
 	namespace blam
 	{
-		short __cdecl model_find_marker(const datum_index render_model_definition_index, cstring marker_name);
+		short __cdecl model_find_marker(const datum_index render_model_definition_index, const char * marker_name);
 	};
 };

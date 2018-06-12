@@ -117,13 +117,13 @@ namespace Yelo
 			typedef c_naked_func_writer<k_naked_undo_func> old_func_t;
 			typedef c_naked_func_writer<k_naked_func> new_func_t;
 
-			static void AssertAsmLengths(cstring asm_mismatch_msg)
+			static void AssertAsmLengths(const char * asm_mismatch_msg)
 			{
 				size_t old_func_length = old_func_t::DetermineAsmLength();
 				size_t new_func_length = new_func_t::DetermineAsmLength();
 				YELO_ASSERT_DISPLAY( old_func_length==new_func_length, "%s", asm_mismatch_msg );
 			}
-			static void Verify(const void* code_addr, cstring asm_mismatch_msg)
+			static void Verify(const void* code_addr, const char * asm_mismatch_msg)
 			{
 				DebugRunOnce( AssertAsmLengths(asm_mismatch_msg) );
 
@@ -133,7 +133,7 @@ namespace Yelo
 			}
 		public:
 			// Write the asm code of [k_naked_func] to [address]
-			static size_t Write(void* address DebugOnly(, cstring asm_mismatch_msg))
+			static size_t Write(void* address DebugOnly(, const char * asm_mismatch_msg))
 			{
 				DebugOnly( Verify(address, asm_mismatch_msg) );
 

@@ -35,7 +35,7 @@ namespace Yelo
 
 				gwen_control.SetPos(value.m_point2d.x, value.m_point2d.y);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 
@@ -59,7 +59,7 @@ namespace Yelo
 
 				gwen_control.SetSize(value.m_point2d.x, value.m_point2d.y);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 
@@ -82,7 +82,7 @@ namespace Yelo
 
 				gwen_control.Dock(value.m_int32);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 
@@ -131,7 +131,7 @@ namespace Yelo
 
 				gwen_control.SetMargin(Gwen::Margin(value.m_rectangle2d.left, value.m_rectangle2d.top, value.m_rectangle2d.right, value.m_rectangle2d.bottom));
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 
@@ -158,7 +158,7 @@ namespace Yelo
 
 				gwen_control.SetPadding(Gwen::Margin(value.m_rectangle2d.left, value.m_rectangle2d.top, value.m_rectangle2d.right, value.m_rectangle2d.bottom));
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 
@@ -181,7 +181,7 @@ namespace Yelo
 
 				gwen_control.SetHidden(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 
@@ -204,7 +204,7 @@ namespace Yelo
 
 				gwen_control.SetDisabled(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Base, control.GetControlPtr());
 

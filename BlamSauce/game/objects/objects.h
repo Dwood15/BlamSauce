@@ -238,10 +238,10 @@ namespace Yelo::blam {
 
 	void __cdecl object_disconnect_from_map(datum_index object_index);
 
-	short __cdecl object_get_marker_by_name(const datum_index object_index, cstring marker_name, s_object_marker *markers, const short maximum_marker_count);
+	short __cdecl object_get_marker_by_name(const datum_index object_index, const char * marker_name, s_object_marker *markers, const short maximum_marker_count);
 
 	// Attaches the object to the target_object (marker names can be empty strings)
-	void __cdecl object_attach_to_marker(datum_index target_object_index, cstring target_marker_name, datum_index object_index, cstring marker_name);
+	void __cdecl object_attach_to_marker(datum_index target_object_index, const char * target_marker_name, datum_index object_index, const char * marker_name);
 
 	// Detaches the object from its parent
 	void __cdecl object_detach(datum_index object_index); //{
@@ -310,7 +310,7 @@ namespace Yelo::blam {
 
 	s_object_data *object_get_and_verify_type(datum_index object_index, unsigned long expected_types) {
 		s_object_data *object = object_get(object_index);
-		YELO_ASSERT_DISPLAY(object->VerifyType(expected_types), "got an object type we didn't expect (expected one of 0x%08x but got #%d).", expected_types, (long_enum) object->type);
+		YELO_ASSERT_DISPLAY(object->VerifyType(expected_types), "got an object type we didn't expect (expected one of 0x%08x but got #%d).", expected_types, (signed long) object->type);
 
 		return object;
 	}

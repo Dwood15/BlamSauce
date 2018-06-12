@@ -11,17 +11,17 @@ namespace Yelo::Keystone {
 
 	struct keystone_globals_data {
 		// chat that appears in the chatlog log file
-		cstring chatlog_log;
+		const char * chatlog_log;
 		FILE    *log;
 	}                             keystone_globals;
 	uint __cdecl HandleMessage(void* arg0, HANDLE window_handle, void* arg2, const MSG* message);
-	void OnChatAddString(wcstring string); // forward declare
+	void OnChatAddString(wconst char * string); // forward declare
 
 	void SendMessageUpdateEAX()
 	{
 		static const uintptr_t SendMessageCallAddr = GET_FUNC_PTR(KEYSTONE_CHATLOG_ADD_ITEM_SEND_MESSAGE);
 
-		wcstring SendMessageStrAddr;
+		wconst char * SendMessageStrAddr;
 		__asm mov SendMessageStrAddr, eax;
 
 		OnChatAddString(SendMessageStrAddr);
@@ -34,7 +34,7 @@ namespace Yelo::Keystone {
 	{
 		static const uintptr_t SendMessageCallAddr = GET_FUNC_PTR(KEYSTONE_CHATLOG_ADD_ITEM_SEND_MESSAGE);
 
-		wcstring SendMessageStrAddr;
+		wconst char * SendMessageStrAddr;
 		__asm mov SendMessageStrAddr, ecx;
 
 		OnChatAddString(SendMessageStrAddr);
@@ -47,7 +47,7 @@ namespace Yelo::Keystone {
 	{
 		static const uintptr_t SendMessageCallAddr = GET_FUNC_PTR(KEYSTONE_CHATLOG_ADD_ITEM_SEND_MESSAGE);
 
-		wcstring SendMessageStrAddr;
+		wconst char * SendMessageStrAddr;
 		__asm mov SendMessageStrAddr, edx;
 
 		OnChatAddString(SendMessageStrAddr);
@@ -111,7 +111,7 @@ namespace Yelo::Keystone {
 
 	// If the chat log fails to open, the system isn't initialize,
 	// and this is never called
-	void OnChatAddString(wcstring string)
+	void OnChatAddString(wconst char * string)
 	{
 		static char format[] = "%s%s%c";
 
@@ -166,14 +166,14 @@ namespace Yelo::Keystone {
 		}
 	}
 
-	wcstring ChatLogName() { PTR_IMP_GET2(ChatLogName); }
+	wconst char * ChatLogName() { PTR_IMP_GET2(ChatLogName); }
 
 	void *MainWindow() { PTR_IMP_GET(MainWindow); }
 
 	// Keystone - Get Window
 	// [keystone] - Parent Window ptr (can be NULL?)
 	// [child] - name of the child window
-	__declspec(naked) void *GetWindow(void *keystone, wcstring child) {
+	__declspec(naked) void *GetWindow(void *keystone, wconst char * child) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KS_GETWINDOW);
 
 		API_FUNC_NAKED_START()
@@ -197,7 +197,7 @@ namespace Yelo::Keystone {
 	// Keystone Window - Get Control By ID
 	// [window] - parent of the control
 	// [id] - name of the control
-	__declspec(naked) void *WindowGetControlByID(void *window, wcstring id) {
+	__declspec(naked) void *WindowGetControlByID(void *window, wconst char * id) {
 		static const uintptr_t FUNCTION = GET_FUNC_PTR(KW_GETCONTROLBYID);
 
 		API_FUNC_NAKED_START()

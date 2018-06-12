@@ -10,7 +10,7 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum transport_rejection_code : long_enum;
+		enum transport_rejection_code : signed long;
 
 		enum {
 			k_message_highest_priority = 0,
@@ -29,7 +29,7 @@ namespace Yelo {
 	};
 
 	namespace Networking {
-		static const cstring message_packet_to_string_table[] = {
+		static const const char * message_packet_to_string_table[] = {
 			"client-broadcast_game_search",
 			"client-ping",
 			"server-game_advertise",
@@ -234,7 +234,7 @@ namespace Yelo {
 		}
 
 		__declspec(naked) bool ServerSendRejectionMessage(s_network_game_player &rejected_player, Enums::transport_rejection_code code) {
-			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_REJECTION_MESSAGE);
+			static const uintptr_t CALL_ADDR = NETWORK_GAME_SERVER_SEND_REJECTION_MESSAGE;
 
 			API_FUNC_NAKED_START()
 			push   esi
@@ -256,8 +256,8 @@ namespace Yelo {
 			API_FUNC_NAKED_END(2)
 		}
 
-		__declspec(naked) bool ServerHoldupNewClient(s_network_client_machine &client_machine) {
-			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_REJECTION_MESSAGE);
+		__declspec(naked) bool ServerHoldupNewClient(Yelo::Networking::s_network_client_machine &client_machine) {
+			static const uintptr_t CALL_ADDR = NETWORK_GAME_SERVER_SEND_REJECTION_MESSAGE;
 
 			API_FUNC_NAKED_START()
 			call   GameState::IsServer
@@ -278,7 +278,7 @@ namespace Yelo {
 											 Enums::network_messsage_type message_type = Enums::_network_messsage_type_message_delta,
 											 BOOL unbuffered = false, BOOL flush_queue = false, BOOL write_to_local_connection = false,
 											 long buffer_priority = Enums::k_message_highest_priority) {
-			static const uintptr_t CALL_ADDR = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_MESSAGE_TO_MACHINE);
+			static const uintptr_t CALL_ADDR = NETWORK_GAME_SERVER_SEND_MESSAGE_TO_MACHINE;
 
 			API_FUNC_NAKED_START()
 			push   esi
@@ -307,8 +307,8 @@ namespace Yelo {
 			BOOL unbuffered = false, BOOL flush_queue = false, BOOL write_to_local_connection = false,
 			long buffer_priority = Enums::k_message_highest_priority,
 			BOOL ingame_only = false) {
-			static const uintptr_t CALL_ALL_MACHINES = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_MESSAGE_TO_ALL_MACHINES);
-			static const uintptr_t CALL_ALL_MACHINES_INGAME = GET_FUNC_PTR(NETWORK_GAME_SERVER_SEND_MESSAGE_TO_ALL_MACHINES_INGAME);
+			static const uintptr_t CALL_ALL_MACHINES = NETWORK_GAME_SERVER_SEND_MESSAGE_TO_ALL_MACHINES;
+			static const uintptr_t CALL_ALL_MACHINES_INGAME = NETWORK_GAME_SERVER_SEND_MESSAGE_TO_ALL_MACHINES_INGAME;
 
 			API_FUNC_NAKED_START()
 			push	edi
@@ -352,10 +352,8 @@ namespace Yelo {
 		}
 
 		Enums::network_game_generic_state GetNetworkGameState() {
-			if (GameState::IsClient())		return CAST(Enums::network_game_generic_state,
-																	  NetworkGameClient()->state - Enums::_network_game_client_state_pregame);
-			else if (GameState::IsServer()) return CAST(Enums::network_game_generic_state,
-																	  NetworkGameServer()->state - Enums::_network_game_server_state_pregame);
+			if (GameState::IsClient())		return CAST(Enums::network_game_generic_state, NetworkGameClient()->state - Enums::_network_game_client_state_pregame);
+			else if (GameState::IsServer()) return CAST(Enums::network_game_generic_state, NetworkGameServer()->state - Enums::_network_game_server_state_pregame);
 
 			return Enums::_network_game_generic_state_unknown;
 		}

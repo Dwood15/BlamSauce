@@ -184,7 +184,7 @@ namespace Yelo
 		/// <param name="toggle_key">	  	(Optional) The screens toggle key. </param>
 		template<typename ControllerType>
 		static void AddScreenController(const uint screen_id
-			, cstring definition_name
+			, const char * definition_name
 			, const Flags::osui_game_state loaded_states
 			, const Flags::osui_game_state active_states
 			, const Flags::osui_screen_flags screen_flags

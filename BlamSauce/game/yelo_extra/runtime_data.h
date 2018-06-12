@@ -164,7 +164,7 @@ namespace Yelo {
 		}
 #define __INTEGER_OP_CASE(op_code_name)				!strcmp(op_name, op_code_name)
 #define __INTEGER_OP_CASE_ARG_NONZERO(op_code_name)__INTEGER_OP_CASE(op_code_name) && op_value != 0
-		static long IntegerDoOperation(short value_index, cstring op_name, long op_value)
+		static long IntegerDoOperation(short value_index, const char * op_name, long op_value)
 		{
 			long result = NONE;
 
@@ -238,7 +238,7 @@ namespace Yelo {
 			return CAST(real, NONE);
 		}
 		static bool VectorSetElement(short value_index, short element_index,
-											  cstring op_name, real op_value)
+											  const char * op_name, real op_value)
 		{
 			bool result = false;
 
@@ -266,7 +266,7 @@ namespace Yelo {
 
 			return result;
 		}
-		static bool VectorSet(short value_index, cstring op_name, real x, real y, real z)
+		static bool VectorSet(short value_index, const char * op_name, real x, real y, real z)
 		{
 			bool result = false;
 
@@ -292,7 +292,7 @@ namespace Yelo {
 
 			return result;
 		}
-		static bool VectorDoOperation(short value_index, cstring op_name, short op_arg_vector_index)
+		static bool VectorDoOperation(short value_index, const char * op_name, short op_arg_vector_index)
 		{
 			bool result = false;
 

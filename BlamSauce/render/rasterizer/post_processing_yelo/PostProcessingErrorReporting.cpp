@@ -8,7 +8,7 @@ namespace Yelo
 {
 	namespace Rasterizer { namespace PostProcessing { namespace ErrorReporting
 	{
-		void Write(cstring string)
+		void Write(const char * string)
 		{
 			if(!GameState::DevmodeEnabled())
 				return;
@@ -23,7 +23,7 @@ namespace Yelo
 			*GameState::DeveloperMode() = previous_dev_mode;
 		}
 
-		void WriteLine(cstring format, ...)
+		void WriteLine(const char * format, ...)
 		{
 			if(!GameState::DevmodeEnabled())
 				return;

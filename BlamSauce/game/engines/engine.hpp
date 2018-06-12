@@ -2,6 +2,7 @@
 
 #include <precompile.h>
 #include "variants.h"
+#include "../../cseries/base.h"
 
 namespace Yelo {
 	namespace MessageDeltas {
@@ -15,7 +16,7 @@ namespace Yelo {
 	};
 
 	namespace Enums {
-		enum game_engine : long_enum {
+		enum game_engine : int {
 			_game_engine_none,
 			_game_engine_ctf,
 			_game_engine_slayer,
@@ -38,7 +39,7 @@ namespace Yelo {
 
 	namespace GameEngine {
 		struct game_engine_definition {
-			cstring name;                                 // 0x0
+			const char * name;                                 // 0x0
 
 			short type;                                    // 0x4
 			unsigned short : 16;                                       // 0x6
@@ -187,21 +188,21 @@ namespace Yelo {
 			_player_reset_score player_reset_score;               // 0x98
 
 			// used by gamespy api
-			typedef bool (__cdecl *_get_gamespy_packet_field_string)(long_enum field /*gamespy_field*/, char *buffer);
+			typedef bool (__cdecl *_get_gamespy_packet_field_string)(signed long field /*gamespy_field*/, char *buffer);
 
 			_get_gamespy_packet_field_string get_gamespy_packet_field_string;   // 0x9C
 
 			// 1st param must be 22 (_gamespy_qr_field_score) in order to return true
-			typedef bool (__cdecl *_create_player_score_strings)(long_enum field /*gamespy_field*/, datum_index player_index, cstring out_buffer);
+			typedef bool (__cdecl *_create_player_score_strings)(signed long field /*gamespy_field*/, datum_index player_index, const char * out_buffer);
 
 			_create_player_score_strings create_player_score_strings;   // 0xA0
 
 			// 1st param must be 29 (_gamespy_qr_field_score_t) in order to return true
-			typedef bool (__cdecl *_create_team_score_strings)(long_enum field /*gamespy_field*/, long team_index, cstring out_buffer);
+			typedef bool (__cdecl *_create_team_score_strings)(signed long field /*gamespy_field*/, long team_index, const char * out_buffer);
 
 			_create_team_score_strings create_team_score_strings;   // 0xA4
 
-			typedef long (__cdecl *_get_gamespy_key_count)(long_enum keytype);
+			typedef long (__cdecl *_get_gamespy_key_count)(signed long keytype);
 
 			_get_gamespy_key_count get_gamespy_key_count;         // 0xA8
 
@@ -214,6 +215,6 @@ namespace Yelo {
 	namespace blam {
 		datum_index __cdecl find_closest_player_index(datum_index player_index);
 
-		void __cdecl game_engine_rasterize_message(wcstring message, real alpha);
+		void __cdecl game_engine_rasterize_message(wconst char * message, real alpha);
 	};
 };

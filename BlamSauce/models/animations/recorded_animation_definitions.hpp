@@ -1,14 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-
-	See license\OpenSauce\OpenSauce for specific license information
-*/
 #pragma once
 
-#include <YeloLib/tag_files/tag_groups_base_yelo.hpp>
-
-#include <blamlib/Halo1/cutscene/recorded_animation_playback_v1.hpp>
-#include <blamlib/Halo1/cutscene/recorded_animation_playback.hpp>
+#include <precompile.h>
+#include "../../tags/group/base.h"
 
 namespace Yelo
 {

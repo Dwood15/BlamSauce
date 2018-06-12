@@ -36,7 +36,7 @@ namespace Yelo
 			}
 		}
 
-		cstring c_map_download_display::GetMapName()
+		const char * c_map_download_display::GetMapName()
 		{
 			return m_map_name_string;
 		}
@@ -56,7 +56,7 @@ namespace Yelo
 			}
 		}
 
-		cstring c_map_download_display::GetProviderTitle()
+		const char * c_map_download_display::GetProviderTitle()
 		{
 			return m_provider_title_string;
 		}
@@ -76,7 +76,7 @@ namespace Yelo
 			}
 		}
 
-		cstring c_map_download_display::GetProviderDescription()
+		const char * c_map_download_display::GetProviderDescription()
 		{
 			return m_provider_description_string;
 		}

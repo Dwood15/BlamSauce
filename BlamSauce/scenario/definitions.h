@@ -11,6 +11,7 @@
 #include "../tags/group/base.h"
 #include "../game/objects/scenario_definitions_structures.hpp"
 #include "../models/animations/recorded_animation_definitions.hpp"
+#include "../tags/group/tag_groups_base_yelo.hpp"
 
 namespace Yelo {
 	namespace Enums {
@@ -186,7 +187,7 @@ namespace Yelo {
 			unsigned short : 16;
 			short bsp_index;
 			Yelo::TagBlock<const s_scenario_bsp_lightmap_set> lightmap_sets;
-			Yelo::TagBlock<const s_scenario_bsp_sky_set> sky_sets;
+			TagBlock<const s_scenario_bsp_sky_set> sky_sets;
 			tag_block:8 * sizeof(tag_block) * 3;
 		};
 

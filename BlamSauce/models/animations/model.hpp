@@ -12,7 +12,7 @@ namespace Yelo {
 	};
 
 	namespace Enums {
-		enum animation_update_kind : long_enum {
+		enum animation_update_kind : signed long {
 			_animation_update_kind_render_only,
 			_animation_update_kind_affects_game_state,
 		};
@@ -20,7 +20,7 @@ namespace Yelo {
 
 	namespace Animations {
 		struct s_animation_list_entry {
-			cstring name;
+			const char * name;
 			short   type;
 					  unsigned short : 16;
 		}; static_assert(sizeof(s_animation_list_entry) == 0x8);
@@ -41,6 +41,6 @@ namespace Yelo {
 	namespace blam {
 		// If the animation at [animation_index] in [animation_graph_index] is permutated, this will randomly pick one of them.
 		// Returns the random [animation_index]
-		short __cdecl animation_choose_random_permutation_internal(long_enum render_or_affects_game_state, datum_index animation_graph_index, long animation_index);
+		short __cdecl animation_choose_random_permutation_internal(signed long render_or_affects_game_state, datum_index animation_graph_index, long animation_index);
 	};
 };

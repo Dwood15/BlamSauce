@@ -1,6 +1,9 @@
 #pragma once
 
 #include <precompile.h>
+#include "dx9.hpp"
+#include "rasterizer.hpp"
+#include "tuple"
 
 namespace Yelo::DX9 {
 	/////////////////////////////////////////////////////////////////////
@@ -53,7 +56,8 @@ namespace Yelo::DX9 {
 
 		// swaps the pointers for current and next
 		void Flip() {
-			std::swap(m_target_setup.current, m_target_setup.next);
+			static_assert(false);
+			//std::swap(m_target_setup.current, m_target_setup.next);
 		}
 
 		IDirect3DSurface9 *GetCurrentSurface() const { return m_target_setup.current->surface; }

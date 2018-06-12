@@ -131,7 +131,7 @@ namespace Yelo {
 
 			Enums::hs_type GetType() const { return m_type; }
 
-			cstring GetTypeName() const { return blam::hs_type_names[m_type]; }
+			const char * GetTypeName() const { return blam::hs_type_names[m_type]; }
 
 			virtual s_hs_value_union GetDefaultValue();
 
@@ -169,7 +169,7 @@ namespace Yelo {
 
 			virtual bool CastableTo_hs_type_string() const { return false; }
 
-			virtual s_hs_value_union GetValue(cstring value) const { return k_none_value_union; }
+			virtual s_hs_value_union GetValue(const char * value) const { return k_none_value_union; }
 
 			virtual bool CastableTo_hs_type_script() const { return false; }
 
@@ -276,7 +276,7 @@ namespace Yelo {
 			TagGroups::s_object_definition::k_group_tag,
 		};
 
-		std::array<cstring, Enums::k_number_of_hs_types> hs_type_names = {
+		std::array<const char *, Enums::k_number_of_hs_types> hs_type_names = {
 			"unparsed",
 			"special_form",      // NOTE: changed spaces to underscores
 			"function_name",   // NOTE: changed spaces to underscores
@@ -336,7 +336,7 @@ namespace Yelo {
 			"scenery_name",
 		};
 
-		std::array<cstring, Enums::k_number_of_hs_script_types> hs_script_type_names = {
+		std::array<const char *, Enums::k_number_of_hs_script_types> hs_script_type_names = {
 			"startup",
 			"dormant",
 			"continuous",
@@ -345,14 +345,14 @@ namespace Yelo {
 		};
 
 		// should be in game/game.cpp
-		cstring                                                    g_game_difficulty_level_names[Enums::k_number_of_game_difficulty_levels] = {
+		const char *                                                    g_game_difficulty_level_names[Enums::k_number_of_game_difficulty_levels] = {
 			"easy",
 			"normal",
 			"hard",
 			"impossible",
 		};
 		// should be in game/game_allegiance.cpp
-		cstring                                                    g_game_team_names[Enums::k_number_of_game_teams]                         = {
+		const char *                                                    g_game_team_names[Enums::k_number_of_game_teams]                         = {
 			"default",
 			"player_update",
 			"human",
@@ -365,7 +365,7 @@ namespace Yelo {
 			"unused9",
 		};
 		// should be in ai/ai_scenario_definitions.cpp
-		cstring                                                    g_ai_default_state_names[Enums::k_number_of_actor_default_states]        = {
+		const char *                                                    g_ai_default_state_names[Enums::k_number_of_actor_default_states]        = {
 			"none",
 			"sleep",
 			"alert",
@@ -380,7 +380,7 @@ namespace Yelo {
 			"flee",
 		};
 		// should be in ai/actor_types.cpp
-		cstring                                                    g_actor_type_names[Enums::k_number_of_actor_types]                       = {
+		const char *                                                    g_actor_type_names[Enums::k_number_of_actor_types]                       = {
 			"elite",
 			"jackal",
 			"grunt",
@@ -399,7 +399,7 @@ namespace Yelo {
 			"mounted_weapon",
 		};
 		// should be in interface/hud_definitions.cpp
-		cstring                                                    g_hud_anchor_names[Enums::k_number_of_hud_anchors]                       = {
+		const char *                                                    g_hud_anchor_names[Enums::k_number_of_hud_anchors]                       = {
 			"top_left",
 			"top_right",
 			"bottom_left",

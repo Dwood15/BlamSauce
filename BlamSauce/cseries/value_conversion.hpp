@@ -14,11 +14,11 @@
 namespace Yelo {
 	namespace ValueConversion {
 		template <typename ... Arguments>
-		static bool FromStringImpl(cstring format, int member_count, cstring input, Arguments ... args) {
+		static bool FromStringImpl(const char * format, int member_count, const char * input, Arguments ... args) {
 			return member_count == sscanf_s(input, format, args ...);
 		}
 
-		bool FromString(cstring string, bool &output) {
+		bool FromString(const char * string, bool &output) {
 			auto std_string = std::string(string);
 
 			if ((std_string == "True") || (std_string == "true") || (std_string == "on") || (std_string == "1")) {
@@ -32,7 +32,7 @@ namespace Yelo {
 			return false;
 		}
 
-		bool FromString(cstring string, byte &output) {
+		bool FromString(const char * string, byte &output) {
 			uint value;
 			auto   result = FromStringImpl("%u", 1, string, &value);
 			output = (byte) value;
@@ -40,7 +40,7 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, sbyte &output) {
+		bool FromString(const char * string, sbyte &output) {
 			long value;
 			auto  result = FromStringImpl("%d", 1, string, &value);
 			output = (sbyte) value;
@@ -48,7 +48,7 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, unsigned short &output) {
+		bool FromString(const char * string, unsigned short &output) {
 			uint value;
 			auto   result = FromStringImpl("%u", 1, string, &value);
 			output = (unsigned short) value;
@@ -56,7 +56,7 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, short &output) {
+		bool FromString(const char * string, short &output) {
 			long value;
 			auto  result = FromStringImpl("%d", 1, string, &value);
 			output = (short) value;
@@ -64,32 +64,32 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, uint &output) {
+		bool FromString(const char * string, uint &output) {
 			return FromStringImpl("%u", 1, string, &output);
 		}
 
-		bool FromString(cstring string, long &output) {
+		bool FromString(const char * string, long &output) {
 			return FromStringImpl("%d", 1, string, &output);
 		}
 
-		bool FromString(cstring string, uint64 &output) {
+		bool FromString(const char * string, uint64 &output) {
 			return FromStringImpl("%lu", 1, string, &output);
 		}
 
-		bool FromString(cstring string, __int64 &output) {
+		bool FromString(const char * string, __int64 &output) {
 			return FromStringImpl("%ld", 1, string, &output);
 		}
 
-		bool FromString(cstring string, real &output) {
+		bool FromString(const char * string, real &output) {
 			return FromStringImpl("%f", 1, string, &output);
 		}
 
-		bool FromString(cstring string, std::string &output) {
+		bool FromString(const char * string, std::string &output) {
 			output.assign(string);
 			return true;
 		}
 
-		bool FromString(cstring string, point2d &output) {
+		bool FromString(const char * string, point2d &output) {
 			long x, y;
 			auto  result = FromStringImpl("%d %d", 2, string, &x, &y);
 			output.x = (short) x;
@@ -98,7 +98,7 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, rectangle2d &output) {
+		bool FromString(const char * string, rectangle2d &output) {
 			long top, left, bottom, right;
 			auto  result = FromStringImpl("%d %d %d %d", 4, string, &top, &left, &bottom, &right);
 			output.top    = (short) top;
@@ -109,27 +109,27 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, real_vector2d &output) {
+		bool FromString(const char * string, real_vector2d &output) {
 			return FromStringImpl("%f %f", 2, string, &output.i, &output.j);
 		}
 
-		bool FromString(cstring string, real_vector3d &output) {
+		bool FromString(const char * string, real_vector3d &output) {
 			return FromStringImpl("%f %f %f", 3, string, &output.i, &output.j, &output.k);
 		}
 
-		bool FromString(cstring string, real_point2d &output) {
+		bool FromString(const char * string, real_point2d &output) {
 			return FromStringImpl("%f %f", 2, string, &output.x, &output.y);
 		}
 
-		bool FromString(cstring string, real_point3d &output) {
+		bool FromString(const char * string, real_point3d &output) {
 			return FromStringImpl("%f %f %f", 3, string, &output.x, &output.y, &output.z);
 		}
 
-		bool FromString(cstring string, real_quaternion &output) {
+		bool FromString(const char * string, real_quaternion &output) {
 			return FromStringImpl("%f %f %f %f", 4, string, &output.i, &output.j, &output.k, &output.w);
 		}
 
-		bool FromString(cstring string, rgb_color &output) {
+		bool FromString(const char * string, rgb_color &output) {
 			uint red, green, blue;
 			auto   result = FromStringImpl("%u %u %u", 3, string, &red, &green, &blue);
 			output.red   = (byte) red;
@@ -139,7 +139,7 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, argb_color &output) {
+		bool FromString(const char * string, argb_color &output) {
 			uint red, green, blue, alpha;
 			auto   result = FromStringImpl("%u %u %u %u", 4, string, &red, &green, &blue, &alpha);
 			output.red   = (byte) red;
@@ -150,11 +150,11 @@ namespace Yelo {
 			return result;
 		}
 
-		bool FromString(cstring string, real_rgb_color &output) {
+		bool FromString(const char * string, real_rgb_color &output) {
 			return FromStringImpl("%f %f %f", 3, string, &output.red, &output.green, &output.blue);
 		}
 
-		bool FromString(cstring string, real_argb_color &output) {
+		bool FromString(const char * string, real_argb_color &output) {
 			return FromStringImpl("%f %f %f %f", 4, string, &output.red, &output.green, &output.blue, &output.alpha);
 		}
 	};

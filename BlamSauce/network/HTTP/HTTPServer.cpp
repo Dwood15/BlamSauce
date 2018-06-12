@@ -39,7 +39,7 @@ namespace Yelo
 		static s_http_service g_http_services[] = 
 		{
 			HTTP_COMPONENT_SERVER("MapDownloadService", "map_download", Server::MapDownload::ServiceStarted, Server::MapDownload::ServerCallback),
-		};static_assert(Enums::_http_service_enumeration == NUMBEROF(g_http_services));
+		};static_assert(Enums::_http_service_enumeration == std::size(g_http_services));
 
 #undef HTTP_COMPONENT_SERVER
 
@@ -101,7 +101,7 @@ namespace Yelo
 
 		int FindHeader(const mg_request_info* request_info, const char* name)
 		{
-			for(int i = 0; i < NUMBEROF(request_info->http_headers); i++)
+			for(int i = 0; i < std::size(request_info->http_headers); i++)
 			{
 				if(!request_info->http_headers[i].name)
 					break;
@@ -227,7 +227,7 @@ namespace Yelo
 			if(url_interface.m_path.size() >= 1)
 			{
 				// TODO: ranged for, break on if()
-				for(int i = 0; (NONE == index) && (i < NUMBEROF(g_http_services)); i++)
+				for(int i = 0; (NONE == index) && (i < std::size(g_http_services)); i++)
 				{
 					if((url_interface.m_path[0].compare(g_http_services[i].m_uri_root) == 0))
 						index = i;
@@ -309,7 +309,7 @@ namespace Yelo
 		 */
 		void SetRoot(const char* root)
 		{
-			cstring root_string = ".";
+			const char * root_string = ".";
 			g_http_server_globals.m_flags.serve_files = false;
 			if(root && (strlen(root) > 0))
 			{
@@ -337,7 +337,7 @@ namespace Yelo
 		void SetThrottle(const char* throttle)
 		{
 			//TODO: validation of the throttle string
-			cstring throttle_string = "*=0";
+			const char * throttle_string = "*=0";
 			if(throttle && (strlen(throttle) > 0))
 			{
 				throttle_string = throttle;
@@ -538,7 +538,7 @@ namespace Yelo
 		void* HTTPServerSetRoot(void** arguments)
 		{
 			struct s_arguments {
-				cstring root;
+				const char * root;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
 			if(ServerStarted())
@@ -564,7 +564,7 @@ namespace Yelo
 		void* HTTPServerSetThrottle(void** arguments)
 		{
 			struct s_arguments {
-				cstring throttle;
+				const char * throttle;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
 			if(ServerStarted())
@@ -590,7 +590,7 @@ namespace Yelo
 		void* HTTPServerSetPorts(void** arguments)
 		{
 			struct s_arguments {
-				cstring ports;
+				const char * ports;
 			}* args = CAST_PTR(s_arguments*, arguments);
 
 			if(ServerStarted())

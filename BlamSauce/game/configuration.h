@@ -11,19 +11,8 @@ namespace Yelo
 	namespace Enums
 	{
 		enum {
-			k_maximum_number_of_local_players = 
-#if PLATFORM_TARGET == PLATFORM_TARGET_PC
-				1,
-#else // assume console
-				4,
-#endif
-
-			k_multiplayer_maximum_players = 
-#if PLATFORM_IS_STUBBS
-				1,
-#else
-				16,
-#endif
+			k_maximum_number_of_local_players = 4,
+			k_multiplayer_maximum_players = 16,
 
 			// for team_data (which has a maximum of 16 datums) and such.
 			// This is 1 in Stubbs, I'm positive team_data uses k_multiplayer_maximum_players. 

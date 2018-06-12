@@ -1,18 +1,12 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/game/player_action.hpp>
+#include <precompile.h>
+#include "../../cseries/base.h"
 
 namespace Yelo {
 	namespace Enums {
 		enum {
 			k_maximum_action_updates_in_super_update = 16,
-
 			k_number_of_remote_player_action_update_baseline_ids = 2,
 		};
 	};

@@ -28,7 +28,7 @@ namespace Yelo
 {
 	namespace Rasterizer { namespace PostProcessing { namespace Generic { namespace External
 	{
-		cstring K_EXTERNAL_PP_SETTINGS_FILE = "OS_Settings.PostProcessing.xml";
+		const char * K_EXTERNAL_PP_SETTINGS_FILE = "OS_Settings.PostProcessing.xml";
 
 #pragma region External PP Settings
 		class c_shader_container
@@ -1511,7 +1511,7 @@ namespace Yelo
 		void c_system_external::SetupRenderSets()
 		{
 			// add effect instances to the render sets
-			for(int i = 0; i < NUMBEROF(m_members_external.m_render_sets); i++)
+			for(int i = 0; i < std::size(m_members_external.m_render_sets); i++)
 			{
 				m_members_external.m_render_sets[i].Ctor();
 				SetRenderSet(m_members_external.m_render_sets[i], (Enums::postprocess_render_stage)i);
@@ -1521,7 +1521,7 @@ namespace Yelo
 		void c_system_external::ClearRenderSets()
 		{
 			// reset the render sets to empty
-			for(int i = 0; i < NUMBEROF(m_members_external.m_render_sets); i++)
+			for(int i = 0; i < std::size(m_members_external.m_render_sets); i++)
 				m_members_external.m_render_sets[i].Dtor();
 		}
 		

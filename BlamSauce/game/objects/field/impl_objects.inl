@@ -4,7 +4,7 @@
 #include "field_definitions.h"
 
 namespace Yelo::Objects {
-	static real *ObjectDataFieldGetRealImpl(const s_object_field_definition &field, s_object_data &object, cstring subdata_name) {
+	static real *ObjectDataFieldGetRealImpl(const s_object_field_definition &field, s_object_data &object, const char * subdata_name) {
 		using namespace Enums;
 
 		switch (field.definition_index) {
@@ -91,7 +91,7 @@ namespace Yelo::Objects {
 	}
 
 	static bool ObjectDataFieldGetReal(const s_object_field_definition &field, s_object_header_datum &obj,
-												  TypeHolder &result, cstring subdata_name) {
+												  TypeHolder &result, const char * subdata_name) {
 		// NOTE: The only 'real' fields we allow interfacing with are vectors
 		real *value_ptr;
 

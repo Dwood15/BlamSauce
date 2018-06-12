@@ -11,6 +11,7 @@
 #include "../../network/game/manager.hpp"
 #include "../../network/player_update/client.hpp"
 #include "../../network/player_update/server.hpp"
+#include "player_control.hpp"
 
 namespace Yelo {
 	namespace Players {
@@ -61,26 +62,28 @@ namespace Yelo {
 
 		}; static_assert(sizeof(s_player_yelo_server_data) <= s_player_yelo_server_data::k_max_struct_size);
 
-		struct s_player_datum : Memory::s_datum_base {
-			struct s_game_engine_state_message {
-				long       message_index;
-				datum_index message_player_index; // player_update to use in the message?
+		struct s_game_engine_state_message {
+			long       message_index;
+			datum_index message_player_index; // player_update to use in the message?
 
-				// values used for rendering a target player_update's name
-				datum_index target_player;
-				long       target_time; // timer used to fade in the target player_update name
-			};
+			// values used for rendering a target player_update's name
+			datum_index target_player;
+			long       target_time; // timer used to fade in the target player_update name
+		};
+
+		struct s_player_datum : Memory::s_datum_base {
+
 
 			short                  local_player_index;                     // 0x2
 			wchar_t                display_name[Enums::k_player_name_length + 1];// 0x4
-			UNUSED_TYPE(long);                           // 0x1C
+			long : 32;                           // 0x1C
 			union {                                    // 0x20
 				long      team_index;
 				argb_color color;
 			};
 			s_player_action_result nearest_object_action_result;// 0x24
 			game_ticks_t           respawn_time;                     // 0x2C
-			UNKNOWN_TYPE(long);                        // 0x30 respawn time growth related
+			long : 32;                        // 0x30 respawn time growth related
 			datum_index slave_unit_index;                  // 0x34
 			datum_index last_slave_unit_index;               // 0x38
 			short       cluster_index;                        // 0x3C
@@ -90,15 +93,15 @@ namespace Yelo {
 			game_ticks_t                            auto_aim_update_time;               // 0x44
 			Yelo::Networking::s_network_game_player network_player;   // 0x48
 			game_time_t                             powerup_times[Enums::k_number_of_player_powerups];   // 0x68
-			real                                    speed;                                 // 0x6C
+			float                                    speed;                                 // 0x6C
 			long                                   source_teleporter_netgame_index;            // 0x70 index to a netgame flag in the scenario, or NONE
 			s_game_engine_state_message             engine_state_messsage;   // 0x74
 			game_ticks_t                            last_death_time;                  // 0x84 game tick of the last time this player_update was killed
 			datum_index                             target_player_index;               // 0x88 player_update index of the slayer target for this player_update
 			bool                                    odd_man_out;                           // 0x8C
 			unsigned char : 8; unsigned short : 16;
-			UNUSED_TYPE(long);                           // 0x90
-			UNUSED_TYPE(short);                           // 0x94
+			long : 32;                           // 0x90
+			short : 16;                           // 0x94
 			short kills_this_lifetime;                     // 0x96 how many kills we've had in this lifetime (since the last spawn)
 			short current_spree_count;                     // 0x98 how many kills we've had in our 'spree time' (4 second intervals max)
 			short last_kill_time;                        // 0x9A set from game_time_globals::local_time
@@ -113,21 +116,21 @@ namespace Yelo {
 			short deaths;                              // 0xAE
 			short suicides;                              // 0xB0
 			unsigned short : 16;
-			UNUSED_TYPE(long);                           // 0xB4
-			UNUSED_TYPE(long);                           // 0xB8
-			UNUSED_TYPE(long);                           // 0xBC
-			short team_kills;                           // 0xC0
+			long : 32;                           // 0xB4
+			long : 32;                           // 0xB8
+			long : 32;                           // 0xBC
+			short team_kills;                          		 // 0xC0
 			unsigned short : 16;
 			u_player_multiplayer_stats multiplayer_stats;      // 0xC4
-			long                      telefrag_counter;                        // 0xCC # of ticks spent blocking teleporter
-			game_ticks_t               quit_game_tick;                  // 0xD0 game tick the player_update quick at
-			bool                       telefrag_enabled;                        // 0xD4 if we're blocking a teleporter, this will be true
-			bool                       quit_out_of_game;                        // 0xD5
+			long                      telefrag_counter;     // 0xCC # of ticks spent blocking teleporter
+			game_ticks_t               quit_game_tick;      // 0xD0 game tick the player_update quick at
+			bool                       telefrag_enabled;    // 0xD4 if we're blocking a teleporter, this will be true
+			bool                       quit_out_of_game;    // 0xD5
 			unsigned short : 16;
-			UNUSED_TYPE(long);                           // 0xD8
-			long ping;                                 // 0xDC
-			long team_kill_number;                        // 0xE0
-			long team_kill_timer;                        // 0xE4
+			long : 32;                          				// 0xD8
+			long ping;                                 		// 0xDC
+			long team_kill_number;                     	   // 0xE0
+			long team_kill_timer;                        	// 0xE4
 
 			union {                                    // 0xE8
 				byte _unused_networking_buffer[0x200 - 0xE8];
@@ -159,7 +162,6 @@ namespace Yelo {
 
 		struct s_team_datum : Memory::s_datum_base_aligned {
 			byte pad[0x3C];
-
 			// nothing even uses this...this structure 
 			// could have no real fields...maybe use it 
 			// for our own evil deeds?

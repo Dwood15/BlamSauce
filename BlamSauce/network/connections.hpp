@@ -1,17 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/bungie_net/network/transport_address.hpp>
-#include <blamlib/Halo1/bungie_net/network/transport_endpoint_winsock.hpp>
-#include <blamlib/Halo1/bungie_net/network/transport_endpoint_set_winsock.hpp>
-#include <blamlib/Halo1/game/game_configuration.hpp>
-#include <blamlib/Halo1/memory/bitstream.hpp>
-#include <blamlib/Halo1/memory/circular_queue.hpp>
+#include <precompile.h>
 
 namespace Yelo
 {
@@ -34,7 +23,7 @@ namespace Yelo
 
 		// engine fails to properly convert 'connection type' enum (which matches the UI setting list)
 		// to this class enum, which maps to a
-		enum network_connection_class : long_enum
+		enum network_connection_class : signed long
 		{								//  gBitRatesPerConnectionClass
 			_network_connection_class_0, // 35,000
 			_network_connection_class_1, // 70,000
@@ -97,7 +86,7 @@ namespace Yelo
 
 		struct s_network_connection
 		{
-			typedef void (__cdecl* proc_connection_reject)(s_transport_endpoint* ep, long_enum rejection_code);
+			typedef void (__cdecl* proc_connection_reject)(s_transport_endpoint* ep, signed long rejection_code);
 
 			s_transport_endpoint* reliable_endpoint;
 			uint keep_alive_time;

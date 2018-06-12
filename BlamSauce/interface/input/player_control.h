@@ -198,8 +198,8 @@ namespace Yelo::Input {
 	}
 
 	// Returns the string version of [value]
-	cstring ControlTypeToString(Enums::ControlType value) {
-		static cstring string_list[] = {
+	const char * ControlTypeToString(Enums::ControlType value) {
+		static const char * string_list[] = {
 			"button",
 			"axis",
 			"pov",
@@ -209,8 +209,8 @@ namespace Yelo::Input {
 	}
 
 	// Returns the string version of [value]
-	cstring GamepadDpadDirectionToString(Enums::GamepadDpadDirection value) {
-		static cstring string_list[Enums::k_number_of_pov_directions] = {
+	const char * GamepadDpadDirectionToString(Enums::GamepadDpadDirection value) {
+		static const char * string_list[Enums::k_number_of_pov_directions] = {
 			"north",
 			"northeast",
 			"east",
@@ -224,8 +224,8 @@ namespace Yelo::Input {
 	}
 
 	// Returns the string version of [value]
-	cstring PlayerControlToString(Enums::PlayerControl value) {
-		static cstring string_list[Enums::k_number_of_total_control_buttons] = {
+	const char * PlayerControlToString(Enums::PlayerControl value) {
+		static const char * string_list[Enums::k_number_of_total_control_buttons] = {
 			"jump",
 			"switch_grenade",
 			"action",

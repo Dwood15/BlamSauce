@@ -70,7 +70,7 @@ namespace Yelo::TagGroups {
 		};
 
 		// internal name of the cache's Yelo Globals when the user doesn't supply a definition
-		static cstring k_default_name = "there they are all standing in a row";
+		static const char * k_default_name = "there they are all standing in a row";
 
 		const short version;
 		unsigned short flags;

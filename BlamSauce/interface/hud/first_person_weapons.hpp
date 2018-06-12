@@ -1,12 +1,6 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <cstring>
+#include <precompile.h>
 #include "../../cseries/base.h"
 #include "../../memory/datum_index.h"
 #include "../../game/configuration.h"
@@ -16,24 +10,25 @@ namespace Yelo {
 	namespace GameUI {
 		//Because _of course we're in macro hell.
 		struct s_first_person_weapon : TStructImpl(0x1EA0) {
-			bool * GetIsVisible() { return GetDataPtr<bool, 0x0>(); } \
+			bool * GetIsVisible() { return GetDataPtr<bool, 0x0>(); }
 			bool const * GetIsVisible() const { return GetDataPtr<bool, 0x0>(); }
 
-			// TStructGetPtrImpl(bool, IsVisible, 0x0);
-			// TStructGetPtrImpl(datum_index, UnitIndex, 0x4);
+			datum_index const *GetUnitIndex() const { return GetDataPtr<datum_index, 0x4>(); }
+
 			//
-			// TStructGetPtrImpl(datum_index, WeaponIndex, 0x8);
+			datum_index const *GetWeaponIndex() const { return GetDataPtr<datum_index, 0x8>(); }
+
 			// // 1 = o-h-enter, 3 = overheated, 4 = charging, 5 = posing, 6 = firing1, 10 = meleeing,
 			// // 13 = reload empty, 14 = reload full, 19 = switching/ready, 22 = o-h-exit, 23 = firing2
-			// TStructGetPtrImpl(short, AnimationState, 0xC);
+			TStructGetPtrImpl(short, AnimationState, 0xC);
 			// // 0xE = unknown 2 bytes
-			// TStructGetPtrImpl(game_time_t, IdleTime, 0x10);
+			TStructGetPtrImpl(game_time_t, IdleTime, 0x10);
 			//
-			// TStructGetPtrImpl(Objects::s_animation_state, CurrentBaseAnimation, 0x12); // frame index of current base animation (idle or moving)
-			// TStructGetPtrImpl(Objects::s_animation_state, CurrentAnimation, 0x16);
+			 TStructGetPtrImpl(Objects::s_animation_state, CurrentBaseAnimation, 0x12); // frame index of current base animation (idle or moving)
+			 TStructGetPtrImpl(Objects::s_animation_state, CurrentAnimation, 0x16);
 			//
-			// TStructGetPtrImpl(Objects::s_animation_state, CurrentMovingOverlayAnimation, 0x1A);
-			//TStructGetPtrImpl(Objects::s_animation_state, , 0x1E);
+			 TStructGetPtrImpl(Objects::s_animation_state, CurrentMovingOverlayAnimation, 0x1A);
+			TStructGetPtrImpl(Objects::s_animation_state, , 0x1E);
 
 			//TStructGetPtrImpl(real, , 0x28); // frame index (real) for the above anim state
 			//TStructGetPtrImpl(real, , 0x2C);
@@ -82,16 +77,14 @@ namespace Yelo {
 
 	namespace blam {
 		void __cdecl first_person_weapons_initialize_for_new_map() {
-// #if /*PLATFORM_IS_CLIENT ||*/ //PLATFORM_TYPE == PLATFORM_SAPIEN
-// 			// for (auto &player : GameUI::FirstPersonWeapons()->local_players) {
-// 			// 	std::memset(&player, 0, sizeof(player));
-// 			// 	*player.GetUnitIndex()                 = datum_index::null();
-// 			// 	// NOTE: added this to stop needless "local player_update %d, weapon (0x0), deleted unexpectedly" messages in debug builds
-// 			// 	*player.GetWeaponIndex()               = datum_index::null();
-// 			// 	*player.GetAnimationSoundIndex()       = datum_index::null();
-// 			// 	*player.GetAnimationStateDuringSound() = NONE;
-// 			}
-// #endif
+			for (auto &player : GameUI::FirstPersonWeapons()->local_players) {
+				std::memset(&player, 0, sizeof(player));
+				*player.GetUnitIndex()                 = datum_index::null();
+				// NOTE: added this to stop needless "local player_update %d, weapon (0x0), deleted unexpectedly" messages in debug builds
+				*player.GetWeaponIndex()               = datum_index::null();
+				*player.GetAnimationSoundIndex()       = datum_index::null();
+				*player.GetAnimationStateDuringSound() = NONE;
+			}
 		}
 	};
 };

@@ -1,13 +1,8 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
 #include <precompile.h>
 #include "../memory/simple_circular_queue.h"
+#include "../cseries/base.h"
 
 namespace Yelo::Game {
 	struct s_action_queue_entry : TStructImpl(44) {

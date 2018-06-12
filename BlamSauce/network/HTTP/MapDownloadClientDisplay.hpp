@@ -47,13 +47,13 @@ namespace Yelo
 
 		public:
 			void SetMapName(const char* map_name);
-			cstring GetMapName();
+			const char * GetMapName();
 
 			void SetProviderTitle(const char* provider_title);
-			cstring GetProviderTitle();
+			const char * GetProviderTitle();
 
 			void SetProviderDescription(const char* provider_description);
-			cstring GetProviderDescription();
+			const char * GetProviderDescription();
 
 			void SetPartProgress(const real percent_complete);
 			real GetPartProgress();

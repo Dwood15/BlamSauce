@@ -45,10 +45,14 @@ namespace Yelo
 
 			real z_near, z_far;
 
-			PAD_TYPE(real_point3d);	PAD_TYPE(real_point3d);
-			PAD_TYPE(real_point3d);	PAD_TYPE(real_point3d);
-			PAD_TYPE(real_point3d);	PAD_TYPE(real_point3d);
-			PAD_TYPE(real_point3d);	PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
+			PAD_TYPE(real_point3d);
 
 			bool projection_valid;
 			unsigned char : 8; unsigned short : 16;

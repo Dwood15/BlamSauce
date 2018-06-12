@@ -4,7 +4,7 @@
 
 namespace Yelo::Objects {
 	static bool UnitDataFieldGetObjectIndex(const s_object_field_definition &field, s_unit_data &unit,
-														 TypeHolder &result, cstring data_name) {
+														 TypeHolder &result, const char * data_name) {
 		using namespace Yelo::Enums;
 		result.ptr.datum = nullptr;
 

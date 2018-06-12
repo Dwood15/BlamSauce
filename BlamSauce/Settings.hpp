@@ -9,7 +9,7 @@
 #include <precompile.h>
 
 namespace Yelo::Settings {
-	cstring K_CHAT_LOG_FILENAME = "Game.ChatLog.txt";
+	const char * K_CHAT_LOG_FILENAME = "Game.ChatLog.txt";
 	static c_settings_manager g_settings_manager("OpenSauce");
 
 	c_settings_manager &Manager() {
@@ -20,7 +20,7 @@ namespace Yelo::Settings {
 	void InitializeSettings() {
 		ReadCmdLineSettings();
 
-		cstring profile_path = "";
+		const char * profile_path = "";
 
 		if (CMDLINE_GET_PARAM(path).ParameterSet())
 			profile_path = CMDLINE_GET_PARAM(path).GetValue();

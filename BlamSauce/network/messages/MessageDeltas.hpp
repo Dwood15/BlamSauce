@@ -96,15 +96,15 @@ namespace Yelo
 		// pointer array (0,1-n) for the base line updates for each of the datas
 		// # of iterations
 		// ?
-		long MdpiEncode(long_enum mode, long_enum definition_type,
+		long MdpiEncode(signed long mode, signed long definition_type,
 			const void* buffer, size_t buffer_size_in_bits, 
 			const void** headers, const void** datas, const void** baselines = nullptr, 
 			long iterations = 1, long /*bool*/ unk = false);
 
-		long EncodeStateless(long_enum definition_type,
+		long EncodeStateless(signed long definition_type,
 			const void* source_header, const void* source_data, 
 			void* buffer, size_t buffer_size_in_bits);
-		long EncodeStateless(long_enum definition_type,
+		long EncodeStateless(signed long definition_type,
 			const void* source_header, const void* source_data);
 
 		// Decodes the current data in the packet buffer, and puts the data into [header] if there is a header, and [destination_data] for the main packet body

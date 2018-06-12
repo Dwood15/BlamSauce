@@ -59,6 +59,6 @@ namespace Yelo
 	namespace blam
 	{
 		void __cdecl render_nav_point(short local_player_index, const real_point3d& point,
-			long waypoint_arrow_index, long_enum waypoint_type);
+			long waypoint_arrow_index, signed long waypoint_type);
 	};
 };

@@ -3,6 +3,7 @@
 #include <precompile.h>
 #include "datum_index.h"
 #include "data_base.h"
+#include "../cseries/base.h"
 #include <engine_functions.h>
 
 static constexpr Yelo::datum_index::salt_t k_datum_index_salt_msb = 1U << (BIT_COUNT(Yelo::datum_index::salt_t) - 1);
@@ -155,7 +156,7 @@ namespace Yelo {
 			call   FUNCTION
 
 			pop      esi
-			API_FUNC_NAKED_END_NO_STACK_POP()
+			__asm pop ebp __asm retn }
 		}
 
 		void __cdecl data_make_valid(Memory::s_data_array *data) {

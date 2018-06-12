@@ -17,7 +17,7 @@ namespace Yelo::Debug {
 		s_debug_memory_header *next;
 		s_debug_memory_header *previous;
 		size_t                size;
-		cstring               file;
+		const char *               file;
 		uint                line;
 		long                 marker;
 		uint                checksum;
@@ -58,23 +58,23 @@ namespace Yelo::blam {
 	// See the system_malloc, etc functions in the engine's cseries.hpp
 
 	// returns NULL when out of memory
-	void *__cdecl debug_malloc(const size_t size, const bool fill_with_garbage, cstring file, const uint line);
+	void *__cdecl debug_malloc(const size_t size, const bool fill_with_garbage, const char * file, const uint line);
 
 	template <typename T>
-	inline T *debug_new(const bool fill_with_garbage, cstring file, const uint line) {
+	inline T *debug_new(const bool fill_with_garbage, const char * file, const uint line) {
 		return reinterpret_cast<T *>(debug_malloc(sizeof(T) * 1, fill_with_garbage, file, line));
 	}
 
 	template <typename T>
-	inline T *debug_new_array(const size_t count, const bool fill_with_garbage, cstring file, const uint line) {
+	inline T *debug_new_array(const size_t count, const bool fill_with_garbage, const char * file, const uint line) {
 		return reinterpret_cast<T *>(debug_malloc(sizeof(T) * count, fill_with_garbage, file, line));
 	}
 
-	void __cdecl debug_free(void *pointer, cstring file, const uint line);
+	void __cdecl debug_free(void *pointer, const char * file, const uint line);
 
 	// Nulls [pointer] before returning
 	template <typename T>
-	void debug_free_with_null(T *&pointer, cstring file, const uint line) {
+	void debug_free_with_null(T *&pointer, const char * file, const uint line) {
 		debug_free(pointer, file, line);
 
 		pointer = nullptr;
@@ -82,7 +82,7 @@ namespace Yelo::blam {
 
 	// Nulls [pointer] before returning
 	template <typename T>
-	void debug_delete(T *&pointer, cstring file, const uint line) {
+	void debug_delete(T *&pointer, const char * file, const uint line) {
 		if (pointer != nullptr) {
 			pointer->~T();
 			debug_free(pointer, file, line);
@@ -93,21 +93,21 @@ namespace Yelo::blam {
 
 	// Nulls [pointer] before returning
 	template <typename T>
-	void debug_delete_array(T *&pointer, cstring file, const uint line) {
+	void debug_delete_array(T *&pointer, const char * file, const uint line) {
 		debug_free(pointer, file, line);
 
 		pointer = nullptr;
 	}
 
-	void *__cdecl debug_realloc(void *pointer, const size_t new_size, cstring file, const uint line);
+	void *__cdecl debug_realloc(void *pointer, const size_t new_size, const char * file, const uint line);
 
 	template <typename T>
-	T *debug_renew(T *pointer, cstring file, const uint line) {
+	T *debug_renew(T *pointer, const char * file, const uint line) {
 		return reinterpret_cast<T *>(debug_realloc(pointer, sizeof(T) * 1, file, line));
 	}
 
 	template <typename T>
-	T *debug_renew_array(T *pointer, const size_t count, cstring file, const uint line) {
+	T *debug_renew_array(T *pointer, const size_t count, const char * file, const uint line) {
 		return reinterpret_cast<T *>(debug_realloc(pointer, sizeof(T) * count, file, line));
 	}
 };

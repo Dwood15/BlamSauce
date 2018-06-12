@@ -4,6 +4,7 @@
 #include "../cseries/base.h"
 #include "../math/real_math.h"
 #include "../math/color_math.h"
+#include "../tags/group/base.h"
 
 namespace Yelo::Scenario {
 		struct s_scenario_player_atmospheric_fog // made up name
@@ -68,7 +69,7 @@ namespace Yelo::Scenario {
 
 		tag_reference         model;
 		tag_reference         animation;
-		tag_block:8 * sizeof(tag_block) * 2;
+		tag_block:8 * 0xC * 2;
 		struct s_ambient_radiosity {
 			real_rgb_color color;
 			real           power;
@@ -76,7 +77,7 @@ namespace Yelo::Scenario {
 		s_sky_atmospheric_fog outdoor_fog, indoor_fog;
 		tag_reference         indoor_fog_screen; // 'fog '
 		unsigned long : 32; // this could be angle 'Global Sky Rotation' (a la Halo 2). TODO: try to find references to this field offset
-		tag_block:8 * sizeof(tag_block) * 1 + 1 + 1; // s_sky_light
+		tag_block:8 * 0xC * (1 + 1 + 1); // s_sky_light
 	};
 	static_assert(sizeof(s_sky_definition) == 0xD0);
 

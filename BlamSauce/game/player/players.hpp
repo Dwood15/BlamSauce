@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sal.h>
+#include <enginelayout/Game.inl>
 #include "../../memory/datum_index.h"
 #include "../objects/units/unit_structures.hpp"
 #include "../objects/objects.h"
@@ -180,7 +181,7 @@ namespace Yelo::Players {
 	static datum_index
 	PlayerFindTeamUnitDefinitionOverride(const s_player_datum *player, datum_index unit_definition_index, const TagBlock<Yelo::TagGroups::s_network_game_player_unit>(&player_units)) {
 		// HACK: not the best way of doing this (hate hard coding stuff), but for now it works
-		static cstring k_team_names[Enums::k_number_of_multiplayer_teams] = {"red_team", "blue_team"};
+		static const char * k_team_names[Enums::k_number_of_multiplayer_teams] = {"red_team", "blue_team"};
 
 		long player_team_index = player->team_index;
 		if (player_team_index >= 0 && player_team_index < std::size(k_team_names)) {
@@ -252,7 +253,7 @@ namespace Yelo::Players {
 		if(args->team_index >= 0 && GameEngine::GlobalVariant()->universal_variant.teams)
 		{
 			for(auto player : Players::Players())
-			{
+			`{
 				if(player->team_index == args->team_index &&
 					blam::scenario_trigger_volume_test_object(args->trigger_volume, player->slave_unit_index))
 				{
@@ -349,9 +350,9 @@ namespace Yelo::Players {
 	}
 
 
-	static long scripting_player_data_get_integer_by_name(s_player_datum* player, cstring data_name, bool for_team_data = false)
+	static long scripting_player_data_get_integer_by_name(s_player_datum* player, const char * data_name, bool for_team_data = false)
 	{
-		cstring s = data_name; // alias for keeping the code width down
+		const char * s = data_name; // alias for keeping the code width down
 
 		if( !strcmp(s,"kills_this_lifetime") )	return player->kills_this_lifetime;
 
@@ -377,7 +378,7 @@ namespace Yelo::Players {
 		struct s_arguments {
 			short player_list_index;
 			unsigned short : 16;
-			cstring data_name;
+			const char * data_name;
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result;
 		result.pointer = nullptr;
@@ -402,7 +403,7 @@ namespace Yelo::Players {
 		struct s_arguments {
 			short team_index;
 			unsigned short : 16;
-			cstring data_name;
+			const char * data_name;
 		}* args = CAST_PTR(s_arguments*, arguments);
 		TypeHolder result; result.pointer = nullptr;
 		result.long = NONE;
@@ -419,13 +420,13 @@ namespace Yelo::Players {
 		return result.pointer;
 	}
 
-	static datum_index scripting_player_data_get_object_by_name(s_player_datum* player, cstring data_name)
+	static datum_index scripting_player_data_get_object_by_name(s_player_datum* player, const char * data_name)
 	{
 		datum_index object_index = player->slave_unit_index;
 
 		if(!object_index.IsNull()) // only get object data fields whenever this player is alive
 		{
-			cstring s = data_name; // alias for keeping the code width down
+			const char * s = data_name; // alias for keeping the code width down
 
 			if( !strcmp(s,"nearest_object") )	return player->nearest_object_action_result.action_object_index;
 			else if( !strcmp(s,"slave_unit") )		return player->slave_unit_index;
@@ -445,7 +446,7 @@ namespace Yelo::Players {
 		struct s_arguments {
 			short player_list_index;
 			unsigned short : 16;
-			cstring data_name;
+			const char * data_name;
 		}* args = CAST_PTR(s_arguments*, arguments);
 		TypeHolder result; result.pointer = nullptr;
 		result.datum = datum_index::null();
@@ -465,9 +466,9 @@ namespace Yelo::Players {
 		return result.pointer;
 	}
 
-	static real* scripting_player_data_get_real_by_name(s_player_datum* player, cstring data_name, Enums::hs_type& out_type)
+	static real* scripting_player_data_get_real_by_name(s_player_datum* player, const char * data_name, Enums::hs_type& out_type)
 	{
-		cstring s = data_name; // alias for keeping the code width down
+		const char * s = data_name; // alias for keeping the code width down
 
 		out_type = HS_TYPE(real);
 		if( !strcmp(s,"speed") )	return &player->speed;
@@ -480,7 +481,7 @@ namespace Yelo::Players {
 		struct s_arguments {
 			short player_list_index;
 			unsigned short : 16;
-			cstring data_name;
+			const char * data_name;
 		}* args = CAST_PTR(s_arguments*, arguments);
 		TypeHolder result; result.pointer = nullptr;
 		result.real = -1.0f;
@@ -506,7 +507,7 @@ namespace Yelo::Players {
 		struct s_arguments {
 			short player_list_index;
 			unsigned short : 16;
-			cstring data_name;
+			const char * data_name;
 			real data_value;
 		}* args = CAST_PTR(s_arguments*, arguments);
 

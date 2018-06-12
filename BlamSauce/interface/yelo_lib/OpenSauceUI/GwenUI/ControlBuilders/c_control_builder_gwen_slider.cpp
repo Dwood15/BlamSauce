@@ -29,7 +29,7 @@ namespace Yelo
 
 				gwen_control.SetClampToNotches(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Slider, control.GetControlPtr());
 
@@ -52,7 +52,7 @@ namespace Yelo
 
 				gwen_control.SetNotchCount(value.m_int32);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Slider, control.GetControlPtr());
 
@@ -75,7 +75,7 @@ namespace Yelo
 
 				gwen_control.SetRange(value.m_real, gwen_control.GetMax());
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Slider, control.GetControlPtr());
 
@@ -98,7 +98,7 @@ namespace Yelo
 
 				gwen_control.SetRange(gwen_control.GetMin(), value.m_real);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Slider, control.GetControlPtr());
 
@@ -121,7 +121,7 @@ namespace Yelo
 
 				gwen_control.SetFloatValue(value.m_real);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Slider, control.GetControlPtr());
 

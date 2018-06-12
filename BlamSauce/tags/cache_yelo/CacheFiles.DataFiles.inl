@@ -17,7 +17,7 @@ namespace Yelo { namespace DataFiles {
 		std::string sounds_path;
 		std::string loc_path;
 
-		s_mod_set_info(cstring name) 
+		s_mod_set_info(const char * name)
 			: mod_name(name)
 			, bitmaps_path()
 			, sounds_path()
@@ -59,7 +59,7 @@ namespace Yelo { namespace DataFiles {
 		{
 		}
 
-		bool TryAndUseModSet(cstring mod_name)
+		bool TryAndUseModSet(const char * mod_name)
 		{
 			s_mod_set_info info(mod_name);
 			if (info.mod_name == current_mod_set)

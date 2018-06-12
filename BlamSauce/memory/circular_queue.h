@@ -11,7 +11,7 @@ namespace Yelo {
 
 	namespace Memory {
 		struct s_circular_queue {
-			cstring name;
+			const char * name;
 			tag     signature;
 			long   read_offset;
 			long   write_offset;

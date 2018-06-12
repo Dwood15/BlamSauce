@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstring>
+#include <const char *>
 #include <minwinbase.h>
 #include <stdio.h>
 #include "../cseries/base.h"
@@ -23,16 +23,16 @@ namespace Yelo::Enums {
 namespace Yelo::Interface {
 	struct s_map_list_map_info {
 		long   system_map_index; // index used for things like the UI map list
-		cstring name;
+		const char * name;
 		bool    is_original; // ie, bungie made it
 		unsigned char : 8; unsigned short : 16;
 	}; static_assert(sizeof(s_map_list_map_info) == 0xC);
 };
 
 namespace Yelo::blam {
-	static const cstring k_map_list_mp_names_unicode_string_list_name = R"(ui\shell\main_menu\mp_map_list)";
+	static const const char * k_map_list_mp_names_unicode_string_list_name = R"(ui\shell\main_menu\mp_map_list)";
 
-	static const cstring k_map_list_ignored_map_names[10 + 1 + 3] = {
+	static const const char * k_map_list_ignored_map_names[10 + 1 + 3] = {
 		"a10",
 		"a30",
 		"a50",
@@ -105,7 +105,7 @@ namespace Yelo {
 			}
 
 			// Initializes the name field and related flags from a map_path
-			bool InitializeNameFromPath(cstring map_path) {
+			bool InitializeNameFromPath(const char * map_path) {
 				char local_map_name[_MAX_FNAME];
 				auto map_file_type = Yelo::Cache::GetMapNameFromPath(local_map_name, map_path);
 
@@ -128,7 +128,7 @@ namespace Yelo {
 
 			// Verifies the map's header and calculates yelo-only specific information from the header
 			// returns whether the map, and thus this entry, is valid
-			bool ReadHeader(cstring map_path) {
+			bool ReadHeader(const char * map_path) {
 				Cache::s_cache_header cache_header;
 				this->valid = Yelo::Cache::ReadHeader(map_path, cache_header) == Yelo::Cache::e_cache_read_header_result::success;
 
@@ -152,7 +152,7 @@ namespace Yelo {
 
 		map_list_data_t *MultiplayerMaps();
 
-		bool MultiplayerMapIsSystemMap(cstring map_name) {
+		bool MultiplayerMapIsSystemMap(const char * map_name) {
 			for (auto mp_map : blam::k_map_list_mp_maps)
 				if (!strcmp(map_name, mp_map.name))
 					return true;
@@ -172,7 +172,7 @@ namespace Yelo {
 		/// <param name="system_map_index">	(Optional) zero-based index of the map. </param>
 		///
 		/// <returns>	Index of the new s_map_list_map, or NONE if it failed to add. </returns>
-		long MapListAddMapFromPath(cstring maps_path, cstring map_file_name, long system_map_index) {
+		long MapListAddMapFromPath(const char * maps_path, const char * map_file_name, long system_map_index) {
 			assert(maps_path);
 			assert(map_file_name);
 
@@ -194,7 +194,7 @@ namespace Yelo {
 
 			// default full_map_path to map_file_name. If maps_path is empty, then map_file_name should actually be a map_path,
 			// in which case we don't need to waste time sprintf'ing an empty string with another string
-			cstring full_map_path                  = map_file_name;
+			const char * full_map_path                  = map_file_name;
 			char    full_map_path_buffer[MAX_PATH] = "";
 			if (!is_null_or_empty(maps_path)) {
 				sprintf_s(full_map_path_buffer, "%s%s", maps_path, map_file_name);
@@ -222,7 +222,7 @@ namespace Yelo {
 		/// <param name="map_name">	Name of the map; lowercase and without any path components. </param>
 		///
 		/// <returns>	Index of the found s_map_list_map, or NONE if the map isn't registered in the map list. </returns>
-		long MapListMapGetIndexFromName(cstring map_name) {
+		long MapListMapGetIndexFromName(const char * map_name) {
 			auto& multiplayer_maps = *MultiplayerMaps();
 
 			for (long x = 0; x < multiplayer_maps.count; x++)
@@ -239,7 +239,7 @@ namespace Yelo {
 		}
 
 
-		static void MapListAddSystemMultiplayerMaps(cstring root_path = "")
+		static void MapListAddSystemMultiplayerMaps(const char * root_path = "")
 		{
 			// the full pathname to the "maps\" directory, relative to root_path
 			auto maps_path = std::string();
@@ -263,13 +263,13 @@ namespace Yelo {
 				map_path.append(Cache::K_MAP_FILE_EXTENSION);
 
 				// engine uses info.name and assumes CWD, but we use the full path in case we use a different root_path
-				cstring map_file_name = &map_path[map_file_name_index];
+				const char * map_file_name = &map_path[map_file_name_index];
 				MapListAddMapFromPath(maps_path.c_str(), map_file_name, info.system_map_index);
 			}
 		}
 
 		// Add all the map files that appear in the "maps\" directory under a specified root path
-		static void MapListAddMapsInPath(WIN32_FIND_DATA& fd, cstring root_path, cstring map_extension)
+		static void MapListAddMapsInPath(WIN32_FIND_DATA& fd, const char * root_path, const char * map_extension)
 		{
 			assert(root_path);
 
@@ -297,7 +297,7 @@ namespace Yelo {
 			{
 				do {
 					// FindFile results will all be relative, so just 'filename.extension', no root path
-					cstring map_file_name = fd.cFileName;
+					const char * map_file_name = fd.cFileName;
 
 					if (!Yelo::blam::map_list_should_ignore(map_file_name))
 						MapListAddMapFromPath(maps_path.c_str(), map_file_name);
@@ -308,7 +308,7 @@ namespace Yelo {
 		}
 
 		// Add all the map file types (.map, .yelo) that appear in the "maps\" directory under a specified root path
-		static void MapListAddMapTypessInPath(WIN32_FIND_DATA& fd, cstring root_path)
+		static void MapListAddMapTypessInPath(WIN32_FIND_DATA& fd, const char * root_path)
 		{
 			// .map
 			MapListAddMapsInPath(fd, root_path, Cache::K_MAP_FILE_EXTENSION);
@@ -321,7 +321,7 @@ namespace Yelo {
 
 	namespace blam {
 
-		cstring map_list_map_name(long index);
+		const char * map_list_map_name(long index);
 
 		long map_list_map_index(long index);
 
@@ -331,7 +331,7 @@ namespace Yelo {
 
 		bool map_list_map_is_original(long index);
 
-		long map_list_map_get_index(cstring map_path) {
+		long map_list_map_get_index(const char * map_path) {
 			char map_name[_MAX_FNAME] = "";
 			auto map_file_type        = Yelo::Cache::GetMapNameFromPath(map_name, map_path);
 
@@ -340,9 +340,9 @@ namespace Yelo {
 
 		long map_list_map_count();
 
-		void map_list_add_map(cstring map_name, long map_index);
+		void map_list_add_map(const char * map_name, long map_index);
 
-		bool map_list_should_ignore(cstring map_path) {
+		bool map_list_should_ignore(const char * map_path) {
 			assert(map_path);
 
 			char map_name[_MAX_FNAME] = "";
@@ -351,7 +351,7 @@ namespace Yelo {
 			if (map_file_type == Cache::e_map_path_file_type::invalid)
 				return true;
 
-			for (cstring name : k_map_list_ignored_map_names) {
+			for (const char * name : k_map_list_ignored_map_names) {
 				// NOTE: engine uses _stricmp()
 				// We don't use _stricmp as it performs a lowercase comparison however, map_name's should always lowercase
 				if (!_stricmp(map_name, name))
@@ -377,7 +377,7 @@ namespace Yelo {
 
 			// only try adding maps from the user profile if we detected the presence of an actual maps directory
 			if (Settings::UserProfileMapsPathExists()) {
-				cstring user_profile_path = Settings::UserProfilePath();
+				const char * user_profile_path = Settings::UserProfilePath();
 
 				Interface::MapListAddMapTypessInPath(fd, user_profile_path);
 			}

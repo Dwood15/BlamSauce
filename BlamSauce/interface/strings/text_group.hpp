@@ -9,6 +9,6 @@ namespace Yelo
 {
 	namespace blam
 	{
-		wcstring unicode_string_list_get_string(datum_index unicode_string_list_definition_index, long reference_index);
+		wconst char * unicode_string_list_get_string(datum_index unicode_string_list_definition_index, long reference_index);
 	};
 };

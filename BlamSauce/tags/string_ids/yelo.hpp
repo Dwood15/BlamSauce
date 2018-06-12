@@ -36,7 +36,7 @@ namespace Yelo {
 
 		static char *GetString(string_id id, __out string_id_yelo_value value);
 
-		static cstring GetString(string_id id);
+		static const char * GetString(string_id id);
 
 		static void FormatString(char *string) {
 			for (char *c = string; *c != '\0'; ++c) {

@@ -29,13 +29,13 @@ namespace Yelo
 				};
 				std::array<s_preset, Enums::k_vehicle_view_max_vehicle_presets> presets;
 
-				s_preset* AddPreset(cstring name)
+				s_preset* AddPreset(const char * name)
 				{
 					if(presets_count == presets.size())
 						return nullptr;
 
 					s_preset* preset = &presets[presets_count++];
-					strcpy_s(preset->name, NUMBEROF(preset->name), name);
+					strcpy_s(preset->name, std::size(preset->name), name);
 
 					return preset;
 				}

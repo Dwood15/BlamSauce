@@ -73,98 +73,98 @@ namespace Model
 	s_shader_feature_mix g_feature_mix_list[] = {
 		{
 			Flags::_shader_extension_usage_none,
-			NUMBEROF(g_base_shader_list) * 0,
-			(NUMBEROF(g_base_shader_list) / 2) * 0,
+			std::size(g_base_shader_list) * 0,
+			(std::size(g_base_shader_list) / 2) * 0,
 			""
 		},
 		{
 			Flags::_shader_extension_usage_normal_map,
-			NUMBEROF(g_base_shader_list) * 1,
-			(NUMBEROF(g_base_shader_list) / 2) * 1,
+			std::size(g_base_shader_list) * 1,
+			(std::size(g_base_shader_list) / 2) * 1,
 			"BaseNorm"
 		},
 		{
 			Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_specular_map,
-			NUMBEROF(g_base_shader_list) * 2,
-			(NUMBEROF(g_base_shader_list) / 2) * 2,
+			std::size(g_base_shader_list) * 2,
+			(std::size(g_base_shader_list) / 2) * 2,
 			"BaseNormSpecMap"
 		},
 		{
 			Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 3,
-			(NUMBEROF(g_base_shader_list) / 2) * 3,
+			std::size(g_base_shader_list) * 3,
+			(std::size(g_base_shader_list) / 2) * 3,
 			"BaseNormSpecLighting"
 		},
 		{
 			Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_specular_map | Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 4,
-			(NUMBEROF(g_base_shader_list) / 2) * 4,
+			std::size(g_base_shader_list) * 4,
+			(std::size(g_base_shader_list) / 2) * 4,
 			"BaseNormSpecMapSpecLighting"
 		},
 		{
 			Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_detail_normal,
-			NUMBEROF(g_base_shader_list) * 5,
-			(NUMBEROF(g_base_shader_list) / 2) * 5,
+			std::size(g_base_shader_list) * 5,
+			(std::size(g_base_shader_list) / 2) * 5,
 			"BaseNormDetailNorm"
 		},
 		{
 			Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_detail_normal | Flags::_shader_extension_usage_specular_map,
-			NUMBEROF(g_base_shader_list) * 6,
-			(NUMBEROF(g_base_shader_list) / 2) * 6,
+			std::size(g_base_shader_list) * 6,
+			(std::size(g_base_shader_list) / 2) * 6,
 			"BaseNormDetailNormSpecMap"
 		},
 		{
 			Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_detail_normal | Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 7,
-			(NUMBEROF(g_base_shader_list) / 2) * 7,
+			std::size(g_base_shader_list) * 7,
+			(std::size(g_base_shader_list) / 2) * 7,
 			"BaseNormDetailNormSpecLighting"
 		},
 		{
 			Flags::_shader_extension_usage_normal_map | Flags::_shader_extension_usage_detail_normal | Flags::_shader_extension_usage_specular_map | Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 8,
-			(NUMBEROF(g_base_shader_list) / 2) * 8,
+			std::size(g_base_shader_list) * 8,
+			(std::size(g_base_shader_list) / 2) * 8,
 			"BaseNormDetailNormSpecMapSpecLighting"
 		},
 		{
 			Flags::_shader_extension_usage_detail_normal,
-			NUMBEROF(g_base_shader_list) * 9,
-			(NUMBEROF(g_base_shader_list) / 2) * 9,
+			std::size(g_base_shader_list) * 9,
+			(std::size(g_base_shader_list) / 2) * 9,
 			"DetailNorm"
 		},
 		{
 			Flags::_shader_extension_usage_detail_normal | Flags::_shader_extension_usage_specular_map,
-			NUMBEROF(g_base_shader_list) * 10,
-			(NUMBEROF(g_base_shader_list) / 2) * 10,
+			std::size(g_base_shader_list) * 10,
+			(std::size(g_base_shader_list) / 2) * 10,
 			"DetailNormSpecMap"
 		},
 		{
 			Flags::_shader_extension_usage_detail_normal | Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 11,
-			(NUMBEROF(g_base_shader_list) / 2) * 11,
+			std::size(g_base_shader_list) * 11,
+			(std::size(g_base_shader_list) / 2) * 11,
 			"DetailNormSpecLighting"
 		},
 		{
 			Flags::_shader_extension_usage_detail_normal | Flags::_shader_extension_usage_specular_map | Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 12,
-			(NUMBEROF(g_base_shader_list) / 2) * 12,
+			std::size(g_base_shader_list) * 12,
+			(std::size(g_base_shader_list) / 2) * 12,
 			"DetailNormSpecMapSpecLighting"
 		},
 		{
 			Flags::_shader_extension_usage_specular_map,
-			NUMBEROF(g_base_shader_list) * 13,
-			(NUMBEROF(g_base_shader_list) / 2) * 13,
+			std::size(g_base_shader_list) * 13,
+			(std::size(g_base_shader_list) / 2) * 13,
 			"SpecMap"
 		},
 		{
 			Flags::_shader_extension_usage_specular_map | Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 14,
-			(NUMBEROF(g_base_shader_list) / 2) * 14,
+			std::size(g_base_shader_list) * 14,
+			(std::size(g_base_shader_list) / 2) * 14,
 			"SpecMapSpecLighting"
 		},
 		{
 			Flags::_shader_extension_usage_specular_lighting,
-			NUMBEROF(g_base_shader_list) * 15,
-			(NUMBEROF(g_base_shader_list) / 2) * 15,
+			std::size(g_base_shader_list) * 15,
+			(std::size(g_base_shader_list) / 2) * 15,
 			"SpecLighting"
 		},
 	};
@@ -190,14 +190,14 @@ namespace Model
 		&g_feature_mix_list[8]
 	};
 
-	static shader_usage_id_t g_shader_usage_id_list[NUMBEROF(g_base_shader_list) * NUMBEROF(g_feature_mix_list)];
+	static shader_usage_id_t g_shader_usage_id_list[std::size(g_base_shader_list) * std::size(g_feature_mix_list)];
 
-	static IDirect3DPixelShader9* g_environment_no_pixel_shaders[NUMBEROF(g_shader_usage_id_list) / 2];
-	static IDirect3DPixelShader9* g_self_illumination_pixel_shaders[NUMBEROF(g_shader_usage_id_list)];
-	static IDirect3DPixelShader9* g_change_color_pixel_shaders[NUMBEROF(g_shader_usage_id_list)];
-	static IDirect3DPixelShader9* g_multipurpose_pixel_shaders[NUMBEROF(g_shader_usage_id_list)];
-	static IDirect3DPixelShader9* g_reflection_pixel_shaders[NUMBEROF(g_shader_usage_id_list)];
-	static IDirect3DPixelShader9* g_no_pixel_shaders[NUMBEROF(g_shader_usage_id_list) / 2];
+	static IDirect3DPixelShader9* g_environment_no_pixel_shaders[std::size(g_shader_usage_id_list) / 2];
+	static IDirect3DPixelShader9* g_self_illumination_pixel_shaders[std::size(g_shader_usage_id_list)];
+	static IDirect3DPixelShader9* g_change_color_pixel_shaders[std::size(g_shader_usage_id_list)];
+	static IDirect3DPixelShader9* g_multipurpose_pixel_shaders[std::size(g_shader_usage_id_list)];
+	static IDirect3DPixelShader9* g_reflection_pixel_shaders[std::size(g_shader_usage_id_list)];
+	static IDirect3DPixelShader9* g_no_pixel_shaders[std::size(g_shader_usage_id_list) / 2];
 #pragma endregion
 	
 	bool								g_rasterizer_model_normal_mapping = true;
@@ -625,11 +625,11 @@ no_extension:
 
 	void		BuildShaderIDs()
 	{
-		for(int i = 0; i < NUMBEROF(g_feature_mix_list); i++)
+		for(int i = 0; i < std::size(g_feature_mix_list); i++)
 		{
-			for(int j = 0; j < NUMBEROF(g_base_shader_list); j++)
+			for(int j = 0; j < std::size(g_base_shader_list); j++)
 			{
-				uint id_index = (i * NUMBEROF(g_base_shader_list)) + j;
+				uint id_index = (i * std::size(g_base_shader_list)) + j;
 				strcat_s(g_shader_usage_id_list[id_index], 128, g_base_shader_list[j]);
 				strcat_s(g_shader_usage_id_list[id_index], 128, g_feature_mix_list[i].feature_mix_id);
 			}
@@ -649,8 +649,8 @@ no_extension:
 			*ptr = CAST_PTR(void*, &g_shader_usage_id_list[0][0]);
 
 		// update with the extended shader count
-		GET_PTR(RASTERIZER_MODEL_SHADER_LOAD_COUNT) = NUMBEROF(g_shader_usage_id_list);
-		GET_PTR(RASTERIZER_MODEL_SHADER_LOAD_NO_INVERSE_COUNT) = NUMBEROF(g_shader_usage_id_list) / 2;
+		GET_PTR(RASTERIZER_MODEL_SHADER_LOAD_COUNT) = std::size(g_shader_usage_id_list);
+		GET_PTR(RASTERIZER_MODEL_SHADER_LOAD_NO_INVERSE_COUNT) = std::size(g_shader_usage_id_list) / 2;
 
 		// redirect references to the original pixel shader arrays to the custom arrays
 		for (auto ptr : K_PIXEL_SHADER_REFERENCES_ENVIRONMENT_NO)		*ptr = &g_environment_no_pixel_shaders;

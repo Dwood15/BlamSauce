@@ -36,7 +36,7 @@ namespace Yelo
 
 				gwen_control.SetColor(Gwen::Color(value.m_argb_color.red, value.m_argb_color.green, value.m_argb_color.blue, value.m_argb_color.alpha));
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Rectangle, control.GetControlPtr());
 

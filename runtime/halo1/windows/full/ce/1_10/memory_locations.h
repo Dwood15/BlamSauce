@@ -14,6 +14,7 @@
 #include "../../../../../../BlamSauce/models/animations/recorded_animations.hpp"
 #include "../../../../../../BlamSauce/hs/object_lists.hpp"
 #include "../../../../../../BlamSauce/hs/structures.hpp"
+#include "../../../../../../BlamSauce/cseries/base.h"
 
 // TODO: Make this whole thing _not_ suck as bad as it does. :)
 //	FUNC_PTR(INPUT_UPDATE_HOOK,						K_INPUT_UPDATE_HOOK, FUNC_PTR_NULL);

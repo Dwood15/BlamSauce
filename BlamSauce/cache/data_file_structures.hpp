@@ -8,7 +8,7 @@
 namespace Yelo {
 	namespace Cache {
 		struct s_data_file_header {
-			long_enum type; // Enums::data_file_reference_type
+			signed long type; // Enums::data_file_reference_type
 			// when building or updating a data file, acts as the write cursor for new items
 			long     file_names_offset;
 			long     file_index_table_offset;
@@ -344,15 +344,8 @@ namespace Yelo {
 			Cache::s_data_file locale;
 			Cache::s_data_file bitmaps;
 
-			s_data_file &Get(Enums::data_file_reference_type data_file);
+			s_data_file &Get(Yelo::Enums::data_file_reference_type data_file);
 
-#if PLATFORM_TYPE == PLATFORM_TOOL
-
-			void Save();
-
-			void PreprocessForSave();
-
-#endif
 		};
 
 		static_assert(sizeof(s_data_file_globals) == 0xC0);

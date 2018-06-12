@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////
 // EventLog
 static struct s_event_log_globals {
-	cstring filename;
+	const char * filename;
 	FILE* file_handle;
 }event_log_globals;
 
@@ -35,7 +35,7 @@ static void WriteEventFirstLine()
 	fflush(event_log_globals.file_handle);
 }
 
-void WriteEvent(cstring str, bool write_time_stamp)
+void WriteEvent(const char * str, bool write_time_stamp)
 {
 	static const char format[] = "%s%s%c";
 

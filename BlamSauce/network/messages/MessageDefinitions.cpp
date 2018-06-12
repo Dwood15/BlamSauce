@@ -169,8 +169,8 @@ namespace Yelo
 			{} // EOL
 		};
 		static_assert(
-			NUMBEROF(kYeloMessageDeltas)-1 == Enums::k_message_deltas_yelo_count &&
-			NUMBEROF(kYeloMessageDeltaDecoders)-1 == Enums::k_message_deltas_yelo_count 
+			std::size(kYeloMessageDeltas)-1 == Enums::k_message_deltas_yelo_count &&
+			std::size(kYeloMessageDeltaDecoders)-1 == Enums::k_message_deltas_yelo_count
 		);
 #endif
 	};

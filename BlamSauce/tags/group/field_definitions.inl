@@ -162,5 +162,5 @@ namespace Yelo { namespace TagGroups {
 		{ 0,							"custom",				k_custom_byte_swap_codes },
 		{ 0,							"terminator X",			k_terminator_byte_swap_codes },
 
-	}; static_assert( NUMBEROF(k_tag_field_definitions) == Enums::k_number_of_tag_field_types );
+	}; static_assert( std::size(k_tag_field_definitions) == Enums::k_number_of_tag_field_types );
 }; };

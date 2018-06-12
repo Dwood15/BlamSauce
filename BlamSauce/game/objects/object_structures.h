@@ -1,13 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <cstring>
-#include "../../cseries/base.h"
+#include <const char *>
+#include <precompile.h>
 #include "../../memory/datum_index.h"
 #include "../allegiance.h"
 #include "../../math/real_math.h"
@@ -17,10 +11,12 @@
 #include "../../models/model_definitions.hpp"
 #include "object_types.h"
 #include "../../scenario/structures.h"
+#include "../../cseries/base.h"
+#include "vehicles/structures.h"
 
 namespace Yelo {
 	namespace Enums {
-		enum networked_datum : long_enum {
+		enum networked_datum : unsigned long {
 			_networked_datum_master,
 			_networked_datum_puppet,
 			_networked_datum_puppet_controlled_by_local_player,
@@ -50,7 +46,7 @@ namespace Yelo {
 			k_object_size_vehicle = 0xF4 + k_object_size_unit,
 		};
 
-		enum attachment_type : sbyte {
+		enum attachment_type : char {
 			_attachment_type_invalid = NONE,
 
 			_attachment_type_light = 0,
@@ -135,14 +131,14 @@ namespace Yelo {
 
 		struct s_object_placement_data {
 			datum_index definition_index;
-			long_flags  flags;
+			unsigned long  flags;
 			datum_index player_index;
 			datum_index owner_object_index;
 			UNKNOWN_TYPE(long);
 			Enums::game_team owner_team;
 			short            region_permutation; // variant id
 			real_point3d     position;
-			UNKNOWN_TYPE(real); // angle?
+			float : 32; // angle?
 			real_vector3d  transitional_velocity;
 			real_vector3d  forward;
 			real_vector3d  up;

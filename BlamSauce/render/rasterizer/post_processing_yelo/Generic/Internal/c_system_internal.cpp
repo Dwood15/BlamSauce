@@ -566,7 +566,7 @@ namespace Yelo
 		void c_system_internal::SetupRenderSets()
 		{
 			// add effect instances to the render sets
-			for(int i = 0; i < NUMBEROF(m_members_internal.m_render_sets); i++)
+			for(int i = 0; i < std::size(m_members_internal.m_render_sets); i++)
 			{
 				m_members_internal.m_render_sets[i].Ctor();
 				SetRenderSet(m_members_internal.m_render_sets[i], (Enums::postprocess_render_stage)i);

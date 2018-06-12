@@ -31,7 +31,7 @@ namespace Yelo
 			k_game_build_string_revision_length = 4,
 		};
 
-		enum game_build_number_index : long_enum
+		enum game_build_number_index : signed long
 		{
 			_game_build_number_index_invalid = NONE,
 
@@ -44,7 +44,7 @@ namespace Yelo
 			k_max_game_build_number_index,
 		};
 
-		enum network_game_protocol_id : long_enum;
+		enum network_game_protocol_id : signed long;
 	};
 
 	typedef char game_build_string_t[Enums::k_game_build_string_length+1];
@@ -72,7 +72,7 @@ namespace Yelo
 
 		DOC_TODO_DEBUG("Update these if you change the platform version OS targets")
 		// These are the same build strings the stock game checks when verifying a game save
-		static cstring k_binary_compatible_build_numbers_stock[] = {
+		static const char * k_binary_compatible_build_numbers_stock[] = {
 #if PLATFORM_VERSION == 0x1080
 			"01.00.08.0616",
 #elif PLATFORM_VERSION == 0x1090
@@ -85,8 +85,8 @@ namespace Yelo
 			"01.00.02.0581",
 		};
 
-		static cstring k_build_number_yelo_current = K_OPENSAUCE_VERSION_HCE_BUILD_NUMBER(PLATFORM_VERSION_BUILD);
-		static cstring k_binary_compatible_build_numbers_yelo[] = {
+		static const char * k_build_number_yelo_current = K_OPENSAUCE_VERSION_HCE_BUILD_NUMBER(PLATFORM_VERSION_BUILD);
+		static const char * k_binary_compatible_build_numbers_yelo[] = {
 			k_build_number_yelo_current
 		};
 	static bool GameStateHeaderIsValid_BuildNumberImpl(const GameState::s_header_data& header)
@@ -160,7 +160,7 @@ namespace Yelo
 		{
 		}
 
-		std::array<cstring, Enums::k_max_game_build_number_index> k_game_build_numbers = {
+		std::array<const char *, Enums::k_max_game_build_number_index> k_game_build_numbers = {
 			"01.00.00.0609",
 			"01.00.07.0613",
 			"01.00.08.0616",
@@ -169,13 +169,13 @@ namespace Yelo
 		};
 
 
-		static cstring k_game_build_numbers_yelo[] = {
+		static const char * k_game_build_numbers_yelo[] = {
 			k_build_number_yelo_current
 		};
 
 		// Returns true if build_number matches one of the numbers in k_game_build_numbers
 
-		bool StringIsValid(cstring build_number)
+		bool StringIsValid(const char * build_number)
 		{
 			for (auto game_build_number : k_game_build_numbers)
 				if ( !strcmp(game_build_number, build_number) )
@@ -185,9 +185,9 @@ namespace Yelo
 		}
 
 
-		static Enums::game_build_number_index StringToBuildNumberIndex(cstring build_number)
+		static Enums::game_build_number_index StringToBuildNumberIndex(const char * build_number)
 		{
-			long_enum index = Enums::_game_build_number_index_invalid;
+			signed long index = Enums::_game_build_number_index_invalid;
 
 			for (auto game_build_number : k_game_build_numbers)
 			{
@@ -201,11 +201,11 @@ namespace Yelo
 
 		// Parses a major.minor build version string, eg "1.07", to a Enums::game_build_number_index
 		// Returns _game_build_number_index_invalid if given an unidentified version
-		Enums::game_build_number_index ShortStringToBuildNumberIndex(cstring maj_minor_str)
+		Enums::game_build_number_index ShortStringToBuildNumberIndex(const char * maj_minor_str)
 		{
 			using namespace Enums;
 			// we only compare the first part of the string, which we assume is in a MAJ.MIN format
-			const size_t k_cmp_length = NUMBEROF("#.##");
+			const size_t k_cmp_length = std::size("#.##");
 
 			if ( is_null_or_empty(maj_minor_str) ) return _game_build_number_index_invalid;
 			else if ( !strncmp(maj_minor_str, "1.00", k_cmp_length) ) return _game_build_number_index_100;
@@ -219,7 +219,7 @@ namespace Yelo
 
 		// Parses a major.minor build version string, eg "1.07", to the full build number
 		// Returns NULL if given an unidentified version
-		cstring ShortStringToBuildNumberString(cstring maj_minor_str)
+		const char * ShortStringToBuildNumberString(const char * maj_minor_str)
 		{
 			using namespace Enums;
 
@@ -231,7 +231,7 @@ namespace Yelo
 			return nullptr;
 		}
 
-		static Enums::game_build_number_index TryAndGetIndexFromVersionString(cstring version_str)
+		static Enums::game_build_number_index TryAndGetIndexFromVersionString(const char * version_str)
 		{
 			auto version_index = Enums::_game_build_number_index_invalid;
 
@@ -258,7 +258,7 @@ namespace Yelo
 		}
 
 		// If [and_game_build] is true, it will also change the GameState::GameBuildStrings
-		bool ChangeAdvertisedVersion(cstring version_str, bool and_game_build)
+		bool ChangeAdvertisedVersion(const char * version_str, bool and_game_build)
 		{
 			using namespace Enums;
 
@@ -271,7 +271,7 @@ namespace Yelo
 
 				if (and_game_build)
 				{
-					cstring build_str = k_game_build_numbers[version_index];
+					const char * build_str = k_game_build_numbers[version_index];
 
 					strcpy(GameBuildString(), build_str);
 					strcpy(GamespyGameBuildString(), build_str);

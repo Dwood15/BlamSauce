@@ -2,6 +2,7 @@
 
 #include <precompile.h>
 #include "../../../memory/simple_circular_queue.h"
+#include "../../../cseries/base.h"
 
 namespace Yelo
 {

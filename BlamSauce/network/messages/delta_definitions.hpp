@@ -10,7 +10,7 @@ namespace Yelo {
 
 	namespace Enums {
 #pragma region field_type
-		enum network_field_type : long_enum {
+		enum network_field_type : signed long {
 			_field_type_integer,
 			_field_type_real,
 			_field_type_boolean,
@@ -85,7 +85,7 @@ namespace Yelo {
 #pragma endregion
 
 #pragma region integer_width_type
-		enum integer_width_type : long_enum {
+		enum integer_width_type : signed long {
 			_integer_width_type_8bits,
 			_integer_width_type_16bits,
 			_integer_width_type_32bits,
@@ -96,23 +96,23 @@ namespace Yelo {
 		};
 #pragma endregion
 
-		enum enumeration_width_type : long_enum {
+		enum enumeration_width_type : signed long {
 			_enumeration_width_type_1byte,
 			_enumeration_width_type_2byte,
 			_enumeration_width_type_4byte,
 		};
 
-		enum message_delta_parameter_type : long_enum {
+		enum message_delta_parameter_type : signed long {
 			_message_delta_parameter_type_real,
 			_message_delta_parameter_type_long,
 		};
 
-		enum message_delta_mode : long_enum {
+		enum message_delta_mode : signed long {
 			_message_delta_mode_stateless, // no baselines
 			_message_delta_mode_incremental, // requires baselines
 		};
 
-		enum message_delta_encoding_class : long_enum {
+		enum message_delta_encoding_class : signed long {
 			_message_delta_encoding_class_lan,
 			_message_delta_encoding_class_internet,
 		};
@@ -128,7 +128,7 @@ namespace Yelo {
 
 	namespace MessageDeltas {
 		struct message_delta_parameter {
-			cstring                             name;
+			const char *                             name;
 			Enums::message_delta_parameter_type type;
 			union {
 				void  *address;
@@ -314,7 +314,7 @@ namespace Yelo {
 
 #pragma region message_delta_definition
 		struct message_delta_definition {
-			long_enum definition_type;            // 0x0 [Enums::message_delta]
+			signed long definition_type;            // 0x0 [Enums::message_delta]
 			long     message_dependent_header_size;   // 0x4 body_size + body field count
 			long     iteration_size;               // 0x8
 			long     iteration_independent_header_size;// 0xC
@@ -329,7 +329,7 @@ namespace Yelo {
 
 		struct decoding_information_data {
 			Enums::message_delta_mode mode;      // 0x0
-			long_enum                 definition_type;         // 0x4 [Enums::message_delta]
+			signed long                 definition_type;         // 0x4 [Enums::message_delta]
 			long                     iteration_count;            // 0x8
 			long                     state;                  // 0xC
 			Memory::s_bitstream *input_stream;   // 0x10

@@ -2,6 +2,8 @@
 
 #include <precompile.h>
 #include <memory_locations.h>
+#include "../../memory/upgrades/blam_memory_upgrades.hpp"
+#include "../script_extensions/hs_base.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -409,10 +411,10 @@ namespace Yelo::Scripting {
 		&GET_HS_FUNCTION(test_networking),
 	};
 
-	static const long K_HS_YELO_FUNCTION_COUNT = NUMBEROF(hs_yelo_functions);
+	static const long K_HS_YELO_FUNCTION_COUNT = std::size(hs_yelo_functions);
 
 	// Validate our definition list has the same amount as our exposed enumeration count
-	static_assert(NUMBEROF(hs_yelo_functions) == Enums::k_hs_function_enumeration_count);
+	static_assert(std::size(hs_yelo_functions) == Enums::k_hs_function_enumeration_count);
 	// Validate we haven't gone over our limit of allowed new script functions
 	static_assert(Enums::k_hs_function_enumeration_count <= (Enums::k_hs_script_functions_count_upgrade - Enums::k_hs_functions_count));
 
@@ -698,7 +700,7 @@ namespace Yelo::Scripting {
 		{0, Enums::k_hs_external_globals_count_upgrade}
 	};
 
-#include "Game/ScriptLibrary.Fixups.inl"
+
 #include "globals_declarations.h"
 #include "../script_extensions/hs_base.h"
 #include "enums.h"
@@ -765,7 +767,7 @@ namespace Yelo::Scripting {
 		// Update the game code to use OUR function/global definition tables
 		{
 			hs_function_definition ****definitions = reinterpret_cast<hs_function_definition ****>(K_HS_FUNCTION_TABLE_REFERENCES);
-			const size_t k_count = NUMBEROF(K_HS_FUNCTION_TABLE_REFERENCES);
+			const size_t k_count = std::size(K_HS_FUNCTION_TABLE_REFERENCES);
 
 			for (size_t x = 0; x < k_count; x++)
 				*definitions[x] = &_upgrade_globals.functions.table[0];
@@ -773,7 +775,7 @@ namespace Yelo::Scripting {
 
 		{
 			hs_global_definition ****definitions = reinterpret_cast<hs_global_definition ****>(K_HS_EXTERNAL_GLOBALS_REFERENCES);
-			const size_t k_count = NUMBEROF(K_HS_EXTERNAL_GLOBALS_REFERENCES);
+			const size_t k_count = std::size(K_HS_EXTERNAL_GLOBALS_REFERENCES);
 
 			for (size_t x = 0; x < k_count; x++)
 				*definitions[x] = &_upgrade_globals.globals.table[0];
@@ -800,16 +802,16 @@ namespace Yelo::Scripting {
 
 	void* scripting_game_change_version_id_evaluate(void** arguments)
 	{
-		struct s_arguments {
-			bool and_game_build;
-			unsigned char : 8; unsigned short : 16;
-			const char *  version_str;
-		}* args = reinterpret_cast<s_arguments *>(arguments);
-		TypeHolder result; result.pointer = nullptr;
-
-		result.boolean = BuildNumber::ChangeAdvertisedVersion(args->version_str, args->and_game_build);
-
-		return result.pointer;
+		// struct s_arguments {
+		// 	bool and_game_build;
+		// 	unsigned char : 8; unsigned short : 16;
+		// 	const char *  version_str;
+		// }* args = reinterpret_cast<s_arguments *>(arguments);
+		// TypeHolder result; result.pointer = nullptr;
+		//
+		// result.boolean = BuildNumber::ChangeAdvertisedVersion(args->version_str, args->and_game_build);
+		//
+		// return result.pointer;
 	}
 
 
@@ -1011,7 +1013,7 @@ namespace Yelo::Scripting {
 	static void* scripting_hex_string_to_long_evaluate(void** arguments)
 	{
 		struct s_arguments {
-			cstring str;
+			const char * str;
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
@@ -1024,7 +1026,7 @@ namespace Yelo::Scripting {
 	static void* scripting_display_scripted_ui_widget_evaluate(void** arguments)
 	{
 		struct s_arguments {
-			cstring name;
+			const char * name;
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 		TypeHolder result; result.pointer = nullptr;
 
@@ -1036,7 +1038,7 @@ namespace Yelo::Scripting {
 	static void* scripting_play_bink_movie_evaluate(void** arguments)
 	{
 		struct s_arguments {
-			cstring name;
+			const char * name;
 		}* args = reinterpret_cast<s_arguments *>(arguments);
 
 		if(GameState::IsLocal())

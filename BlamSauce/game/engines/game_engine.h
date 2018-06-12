@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Enums
 	{
-		enum game_engine_custom : long_enum
+		enum game_engine_custom : signed long
 		{
 			_game_engine_custom1 = k_number_of_game_engines,
 			_game_engine_custom2,
@@ -22,7 +22,7 @@ namespace Yelo
 			_game_engine_custom,
 		};
 
-		enum game_trait_custom : long_enum
+		enum game_trait_custom : signed long
 		{
 			_game_custom_trait1 = _game_trait+1,
 			_game_custom_trait2,
@@ -32,7 +32,7 @@ namespace Yelo
 			_game_custom_trait,
 		};
 
-		enum game_engine_mode : long_enum
+		enum game_engine_mode : signed long
 		{
 			_game_engine_mode_active,
 			_game_engine_mode_postgame_delay,
@@ -93,7 +93,7 @@ namespace Yelo
 			}
 
 			// just use the slayer variant of the code, it doesn't matter to us.
-			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++) {
+			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < std::size(jmp_table); x++) {
 				jmp_table[x] = *(void **) (HUD_RENDER_UNIT_INTERFACE_JMP_TABLE + (sizeof(void *) * (Enums::_game_engine_slayer - 1)));
 			}
 
@@ -112,7 +112,7 @@ namespace Yelo
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7440JmpTable) + (sizeof(void*) * x));
 
 			// just use the slayer variant of the code, it doesn't matter to us.
-			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
+			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < std::size(jmp_table); x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7440JmpTable) + (sizeof(void*) * (Enums::_game_engine_slayer - 1)));
 
 			// set the game's jump table address to our's
@@ -130,7 +130,7 @@ namespace Yelo
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7580JmpTable) + (sizeof(void*) * x));
 
 			// just use the slayer variant of the code, it doesn't matter to us.
-			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < NUMBEROF(jmp_table); x++)
+			for (long x = Enums::k_number_of_game_engines-GAME_ENGINE_REAL_COUNT; x < std::size(jmp_table); x++)
 				jmp_table[x] = *(void**)(GET_FUNC_PTR(Func4F7580JmpTable) + (sizeof(void*) * (Enums::_game_engine_slayer - 1)));
 
 			// set the game's jump table address to our's

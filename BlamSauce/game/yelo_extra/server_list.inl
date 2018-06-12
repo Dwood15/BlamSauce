@@ -4,9 +4,9 @@
 
 	See license\OpenSauce\Halo1_CE for specific license information
 */
-static cstring g_forced_mp_version = nullptr;
+static const char * g_forced_mp_version = nullptr;
 
-static BOOL __cdecl ServerVersionIsValid(cstring server_version)
+static BOOL __cdecl ServerVersionIsValid(const char * server_version)
 {
 	if(g_forced_mp_version)
 	{
@@ -70,7 +70,7 @@ static void ServerListInitialize()
 {
 	if(CMDLINE_GET_PARAM(mp_version).ParameterSet())
 	{
-		cstring mp_version = CMDLINE_GET_PARAM(mp_version).GetValue();
+		const char * mp_version = CMDLINE_GET_PARAM(mp_version).GetValue();
 		if(mp_version && strcmp(mp_version, "disable")==0)
 			return;
 

@@ -504,7 +504,7 @@ namespace Yelo::Scripting {
 					break;
 
 					//////////////////////////////////////////////////////////////////////////
-					//				case HS_TYPE(string): *data.ptr.ascii = CAST_PTR(cstring, ptr); break;
+					//				case HS_TYPE(string): *data.ptr.ascii = CAST_PTR(const char *, ptr); break;
 			}
 		}
 	}

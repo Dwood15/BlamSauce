@@ -59,9 +59,9 @@ namespace Yelo {
 	};
 
 	namespace blam {
-		extern cstring g_game_team_names[Enums::k_number_of_game_teams];
+		extern const char * g_game_team_names[Enums::k_number_of_game_teams];
 
 		// Checks to see if [team_to_test] is an enemy of [team]
-		bool __cdecl game_team_is_enemy(long_enum team, long_enum team_to_test);
+		bool __cdecl game_team_is_enemy(signed long team, signed long team_to_test);
 	};
 };

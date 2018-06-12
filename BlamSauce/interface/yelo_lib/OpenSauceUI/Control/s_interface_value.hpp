@@ -20,7 +20,7 @@ namespace Yelo
 				uint64 m_uint64;
 				__int64 m_int64;
 				real m_real;
-				char* m_cstring;
+				char* m_const char *;
 				wchar_t* m_wstring;
 				point2d m_point2d;
 				rectangle2d m_rectangle2d;
@@ -37,7 +37,7 @@ namespace Yelo
 			
 #pragma region String Handling
 		private:
-			bool is_cstring;
+			bool is_const char *;
 			bool is_wstring;
 			bool is_string_owner;
 			unsigned char : 8;
@@ -47,7 +47,7 @@ namespace Yelo
 
 		public:
 			////////////////////////////////////////////////////////////////////////////////////////////////////
-			/// <summary>	Copies a string to the cstring value. </summary>
+			/// <summary>	Copies a string to the const char * value. </summary>
 			///
 			/// <param name="value">	The string to copy. </param>
 			void SetString(const std::string& value);
@@ -95,7 +95,7 @@ namespace Yelo
 			s_interface_value(uint64 value);
 			s_interface_value(__int64 value);
 			s_interface_value(real value);
-			s_interface_value(cstring value);
+			s_interface_value(const char * value);
 			s_interface_value(wstring value);
 			s_interface_value(point2d value);
 			s_interface_value(rectangle2d value);

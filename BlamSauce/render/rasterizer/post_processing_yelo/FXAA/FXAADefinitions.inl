@@ -23,7 +23,7 @@ static TagGroups::s_technique_definition	g_shader_techniques[] =
 		"PostProcess_sm3_0",
 		{ 0, 0, 1 },
 		{ 0 },
-		{ NUMBEROF(g_shader_passes_sm3), &g_shader_passes_sm3[0], NULL }
+		{ std::size(g_shader_passes_sm3), &g_shader_passes_sm3[0], NULL }
 	}
 };
 

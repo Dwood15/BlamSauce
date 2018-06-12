@@ -1,5 +1,10 @@
 #pragma once
-#include "tag_helpers/tag_groups_base.h"
-#include "tag_helpers/tag_groups_markup.h"
+#include "tags/group/tag_groups_base_yelo.hpp"
+#include "tags/group/tag_groups_markup.hpp"
+#include "interface/camera/camera.h"
+#include "interface/camera/dead.hpp"
+#include "interface/camera/definitions.hpp"
+#include "interface/camera/director.hpp"
+#include "interface/camera/director_structures.hpp"
 
 

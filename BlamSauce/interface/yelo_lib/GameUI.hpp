@@ -1,24 +1,14 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
-
+#include <precompile.h>
 namespace Yelo
 {
-	namespace Players
-	{
-		struct s_player_datum;
-	};
 
 	namespace Enums
 	{
-		enum hud_chat_type : long_enum;
-		enum settings_adjustment_result : long_enum;
+		enum hud_chat_type : signed long;
+		enum settings_adjustment_result : signed long;
 
-		enum rasterize_score : long_enum
+		enum rasterize_score : signed long
 		{
 			_rasterize_score_welcome,
 			_rasterize_score_s_died,
@@ -70,7 +60,7 @@ namespace Yelo
 			Players::s_player_datum* src_player, datum_index src_player_vehicle_index);
 
 		// Send [messsage] to all valid players (machine_index != NONE) and who pass the [send_predicate]
-		void SendHudChat(Enums::hud_chat_type msg_type, wcstring message, byte player_number,
+		void SendHudChat(Enums::hud_chat_type msg_type, wconst char * message, byte player_number,
 			proc_send_hud_chat_predicate send_predicate = SendHudChatToEveryonePredicate);
 	};
 

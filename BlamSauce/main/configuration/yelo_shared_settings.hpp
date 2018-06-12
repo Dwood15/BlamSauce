@@ -32,20 +32,20 @@ namespace Yelo {
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Path to the systems common application data folder. </summary>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring CommonAppDataPath() { return Internal.CommonAppDataPath; }
+		/// <returns>	A const char *. </returns>
+		const char * CommonAppDataPath() { return Internal.CommonAppDataPath; }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	User profile path. </summary>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring UserProfilePath() { return Internal.UserProfilePath; }
+		/// <returns>	A const char *. </returns>
+		const char * UserProfilePath() { return Internal.UserProfilePath; }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	User's saved profiles path. </summary>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring UserSavedProfilesPath() { return Internal.UserSavedProfilesPath; }
+		/// <returns>	A const char *. </returns>
+		const char * UserSavedProfilesPath() { return Internal.UserSavedProfilesPath; }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Maps folder under the user's profile. </summary>
@@ -54,8 +54,8 @@ namespace Yelo {
 		/// 	Use UserProfileMapsPathExists to check the folder exists before interacting iwth it.
 		/// </remarks>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring UserProfileMapsPath() { return Internal.UserProfileMapsPath; }
+		/// <returns>	A const char *. </returns>
+		const char * UserProfileMapsPath() { return Internal.UserProfileMapsPath; }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Queries if a user's profile maps path exists. </summary>
@@ -66,28 +66,28 @@ namespace Yelo {
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	The OpenSauce path to use that is under the User's game profile. </summary>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring OpenSauceProfilePath() { return Internal.OpenSauceProfilePath; }
+		/// <returns>	A const char *. </returns>
+		const char * OpenSauceProfilePath() { return Internal.OpenSauceProfilePath; }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	Path which we store our reports in. </summary>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring ReportsPath() { return Internal.ReportsPath; }
+		/// <returns>	A const char *. </returns>
+		const char * ReportsPath() { return Internal.ReportsPath; }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	The current working directory. </summary>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring WorkingDirectoryPath() { return Internal.WorkingDirectoryPath; }
+		/// <returns>	A const char *. </returns>
+		const char * WorkingDirectoryPath() { return Internal.WorkingDirectoryPath; }
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// <summary>	User's maps\ path for the defined PLATFORM_TYPE. </summary>
 		///
-		/// <returns>	A cstring. </returns>
-		cstring PlatformUserMapsPath() { return UserProfileMapsPath(); }
+		/// <returns>	A const char *. </returns>
+		const char * PlatformUserMapsPath() { return UserProfileMapsPath(); }
 
-		void SharedInitialize(cstring profile_path) {
+		void SharedInitialize(const char * profile_path) {
 			SHGetFolderPath(nullptr, CSIDL_COMMON_APPDATA, nullptr, 0, Internal.CommonAppDataPath);
 			PathAppendA(Internal.CommonAppDataPath, "Kornner Studios\\Halo CE\\");
 
@@ -121,7 +121,7 @@ namespace Yelo {
 
 		void SharedDispose() {}
 
-		bool PlayerProfileRead(cstring profile_name, _Out_ byte profile[Enums::k_player_profile_buffer_size]) {
+		bool PlayerProfileRead(const char * profile_name, _Out_ byte profile[Enums::k_player_profile_buffer_size]) {
 			bool success = false;
 			memset(profile, 0, Enums::k_player_profile_buffer_size);
 
@@ -144,7 +144,7 @@ namespace Yelo {
 
 		// Format the settings path & [filename] into [file_path].
 		// Returns: true if [file_path] exists on disk
-		bool GetSettingsFilePath(cstring filename, _Out_ char file_path[MAX_PATH]) {
+		bool GetSettingsFilePath(const char * filename, _Out_ char file_path[MAX_PATH]) {
 			sprintf_s(file_path, MAX_PATH, "%s%s", Internal.OpenSauceProfilePath, filename);
 
 			return PathFileExistsA(file_path) != FALSE;
@@ -154,7 +154,7 @@ namespace Yelo {
 		// [append] - keep existing report data
 		// [text] - are we writing textual or binary data?
 		// [shared] - should the report be accessible while halo is running?
-		FILE *CreateReport(cstring filename, bool append, bool text, bool shared) {
+		FILE *CreateReport(const char * filename, bool append, bool text, bool shared) {
 			FILE *file = nullptr;
 			bool success = false;
 
@@ -164,7 +164,7 @@ namespace Yelo {
 			success = k_errnone == strcpy_s(path, ReportsPath());
 			success = success && k_errnone == strcat_s(path, filename);
 
-			cstring mode;
+			const char * mode;
 			if (text)mode = append ? "at" : "wt";
 			else mode = append ? "ab" : "wb";
 
@@ -181,17 +181,17 @@ namespace Yelo {
 		// Open a report file for writing unicode strings
 		// [append] - keep existing report data
 		// [shared] - should the report be accessible while halo is running?
-		FILE *CreateUnicodeReport(wcstring filename, bool append, bool shared) {
+		FILE *CreateUnicodeReport(wconst char * filename, bool append, bool shared) {
 			FILE *file = nullptr;
 			bool success = false;
 
 			wchar_t path[MAX_PATH];
 			memset(path, 0, sizeof(path));
 
-			success = nullptr != string_to_wstring(path, NUMBEROF(path), ReportsPath());
+			success = nullptr != string_to_wstring(path, std::size(path), ReportsPath());
 			success = success && k_errnone == wcscat_s(path, filename);
 
-			wcstring mode = append ? L"at,ccs=UNICODE" : L"wt,ccs=UNICODE";
+			wconst char * mode = append ? L"at,ccs=UNICODE" : L"wt,ccs=UNICODE";
 
 			if (success) {
 				if (!shared)
@@ -205,7 +205,7 @@ namespace Yelo {
 
 		// Open a settings file (for reading)
 		// [text] - are we reading textual or binary data?
-		FILE *OpenSettings(cstring filename, bool text, bool open_for_writing) {
+		FILE *OpenSettings(const char * filename, bool text, bool open_for_writing) {
 			FILE *file = nullptr;
 			bool success = false;
 
@@ -215,7 +215,7 @@ namespace Yelo {
 			success = k_errnone == strcpy_s(path, Internal.OpenSauceProfilePath);
 			success = success && k_errnone == strcat_s(path, filename);
 
-			cstring mode;
+			const char * mode;
 			if (open_for_writing)mode = text ? "wt" : "wb";
 			else mode = text ? "rt" : "rb";
 

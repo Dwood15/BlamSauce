@@ -1,7 +1,3 @@
-/*
-
-	See license for specific license information
-*/
 #pragma once
 
 #include "../../cseries/base.h"
@@ -10,7 +6,7 @@
 
 namespace Yelo {
 	namespace Enums {
-		enum game_variant_goal_radar : long_enum {
+		enum game_variant_goal_radar : unsigned long {
 			_game_variant_goal_radar_motion_tracker,
 			_game_variant_goal_radar_navpoints,
 			_game_variant_goal_radar_none,
@@ -18,7 +14,7 @@ namespace Yelo {
 			_game_variant_goal_radar,
 		};
 
-		enum game_variant_weapon_set : long_enum {
+		enum game_variant_weapon_set : unsigned long {
 			_game_variant_weapon_set_normal,
 			_game_variant_weapon_set_pistols,
 			_game_variant_weapon_set_rifles,
@@ -36,7 +32,7 @@ namespace Yelo {
 			_game_variant_weapon_set,
 		};
 
-		enum game_trait : long_enum {
+		enum game_trait : unsigned long {
 			_game_trait_none,
 			_game_trait_invisible,
 			_game_trait_extra_damage,
@@ -44,7 +40,7 @@ namespace Yelo {
 			_game_trait,
 		};
 
-		enum oddball_carrier_speed : long_enum {
+		enum oddball_carrier_speed : unsigned long {
 			_oddball_carrier_speed_normal,
 			_oddball_carrier_speed_faster,
 			_oddball_carrier_speed_slower,
@@ -52,7 +48,7 @@ namespace Yelo {
 			_oddball_carrier_speed,
 		};
 
-		enum oddball_ball_type : long_enum {
+		enum oddball_ball_type : unsigned long {
 			_oddball_ball_type_normal,
 			_oddball_ball_type_reverse_tag,
 			_oddball_ball_type_juggernaut,
@@ -60,7 +56,7 @@ namespace Yelo {
 			_oddball_ball_type,
 		};
 
-		enum race_type : long_enum {
+		enum race_type : unsigned long {
 			_race_type_normal,
 		};
 	};
@@ -150,7 +146,7 @@ namespace Yelo {
 
 			struct s_race {
 				Enums::race_type race_type;
-				long_enum        team_scoring;
+				unsigned long        team_scoring;
 			} race;
 			static_assert(sizeof(s_race) == 0x8);
 
@@ -158,14 +154,14 @@ namespace Yelo {
 
 		struct s_game_variant {
 			wchar_t             name[24];                     // 0x0
-			long_enum           game_engine_index;            // 0x30 Enums::game_engine
+			unsigned long           game_engine_index;            // 0x30 Enums::game_engine
 			s_universal_variant universal_variant;      // 0x34
 			PAD64
 			PAD64
 			PAD64
 			PAD64;               // 0x7C, unused...
 			s_game_engine_variant game_engine_variant;   // 0x9C
-			long_flags            flags;                     // 0xD4
+			unsigned long            flags;                     // 0xD4
 			//uint crc;								// 0xD8, not actually part of the structure, only "used" when presisting to/from files
 		}; static_assert(sizeof(s_game_variant) == 0xD8/*0xDC*/ );
 	};

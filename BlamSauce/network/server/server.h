@@ -9,7 +9,7 @@ namespace Yelo {
 	namespace Networking
 	{
 		// Password for this machine
-		wcstring ServerPassword() {
+		wconst char * ServerPassword() {
 			{
 				auto sv_password = psv_password;
 				(void) ((!!((reinterpret_cast<void *>(0)) != sv_password && (reinterpret_cast<void *>(0x1337BEEF)) != sv_password)) ||
@@ -19,7 +19,7 @@ namespace Yelo {
 			return sv_password;
 		};
 		// Remote console password for this machine
-		cstring ServerRconPassword() {
+		const char * ServerRconPassword() {
 			{
 				auto sv_rcon_password = psv_rcon_password;
 				(void) ((!!((reinterpret_cast<void *>(0)) != sv_rcon_password && (reinterpret_cast<void *>(0x1337BEEF)) != sv_rcon_password)) ||
@@ -79,8 +79,8 @@ namespace Yelo {
 
 		struct s_mapcycle_entry
 		{
-			cstring map_name;		// Both of these are GlobalAlloc'd
-			wcstring variant_name;
+			const char * map_name;		// Both of these are GlobalAlloc'd
+			wconst char * variant_name;
 		};
 
 		struct s_network_sv_file_globals
@@ -121,7 +121,7 @@ namespace Yelo {
 			unsigned char : 8;
 			char banlist_path[MAX_PATH];
 
-			long_enum friendly_fire_type;
+			signed long friendly_fire_type;
 			char rcon_password[Enums::k_network_server_password_length+1]; unsigned char : 8; unsigned short : 16;
 
 			unsigned long : 32;

@@ -128,7 +128,7 @@ namespace Yelo
 
 			bool InitializeMainmenuOverride(const std::string& override_name)
 			{
-				static cstring k_stock_ui = "levels\\ui\\ui";
+				static const char * k_stock_ui = "levels\\ui\\ui";
 
 				if(!override_name.empty())
 				{
@@ -200,7 +200,7 @@ namespace Yelo
 		// Reads the cache file [relative_map_name] from the maps folder, and returns true if its header is valid
 		// * If the cache file is made by OS tools, and the yelo header is invalid yelo_is_ok will be false
 		// * If exception_on_fail is true, the standard game exception message for invalid maps will play
-		bool ReadHeaderThunk(cstring relative_map_name, s_cache_header& out_header, bool& yelo_is_ok, 
+		bool ReadHeaderThunk(const char * relative_map_name, s_cache_header& out_header, bool& yelo_is_ok,
 			bool exception_on_fail)
 		{
 			bool file_exists = false;

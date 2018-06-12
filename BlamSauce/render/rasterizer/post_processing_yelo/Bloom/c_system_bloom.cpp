@@ -68,7 +68,7 @@ namespace Yelo
 			m_members.m_flags.is_unloaded = false;
 
 			g_shader_bloom_definition.runtime.flags.valid_shader_bit = false;
-			g_shader_bloom_definition.techniques.Count = NUMBEROF(g_shader_techniques);
+			g_shader_bloom_definition.techniques.Count = std::size(g_shader_techniques);
 			g_shader_bloom_definition.techniques.Address = &g_shader_techniques[0];
 
 			// initialise the effect definition

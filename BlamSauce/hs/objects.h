@@ -56,8 +56,8 @@ static void* scripting_object_data_get_real_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index object_index;
-		cstring data_name;
-		cstring subdata_name;
+		const char * data_name;
+		const char * subdata_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.real = -1.0f;
@@ -75,8 +75,8 @@ static void* scripting_object_data_set_real_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index object_index;
-		cstring data_name;
-		cstring subdata_name;
+		const char * data_name;
+		const char * subdata_name;
 		real data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -93,7 +93,7 @@ static void* scripting_object_data_set_vector_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index object_index;
-		cstring data_name;
+		const char * data_name;
 		short vector_index;
 		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
@@ -118,7 +118,7 @@ static void* scripting_object_data_save_vector_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index object_index;
-		cstring data_name;
+		const char * data_name;
 		short vector_index;
 		unsigned short : 16;
 	}* args = CAST_PTR(s_arguments*, arguments);
@@ -148,7 +148,7 @@ static void* scripting_weapon_data_get_real_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index weapon_index;
-		cstring data_name;
+		const char * data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.real = -1.0f;
@@ -167,7 +167,7 @@ static void* scripting_weapon_data_set_real_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index weapon_index;
-		cstring data_name;
+		const char * data_name;
 		real data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -190,8 +190,8 @@ static void* scripting_weapon_data_magazine_get_integer_evaluate(void** argument
 	struct s_arguments {
 		datum_index weapon_index;
 		long magazine_index;
-		cstring data_name;
-		cstring subdata_name;
+		const char * data_name;
+		const char * subdata_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.long = NONE;
@@ -211,8 +211,8 @@ static void* scripting_weapon_data_magazine_set_integer_evaluate(void** argument
 	struct s_arguments {
 		datum_index weapon_index;
 		long magazine_index;
-		cstring data_name;
-		cstring subdata_name;
+		const char * data_name;
+		const char * subdata_name;
 		long data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -235,8 +235,8 @@ static void* scripting_weapon_data_trigger_set_real_evaluate(void** arguments)
 	struct s_arguments {
 		datum_index weapon_index;
 		long trigger_index;
-		cstring data_name;
-		cstring subdata_name;
+		const char * data_name;
+		const char * subdata_name;
 		real data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -264,7 +264,7 @@ static void* scripting_unit_data_get_object_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index unit_index;
-		cstring data_name;
+		const char * data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.datum = datum_index::null();
@@ -287,7 +287,7 @@ static void* scripting_unit_data_get_integer_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index unit_index;
-		cstring data_name;
+		const char * data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.long = NONE;
@@ -309,7 +309,7 @@ static void* scripting_unit_data_set_integer_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index unit_index;
-		cstring data_name;
+		const char * data_name;
 		long data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -331,7 +331,7 @@ static void* scripting_unit_data_get_real_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index unit_index;
-		cstring data_name;
+		const char * data_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 	result.real = -1.0f;
@@ -353,7 +353,7 @@ static void* scripting_unit_data_set_real_evaluate(void** arguments)
 {
 	struct s_arguments {
 		datum_index unit_index;
-		cstring data_name;
+		const char * data_name;
 		real data_value;
 	}* args = CAST_PTR(s_arguments*, arguments);
 
@@ -375,7 +375,7 @@ static void* scripting_unit_data_set_real_evaluate(void** arguments)
 static void* scripting_vehicle_remapper_enabled_evaluate(void** arguments)
 {
 	struct s_arguments {
-		cstring state_name;
+		const char * state_name;
 	}* args = CAST_PTR(s_arguments*, arguments);
 	TypeHolder result; result.pointer = nullptr;
 

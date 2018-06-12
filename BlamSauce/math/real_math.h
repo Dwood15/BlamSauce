@@ -30,11 +30,11 @@ namespace Yelo {
 		// Y-Axis
 		real y;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 
-		OVERRIDE_OPERATOR_CAST_THIS(real_vector2d);
+		inline operator real_vector2d *() { return reinterpret_cast<real_vector2d *>(this); };
 
-		OVERRIDE_OPERATOR_CAST_THIS(D3DXVECTOR2);
+		inline operator D3DXVECTOR2 *() { return reinterpret_cast<D3DXVECTOR2 *>(this); };
 	};
 
 #define pad_real_point2d PAD32 PAD32
@@ -50,13 +50,13 @@ namespace Yelo {
 		// Z-Axis
 		real z;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 
-		OVERRIDE_OPERATOR_CAST_THIS(real_point2d);
+		inline operator real_point2d *() { return reinterpret_cast<real_point2d *>(this); };
 
-		OVERRIDE_OPERATOR_CAST_THIS(real_vector3d);
+		inline operator real_vector3d *() { return reinterpret_cast<real_vector3d *>(this); };
 
-		OVERRIDE_OPERATOR_CAST_THIS(D3DXVECTOR3);
+		inline operator D3DXVECTOR3 *() { return reinterpret_cast<D3DXVECTOR3 *>(this); };
 	};
 
 #define pad_real_point3d PAD32 PAD32 PAD32
@@ -69,16 +69,17 @@ namespace Yelo {
 		// Y-Component
 		real j;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 
 		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_point2d);
 
-		OVERRIDE_OPERATOR_CAST_THIS(D3DXVECTOR2);
+		inline operator D3DXVECTOR2 *() { return reinterpret_cast<D3DXVECTOR2 *>(this); };
 
 		real Magnitude() const { return MATH_FLOAT_FUNC(sqrt)(this->i * this->i + this->j * this->j); }
 
 		__declspec(naked) void DotProduct2D() const {
-			API_FUNC_NAKED_START()
+			__asm{
+			__asm push ebp __asm mov ebp, esp
 			push   ecx
 			push   esi
 
@@ -95,7 +96,9 @@ namespace Yelo {
 
 			pop      esi
 			pop      ecx
-			API_FUNC_NAKED_END(3)
+			__asm pop ebp
+			__asm retn(3*4)
+			}
 		}
 
 		inline void Normalize() {
@@ -521,7 +524,7 @@ namespace Yelo {
 		// Side to Side offset degrees
 		angle pitch;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 	};
 
 #define pad_real_euler_angles2d PAD32 PAD32
@@ -537,9 +540,9 @@ namespace Yelo {
 		// Left to Right offset degrees
 		angle roll;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 
-		OVERRIDE_OPERATOR_CAST_THIS(real_euler_angles2d);
+		inline operator real_euler_angles2d *() { return reinterpret_cast<real_euler_angles2d *>(this); };
 	};
 
 #define pad_real_euler_angles3d PAD32 PAD32 PAD32
@@ -555,7 +558,7 @@ namespace Yelo {
 		// Distance the plane is from the origin
 		real d;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 
 		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_vector2d);
 
@@ -587,9 +590,9 @@ namespace Yelo {
 		// Distance the plane is from the origin
 		real d;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 
-		OVERRIDE_OPERATOR_CAST_THIS(real_plane2d);
+		inline operator real_plane2d *() { return reinterpret_cast<real_plane2d *>(this); };
 
 		//OVERRIDE_OPERATOR_CAST_THIS_REF(real_vector3d);
 
@@ -638,7 +641,7 @@ namespace Yelo {
 		angle lower;
 		angle upper;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 	};
 
 	// bounding in real values
@@ -646,7 +649,7 @@ namespace Yelo {
 		real lower;
 		real upper;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 	};
 
 #define pad_real_bounds PAD32 PAD32
@@ -656,6 +659,6 @@ namespace Yelo {
 		real lower;
 		real upper;
 
-		OVERRIDE_OPERATOR_CAST_THIS(float);
+		inline operator float *() { return reinterpret_cast<float *>(this); };
 	};
 };

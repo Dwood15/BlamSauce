@@ -8,6 +8,7 @@
 
 #include <blamlib/Halo1/input/input_windows.hpp>
 #include <blamlib/Halo1/memory/data.hpp>
+#include "../cseries/base.h"
 
 namespace Yelo
 {
@@ -51,7 +52,7 @@ namespace Yelo
 
 		struct s_terminal_globals
 		{
-#if !PLATFORM_IS_STUBBS
+
 			// I really don't think the following is really part 
 			// of the actual terminal globals, but this data appears 
 			// conveniently in the same place in both client and 
@@ -65,7 +66,6 @@ namespace Yelo
 				char token_buffer[256];
 				long token_buffer_length;
 			}platform;
-#endif
 
 			bool initialized;
 			unsigned char : 8; unsigned short : 16;
@@ -77,11 +77,9 @@ namespace Yelo
 			unsigned char : 8; unsigned short : 16;
 			uint receiving_input_start_tick; // local time, when input began to be inputed
 
-#if !PLATFORM_IS_STUBBS
 			bool is_active;
 			unsigned char : 8; unsigned short : 16;
 			long rcon_machine_index; // machine that is executing the current rcon command, or NONE
-#endif
 		};
 	};
 };

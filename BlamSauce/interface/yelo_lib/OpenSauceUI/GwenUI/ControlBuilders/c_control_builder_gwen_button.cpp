@@ -35,7 +35,7 @@ namespace Yelo
 
 				gwen_control.SetDepressed(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Button, control.GetControlPtr());
 
@@ -58,7 +58,7 @@ namespace Yelo
 
 				gwen_control.SetIsToggle(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Button, control.GetControlPtr());
 
@@ -81,7 +81,7 @@ namespace Yelo
 
 				gwen_control.SetToggleState(value.m_bool);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Button, control.GetControlPtr());
 
@@ -97,9 +97,9 @@ namespace Yelo
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Button, control.GetControlPtr());
 
-				gwen_control.SetImage(value.m_cstring);
+				gwen_control.SetImage(value.m_const char *);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Button, control.GetControlPtr());
 				
@@ -115,7 +115,7 @@ namespace Yelo
 
 				gwen_control.SetImageAlpha(value.m_real);
 			},
-			[](Control::i_control& control, cstring value_string)
+			[](Control::i_control& control, const char * value_string)
 			{
 				auto& gwen_control = GWEN_CTRL_REF(Button, control.GetControlPtr());
 

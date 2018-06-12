@@ -12,7 +12,7 @@ namespace Yelo
 {
 	namespace Configuration { namespace PropertyTree
 	{
-		c_property_tree_memory_xml::c_property_tree_memory_xml(cstring data)
+		c_property_tree_memory_xml::c_property_tree_memory_xml(const char * data)
 			: c_property_tree_memory(data)
 		{ }
 

@@ -47,13 +47,13 @@ namespace Yelo::TagGroups {
 		// static void Initialize();
 		// static void Dispose();
 	};
-	// cstring __cdecl tag_database_entry_reference_block_format(
+	// const char * __cdecl tag_database_entry_reference_block_format(
 	// 	datum_index tag_index,
 	// 	tag_block* block,
 	// 	long element,
 	// 	char formatted_buffer[Enums::k_tag_block_format_buffer_size]);
 	//
-	// cstring __cdecl tag_database_entry_block_format(
+	// const char * __cdecl tag_database_entry_block_format(
 	// 	datum_index tag_index,
 	// 	tag_block* block,
 	// 	long element,

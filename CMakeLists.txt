@@ -112,7 +112,7 @@ elseif (NOT MSVC)
 endif ()
 
 #Crappy hack to stop "CMake doesn't know what language this is!" errors. Could probably do something like use .hpp files instead. /shrug
-add_library(${PROJECT_NAME} STATIC primary.cpp ${HEADERS})
+add_library(${PROJECT_NAME} STATIC ${HEADERS} primary.cpp)
 
 add_library(${PROJECT_NAME}_iface INTERFACE)
 #target_compile_definitions(${PROJECT_NAME}_iface INTERFACE)

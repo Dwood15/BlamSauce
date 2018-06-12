@@ -24,7 +24,7 @@ namespace Yelo
 			virtual void ReadPropertyTree(std::istringstream& , boost::property_tree::ptree& property_tree) = 0;
 			
 		public:
-			c_property_tree_memory(cstring data);
+			c_property_tree_memory(const char * data);
 
 			bool Load() final override;
 			void Save() final override { };

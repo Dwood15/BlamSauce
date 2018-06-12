@@ -20,7 +20,7 @@ namespace Yelo {
 			_transport_type_gamespy = 20, // I just pulled this name out of my ass
 		};
 
-		enum transport_rejection_code : long_enum {
+		enum transport_rejection_code : signed long {
 			_transport_rejection_code_none,
 			_transport_rejection_code_unknown,
 			_transport_rejection_code_too_many_connection_attempts,

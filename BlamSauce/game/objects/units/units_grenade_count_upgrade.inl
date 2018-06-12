@@ -15,7 +15,7 @@ static void InitializeGrenadeCounts_UnitZoomLevelRefs(bool enabled)
 		? s_unit_data::k_offset_zoom_level_yelo 
 		: s_unit_data::k_offset_zoom_level;
 
-	for(int x = 0; x < NUMBEROF(K_UNIT_ZOOM_LEVEL_OFFSET_REFS); x++)
+	for(int x = 0; x < std::size(K_UNIT_ZOOM_LEVEL_OFFSET_REFS); x++)
 	{
 		uint* offset_ref = CAST_PTR(uint*, K_UNIT_ZOOM_LEVEL_OFFSET_REFS[x]);
 
@@ -35,7 +35,7 @@ static void InitializeGrenadeCounts_UnitDesiredZoomLevelRefs(bool enabled)
 		? s_unit_data::k_offset_desired_zoom_level_yelo 
 		: s_unit_data::k_offset_desired_zoom_level;
 
-	for(int x = 0; x < NUMBEROF(K_UNIT_DESIRED_ZOOM_LEVEL_OFFSET_REFS); x++)
+	for(int x = 0; x < std::size(K_UNIT_DESIRED_ZOOM_LEVEL_OFFSET_REFS); x++)
 	{
 		uint* offset_ref = CAST_PTR(uint*, K_UNIT_DESIRED_ZOOM_LEVEL_OFFSET_REFS[x]);
 
@@ -51,7 +51,7 @@ static void InitializeGrenadeCounts_NumberOfUnitGrenadeTypes(uint count)
 {
 	static bool verified;
 
-	for(int x = 0; x < NUMBEROF(K_NUMBER_OF_UNIT_GRENADE_TYPES_REFS); x++)
+	for(int x = 0; x < std::size(K_NUMBER_OF_UNIT_GRENADE_TYPES_REFS); x++)
 	{
 		byte* count_ref = CAST_PTR(byte*, K_NUMBER_OF_UNIT_GRENADE_TYPES_REFS[x]);
 
@@ -66,7 +66,7 @@ static void InitializeGrenadeCounts_NumberOfUnitGrenadeTypes(uint count)
 	// patch the maximum unit grenade index
 	count--;
 
-	for(int x = 0; x < NUMBEROF(K_MAXIMUM_UNIT_GRENADE_INDEX_REFS); x++)
+	for(int x = 0; x < std::size(K_MAXIMUM_UNIT_GRENADE_INDEX_REFS); x++)
 	{
 		byte* count_ref = CAST_PTR(byte*, K_MAXIMUM_UNIT_GRENADE_INDEX_REFS[x]);
 
