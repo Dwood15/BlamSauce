@@ -1,14 +1,7 @@
-/*
-	Yelo: Open Sauce SDK
-		Halo 1 (CE) Edition
-
-	See license\OpenSauce\Halo1_CE for specific license information
-*/
 #pragma once
 
-#include <blamlib/Halo1/cutscene/recorded_animation_playback.hpp>
-#include <blamlib/Halo1/memory/data.hpp>
-#include <blamlib/Halo1/units/unit_control.hpp>
+#include <precompile.h>
+#include "recorded_animation_playback.hpp"
 
 namespace Yelo
 {

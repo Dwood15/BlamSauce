@@ -298,7 +298,7 @@ namespace Yelo {
 			}
 		};
 
-		static_assert(sizeof(s_object_data) == Enums::k_object_size_object);
+		static_assert(sizeof(s_object_data) == 0x1F4); //Enums::k_object_size_object);
 
 		struct s_object_datum {
 			enum { k_object_types_mask = Enums::_object_type_object };

@@ -4,6 +4,9 @@
 #include "unit_camera.hpp"
 #include "unit_definitions_yelo.hpp"
 #include "../object_definitions.hpp"
+#include "../../../tags/group/groups_structures.hpp"
+#include "../../../tags/group/base.h"
+#include "../../../math/integer_math.h"
 
 namespace Yelo {
 	namespace Enums {
