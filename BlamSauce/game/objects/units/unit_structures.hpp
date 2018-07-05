@@ -347,7 +347,6 @@ namespace Yelo {
 			unsigned long pad16;                                             // 0x4C4 unused
 			unsigned long pad17;                                             // 0x4C8 unused
 			//////////////////////////////////////////////////////////////////////////
-
 		};
 
 		static_assert(sizeof(s_unit_data) == 0x2D8); //(Enums::k_object_size_unit - Enums::k_object_size_object));

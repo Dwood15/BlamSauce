@@ -81,12 +81,16 @@ namespace Yelo::Memory {
 		}
 
 		static void CallPostprocesses() {
-			if (TBlockPostprocessCount == 0) return;
+			if (TBlockPostprocessCount == 0) {
+				return;
+			}
 
 			const function_process_proc *proc = &TBlockPostprocess[0];
-			for (size_t                 x     = 0; x < TBlockPostprocessCount; proc++, x++)
-				if (proc != nullptr)
+			for (size_t                 x     = 0; x < TBlockPostprocessCount; proc++, x++) {
+				if (proc != nullptr) {
 					(*proc)();
+				}
+			}
 		}
 
 	public:

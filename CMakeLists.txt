@@ -46,7 +46,7 @@ add_subdirectory(runtime)
 
 find_path(DX_PATH FindDirectX.cmake PATHS ${PROJECT_SOURCE_DIR}/cmake REQUIRED)
 
-set(CMAKE_MODULE_PATH ${DX_PATH} ${HCE_PATH})
+set(CMAKE_MODULE_PATH ${DX_PATH} ${GAME_PATH})
 
 find_package(DirectX REQUIRED)
 find_package(HaloCE REQUIRED)

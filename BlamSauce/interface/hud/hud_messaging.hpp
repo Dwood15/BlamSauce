@@ -5,7 +5,7 @@ namespace Yelo
 {
 	namespace GameUI
 	{
-		struct s_hud_messaging : TStructImpl(1160)
+		struct s_hud_messaging : public TStruct< 1160 >
 		{
 		};
 		s_hud_messaging*			HudMessaging();

@@ -7,6 +7,8 @@
 #pragma once
 
 #include <precompile.h>
+#include "unit_hooks.h"
+#include "../../../tags/group/base.h"
 
 namespace Yelo {
 	namespace Enums {

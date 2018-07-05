@@ -76,7 +76,7 @@ if (TARGET_GAME_VER MATCHES "^(HALO)_(PC|CE)_(1_[0-1][0-9])$")
 		message(FATAL_ERROR "HALO PC IS NOT YET AN IMPLEMENTED LIBRARY TARGET. SORRY.")
 	else ()
 		set(MAJOR_VER ${HALO_FULL}/ce CACHE INTERNAL "")
-		find_path(HCE_PATH FindHaloCE.cmake PATHS ./cmake REQUIRED)
+		find_path(GAME_PATH FindHaloCE.cmake PATHS ./cmake REQUIRED)
 	endif ()
 
 	set(LEVELS ${HALO_FULL} CACHE INTERNAL "")

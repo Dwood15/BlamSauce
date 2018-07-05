@@ -14,6 +14,6 @@ namespace Yelo {
 	};
 
 	namespace blam {
-		wconst char * __cdecl hud_get_item_string(short reference_index);
+		const char * __cdecl hud_get_item_string(short reference_index);
 	};
 };
